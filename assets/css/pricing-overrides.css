@@ -1,0 +1,44 @@
+/*
+ * Segurium pricing-page typography overrides.
+ *
+ * Loaded via the Freemius `pricing/css_path` filter (see
+ * Segurium_Pricing::register_hooks). Strips the SDK's default
+ * UPPERCASE + uniform-bold treatment from plan title, description,
+ * billing cycle and CTA so the comparison reads like body copy.
+ * SEGURIUM-391.
+ */
+
+#fs_pricing .fs-plan-title,
+#fs_pricing .fs-plan-description,
+#fs_pricing .fs-selected-pricing-cycle,
+#fs_pricing .fs-upgrade-button {
+	text-transform: none;
+	letter-spacing: normal;
+}
+
+#fs_pricing .fs-plan-title {
+	font-weight: 600;
+}
+
+#fs_pricing .fs-plan-title strong {
+	font-weight: inherit;
+}
+
+#fs_pricing .fs-plan-description {
+	font-weight: 400;
+	opacity: 0.78;
+}
+
+#fs_pricing .fs-plan-description strong {
+	font-weight: inherit;
+}
+
+#fs_pricing .fs-selected-pricing-cycle,
+#fs_pricing .fs-selected-pricing-cycle strong {
+	font-weight: 400;
+}
+
+#fs_pricing .fs-upgrade-button {
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}

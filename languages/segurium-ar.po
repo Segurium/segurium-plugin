@@ -1,0 +1,4642 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
+"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: segurium\n"
+
+#: includes/class-segurium-scan-runner.php:369
+msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
+msgstr "لا يزال التفعيل مع خدمة Segurium السحابية قيد الانتظار. يُرجى المحاولة مرة أخرى بعد قليل."
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: segurium.php includes/class-segurium-account-page.php:242
+#: includes/class-segurium.php:260 includes/class-segurium.php:312
+#: includes/class-segurium.php:313 includes/class-segurium.php:1351
+#: includes/segurium-admin-menu-shell.php:38
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Segurium"
+msgstr "Segurium"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Lean, AI-powered WordPress security: malware scanning, brute-force "
+"protection, 2FA, geo-blocking, integrity checks — without the bloat."
+msgstr ""
+"حماية WordPress خفيفة ومدعومة بالذكاء الاصطناعي: فحص البرمجيات الخبيثة، "
+"حماية من هجمات التخمين، المصادقة الثنائية، الحجب الجغرافي، فحوص السلامة — "
+"دون أي تضخم."
+
+#: includes/class-segurium-2fa.php:589
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr "المصادقة الثنائية مطلوبة. يُرجى تفعيل JavaScript لإتمام تسجيل الدخول."
+
+#: includes/class-segurium-2fa.php:609
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr ""
+"إعداد المصادقة الثنائية مطلوب لدور المستخدم الخاص بك. يُرجى التواصل مع "
+"المسؤول."
+
+#: includes/class-segurium-2fa.php:650
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr ""
+"المصادقة الثنائية مطلوبة. أضف رمز المصادقة الثنائية إلى كلمة المرور الخاصة "
+"بك."
+
+#: includes/class-segurium-2fa.php:993
+msgid "Verifying..."
+msgstr "جارٍ التحقق..."
+
+#: includes/class-segurium-2fa.php:994
+msgid "Logging in..."
+msgstr "جارٍ تسجيل الدخول..."
+
+#: includes/class-segurium-2fa.php:995
+msgid "Enter the code from your authenticator app:"
+msgstr "أدخل الرمز من تطبيق المصادقة:"
+
+#: includes/class-segurium-2fa.php:996
+msgid "Enter the code sent to your email:"
+msgstr "أدخل الرمز الذي أُرسل إلى بريدك الإلكتروني:"
+
+#: includes/class-segurium-2fa.php:997
+msgid "Verify"
+msgstr "تحقق"
+
+#: includes/class-segurium-2fa.php:998
+msgid "Resend code"
+msgstr "إعادة إرسال الرمز"
+
+#: includes/class-segurium-2fa.php:999
+msgid "A new code has been sent to your email."
+msgstr "تم إرسال رمز جديد إلى بريدك الإلكتروني."
+
+#: includes/class-segurium-2fa.php:1000
+msgid "Lost your device? Enter a backup code instead."
+msgstr "فقدت جهازك؟ أدخل رمز نسخة احتياطية بدلاً من ذلك."
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:1002
+#, php-format
+msgid "Trust this device for %d days"
+msgstr "الوثوق بهذا الجهاز لمدة %d يومًا"
+
+#: includes/class-segurium-2fa.php:1003 includes/class-segurium-2fa.php:1504
+#: includes/class-segurium-2fa.php:1573 includes/class-segurium-2fa.php:1631
+msgid "Too many failed attempts. Please try again later."
+msgstr "عدد كبير جدًا من المحاولات الفاشلة. يُرجى المحاولة لاحقًا."
+
+#: includes/class-segurium-2fa.php:1004
+msgid "Two-factor authentication setup is required for your role."
+msgstr "إعداد المصادقة الثنائية مطلوب لدور المستخدم الخاص بك."
+
+#: includes/class-segurium-2fa.php:1028
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:273
+#: includes/migrations/class-segurium-migration-wordfence.php:287
+msgid "Two-Factor Authentication"
+msgstr "المصادقة الثنائية"
+
+#: includes/class-segurium-2fa.php:1031 includes/class-segurium.php:1541
+#: includes/class-segurium.php:2796
+msgid "Status"
+msgstr "الحالة"
+
+#: includes/class-segurium-2fa.php:1034
+msgid "JavaScript is required for 2FA setup."
+msgstr "JavaScript مطلوب لإعداد المصادقة الثنائية."
+
+#: includes/class-segurium-2fa.php:1072
+msgid "Not configured"
+msgstr "غير مُعدّ"
+
+#: includes/class-segurium-2fa.php:1073
+msgid "Set up Authenticator App"
+msgstr "إعداد تطبيق المصادقة"
+
+#: includes/class-segurium-2fa.php:1074
+msgid "Set up Email Verification"
+msgstr "إعداد التحقق عبر البريد الإلكتروني"
+
+#: includes/class-segurium-2fa.php:1075
+msgid "Current method:"
+msgstr "الطريقة الحالية:"
+
+#: includes/class-segurium-2fa.php:1076 includes/class-segurium.php:1981
+msgid "Authenticator App (TOTP)"
+msgstr "تطبيق المصادقة (TOTP)"
+
+#: includes/class-segurium-2fa.php:1077 includes/class-segurium.php:1982
+msgid "Email Verification"
+msgstr "التحقق عبر البريد الإلكتروني"
+
+#: includes/class-segurium-2fa.php:1078
+msgid "Backup codes remaining:"
+msgstr "رموز النسخ الاحتياطي المتبقية:"
+
+#: includes/class-segurium-2fa.php:1079
+msgid "Regenerate Backup Codes"
+msgstr "إعادة توليد رموز النسخ الاحتياطي"
+
+#: includes/class-segurium-2fa.php:1080
+msgid "Disable 2FA"
+msgstr "تعطيل المصادقة الثنائية"
+
+#: includes/class-segurium-2fa.php:1081
+msgid "Scan this QR code with your authenticator app:"
+msgstr "امسح رمز QR هذا بتطبيق المصادقة:"
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Or enter this key manually:"
+msgstr "أو أدخل هذا المفتاح يدويًا:"
+
+#: includes/class-segurium-2fa.php:1083
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "أدخل الرمز المكوّن من 6 أرقام من تطبيقك للتأكيد:"
+
+#: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:1606
+#: includes/class-segurium.php:1694
+msgid "Confirm"
+msgstr "تأكيد"
+
+#: includes/class-segurium-2fa.php:1085 includes/class-segurium.php:818
+#: includes/class-segurium.php:925 includes/class-segurium.php:969
+#: includes/class-segurium.php:1583 includes/class-segurium.php:2786
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: includes/class-segurium-2fa.php:1086
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr "احفظ رموز النسخ الاحتياطي في مكان آمن. لن تُعرض مرة أخرى."
+
+#: includes/class-segurium-2fa.php:1087
+msgid "2FA has been set up successfully."
+msgstr "تم إعداد المصادقة الثنائية بنجاح."
+
+#: includes/class-segurium-2fa.php:1088 includes/class-segurium-2fa.php:1379
+msgid "2FA has been disabled."
+msgstr "تم تعطيل المصادقة الثنائية."
+
+#: includes/class-segurium-2fa.php:1089
+msgid "New backup codes generated."
+msgstr "تم توليد رموز نسخ احتياطي جديدة."
+
+#: includes/class-segurium-2fa.php:1090
+msgid "Enter your current 2FA code to confirm:"
+msgstr "أدخل رمز المصادقة الثنائية الحالي للتأكيد:"
+
+#: includes/class-segurium-2fa.php:1091
+msgid "A verification code has been sent to your email."
+msgstr "تم إرسال رمز تحقق إلى بريدك الإلكتروني."
+
+#: includes/class-segurium-2fa.php:1092
+msgid "Your administrator requires 2FA for your role."
+msgstr "يُلزم المسؤول دور المستخدم الخاص بك باستخدام المصادقة الثنائية."
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1126
+#, php-format
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"يُلزم المسؤول استخدام المصادقة الثنائية. لديك %d يوم/أيام متبقية لإعدادها."
+
+#: includes/class-segurium-2fa.php:1131 includes/class-segurium-2fa.php:1138
+msgid "Set up now"
+msgstr "إعداد الآن"
+
+#: includes/class-segurium-2fa.php:1136
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr "المصادقة الثنائية مطلوبة لدور المستخدم الخاص بك. يُرجى إعدادها فورًا."
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1173
+#, php-format
+msgid "[%s] Your login verification code"
+msgstr "[%s] رمز التحقق لتسجيل الدخول"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1179
+#, php-format
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"رمز التحقق الخاص بك هو: %1$s\n"
+"\n"
+"تنتهي صلاحية هذا الرمز خلال %2$d دقيقة.\n"
+"\n"
+"إذا لم تطلب ذلك، فتجاهل هذا البريد الإلكتروني."
+
+#: includes/class-segurium-2fa.php:1222
+msgid "Not authenticated."
+msgstr "غير مُصادَق."
+
+#: includes/class-segurium-2fa.php:1265
+msgid "Setup session expired. Please start again."
+msgstr "انتهت صلاحية جلسة الإعداد. يُرجى البدء من جديد."
+
+#: includes/class-segurium-2fa.php:1269 includes/class-segurium-2fa.php:1322
+msgid "Invalid code. Please try again."
+msgstr "رمز غير صالح. يُرجى المحاولة مرة أخرى."
+
+#: includes/class-segurium-2fa.php:1275
+msgid "Encryption error."
+msgstr "خطأ في التشفير."
+
+#: includes/class-segurium-2fa.php:1306
+msgid "Verification code sent to your email."
+msgstr "تم إرسال رمز التحقق إلى بريدك الإلكتروني."
+
+#: includes/class-segurium-2fa.php:1351
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "المصادقة الثنائية مطلوبة لدور المستخدم الخاص بك ولا يمكن تعطيلها."
+
+#: includes/class-segurium-2fa.php:1374 includes/class-segurium-2fa.php:1411
+msgid "Invalid verification code."
+msgstr "رمز التحقق غير صالح."
+
+#: includes/class-segurium-2fa.php:1447
+msgid "Please enter your username and password."
+msgstr "يُرجى إدخال اسم المستخدم وكلمة المرور."
+
+#: includes/class-segurium-2fa.php:1553
+msgid "Session expired. Please log in again."
+msgstr "انتهت صلاحية الجلسة. يُرجى تسجيل الدخول مرة أخرى."
+
+#: includes/class-segurium-2fa.php:1559 includes/class-segurium-2fa.php:1666
+msgid "Invalid session."
+msgstr "جلسة غير صالحة."
+
+#: includes/class-segurium-2fa.php:1640
+msgid "Invalid verification code. Please try again."
+msgstr "رمز التحقق غير صالح. يُرجى المحاولة مرة أخرى."
+
+#: includes/class-segurium-2fa.php:1661
+msgid "Session expired."
+msgstr "انتهت صلاحية الجلسة."
+
+#: includes/class-segurium-2fa.php:1671
+msgid "Code sent."
+msgstr "تم إرسال الرمز."
+
+#: includes/class-segurium-account-page.php:165
+msgid "Segurium Account"
+msgstr "حساب Segurium"
+
+#: includes/class-segurium-account-page.php:166
+#: includes/class-segurium-account-page.php:243
+#: includes/class-segurium-account-page.php:546
+msgid "Account"
+msgstr "الحساب"
+
+#: includes/class-segurium-account-page.php:230
+msgid "You do not have permission to access this page."
+msgstr "ليس لديك صلاحية الوصول إلى هذه الصفحة."
+
+#: includes/class-segurium-account-page.php:395
+msgid "Pro account"
+msgstr "حساب احترافي"
+
+#: includes/class-segurium-account-page.php:398
+#: includes/class-segurium-account-page.php:444
+msgid "Account email"
+msgstr "البريد الإلكتروني للحساب"
+
+#: includes/class-segurium-account-page.php:401
+#: includes/class-segurium-account-page.php:447
+#: includes/class-segurium.php:2800
+msgid "Plan"
+msgstr "الخطة"
+
+#: includes/class-segurium-account-page.php:405
+msgid "Trial"
+msgstr "تجريبي"
+
+#: includes/class-segurium-account-page.php:409
+msgid "License renews"
+msgstr "تجديد الترخيص"
+
+#: includes/class-segurium-account-page.php:416
+#: includes/class-segurium-account-page.php:458
+msgid "Sync license"
+msgstr "مزامنة الترخيص"
+
+#: includes/class-segurium-account-page.php:421
+msgid "Deactivate license"
+msgstr "إلغاء تفعيل الترخيص"
+
+#: includes/class-segurium-account-page.php:425
+msgid "Manage billing"
+msgstr "إدارة الفواتير"
+
+#: includes/class-segurium-account-page.php:441
+#: includes/class-segurium-account-page.php:475
+msgid "Free account"
+msgstr "حساب مجاني"
+
+#: includes/class-segurium-account-page.php:453
+#: includes/class-segurium-account-page.php:482
+#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
+#: includes/class-segurium.php:928 includes/class-segurium.php:940
+#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+msgid "Upgrade to Pro"
+msgstr "الترقية إلى الإصدار الاحترافي"
+
+#: includes/class-segurium-account-page.php:477
+msgid ""
+"Segurium runs without sharing any account information. The Pro service tier "
+"raises the cloud cleanup quota and adds email support."
+msgstr ""
+"يعمل Segurium دون مشاركة أي معلومات حساب. يرفع مستوى خدمة Pro حصة التنظيف "
+"السحابي ويضيف الدعم عبر البريد الإلكتروني."
+
+#: includes/class-segurium-account-page.php:490
+msgid "Connect account"
+msgstr "ربط الحساب"
+
+#: includes/class-segurium-account-page.php:512
+#: includes/segurium-ajax-envelope.php:135
+msgid "You do not have permission to perform this action."
+msgstr "ليس لديك صلاحية لتنفيذ هذا الإجراء."
+
+#: includes/class-segurium-account-page.php:548
+msgid ""
+"Account information is temporarily unavailable. Please reload the page in a "
+"moment."
+msgstr "معلومات الحساب غير متاحة مؤقتًا. يُرجى إعادة تحميل الصفحة بعد قليل."
+
+#: includes/class-segurium-brute-force.php:476
+msgid "Login blocked."
+msgstr "تم حجب تسجيل الدخول."
+
+#: includes/class-segurium-brute-force.php:489
+msgid "Please complete the CAPTCHA challenge."
+msgstr "يُرجى إكمال تحدي CAPTCHA."
+
+#: includes/class-segurium-brute-force.php:1219
+msgid "Leave this field empty"
+msgstr "اترك هذا الحقل فارغًا"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1369
+#: includes/class-segurium-brute-force.php:1392
+#, php-format
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "عدد كبير جدًا من محاولات تسجيل الدخول الفاشلة. حاول مرة أخرى خلال %s."
+
+#: includes/class-segurium-brute-force.php:1373
+msgid "Login Locked"
+msgstr "تم قفل تسجيل الدخول"
+
+#: includes/class-segurium-cleanup.php:83
+msgid "Verdict has no defined cleanup recipe."
+msgstr "لا توجد وصفة تنظيف معرفة لهذا الحكم."
+
+#: includes/class-segurium-cleanup.php:87
+msgid "File not found."
+msgstr "الملف غير موجود."
+
+#: includes/class-segurium-cleanup.php:93 includes/class-segurium.php:6209
+msgid "File has been modified since scan. Re-scan first."
+msgstr "تم تعديل الملف منذ الفحص. أعد الفحص أولاً."
+
+#: includes/class-segurium-cleanup.php:99
+msgid "Failed to read file for backup."
+msgstr "فشل في قراءة الملف لإنشاء النسخة الاحتياطية."
+
+#: includes/class-segurium-cleanup.php:117
+msgid "Failed to create backup."
+msgstr "فشل في إنشاء النسخة الاحتياطية."
+
+#: includes/class-segurium-cleanup.php:136
+msgid "Failed to clean file."
+msgstr "فشل في تنظيف الملف."
+
+#: includes/class-segurium-component-backup.php:42
+#: includes/class-segurium.php:4812
+msgid "Component directory not found."
+msgstr "دليل المكوّن غير موجود."
+
+#: includes/class-segurium-component-backup.php:45
+msgid "Invalid component type."
+msgstr "نوع مكوّن غير صالح."
+
+#: includes/class-segurium-component-backup.php:48
+msgid "Invalid component slug."
+msgstr "اسم مكوّن غير صالح."
+
+#. translators: 1: exit code, 2: error output.
+#: includes/class-segurium-component-backup.php:76
+#, php-format
+msgid "Backup failed (exit %1$d): %2$s"
+msgstr "فشلت النسخة الاحتياطية (رمز الخروج %1$d): %2$s"
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:91
+#, php-format
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"حجم المكوّن %1$.1f ميغابايت، وهو يتجاوز حد النسخ الاحتياطية المشفّرة البالغ "
+"%2$d ميغابايت. تم تخطي الحذف حتى لا يفقد موقعك بيانات غير مُغطّاة."
+
+#: includes/class-segurium-component-backup.php:106
+msgid "Failed to read packed component archive."
+msgstr "فشل في قراءة أرشيف المكوّن المُحزَّم."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:128
+#, php-format
+msgid "Failed to encrypt component backup: %s"
+msgstr "فشل في تشفير النسخة الاحتياطية للمكوّن: %s"
+
+#: includes/class-segurium-component-backup.php:152
+msgid "Invalid backup identifier."
+msgstr "معرّف نسخة احتياطية غير صالح."
+
+#: includes/class-segurium-component-backup.php:159
+msgid "Backup archive not found or failed integrity check."
+msgstr "أرشيف النسخة الاحتياطية غير موجود أو فشل في فحص السلامة."
+
+#: includes/class-segurium-component-backup.php:169
+msgid "Failed to stage backup for extraction."
+msgstr "فشل في تجهيز النسخة الاحتياطية للاستخراج."
+
+#: includes/class-segurium-component-backup.php:175
+#: includes/class-segurium.php:4597
+msgid "Restore target directory is not writable."
+msgstr "دليل وجهة الاستعادة غير قابل للكتابة."
+
+#. translators: 1: exit code, 2: error output.
+#: includes/class-segurium-component-backup.php:195
+#, php-format
+msgid "Restore failed (exit %1$d): %2$s"
+msgstr "فشلت الاستعادة (رمز الخروج %1$d): %2$s"
+
+#: includes/class-segurium-component-backup.php:228
+msgid "Secure randomness is unavailable on this host."
+msgstr "العشوائية الآمنة غير متوفرة على هذا الخادم."
+
+#: includes/class-segurium-cti-client.php:62
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr "معرّف التثبيت غير متاح. يُرجى التأكد من تفعيل الإضافة بشكل صحيح."
+
+#: includes/class-segurium-cti-client.php:228
+msgid "Too many requests. Please try again later."
+msgstr "عدد كبير جدًا من الطلبات. يُرجى المحاولة لاحقًا."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:234
+#, php-format
+msgid "Support service error (HTTP %d)."
+msgstr "خطأ في خدمة الدعم (HTTP %d)."
+
+#: includes/class-segurium-cti-client.php:575
+msgid "Clean version not available for this file"
+msgstr "النسخة النظيفة غير متاحة لهذا الملف"
+
+#: includes/class-segurium-cti-client.php:910
+msgid "Invalid CTI billing response."
+msgstr "استجابة فوترة CTI غير صالحة."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:89
+#, php-format
+msgid "CTI %s: no response to verify."
+msgstr "CTI %s: لا توجد استجابة للتحقق منها."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:102
+#, php-format
+msgid "CTI %s: response missing signature headers."
+msgstr "CTI %s: تنقص الاستجابة ترويسات التوقيع."
+
+#. translators: 1: endpoint label, 2: key id from response
+#: includes/class-segurium-cti-signature.php:112
+#, php-format
+msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
+msgstr "CTI %1$s: تم توقيع الاستجابة بمفتاح غير موثوق \"%2$s\"."
+
+#: includes/class-segurium-cti-signature.php:123
+msgid "CTI signature trust list is corrupt — public key failed to decode."
+msgstr "قائمة الثقة لتوقيعات CTI تالفة — فشل فك ترميز المفتاح العام."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:133
+#, php-format
+msgid "CTI %s: signature header malformed."
+msgstr "CTI %s: ترويسة التوقيع مشوّهة."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:144
+#, php-format
+msgid "CTI %s: signature timestamp malformed."
+msgstr "CTI %s: الطابع الزمني للتوقيع مشوّه."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:157
+#, php-format
+msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
+msgstr "CTI %1$s: الطابع الزمني للتوقيع خارج النطاق بمقدار %2$d ثانية."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:174
+#, php-format
+msgid "CTI %1$s: libsodium rejected signature (%2$s)."
+msgstr "CTI %1$s: رفضت libsodium التوقيع (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:186
+#, php-format
+msgid "CTI %s: signature did not verify — response rejected."
+msgstr "CTI %s: لم يتم التحقق من التوقيع — تم رفض الاستجابة."
+
+#: includes/class-segurium-geo-blocker.php:425
+msgid "Access from your location is not allowed."
+msgstr "الوصول من موقعك غير مسموح به."
+
+#: includes/class-segurium-geo-blocker.php:426
+msgid "Access Denied"
+msgstr "تم رفض الوصول"
+
+#: includes/class-segurium-geo-updater.php:140
+msgid "Downloaded geo DB has invalid format."
+msgstr "قاعدة بيانات الموقع الجغرافي التي تم تنزيلها بصيغة غير صالحة."
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Failed to write geo DB to disk."
+msgstr "فشل في كتابة قاعدة بيانات الموقع الجغرافي على القرص."
+
+#: includes/class-segurium-geo-updater.php:149
+msgid "Failed to install geo DB."
+msgstr "فشل في تثبيت قاعدة بيانات الموقع الجغرافي."
+
+#: includes/class-segurium-info-shield.php:331
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"على Nginx، يجب إزالة ترويسة Server على مستوى الخادم (server_tokens off;). لا "
+"تأثير لهذا المفتاح."
+
+#: includes/class-segurium-info-shield.php:334
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"على Apache مع FastCGI، تُضاف ترويسة Server بعد تشغيل PHP. استخدم ServerTokens "
+"Prod في إعدادات Apache."
+
+#: includes/class-segurium-info-shield.php:338
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"على IIS، استخدم خاصية removeServerHeader في web.config. تأثير هذا المفتاح "
+"محدود."
+
+#: includes/class-segurium-info-shield.php:352
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"يستخدم خادمك FastCGI، الذي قد يعيد إضافة ترويسة X-Powered-By. تحقق من "
+"الإزالة بفحص ترويسات الاستجابة."
+
+#: includes/class-segurium-info-shield.php:365
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr "إضافة Jetpack مُفعّلة وتتطلب XML-RPC. تعطيل XML-RPC سيُعطّل اتصال Jetpack."
+
+#: includes/class-segurium-integrity-chain.php:149
+#: includes/class-segurium.php:926 includes/class-segurium.php:4236
+msgid "Running a quick malware scan first…"
+msgstr "جارٍ تشغيل فحص سريع للبرمجيات الخبيثة أولاً…"
+
+#: includes/class-segurium-integrity-chain.php:200
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr "تم إلغاء فحص البرمجيات الخبيثة المرتبط — لم يبدأ فحص السلامة."
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:223
+#, php-format
+msgid "Could not start the chained integrity scan: %s"
+msgstr "تعذّر بدء فحص السلامة المرتبط: %s"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:129
+#, php-format
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr "فحص Segurium في الوقت الفعلي (كل %d ثانية، تجاوز للمطورين)"
+
+#: includes/class-segurium-scan-runner.php:193
+msgid "A scan type is required."
+msgstr "نوع الفحص مطلوب."
+
+#: includes/class-segurium-scan-runner.php:207 includes/class-segurium.php:852
+#: includes/class-segurium.php:4317
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"تخزين الفحص غير جاهز. يُرجى تعطيل إضافة Segurium ثم إعادة تفعيلها، ثم "
+"المحاولة مرة أخرى."
+
+#: includes/class-segurium-scan-runner.php:215
+#: includes/class-segurium-scan-runner.php:227 includes/class-segurium.php:835
+msgid "A scan is already in progress."
+msgstr "هناك فحص قيد التنفيذ بالفعل."
+
+#: includes/class-segurium-scan-runner.php:248
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr ""
+"تخزين الفحص لم يكن جاهزًا. تم إصلاحه تلقائيًا — يُرجى الضغط على \"بدء الفحص\" "
+"مرة أخرى."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:257
+#, php-format
+msgid "Failed to initialize scan: %s"
+msgstr "فشل في تهيئة الفحص: %s"
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:296
+#, php-format
+msgid "Unexpected error starting scan: %s"
+msgstr "خطأ غير متوقع عند بدء الفحص: %s"
+
+#: includes/class-segurium-scan-runner.php:528 includes/class-segurium.php:838
+#: includes/class-segurium.php:3189 includes/class-segurium.php:4288
+msgid "Your session has expired. Reload the page and try again."
+msgstr "انتهت صلاحية جلستك. أعد تحميل الصفحة وحاول مرة أخرى."
+
+#: includes/class-segurium-scan-runner.php:538 includes/class-segurium.php:839
+#: includes/class-segurium.php:3199
+msgid "You do not have permission to manage scans."
+msgstr "ليس لديك صلاحية إدارة الفحوص."
+
+#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+msgid "Could not fetch scan status due to a server error."
+msgstr "تعذّر جلب حالة الفحص بسبب خطأ في الخادم."
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:1094
+#, php-format
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"قيمة max_execution_time في PHP هي %d ثانية — وهي قصيرة جدًا لفحص موثوق. اطلب "
+"من مزود الاستضافة رفعها إلى 30 ثانية على الأقل."
+
+#: includes/class-segurium-scan-runner.php:1105
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress "
+"while a Segurium admin tab stays open. Ask your host to either enable a real "
+"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
+"to PHP-FPM / LiteSpeed."
+msgstr ""
+"نظام cron الخاص بـ WordPress معطّل (DISABLE_WP_CRON)، وإعداد PHP لديك لا يدعم "
+"فصل المهام الطويلة عن طلبات الصفحات. لن تتقدم الفحوص في الخلفية إلا أثناء "
+"بقاء علامة تبويب إدارة Segurium مفتوحة. اطلب من مزود الاستضافة تفعيل مهمة "
+"cron نظامية حقيقية تستدعي wp-cron.php كل دقيقة، أو التبديل من mod_php إلى "
+"PHP-FPM / LiteSpeed."
+
+#: includes/class-segurium-scan-runner.php:1107
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"نظام cron الخاص بـ WordPress معطّل (DISABLE_WP_CRON). تعتمد الفحوص المجدولة "
+"على مهمة cron نظامية حقيقية تستدعي wp-cron.php كل دقيقة. اطلب من مزود "
+"الاستضافة إعداد واحدة."
+
+#: includes/class-segurium-scheduled-scan-settings.php:108
+msgid "Invalid settings payload."
+msgstr "حمولة إعدادات غير صالحة."
+
+#: includes/class-segurium-scheduled-scan-settings.php:127
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "يجب أن يكون التكرار أحد القيم: إيقاف، يوميًا، أسبوعيًا."
+
+#: includes/class-segurium-scheduled-scan-settings.php:138
+msgid "Hour must be between 0 and 23."
+msgstr "يجب أن تكون الساعة بين 0 و23."
+
+#: includes/class-segurium-scheduled-scan-settings.php:149
+msgid "Minute must be between 0 and 59."
+msgstr "يجب أن تكون الدقيقة بين 0 و59."
+
+#: includes/class-segurium-scheduled-scan-settings.php:160
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "يجب أن يكون يوم الأسبوع بين 0 (الأحد) و6 (السبت)."
+
+#: includes/class-segurium-self-check.php:264 includes/class-segurium.php:2233
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:267
+msgid "CSP is enforced."
+msgstr "تم فرض CSP."
+
+#: includes/class-segurium-self-check.php:269
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr "وضع CSP هو إبلاغ فقط. التبديل إلى الفرض للحصول على حماية كاملة."
+
+#: includes/class-segurium-self-check.php:270
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr "لا توجد ترويسة Content-Security-Policy. توفر الحماية من XSS والحقن."
+
+#: includes/class-segurium-self-check.php:285
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:288
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS مُفعّل بحد أقصى لا يقل عن سنة واحدة."
+
+#: includes/class-segurium-self-check.php:290
+msgid "HSTS present but max-age is below one year."
+msgstr "HSTS موجود لكن max-age أقل من سنة."
+
+#: includes/class-segurium-self-check.php:291
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr "لا توجد ترويسة HSTS. قد تتصل المتصفحات عبر HTTP عادي."
+
+#: includes/class-segurium-self-check.php:303
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:306
+msgid "MIME sniffing prevented."
+msgstr "تم منع تخمين نوع MIME."
+
+#: includes/class-segurium-self-check.php:307
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "مفقودة. قد تسيء المتصفحات تفسير أنواع الملفات."
+
+#: includes/class-segurium-self-check.php:319 includes/class-segurium.php:2105
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:322
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "حماية من اختطاف النقر عبر X-Frame-Options."
+
+#: includes/class-segurium-self-check.php:323
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr "X-Frame-Options مفقودة. قد يضع المهاجمون موقعك في إطار."
+
+#: includes/class-segurium-self-check.php:335 includes/class-segurium.php:2113
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:338
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "تُقيّد Referrer-Policy تسرّب المعلومات أثناء التنقل."
+
+#: includes/class-segurium-self-check.php:339
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr "Referrer-Policy مفقودة أو غير آمنة. قد تتسرّب URLs كاملة."
+
+#: includes/class-segurium-self-check.php:350 includes/class-segurium.php:2198
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:353
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "تُقيّد Permissions-Policy الوصول إلى ميزات المتصفح."
+
+#: includes/class-segurium-self-check.php:354
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "Permissions-Policy مفقودة. ميزات المتصفح غير مُقيّدة."
+
+#: includes/class-segurium-self-check.php:366 includes/class-segurium.php:2133
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:369
+msgid "Legacy XSS filter directive present."
+msgstr "توجيهات مرشّح XSS القديم موجودة."
+
+#: includes/class-segurium-self-check.php:370
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"X-XSS-Protection مفقودة. اضبطها على 0 لتعطيل مرشحات XSS القديمة في المتصفح "
+"بأمان."
+
+#: includes/class-segurium-self-check.php:395
+msgid "X-Powered-By hidden"
+msgstr "X-Powered-By مخفية"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:400
+#, php-format
+msgid "X-Powered-By reveals: %s"
+msgstr "تكشف X-Powered-By عن: %s"
+
+#: includes/class-segurium-self-check.php:403
+msgid "X-Powered-By header is not exposed."
+msgstr "ترويسة X-Powered-By غير معروضة."
+
+#: includes/class-segurium-self-check.php:414
+msgid "WordPress version hidden"
+msgstr "إصدار WordPress مخفي"
+
+#: includes/class-segurium-self-check.php:417
+msgid "WordPress version exposed in HTML source."
+msgstr "إصدار WordPress مكشوف في مصدر HTML."
+
+#: includes/class-segurium-self-check.php:418
+msgid "WordPress version not visible in HTML."
+msgstr "إصدار WordPress غير ظاهر في HTML."
+
+#: includes/class-segurium-self-check.php:429
+msgid "Asset version query hidden"
+msgstr "استعلام إصدار الأصل مخفي"
+
+#: includes/class-segurium-self-check.php:432
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr "إصدار النواة/القالب/الإضافة مكشوف في ?ver= على URLs الأصول."
+
+#: includes/class-segurium-self-check.php:433
+msgid "Asset URLs do not expose version numbers."
+msgstr "URLs الأصول لا تكشف أرقام الإصدار."
+
+#: includes/class-segurium-self-check.php:460
+msgid "XML-RPC disabled"
+msgstr "XML-RPC مُعطّل"
+
+#: includes/class-segurium-self-check.php:463
+msgid "XML-RPC endpoint is disabled."
+msgstr "نقطة نهاية XML-RPC مُعطّلة."
+
+#: includes/class-segurium-self-check.php:464
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr "XML-RPC قابلة للوصول. هدف متكرر لهجمات التخمين وتضخيم pingback."
+
+#: includes/class-segurium-self-check.php:475
+msgid "REST API discovery disabled"
+msgstr "اكتشاف REST API مُعطّل"
+
+#: includes/class-segurium-self-check.php:478
+msgid "REST API discovery link removed from <head>."
+msgstr "تمت إزالة رابط اكتشاف REST API من <head>."
+
+#: includes/class-segurium-self-check.php:479
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr "رابط اكتشاف REST API مكشوف — يُسهّل الاستطلاع."
+
+#: includes/class-segurium-self-check.php:490
+msgid "Brute-force protection"
+msgstr "الحماية من هجمات التخمين"
+
+#: includes/class-segurium-self-check.php:493
+msgid "Login brute-force protection is active."
+msgstr "حماية تسجيل الدخول من هجمات التخمين مُفعّلة."
+
+#: includes/class-segurium-self-check.php:494
+msgid "Brute-force protection is disabled."
+msgstr "الحماية من هجمات التخمين مُعطّلة."
+
+#: includes/class-segurium-self-check.php:509
+msgid "Two-factor enforced for administrators"
+msgstr "المصادقة الثنائية مفروضة على المسؤولين"
+
+#: includes/class-segurium-self-check.php:512
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "المصادقة الثنائية مفروضة على دور المسؤول."
+
+#: includes/class-segurium-self-check.php:513
+msgid "Administrators can log in with a password alone."
+msgstr "يمكن للمسؤولين تسجيل الدخول بكلمة المرور وحدها."
+
+#: includes/class-segurium-self-check.php:525 includes/class-segurium.php:1383
+msgid "Firewall"
+msgstr "جدار الحماية"
+
+#: includes/class-segurium-self-check.php:528
+msgid "Firewall rules are active."
+msgstr "قواعد جدار الحماية مُفعّلة."
+
+#: includes/class-segurium-self-check.php:529
+msgid "No firewall rules are active."
+msgstr "لا توجد قواعد جدار حماية مُفعّلة."
+
+#: includes/class-segurium-self-check.php:541
+msgid "HTTPS / SSL active"
+msgstr "HTTPS / SSL مُفعّل"
+
+#: includes/class-segurium-self-check.php:544
+msgid "Site is served over HTTPS."
+msgstr "يتم تقديم الموقع عبر HTTPS."
+
+#: includes/class-segurium-self-check.php:545
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "لا يتم تقديم الموقع عبر HTTPS. حركة المرور غير مشفّرة."
+
+#: includes/class-segurium-self-check.php:585
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"لا توجد ترويسات Set-Cookie في الصفحة الرئيسية؛ لا يمكن تقييم أعلام الكوكيز "
+"من الخارج."
+
+#: includes/class-segurium-self-check.php:591
+#: includes/class-segurium-self-check.php:624
+msgid "Cookies — Secure"
+msgstr "الكوكيز — Secure"
+
+#: includes/class-segurium-self-check.php:602
+#: includes/class-segurium-self-check.php:625
+msgid "Cookies — HttpOnly"
+msgstr "الكوكيز — HttpOnly"
+
+#: includes/class-segurium-self-check.php:613
+#: includes/class-segurium-self-check.php:721
+#: includes/class-segurium-self-check.php:735
+#: includes/class-segurium-self-check.php:753
+msgid "Cookies — SameSite"
+msgstr "الكوكيز — SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:657
+#, php-format
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "جميع الكوكيز الـ %1$d تضبط الخاصية %2$s."
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#: includes/class-segurium-self-check.php:671
+#, php-format
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%1$d من أصل %2$d كوكيز تضبط %3$s."
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:684
+#, php-format
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "لا أحد من الكوكيز الـ %1$d يضبط الخاصية %2$s."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:724
+#, php-format
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "جميع الكوكيز الـ %d تضبط SameSite=Lax/Strict."
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:738
+#, php-format
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "%1$d من أصل %2$d كوكيز تضبط SameSite=Lax/Strict."
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:746
+#, php-format
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "%1$d من أصل %2$d كوكيز تستخدم SameSite=None."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:748
+#, php-format
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "لا توجد كوكيز تضبط SameSite=Lax أو Strict (من أصل %d)."
+
+#: includes/class-segurium-self-check.php:815 includes/class-segurium.php:2662
+msgid "Cloud-assisted malware detection"
+msgstr "كشف البرمجيات الخبيثة بمساعدة السحابة"
+
+#: includes/class-segurium-self-check.php:818
+msgid ""
+"On-premise mode is enabled, which limits malware-detection accuracy. Files "
+"are never stored after scan — turn this off to get full cloud-assisted "
+"detection."
+msgstr ""
+"وضع التشغيل المحلي مُفعّل، مما يُقيّد دقة كشف البرمجيات الخبيثة. لا يتم تخزين "
+"الملفات بعد الفحص أبدًا — قم بإيقاف هذا الوضع للحصول على الكشف الكامل بمساعدة "
+"السحابة."
+
+#: includes/class-segurium-self-check.php:819
+msgid "Cloud-assisted malware detection is active."
+msgstr "كشف البرمجيات الخبيثة بمساعدة السحابة مُفعّل."
+
+#: includes/class-segurium-self-check.php:831
+msgid "Scheduled malware scans"
+msgstr "فحوص البرمجيات الخبيثة المجدولة"
+
+#: includes/class-segurium-self-check.php:834
+msgid "A recurring malware scan is scheduled."
+msgstr "هناك فحص متكرر للبرمجيات الخبيثة مُجدوَل."
+
+#: includes/class-segurium-self-check.php:835
+msgid "No recurring malware scan is scheduled."
+msgstr "لا يوجد فحص متكرر للبرمجيات الخبيثة مُجدوَل."
+
+#: includes/class-segurium-self-check.php:847
+msgid "Automatic malware cleanup"
+msgstr "التنظيف التلقائي للبرمجيات الخبيثة"
+
+#: includes/class-segurium-self-check.php:850
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "يتم تنظيف البرمجيات الخبيثة المكتشفة تلقائيًا بعد كل فحص."
+
+#: includes/class-segurium-self-check.php:851
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr ""
+"التنظيف التلقائي مُعطّل. تتطلب البرمجيات الخبيثة المكتشفة نقرة يدوية للتنظيف."
+
+#: includes/class-segurium-self-check.php:865
+msgid "Malware scan up to date"
+msgstr "فحص البرمجيات الخبيثة محدّث"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:870
+#, php-format
+msgid "Last malware scan completed %s ago."
+msgstr "اكتمل آخر فحص للبرمجيات الخبيثة قبل %s."
+
+#: includes/class-segurium-self-check.php:874
+msgid "Malware scan is older than 7 days."
+msgstr "فحص البرمجيات الخبيثة أقدم من 7 أيام."
+
+#: includes/class-segurium-self-check.php:875
+msgid "No malware scan has been completed yet."
+msgstr "لم يكتمل أي فحص للبرمجيات الخبيثة بعد."
+
+#: includes/class-segurium-self-check.php:887
+msgid "No malware in the last 24 hours"
+msgstr "لا توجد برمجيات خبيثة خلال آخر 24 ساعة"
+
+#: includes/class-segurium-self-check.php:890
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr "تم تشغيل أحدث فحص للبرمجيات الخبيثة خلال آخر 24 ساعة ولم يعثر على شيء."
+
+#: includes/class-segurium-self-check.php:892
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"لم يُشغَّل أي فحص للبرمجيات الخبيثة خلال آخر 24 ساعة. الفحوص سريعة — قم بتشغيل "
+"واحد لتحديث هذا الحكم."
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:895
+#, php-format
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+msgstr[0] ""
+"لم يرصد آخر فحص للبرمجيات الخبيثة أي تهديدات. راجع علامة تبويب ماسح "
+"البرمجيات الخبيثة."
+msgstr[1] ""
+"رصد آخر فحص للبرمجيات الخبيثة تهديدًا واحدًا. راجعه في علامة تبويب ماسح "
+"البرمجيات الخبيثة."
+msgstr[2] ""
+"رصد آخر فحص للبرمجيات الخبيثة تهديدَين. راجعهما في علامة تبويب ماسح البرمجيات "
+"الخبيثة."
+msgstr[3] ""
+"رصد آخر فحص للبرمجيات الخبيثة %d تهديدات. راجعها في علامة تبويب ماسح "
+"البرمجيات الخبيثة."
+msgstr[4] ""
+"رصد آخر فحص للبرمجيات الخبيثة %d تهديدًا. راجعها في علامة تبويب ماسح "
+"البرمجيات الخبيثة."
+msgstr[5] ""
+"رصد آخر فحص للبرمجيات الخبيثة %d تهديد. راجعها في علامة تبويب ماسح البرمجيات "
+"الخبيثة."
+
+#: includes/class-segurium-self-check.php:919
+msgid "No integrity issues in the last 24 hours"
+msgstr "لا توجد مشكلات سلامة خلال آخر 24 ساعة"
+
+#: includes/class-segurium-self-check.php:922
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr "تم تشغيل أحدث فحص للسلامة خلال آخر 24 ساعة ولم يُبلِّغ عن أي مشكلات."
+
+#: includes/class-segurium-self-check.php:924
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"لم يُشغَّل أي فحص للسلامة خلال آخر 24 ساعة. الفحوص سريعة — قم بتشغيل واحد "
+"لتحديث هذا الحكم."
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:927
+#, php-format
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] "لا توجد مشكلات سلامة مفتوحة. راجع علامة تبويب ماسح السلامة."
+msgstr[1] ""
+"هناك مشكلة سلامة مفتوحة واحدة لم تُحَل. راجعها في علامة تبويب ماسح السلامة."
+msgstr[2] ""
+"هناك مشكلتا سلامة مفتوحتان لم تُحَلّا. راجعهما في علامة تبويب ماسح السلامة."
+msgstr[3] ""
+"هناك %d مشكلات سلامة مفتوحة لم تُحَل. راجعها في علامة تبويب ماسح السلامة."
+msgstr[4] ""
+"هناك %d مشكلة سلامة مفتوحة لم تُحَل. راجعها في علامة تبويب ماسح السلامة."
+msgstr[5] ""
+"هناك %d مشكلة سلامة مفتوحة لم تُحَل. راجعها في علامة تبويب ماسح السلامة."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+#, php-format
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "أرجعت نقطة نهاية الوكلاء الموثوقين HTTP %d."
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "صيغة استجابة الوكلاء الموثوقين غير صالحة."
+
+#: includes/class-segurium-upload-scan.php:90
+msgid "This file was identified as malware and has been blocked."
+msgstr "تم التعرف على هذا الملف كبرنامج ضار وتم حجبه."
+
+#: includes/class-segurium.php:278 includes/segurium-admin-menu-shell.php:95
+msgid "Security score:"
+msgstr "درجة الأمان:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:288 includes/class-segurium.php:1061
+#: includes/segurium-admin-menu-shell.php:105
+#, php-format
+msgid "Last checked %s ago."
+msgstr "آخر فحص قبل %s."
+
+#: includes/class-segurium.php:295 includes/segurium-admin-menu-shell.php:112
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"قم بتشغيل الفحص الذاتي من صفحة إدارة Segurium لرؤية درجة الأمان الخاصة بك."
+
+#: includes/class-segurium.php:301 includes/segurium-admin-menu-shell.php:118
+msgid "Open Segurium"
+msgstr "فتح Segurium"
+
+#: includes/class-segurium.php:802
+msgid "Malware"
+msgstr "برمجيات خبيثة"
+
+#: includes/class-segurium.php:803
+msgid "Clean"
+msgstr "نظيف"
+
+#: includes/class-segurium.php:804 includes/class-segurium.php:1463
+msgid "Cleaned"
+msgstr "تم التنظيف"
+
+#: includes/class-segurium.php:805
+msgid "Restored"
+msgstr "تمت الاستعادة"
+
+#: includes/class-segurium.php:806
+msgid "Failed"
+msgstr "فشل"
+
+#: includes/class-segurium.php:807
+msgid "Processing..."
+msgstr "جارٍ المعالجة..."
+
+#: includes/class-segurium.php:808
+msgid "Show malware"
+msgstr "عرض البرمجيات الخبيثة"
+
+#: includes/class-segurium.php:809
+msgid "Report false positive"
+msgstr "الإبلاغ عن نتيجة إيجابية خاطئة"
+
+#: includes/class-segurium.php:810 includes/class-segurium.php:2765
+msgid "Report False Positive"
+msgstr "الإبلاغ عن نتيجة إيجابية خاطئة"
+
+#: includes/class-segurium.php:811 includes/class-segurium.php:2770
+msgid "File path"
+msgstr "مسار الملف"
+
+#: includes/class-segurium.php:812 includes/class-segurium.php:2772
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:813 includes/class-segurium.php:1540
+#: includes/class-segurium.php:2774
+msgid "Component"
+msgstr "المكوّن"
+
+#: includes/class-segurium.php:814 includes/class-segurium.php:2776
+msgid "Current verdict"
+msgstr "الحكم الحالي"
+
+#: includes/class-segurium.php:815 includes/class-segurium.php:2779
+msgid "Note (optional, max 2000 chars)"
+msgstr "ملاحظة (اختيارية، بحد أقصى 2000 حرف)"
+
+#: includes/class-segurium.php:816 includes/class-segurium.php:2783
+msgid "Also ignore this file on this site"
+msgstr "تجاهل هذا الملف أيضًا على هذا الموقع"
+
+#: includes/class-segurium.php:817 includes/class-segurium.php:2787
+msgid "Submit report"
+msgstr "إرسال البلاغ"
+
+#: includes/class-segurium.php:819
+msgid "Submitting…"
+msgstr "جارٍ الإرسال…"
+
+#: includes/class-segurium.php:820
+msgid "Report submitted. Thank you."
+msgstr "تم إرسال البلاغ. شكرًا لك."
+
+#: includes/class-segurium.php:821
+msgid "Could not submit the report."
+msgstr "تعذّر إرسال البلاغ."
+
+#: includes/class-segurium.php:822 includes/class-segurium.php:899
+msgid "Restore"
+msgstr "استعادة"
+
+#: includes/class-segurium.php:823
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr ""
+"سيؤدي ذلك إلى استعادة الملف المصاب الأصلي من النسخة الاحتياطية. هل تريد "
+"المتابعة؟"
+
+#: includes/class-segurium.php:824
+msgid "Restore file"
+msgstr "استعادة الملف"
+
+#: includes/class-segurium.php:825
+msgid "Checking…"
+msgstr "جارٍ التحقق…"
+
+#: includes/class-segurium.php:826
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"الملف على القرص هو بالفعل النسخة المحفوظة. هل تريد الاستعادة على أي حال "
+"لتحديث سجلات قاعدة البيانات؟"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:828
+#, php-format
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"تم تعديل الملف في %s منذ آخر عملية تنظيف. ستؤدي الاستعادة إلى الكتابة فوق "
+"الملف الحالي بالنسخة الاحتياطية. لا يمكن التراجع عن ذلك."
+
+#: includes/class-segurium.php:829
+msgid "Overwrite & Restore"
+msgstr "كتابة فوقية واستعادة"
+
+#: includes/class-segurium.php:830
+msgid "No threats found."
+msgstr "لم يتم العثور على تهديدات."
+
+#: includes/class-segurium.php:831
+msgid "Scan complete."
+msgstr "اكتمل الفحص."
+
+#: includes/class-segurium.php:832 includes/class-segurium.php:955
+msgid "Starting scan..."
+msgstr "جارٍ بدء الفحص..."
+
+#: includes/class-segurium.php:833
+msgid "Failed to start scan."
+msgstr "فشل في بدء الفحص."
+
+#: includes/class-segurium.php:834
+msgid "Error"
+msgstr "خطأ"
+
+#: includes/class-segurium.php:836
+msgid "Connection lost. Retrying..."
+msgstr "تم فقد الاتصال. جارٍ إعادة المحاولة..."
+
+#: includes/class-segurium.php:837
+msgid "Request failed"
+msgstr "فشل الطلب"
+
+#: includes/class-segurium.php:840 includes/class-segurium.php:3070
+msgid "CTI service consent is required before scanning."
+msgstr "موافقة خدمة CTI مطلوبة قبل الفحص."
+
+#: includes/class-segurium.php:841
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr "تعذّر تهيئة الفحص. راجع سجل أخطاء PHP."
+
+#: includes/class-segurium.php:842
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr "تم بدء الفحص لكن تعذّر إرسال العامل في الخلفية. حاول مرة أخرى."
+
+#: includes/class-segurium.php:843
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error log."
+msgstr "تعذّر بدء الفحص بسبب خطأ في الخادم. راجع سجل أخطاء PHP."
+
+#: includes/class-segurium.php:844
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr "تعذّر جلب حالة الفحص بسبب خطأ في الخادم. راجع سجل أخطاء PHP."
+
+#: includes/class-segurium.php:845
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr "تعذّر إيقاف الفحص الجاري بسبب خطأ في الخادم. راجع سجل أخطاء PHP."
+
+#: includes/class-segurium.php:846
+msgid "The server returned an error while processing the request."
+msgstr "أرجع الخادم خطأ أثناء معالجة الطلب."
+
+#: includes/class-segurium.php:847
+msgid "Network error — the request could not reach the server."
+msgstr "خطأ في الشبكة — لم يتمكن الطلب من الوصول إلى الخادم."
+
+#: includes/class-segurium.php:848
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr "أرجع الخادم استجابة غير متوقعة. أعد تحميل الصفحة وحاول مرة أخرى."
+
+#: includes/class-segurium.php:849
+msgid ""
+"The site appears to be contaminated: another file on the server is echoing "
+"content before Segurium can respond. Check wp-content/mu-plugins, wp-"
+"config.php, and your active theme/plugins for recent unexpected changes."
+msgstr ""
+"يبدو أن الموقع ملوّث: هناك ملف آخر على الخادم يُخرِج محتوى قبل أن يتمكن "
+"Segurium من الاستجابة. تحقق من wp-content/mu-plugins وwp-config.php وقالبك/"
+"إضافاتك المُفعّلة بحثًا عن تغييرات غير متوقعة حديثة."
+
+#: includes/class-segurium.php:850
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"استلم Segurium استجابة محاطة بعلامات صالحة لكن JSON بداخلها لم يُحلَّل. عادةً ما "
+"يشير ذلك إلى خطأ فادح في PHP داخل معالج Segurium — راجع سجل أخطاء PHP."
+
+#: includes/class-segurium.php:851 includes/class-segurium.php:3126
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr "هذه النسخة من صفحة الإدارة قديمة. أعد تحميل الصفحة للمتابعة."
+
+#: includes/class-segurium.php:853
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr "حدث خطأ غير متوقع في الخادم. راجع سجل أخطاء PHP وحاول مرة أخرى."
+
+#: includes/class-segurium.php:854 includes/class-segurium.php:2716
+msgid "Frequency"
+msgstr "التكرار"
+
+#: includes/class-segurium.php:855 includes/class-segurium.php:2088
+#: includes/class-segurium.php:2719
+msgid "Off"
+msgstr "إيقاف"
+
+#: includes/class-segurium.php:856 includes/class-segurium.php:2720
+msgid "Daily"
+msgstr "يوميًا"
+
+#: includes/class-segurium.php:857 includes/class-segurium.php:2721
+msgid "Weekly"
+msgstr "أسبوعيًا"
+
+#: includes/class-segurium.php:858 includes/class-segurium.php:2726
+msgid "Time of day"
+msgstr "وقت اليوم"
+
+#: includes/class-segurium.php:859 includes/class-segurium.php:2733
+msgid "Day of week"
+msgstr "يوم الأسبوع"
+
+#: includes/class-segurium.php:860
+msgid "Next run:"
+msgstr "التشغيل التالي:"
+
+#: includes/class-segurium.php:861
+msgid "Schedule saved."
+msgstr "تم حفظ الجدولة."
+
+#: includes/class-segurium.php:862
+msgid "Could not save schedule."
+msgstr "تعذّر حفظ الجدولة."
+
+#: includes/class-segurium.php:863
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "مخزّن بتوقيت UTC. يُعرض بإعدادات لغة متصفحك."
+
+#: includes/class-segurium.php:864
+msgid "Scanned files"
+msgstr "الملفات الممسوحة"
+
+#: includes/class-segurium.php:865
+msgid "showing first"
+msgstr "عرض الأول"
+
+#: includes/class-segurium.php:866
+msgid "Original file content (malware)"
+msgstr "محتوى الملف الأصلي (برنامج ضار)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:868
+#, php-format
+msgid "Current on-disk content (malware): %s"
+msgstr "المحتوى الحالي على القرص (برنامج ضار): %s"
+
+#: includes/class-segurium.php:869 includes/class-segurium.php:1579
+#: includes/class-segurium.php:1593
+msgid "Close"
+msgstr "إغلاق"
+
+#: includes/class-segurium.php:870 includes/class-segurium.php:900
+#: includes/class-segurium.php:1467
+msgid "Fixed"
+msgstr "تم الإصلاح"
+
+#: includes/class-segurium.php:871 includes/class-segurium.php:1471
+msgid "Ignored"
+msgstr "تم التجاهل"
+
+#: includes/class-segurium.php:872
+msgid "Ignore until file is the same"
+msgstr "تجاهل حتى يبقى الملف بنفس الحالة"
+
+#: includes/class-segurium.php:873
+msgid "Always ignore"
+msgstr "تجاهل دائمًا"
+
+#: includes/class-segurium.php:874
+msgid "Remove from ignore"
+msgstr "إزالة من قائمة التجاهل"
+
+#: includes/class-segurium.php:875
+msgid "Connected"
+msgstr "متصل"
+
+#: includes/class-segurium.php:876
+msgid "Disconnected"
+msgstr "غير متصل"
+
+#: includes/class-segurium.php:877
+msgid "No files found."
+msgstr "لم يتم العثور على ملفات."
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:879
+#, php-format
+msgid "%d threats still need your attention"
+msgstr "%d تهديدات لا تزال بحاجة إلى انتباهك"
+
+#: includes/class-segurium.php:880
+msgid "No threats — you are clear."
+msgstr "لا توجد تهديدات — أنت آمن."
+
+#: includes/class-segurium.php:881
+msgid "No scans yet — run your first scan."
+msgstr "لا توجد فحوص بعد — قم بتشغيل أول فحص لك."
+
+#: includes/class-segurium.php:882 includes/class-segurium.php:1437
+#: includes/class-segurium.php:1525
+msgid "Stop scan"
+msgstr "إيقاف الفحص"
+
+#: includes/class-segurium.php:883
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr "إيقاف الفحص الجاري؟ سيتم تجاهل التقدم المحرز حتى الآن."
+
+#: includes/class-segurium.php:884
+msgid "Could not stop the scan."
+msgstr "تعذّر إيقاف الفحص."
+
+#: includes/class-segurium.php:885
+msgid "Scan stopped."
+msgstr "تم إيقاف الفحص."
+
+#: includes/class-segurium.php:904
+#, php-format
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "تم إيقاف الفحص — تم فحص %1$d من %2$d ملف."
+
+#: includes/class-segurium.php:906
+#, php-format
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "تم إلغاء الفحص — تم فحص %1$d من %2$d ملف."
+
+#: includes/class-segurium.php:886
+msgid "Hosting environment warnings"
+msgstr "تحذيرات بيئة الاستضافة"
+
+#: includes/class-segurium.php:887
+msgid "No malicious files. All known threats have been handled."
+msgstr "لا توجد ملفات ضارة. تمت معالجة جميع التهديدات المعروفة."
+
+#: includes/class-segurium.php:888
+msgid "No cleaned files yet."
+msgstr "لا توجد ملفات تم تنظيفها بعد."
+
+#: includes/class-segurium.php:889
+msgid "No files marked fixed."
+msgstr "لا توجد ملفات مُعلَّمة كمُصلَحة."
+
+#: includes/class-segurium.php:890
+msgid "No ignored files."
+msgstr "لا توجد ملفات متجاهَلة."
+
+#: includes/class-segurium.php:891
+msgid "Recently processed in this session"
+msgstr "تمت المعالجة مؤخرًا في هذه الجلسة"
+
+#: includes/class-segurium.php:892 includes/class-segurium.php:1041
+msgid "Page"
+msgstr "صفحة"
+
+#: includes/class-segurium.php:893 includes/class-segurium.php:1042
+msgid "of"
+msgstr "من"
+
+#: includes/class-segurium.php:894
+msgid "items"
+msgstr "عناصر"
+
+#: includes/class-segurium.php:895 includes/class-segurium.php:1039
+#: includes/class-segurium.php:1961
+msgid "Previous"
+msgstr "السابق"
+
+#: includes/class-segurium.php:896 includes/class-segurium.php:1040
+#: includes/class-segurium.php:1963
+msgid "Next"
+msgstr "التالي"
+
+#: includes/class-segurium.php:897 includes/class-segurium.php:1062
+msgid "Fix"
+msgstr "إصلاح"
+
+#: includes/class-segurium.php:898
+msgid "Ignore"
+msgstr "تجاهل"
+
+#: includes/class-segurium.php:901
+msgid "Deleted"
+msgstr "محذوف"
+
+#: includes/class-segurium.php:902
+msgid "Not found"
+msgstr "غير موجود"
+
+#: includes/class-segurium.php:903
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"هذا الملف ليس جزءًا من التثبيت الأصلي وسيتم حذفه. سيتم إنشاء نسخة احتياطية. "
+"هل تريد المتابعة؟"
+
+#: includes/class-segurium.php:904
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"سيتم حذف بعض الملفات (الملفات غير المعروفة) واستبدال بعضها بالأصول (الملفات "
+"المعدّلة). سيتم إنشاء نسخ احتياطية للجميع. هل تريد المتابعة؟"
+
+#: includes/class-segurium.php:905
+msgid "Fixing files..."
+msgstr "جارٍ إصلاح الملفات..."
+
+#: includes/class-segurium.php:907
+msgid "Older backups will be rotated out"
+msgstr "سيتم تدوير النسخ الاحتياطية الأقدم"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#: includes/class-segurium.php:909
+#, php-format
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "أنت على وشك إصلاح %1$d ملفات (~%2$s)."
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#: includes/class-segurium.php:911
+#, php-format
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr ""
+"سيتم تدوير %1$d نسخة احتياطية أقدم (~%2$s) — هذه نقاط استعادة لملفات تم "
+"إصلاحها سابقًا."
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:913
+#, php-format
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr ""
+"سيتم الاحتفاظ بـ %d نسخة احتياطية مثبّتة (لا يزال يُشار إليها بواسطة "
+"الاستعادة)."
+
+#: includes/class-segurium.php:914
+msgid "Continue"
+msgstr "متابعة"
+
+#: includes/class-segurium.php:915
+msgid "Restoring files…"
+msgstr "جارٍ استعادة الملفات…"
+
+#: includes/class-segurium.php:916
+msgid "Updating files…"
+msgstr "جارٍ تحديث الملفات…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:918
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d من %2$d"
+
+#: includes/class-segurium.php:919
+msgid "Cancelling…"
+msgstr "جارٍ الإلغاء…"
+
+#: includes/class-segurium.php:920
+msgid "Clean all detected malware"
+msgstr "تنظيف جميع البرمجيات الخبيثة المكتشفة"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:922
+#, php-format
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr ""
+"سيحاول هذا تنظيف %d ملف/ملفات ضارة مكتشفة. يتم نسخ كل ملف احتياطيًا قبل "
+"التنظيف."
+
+#: includes/class-segurium.php:923
+msgid "Clean all"
+msgstr "تنظيف الكل"
+
+#: includes/class-segurium.php:924
+msgid "Cleaning malware..."
+msgstr "جارٍ تنظيف البرمجيات الخبيثة..."
+
+#: includes/class-segurium.php:929
+msgid "Maybe later"
+msgstr "ربما لاحقًا"
+
+#: includes/class-segurium.php:930 includes/class-segurium.php:3435
+#: includes/class-segurium.php:6224
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"تم الوصول إلى حصة التنظيف. قم بالترقية إلى Pro للحصول على حصة تنظيف سحابي "
+"غير محدودة."
+
+#: includes/class-segurium.php:931
+msgid "Cleanup quota reached"
+msgstr "تم الوصول إلى حصة التنظيف"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:933
+#, php-format
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
+"unbounded cloud cleanup quota."
+msgstr ""
+"لقد استخدمت %1$d عمليات تنظيف سحابي خلال آخر %2$d يومًا. قم بالترقية إلى Pro "
+"للحصول على حصة تنظيف سحابي غير محدودة."
+
+#. translators: %s: localized date when the next cleanup slot becomes available
+#: includes/class-segurium.php:935
+#, php-format
+msgid "Next slot opens %s"
+msgstr "تُفتح الفتحة التالية في %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:937 includes/class-segurium.php:1313
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "تم استخدام %1$d من أصل %2$d عمليات تنظيف خلال آخر %3$d يومًا"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#: includes/class-segurium.php:939 includes/class-segurium.php:1304
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"تم استخدام %1$d من أصل %2$d عمليات تنظيف خلال آخر %3$d يومًا — تُفتح الفتحة "
+"التالية في %4$s"
+
+#: includes/class-segurium.php:941 includes/class-segurium.php:2612
+#: includes/class-segurium.php:2801
+msgid "Pro"
+msgstr "احترافي"
+
+#: includes/class-segurium.php:942
+msgid "Diff"
+msgstr "الفروق"
+
+#: includes/class-segurium.php:943
+msgid "Delisted from official WordPress.org"
+msgstr "تم رفعه من قائمة WordPress.org الرسمية"
+
+#: includes/class-segurium.php:944 includes/class-segurium.php:5069
+msgid "Abandoned (no updates >2 years)"
+msgstr "مهجور (لا تحديثات منذ أكثر من سنتين)"
+
+#: includes/class-segurium.php:945
+msgid "Not from official WordPress.org"
+msgstr "ليس من WordPress.org الرسمي"
+
+#: includes/class-segurium.php:946
+msgid "ignored"
+msgstr "متجاهَل"
+
+#: includes/class-segurium.php:947
+msgid "Issues"
+msgstr "المشكلات"
+
+#: includes/class-segurium.php:948
+msgid "issue"
+msgstr "مشكلة"
+
+#: includes/class-segurium.php:949
+msgid "unrecognized file"
+msgstr "ملف غير معروف"
+
+#: includes/class-segurium.php:950
+msgid "(!) malware"
+msgstr "(!) برنامج ضار"
+
+#: includes/class-segurium.php:951
+msgid "View"
+msgstr "عرض"
+
+#: includes/class-segurium.php:952
+msgid "issues"
+msgstr "مشكلات"
+
+#: includes/class-segurium.php:953
+msgid "Checking"
+msgstr "جارٍ التحقق"
+
+#: includes/class-segurium.php:954
+msgid "Discovering components…"
+msgstr "جارٍ اكتشاف المكوّنات…"
+
+#: includes/class-segurium.php:956
+msgid "Saved permanently."
+msgstr "تم الحفظ بشكل دائم."
+
+#: includes/class-segurium.php:957
+msgid "Changes reverted."
+msgstr "تم التراجع عن التغييرات."
+
+#: includes/class-segurium.php:958 includes/class-segurium.php:1634
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Blocked Countries"
+msgstr "الدول المحجوبة"
+
+#: includes/class-segurium.php:959
+msgid "Allowed Countries"
+msgstr "الدول المسموح بها"
+
+#: includes/class-segurium.php:960 includes/class-segurium.php:1643
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr "اكتب اسم دولة أو رمز ISO لإضافتها إلى قائمة الحجب."
+
+#: includes/class-segurium.php:961
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr "اكتب اسم دولة أو رمز ISO لإضافتها إلى قائمة السماح."
+
+#: includes/class-segurium.php:962 includes/class-segurium.php:1722
+msgid "Blocked IPs / CIDRs"
+msgstr "عناوين IP / CIDR المحجوبة"
+
+#: includes/class-segurium.php:963 includes/class-segurium.php:1723
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"يتم حجب عناوين IP هذه دائمًا. مُدخل واحد في كل سطر. يقبل نطاقات IPv4 وIPv6 "
+"وCIDR."
+
+#: includes/class-segurium.php:964
+msgid "Allowed IPs / CIDRs"
+msgstr "عناوين IP / CIDR المسموح بها"
+
+#: includes/class-segurium.php:965
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"يمكن لعناوين IP هذه فقط الوصول إلى الموقع. يتم حجب جميع الباقي. مُدخل واحد في "
+"كل سطر."
+
+#: includes/class-segurium.php:966
+msgid "No supported security plugins detected."
+msgstr "لم يتم اكتشاف أي إضافات أمان مدعومة."
+
+#: includes/class-segurium.php:967
+msgid "Preview"
+msgstr "معاينة"
+
+#: includes/class-segurium.php:968
+msgid "Apply Migration"
+msgstr "تطبيق الترحيل"
+
+#: includes/class-segurium.php:970
+msgid "Migration complete."
+msgstr "اكتمل الترحيل."
+
+#: includes/class-segurium.php:971
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Import"
+msgstr "استيراد"
+
+#: includes/class-segurium.php:972
+msgid "Skip"
+msgstr "تخطٍّ"
+
+#: includes/class-segurium.php:973
+msgid "Planned feature"
+msgstr "ميزة مخططة"
+
+#: includes/class-segurium.php:974
+msgid "Feature"
+msgstr "الميزة"
+
+#: includes/class-segurium.php:975
+msgid "Value"
+msgstr "القيمة"
+
+#: includes/class-segurium.php:976
+msgid "Action"
+msgstr "الإجراء"
+
+#: includes/class-segurium.php:977
+msgid "Note"
+msgstr "ملاحظة"
+
+#: includes/class-segurium.php:978
+msgid "items imported"
+msgstr "عناصر تم استيرادها"
+
+#: includes/class-segurium.php:979
+msgid "features planned"
+msgstr "ميزات مخططة"
+
+#: includes/class-segurium.php:980
+msgid "Submitting\\u2026"
+msgstr "Submitting\\u2026"
+
+#: includes/class-segurium.php:981
+msgid "Ticket submitted successfully."
+msgstr "تم إرسال التذكرة بنجاح."
+
+#: includes/class-segurium.php:982
+msgid "Your ticket reference:"
+msgstr "مرجع تذكرتك:"
+
+#: includes/class-segurium.php:983
+msgid "Failed to submit ticket. Please try again."
+msgstr "فشل في إرسال التذكرة. يُرجى المحاولة مرة أخرى."
+
+#: includes/class-segurium.php:984
+msgid "Please attach a file before submitting."
+msgstr "يُرجى إرفاق ملف قبل الإرسال."
+
+#: includes/class-segurium.php:985
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "الملف المحدد يتجاوز حد 100 ميغابايت."
+
+#: includes/class-segurium.php:986
+msgid "Please enter a valid reply-to email."
+msgstr "يُرجى إدخال بريد إلكتروني صالح للرد."
+
+#: includes/class-segurium.php:987
+msgid "Please enter your name."
+msgstr "يُرجى إدخال اسمك."
+
+#: includes/class-segurium.php:988
+msgid "Brute-Force Protection"
+msgstr "الحماية من هجمات التخمين"
+
+#: includes/class-segurium.php:989 includes/class-segurium.php:1748
+msgid "Enable brute-force protection"
+msgstr "تفعيل الحماية من هجمات التخمين"
+
+#: includes/class-segurium.php:990 includes/class-segurium.php:1766
+msgid "Max failed attempts"
+msgstr "الحد الأقصى للمحاولات الفاشلة"
+
+#: includes/class-segurium.php:991 includes/class-segurium.php:1768
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr "عدد محاولات تسجيل الدخول الفاشلة المسموح بها قبل قفل عنوان IP."
+
+#: includes/class-segurium.php:992 includes/class-segurium.php:1771
+msgid "Attempt window (seconds)"
+msgstr "نافذة المحاولات (بالثواني)"
+
+#: includes/class-segurium.php:993 includes/class-segurium.php:1773
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "النافذة الزمنية التي تُحسب فيها المحاولات الفاشلة باتجاه الحد."
+
+#: includes/class-segurium.php:994 includes/class-segurium.php:1776
+msgid "Initial lockout duration (seconds)"
+msgstr "مدة القفل الأولى (بالثواني)"
+
+#: includes/class-segurium.php:995 includes/class-segurium.php:1780
+msgid "Lockouts before extended ban"
+msgstr "عمليات القفل قبل الحظر الممتد"
+
+#: includes/class-segurium.php:996 includes/class-segurium.php:1785
+msgid "Extended lockout duration (seconds)"
+msgstr "مدة القفل الممتد (بالثواني)"
+
+#: includes/class-segurium.php:997 includes/class-segurium.php:1789
+msgid "History window (seconds)"
+msgstr "نافذة السجل (بالثواني)"
+
+#: includes/class-segurium.php:998 includes/class-segurium.php:1795
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "حماية XML-RPC أيضًا (xmlrpc.php)"
+
+#: includes/class-segurium.php:999 includes/class-segurium.php:1801
+msgid "Add honeypot field to login form"
+msgstr "إضافة حقل honeypot إلى نموذج تسجيل الدخول"
+
+#: includes/class-segurium.php:1000 includes/class-segurium.php:1849
+msgid "Active Lockouts"
+msgstr "عمليات القفل النشطة"
+
+#: includes/class-segurium.php:1001 includes/class-segurium.php:1862
+msgid "No IPs are currently locked out."
+msgstr "لا توجد عناوين IP مقفلة حاليًا."
+
+#: includes/class-segurium.php:1002 includes/class-segurium.php:1046
+#: includes/class-segurium.php:1929
+msgid "Unlock"
+msgstr "فتح القفل"
+
+#: includes/class-segurium.php:1003 includes/class-segurium.php:1036
+#: includes/class-segurium.php:1854 includes/class-segurium.php:1954
+msgid "Tier"
+msgstr "المستوى"
+
+#: includes/class-segurium.php:1004 includes/class-segurium.php:1033
+#: includes/class-segurium.php:1853 includes/class-segurium.php:1896
+#: includes/class-segurium.php:1950
+msgid "IP"
+msgstr "IP"
+
+#: includes/class-segurium.php:1005 includes/class-segurium.php:1855
+msgid "Locked at"
+msgstr "تم القفل في"
+
+#: includes/class-segurium.php:1006 includes/class-segurium.php:1856
+msgid "Expires"
+msgstr "ينتهي"
+
+#: includes/class-segurium.php:1007 includes/class-segurium.php:1052
+msgid "Settings saved."
+msgstr "تم حفظ الإعدادات."
+
+#: includes/class-segurium.php:1008
+msgid "Unlock this IP?"
+msgstr "فتح قفل عنوان IP هذا؟"
+
+#: includes/class-segurium.php:1009 includes/class-segurium.php:1806
+msgid "Log retention (days)"
+msgstr "احتفاظ السجل (بالأيام)"
+
+#: includes/class-segurium.php:1010 includes/class-segurium.php:1811
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1011 includes/class-segurium.php:1816
+msgid "Require hCaptcha after repeated failures"
+msgstr "اشتراط hCaptcha بعد إخفاقات متكررة"
+
+#: includes/class-segurium.php:1012 includes/class-segurium.php:1824
+msgid "hCaptcha site key"
+msgstr "مفتاح موقع hCaptcha"
+
+#: includes/class-segurium.php:1013 includes/class-segurium.php:1830
+msgid "hCaptcha secret key"
+msgstr "مفتاح سري لـ hCaptcha"
+
+#: includes/class-segurium.php:1014 includes/class-segurium.php:1836
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "إظهار CAPTCHA بعد N محاولات فاشلة"
+
+#: includes/class-segurium.php:1015
+msgid "Presets:"
+msgstr "الإعدادات المُسبقة:"
+
+#: includes/class-segurium.php:1016
+msgid "Light"
+msgstr "خفيف"
+
+#: includes/class-segurium.php:1017 includes/class-segurium.php:1757
+#: includes/class-segurium.php:2090
+msgid "Recommended"
+msgstr "موصى به"
+
+#: includes/class-segurium.php:1018 includes/class-segurium.php:2091
+#: includes/class-segurium.php:2278
+msgid "Strict"
+msgstr "صارم"
+
+#: includes/class-segurium.php:1019
+msgid "Click a preset to fill the form, then Save."
+msgstr "انقر على إعداد مُسبق لتعبئة النموذج، ثم احفظ."
+
+#: includes/class-segurium.php:1020 includes/class-segurium.php:1867
+msgid "Statistics"
+msgstr "الإحصاءات"
+
+#: includes/class-segurium.php:1021 includes/class-segurium.php:1870
+msgid "Active lockouts"
+msgstr "عمليات القفل النشطة"
+
+#: includes/class-segurium.php:1022 includes/class-segurium.php:1874
+msgid "Attempts (24h)"
+msgstr "المحاولات (24 ساعة)"
+
+#: includes/class-segurium.php:1023 includes/class-segurium.php:1878
+msgid "Lockouts (24h)"
+msgstr "عمليات القفل (24 ساعة)"
+
+#: includes/class-segurium.php:1024 includes/class-segurium.php:1882
+msgid "Honeypot hits (24h)"
+msgstr "إصابات honeypot (24 ساعة)"
+
+#: includes/class-segurium.php:1025 includes/class-segurium.php:1886
+msgid "CAPTCHA failures (24h)"
+msgstr "إخفاقات CAPTCHA (24 ساعة)"
+
+#: includes/class-segurium.php:1026 includes/class-segurium.php:1892
+msgid "Top attacking IPs (24h)"
+msgstr "أعلى عناوين IP مهاجمة (24 ساعة)"
+
+#: includes/class-segurium.php:1027 includes/class-segurium.php:1905
+msgid "Top targeted usernames (24h)"
+msgstr "أعلى أسماء المستخدمين المستهدفة (24 ساعة)"
+
+#: includes/class-segurium.php:1028 includes/class-segurium.php:1902
+msgid "No attacking IPs in the last 24 hours."
+msgstr "لا توجد عناوين IP مهاجمة خلال آخر 24 ساعة."
+
+#: includes/class-segurium.php:1029 includes/class-segurium.php:1915
+msgid "No targeted usernames in the last 24 hours."
+msgstr "لا توجد أسماء مستخدمين مستهدفة خلال آخر 24 ساعة."
+
+#: includes/class-segurium.php:1030 includes/class-segurium.php:1921
+msgid "Event log"
+msgstr "سجل الأحداث"
+
+#: includes/class-segurium.php:1031 includes/class-segurium.php:1948
+msgid "When"
+msgstr "متى"
+
+#: includes/class-segurium.php:1032 includes/class-segurium.php:1949
+msgid "Event"
+msgstr "الحدث"
+
+#: includes/class-segurium.php:1034 includes/class-segurium.php:1909
+#: includes/class-segurium.php:1952
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: includes/class-segurium.php:1035 includes/class-segurium.php:1953
+msgid "Surface"
+msgstr "السطح"
+
+#: includes/class-segurium.php:1037 includes/class-segurium.php:1923
+msgid "All events"
+msgstr "جميع الأحداث"
+
+#: includes/class-segurium.php:1038 includes/class-segurium.php:1959
+msgid "No events recorded yet."
+msgstr "لم يتم تسجيل أي أحداث بعد."
+
+#: includes/class-segurium.php:1043 includes/class-segurium.php:1926
+msgid "Attempt"
+msgstr "محاولة"
+
+#: includes/class-segurium.php:1044 includes/class-segurium.php:1927
+msgid "Lockout"
+msgstr "قفل"
+
+#: includes/class-segurium.php:1045 includes/class-segurium.php:1928
+msgid "Honeypot"
+msgstr "Honeypot"
+
+#: includes/class-segurium.php:1047 includes/class-segurium.php:1930
+msgid "CAPTCHA failed"
+msgstr "فشل CAPTCHA"
+
+#: includes/class-segurium.php:1048
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1049 includes/class-segurium.php:2425
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1050
+msgid "Loading settings..."
+msgstr "جارٍ تحميل الإعدادات..."
+
+#: includes/class-segurium.php:1051
+msgid "Saving..."
+msgstr "جارٍ الحفظ..."
+
+#: includes/class-segurium.php:1053
+msgid "Failed to save settings."
+msgstr "فشل في حفظ الإعدادات."
+
+#: includes/class-segurium.php:1054
+msgid "Failed to load settings."
+msgstr "فشل في تحميل الإعدادات."
+
+#: includes/class-segurium.php:1055
+msgid "All recommended settings enabled."
+msgstr "تم تفعيل جميع الإعدادات الموصى بها."
+
+#: includes/class-segurium.php:1056 includes/class-segurium.php:1359
+msgid "Self-Check"
+msgstr "الفحص الذاتي"
+
+#: includes/class-segurium.php:1057 includes/class-segurium.php:2458
+msgid "Run Self-Check"
+msgstr "تشغيل الفحص الذاتي"
+
+#: includes/class-segurium.php:1058
+msgid "Running..."
+msgstr "جارٍ التشغيل..."
+
+#: includes/class-segurium.php:1059
+msgid "Click Run Self-Check to grade your site."
+msgstr "انقر تشغيل الفحص الذاتي لتقييم موقعك."
+
+#: includes/class-segurium.php:1063
+msgid "How to fix"
+msgstr "طريقة الإصلاح"
+
+#: includes/class-segurium.php:1064
+msgid "Hide details"
+msgstr "إخفاء التفاصيل"
+
+#: includes/class-segurium.php:1065
+msgid "fail"
+msgstr "فشل"
+
+#: includes/class-segurium.php:1066
+msgid "warn"
+msgstr "تحذير"
+
+#: includes/class-segurium.php:1067
+msgid "HTTP Security Headers"
+msgstr "ترويسات الأمان لـ HTTP"
+
+#: includes/class-segurium.php:1068
+msgid "Information Disclosure"
+msgstr "الإفصاح عن المعلومات"
+
+#: includes/class-segurium.php:1069
+msgid "WordPress Hardening"
+msgstr "تقوية WordPress"
+
+#: includes/class-segurium.php:1070
+msgid "Cookie Security"
+msgstr "أمان الكوكيز"
+
+#: includes/class-segurium.php:1071
+msgid "Malware Protection"
+msgstr "الحماية من البرمجيات الخبيثة"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1073
+#, php-format
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "%1$d ناجح، %2$d تحذير، %3$d فاشل"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1075
+#, php-format
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#: includes/class-segurium.php:1077
+#, php-format
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "تغيّر من %1$s (%2$d) إلى %3$s (%4$d)."
+
+#: includes/class-segurium.php:1078
+msgid "No change since last run."
+msgstr "لا تغيير منذ آخر تشغيل."
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1080
+#, php-format
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr "تعذّر على الفحص الذاتي الوصول إلى موقعك: %s. النتائج غير مكتملة."
+
+#: includes/class-segurium.php:1081
+msgid "Verify with securityheaders.com"
+msgstr "التحقق عبر securityheaders.com"
+
+#: includes/class-segurium.php:1082
+msgid "Verify with Mozilla Observatory"
+msgstr "التحقق عبر Mozilla Observatory"
+
+#: includes/class-segurium.php:1207
+msgid "External Service Disclosure"
+msgstr "الإفصاح عن الخدمات الخارجية"
+
+#: includes/class-segurium.php:1208
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"يحمي Segurium موقعك بالعمل مع سحابة Segurium. عند تفعيله، يتبادل Segurium "
+"البيانات مع خوادمنا حتى يتمكن من اكتشاف البرمجيات الخبيثة والتحقق من ملفاتك "
+"وتكييف الحماية مع التهديدات النشطة."
+
+#: includes/class-segurium.php:1210
+msgid "What is sent:"
+msgstr "ما يتم إرساله:"
+
+#: includes/class-segurium.php:1212
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"بيانات وصفية للملفات: تجزئة SHA-256، المسار النسبي لتثبيت WordPress الخاص "
+"بك، الحجم، وقت التعديل."
+
+#: includes/class-segurium.php:1213
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"محتوى الملف — فقط عندما لا يكون التصنيف عبر التجزئة وحدها قاطعًا، أو عند "
+"توليد بديل نظيف أثناء التنظيف."
+
+#: includes/class-segurium.php:1214
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name, "
+"WordPress version) used to associate requests with this install."
+msgstr ""
+"معرّف تثبيت يتم توليده عشوائيًا ومعلومات أساسية عن الموقع (URL، الاسم، إصدار "
+"WordPress) تُستخدم لربط الطلبات بهذا التثبيت."
+
+#: includes/class-segurium.php:1215
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site "
+"protection in sync."
+msgstr ""
+"أحداث الفحص والتنظيف وإعدادات الأمان، حتى تستطيع السحابة الحفاظ على مزامنة "
+"حماية موقعك."
+
+#: includes/class-segurium.php:1216
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"أحداث جدار الحماية (عناوين IP المحجوبة، أنماط الهجوم) تُستخدم لتكييف الحماية "
+"عبر جميع المواقع المحمية بـ Segurium."
+
+#: includes/class-segurium.php:1219
+msgid "What is NOT sent:"
+msgstr "ما لا يتم إرساله:"
+
+#: includes/class-segurium.php:1221
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr "تحليلات الزوار أو البيانات الشخصية للمستخدمين الذين يزورون موقعك."
+
+#: includes/class-segurium.php:1222
+msgid "Database content, posts, comments, or media files."
+msgstr "محتوى قاعدة البيانات أو التدوينات أو التعليقات أو ملفات الوسائط."
+
+#: includes/class-segurium.php:1223
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr ""
+"الملفات التي تجزئتها معروفة بالفعل للسحابة — تخرج التجزئة فقط من خادمك."
+
+#: includes/class-segurium.php:1226
+msgid "Where it is sent:"
+msgstr "إلى أين تُرسَل:"
+
+#: includes/class-segurium.php:1226
+msgid "Segurium servers at cti.segurium.com."
+msgstr "خوادم Segurium على cti.segurium.com."
+
+#: includes/class-segurium.php:1227
+msgid "Retention:"
+msgstr "الاحتفاظ:"
+
+#: includes/class-segurium.php:1227
+msgid ""
+"File samples uploaded for analysis are not retained beyond what is needed to "
+"produce a verdict."
+msgstr ""
+"عينات الملفات المرفوعة للتحليل لا يتم الاحتفاظ بها لما هو أكثر مما يلزم "
+"لإصدار حكم."
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium.php:1233
+#, php-format
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"بتفعيل الفحص، فإنك توافق على %1$sشروط الخدمة%2$s و%3$sسياسة الخصوصية%4$s."
+
+#: includes/class-segurium.php:1242
+msgid "I agree"
+msgstr "أوافق"
+
+#: includes/class-segurium.php:1352
+msgid "WordPress Security"
+msgstr "أمان WordPress"
+
+#: includes/class-segurium.php:1363
+msgid "Malware Scanner"
+msgstr "ماسح البرامج الضارة"
+
+#: includes/class-segurium.php:1375
+msgid "Integrity"
+msgstr "السلامة"
+
+#: includes/class-segurium.php:1379
+msgid "GEO Blocking"
+msgstr "الحجب الجغرافي"
+
+#: includes/class-segurium.php:1387
+msgid "Brute-Force"
+msgstr "هجوم التخمين"
+
+#: includes/class-segurium.php:1391
+msgid "2FA"
+msgstr "المصادقة الثنائية"
+
+#: includes/class-segurium.php:1395
+msgid "Headers"
+msgstr "الترويسات"
+
+#: includes/class-segurium.php:1399
+msgid "Info Shield"
+msgstr "درع المعلومات"
+
+#: includes/class-segurium.php:1403
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: includes/class-segurium.php:1407
+msgid "Migration"
+msgstr "ترحيل"
+
+#: includes/class-segurium.php:1411 includes/class-segurium.php:2025
+#: includes/class-segurium.php:2582
+msgid "Support"
+msgstr "الدعم"
+
+#: includes/class-segurium.php:1415
+msgid "Plans"
+msgstr "الخطط"
+
+#: includes/class-segurium.php:1433 includes/class-segurium.php:1521
+msgid "Scan"
+msgstr "فحص"
+
+#: includes/class-segurium.php:1446 includes/class-segurium.php:1529
+msgid "Fix all"
+msgstr "إصلاح الكل"
+
+#: includes/class-segurium.php:1455
+msgid "Malicious"
+msgstr "ضار"
+
+#: includes/class-segurium.php:1459
+msgid "All"
+msgstr "الكل"
+
+#: includes/class-segurium.php:1479
+msgid "File"
+msgstr "ملف"
+
+#: includes/class-segurium.php:1480
+msgid "State"
+msgstr "الحالة"
+
+#: includes/class-segurium.php:1481
+msgid "Date"
+msgstr "التاريخ"
+
+#: includes/class-segurium.php:1482 includes/class-segurium.php:1544
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: includes/class-segurium.php:1500
+msgid "Show recent only (14 days)"
+msgstr "عرض الحديث فقط (14 يومًا)"
+
+#: includes/class-segurium.php:1510 includes/class-segurium.php:1570
+msgid "per page"
+msgstr "في الصفحة"
+
+#: includes/class-segurium.php:1542
+msgid "Files"
+msgstr "ملفات"
+
+#: includes/class-segurium.php:1543
+msgid "Last Scanned"
+msgstr "آخر فحص"
+
+#: includes/class-segurium.php:1602 includes/class-segurium.php:1690
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr "تم تطبيق الإعدادات. أكّد للاحتفاظ، أو سيتم التراجع عن التغييرات خلال"
+
+#: includes/class-segurium.php:1603 includes/class-segurium.php:1691
+msgid "s."
+msgstr "ث."
+
+#: includes/class-segurium.php:1607 includes/class-segurium.php:1695
+msgid "Revert"
+msgstr "تراجع"
+
+#: includes/class-segurium.php:1616
+msgid "Enable Geo-Blocking"
+msgstr "تفعيل الحجب الجغرافي"
+
+#: includes/class-segurium.php:1621
+msgid "Blocking Mode"
+msgstr "وضع الحجب"
+
+#: includes/class-segurium.php:1625
+msgid "Block specific countries"
+msgstr "حجب دول محددة"
+
+#: includes/class-segurium.php:1629
+msgid "Allow only specific countries"
+msgstr "السماح فقط لدول محددة"
+
+#: includes/class-segurium.php:1636
+msgid "EU"
+msgstr "الاتحاد الأوروبي"
+
+#: includes/class-segurium.php:1637
+msgid "Americas"
+msgstr "الأمريكتان"
+
+#: includes/class-segurium.php:1638
+msgid "Asia-Pacific"
+msgstr "آسيا والمحيط الهادئ"
+
+#: includes/class-segurium.php:1639
+msgid "Africa"
+msgstr "إفريقيا"
+
+#: includes/class-segurium.php:1640
+msgid "Middle East"
+msgstr "الشرق الأوسط"
+
+#: includes/class-segurium.php:1641
+msgid "High-Risk"
+msgstr "عالي الخطورة"
+
+#: includes/class-segurium.php:1648
+msgid "Search countries…"
+msgstr "بحث في الدول…"
+
+#: includes/class-segurium.php:1654
+msgid "Block Action"
+msgstr "إجراء الحجب"
+
+#: includes/class-segurium.php:1656
+msgid "Return 403 Forbidden"
+msgstr "إرجاع 403 Forbidden"
+
+#: includes/class-segurium.php:1657
+msgid "Redirect to URL"
+msgstr "إعادة التوجيه إلى URL"
+
+#: includes/class-segurium.php:1658
+msgid "Silent drop (no response)"
+msgstr "إسقاط صامت (دون استجابة)"
+
+#: includes/class-segurium.php:1666 includes/class-segurium.php:1736
+#: includes/class-segurium.php:1843 includes/class-segurium.php:2285
+#: includes/class-segurium.php:2436
+msgid "Save"
+msgstr "حفظ"
+
+#: includes/class-segurium.php:1672
+msgid "Blocked Requests"
+msgstr "الطلبات المحجوبة"
+
+#: includes/class-segurium.php:1676 includes/class-segurium.php:1951
+msgid "Country"
+msgstr "الدولة"
+
+#: includes/class-segurium.php:1677
+msgid "Requests"
+msgstr "طلبات"
+
+#: includes/class-segurium.php:1704
+msgid "Enable Firewall"
+msgstr "تفعيل جدار الحماية"
+
+#: includes/class-segurium.php:1709 includes/class-segurium.php:2243
+msgid "Mode"
+msgstr "الوضع"
+
+#: includes/class-segurium.php:1713
+msgid "Allow everything except…"
+msgstr "السماح بكل شيء عدا…"
+
+#: includes/class-segurium.php:1717
+msgid "Deny everything except…"
+msgstr "رفض كل شيء عدا…"
+
+#: includes/class-segurium.php:1727
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "عناوين IP / CIDR لوكلاء موثوقين مخصصين"
+
+#: includes/class-segurium.php:1729
+msgid "Loading auto-detected proxy status..."
+msgstr "جارٍ تحميل حالة الوكيل المكتشف تلقائيًا..."
+
+#: includes/class-segurium.php:1731
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr ""
+"عناوين IP وكيل إضافية بعد القائمة المكتشفة تلقائيًا، واحد في كل سطر. اتركها "
+"فارغة إذا كانت جميع وكلائك مغطاة أعلاه."
+
+#: includes/class-segurium.php:1750
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"يتتبع محاولات تسجيل الدخول الفاشلة ويقفل عناوين IP بعد حد قابل للتكوين. يعيد "
+"استخدام قائمة سماح جدار الحماية لعناوين IP الموثوقة."
+
+#: includes/class-segurium.php:1754
+msgid "Settings:"
+msgstr "الإعدادات:"
+
+#: includes/class-segurium.php:1757
+msgid "safe defaults; settings are locked."
+msgstr "إعدادات افتراضية آمنة؛ الإعدادات مقفلة."
+
+#: includes/class-segurium.php:1761 includes/class-segurium.php:2092
+msgid "Custom"
+msgstr "مخصص"
+
+#: includes/class-segurium.php:1761
+msgid "edit every setting yourself."
+msgstr "حرّر كل إعداد بنفسك."
+
+#: includes/class-segurium.php:1782
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr ""
+"بعد هذا العدد من عمليات القفل ضمن نافذة السجل، سيستخدم القفل التالي المدة "
+"الممتدة."
+
+#: includes/class-segurium.php:1803
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr ""
+"يضيف حقل إدخال خارج الشاشة لا يراه المستخدمون الشرعيون أبدًا. تعبئته تؤدي إلى "
+"قفل فوري."
+
+#: includes/class-segurium.php:1812
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable "
+"number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"اختياريًا، اعرض تحدي hCaptcha على نموذج تسجيل الدخول بعد عدد قابل للتكوين من "
+"المحاولات الفاشلة. احصل على مفاتيح مجانية من hcaptcha.com."
+
+#: includes/class-segurium.php:1838
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"يجب أن تكون أقل من الحد الأقصى للمحاولات الفاشلة حتى يُطلق التحدي قبل القفل."
+
+#: includes/class-segurium.php:1897 includes/class-segurium.php:1910
+msgid "Attempts"
+msgstr "المحاولات"
+
+#: includes/class-segurium.php:1973
+msgid "Enable Two-Factor Authentication"
+msgstr "تفعيل المصادقة الثنائية"
+
+#: includes/class-segurium.php:1975
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr "إلزام المستخدمين بالتحقق من هويتهم بعامل ثانٍ أثناء تسجيل الدخول."
+
+#: includes/class-segurium.php:1979
+msgid "Available Methods"
+msgstr "الطرق المتاحة"
+
+#: includes/class-segurium.php:1980
+msgid "Select which 2FA methods users can choose from."
+msgstr "حدّد طرق المصادقة الثنائية التي يمكن للمستخدمين الاختيار منها."
+
+#: includes/class-segurium.php:1985
+msgid "Enforced Roles"
+msgstr "الأدوار المفروضة"
+
+#: includes/class-segurium.php:1986
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "سيُطلب من المستخدمين في هذه الأدوار إعداد المصادقة الثنائية."
+
+#: includes/class-segurium.php:1990
+msgid "Grace Period (days)"
+msgstr "فترة السماح (بالأيام)"
+
+#: includes/class-segurium.php:1991
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"الأيام قبل أن يحجب الفرض تسجيل الدخول للمستخدمين الذين لم يُعِدّوا المصادقة "
+"الثنائية. اضبطها على 0 للفرض فورًا."
+
+#: includes/class-segurium.php:1995
+msgid "Trusted Device Duration (days)"
+msgstr "مدة الجهاز الموثوق (بالأيام)"
+
+#: includes/class-segurium.php:1996
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr "كم يومًا يبقى الجهاز موثوقًا بعد أن يحدد المستخدم خيار الثقة."
+
+#: includes/class-segurium.php:2001 includes/class-segurium.php:2704
+msgid "Save Settings"
+msgstr "حفظ الإعدادات"
+
+#: includes/class-segurium.php:2006
+msgid "User Statistics"
+msgstr "إحصاءات المستخدمين"
+
+#: includes/class-segurium.php:2010
+msgid "Method"
+msgstr "الطريقة"
+
+#: includes/class-segurium.php:2011
+msgid "Users"
+msgstr "المستخدمون"
+
+#: includes/class-segurium.php:2016
+msgid "Reset User 2FA"
+msgstr "إعادة ضبط المصادقة الثنائية للمستخدم"
+
+#: includes/class-segurium.php:2017
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr ""
+"أدخل اسم مستخدم أو معرّف مستخدم لإعادة ضبط إعدادات المصادقة الثنائية الخاصة "
+"به."
+
+#: includes/class-segurium.php:2018
+msgid "Username or ID"
+msgstr "اسم المستخدم أو المعرّف"
+
+#: includes/class-segurium.php:2019
+msgid "Reset 2FA"
+msgstr "إعادة ضبط المصادقة الثنائية"
+
+#: includes/class-segurium.php:2026
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "أرسل تذكرة دعم أدناه. سيرد فريقنا عبر البريد الإلكتروني."
+
+#: includes/class-segurium.php:2029
+msgid "Your name"
+msgstr "اسمك"
+
+#: includes/class-segurium.php:2033
+msgid "Reply-to email"
+msgstr "بريد إلكتروني للرد"
+
+#: includes/class-segurium.php:2035
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr ""
+"سنرد على هذا العنوان. غيّره إذا كنت تريد أن تذهب الاستجابة إلى مكان آخر."
+
+#: includes/class-segurium.php:2038
+msgid "Website"
+msgstr "الموقع"
+
+#: includes/class-segurium.php:2040
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr "مُضمَّن تلقائيًا حتى يستطيع الدعم تحديد موقعك. غيّر ذلك في إعدادات → عام."
+
+#: includes/class-segurium.php:2043
+msgid "Type"
+msgstr "النوع"
+
+#: includes/class-segurium.php:2045 includes/class-segurium.php:6936
+msgid "Bug report"
+msgstr "تقرير خطأ"
+
+#: includes/class-segurium.php:2046 includes/class-segurium.php:6938
+msgid "Feature request"
+msgstr "طلب ميزة"
+
+#: includes/class-segurium.php:2047 includes/class-segurium.php:6940
+msgid "General question"
+msgstr "سؤال عام"
+
+#: includes/class-segurium.php:2048
+msgid "Report missed malware"
+msgstr "الإبلاغ عن برنامج ضار لم يُكتشف"
+
+#: includes/class-segurium.php:2049
+msgid "Other"
+msgstr "أخرى"
+
+#: includes/class-segurium.php:2053
+msgid "Suspicious file"
+msgstr "ملف مشبوه"
+
+#: includes/class-segurium.php:2055
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "أرفق الملف الذي تعتقد أنه برنامج ضار. الحد الأقصى 100 ميغابايت."
+
+#: includes/class-segurium.php:2058
+msgid "Message"
+msgstr "الرسالة"
+
+#: includes/class-segurium.php:2064
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"أرفق معلومات النظام (إصدار WP، إصدار PHP، إصدار الإضافة، الإضافات النشطة، "
+"تاريخ آخر فحص)"
+
+#: includes/class-segurium.php:2068
+msgid "Submit Ticket"
+msgstr "إرسال التذكرة"
+
+#: includes/class-segurium.php:2079
+msgid "Enable Security Headers"
+msgstr "تفعيل ترويسات الأمان"
+
+#: includes/class-segurium.php:2081
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"يضيف ترويسات استجابة أمان HTTP إلى جميع الاستجابات. يحمي من اختطاف النقر "
+"وتخمين MIME وXSS وهجمات تخفيض البروتوكول."
+
+#: includes/class-segurium.php:2085
+msgid "Mode:"
+msgstr "الوضع:"
+
+#: includes/class-segurium.php:2089
+msgid "Basic"
+msgstr "أساسي"
+
+#: includes/class-segurium.php:2089
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type، X-Frame-Options، X-XSS-Protection"
+
+#: includes/class-segurium.php:2090
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "أساسي + Referrer-Policy، Permissions-Policy، HSTS"
+
+#: includes/class-segurium.php:2091
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr "موصى به + سياسات Cross-Origin، الجلب المسبق لـ DNS، Cache-Control"
+
+#: includes/class-segurium.php:2092
+msgid "configure each header individually"
+msgstr "تكوين كل ترويسة على حدة"
+
+#: includes/class-segurium.php:2103
+msgid "Header Values"
+msgstr "قيم الترويسات"
+
+#: includes/class-segurium.php:2107 includes/class-segurium.php:2121
+#: includes/class-segurium.php:2175 includes/class-segurium.php:2184
+#: includes/class-segurium.php:2194
+msgid "Same origin"
+msgstr "نفس الأصل"
+
+#: includes/class-segurium.php:2108
+msgid "Deny all"
+msgstr "رفض الكل"
+
+#: includes/class-segurium.php:2110
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "يمنع تضمين موقعك في iframes على نطاقات أخرى."
+
+#: includes/class-segurium.php:2117
+msgid "No referrer"
+msgstr "بدون مُحيل"
+
+#: includes/class-segurium.php:2118
+msgid "No referrer when downgrade"
+msgstr "بدون مُحيل عند التخفيض"
+
+#: includes/class-segurium.php:2119
+msgid "Origin only"
+msgstr "الأصل فقط"
+
+#: includes/class-segurium.php:2120
+msgid "Origin when cross-origin"
+msgstr "الأصل عند الانتقال بين الأصول"
+
+#: includes/class-segurium.php:2122
+msgid "Strict origin"
+msgstr "أصل صارم"
+
+#: includes/class-segurium.php:2123
+msgid "Strict origin when cross-origin"
+msgstr "أصل صارم عند الانتقال بين الأصول"
+
+#: includes/class-segurium.php:2124
+msgid "Unsafe URL"
+msgstr "URL غير آمن"
+
+#: includes/class-segurium.php:2135
+msgid "Disabled (recommended)"
+msgstr "مُعطّل (موصى به)"
+
+#: includes/class-segurium.php:2136
+msgid "Enabled"
+msgstr "مُفعّل"
+
+#: includes/class-segurium.php:2137
+msgid "Enabled with block mode"
+msgstr "مُفعّل مع وضع الحجب"
+
+#: includes/class-segurium.php:2140
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2144
+msgid "Enable HSTS"
+msgstr "تفعيل HSTS"
+
+#: includes/class-segurium.php:2146
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "يُجبر المتصفحات على استخدام HTTPS. لا يُرسَل إلا عندما يكون SSL مُفعّلاً."
+
+#: includes/class-segurium.php:2150
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (بالثواني)"
+
+#: includes/class-segurium.php:2156
+msgid "Include subdomains"
+msgstr "تضمين النطاقات الفرعية"
+
+#: includes/class-segurium.php:2162
+msgid "Preload"
+msgstr "تحميل مسبق"
+
+#: includes/class-segurium.php:2164
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"تحذير: التحميل المسبق صعب التراجع عنه. يتطلب max-age لا يقل عن سنة واحدة "
+"وتضمين النطاقات الفرعية."
+
+#: includes/class-segurium.php:2168
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"يبدو أن موقعك على نطاق فرعي. تفعيل includeSubDomains في HSTS سيؤثر على جميع "
+"النطاقات الفرعية للنطاق الأصلي، بما في ذلك تلك التي قد لا تتحكم بها."
+
+#: includes/class-segurium.php:2170
+msgid "Cross-Origin Policies"
+msgstr "سياسات Cross-Origin"
+
+#: includes/class-segurium.php:2172
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2174 includes/class-segurium.php:2183
+msgid "Not set"
+msgstr "غير مضبوط"
+
+#: includes/class-segurium.php:2176
+msgid "Same origin, allow popups"
+msgstr "نفس الأصل، السماح بالنوافذ المنبثقة"
+
+#: includes/class-segurium.php:2177 includes/class-segurium.php:2195
+msgid "Unsafe none"
+msgstr "غير آمن"
+
+#: includes/class-segurium.php:2181
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2185
+msgid "Same site"
+msgstr "نفس الموقع"
+
+#: includes/class-segurium.php:2186
+msgid "Cross origin"
+msgstr "بين أصول مختلفة"
+
+#: includes/class-segurium.php:2190
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2192
+msgid "Not set (recommended)"
+msgstr "غير مضبوط (موصى به)"
+
+#: includes/class-segurium.php:2193
+msgid "Require CORP"
+msgstr "اشتراط CORP"
+
+#: includes/class-segurium.php:2199
+msgid "Control which browser features your site may use."
+msgstr "تحكم في ميزات المتصفح التي قد يستخدمها موقعك."
+
+#: includes/class-segurium.php:2203
+msgid "Accelerometer"
+msgstr "مقياس التسارع"
+
+#: includes/class-segurium.php:2204
+msgid "Autoplay"
+msgstr "تشغيل تلقائي"
+
+#: includes/class-segurium.php:2205
+msgid "Camera"
+msgstr "الكاميرا"
+
+#: includes/class-segurium.php:2206
+msgid "Encrypted media"
+msgstr "وسائط مشفّرة"
+
+#: includes/class-segurium.php:2207
+msgid "Fullscreen"
+msgstr "ملء الشاشة"
+
+#: includes/class-segurium.php:2208
+msgid "Geolocation"
+msgstr "الموقع الجغرافي"
+
+#: includes/class-segurium.php:2209
+msgid "Gyroscope"
+msgstr "الجيروسكوب"
+
+#: includes/class-segurium.php:2210
+msgid "Magnetometer"
+msgstr "مقياس المغناطيسية"
+
+#: includes/class-segurium.php:2211
+msgid "Microphone"
+msgstr "الميكروفون"
+
+#: includes/class-segurium.php:2212
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2213
+msgid "Payment"
+msgstr "الدفع"
+
+#: includes/class-segurium.php:2214
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2224
+msgid "Deny"
+msgstr "رفض"
+
+#: includes/class-segurium.php:2225
+msgid "Self only"
+msgstr "النفس فقط"
+
+#: includes/class-segurium.php:2226
+msgid "Allow all"
+msgstr "السماح بالكل"
+
+#: includes/class-segurium.php:2237
+msgid "Send Content-Security-Policy header"
+msgstr "إرسال ترويسة Content-Security-Policy"
+
+#: includes/class-segurium.php:2239
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"تُقيّد CSP من أين يمكن تحميل البرامج النصية والأنماط والموارد الأخرى، مما يخفف "
+"من XSS والحقن. CSP خاصة بالموقع وقد تُعطّل القوالب أو منشئات الصفحات — ابدأ في "
+"وضع الإبلاغ فقط لإظهار المخالفات قبل الفرض."
+
+#: includes/class-segurium.php:2245
+msgid "Report-only (recommended for first deploy)"
+msgstr "إبلاغ فقط (موصى به لأول نشر)"
+
+#: includes/class-segurium.php:2246
+msgid "Enforce"
+msgstr "فرض"
+
+#: includes/class-segurium.php:2248
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-Security-"
+"Policy and blocks them."
+msgstr ""
+"وضع الإبلاغ فقط يُرسل Content-Security-Policy-Report-Only — يُسجّل المتصفح "
+"المخالفات لكنه لا يزال يحمّل الموارد المحجوبة. الفرض يُرسل Content-Security-"
+"Policy ويحجبها."
+
+#: includes/class-segurium.php:2251
+msgid "Policy directives"
+msgstr "توجيهات السياسة"
+
+#: includes/class-segurium.php:2254
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr ""
+"سطر واحد من التوجيهات مفصولة بفاصلة منقوطة. تسمح السياسة الابتدائية "
+"الافتراضية بـ Gutenberg ومعظم القوالب؛ شدّدها بمجرد أن تصبح تقاريرك نظيفة."
+
+#: includes/class-segurium.php:2255
+msgid "CSP reference (MDN)"
+msgstr "مرجع CSP (MDN)"
+
+#: includes/class-segurium.php:2259
+msgid "Report URI (optional)"
+msgstr "Report URI (اختياري)"
+
+#: includes/class-segurium.php:2261
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"عند ضبطها، ستقوم المتصفحات بـ POST لتقارير المخالفات إلى هذا URL. يُلحَق "
+"تلقائيًا كـ report-uri ما لم تحتوِ توجيهاتك على واحدة بالفعل."
+
+#: includes/class-segurium.php:2265
+msgid "Cookie Hardening"
+msgstr "تقوية الكوكيز"
+
+#: includes/class-segurium.php:2269
+msgid "Add SameSite attribute to auth cookies"
+msgstr "إضافة خاصية SameSite إلى كوكيز المصادقة"
+
+#: includes/class-segurium.php:2271
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"يضيف علم SameSite إلى كوكيز جلسات WordPress. يحمي من هجمات CSRF. يعاقب "
+"Mozilla Observatory على غياب SameSite."
+
+#: includes/class-segurium.php:2275
+msgid "SameSite value"
+msgstr "قيمة SameSite"
+
+#: includes/class-segurium.php:2277
+msgid "Lax (recommended)"
+msgstr "Lax (موصى به)"
+
+#: includes/class-segurium.php:2280
+msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"قد يُعطّل Strict تدفقات تسجيل الدخول OAuth/SSO التي تُعيد التوجيه إلى موقعك."
+
+#: includes/class-segurium.php:2291
+msgid "Headers Preview"
+msgstr "معاينة الترويسات"
+
+#: includes/class-segurium.php:2303
+msgid "Enable Information Shield"
+msgstr "تفعيل درع المعلومات"
+
+#: includes/class-segurium.php:2305
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"يُقلل الإفصاح عن معلومات WordPress بإزالة بصمات الإصدار ونقاط نهاية الاكتشاف "
+"والبيانات الوصفية غير الضرورية من ترويسات HTTP ومخرجات HTML."
+
+#: includes/class-segurium.php:2308
+msgid "Enable All Recommended"
+msgstr "تفعيل جميع الموصى به"
+
+#: includes/class-segurium.php:2312
+msgid "HTTP Header Disclosure"
+msgstr "الإفصاح في ترويسات HTTP"
+
+#: includes/class-segurium.php:2316
+msgid "Remove X-Powered-By header"
+msgstr "إزالة ترويسة X-Powered-By"
+
+#: includes/class-segurium.php:2318
+msgid "Removes the header that reveals your PHP version."
+msgstr "يُزيل الترويسة التي تكشف إصدار PHP الخاص بك."
+
+#: includes/class-segurium.php:2324
+msgid "Remove Server header"
+msgstr "إزالة ترويسة Server"
+
+#: includes/class-segurium.php:2326
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr "يُزيل الترويسة التي تُعرّف برنامج خادم الويب الخاص بك. أفضل جهد."
+
+#: includes/class-segurium.php:2332
+msgid "Remove X-Pingback header"
+msgstr "إزالة ترويسة X-Pingback"
+
+#: includes/class-segurium.php:2334
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr "يُخفي URL لنقطة نهاية pingback/XML-RPC من ترويسات الاستجابة."
+
+#: includes/class-segurium.php:2339
+msgid "Remove REST API Link: header"
+msgstr "إزالة ترويسة REST API Link:"
+
+#: includes/class-segurium.php:2341
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr "يُزيل ترويسة HTTP Link التي تعلن عن نقطة نهاية REST API."
+
+#: includes/class-segurium.php:2346
+msgid "Remove Shortlink Link: header"
+msgstr "إزالة ترويسة Shortlink Link:"
+
+#: includes/class-segurium.php:2348
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "يُزيل ترويسة HTTP rel=shortlink."
+
+#: includes/class-segurium.php:2351
+msgid "HTML Meta and Links"
+msgstr "وسوم HTML الوصفية والروابط"
+
+#: includes/class-segurium.php:2355
+msgid "Remove WordPress generator tag"
+msgstr "إزالة وسم مُنشئ WordPress"
+
+#: includes/class-segurium.php:2357
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"يُزيل وسم meta generator ومُنشئ RSS اللذين يكشفان إصدار WordPress الخاص بك."
+
+#: includes/class-segurium.php:2362
+msgid "Remove RSD link"
+msgstr "إزالة رابط RSD"
+
+#: includes/class-segurium.php:2364
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr "يُزيل رابط نقطة نهاية Really Simple Discovery من رأس HTML."
+
+#: includes/class-segurium.php:2369
+msgid "Remove WLW manifest link"
+msgstr "إزالة رابط بيان WLW"
+
+#: includes/class-segurium.php:2371
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
+"write posts."
+msgstr ""
+"يُزيل رابط بيان Windows Live Writer. مطلوب فقط إذا كنت تستخدم WLW لكتابة "
+"التدوينات."
+
+#: includes/class-segurium.php:2376
+msgid "Remove REST API discovery link"
+msgstr "إزالة رابط اكتشاف REST API"
+
+#: includes/class-segurium.php:2378
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"يُزيل وسم رابط الاكتشاف من رأس HTML. يبقى REST API نفسه يعمل على /wp-json/."
+
+#: includes/class-segurium.php:2383
+msgid "Remove oEmbed discovery links"
+msgstr "إزالة روابط اكتشاف oEmbed"
+
+#: includes/class-segurium.php:2385
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr "يمنع المواقع الأخرى من عرض معاينات تضمين غنية عند الإشارة إلى محتواك."
+
+#: includes/class-segurium.php:2390
+msgid "Remove shortlink meta tag"
+msgstr "إزالة وسم shortlink الوصفي"
+
+#: includes/class-segurium.php:2392
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "يُزيل وسم رابط shortlink من رأس HTML."
+
+#: includes/class-segurium.php:2397
+msgid "Remove emoji scripts and styles"
+msgstr "إزالة برامج وأنماط الإيموجي"
+
+#: includes/class-segurium.php:2399
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr ""
+"يُزيل JavaScript و CSS الخاصة بـ polyfill إيموجي WordPress. تدعم المتصفحات "
+"الحديثة الإيموجي بشكل أصلي."
+
+#: includes/class-segurium.php:2404
+msgid "Remove RSS/Atom feed links"
+msgstr "إزالة روابط تغذية RSS/Atom"
+
+#: includes/class-segurium.php:2406
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr ""
+"قد يُعطّل قارئات RSS وقارئ WordPress.com. فعّله فقط إذا كان موقعك لا يستخدم "
+"تغذيات RSS."
+
+#: includes/class-segurium.php:2411
+msgid "Remove adjacent post links"
+msgstr "إزالة روابط التدوينات المجاورة"
+
+#: includes/class-segurium.php:2413
+msgid "Removes prev/next post rel links from HTML head."
+msgstr "يُزيل روابط prev/next للتدوينات من رأس HTML."
+
+#: includes/class-segurium.php:2416
+msgid "Asset Fingerprinting"
+msgstr "بصمة الأصول"
+
+#: includes/class-segurium.php:2420
+msgid "Remove version query strings"
+msgstr "إزالة سلاسل استعلام الإصدار"
+
+#: includes/class-segurium.php:2422
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"يُزيل ?ver= من URLs الخاصة بـ CSS و JavaScript. قد تصبح الأصول المخزنة مؤقتًا "
+"في المتصفح قديمة بعد تحديثات الإضافات أو القوالب."
+
+#: includes/class-segurium.php:2429
+msgid "Disable XML-RPC entirely"
+msgstr "تعطيل XML-RPC بالكامل"
+
+#: includes/class-segurium.php:2431
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr ""
+"تتطلب بعض الإضافات (Jetpack، تطبيق WordPress للجوال) XML-RPC. عطّله فقط إذا "
+"كنت لا تستخدمها."
+
+#: includes/class-segurium.php:2443
+msgid "Security Self-Check"
+msgstr "الفحص الذاتي للأمان"
+
+#: includes/class-segurium.php:2445
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"يُشغّل Segurium نفس فحوص ماسحات الأمان الخارجية الرائدة، بالإضافة إلى فحوص "
+"تقوية خاصة بـ WordPress، ويُقيّم موقعك من A+ إلى F. تُحفظ النتائج حتى التشغيل "
+"التالي."
+
+#: includes/class-segurium.php:2464
+msgid "Check results"
+msgstr "نتائج الفحص"
+
+#: includes/class-segurium.php:2466
+msgid "Independent verification"
+msgstr "تحقق مستقل"
+
+#: includes/class-segurium.php:2468
+msgid "Cross-check results with these public scanners:"
+msgstr "تحقق المتقاطع من النتائج مع هذه الماسحات العامة:"
+
+#: includes/class-segurium.php:2471
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:2472
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:2485
+msgid "Included"
+msgstr "مُضمَّن"
+
+#: includes/class-segurium.php:2488
+msgid "Hardening — included in every install"
+msgstr "التقوية — مُضمَّنة في كل تثبيت"
+
+#: includes/class-segurium.php:2491
+msgid ""
+"Two-factor authentication (TOTP, email fallback, backup codes, trusted "
+"devices)"
+msgstr ""
+"المصادقة الثنائية (TOTP، احتياطي البريد الإلكتروني، رموز النسخ الاحتياطي، "
+"الأجهزة الموثوقة)"
+
+#: includes/class-segurium.php:2496
+msgid ""
+"Brute-force protection (rate limits, lockouts, honeypot, optional hCaptcha)"
+msgstr ""
+"الحماية من هجمات التخمين (حدود المعدل، عمليات القفل، honeypot، hCaptcha "
+"اختياري)"
+
+#: includes/class-segurium.php:2501
+msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
+msgstr ""
+"الحجب الجغرافي (تسجيل الدخول + بوابة الإدارة مع شبكة أمان أكّد أو تراجع)"
+
+#: includes/class-segurium.php:2506
+msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
+msgstr "جدار الحماية (قواعد سماح/رفض IP، CIDR، مرشح الدول)"
+
+#: includes/class-segurium.php:2511
+msgid "Security headers and cookie hardening (presets, custom)"
+msgstr "ترويسات الأمان وتقوية الكوكيز (إعدادات مُسبقة، مخصص)"
+
+#: includes/class-segurium.php:2516
+msgid "Information Shield (version and endpoint hiding)"
+msgstr "درع المعلومات (إخفاء الإصدار ونقطة النهاية)"
+
+#: includes/class-segurium.php:2521
+msgid "Self-Check security grade (A+ to F, one-click Fix)"
+msgstr "تقييم أمان الفحص الذاتي (A+ إلى F، إصلاح بنقرة واحدة)"
+
+#: includes/class-segurium.php:2526
+msgid "Activity log (append-only, per-event-type retention)"
+msgstr "سجل النشاط (إضافة فقط، احتفاظ حسب نوع الحدث)"
+
+#: includes/class-segurium.php:2531
+msgid "Migration importer (Wordfence, AIOS, Sucuri, Solid Security)"
+msgstr "مستورد الترحيل (Wordfence، AIOS، Sucuri، Solid Security)"
+
+#: includes/class-segurium.php:2536
+msgid "Disaster recovery (encrypted reversible backups, extractable offline)"
+msgstr ""
+"التعافي من الكوارث (نسخ احتياطية مشفّرة قابلة للعكس، قابلة للاستخراج دون "
+"اتصال)"
+
+#: includes/class-segurium.php:2543
+msgid "Detection and remediation"
+msgstr "الكشف والمعالجة"
+
+#: includes/class-segurium.php:2546
+msgid "Real-time detection (malware + integrity)"
+msgstr "كشف في الوقت الفعلي (برمجيات خبيثة + سلامة)"
+
+#: includes/class-segurium.php:2547 includes/class-segurium.php:2548
+msgid "Full"
+msgstr "كامل"
+
+#: includes/class-segurium.php:2551
+msgid "Malware cleanup"
+msgstr "تنظيف البرمجيات الخبيثة"
+
+#: includes/class-segurium.php:2552
+msgid "3 files / 30 days"
+msgstr "3 ملفات / 30 يومًا"
+
+#: includes/class-segurium.php:2553 includes/class-segurium.php:2559
+#: includes/class-segurium.php:2564
+msgid "Unlimited"
+msgstr "غير محدود"
+
+#: includes/class-segurium.php:2557
+msgid "Integrity fix: clean files (modified, missing, or extra)"
+msgstr "إصلاح السلامة: تنظيف الملفات (المعدّلة، المفقودة، أو الإضافية)"
+
+#: includes/class-segurium.php:2558
+msgid "Unlimited — does not count against the cleanup quota"
+msgstr "غير محدود — لا يُحسب ضمن حصة التنظيف"
+
+#: includes/class-segurium.php:2562
+msgid "Integrity fix: infected files"
+msgstr "إصلاح السلامة: الملفات المصابة"
+
+#: includes/class-segurium.php:2563
+msgid "Counts against the 3 / 30 days cleanup quota"
+msgstr "يُحسب ضمن حصة التنظيف 3 / 30 يومًا"
+
+#: includes/class-segurium.php:2567
+msgid "Bulk “Fix All” (malware + integrity)"
+msgstr "“إصلاح الكل” المجمّع (برمجيات خبيثة + سلامة)"
+
+#: includes/class-segurium.php:2572
+msgid "Auto-fix (unattended remediation)"
+msgstr "إصلاح تلقائي (معالجة دون إشراف)"
+
+#: includes/class-segurium.php:2577
+msgid "Email alerts on findings (max 1 / site / 24h)"
+msgstr "تنبيهات بريد إلكتروني على النتائج (حد أقصى 1 / موقع / 24 ساعة)"
+
+#: includes/class-segurium.php:2583
+msgid "Community"
+msgstr "المجتمع"
+
+#: includes/class-segurium.php:2584
+msgid "Email (best-effort queue)"
+msgstr "بريد إلكتروني (طابور أفضل جهد)"
+
+#: includes/class-segurium.php:2597
+msgid "Service tiers"
+msgstr "مستويات الخدمة"
+
+#: includes/class-segurium.php:2599
+msgid ""
+"Every plugin feature ships on every install. The service tier governs the "
+"cloud cleanup quota Segurium will perform on your behalf — your current tier "
+"is highlighted."
+msgstr ""
+"تأتي كل ميزة من ميزات الإضافة في كل عملية تثبيت. يحدد مستوى الخدمة حصة "
+"التنظيف السحابي التي سيقوم Segurium بإجرائها نيابةً عنك — تم تمييز مستواك "
+"الحالي."
+
+#: includes/class-segurium.php:2604
+msgid "Capability"
+msgstr "القدرة"
+
+#: includes/class-segurium.php:2606 includes/class-segurium.php:2801
+msgid "Free"
+msgstr "مجاني"
+
+#: includes/class-segurium.php:2608 includes/class-segurium.php:2614
+msgid "Current plan"
+msgstr "الخطة الحالية"
+
+#: includes/class-segurium.php:2651
+msgid "Scan Settings"
+msgstr "إعدادات الفحص"
+
+#: includes/class-segurium.php:2654
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"استثنِ من الفحص الملفات المطابقة لأنماط البدل التالية (نمط واحد في كل سطر)"
+
+#: includes/class-segurium.php:2656
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
+"will exclude the vendor directory and everything inside it."
+msgstr ""
+"استخدم * كحرف بدل. على سبيل المثال، *.log سيستثني جميع ملفات السجل. vendor/* "
+"سيستثني دليل vendor وكل ما بداخله."
+
+#: includes/class-segurium.php:2664
+msgid ""
+"When enabled, file contents may be shared with the CTI service to enable "
+"advanced malware detection and CTI-powered cleanup. Only suspicious files "
+"are transmitted, and contents are not retained after analysis. Keep it "
+"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
+"will be transmitted."
+msgstr ""
+"عند التفعيل، قد تُشارَك محتويات الملفات مع خدمة CTI لتمكين الكشف المتقدم عن "
+"البرمجيات الخبيثة والتنظيف المدعوم بـ CTI. تُنقل الملفات المشبوهة فقط، ولا "
+"يتم الاحتفاظ بالمحتويات بعد التحليل. أبقِها مُعطّلة لوضع التشغيل المحلي — لن "
+"يُنقل سوى تجزئات SHA-256 ومسارات الملفات والبيانات الوصفية."
+
+#: includes/class-segurium.php:2669
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "محو النسخ الاحتياطية المشفّرة عند إزالة تثبيت الإضافة"
+
+#: includes/class-segurium.php:2671
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in wp-content/segurium-data after uninstall, so a reinstall can still "
+"restore them. Turn on only if you want a hard deletion on uninstall."
+msgstr ""
+"إيقاف (افتراضي): تُحفَظ النسخ الاحتياطية المشفّرة للمكوّنات المحذوفة والملفات "
+"المُعالَجة في wp-content/segurium-data بعد إزالة التثبيت، حتى تتمكن عملية "
+"إعادة التثبيت من استعادتها. فعّله فقط إذا أردت حذفًا قاطعًا عند إزالة التثبيت."
+
+#: includes/class-segurium.php:2677
+msgid "Email me about findings"
+msgstr "أرسل لي بريدًا إلكترونيًا حول النتائج"
+
+#: includes/class-segurium.php:2679
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"إرسال ملخص يومي لأحكام البرمجيات الخبيثة وعمليات التنظيف الناجحة، يُرسَل من "
+"support@segurium.com. بحد أقصى بريد واحد لكل موقع كل 24 ساعة."
+
+#: includes/class-segurium.php:2680
+msgid "Alert email address"
+msgstr "عنوان البريد الإلكتروني للتنبيهات"
+
+#: includes/class-segurium.php:2688
+msgid "Leave blank to use the WordPress site admin email."
+msgstr "اتركه فارغًا لاستخدام البريد الإلكتروني لمسؤول موقع WordPress."
+
+#: includes/class-segurium.php:2698
+msgid "Automatically clean detected malware"
+msgstr "تنظيف البرمجيات الخبيثة المكتشفة تلقائيًا"
+
+#: includes/class-segurium.php:2700
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"بعد كل فحص مجدول أو في الوقت الفعلي، يتم تنظيف الملفات التي لها حكم برنامج "
+"ضار أو حقن معروف دون الحاجة إلى نقرة. يتم تخطي الملفات التي تجاهلتها "
+"(بالمسار أو بالتجزئة)."
+
+#: includes/class-segurium.php:2710
+msgid "Scheduled Scan"
+msgstr "فحص مجدول"
+
+#: includes/class-segurium.php:2712
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"تشغيل فحص كامل للبرمجيات الخبيثة تلقائيًا على جدول متكرر. يقوم الفحص المجدول "
+"بنفس عمل الفحص اليدوي، لكنه لا يتطلب إبقاء متصفحك مفتوحًا. تُتخطى أي علامة "
+"مجدولة تُطلَق أثناء فحص يدوي قيد التنفيذ بالفعل، ولا تُوضَع في طابور."
+
+#: includes/class-segurium.php:2739
+msgid "Save Schedule"
+msgstr "حفظ الجدولة"
+
+#: includes/class-segurium.php:2747
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium "
+"settings are preserved; imported data is merged."
+msgstr ""
+"استيراد الإعدادات من إضافات أمان أخرى إلى Segurium. يتم الحفاظ على إعدادات "
+"Segurium الموجودة؛ يتم دمج البيانات المستوردة."
+
+#: includes/class-segurium.php:2798
+msgid "Version"
+msgstr "الإصدار"
+
+#: includes/class-segurium.php:2802
+msgid "CTI"
+msgstr "CTI"
+
+#: includes/class-segurium.php:2804
+msgid "Geo DB updated"
+msgstr "تم تحديث قاعدة بيانات الموقع الجغرافي"
+
+#: includes/class-segurium.php:2811
+msgid "Proxies DB updated"
+msgstr "تم تحديث قاعدة بيانات الوكلاء"
+
+#: includes/class-segurium.php:2819
+msgid "Your IP"
+msgstr "عنوان IP الخاص بك"
+
+#: includes/class-segurium.php:2893
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "تمت إزالة النمط * المنفرد لأنه سيستثني جميع الملفات."
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium.php:2910
+#, php-format
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"لم تتم إعادة كتابة أي مسارات مطلقة إلى مسارات نسبية لجذر تثبيت WordPress."
+msgstr[1] "تمت إعادة كتابة مسار مطلق واحد إلى مسار نسبي لجذر تثبيت WordPress."
+msgstr[2] ""
+"تمت إعادة كتابة مسارَين مطلقَين إلى مسارات نسبية لجذر تثبيت WordPress."
+msgstr[3] ""
+"تمت إعادة كتابة %d مسارات مطلقة إلى مسارات نسبية لجذر تثبيت WordPress."
+msgstr[4] ""
+"تمت إعادة كتابة %d مسارًا مطلقًا إلى مسارات نسبية لجذر تثبيت WordPress."
+msgstr[5] "تمت إعادة كتابة %d مسار مطلق إلى مسارات نسبية لجذر تثبيت WordPress."
+
+#: includes/class-segurium.php:2923
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "قائمة استثناء الفحص محدودة بـ 500 مُدخل."
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium.php:2930
+#, php-format
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "لم تتم إزالة أي مُدخلات أطول من 191 حرفًا."
+msgstr[1] "تمت إزالة مُدخل واحد أطول من 191 حرفًا."
+msgstr[2] "تمت إزالة مُدخلَين أطول من 191 حرفًا."
+msgstr[3] "تمت إزالة %d مُدخلات أطول من 191 حرفًا."
+msgstr[4] "تمت إزالة %d مُدخلًا أطول من 191 حرفًا."
+msgstr[5] "تمت إزالة %d مُدخل أطول من 191 حرفًا."
+
+#: includes/class-segurium.php:2979 includes/class-segurium.php:3012
+msgid "You do not have permission to manage scan settings."
+msgstr "ليس لديك صلاحية لإدارة إعدادات الفحص."
+
+#: includes/class-segurium.php:3083
+msgid "The scan could not be started due to a server error."
+msgstr "تعذّر بدء الفحص بسبب خطأ في الخادم."
+
+#: includes/class-segurium.php:3156
+msgid "Could not stop the running scan due to a server error."
+msgstr "تعذّر إيقاف الفحص الجاري بسبب خطأ في الخادم."
+
+#: includes/class-segurium.php:3240
+msgid "Check the PHP error log for details."
+msgstr "راجع سجل أخطاء PHP للتفاصيل."
+
+#: includes/class-segurium.php:3318 includes/class-segurium.php:3397
+#: includes/class-segurium.php:3483 includes/class-segurium.php:3519
+#: includes/class-segurium.php:3594 includes/class-segurium.php:3681
+#: includes/class-segurium.php:3717 includes/class-segurium.php:3788
+#: includes/class-segurium.php:3854 includes/class-segurium.php:3933
+#: includes/class-segurium.php:4026 includes/class-segurium.php:4299
+#: includes/class-segurium.php:4461 includes/class-segurium.php:4504
+#: includes/class-segurium.php:4533 includes/class-segurium.php:4563
+#: includes/class-segurium.php:4624 includes/class-segurium.php:4666
+#: includes/class-segurium.php:4710 includes/class-segurium.php:4754
+#: includes/class-segurium.php:4881 includes/class-segurium.php:4987
+#: includes/class-segurium.php:5306 includes/class-segurium.php:5365
+#: includes/class-segurium.php:5463 includes/class-segurium.php:6106
+#: includes/class-segurium.php:6324 includes/class-segurium.php:6401
+msgid "Unauthorized"
+msgstr "غير مُصرَّح"
+
+#: includes/class-segurium.php:3335
+msgid "No scan results available"
+msgstr "لا توجد نتائج فحص متاحة"
+
+#: includes/class-segurium.php:3408 includes/class-segurium.php:5316
+#: includes/class-segurium.php:5320 includes/class-segurium.php:5378
+#: includes/class-segurium.php:5469 includes/class-segurium.php:6123
+#: includes/class-segurium.php:6415
+msgid "Invalid parameters"
+msgstr "معاملات غير صالحة"
+
+#: includes/class-segurium.php:3413 includes/class-segurium.php:3723
+#: includes/class-segurium.php:4580 includes/class-segurium.php:4630
+#: includes/class-segurium.php:4635 includes/class-segurium.php:6135
+#: includes/class-segurium.php:6357 includes/class-segurium.php:6422
+msgid "Invalid path"
+msgstr "مسار غير صالح"
+
+#: includes/class-segurium.php:3417 includes/class-segurium.php:4639
+#: includes/class-segurium.php:6195 includes/class-segurium.php:6437
+msgid "File not found"
+msgstr "الملف غير موجود"
+
+#: includes/class-segurium.php:3459
+msgid "File cleaned"
+msgstr "تم تنظيف الملف"
+
+#: includes/class-segurium.php:3525 includes/class-segurium.php:3600
+#: includes/class-segurium.php:3687
+msgid "Missing backup ID"
+msgstr "معرّف النسخة الاحتياطية مفقود"
+
+#: includes/class-segurium.php:3536 includes/class-segurium.php:3611
+#: includes/class-segurium.php:3692
+msgid "Backup not found"
+msgstr "النسخة الاحتياطية غير موجودة"
+
+#: includes/class-segurium.php:3552 includes/class-segurium.php:3564
+#: includes/class-segurium.php:6489
+msgid "Failed to restore file"
+msgstr "فشل في استعادة الملف"
+
+#: includes/class-segurium.php:3556 includes/class-segurium.php:3621
+msgid "Invalid restore path"
+msgstr "مسار استعادة غير صالح"
+
+#: includes/class-segurium.php:3579 includes/class-segurium.php:6390
+msgid "File restored from backup"
+msgstr "تمت استعادة الملف من النسخة الاحتياطية"
+
+#: includes/class-segurium.php:3616
+msgid "Backup has no target path"
+msgstr "ليس للنسخة الاحتياطية مسار وجهة"
+
+#: includes/class-segurium.php:3639
+msgid "Failed to read target file"
+msgstr "فشل في قراءة الملف الوجهة"
+
+#: includes/class-segurium.php:3731
+msgid "File is not an active malware entry."
+msgstr "الملف ليس مُدخلًا نشطًا لبرنامج ضار."
+
+#: includes/class-segurium.php:3738
+msgid "File is outside the WordPress root."
+msgstr "الملف خارج جذر WordPress."
+
+#: includes/class-segurium.php:3741
+msgid "File not found or not readable."
+msgstr "الملف غير موجود أو غير قابل للقراءة."
+
+#: includes/class-segurium.php:3749
+msgid "File is too large to preview."
+msgstr "الملف كبير جدًا للمعاينة."
+
+#: includes/class-segurium.php:3759 includes/class-segurium.php:5395
+msgid "Failed to read file."
+msgstr "فشل في قراءة الملف."
+
+#: includes/class-segurium.php:4189
+msgid "No integrity scan is currently running."
+msgstr "لا يوجد فحص سلامة قيد التنفيذ حاليًا."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:4336
+#, php-format
+msgid "Unexpected error: %s"
+msgstr "خطأ غير متوقع: %s"
+
+#: includes/class-segurium.php:4356
+msgid "Unexpected error."
+msgstr "خطأ غير متوقع."
+
+#: includes/class-segurium.php:4376
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "تمت إزالة نقطة النهاية هذه. يُرجى إعادة تحميل الصفحة."
+
+#: includes/class-segurium.php:4514 includes/class-segurium.php:4543
+#: includes/class-segurium.php:4574 includes/class-segurium.php:4675
+#: includes/class-segurium.php:4719 includes/class-segurium.php:4891
+msgid "Missing parameters."
+msgstr "المعاملات مفقودة."
+
+#: includes/class-segurium.php:4601 includes/class-segurium.php:6365
+msgid "Failed to write restored file"
+msgstr "فشل في كتابة الملف المُستعاد"
+
+#: includes/class-segurium.php:4644
+msgid "File too large to view (>2 MB)"
+msgstr "الملف كبير جدًا للعرض (>2 ميغابايت)"
+
+#: includes/class-segurium.php:4763 includes/class-segurium.php:4767
+#: includes/class-segurium.php:4794 includes/class-segurium.php:4895
+#: includes/class-segurium.php:4899 includes/class-segurium.php:4912
+msgid "Invalid parameters."
+msgstr "معاملات غير صالحة."
+
+#: includes/class-segurium.php:4787
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr "لا يمكن حذف القالب النشط حاليًا. بدّل إلى قالب مختلف أولاً."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:4864
+#, php-format
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "تم حذف %1$s \"%2$s\". تم إنشاء نسخة احتياطية."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:4971
+#, php-format
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "تمت استعادة %1$s \"%2$s\" من النسخة الاحتياطية."
+
+#: includes/class-segurium.php:5030
+msgid "Cannot delete active theme. Switch first."
+msgstr "لا يمكن حذف القالب النشط. بدّل أولاً."
+
+#: includes/class-segurium.php:5037
+msgid "Delisted from WordPress.org"
+msgstr "تم رفعه من قائمة WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:5047
+#, php-format
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr "القالب \"%s\" مهجور لكنه نشط حاليًا. سيتم تخطيه."
+
+#: includes/class-segurium.php:5053
+msgid "Active abandoned theme — switch manually."
+msgstr "قالب مهجور نشط — بدّل يدويًا."
+
+#: includes/class-segurium.php:5079
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "ليس من WordPress.org — لا يمكن التحقق من السلامة."
+
+#: includes/class-segurium.php:5107
+msgid "Protected file (exclusion list)."
+msgstr "ملف محمي (قائمة الاستثناء)."
+
+#: includes/class-segurium.php:5386
+msgid "File not found on disk."
+msgstr "الملف غير موجود على القرص."
+
+#: includes/class-segurium.php:5390
+msgid "File is too large to submit."
+msgstr "الملف كبير جدًا للإرسال."
+
+#: includes/class-segurium.php:5398
+msgid "File contents changed since the scan."
+msgstr "تغيّرت محتويات الملف منذ الفحص."
+
+#: includes/class-segurium.php:5402 includes/class-segurium.php:7036
+msgid "Failed to compress file."
+msgstr "فشل في ضغط الملف."
+
+#: includes/class-segurium.php:5754 includes/class-segurium.php:5770
+#: includes/class-segurium.php:5806 includes/class-segurium.php:5827
+#: includes/class-segurium.php:5841 includes/class-segurium.php:5864
+#: includes/class-segurium.php:5888 includes/class-segurium.php:6015
+#: includes/class-segurium.php:6076 includes/class-segurium.php:6089
+#: includes/class-segurium.php:6558 includes/class-segurium.php:6602
+#: includes/class-segurium.php:6624 includes/class-segurium.php:6641
+#: includes/class-segurium.php:6663 includes/class-segurium.php:6681
+#: includes/class-segurium.php:6774 includes/class-segurium.php:6787
+#: includes/class-segurium.php:6812 includes/class-segurium.php:7088
+msgid "Unauthorized."
+msgstr "غير مُصرَّح."
+
+#: includes/class-segurium.php:5849 includes/class-segurium.php:5872
+msgid "Pending change not found or already expired."
+msgstr "التغيير المُعلَّق غير موجود أو منتهي الصلاحية بالفعل."
+
+#: includes/class-segurium.php:6181
+msgid "Failed to create directory"
+msgstr "فشل في إنشاء الدليل"
+
+#: includes/class-segurium.php:6185 includes/class-segurium.php:6266
+msgid "Failed to write file"
+msgstr "فشل في كتابة الملف"
+
+#: includes/class-segurium.php:6201 includes/class-segurium.php:6236
+msgid "Failed to read file for backup"
+msgstr "فشل في قراءة الملف لإنشاء النسخة الاحتياطية"
+
+#: includes/class-segurium.php:6251
+msgid "Failed to create backup"
+msgstr "فشل في إنشاء النسخة الاحتياطية"
+
+#: includes/class-segurium.php:6276
+msgid "Failed to delete file"
+msgstr "فشل في حذف الملف"
+
+#: includes/class-segurium.php:6335
+msgid "Missing parameters"
+msgstr "المعاملات مفقودة"
+
+#: includes/class-segurium.php:6443
+msgid "Failed to read file"
+msgstr "فشل في قراءة الملف"
+
+#: includes/class-segurium.php:6475
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr "لم تعد النسخة الاحتياطية متوفرة — تم تدويرها بنسخ احتياطية أحدث."
+
+#: includes/class-segurium.php:6477
+msgid "Backup metadata is missing or unreadable."
+msgstr "البيانات الوصفية للنسخة الاحتياطية مفقودة أو غير قابلة للقراءة."
+
+#: includes/class-segurium.php:6479
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on wp-content/"
+"segurium-data."
+msgstr ""
+"ملف النسخة الاحتياطية غير قابل للقراءة. تحقق من صلاحيات نظام الملفات على wp-"
+"content/segurium-data."
+
+#: includes/class-segurium.php:6481
+msgid "Backup file is corrupt — decryption failed."
+msgstr "ملف النسخة الاحتياطية تالف — فشل فك التشفير."
+
+#: includes/class-segurium.php:6483
+msgid "Backup file is corrupt — decompression failed."
+msgstr "ملف النسخة الاحتياطية تالف — فشل فك الضغط."
+
+#: includes/class-segurium.php:6485
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"فشل فحص سلامة النسخة الاحتياطية — تجزئة المحتوى لا تطابق البيانات الوصفية."
+
+#: includes/class-segurium.php:6487
+msgid "Invalid backup reference."
+msgstr "مرجع نسخة احتياطية غير صالح."
+
+#: includes/class-segurium.php:6713
+msgid "Invalid IP address."
+msgstr "عنوان IP غير صالح."
+
+#: includes/class-segurium.php:6793 includes/class-segurium.php:6818
+msgid "Plugin not found or no data to migrate."
+msgstr "الإضافة غير موجودة أو لا توجد بيانات للترحيل."
+
+#: includes/class-segurium.php:6942
+msgid "Missed malware report"
+msgstr "بلاغ برنامج ضار لم يُكتشف"
+
+#: includes/class-segurium.php:6944
+msgid "Other request"
+msgstr "طلب آخر"
+
+#: includes/class-segurium.php:6973
+msgid "Permission denied."
+msgstr "تم رفض الصلاحية."
+
+#: includes/class-segurium.php:6985
+msgid "Message is required."
+msgstr "الرسالة مطلوبة."
+
+#: includes/class-segurium.php:6992
+msgid "A valid reply-to email is required."
+msgstr "بريد إلكتروني صالح للرد مطلوب."
+
+#: includes/class-segurium.php:7010
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "لقد قدّمت عددًا كبيرًا جدًا من التذاكر اليوم. يُرجى المحاولة غدًا."
+
+#: includes/class-segurium.php:7019
+msgid "Failed to upload the file. Try again."
+msgstr "فشل في رفع الملف. حاول مرة أخرى."
+
+#: includes/class-segurium.php:7023
+msgid "File is empty or too large (max 100 MB)."
+msgstr "الملف فارغ أو كبير جدًا (الحد الأقصى 100 ميغابايت)."
+
+#: includes/class-segurium.php:7027
+msgid "Invalid upload."
+msgstr "رفع غير صالح."
+
+#: includes/class-segurium.php:7032
+msgid "Failed to read uploaded file."
+msgstr "فشل في قراءة الملف المرفوع."
+
+#: includes/class-segurium.php:7163
+msgid "Please enter a username or user ID."
+msgstr "يُرجى إدخال اسم مستخدم أو معرّف مستخدم."
+
+#: includes/class-segurium.php:7168
+msgid "User not found."
+msgstr "المستخدم غير موجود."
+
+#. translators: %s: username
+#: includes/class-segurium.php:7176
+#, php-format
+msgid "2FA reset for user %s."
+msgstr "تمت إعادة ضبط المصادقة الثنائية للمستخدم %s."
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "قائمة IP البيضاء"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"ليس لقائمة IP البيضاء (التجاوز) في AIOS مكافئ مباشر في وضع جدار حماية قائمة "
+"الرفض في Segurium. كوّنها يدويًا إذا لزم الأمر."
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "الحماية من هجمات التخمين"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "حماية Segurium من هجمات التخمين (مخططة)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "حجب الدول"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+msgstr "حجب الدول في AIOS ميزة سحابية مدفوعة ولا يمكن استيرادها محليًا."
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Blocked IPs"
+msgstr "عناوين IP المحجوبة"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+msgid "No banned IPs configured in AIOS."
+msgstr "لا توجد عناوين IP محظورة مُكوَّنة في AIOS."
+
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Merge"
+msgstr "دمج"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+msgid "Scan Exclusions"
+msgstr "استثناءات الفحص"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+msgid "No file exclusions configured in AIOS."
+msgstr "لا توجد استثناءات ملفات مُكوَّنة في AIOS."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "المصادقة الثنائية لـ Segurium (مخططة)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"تُخزّن Solid Security حجوبات الدول في لوحة السحابة. كوّنها يدويًا في علامة تبويب "
+"الحجب الجغرافي."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+msgid "Banned IPs"
+msgstr "عناوين IP المحظورة"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+msgid "No banned IPs found in Solid Security."
+msgstr "لم يتم العثور على عناوين IP محظورة في Solid Security."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "إعدادات مُدارَة من السحابة"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"تُخزّن Sucuri Security قواعد WAF والحجب الجغرافي وإعدادات فحص البرمجيات "
+"الخبيثة في لوحة سحابة Sucuri. لا يمكن استيرادها محليًا."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "قواعد WAF"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "قواعد WAF لـ Segurium (مخططة)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"الحجب الجغرافي لـ Segurium (متوفر) — كوّنه يدويًا في علامة تبويب الحجب "
+"الجغرافي."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "لا توجد أنماط استثناء مُكوَّنة في Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+msgid "No country blocks configured in Wordfence."
+msgstr "لا توجد حجوبات دول مُكوَّنة في Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+msgid "No manual IP blocks found in Wordfence."
+msgstr "لم يتم العثور على حجوبات IP يدوية في Wordfence."
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:278
+#, php-format
+msgid "Import %d user(s) with TOTP"
+msgstr "استيراد %d مستخدم/مستخدمين مع TOTP"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:281
+msgid "Import into Segurium 2FA"
+msgstr "الاستيراد إلى المصادقة الثنائية لـ Segurium"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:291
+msgid "No Wordfence 2FA data found"
+msgstr "لم يتم العثور على بيانات المصادقة الثنائية لـ Wordfence"
+
+#: includes/segurium-ajax-envelope.php:116
+msgid "Your session has expired. Please reload the page and try again."
+msgstr "انتهت صلاحية جلستك. يُرجى إعادة تحميل الصفحة والمحاولة مرة أخرى."
+
+#: includes/storage/class-segurium-storage.php:953
+msgid "Invalid CTI response."
+msgstr "استجابة CTI غير صالحة."
+
+#: includes/storage/class-segurium-storage.php:965
+msgid "CTI response missing content."
+msgstr "محتوى استجابة CTI مفقود."
+
+#: includes/storage/class-segurium-storage.php:973
+msgid "CTI response content failed base64 decode."
+msgstr "فشل فك ترميز base64 لمحتوى استجابة CTI."
+
+#: includes/storage/class-segurium-storage.php:980
+msgid "CTI response missing sha256."
+msgstr "sha256 مفقود من استجابة CTI."
+
+#: includes/storage/class-segurium-storage.php:987
+msgid "CTI response hash did not match decoded content."
+msgstr "تجزئة استجابة CTI لا تطابق المحتوى المفكوك."
+
+#: segurium.php:49 segurium.php:608
+msgid "Plugin Activation Error"
+msgstr "خطأ في تفعيل الإضافة"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:579
+#, php-format
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"يتطلب Segurium الإصدار %1$s من PHP أو أحدث. يُشغّل هذا الموقع PHP %2$s. يُرجى "
+"أن تطلب من مزود الاستضافة ترقية PHP، ثم حاول تفعيل Segurium مرة أخرى."
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:587
+#, php-format
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"يتطلب Segurium الإصدار %1$s من WordPress أو أحدث. يُشغّل هذا الموقع WordPress "
+"%2$s. يُرجى تحديث WordPress، ثم حاول تفعيل Segurium مرة أخرى."
+
+#: segurium.php:589
+msgid "unknown"
+msgstr "غير معروف"
+
+#: includes/class-segurium-cti-client.php:643
+msgid "Cleanup quota reached."
+msgstr "تم الوصول إلى حصة التنظيف."
+
+#: includes/class-segurium-iid.php:216
+msgid "Segurium detected this site was moved or cloned and is re-establishing its secure connection in the background. If you have a Pro license, please re-activate it on the Segurium account screen so Pro features are restored on the new identity."
+msgstr "اكتشف Segurium أنه تم نقل هذا الموقع أو استنساخه، ويقوم بإعادة تأسيس اتصاله الآمن في الخلفية. إذا كان لديك ترخيص Pro، فيُرجى إعادة تفعيله من شاشة حساب Segurium لاستعادة ميزات Pro على الهوية الجديدة."
+
+#: includes/class-segurium-iid.php:258
+msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
+msgstr "تعذّر على Segurium تفعيل ترخيص Pro على هذا الموقع لأنه مرتبط حاليًا بتثبيت آخر. يُرجى فتح بوابة حساب Segurium على التثبيت الأصلي وإلغاء تفعيل الترخيص هناك؛ سيتم تحرير الارتباط وستُعاد ميزات Pro للعمل هنا عند فحص الترخيص التالي."
+
+#: includes/storage/class-segurium-storage.php:727
+msgid "Invalid CTI cleanup response."
+msgstr "استجابة تنظيف CTI غير صالحة."
+
+#: includes/storage/class-segurium-storage.php:739
+msgid "Cleanup unavailable."
+msgstr "التنظيف غير متاح."
+
+#: includes/storage/class-segurium-storage.php:747
+msgid "CTI returned non-base64 cleanup content."
+msgstr "أعاد CTI محتوى تنظيف ليس بترميز base64."
+
+#: includes/storage/class-segurium-storage.php:760
+msgid "CTI cleanup response missing sha256_clean."
+msgstr "استجابة تنظيف CTI تفتقد sha256_clean."
+
+#: includes/storage/class-segurium-storage.php:764
+msgid "CTI cleanup hash mismatch."
+msgstr "عدم تطابق تجزئة تنظيف CTI."
+
+#. translators: %d: number of seconds since the scan worker last reported progress
+msgid "no progress for %ds — waiting for worker"
+msgstr "لا تقدُّم منذ %ds — في انتظار العامل"
+
+msgid "Cleanup: 3 files / 30 days"
+msgstr "التنظيف: 3 ملفات / 30 يومًا"
+
+msgid "Full malware detection — same findings as Pro"
+msgstr "كشف كامل للبرمجيات الخبيثة — نفس نتائج الإصدار الاحترافي"
+
+msgid "Auto-fix and Bulk Fix All"
+msgstr "الإصلاح التلقائي وإصلاح الكل المُجمَّع"
+
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr "التحصين: المصادقة الثنائية، حماية من التخمين، الحجب الجغرافي، جدار الحماية، رؤوس الأمان"
+
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "مراقبة سلامة الملفات (النواة / الإضافات / القوالب)"
+
+msgid "Community support"
+msgstr "دعم المجتمع"
+
+msgid "Unlimited cleanup"
+msgstr "تنظيف غير محدود"
+
+msgid "Everything in Free"
+msgstr "كل ما في الإصدار المجاني"
+
+msgid "Email support, priority queue"
+msgstr "دعم عبر البريد الإلكتروني، أولوية في قائمة الانتظار"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr "كل ميزة متاحة في كل تثبيت. يرفع الإصدار الاحترافي حد التنظيف الشهري."
+
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr "كل الميزات، على كل موقع. التنظيف محدود بـ 3 لكل 30 يومًا."
+
+msgid "forever"
+msgstr "إلى الأبد"
+
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr "تنظيف غير محدود. نفس ميزات الإصدار المجاني، دون حد شهري."
+
+msgid "/year per site"
+msgstr "/سنويًا لكل موقع"
+
+msgid "14-day money-back guarantee."
+msgstr "ضمان استرداد المال خلال 14 يومًا."
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
+msgstr "حزم لـ 5 و 25 موقعًا، بالإضافة إلى أكثر من 100 عرض سعر، على %1$ssegurium.com/pricing/%2$s."
+
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "كل 60 ثانية (إنقاذ فحص Segurium)"
+
+msgid "Up to date"
+msgstr "محدّث"
+
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "قديم — تجاوز التحديث الأخير النافذة اليومية"
+
+msgid "Never updated on this site yet"
+msgstr "لم يتم التحديث على هذا الموقع بعد"
+
+msgid "IID"
+msgstr "IID"
+
+msgid "Copy IID to clipboard"
+msgstr "نسخ IID إلى الحافظة"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:898
+msgid "OK"
+msgstr "موافق"
+
+#: includes/class-segurium.php:899
+msgid "Delete failed"
+msgstr "فشل الحذف"
+
+#: includes/class-segurium.php:900
+msgid "Restore failed"
+msgstr "فشلت الاستعادة"
+
+#: includes/class-segurium.php:901
+msgid "Fix failed"
+msgstr "فشل الإصلاح"
+
+#: includes/class-segurium.php:902
+msgid "Diff failed"
+msgstr "فشلت المقارنة"
+
+#: includes/class-segurium.php:903
+msgid "Diff decode error"
+msgstr "خطأ في فك ترميز المقارنة"
+
+#: includes/class-segurium.php:904
+msgid "View failed"
+msgstr "فشل العرض"
+
+#: includes/class-segurium.php:905
+msgid "Cannot restore — no backup recorded for this file. The backup may have been rotated out."
+msgstr "تعذّر الاستعادة — لا يوجد نسخ احتياطي مسجَّل لهذا الملف. ربما تم تدوير النسخة الاحتياطية."
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+#, php-format
+msgid "Missing parameter: %s"
+msgstr "معامل مفقود: %s"
+
+#: includes/class-segurium.php:2196
+msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
+msgstr "يُصدر هذا الوضع قيم إعدادات مسبقة ثابتة. بدّل إلى الوضع المخصص لتجاوز ترويسات فردية."
+
+#: includes/class-segurium.php:2235
+msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
+msgstr "يُعطّل صراحةً مرشّح XSS القديم في IE و Edge القديم، الذي كان يحتوي على ثغرات XSS عامة قابلة للاستغلال. تتجاهل المتصفحات الحديثة هذه الترويسة؛ والدفاع الفعلي ضد XSS هو CSP."
+
+#: includes/class-segurium.php:2236
+msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
+msgstr "يطلب من المتصفحات القديمة تعقيم الانعكاسات. يُولّد المرشّح إيجابيات خاطئة تكسر صفحات سليمة بصمت، وهناك طرق معروفة لتجاوز UXSS. غير موصى به."
+
+#: includes/class-segurium.php:2237
+msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
+msgstr "نفس المرشّح الموجود أعلاه، لكنه يحجب الصفحة بالكامل عند الاشتباه في وجود انعكاس. نفس الأخطاء، بالإضافة إلى قناة جانبية زمنية يمكن أن تسرّب بيانات عبر الأصول. غير موصى به."
+
+#: includes/class-segurium-async-scan-poller.php:125
+msgid "Segurium async scan poll (1 min)"
+msgstr "استطلاع فحص Segurium غير المتزامن (دقيقة واحدة)"
+
+#: includes/class-segurium.php:878
+msgid "files"
+msgstr "ملفات"
+
+#: includes/class-segurium.php:879
+msgid "failed"
+msgstr "فشل"
+
+#: includes/class-segurium.php:880
+msgid "skipped"
+msgstr "تم التخطي"
+
+#: includes/class-segurium.php:881
+msgid "scanned"
+msgstr "تم الفحص"
+
+#~ msgid "Segurium plugin for WordPress."
+#~ msgstr "إضافة Segurium لـ WordPress."
+
+#~ msgid ""
+#~ "Segurium scans your WordPress files and checks them against the Segurium "
+#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
+#~ "threats."
+#~ msgstr ""
+#~ "يقوم Segurium بفحص ملفات WordPress الخاصة بك ومقارنتها بخدمة Segurium "
+#~ "Cloud Threat Intelligence (CTI) للكشف عن البرامج الضارة والتهديدات "
+#~ "الأمنية."
+
+#~ msgid "What data is sent:"
+#~ msgstr "ما البيانات التي تُرسَل:"
+
+#~ msgid "SHA-256 hashes of files on your server"
+#~ msgstr "تجزئات SHA-256 للملفات الموجودة على الخادم الخاص بك"
+
+#~ msgid "File paths relative to your WordPress installation"
+#~ msgstr "مسارات الملفات النسبية لتثبيت WordPress الخاص بك"
+
+#~ msgid "File sizes"
+#~ msgstr "أحجام الملفات"
+
+#~ msgid "Segurium CTI service at cti.segurium.com"
+#~ msgstr "خدمة Segurium CTI على cti.segurium.com"
+
+#~ msgid "Why:"
+#~ msgstr "لماذا:"
+
+#~ msgid "To identify malicious, infected, or suspicious files on your site."
+#~ msgstr "لتحديد الملفات الضارة أو المصابة أو المشبوهة على موقعك."
+
+#~ msgid "I understand, enable scanning"
+#~ msgstr "أفهم، فعّل الفحص"
+
+#~ msgid "Segurium requires PHP %s or higher."
+#~ msgstr "يتطلب Segurium الإصدار %s من PHP أو أحدث."
+
+#~ msgid "Segurium requires WordPress %s or higher."
+#~ msgstr "يتطلب Segurium الإصدار %s من WordPress أو أحدث."
+
+#~ msgid ""
+#~ "Segurium runs without sharing any account information. Upgrade to Pro to "
+#~ "unlock unlimited cleanup, automatic fixes, and email support."
+#~ msgstr ""
+#~ "يعمل Segurium دون مشاركة أي معلومات عن الحساب. قم بالترقية إلى الإصدار "
+#~ "الاحترافي للحصول على تنظيف غير محدود وإصلاحات تلقائية ودعم عبر البريد "
+#~ "الإلكتروني."
+
+#~ msgid "Automatic cleanup is a Pro feature."
+#~ msgstr "التنظيف التلقائي ميزة من ميزات الإصدار الاحترافي."
+
+#~ msgid "This is a Pro feature. Upgrade to enable bulk fixes."
+#~ msgstr "هذه ميزة احترافية. قم بالترقية لتفعيل الإصلاحات المجمّعة."
+
+#~ msgid "Free cleanups exhausted"
+#~ msgstr "تم استنفاد عمليات التنظيف المجانية"
+
+#~ msgid ""
+#~ "You’ve used your %1$d free cleanups in the last %2$d days. Upgrade to Pro "
+#~ "for unlimited cleanups + auto-fix."
+#~ msgstr ""
+#~ "لقد استخدمت %1$d عمليات تنظيف مجانية خلال آخر %2$d يومًا. قم بالترقية إلى "
+#~ "الإصدار الاحترافي للحصول على تنظيف غير محدود + إصلاح تلقائي."
+
+#~ msgid "Free vs Pro"
+#~ msgstr "المجاني مقابل الاحترافي"
+
+#~ msgid "Compare what each tier includes. Your current plan is highlighted."
+#~ msgstr "قارن ما تتضمنه كل فئة. خطتك الحالية مُميَّزة."
+
+#~ msgid ""
+#~ "Free-tier cleanup quota exceeded. Upgrade to Pro for unlimited cleanups."
+#~ msgstr ""
+#~ "تم تجاوز حصة التنظيف للفئة المجانية. قم بالترقية إلى الإصدار الاحترافي "
+#~ "للحصول على تنظيف غير محدود."
+
+#~ msgid ""
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
+#~ "one click."
+#~ msgstr ""
+#~ "\"إصلاح الكل\" ميزة احترافية. قم بالترقية لتنظيف كل برنامج ضار مكتشف "
+#~ "بنقرة واحدة."
+
+#~ msgid ""
+#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgstr ""
+#~ "\"إصلاح الكل\" ميزة احترافية. قم بالترقية لتطبيق كل إصلاح بنقرة واحدة."
+
+#~ msgid ""
+#~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
+#~ msgstr ""
+#~ "تم تجاوز حصة المعالجة للفئة المجانية. قم بالترقية إلى الإصدار الاحترافي "
+#~ "للحصول على إصلاحات غير محدودة."
+
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"تلقّى Segurium استجابة فارغة من الخادم. على الأرجح تعطّل معالج PHP قبل إنتاج "
+"أي مخرجات — يُرجى مراجعة سجل أخطاء PHP بحثًا عن خطأ فادح أو OOM أو انتهاء "
+"مهلة."
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"علامات استجابة Segurium مفقودة من المحتوى. لم يعمل معالج Segurium AJAX، أو "
+"استبدل مكوّن إضافي آخر الاستجابة بأكملها. يُرجى التحقق من wp-content/mu-"
+"plugins والإضافات المفعّلة وسجل أخطاء PHP."
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
+"or timeout). Check the PHP error log."
+msgstr ""
+"انقطعت استجابة Segurium أثناء البث — وصلت علامة البداية ولكن لم تصل علامة "
+"النهاية. تعطّل معالج PHP أثناء الاستجابة (خطأ فادح أو OOM أو انتهاء مهلة). "
+"يُرجى مراجعة سجل أخطاء PHP."
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for "
+"a fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"تعذّر على Segurium فكّ ضغط استجابة الخادم. يُرجى مراجعة سجل أخطاء PHP بحثًا "
+"عن خطأ فادح أو OOM أو انتهاء مهلة في معالج Segurium."
+
+#: includes/class-segurium-2fa.php:1281
+msgid "Forbidden"
+msgstr "محظور"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"إيقاف (افتراضي): يتم الاحتفاظ بالنسخ الاحتياطية المشفّرة للمكوّنات المحذوفة "
+"والملفات المعالَجة في دليل uploads/segurium-data بعد إلغاء التثبيت، حتى "
+"تتمكّن إعادة التثبيت من استعادتها. لا تقم بالتفعيل إلا إذا كنت ترغب في حذف "
+"نهائي عند إلغاء التثبيت."
+
+#: includes/class-segurium.php:6868
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"لا يمكن قراءة ملف النسخة الاحتياطية. يُرجى التحقق من أذونات نظام الملفات "
+"على uploads/segurium-data."
+
+#: includes/class-segurium.php:351
+msgid "Unknown or unsupported action."
+msgstr "إجراء غير معروف أو غير مدعوم."
+
+#: includes/class-segurium.php:386
+msgid "This action is temporarily unavailable."
+msgstr "هذا الإجراء غير متاح مؤقتًا."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "امتداد PHP Phar مطلوب لإجراء نسخ احتياطي للمكونات."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "فشل النسخ الاحتياطي: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "لم يتم إنشاء أرشيف النسخ الاحتياطي."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "فشلت الاستعادة: %s"
+
+#. Description of the plugin
+msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
+msgstr "استعادة الملفات الأصلية، ومضاد الفيروسات، وفحص البرمجيات الخبيثة، والحماية من هجمات القوة الغاشمة، وجدار الحماية، والمصادقة الثنائية (2FA)، والحظر الجغرافي، والمزيد — مجانًا."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "CTI %s: request missing signature headers."
+msgstr "CTI %s: الطلب يفتقر إلى ترويسات التوقيع."
+
+msgid "Scan trigger requires authentication."
+msgstr "يتطلّب مُشغِّل الفحص المصادقة."
+
+msgid "Scan trigger secret did not match."
+msgstr "لم يتطابق سر مُشغِّل الفحص."

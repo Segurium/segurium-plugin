@@ -1,0 +1,2435 @@
+/* ── Consent panel (shown before main UI) ──────────────── */
+
+.segurium-consent-panel {
+	max-width: 600px;
+	margin-top: 20px;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid var(--segurium-accent, #2271b1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.segurium-consent-panel ul {
+	list-style: disc;
+	margin-left: 20px;
+}
+
+/* ── Banner ────────────────────────────────────────────── */
+
+.segurium-banner {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 20px;
+	background: linear-gradient(135deg, var(--segurium-chrome-from, #1d2327) 0%, var(--segurium-chrome-to, #2c3338) 100%);
+	color: var(--segurium-chrome-text, #fff);
+	border-radius: 4px;
+	margin-bottom: 0;
+}
+
+.segurium-banner-logo {
+	display: block;
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+.segurium-banner-title {
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.segurium-banner-tagline {
+	font-size: 13px;
+	opacity: 0.7;
+	margin-left: 4px;
+}
+
+/* ── Layout: main + sidebar ────────────────────────────── */
+
+.segurium-wrap {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - 32px - 20px);
+}
+
+.segurium-layout {
+	display: flex;
+	gap: 0;
+	align-items: stretch;
+	flex: 1;
+}
+
+.segurium-main {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.segurium-sidebar {
+	width: 160px;
+	flex-shrink: 0;
+	background: #f6f7f7;
+	border-left: 1px solid #c3c4c7;
+	border-right: 1px solid #c3c4c7;
+	border-bottom: 1px solid #c3c4c7;
+	border-radius: 0 0 4px 0;
+	padding: 16px;
+}
+
+/* ── Feature navigation (tabs) ─────────────────────────── */
+
+.segurium-nav {
+	display: flex;
+	gap: 0;
+	border-bottom: 1px solid #c3c4c7;
+	background: #fff;
+	border-left: 1px solid #c3c4c7;
+	border-right: 1px solid #c3c4c7;
+}
+
+.segurium-nav-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 12px 20px;
+	text-decoration: none;
+	color: #50575e;
+	font-size: 12px;
+	border-bottom: 3px solid transparent;
+	transition: color 0.15s, border-color 0.15s;
+}
+
+.segurium-nav-item:hover {
+	color: var(--segurium-accent, #2271b1);
+}
+
+.segurium-nav-item:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.segurium-nav-item--active {
+	color: #1d2327;
+	border-bottom-color: var(--segurium-accent, #2271b1);
+	font-weight: 600;
+}
+
+.segurium-nav-item--disabled {
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+.segurium-nav-icon {
+	font-size: 20px;
+	line-height: 1;
+}
+
+.segurium-nav-label {
+	white-space: nowrap;
+}
+
+/* ── Feature content area ──────────────────────────────── */
+
+.segurium-feature {
+	flex: 1;
+	background: #fff;
+	border-left: 1px solid #c3c4c7;
+	border-right: 1px solid #c3c4c7;
+	border-bottom: 1px solid #c3c4c7;
+	border-radius: 0 0 0 4px;
+	padding: 20px;
+	overflow-x: auto;
+}
+
+.segurium-progress-bar-wrap {
+	position: relative;
+	height: 20px;
+	background: #e0e0e0;
+	border-radius: 3px;
+	margin: 15px 0 10px;
+	overflow: hidden;
+}
+
+.segurium-progress-bar {
+	height: 100%;
+	width: 0;
+	border-radius: 3px;
+	background: var(--segurium-accent, #2271b1);
+	transition: width 0.3s ease;
+}
+
+.segurium-progress-bar--active {
+	animation: segurium-progress 1.5s ease-in-out infinite;
+}
+
+/* SEGURIUM-470: percentage label centered over the bar.
+ * mix-blend-mode: difference + white text auto-inverts against
+ * whatever pixel sits behind it, so the label stays readable over
+ * both the unfilled gray track and the filled accent. JS leaves
+ * textContent empty during indeterminate (stripe) phase, which
+ * collapses the label to nothing — no extra display toggle. */
+.segurium-progress-bar-label {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	color: #fff;
+	mix-blend-mode: difference;
+	pointer-events: none;
+	user-select: none;
+}
+
+@keyframes segurium-progress {
+	0%   { width: 20%; margin-left: 0; }
+	50%  { width: 40%; margin-left: 30%; }
+	100% { width: 20%; margin-left: 80%; }
+}
+
+/* ── Skeleton loaders (Malware Scanner / Integrity tables) ─────────
+ * Pre-rendered placeholder rows that animate a shimmer until the
+ * first AJAX render replaces them. JS does `tbody.innerHTML = ''`
+ * before drawing real data, so no JS hook is needed to remove them.
+ */
+.segurium-skeleton-row td {
+	padding: 14px 10px;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.segurium-skeleton {
+	display: block;
+	height: 12px;
+	width: 100%;
+	border-radius: 3px;
+	background: linear-gradient(
+		90deg,
+		#e8e8ea 0%,
+		#f4f4f5 40%,
+		#e8e8ea 80%
+	);
+	background-size: 200% 100%;
+	animation: segurium-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.segurium-skeleton--short { width: 35%; }
+.segurium-skeleton--mid   { width: 60%; }
+.segurium-skeleton--wide  { width: 85%; }
+
+@keyframes segurium-skeleton-shimmer {
+	0%   { background-position: 100% 0; }
+	100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.segurium-skeleton { animation: none; background: #ececee; }
+}
+
+/* ── Status bar (sidebar) ──────────────────────────────── */
+
+.segurium-status-card h3 {
+	margin: 0 0 12px;
+	padding: 0 0 8px;
+	border-bottom: 1px solid #dcdcde;
+	font-size: 14px;
+	color: #1d2327;
+}
+
+.segurium-status-list {
+	margin: 0;
+}
+
+.segurium-status-list dt {
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #787c82;
+	margin: 8px 0 2px;
+}
+
+.segurium-status-list dt:first-child {
+	margin-top: 0;
+}
+
+.segurium-status-list dd {
+	margin: 0;
+	font-size: 14px;
+	color: #1d2327;
+	font-weight: 600;
+}
+
+.segurium-country-flag {
+	display: inline-block;
+	margin-left: 4px;
+	padding: 1px 5px;
+	background: #f0f0f1;
+	border-radius: 3px;
+	font-size: 11px;
+	font-weight: 600;
+	color: #50575e;
+	letter-spacing: .5px;
+}
+
+.segurium-status-icon {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+	vertical-align: text-bottom;
+	margin-right: 4px;
+}
+
+.segurium-status-fresh .segurium-status-icon {
+	color: #00a32a;
+}
+
+.segurium-status-stale .segurium-status-icon {
+	color: #dba617;
+}
+
+.segurium-iid-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.segurium-iid-display {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 13px;
+	background: #f0f0f1;
+	padding: 1px 5px;
+	border-radius: 3px;
+	color: #1d2327;
+}
+
+.segurium-iid-copy {
+	display: inline-flex;
+	align-items: center;
+	padding: 0;
+	color: #50575e;
+	cursor: pointer;
+}
+
+.segurium-iid-copy:hover,
+.segurium-iid-copy:focus {
+	color: var(--segurium-accent, #2271b1);
+}
+
+.segurium-iid-copy .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.segurium-iid-copy.is-copied {
+	color: #00a32a;
+}
+
+/* ── Settings ──────────────────────────────────────────── */
+
+.segurium-setting-row {
+	margin-bottom: 16px;
+}
+
+.segurium-setting-row label {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.segurium-setting-row .description {
+	color: #787c82;
+	font-size: 13px;
+	margin: 4px 0 8px;
+}
+
+.segurium-textarea-code {
+	width: 100%;
+	max-width: 500px;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 13px;
+}
+
+.segurium-textarea-code::placeholder,
+input.segurium-text::placeholder,
+#segurium-geo-redirect-url::placeholder {
+	color: #c8cdd2;
+	opacity: 1;
+}
+
+#segurium-settings-status {
+	margin-left: 8px;
+	font-weight: 600;
+	color: #00a32a;
+}
+
+#segurium-settings-status.segurium-status-warning {
+	color: #dba617;
+}
+
+/* ── Cleanup panel ─────────────────────────────────────── */
+
+.segurium-cleanup-header {
+	margin: 20px 0 10px;
+}
+
+.segurium-threat-table,
+.segurium-backup-table {
+	margin-top: 12px;
+}
+
+.segurium-threat-table code,
+.segurium-backup-table code {
+	font-size: 12px;
+}
+
+.segurium-scanned-files-panel {
+	margin-top: 16px;
+	padding: 12px 14px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.segurium-scanned-files-title {
+	margin: 0 0 8px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.segurium-scanned-files-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	max-height: 320px;
+	overflow-y: auto;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	color: #2c3338;
+}
+
+.segurium-scanned-files-list li {
+	padding: 3px 6px;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.segurium-scanned-files-list li:last-child {
+	border-bottom: none;
+}
+
+.segurium-path-cell {
+	overflow: hidden;
+}
+
+.segurium-path-truncated {
+	display: inline-flex;
+	white-space: nowrap;
+	overflow: hidden;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	background: #f0f0f1;
+	padding: 2px 5px;
+	border-radius: 3px;
+	max-width: 100%;
+}
+
+.segurium-path-start {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex-shrink: 1;
+	min-width: 0;
+}
+
+.segurium-path-end {
+	flex-shrink: 0;
+}
+
+.segurium-state {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.segurium-state--malware {
+	background: #fcf0f1;
+	color: #d63638;
+}
+
+.segurium-state--cleaned {
+	background: #edf8ee;
+	color: #00a32a;
+}
+
+.segurium-state--restored {
+	background: #f0f0f1;
+	color: #787c82;
+}
+
+.segurium-state--fixed {
+	background: #fef8ee;
+	color: #996800;
+}
+
+.segurium-state--ignored {
+	background: #e8eaed;
+	color: #616161;
+}
+
+.segurium-state--safe {
+	background: #edf8ee;
+	color: #00a32a;
+}
+
+.segurium-action-btn--error {
+	color: #d63638 !important;
+	border-color: #d63638 !important;
+}
+
+/* ── Dropdown menu ────────────────────────────────────── */
+
+.segurium-dropdown {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.segurium-dropdown-menu {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	z-index: 100;
+	min-width: 150px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+	padding: 4px 0;
+}
+
+.segurium-dropdown-menu--open {
+	display: block;
+}
+
+.segurium-dropdown-item {
+	display: block;
+	padding: 6px 12px;
+	color: #1d2327;
+	text-decoration: none;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+.segurium-dropdown-item:hover {
+	background: #f0f0f1;
+	color: var(--segurium-accent, #2271b1);
+}
+
+/* ── Modal (show malware) ─────────────────────────────── */
+
+.segurium-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.segurium-modal-overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.segurium-modal-content {
+	position: relative;
+	background: #fff;
+	border-radius: 6px;
+	width: 90%;
+	max-width: 800px;
+	max-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.segurium-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 16px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.segurium-modal-header h3 {
+	margin: 0;
+	font-size: 14px;
+}
+
+.segurium-modal-close {
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #787c82;
+	padding: 0 4px;
+	line-height: 1;
+}
+
+.segurium-modal-close:hover {
+	color: #d63638;
+}
+
+.segurium-modal-body {
+	flex: 1;
+	margin: 0;
+	padding: 16px;
+	border: none;
+	resize: none;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	line-height: 1.5;
+	background: #f6f7f7;
+	min-height: 300px;
+	white-space: pre;
+	overflow: auto;
+}
+
+/* ── Server state toolbar & pagination ─────────────────── */
+
+/* ── Malware Scanner scan area ─────────────────────────── */
+
+.segurium-ss-scan-area {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	flex-wrap: wrap;
+}
+
+.segurium-ss-scan-area .segurium-progress-bar-wrap {
+	flex: 1;
+	min-width: 150px;
+}
+
+.segurium-ss-scan-status {
+	font-size: 13px;
+	color: #50575e;
+}
+
+/* ── Malware Scanner tabs (SEGURIUM-151) ──────────────── */
+
+.segurium-ss-tabs {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 8px;
+	border-bottom: 1px solid #c3c4c7;
+	flex-wrap: wrap;
+}
+
+.segurium-ss-tab {
+	background: transparent;
+	border: 1px solid transparent;
+	border-bottom: none;
+	padding: 8px 14px;
+	font-size: 13px;
+	cursor: pointer;
+	color: #50575e;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: -1px;
+	border-radius: 4px 4px 0 0;
+}
+
+.segurium-ss-tab:hover {
+	color: #1d2327;
+	background: #f6f7f7;
+}
+
+.segurium-ss-tab.is-active {
+	background: #fff;
+	border-color: #c3c4c7;
+	color: #1d2327;
+	font-weight: 600;
+}
+
+.segurium-ss-tab-count {
+	display: inline-block;
+	min-width: 20px;
+	padding: 1px 7px;
+	font-size: 11px;
+	line-height: 16px;
+	text-align: center;
+	background: #f0f0f1;
+	color: #50575e;
+	border-radius: 10px;
+	font-weight: 400;
+}
+
+.segurium-ss-tab--malicious .segurium-ss-tab-count {
+	background: #fcf0f1;
+	color: #d63638;
+}
+
+.segurium-ss-tab--malicious .segurium-ss-tab-count[data-count="malicious"]:not(.is-nonzero) {
+	background: #edf8ee;
+	color: #00a32a;
+}
+
+.segurium-ss-threat-banner {
+	margin-left: auto;
+	font-size: 13px;
+	color: #d63638;
+	padding: 0 8px;
+}
+
+.segurium-ss-threat-banner:empty {
+	display: none;
+}
+
+.segurium-ss-threat-banner.is-clear {
+	color: #00a32a;
+}
+
+/* SEGURIUM-248: empty / no-scans-yet variant — neutral grey,
+ * visually distinct from a "scanned and clear" pass. */
+.segurium-ss-threat-banner.is-empty {
+	color: #50575e;
+}
+
+/* SEGURIUM-248: host-environment warning banner — populated on page
+ * load when max_execution_time is too short or WP-Cron is disabled.
+ * Hidden when seguriumScan.envWarnings is empty. Avoid the WP `.notice`
+ * class because core admin JS auto-moves any element carrying it to the
+ * top of the admin page (out of the scanner panel). */
+.segurium-env-warnings {
+	margin: 12px 0;
+	padding: 10px 12px;
+	background: #fff8e5;
+	border-left: 4px solid #dba617;
+	color: #1d2327;
+}
+
+.segurium-env-warnings p {
+	margin: 0 0 6px;
+}
+
+.segurium-env-warnings ul {
+	margin: 6px 0 0 18px;
+}
+
+/* The HTML `hidden` global attribute resolves to `display: none` in
+ * the user-agent stylesheet, but WordPress's `.button` rule overrides
+ * it with an explicit display value. Restore the intended hide
+ * semantics so the Stop scan / Stop integrity buttons stay invisible
+ * until a scan is actually in flight. */
+button.button[hidden],
+.segurium-env-warnings[hidden] {
+	display: none !important;
+}
+
+/* Rows the user has acted on in this session: stay visible but dimmed
+ * so the cursor never loses its target under a shifted neighbour. */
+.segurium-server-state-table tr.segurium-ss-row--pending {
+	opacity: 0.6;
+}
+
+.segurium-server-state-table tr.segurium-ss-row--acted {
+	opacity: 0.55;
+	background: #fafafa;
+}
+
+.segurium-server-state-table tr.segurium-ss-row--acted .segurium-state {
+	font-style: italic;
+}
+
+.segurium-ss-recent-divider td {
+	background: #f6f7f7 !important;
+	color: #646970;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 6px 10px;
+	border-top: 1px solid #dcdcde;
+	border-bottom: 1px solid #dcdcde;
+}
+
+/* ── Integrity tab ────────────────────────────────────── */
+
+.segurium-is-scan-area {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	flex-wrap: wrap;
+}
+
+.segurium-is-scan-area .segurium-progress-bar-wrap {
+	flex: 1;
+	min-width: 150px;
+}
+
+.segurium-is-detail-row > td {
+	padding: 8px 20px 12px 30px !important;
+	background: #f9f9f9;
+}
+
+.segurium-is-file-table {
+	margin: 0;
+	border: none;
+}
+
+.segurium-is-file-table th,
+.segurium-is-file-table td {
+	padding: 6px 10px;
+}
+
+.segurium-is-file-table .segurium-state--malware,
+.segurium-is-file-table .segurium-state--cleaned,
+.segurium-is-file-table .segurium-state--fixed,
+.segurium-is-file-table .segurium-state--ignored,
+.segurium-is-file-table .segurium-state--restored {
+	background: transparent;
+}
+
+.segurium-is-expand-icon {
+	display: inline-block;
+	width: 16px;
+	font-size: 10px;
+	color: #8c8f94;
+	transition: transform 0.15s;
+}
+
+.segurium-is-expanded .segurium-is-expand-icon {
+	transform: rotate(90deg);
+}
+
+.segurium-is-type-icon {
+	font-size: 15px;
+	cursor: default;
+}
+
+.segurium-is-status {
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.segurium-is-status--delisted { color: #d63638; }
+.segurium-is-status--abandoned { color: #d63638; }
+.segurium-is-status--not-in-repo { color: #8c8f94; }
+.segurium-is-status--issues { color: #d63638; }
+.segurium-is-status--clean { color: #00a32a; }
+.segurium-is-status--deleted { color: #8c8f94; }
+
+#segurium-confirm-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#segurium-confirm-modal .segurium-diff-title {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+#segurium-confirm-modal .segurium-diff-content {
+	padding: 16px 20px;
+}
+
+.segurium-badge {
+	display: inline-block;
+	font-size: 11px;
+	line-height: 1;
+	padding: 3px 6px;
+	border-radius: 3px;
+	margin-left: 6px;
+	font-weight: 600;
+	vertical-align: middle;
+}
+
+.segurium-badge--danger {
+	background: #facfd2;
+	color: #8a1e23;
+}
+
+.segurium-badge--warning {
+	background: #fcf0c3;
+	color: #7d5e00;
+}
+
+.segurium-badge--muted {
+	background: #e0e0e0;
+	color: #50575e;
+}
+
+/* SEGURIUM-207: Free-tier cleanup quota readout above the malware   */
+/* scanner. JS toggles [hidden] on/off and fills the inner copy.     */
+.segurium-quota-readout {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 12px;
+	padding: 10px 14px;
+	background: #fff8e1;
+	border-left: 4px solid #f6c945;
+	color: #5a4200;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.segurium-quota-readout[hidden] {
+	display: none;
+}
+
+.segurium-quota-readout .segurium-quota-readout-cta {
+	margin-left: auto;
+	font-weight: 600;
+	text-decoration: none;
+	color: #1d2327;
+	background: #f6c945;
+	padding: 4px 10px;
+	border-radius: 3px;
+}
+
+.segurium-quota-readout .segurium-quota-readout-cta:hover {
+	background: #e5b71e;
+}
+
+/* SEGURIUM-394: Plans tab — two-card plan picker mirroring
+ * segurium.com/pricing/, in the default WP-admin palette so it blends
+ * with the surrounding screen. */
+.segurium-tier-section {
+	margin: 0 0 24px;
+}
+
+.segurium-tier-wrap {
+	max-width: 920px;
+	margin: 0 auto;
+}
+
+.segurium-plans__head {
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.segurium-plans__head h2 {
+	margin: 0 0 6px;
+}
+
+.segurium-plans__head .description {
+	margin: 0 auto;
+	max-width: 44em;
+}
+
+.segurium-plans__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: 24px;
+	align-items: stretch;
+}
+
+.segurium-plan {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 28px 24px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.segurium-plan--featured {
+	border-color: var(--segurium-accent, #2271b1);
+	box-shadow: 0 0 0 1px var(--segurium-accent, #2271b1), 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.segurium-plan--current {
+	background: #f6fbff;
+}
+
+.segurium-plan__badge {
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.segurium-plan__badge--recommended {
+	background: var(--segurium-accent, #2271b1);
+	color: #fff;
+}
+
+.segurium-plan__badge--current {
+	background: #1d2327;
+	color: #fff;
+}
+
+.segurium-plan__header h3 {
+	margin: 0 0 4px;
+	font-size: 20px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.segurium-plan__tagline {
+	margin: 0;
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.segurium-plan__price {
+	margin: 0;
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+}
+
+.segurium-plan__amount {
+	font-size: 36px;
+	font-weight: 700;
+	color: #1d2327;
+	line-height: 1;
+}
+
+.segurium-plan__unit {
+	color: #50575e;
+	font-size: 13px;
+}
+
+.segurium-plan__bullets {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.segurium-plan__bullets li {
+	position: relative;
+	padding-left: 24px;
+	color: #1d2327;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.segurium-plan__bullets li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 4px;
+	width: 14px;
+	height: 14px;
+	background-color: var(--segurium-accent, #2271b1);
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M6.173 11.586L2.586 8 4 6.586l2.173 2.172L12 2.93 13.414 4.343z'/></svg>") no-repeat center / contain;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M6.173 11.586L2.586 8 4 6.586l2.173 2.172L12 2.93 13.414 4.343z'/></svg>") no-repeat center / contain;
+}
+
+.segurium-plan__cta {
+	margin-top: auto;
+	width: 100%;
+	text-align: center;
+}
+
+.segurium-plan__guarantee {
+	margin: 0;
+	text-align: center;
+	color: #50575e;
+	font-size: 12px;
+}
+
+.segurium-plans__note {
+	margin: 24px auto 0;
+	text-align: center;
+	color: #50575e;
+	font-size: 13px;
+	max-width: 36em;
+}
+
+@media (max-width: 600px) {
+	.segurium-plans__grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ── Server state toolbar & pagination ─────────────────── */
+
+.segurium-server-state-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-top: 12px;
+}
+
+.segurium-ss-recent-label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.segurium-ss-per-page-wrap {
+	margin-left: auto;
+	font-size: 13px;
+	color: #50575e;
+}
+
+.segurium-ss-per-page-wrap select {
+	margin-right: 4px;
+}
+
+.segurium-server-state-table {
+	margin-top: 0;
+}
+
+.segurium-pagination {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	justify-content: center;
+	font-size: 13px;
+	color: #50575e;
+}
+
+.segurium-pagination-info {
+	flex: 1;
+}
+
+.segurium-pagination-buttons {
+	display: flex;
+	gap: 6px;
+}
+
+/* ── Responsive: stack on narrow screens ───────────────── */
+
+@media (max-width: 782px) {
+	.segurium-layout {
+		flex-direction: column;
+	}
+
+	.segurium-sidebar {
+		width: 100%;
+		border-left: 1px solid #c3c4c7;
+		border-radius: 0 0 4px 4px;
+	}
+
+	.segurium-feature {
+		border-radius: 0;
+	}
+
+	.segurium-nav {
+		overflow-x: auto;
+	}
+
+	.segurium-scanner-layout {
+		flex-direction: column;
+	}
+
+	.segurium-scan-sidebar {
+		width: 100%;
+		max-width: none;
+		border-right: none;
+		border-bottom: 1px solid #dcdcde;
+		max-height: 200px;
+	}
+}
+
+/* ── Geo Blocking ─────────────────────────────────────────── */
+
+/* SEGURIUM-397: Feature panels whose inner `*-body` wrapper owns the
+   20px content padding must zero out the outer .segurium-feature padding,
+   otherwise content sits at 40px from the edge while panels without an
+   inner wrapper sit at 20px — the original tab-spacing drift. */
+#segurium-feature-geo,
+#segurium-feature-firewall,
+#segurium-feature-bruteforce,
+#segurium-feature-headers,
+#segurium-feature-info-shield,
+#segurium-feature-twofactor {
+	padding: 0;
+}
+
+.segurium-geo-pending-banner {
+	background: #fcf9e8;
+	border-bottom: 1px solid #dba617;
+	padding: 10px 20px;
+}
+
+.segurium-geo-pending-inner {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.segurium-geo-pending-msg {
+	flex: 1;
+	font-size: 13px;
+}
+
+.segurium-geo-pending-btns {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+/* SEGURIUM-397: shared spacing for two-column feature bodies. The four
+   wrappers below used to repeat the same flex/padding/gap declaration
+   (and 2FA drifted to gap:30px). One source of truth keeps them aligned. */
+.segurium-geo-body,
+.segurium-bf-body,
+.segurium-sh-body,
+.segurium-2fa-body {
+	display: flex;
+	gap: 24px;
+	padding: 20px;
+	align-items: flex-start;
+}
+
+.segurium-geo-config {
+	flex: 1;
+	min-width: 0;
+}
+
+.segurium-geo-aside {
+	width: 220px;
+	flex-shrink: 0;
+}
+
+/* Country picker */
+
+.segurium-geo-picker {
+	border: 1px solid #8c8f94;
+	border-radius: 3px;
+	background: #fff;
+	padding: 6px;
+	max-width: 500px;
+	cursor: text;
+}
+
+.segurium-geo-picker:focus-within {
+	border-color: var(--segurium-accent, #2271b1);
+	box-shadow: 0 0 0 1px var(--segurium-accent, #2271b1);
+	outline: none;
+}
+
+.segurium-geo-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-bottom: 4px;
+}
+
+.segurium-geo-tags:empty {
+	display: none;
+}
+
+.segurium-geo-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	background: var(--segurium-accent-chip-bg, #dce9f8);
+	color: var(--segurium-accent-strong, #0a4b78);
+	border-radius: 3px;
+	padding: 2px 6px;
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+.segurium-geo-tag-remove {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	line-height: 1;
+	color: var(--segurium-accent-strong, #0a4b78);
+	font-size: 15px;
+	margin-left: 2px;
+}
+
+.segurium-geo-tag-remove:hover {
+	color: #d63638;
+}
+
+.segurium-geo-input-wrap {
+	position: relative;
+}
+
+#segurium-geo-country-input {
+	border: none !important;
+	box-shadow: none !important;
+	outline: none !important;
+	padding: 2px 4px;
+	width: 100%;
+	background: transparent;
+}
+
+.segurium-geo-dropdown {
+	position: absolute;
+	top: 100%;
+	left: -7px;
+	right: -7px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-top: none;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	max-height: 210px;
+	overflow-y: auto;
+}
+
+.segurium-geo-dropdown-item {
+	padding: 7px 10px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.segurium-geo-dropdown-item:hover {
+	background: var(--segurium-accent-soft-bg, #f0f6fc);
+	color: var(--segurium-accent, #2271b1);
+}
+
+/* Aside cards */
+
+.segurium-geo-db-card,
+.segurium-geo-stats-card {
+	background: #f6f7f7;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 14px 16px;
+	margin-bottom: 16px;
+}
+
+.segurium-geo-db-card h3,
+.segurium-geo-stats-card h3 {
+	margin: 0 0 10px;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #50575e;
+	font-weight: 600;
+}
+
+.segurium-geo-db-card .description {
+	font-size: 11px;
+	color: #787c82;
+	margin-top: 10px;
+}
+
+.segurium-geo-save-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 16px;
+}
+
+.segurium-geo-save-status {
+	font-size: 13px;
+	color: #00a32a;
+}
+
+#segurium-geo-update-status {
+	font-size: 12px;
+	margin-left: 6px;
+	color: #00a32a;
+}
+
+.segurium-geo-stats-card .widefat th,
+.segurium-geo-stats-card .widefat td {
+	font-size: 12px;
+	padding: 5px 8px;
+}
+
+/* ── tag color variants ─────────────────────────────────────────────────── */
+
+.segurium-geo-tag--block {
+	background: #fde8e8;
+	color: #8b1a1a;
+}
+
+.segurium-geo-tag--block .segurium-geo-tag-remove {
+	color: #8b1a1a;
+}
+
+.segurium-geo-tag--allow {
+	background: #d8f5e0;
+	color: #1a5c30;
+}
+
+.segurium-geo-tag--allow .segurium-geo-tag-remove {
+	color: #1a5c30;
+}
+
+/* ── mode toggle ────────────────────────────────────────────────────────── */
+
+.segurium-geo-mode-toggle {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-top: 6px;
+}
+
+.segurium-geo-mode-option {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.segurium-geo-mode-option input[type="radio"] {
+	margin: 0;
+}
+
+/* ── region preset buttons ──────────────────────────────────────────────── */
+
+.segurium-geo-regions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 8px 0 6px;
+}
+
+.segurium-geo-region-btn {
+	padding: 3px 10px;
+	font-size: 12px;
+	border-radius: 3px;
+	border: 1px solid #c3c4c7;
+	background: #f6f7f7;
+	color: #3c434a;
+	cursor: pointer;
+	line-height: 1.6;
+}
+
+.segurium-geo-region-btn:hover {
+	border-color: var(--segurium-accent, #2271b1);
+	color: var(--segurium-accent, #2271b1);
+}
+
+.segurium-geo-region-btn--active {
+	background: var(--segurium-accent, #2271b1);
+	border-color: var(--segurium-accent, #2271b1);
+	color: #fff;
+}
+
+.segurium-geo-region-btn--partial {
+	border-color: var(--segurium-accent, #2271b1);
+	color: var(--segurium-accent, #2271b1);
+	background: var(--segurium-accent-soft-bg, #f0f6fc);
+}
+
+.segurium-geo-region-btn--risk {
+	border-color: #d63638;
+	color: #d63638;
+}
+
+.segurium-geo-region-btn--risk:hover,
+.segurium-geo-region-btn--risk.segurium-geo-region-btn--active {
+	background: #d63638;
+	color: #fff;
+	border-color: #d63638;
+}
+
+.segurium-geo-region-btn--risk.segurium-geo-region-btn--partial {
+	background: #fde8e8;
+}
+
+@media (max-width: 900px) {
+	.segurium-geo-body {
+		flex-direction: column;
+	}
+
+	.segurium-geo-aside {
+		width: 100%;
+	}
+
+	.segurium-sh-body {
+		flex-direction: column;
+	}
+
+	.segurium-sh-aside {
+		width: 100%;
+		position: static;
+	}
+}
+
+/* ── Brute-Force tab ─────────────────────────────────────────────────── */
+
+/* .segurium-bf-body shares its flex/padding/gap rule with .segurium-geo-body
+   (see SEGURIUM-397 consolidation above). */
+
+.segurium-bf-config {
+	flex: 1;
+	min-width: 0;
+}
+
+.segurium-bf-aside {
+	width: 360px;
+	flex-shrink: 0;
+}
+
+.segurium-bf-lockouts-card {
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	padding: 16px;
+}
+
+.segurium-bf-lockouts-card h3 {
+	margin: 0 0 12px 0;
+	font-size: 14px;
+}
+
+#segurium-bf-lockouts-table th,
+#segurium-bf-lockouts-table td {
+	padding: 6px 8px;
+	font-size: 12px;
+}
+
+.segurium-bf-section-divider {
+	border: none;
+	border-top: 1px solid #ccd0d4;
+	margin: 20px 0 0 0;
+}
+
+.segurium-bf-section-title {
+	margin: 16px 0 4px 0;
+	font-size: 14px;
+}
+
+.segurium-bf-mode {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 12px 14px;
+	margin: 0 0 16px 0;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.segurium-bf-mode-legend {
+	font-weight: 600;
+	color: #1d2327;
+	padding: 0 0 4px 0;
+}
+
+.segurium-bf-mode-option {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	cursor: pointer;
+}
+
+.segurium-bf-mode-option input[type="radio"] {
+	margin: 0;
+}
+
+/* Locked-mode visual cue: dim the labels and disable the inputs in the
+   #segurium-bf-locked-section wrapper. The hCaptcha section sits OUTSIDE the
+   wrapper so it stays editable in both modes. */
+#segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row label,
+#segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row .description {
+	opacity: 0.6;
+}
+#segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row input:disabled {
+	background: #f0f0f1;
+	cursor: not-allowed;
+}
+
+.segurium-bf-stats-section,
+.segurium-bf-log-section {
+	padding: 0 20px 20px;
+}
+
+.segurium-bf-stats-section h3,
+.segurium-bf-log-section h3 {
+	margin: 0 0 12px 0;
+	font-size: 14px;
+}
+
+.segurium-bf-stat-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 12px;
+	margin-bottom: 20px;
+}
+
+.segurium-bf-stat-card {
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	border-radius: 4px;
+	padding: 14px 16px;
+}
+
+.segurium-bf-stat-label {
+	font-size: 11px;
+	color: #50575e;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-bottom: 6px;
+}
+
+.segurium-bf-stat-value {
+	font-size: 22px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.segurium-bf-top-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.segurium-bf-top-card {
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	padding: 14px 16px;
+}
+
+.segurium-bf-top-card h4 {
+	margin: 0 0 8px 0;
+	font-size: 12px;
+	color: #50575e;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.segurium-bf-log-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
+}
+
+.segurium-bf-log-header h3 {
+	margin: 0;
+	flex: 1;
+}
+
+#segurium-bf-log-table th,
+#segurium-bf-log-table td {
+	padding: 6px 8px;
+	font-size: 12px;
+}
+
+.segurium-bf-log-pagination {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 10px;
+}
+
+.segurium-bf-log-pageinfo {
+	color: #50575e;
+	font-size: 12px;
+}
+
+@media (max-width: 900px) {
+	.segurium-bf-body {
+		flex-direction: column;
+	}
+
+	.segurium-bf-aside {
+		width: 100%;
+	}
+
+	.segurium-bf-top-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ── Diff modal ────────────────────────────────────────── */
+
+#segurium-diff-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.segurium-diff-overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.segurium-diff-box {
+	position: relative;
+	z-index: 1;
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+	width: 90vw;
+	max-width: 900px;
+	max-height: 85vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.segurium-diff-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px;
+	border-bottom: 1px solid #dcdcde;
+	flex-shrink: 0;
+	gap: 12px;
+}
+
+.segurium-diff-title {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 13px;
+	color: #1d2327;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+
+.segurium-diff-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 22px;
+	line-height: 1;
+	color: #787c82;
+	padding: 0 4px;
+	flex-shrink: 0;
+}
+
+.segurium-diff-close:hover {
+	color: #1d2327;
+}
+
+.segurium-diff-content {
+	overflow: auto;
+	flex: 1;
+	padding: 4px 0;
+}
+
+.segurium-diff-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.segurium-diff-table td {
+	padding: 1px 8px;
+	vertical-align: top;
+	white-space: pre;
+}
+
+.segurium-diff-prefix {
+	width: 16px;
+	text-align: center;
+	user-select: none;
+	color: #787c82;
+	padding-left: 12px !important;
+}
+
+.segurium-diff-del {
+	background: #fff0f1;
+}
+
+.segurium-diff-del .segurium-diff-prefix,
+.segurium-diff-del .segurium-diff-line {
+	color: #d63638;
+}
+
+.segurium-diff-add {
+	background: #f0fff4;
+}
+
+.segurium-diff-add .segurium-diff-prefix,
+.segurium-diff-add .segurium-diff-line {
+	color: #00a32a;
+}
+
+.segurium-diff-hunk {
+	background: #f0f6ff;
+}
+
+.segurium-diff-hunk-marker {
+	color: #0073aa;
+	font-style: italic;
+}
+
+.segurium-diff-info td {
+	color: #787c82;
+	font-style: italic;
+	padding: 8px 12px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	white-space: normal;
+}
+
+/* ── Migration ── */
+.segurium-migration-intro {
+	color: #50575e;
+	margin-bottom: 16px;
+}
+
+.segurium-mig-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	margin-bottom: 12px;
+	padding: 14px 16px;
+}
+
+.segurium-mig-card-header {
+	margin-bottom: 10px;
+}
+
+.segurium-mig-badge {
+	display: inline-block;
+	background: #0073aa;
+	color: #fff;
+	border-radius: 10px;
+	font-size: 11px;
+	padding: 1px 7px;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+.segurium-mig-card-actions {
+	margin-top: 10px;
+}
+
+.segurium-mig-table {
+	margin-bottom: 10px;
+}
+
+.segurium-mig-status {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.segurium-mig-status--import {
+	background: #edf8ee;
+	color: #00a32a;
+}
+
+.segurium-mig-status--skip {
+	background: #e8eaed;
+	color: #616161;
+}
+
+.segurium-mig-status--pending {
+	background: #fef8ee;
+	color: #996800;
+}
+
+.segurium-mig-note {
+	color: #787c82;
+}
+
+.segurium-mig-loading {
+	color: #787c82;
+}
+
+.segurium-mig-success {
+	color: #00a32a;
+}
+
+.segurium-mig-error {
+	color: #d63638;
+}
+
+/* Support form */
+.segurium-support-form .segurium-setting-row { margin-bottom: 16px; }
+.segurium-sup-result {
+	margin-top: 12px;
+	padding: 10px 14px;
+	border-radius: 4px;
+	font-size: 13px;
+}
+.segurium-sup-result--success { background: #edfaee; border: 1px solid #46b450; color: #1a5c1e; }
+.segurium-sup-result--error   { background: #fbeaea; border: 1px solid #dc3232; color: #7a1010; }
+
+/* Security Headers */
+/* .segurium-sh-body shares its flex/padding/gap rule with .segurium-geo-body
+   (see SEGURIUM-397 consolidation above). */
+.segurium-sh-config {
+	flex: 2;
+	min-width: 0;
+}
+.segurium-sh-aside {
+	flex: 1;
+	min-width: 0;
+	position: sticky;
+	top: 46px;
+}
+.segurium-sh-mode { border: 0; margin: 0; padding: 0; }
+.segurium-sh-mode-legend { font-weight: 600; margin-bottom: 6px; }
+.segurium-sh-mode-option { display: block; margin-bottom: 4px; }
+.segurium-sh-mode-option input[type="radio"] { margin-right: 6px; }
+.segurium-sh-warning {
+	background: #fcf0c3;
+	border-left: 4px solid #dba617;
+	padding: 8px 12px;
+	margin: 8px 0;
+	font-size: 13px;
+}
+.segurium-sh-preview {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 12px 16px;
+	margin: 12px 0;
+}
+.segurium-sh-preview h3 { margin: 0 0 6px; font-size: 13px; }
+.segurium-sh-preview pre {
+	margin: 0;
+	white-space: pre-wrap;
+	font-size: 12px;
+	line-height: 1.5;
+}
+.segurium-sh-pp-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px 20px;
+	margin: 8px 0 16px;
+}
+.segurium-sh-pp-item { display: flex; align-items: center; gap: 8px; }
+.segurium-sh-pp-item label { min-width: 120px; font-size: 12px; }
+.segurium-sh-pp-item select { font-size: 12px; }
+
+/* ── Two-Factor Authentication ── */
+/* .segurium-2fa-body shares its flex/padding/gap rule with .segurium-geo-body
+   (see SEGURIUM-397 consolidation above). */
+.segurium-2fa-config {
+	flex: 1;
+	min-width: 0;
+}
+.segurium-2fa-aside {
+	width: 320px;
+	flex-shrink: 0;
+	background: #f6f7f7;
+	padding: 16px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+.segurium-2fa-aside h3 { margin-top: 0; }
+#sgm-2fa-user-stats { margin-bottom: 12px; }
+
+/* Profile 2FA section */
+.segurium-2fa-profile-setup { margin: 10px 0; }
+.segurium-2fa-qr { display: inline-block; padding: 10px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; margin: 10px 0; }
+.segurium-2fa-secret { font-family: monospace; font-size: 14px; padding: 8px; background: #f0f0f1; border: 1px solid #dcdcde; border-radius: 3px; word-break: break-all; margin: 8px 0; }
+.segurium-2fa-backup-codes { font-family: monospace; font-size: 14px; line-height: 2; padding: 12px; background: #fcf9e8; border: 1px solid #dba617; border-radius: 4px; margin: 10px 0; }
+.segurium-2fa-backup-codes strong { display: block; margin-bottom: 6px; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; }
+
+/* ── Information Shield tab ─────────────────────────────────────────── */
+
+.segurium-nav-icon-dashicon {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	line-height: 1;
+	vertical-align: middle;
+}
+
+.segurium-is-body {
+	padding: 20px;
+}
+.segurium-is-config {
+	max-width: 880px;
+}
+.segurium-is-enable-all-wrap {
+	margin: 0 0 16px;
+}
+.segurium-is-enable-all-wrap #segurium-is-enable-all-status {
+	margin-left: 12px;
+	color: #00a32a;
+	font-style: italic;
+}
+/* SEGURIUM-397: Info Shield rows reuse `.segurium-setting-row` and plain
+   `<h3>` so titles, label layout, and per-row spacing match every other
+   feature tab. The bespoke `.segurium-is-toggle-row`, `.segurium-is-master`,
+   and `.segurium-is-section-title` classes were removed. */
+.segurium-setting-row .description.segurium-is-note {
+	color: #dba617;
+}
+.segurium-is-warning {
+	margin: 6px 0 0;
+	padding: 6px 10px;
+	background: #fcf9e8;
+	border-left: 3px solid #dba617;
+	color: #1d2327;
+	font-size: 12px;
+}
+#segurium-is-save-status {
+	margin-left: 12px;
+	color: #00a32a;
+}
+
+@media screen and (max-width: 782px) {
+	.segurium-is-body {
+		padding: 12px;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* Self-Check tab                                                      */
+/* ------------------------------------------------------------------ */
+
+.segurium-sc-grade-wrap {
+	display: flex;
+	gap: 24px;
+	align-items: center;
+	margin: 16px 0 24px;
+	flex-wrap: wrap;
+}
+
+.segurium-sc-grade {
+	width: 140px;
+	height: 140px;
+	min-width: 140px;
+	border-radius: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	background: #9ca3af;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.segurium-sc-grade[data-grade="A+"],
+.segurium-sc-grade[data-grade="A"] { background: #22c55e; }
+.segurium-sc-grade[data-grade="B"] { background: #84cc16; }
+.segurium-sc-grade[data-grade="C"] { background: #eab308; }
+.segurium-sc-grade[data-grade="D"] { background: #f97316; }
+.segurium-sc-grade[data-grade="F"] { background: #ef4444; }
+
+.segurium-sc-grade-letter {
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.02em;
+}
+
+.segurium-sc-grade-score {
+	font-size: 13px;
+	margin-top: 6px;
+	opacity: 0.95;
+}
+
+.segurium-sc-meta {
+	flex: 1;
+	min-width: 220px;
+}
+
+.segurium-sc-scanned-at,
+.segurium-sc-delta {
+	margin: 4px 0;
+	color: #4b5563;
+}
+
+.segurium-sc-ping-error {
+	color: #b91c1c;
+	background: #fef2f2;
+	border-left: 3px solid #ef4444;
+	padding: 8px 12px;
+	margin: 8px 0;
+}
+
+.segurium-sc-categories {
+	display: grid;
+	gap: 8px;
+	margin: 16px 0 24px;
+}
+
+.segurium-sc-cat-row {
+	display: grid;
+	grid-template-columns: 200px 1fr 180px;
+	align-items: center;
+	gap: 12px;
+}
+
+.segurium-sc-cat-name {
+	font-weight: 600;
+	color: #1f2937;
+}
+
+.segurium-sc-cat-bar {
+	display: flex;
+	height: 12px;
+	background: #e5e7eb;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.segurium-sc-cat-bar > span {
+	display: block;
+	height: 100%;
+}
+
+.segurium-sc-cat-bar .pass    { background: #22c55e; }
+.segurium-sc-cat-bar .partial { background: #facc15; }
+.segurium-sc-cat-bar .warn    { background: #eab308; }
+.segurium-sc-cat-bar .fail    { background: #ef4444; }
+
+.segurium-sc-cat-counts {
+	font-size: 12px;
+	color: #6b7280;
+	text-align: right;
+}
+
+.segurium-sc-checks {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin-bottom: 24px;
+}
+
+.segurium-sc-group {
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.segurium-sc-cat-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	padding: 10px 14px;
+	background: #f3f4f6;
+	font-size: 13px;
+	font-weight: 600;
+	color: #374151;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.segurium-sc-cat-header:hover {
+	background: #e9eaec;
+}
+
+.segurium-sc-cat-title {
+	flex: 1;
+}
+
+.segurium-sc-cat-badges {
+	display: flex;
+	gap: 4px;
+}
+
+.segurium-sc-badge {
+	display: inline-block;
+	padding: 1px 7px;
+	border-radius: 10px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 18px;
+}
+
+.segurium-sc-badge--fail {
+	background: #fee2e2;
+	color: #b91c1c;
+}
+
+.segurium-sc-badge--warn {
+	background: #fef3c7;
+	color: #92400e;
+}
+
+.segurium-sc-cat-arrow {
+	width: 14px;
+	height: 14px;
+	border-right: 2px solid #6b7280;
+	border-bottom: 2px solid #6b7280;
+	transform: rotate(-45deg);
+	transition: transform 0.2s ease;
+	flex-shrink: 0;
+	margin-right: 2px;
+}
+
+.segurium-sc-cat-header[aria-expanded="true"] .segurium-sc-cat-arrow {
+	transform: rotate(45deg);
+}
+
+.segurium-sc-group-items {
+	display: none;
+}
+
+.segurium-sc-cat-header[aria-expanded="true"] + .segurium-sc-group-items {
+	display: block;
+}
+
+.segurium-sc-check {
+	display: grid;
+	grid-template-columns: 28px 1fr auto;
+	gap: 12px;
+	align-items: center;
+	padding: 10px 14px;
+	border-top: 1px solid #e5e7eb;
+	background: #fff;
+}
+
+.segurium-sc-help {
+	grid-column: 1 / -1;
+	margin-top: 10px;
+	padding: 12px 14px;
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 4px;
+	font-size: 13px;
+	color: #374151;
+}
+
+.segurium-sc-help-block ul {
+	margin: 6px 0 0 1.1em;
+	padding: 0;
+	list-style: disc;
+}
+
+.segurium-sc-help-block li {
+	margin-bottom: 6px;
+	line-height: 1.5;
+}
+
+.segurium-sc-help-block code {
+	background: #eef2ff;
+	color: #3730a3;
+	padding: 1px 5px;
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+.segurium-sc-check:first-child {
+	border-top: none;
+}
+
+.segurium-sc-icon {
+	font-size: 16px;
+	line-height: 1;
+	width: 28px;
+	text-align: center;
+}
+
+.segurium-sc-check[data-status="pass"] .segurium-sc-icon { color: #16a34a; }
+.segurium-sc-check[data-status="warn"] .segurium-sc-icon { color: #d97706; }
+.segurium-sc-check[data-status="fail"] .segurium-sc-icon { color: #dc2626; }
+
+.segurium-sc-label {
+	font-weight: 600;
+	color: #111827;
+}
+
+.segurium-sc-detail {
+	font-size: 12px;
+	color: #4b5563;
+	margin-top: 2px;
+}
+
+.segurium-sc-external {
+	margin-left: 0;
+	padding-left: 1.2em;
+}
+
+.segurium-sc-external li {
+	margin-bottom: 6px;
+}
+
+.segurium-highlight-pulse {
+	animation: sgm-pulse 0.5s ease-in-out 3;
+}
+
+@keyframes sgm-pulse {
+	0%, 100% { background-color: transparent; }
+	50% { background-color: #fef3c7; }
+}
+
+@media screen and (max-width: 782px) {
+	.segurium-sc-cat-row {
+		grid-template-columns: 1fr;
+	}
+	.segurium-sc-cat-counts {
+		text-align: left;
+	}
+	.segurium-sc-check {
+		grid-template-columns: 28px 1fr;
+	}
+	.segurium-sc-action {
+		grid-column: 1 / -1;
+	}
+}
+
+/* SEGURIUM-157: FP report modal */
+.segurium-fp-form {
+	padding: 16px;
+	overflow-y: auto;
+}
+
+.segurium-fp-fields {
+	display: grid;
+	grid-template-columns: 140px 1fr;
+	gap: 4px 12px;
+	margin: 0 0 12px 0;
+}
+
+.segurium-fp-fields dt {
+	font-weight: 600;
+	color: #50575e;
+}
+
+.segurium-fp-fields dd {
+	margin: 0;
+	word-break: break-all;
+}
+
+.segurium-fp-form label {
+	display: block;
+	margin-top: 8px;
+	font-weight: 600;
+}
+
+.segurium-fp-form textarea {
+	width: 100%;
+	margin-top: 4px;
+	font-family: inherit;
+}
+
+.segurium-fp-checkbox-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 12px;
+	font-weight: normal;
+}
+
+.segurium-fp-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 14px;
+}
+
+.segurium-fp-status {
+	margin: 8px 0 0 0;
+	min-height: 1.2em;
+	color: #00734c;
+}
+
+.segurium-fp-status--error {
+	color: #b32d2e;
+}
+
+/* ── Account page (SEGURIUM-242) ─────────────────────────── */
+
+.segurium-account {
+	background: #fff;
+	border-left: 1px solid #c3c4c7;
+	border-right: 1px solid #c3c4c7;
+	border-bottom: 1px solid #c3c4c7;
+	border-radius: 0 0 4px 4px;
+	padding: 24px;
+}
+
+.segurium-account-card {
+	max-width: 720px;
+}
+
+.segurium-account-card--pro {
+	border-left: 4px solid var(--segurium-accent, #2271b1);
+	padding-left: 16px;
+}
+
+.segurium-account-heading {
+	margin: 0 0 16px;
+	font-size: 18px;
+	color: #1d2327;
+}
+
+.segurium-account-summary {
+	max-width: 560px;
+	color: #50575e;
+	font-size: 14px;
+}
+
+.segurium-account-list {
+	margin: 0 0 20px;
+}
+
+.segurium-account-list dt {
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #787c82;
+	margin: 8px 0 2px;
+}
+
+.segurium-account-list dt:first-child {
+	margin-top: 0;
+}
+
+.segurium-account-list dd {
+	margin: 0 0 6px;
+	font-size: 14px;
+	color: #1d2327;
+	font-weight: 600;
+}
+
+.segurium-account-pill {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 1px 8px;
+	background: #fff8c5;
+	color: #50575e;
+	border-radius: 10px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+.segurium-account-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+}

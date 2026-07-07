@@ -1,0 +1,667 @@
+<?php
+/**
+ * Chunked async backend for the Integrity tab's progress bar.
+ *
+ * The Integrity scan used to be a single synchronous AJAX call that walked
+ * every plugin/theme/core, gathered hashes, called CTI in one big payload,
+ * and returned. On a site with hundreds of plugins that hit
+ * max_execution_time and gave the user no progress feedback. This class
+ * splits the work into start → continue → continue → done, persisting
+ * progress in a per-scan tmp workspace so the JS can render a
+ * dynamic progress bar and resume across page reloads.
+ *
+ * In-flight state lives in a Segurium_Storage tmp workspace
+ * (tmp/integrity-<uuid>/state.json) tracked via
+ * runtime_kv['integrity_scan_active']. Completed results are written to
+ * the integrity_issues table.
+ *
+ * @package Segurium
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Manages chunked async integrity scan progress and state persistence.
+ */
+class Segurium_Integrity_Scan_State {
+
+	const CHUNK_SIZE = 10;
+
+	/**
+	 * WordPress installation root path.
+	 *
+	 * @var string
+	 */
+	private $base_path;
+
+	/**
+	 * CTI client instance for integrity checks.
+	 *
+	 * @var object
+	 */
+	private $cti_client;
+
+	/**
+	 * Component discovery instance.
+	 *
+	 * @var object
+	 */
+	private $discovery;
+
+	/**
+	 * Absolute path to the active tmp workspace, or null.
+	 *
+	 * @var string|null
+	 */
+	private $workspace = null;
+
+	/**
+	 * Per-request memoization of the saved status map. Loaded lazily on the
+	 * first chunk and reused across subsequent chunks within the same HTTP
+	 * request, even though most chunks today live in their own request.
+	 *
+	 * @var array|null
+	 */
+	private $saved_status_map = null;
+
+	/**
+	 * Current scan state array.
+	 *
+	 * @var array
+	 */
+	private $state = array(
+		'scan_id'    => '',
+		'started_at' => 0,
+		'queue'      => array(),
+		'cursor'     => 0,
+		'total'      => 0,
+		'processed'  => 0,
+		'currently'  => null,
+		'results'    => array(),
+		'trigger'    => 'unspecified',
+	);
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string      $base_path  WordPress install root.
+	 * @param string      $data_dir   Accepted for call-site compatibility; unused (storage
+	 *                                is managed by Segurium_Storage facade).
+	 * @param object|null $cti_client Anything with `integrity_check( array $components )`.
+	 *                                Defaults to a real Segurium_CTI_Client. Tests inject a stub.
+	 * @param object|null $discovery  Anything with `discover()` and `collect_hashes( $type, $slug )`.
+	 *                                Defaults to a real WordPress component scanner. Tests inject a stub.
+	 */
+	public function __construct( $base_path, $data_dir = '', $cti_client = null, $discovery = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		$this->base_path  = rtrim( $base_path, '/' );
+		$this->cti_client = $cti_client;
+		$this->discovery  = $discovery ? $discovery : new Segurium_Integrity_Component_Discovery( $this->base_path );
+	}
+
+	/**
+	 * Discover all components, persist the queue, and return the initial
+	 * progress shape. Does NOT collect file hashes — that happens lazily
+	 * inside process_chunk so start() stays fast.
+	 *
+	 * @param string $scan_id Optional scan UUID; generated when empty.
+	 * @param string $trigger Scan trigger (scheduled|manual|post_update|unspecified).
+	 *                        Forwarded to CTI as X-Segurium-Integrity-Trigger header
+	 *                        on every chunk's integrity_check call.
+	 * @return array Initial progress shape.
+	 */
+	public function start( $scan_id = '', $trigger = 'manual' ) {
+		$queue = $this->discovery->discover();
+
+		if ( empty( $scan_id ) ) {
+			$scan_id = wp_generate_uuid4();
+		}
+
+		$allowed_triggers = array( 'scheduled', 'manual', 'post_update', 'unspecified' );
+		if ( ! in_array( $trigger, $allowed_triggers, true ) ) {
+			$trigger = 'unspecified';
+		}
+
+		$this->state = array(
+			'scan_id'    => $scan_id,
+			'started_at' => time(),
+			'queue'      => $queue,
+			'cursor'     => 0,
+			'total'      => count( $queue ),
+			'processed'  => 0,
+			'currently'  => null,
+			'results'    => array(),
+			'trigger'    => $trigger,
+		);
+
+		$this->push_components_inventory();
+
+		$this->workspace = Segurium_Storage::tmp_make_workspace( 'integrity' );
+		if ( false === $this->workspace ) {
+			// Non-fatal: continue without workspace — state will not be resumable
+			// across requests, but the current request can still process in memory.
+			Segurium_Debug::log( '[segurium] integrity scan: failed to create tmp workspace' );
+			$this->workspace = null;
+		}
+
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => 'integrity_scan_active',
+				'kv_value'   => wp_json_encode(
+					array(
+						'scan_id'   => $scan_id,
+						'workspace' => $this->workspace,
+					)
+				),
+				'expires_at' => time() + 2 * HOUR_IN_SECONDS,
+				'updated_at' => time(),
+			),
+			array( 'kv_key' )
+		);
+
+		$this->save_state();
+
+		return $this->build_progress( false );
+	}
+
+	/**
+	 * Initialize the scan with a runner-supplied scan ID.
+	 *
+	 * The $scan_type parameter is accepted for duck-type compatibility with
+	 * the runner's engine contract but is unused — integrity scans have a
+	 * single type.
+	 *
+	 * @param string $scan_id   Runner-generated UUID.
+	 * @param string $scan_type Scan type label for contract compatibility.
+	 * @return void
+	 */
+	public function initialize( $scan_id, $scan_type = 'integrity' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		$this->start( $scan_id );
+	}
+
+	/**
+	 * Enumerate the site's full component inventory and push it to CTI. Runs
+	 * non-blocking; failures are swallowed so they can't stall the scan.
+	 *
+	 * @return void
+	 */
+	private function push_components_inventory() {
+		try {
+			$data_dir  = class_exists( 'Segurium_Storage_Fs' ) ? (string) Segurium_Storage_Fs::data_dir() : '';
+			$inventory = Segurium_Integrity_Component_Discovery::enumerate_inventory( $data_dir );
+			if ( ! empty( $inventory ) ) {
+				Segurium_Storage::cti_log_components_inventory( $inventory );
+			}
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium] push_components_inventory: ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Process up to CHUNK_SIZE components from the queue, calling CTI once
+	 * per chunk. On the chunk that drains the queue, persist results to
+	 * the integrity_issues table and clean up the workspace.
+	 */
+	public function process_chunk() {
+		if ( $this->state['cursor'] >= $this->state['total'] ) {
+			return $this->build_progress( true );
+		}
+
+		$slice = array_slice(
+			$this->state['queue'],
+			$this->state['cursor'],
+			self::CHUNK_SIZE
+		);
+		// `currently` reflects the first component of the in-flight batch;
+		// the JS shows it for the whole chunk's duration.
+		if ( ! empty( $slice ) ) {
+			$first_in_chunk           = $slice[0];
+			$this->state['currently'] = trim(
+				( $first_in_chunk['name'] ?? $first_in_chunk['slug'] ?? '' )
+				. ' '
+				. ( $first_in_chunk['version'] ?? '' )
+			);
+		}
+
+		$cti_payload    = array();
+		$component_meta = array();
+		foreach ( $slice as $component ) {
+			$hashes           = $this->discovery->collect_hashes( $component['type'], $component['slug'] );
+			$cti_payload[]    = array(
+				'component_type' => $component['type'],
+				'name'           => $component['slug'],
+				'version'        => $component['version'],
+				'path'           => $this->component_path( $component ),
+				'files'          => $hashes,
+			);
+			$component_meta[] = array(
+				'component' => $component,
+				'hashes'    => $hashes,
+			);
+		}
+
+		$trigger    = (string) ( $this->state['trigger'] ?? 'unspecified' );
+		$cti_result = null !== $this->cti_client
+			? $this->cti_client->integrity_check( $cti_payload, $trigger )
+			: Segurium_Storage::cti_integrity_check( $cti_payload, $trigger );
+		if ( is_wp_error( $cti_result ) || ! is_array( $cti_result ) ) {
+			// Whole-batch failure: log and don't advance the cursor — the JS
+			// retries via its connection-loss handler.
+			$message = is_wp_error( $cti_result ) ? $cti_result->get_error_message() : 'unexpected response';
+			Segurium_Debug::log( '[segurium] integrity_check chunk failed: ' . $message );
+			return $this->build_progress( false );
+		}
+
+		$cti_by_key = array();
+		foreach ( $cti_result as $row ) {
+			$key                = ( $row['component_type'] ?? '' ) . ':' . ( $row['name'] ?? '' );
+			$cti_by_key[ $key ] = $row;
+		}
+
+		$saved_status_map = $this->load_saved_status_map();
+
+		foreach ( $component_meta as $meta ) {
+			$comp = $meta['component'];
+			$key  = $comp['type'] . ':' . $comp['slug'];
+
+			$cti_row          = $cti_by_key[ $key ] ?? array();
+			$component_status = $cti_row['component_status'] ?? 'listed';
+
+			$ui_entry = array(
+				'type'             => $comp['type'],
+				'slug'             => $comp['slug'],
+				'name'             => $comp['name'],
+				'version'          => $comp['version'],
+				'files'            => count( $meta['hashes'] ),
+				'issues'           => array(),
+				'component_status' => $component_status,
+				'last_updated'     => $cti_row['last_updated'] ?? null,
+				'latest_version'   => $cti_row['latest_version'] ?? null,
+			);
+
+			// Unknown components (not from WP.org) — skip file-level issues.
+			$skip_file_issues = ( 'not_in_repository' === $component_status );
+
+			if ( ! $skip_file_issues && isset( $cti_row['files'] ) && is_array( $cti_row['files'] ) ) {
+				$hash_map = array();
+				foreach ( $meta['hashes'] as $h ) {
+					$hash_map[ $h['path'] ] = $h['sha256'];
+				}
+				foreach ( $cti_row['files'] as $f ) {
+					$verdict = $f['verdict'] ?? '';
+					if ( 'ok' === $verdict ) {
+						continue;
+					}
+					if ( ! isset( $f['sha256'] ) && isset( $hash_map[ $f['path'] ] ) ) {
+						$f['sha256'] = $hash_map[ $f['path'] ];
+					}
+					$ui_entry['issues'][] = $this->merge_saved_status( $key, $f, $saved_status_map );
+				}
+			}
+
+			$this->state['results'][] = $ui_entry;
+		}
+
+		$this->state['cursor']   += count( $slice );
+		$this->state['processed'] = $this->state['cursor'];
+
+		if ( $this->state['cursor'] >= $this->state['total'] ) {
+			$this->complete();
+			return $this->build_progress( true );
+		}
+
+		$this->save_state();
+		return $this->build_progress( false );
+	}
+
+	/**
+	 * Load scan state from the active tmp workspace via runtime_kv.
+	 *
+	 * @return bool True if state was loaded, false otherwise.
+	 */
+	public function load_state() {
+		$active_json = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s AND (expires_at IS NULL OR expires_at > %d)',
+			array( 'integrity_scan_active', time() )
+		);
+		if ( ! $active_json ) {
+			return false;
+		}
+		$active = json_decode( $active_json, true );
+		if ( ! is_array( $active ) || empty( $active['workspace'] ) ) {
+			return false;
+		}
+		$this->workspace = $active['workspace'];
+
+		$json = Segurium_Storage::tmp_read( $this->workspace, 'state.json' );
+		if ( ! $json ) {
+			return false;
+		}
+		$data = json_decode( $json, true );
+		if ( ! is_array( $data ) || empty( $data['scan_id'] ) ) {
+			return false;
+		}
+		$this->state = array_merge( $this->state, $data );
+		return true;
+	}
+
+	/**
+	 * Return the current scan state array.
+	 *
+	 * @return array
+	 */
+	public function get_state() {
+		return $this->state;
+	}
+
+	/**
+	 * Build a progress response for the frontend.
+	 *
+	 * @param bool $completed Whether the scan has completed.
+	 * @return array Progress data.
+	 */
+	public function build_progress( $completed = false ) {
+		$out = array(
+			'running'      => ! empty( $this->state['scan_id'] ) && ! $completed,
+			'completed'    => (bool) $completed,
+			'scan_id'      => $this->state['scan_id'],
+			'total'        => (int) $this->state['total'],
+			'processed'    => (int) $this->state['processed'],
+			'currently'    => $this->current_label(),
+			'elapsed_secs' => $this->state['started_at'] > 0 ? max( 0, time() - (int) $this->state['started_at'] ) : 0,
+		);
+		if ( $completed ) {
+			$out['running']    = false;
+			$out['components'] = $this->state['results'];
+		}
+		return $out;
+	}
+
+	/**
+	 * Return the label for the currently processing component.
+	 *
+	 * @return string|null
+	 */
+	private function current_label() {
+		return $this->state['currently'];
+	}
+
+	/**
+	 * Finalize the scan: persist results to integrity_issues table, clean workspace.
+	 */
+	private function complete() {
+		$this->flush_issues_to_table();
+
+		if ( $this->workspace ) {
+			Segurium_Storage::tmp_destroy( $this->workspace );
+			$this->workspace = null;
+		}
+		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => 'integrity_scan_active' ) );
+	}
+
+	/**
+	 * Upsert all file-level findings from the completed scan into integrity_issues table.
+	 * Also records the last-scan timestamp in runtime_kv.
+	 */
+	private function flush_issues_to_table() {
+		$now = time();
+
+		foreach ( $this->state['results'] as $comp ) {
+			foreach ( $comp['issues'] as $issue ) {
+				$file_sha256 = (string) ( $issue['sha256'] ?? '' );
+				Segurium_Storage::table_upsert(
+					'integrity_issues',
+					array(
+						'comp_type'      => $comp['type'],
+						'comp_slug'      => $comp['slug'],
+						'comp_version'   => $comp['version'],
+						'comp_name'      => $comp['name'] ?? $comp['slug'],
+						'file_path'      => $issue['path'],
+						'file_path_hash' => hash( 'sha256', $issue['path'] ),
+						'verdict'        => $issue['verdict'],
+						'status'         => $issue['status'] ?? 'open',
+						'sha256'         => $file_sha256,
+						'is_malicious'   => Segurium_Integrity_Server_State::lookup_is_malicious( $file_sha256 ),
+						'backup_id'      => $issue['backup_id'] ?? null,
+						'created_at'     => $now,
+						'fixed_at'       => isset( $issue['fixed_at'] ) && $issue['fixed_at'] ? (int) $issue['fixed_at'] : null,
+					),
+					array( 'comp_type', 'comp_slug', 'file_path_hash' )
+				);
+			}
+		}
+
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => 'integrity:last_scan',
+				'kv_value'   => (string) $now,
+				'expires_at' => null,
+				'updated_at' => $now,
+			),
+			array( 'kv_key' )
+		);
+	}
+
+	/**
+	 * Persist current scan state to the tmp workspace.
+	 */
+	private function save_state() {
+		if ( ! $this->workspace ) {
+			return;
+		}
+		Segurium_Storage::tmp_write( $this->workspace, 'state.json', wp_json_encode( $this->state ) );
+	}
+
+	/**
+	 * Resolve the relative path for a component.
+	 *
+	 * @param array $component Component descriptor with type and slug.
+	 * @return string Relative path.
+	 */
+	private function component_path( array $component ) {
+		switch ( $component['type'] ) {
+			case 'core':
+				return $this->base_path;
+			case 'plugin':
+				return 'wp-content/plugins/' . $component['slug'];
+			case 'theme':
+				return 'wp-content/themes/' . $component['slug'];
+		}
+		return '';
+	}
+
+	/**
+	 * Loads the previous scan results from the integrity_issues table and indexes
+	 * each issue by `<type>:<slug>:<path>` so we can preserve the user's
+	 * fix/delete state across re-scans.
+	 */
+	private function load_saved_status_map() {
+		if ( null !== $this->saved_status_map ) {
+			return $this->saved_status_map;
+		}
+
+		$rows = Segurium_Storage::table_get_results(
+			'integrity_issues',
+			'SELECT comp_type, comp_slug, file_path, status, backup_id, fixed_at FROM {{table}}',
+			array(),
+			ARRAY_A
+		);
+
+		$map = array();
+		foreach ( $rows as $row ) {
+			$key         = $row['comp_type'] . ':' . $row['comp_slug'] . ':' . $row['file_path'];
+			$map[ $key ] = array(
+				'path'      => $row['file_path'],
+				'status'    => $row['status'],
+				'backup_id' => $row['backup_id'],
+				'fixed_at'  => $row['fixed_at'],
+			);
+		}
+
+		$this->saved_status_map = $map;
+		return $map;
+	}
+
+	/**
+	 * Merge the previously persisted fix-state for a file into the new
+	 * issue payload. A file marked fixed/deleted that's still flagged by
+	 * CTI gets reset to 'open' so the Fix button reappears.
+	 *
+	 * @param string $key       Component key (type:slug).
+	 * @param array  $issue     New issue data from CTI.
+	 * @param array  $saved_map Previously saved status map.
+	 * @return array Updated issue with merged status.
+	 */
+	private function merge_saved_status( $key, array $issue, array $saved_map ) {
+		$ikey = $key . ':' . ( $issue['path'] ?? '' );
+		if ( ! isset( $saved_map[ $ikey ] ) ) {
+			$issue['status']    = 'open';
+			$issue['backup_id'] = null;
+			$issue['fixed_at']  = null;
+			return $issue;
+		}
+		$prev        = $saved_map[ $ikey ];
+		$prev_status = $prev['status'] ?? 'open';
+		if ( in_array( $prev_status, array( 'fixed', 'deleted' ), true ) ) {
+			$issue['status']    = 'open';
+			$issue['backup_id'] = $prev['backup_id'] ?? null;
+			$issue['fixed_at']  = null;
+		} else {
+			$issue['status']    = $prev_status;
+			$issue['backup_id'] = $prev['backup_id'] ?? null;
+			$issue['fixed_at']  = $prev['fixed_at'] ?? null;
+		}
+		return $issue;
+	}
+
+	/**
+	 * Whether the scan has processed all queued components.
+	 *
+	 * @return bool
+	 */
+	public function is_completed() {
+		return $this->state['cursor'] >= $this->state['total']
+			&& $this->state['total'] > 0;
+	}
+
+	/**
+	 * Return a read-only progress snapshot for the runner's status endpoint.
+	 *
+	 * @return array
+	 */
+	public function get_progress_snapshot() {
+		$completed = $this->is_completed();
+		return $this->build_progress( $completed );
+	}
+
+	/**
+	 * Mark this scan as cancelled (user-initiated stop). Removes the
+	 * workspace so no stale progress lingers. SEGURIUM-405: accepts a reason
+	 * code for signature parity with `Segurium_Scan::mark_cancelled()`;
+	 * integrity scans don't write a `scan_history` row today, so the code is
+	 * accepted but not persisted by this engine.
+	 *
+	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
+	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 *                            `cleanup_workspace()` so a parallel worker
+	 *                            mid-tick can run cleanup itself via the
+	 *                            cooperative cancel handshake.
+	 * @return void
+	 */
+	public function mark_cancelled( $reason_code = Segurium_Scan_Runner::REASON_USER_CANCEL, $cleanup = true ) {
+		Segurium_Storage::cti_send_message(
+			'scan_cancelled',
+			$this->terminal_message_payload(
+				(string) $reason_code,
+				array(
+					'cancelled_by' => Segurium_Scan_Runner::REASON_USER_CANCEL === $reason_code ? 'user' : 'system',
+				)
+			)
+		);
+		if ( $cleanup ) {
+			$this->cleanup_workspace();
+		}
+	}
+
+	/**
+	 * Mark this scan as aborted. Same cleanup as cancellation for integrity
+	 * scans. SEGURIUM-405: accepts a reason code for signature parity.
+	 *
+	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
+	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 *                            `cleanup_workspace()` so a parallel worker
+	 *                            mid-tick can run cleanup itself via the
+	 *                            cooperative cancel handshake.
+	 * @return void
+	 */
+	public function mark_aborted( $reason_code = Segurium_Scan_Runner::REASON_RUNTIME_ERROR, $cleanup = true ) {
+		Segurium_Storage::cti_send_message(
+			'scan_aborted',
+			$this->terminal_message_payload( (string) $reason_code )
+		);
+		if ( $cleanup ) {
+			$this->cleanup_workspace();
+		}
+	}
+
+	/**
+	 * SEGURIUM-415: build the integrity-scan terminal message payload.
+	 *
+	 * @param string $reason_code REASON_* constant for `error_code`.
+	 * @param array  $extra       Per-message_type additions.
+	 * @return array
+	 */
+	private function terminal_message_payload( $reason_code, array $extra = array() ) {
+		$started  = isset( $this->state['started_at'] ) ? (int) $this->state['started_at'] : 0;
+		$duration = $started > 0 ? max( 0, time() - $started ) : 0;
+		return array_merge(
+			array(
+				'scan_id'          => isset( $this->state['scan_id'] ) ? (string) $this->state['scan_id'] : '',
+				'scan_type'        => 'integrity',
+				'error_code'       => (string) $reason_code,
+				'duration_seconds' => $duration,
+			),
+			$extra
+		);
+	}
+
+	/**
+	 * SEGURIUM-414: idempotent workspace teardown for the cooperative-cancel
+	 * handshake. The runner's chunk-loop cancel observer calls this from the
+	 * worker-side so cleanup never races a live tick reading the workspace.
+	 *
+	 * @return void
+	 */
+	public function cleanup_state() {
+		$this->cleanup_workspace();
+	}
+
+	/**
+	 * Destroy the tmp workspace and clear the runtime_kv active-scan marker.
+	 */
+	private function cleanup_workspace() {
+		// Resolve workspace path from runtime_kv if not already loaded.
+		if ( null === $this->workspace ) {
+			$active_json = Segurium_Storage::table_get_var(
+				'runtime_kv',
+				'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+				array( 'integrity_scan_active' )
+			);
+			if ( $active_json ) {
+				$active          = json_decode( $active_json, true );
+				$this->workspace = is_array( $active ) ? ( $active['workspace'] ?? null ) : null;
+			}
+		}
+
+		if ( $this->workspace && is_dir( $this->workspace ) ) {
+			Segurium_Storage::tmp_destroy( $this->workspace );
+		}
+		$this->workspace = null;
+
+		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => 'integrity_scan_active' ) );
+	}
+}
