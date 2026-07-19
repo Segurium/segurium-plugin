@@ -30,6 +30,28 @@ class Segurium_Integrity_Scan_State {
 	const CHUNK_SIZE = 10;
 
 	/**
+	 * Upper bound on the serialized request body per CTI integrity_check call.
+	 * Kept below CTI's `integrity_max_body_bytes` (10 MiB, SEGURIUM-622) so a
+	 * large component's file list can never overflow the server limit and get
+	 * rejected. See SEGURIUM-621.
+	 */
+	const MAX_CHUNK_BYTES = 8388608; // 8 MiB.
+
+	/**
+	 * Total attempts a chunk gets across transient failures at the same cursor
+	 * before it is skipped so the scan advances instead of looping forever.
+	 */
+	const MAX_CHUNK_RETRIES = 3;
+
+	/**
+	 * Effective per-request byte cap. Defaults to MAX_CHUNK_BYTES; tests lower
+	 * it to exercise splitting without allocating megabytes.
+	 *
+	 * @var int
+	 */
+	private $max_chunk_bytes = self::MAX_CHUNK_BYTES;
+
+	/**
 	 * WordPress installation root path.
 	 *
 	 * @var string
@@ -72,15 +94,18 @@ class Segurium_Integrity_Scan_State {
 	 * @var array
 	 */
 	private $state = array(
-		'scan_id'    => '',
-		'started_at' => 0,
-		'queue'      => array(),
-		'cursor'     => 0,
-		'total'      => 0,
-		'processed'  => 0,
-		'currently'  => null,
-		'results'    => array(),
-		'trigger'    => 'unspecified',
+		'scan_id'      => '',
+		'started_at'   => 0,
+		'queue'        => array(),
+		'cursor'       => 0,
+		'total'        => 0,
+		'processed'    => 0,
+		'currently'    => null,
+		'results'      => array(),
+		'trigger'      => 'unspecified',
+		'retry_cursor' => -1,
+		'retry_count'  => 0,
+		'unverified'   => array(),
 	);
 
 	/**
@@ -98,6 +123,17 @@ class Segurium_Integrity_Scan_State {
 		$this->base_path  = rtrim( $base_path, '/' );
 		$this->cti_client = $cti_client;
 		$this->discovery  = $discovery ? $discovery : new Segurium_Integrity_Component_Discovery( $this->base_path );
+	}
+
+	/**
+	 * Override the per-request byte cap. Test seam so splitting can be
+	 * exercised without building multi-megabyte payloads.
+	 *
+	 * @param int $bytes Maximum serialized body size per CTI call.
+	 * @return void
+	 */
+	public function set_max_chunk_bytes( $bytes ) {
+		$this->max_chunk_bytes = max( 1, (int) $bytes );
 	}
 
 	/**
@@ -124,15 +160,18 @@ class Segurium_Integrity_Scan_State {
 		}
 
 		$this->state = array(
-			'scan_id'    => $scan_id,
-			'started_at' => time(),
-			'queue'      => $queue,
-			'cursor'     => 0,
-			'total'      => count( $queue ),
-			'processed'  => 0,
-			'currently'  => null,
-			'results'    => array(),
-			'trigger'    => $trigger,
+			'scan_id'      => $scan_id,
+			'started_at'   => time(),
+			'queue'        => $queue,
+			'cursor'       => 0,
+			'total'        => count( $queue ),
+			'processed'    => 0,
+			'currently'    => null,
+			'results'      => array(),
+			'trigger'      => $trigger,
+			'retry_cursor' => -1,
+			'retry_count'  => 0,
+			'unverified'   => array(),
 		);
 
 		$this->push_components_inventory();
@@ -209,11 +248,8 @@ class Segurium_Integrity_Scan_State {
 			return $this->build_progress( true );
 		}
 
-		$slice = array_slice(
-			$this->state['queue'],
-			$this->state['cursor'],
-			self::CHUNK_SIZE
-		);
+		list( $slice, $cti_payload, $component_meta ) = $this->build_chunk( $this->state['cursor'] );
+
 		// `currently` reflects the first component of the in-flight batch;
 		// the JS shows it for the whole chunk's duration.
 		if ( ! empty( $slice ) ) {
@@ -225,33 +261,12 @@ class Segurium_Integrity_Scan_State {
 			);
 		}
 
-		$cti_payload    = array();
-		$component_meta = array();
-		foreach ( $slice as $component ) {
-			$hashes           = $this->discovery->collect_hashes( $component['type'], $component['slug'] );
-			$cti_payload[]    = array(
-				'component_type' => $component['type'],
-				'name'           => $component['slug'],
-				'version'        => $component['version'],
-				'path'           => $this->component_path( $component ),
-				'files'          => $hashes,
-			);
-			$component_meta[] = array(
-				'component' => $component,
-				'hashes'    => $hashes,
-			);
-		}
-
 		$trigger    = (string) ( $this->state['trigger'] ?? 'unspecified' );
 		$cti_result = null !== $this->cti_client
 			? $this->cti_client->integrity_check( $cti_payload, $trigger )
 			: Segurium_Storage::cti_integrity_check( $cti_payload, $trigger );
 		if ( is_wp_error( $cti_result ) || ! is_array( $cti_result ) ) {
-			// Whole-batch failure: log and don't advance the cursor — the JS
-			// retries via its connection-loss handler.
-			$message = is_wp_error( $cti_result ) ? $cti_result->get_error_message() : 'unexpected response';
-			Segurium_Debug::log( '[segurium] integrity_check chunk failed: ' . $message );
-			return $this->build_progress( false );
+			return $this->handle_chunk_failure( $cti_result, $slice, $component_meta );
 		}
 
 		$cti_by_key = array();
@@ -314,6 +329,170 @@ class Segurium_Integrity_Scan_State {
 
 		$this->save_state();
 		return $this->build_progress( false );
+	}
+
+	/**
+	 * Assemble the next request chunk starting at $cursor, bounded by both
+	 * CHUNK_SIZE (component count) and max_chunk_bytes (serialized body size).
+	 * A component whose file list alone exceeds the byte cap is isolated into
+	 * its own request so it can never drag a neighbour over the server limit.
+	 *
+	 * @param int $cursor Queue offset to start from.
+	 * @return array{0:array,1:array,2:array} [slice, cti_payload, component_meta].
+	 */
+	private function build_chunk( $cursor ) {
+		$slice          = array();
+		$cti_payload    = array();
+		$component_meta = array();
+		$accum_bytes    = 0;
+		$start          = (int) $cursor;
+		$idx            = $start;
+		$total          = (int) $this->state['total'];
+
+		// Every iteration pushes exactly one component (or breaks before it),
+		// so the running chunk size is $idx - $start.
+		while ( $idx < $total && ( $idx - $start ) < self::CHUNK_SIZE ) {
+			$component = $this->state['queue'][ $idx ];
+			$hashes    = $this->discovery->collect_hashes( $component['type'], $component['slug'] );
+			$entry     = array(
+				'component_type' => $component['type'],
+				'name'           => $component['slug'],
+				'version'        => $component['version'],
+				'path'           => $this->component_path( $component ),
+				'files'          => $hashes,
+			);
+			$encoded   = wp_json_encode( $entry );
+			// A failed encode (false) must not read as 0 bytes and defeat the
+			// cap — treat it as over-cap so the component is isolated.
+			$entry_bytes = ( false === $encoded ) ? $this->max_chunk_bytes + 1 : strlen( $encoded );
+
+			// Never start a chunk with nothing; but once it holds a component,
+			// stop before a new entry would push the body past the cap.
+			if ( ! empty( $slice ) && ( $accum_bytes + $entry_bytes ) > $this->max_chunk_bytes ) {
+				break;
+			}
+
+			$slice[]          = $component;
+			$cti_payload[]    = $entry;
+			$component_meta[] = array(
+				'component' => $component,
+				'hashes'    => $hashes,
+			);
+			$accum_bytes     += $entry_bytes;
+			++$idx;
+
+			// A single component that alone exceeds the cap is sent isolated.
+			if ( $accum_bytes > $this->max_chunk_bytes ) {
+				break;
+			}
+		}
+
+		return array( $slice, $cti_payload, $component_meta );
+	}
+
+	/**
+	 * Handle a failed CTI integrity_check for the in-flight chunk without
+	 * stalling the scan. A permanent 4xx (retrying the identical body is
+	 * futile) or a transient failure that has exhausted its retry budget marks
+	 * the chunk's components unverified and advances the cursor. Transient
+	 * failures below the budget hold the cursor for a bounded retry.
+	 *
+	 * @param WP_Error|mixed $cti_result     The failed result (WP_Error or non-array).
+	 * @param array          $slice          Components in the failed chunk.
+	 * @param array          $component_meta  Per-component {component, hashes} metadata.
+	 * @return array Progress shape.
+	 */
+	private function handle_chunk_failure( $cti_result, array $slice, array $component_meta ) {
+		$status  = 0;
+		$message = 'unexpected response';
+		if ( is_wp_error( $cti_result ) ) {
+			$message = $cti_result->get_error_message();
+			$data    = $cti_result->get_error_data();
+			if ( is_array( $data ) && isset( $data['status'] ) ) {
+				$status = (int) $data['status'];
+			}
+		}
+
+		if ( ! $this->is_permanent_failure( $status ) ) {
+			$cursor = (int) $this->state['cursor'];
+			if ( (int) ( $this->state['retry_cursor'] ?? -1 ) === $cursor ) {
+				$this->state['retry_count'] = (int) ( $this->state['retry_count'] ?? 0 ) + 1;
+			} else {
+				$this->state['retry_cursor'] = $cursor;
+				$this->state['retry_count']  = 1;
+			}
+
+			if ( (int) $this->state['retry_count'] < self::MAX_CHUNK_RETRIES ) {
+				Segurium_Debug::log(
+					sprintf(
+						'[segurium] integrity_check chunk transient failure (status=%d, attempt %d/%d): %s',
+						$status,
+						(int) $this->state['retry_count'],
+						self::MAX_CHUNK_RETRIES,
+						$message
+					)
+				);
+				$this->save_state();
+				return $this->build_progress( false );
+			}
+
+			Segurium_Debug::log(
+				sprintf(
+					'[segurium] integrity_check chunk failed %d attempts (status=%d): %s — skipping and advancing',
+					self::MAX_CHUNK_RETRIES,
+					$status,
+					$message
+				)
+			);
+		} else {
+			Segurium_Debug::log(
+				sprintf(
+					'[segurium] integrity_check chunk permanent failure (status=%d): %s — skipping and advancing',
+					$status,
+					$message
+				)
+			);
+		}
+
+		// Record the skipped components as unverified rather than as results.
+		// A result row with empty issues would be reconciled as verified-clean
+		// on completion — silently resolving any pre-existing open finding for
+		// the component. `unverified` keeps the component out of the not-found
+		// sweep while leaving its persisted state untouched until a later scan
+		// actually checks it.
+		foreach ( $component_meta as $meta ) {
+			$comp                        = $meta['component'];
+			$this->state['unverified'][] = $comp['type'] . ':' . $comp['slug'];
+		}
+
+		$this->state['cursor']      += count( $slice );
+		$this->state['processed']    = $this->state['cursor'];
+		$this->state['retry_cursor'] = -1;
+		$this->state['retry_count']  = 0;
+
+		if ( $this->state['cursor'] >= $this->state['total'] ) {
+			$this->complete();
+			return $this->build_progress( true );
+		}
+
+		$this->save_state();
+		return $this->build_progress( false );
+	}
+
+	/**
+	 * Whether a CTI failure with the given HTTP status is permanent (the same
+	 * request body will be rejected again). 4xx are permanent except 408
+	 * (Request Timeout) and 429 (Too Many Requests), which are transient. A
+	 * status of 0 (connection loss, no HTTP response) and any 5xx are transient.
+	 *
+	 * @param int $status HTTP status code, or 0 when there was no response.
+	 * @return bool
+	 */
+	private function is_permanent_failure( $status ) {
+		if ( $status >= 400 && $status < 500 ) {
+			return ! in_array( (int) $status, array( 408, 429 ), true );
+		}
+		return false;
 	}
 
 	/**

@@ -1,14 +1,14 @@
-=== Segurium ===
+=== Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication ===
 Contributors: segurium
-Tags: security, malware, two-factor-authentication, login-security, hardening
+Tags: security, malware, malware-scanner, two-factor-authentication, login-security
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.8
+Stable tag: 1.0.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free.
+Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking.
 
 == Description ==
 
@@ -81,7 +81,7 @@ No. Brute-force protection works out of the box with rate limits, honeypot and l
 
 = What PHP and WordPress versions are supported? =
 
-PHP 7.4 or newer and WordPress 6.0 or newer. Regularly tested against PHP 8.1 / 8.2 / 8.3 and WordPress 6.3 through 6.9.
+PHP 7.4 or newer and WordPress 6.2 or newer. Regularly tested against PHP 8.1 / 8.2 / 8.3 and WordPress 6.3 through 7.0.
 
 = What happens if I uninstall the plugin? =
 
@@ -170,6 +170,10 @@ The SDK version bundled with this release is recorded in
 12. Free vs Pro plan comparison — every hardening feature ships in the free tier; Pro unlocks unlimited cleanup quota and reversible-backup recovery.
 
 == Changelog ==
+
+= 1.0.0 - 2026-07-19 =
+* Fixes integrity scans stalling on large sites
+* Major version bump
 
 = 0.1.8 - 2026-07-07 =
 * Fixes anonymous access to scan endpoints.

@@ -4837,19 +4837,27 @@ class Segurium {
 		if ( ! $engine instanceof Segurium_Integrity_Scan_State ) {
 			return;
 		}
-		$state = $engine->get_state();
-		if ( ! empty( $state['results'] ) ) {
-			$this->update_integrity_server_state( $state['results'] );
+		$state      = $engine->get_state();
+		$results    = $state['results'] ?? array();
+		$unverified = $state['unverified'] ?? array();
+		if ( ! empty( $results ) || ! empty( $unverified ) ) {
+			$this->update_integrity_server_state( $results, $unverified );
 		}
 	}
 
 	/**
 	 * Update the integrity server state from scan components.
 	 *
-	 * @param array $components List of scanned components.
+	 * @param array $components      List of scanned components.
+	 * @param array $unverified_keys "type:slug" keys CTI could not verify this
+	 *                               scan (SEGURIUM-621). They are kept out of
+	 *                               the not-found sweep but not reconciled, so
+	 *                               a pre-existing open finding is never
+	 *                               silently resolved by a chunk we never
+	 *                               actually checked.
 	 * @return void
 	 */
-	private function update_integrity_server_state( $components ) {
+	private function update_integrity_server_state( $components, $unverified_keys = array() ) {
 		$acc = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$acc->load();
 
@@ -4893,6 +4901,13 @@ class Segurium {
 					'files'            => $issue_files,
 				)
 			);
+		}
+
+		// Unverified components stay "present" (excluded from the not-found
+		// sweep) but are not passed through update_component, so their existing
+		// findings and metadata are left exactly as the last real scan saw them.
+		foreach ( $unverified_keys as $uk ) {
+			$scanned_keys[] = $uk;
 		}
 
 		$acc->mark_not_found( $scanned_keys );

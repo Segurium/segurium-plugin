@@ -1260,7 +1260,9 @@ class Segurium_CTI_Client {
 
 		$code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $code ) {
-			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code );
+			// Carry the HTTP status so the caller can tell a permanent 4xx
+			// (retrying the same body is futile) from a transient 5xx/timeout.
+			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code, array( 'status' => (int) $code ) );
 		}
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
