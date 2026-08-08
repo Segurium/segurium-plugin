@@ -4738,3 +4738,15 @@ msgstr "Тригер сканування потребує автентифік�
 
 msgid "Scan trigger secret did not match."
 msgstr "Секрет тригера сканування не збігається."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Видалення та очищення шкідливого ПЗ, файрвол, двофакторна автентифікація"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Безкоштовне очищення від шкідливого ПЗ, а не лише його виявлення — скануйте, очищуйте та відновлюйте зламані сайти. Крім того, файрвол, захист від атак перебором, 2FA та геоблокування."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Імпортер міграції (Wordfence, AIOS, Solid Security)"

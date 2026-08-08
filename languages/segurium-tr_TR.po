@@ -4727,3 +4727,15 @@ msgstr "Tarama tetikleyicisi kimlik doğrulaması gerektirir."
 
 msgid "Scan trigger secret did not match."
 msgstr "Tarama tetikleyicisi gizli anahtarı eşleşmedi."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Kötü Amaçlı Yazılım Kaldırma ve Temizleme, Güvenlik Duvarı, İki Faktörlü Kimlik Doğrulama"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Yalnızca tespit değil, ücretsiz kötü amaçlı yazılım temizliği — hacklenmiş siteleri tarayın, temizleyin ve geri yükleyin. Ayrıca güvenlik duvarı, kaba kuvvet saldırılarına karşı koruma, 2FA ve coğrafi engelleme."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Geçiş içe aktarıcı (Wordfence, AIOS, Solid Security)"

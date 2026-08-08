@@ -2937,7 +2937,7 @@ class Segurium {
 							__( 'Auto-fix and Bulk Fix All', 'segurium' ),
 							__( 'Hardening: 2FA, brute-force, geo-blocking, firewall, security headers', 'segurium' ),
 							__( 'File-integrity monitoring (core / plugins / themes)', 'segurium' ),
-							__( 'Migration importer (Wordfence, AIOS, Sucuri, Solid Security)', 'segurium' ),
+							__( 'Migration importer (Wordfence, AIOS, Solid Security)', 'segurium' ),
 							__( 'Community support', 'segurium' ),
 						);
 						$pro_bullets  = array(

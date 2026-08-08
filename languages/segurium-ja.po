@@ -4710,3 +4710,15 @@ msgstr "スキャントリガーには認証が必要です。"
 
 msgid "Scan trigger secret did not match."
 msgstr "スキャントリガーのシークレットが一致しませんでした。"
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – マルウェアの除去とクリーンアップ、ファイアウォール、二要素認証"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "検出だけでなく、無料のマルウェアクリーンアップ機能を提供 — ハッキングされたサイトをスキャン、駆除、復元します。さらにファイアウォール、ブルートフォース攻撃対策、2FA、ジオブロッキングも搭載。"
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "移行インポーター (Wordfence、AIOS、Solid Security)"

@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication
  * Plugin URI:  https://segurium.com
  * Description: Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.0.0' );
+define( 'SEGURIUM_VERSION', '1.0.1' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );

@@ -4739,3 +4739,15 @@ msgstr "O acionador de varredura requer autenticação."
 
 msgid "Scan trigger secret did not match."
 msgstr "O segredo do acionador de varredura não corresponde."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Remoção e limpeza de malware, firewall, autenticação de dois fatores"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Limpeza gratuita de malware, não apenas detecção — analise, limpe e restaure sites invadidos. Além disso, firewall, proteção contra força bruta, 2FA e bloqueio geográfico."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importador de migração (Wordfence, AIOS, Solid Security)"

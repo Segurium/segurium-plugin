@@ -4640,3 +4640,15 @@ msgstr "يتطلّب مُشغِّل الفحص المصادقة."
 
 msgid "Scan trigger secret did not match."
 msgstr "لم يتطابق سر مُشغِّل الفحص."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – إزالة البرمجيات الخبيثة وتنظيفها، جدار الحماية، المصادقة الثنائية"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "تنظيف مجاني للبرمجيات الخبيثة، وليس مجرد اكتشافها — افحص المواقع المخترقة ونظّفها واستعِدها. بالإضافة إلى جدار الحماية والحماية من هجمات القوة الغاشمة والمصادقة الثنائية (2FA) والحظر الجغرافي."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "مستورد الترحيل (Wordfence، AIOS، Solid Security)"

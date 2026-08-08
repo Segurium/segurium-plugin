@@ -4792,3 +4792,15 @@ msgstr "L'attivazione della scansione richiede l'autenticazione."
 
 msgid "Scan trigger secret did not match."
 msgstr "Il segreto dell'attivazione della scansione non corrisponde."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Rimozione e pulizia dei malware, firewall, autenticazione a due fattori"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Pulizia gratuita dei malware, non solo rilevamento — scansiona, pulisci e ripristina i siti compromessi. Inoltre firewall, protezione contro gli attacchi di forza bruta, 2FA e geoblocco."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importazione da altri plugin (Wordfence, AIOS, Solid Security)"

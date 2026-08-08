@@ -4493,3 +4493,15 @@ msgstr "扫描触发器需要身份验证。"
 
 msgid "Scan trigger secret did not match."
 msgstr "扫描触发器密钥不匹配。"
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – 恶意软件清除与清理、防火墙、双因素身份验证"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "免费的恶意软件清理，不仅仅是检测 — 扫描、清理并还原被入侵的网站。另外还有防火墙、暴力破解防护、2FA 和地理屏蔽。"
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "迁移导入器（Wordfence、AIOS、Solid Security）"

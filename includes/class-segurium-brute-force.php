@@ -43,6 +43,16 @@ class Segurium_Brute_Force {
 	const REASON_THRESHOLD = 'threshold';
 	const REASON_HONEYPOT  = 'honeypot';
 
+	/**
+	 * Priority of the `authenticate` callback that re-asserts our verdict.
+	 *
+	 * Must sit above every core callback that can replace an incoming error
+	 * with a WP_User: wp_authenticate_username_password / _email_password /
+	 * _application_password at 20, and wp_authenticate_cookie at 30. Must stay
+	 * below 99 so the 2FA challenge never starts for a blocked request.
+	 */
+	const AUTH_ENFORCE_PRIORITY = 50;
+
 	const CTI_LOCKOUT      = 'brute_force_lockout';
 	const CTI_HONEYPOT     = 'brute_force_honeypot';
 	const CTI_CAPTCHA_FAIL = 'brute_force_captcha_fail';
@@ -97,12 +107,15 @@ class Segurium_Brute_Force {
 	private $firewall_verdict_cache = array();
 
 	/**
-	 * Set inside authenticate_check when we return a self-issued WP_Error so
-	 * the subsequent wp_login_failed handler can skip re-counting it.
+	 * The WP_Error authenticate_check issued for the current request, if any.
 	 *
-	 * @var bool
+	 * Serves two purposes: enforce_block re-asserts it after core has had its
+	 * turn on the `authenticate` filter, and the wp_login_failed handler uses
+	 * its presence to skip re-counting a verdict we issued ourselves.
+	 *
+	 * @var WP_Error|null
 	 */
-	private $self_blocked_in_request = false;
+	private $blocked_error = null;
 
 	/**
 	 * Guard so init() cannot double-register hooks within the same instance.
@@ -152,6 +165,7 @@ class Segurium_Brute_Force {
 			$inst = self::$instance;
 			remove_action( 'login_init', array( $inst, 'maybe_block_locked_request' ) );
 			remove_filter( 'authenticate', array( $inst, 'authenticate_check' ), 1 );
+			remove_filter( 'authenticate', array( $inst, 'enforce_block' ), self::AUTH_ENFORCE_PRIORITY );
 			remove_action( 'wp_login_failed', array( $inst, 'on_login_failed' ), 10 );
 			remove_action( 'wp_login', array( $inst, 'on_login_success' ), 10 );
 			remove_action( 'login_form', array( $inst, 'render_honeypot_field' ) );
@@ -387,10 +401,14 @@ class Segurium_Brute_Force {
 		// Hook on login_init (not plugins_loaded) so wp_die() runs after WordPress
 		// is fully bootstrapped — otherwise the wp_die error template can call
 		// is_embed()/is_search() before the main query exists and trip "doing it
-		// wrong" notices on the lockout page. XML-RPC is still covered by the
-		// authenticate filter below, which returns WP_Error directly to the client.
+		// wrong" notices on the lockout page. That only covers wp-login.php page
+		// loads; the pair of authenticate callbacks below covers credentials that
+		// reach wp_authenticate() on either login surface. Both still gate on
+		// is_login_surface(), so a front-end login form calling wp_signon() from
+		// some other URL is out of scope here.
 		add_action( 'login_init', array( $this, 'maybe_block_locked_request' ) );
 		add_filter( 'authenticate', array( $this, 'authenticate_check' ), 1, 3 );
+		add_filter( 'authenticate', array( $this, 'enforce_block' ), self::AUTH_ENFORCE_PRIORITY, 3 );
 		add_action( 'wp_login_failed', array( $this, 'on_login_failed' ), 10, 1 );
 		add_action( 'wp_login', array( $this, 'on_login_success' ), 10, 1 );
 
@@ -467,8 +485,7 @@ class Segurium_Brute_Force {
 		}
 
 		if ( $this->is_locked_out( $ip ) ) {
-			$this->self_blocked_in_request = true;
-			return $this->wp_error_lockout( $ip );
+			return $this->block( $this->wp_error_lockout( $ip ) );
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WP login filter; values sanitized at use.
@@ -480,10 +497,11 @@ class Segurium_Brute_Force {
 			if ( '' !== trim( sanitize_text_field( self::post_value( $post, $field ) ) ) ) {
 				$this->log_event( self::EVENT_HONEYPOT, $ip, $username );
 				$this->apply_lockout( $ip, $username, self::REASON_HONEYPOT );
-				$this->self_blocked_in_request = true;
-				return new WP_Error(
-					self::ERR_HONEYPOT,
-					esc_html__( 'Login blocked.', 'segurium' )
+				return $this->block(
+					new WP_Error(
+						self::ERR_HONEYPOT,
+						esc_html__( 'Login blocked.', 'segurium' )
+					)
 				);
 			}
 		}
@@ -493,15 +511,54 @@ class Segurium_Brute_Force {
 			if ( ! $this->verify_hcaptcha( $ip, $token ) ) {
 				$this->log_event( self::EVENT_CAPTCHA_FAIL, $ip, $username );
 				$this->report_to_cti( self::CTI_CAPTCHA_FAIL, $ip, $username, array() );
-				$this->self_blocked_in_request = true;
-				return new WP_Error(
-					self::ERR_CAPTCHA,
-					esc_html__( 'Please complete the CAPTCHA challenge.', 'segurium' )
+				return $this->block(
+					new WP_Error(
+						self::ERR_CAPTCHA,
+						esc_html__( 'Please complete the CAPTCHA challenge.', 'segurium' )
+					)
 				);
 			}
 		}
 
 		return $user;
+	}
+
+	/**
+	 * Record a self-issued verdict for this request and hand it back to the filter.
+	 *
+	 * @param WP_Error $error The verdict.
+	 * @return WP_Error
+	 */
+	private function block( WP_Error $error ) {
+		$this->blocked_error = $error;
+		return $error;
+	}
+
+	/**
+	 * Hook: authenticate filter (priority AUTH_ENFORCE_PRIORITY).
+	 *
+	 * SEGURIUM-636: returning a WP_Error from priority 1 is not enforcement.
+	 * Core's wp_authenticate_username_password() runs at 20 and only honours an
+	 * incoming error when a credential is empty — with both fields filled it
+	 * authenticates anyway and replaces our verdict with a WP_User. On
+	 * wp-login.php page loads maybe_block_locked_request() already sent a 403,
+	 * but XML-RPC reached this point unguarded, so a locked-out IP holding the
+	 * correct password still got in.
+	 *
+	 * Re-assert the verdict once core has had its turn. This only re-asserts a
+	 * verdict authenticate_check already recorded, so the is_login_surface()
+	 * gate still decides which surfaces are covered.
+	 *
+	 * @param null|WP_User|WP_Error $user     Current authentication result.
+	 * @param string                $username Submitted username.
+	 * @param string                $password Submitted password.
+	 * @return null|WP_User|WP_Error
+	 */
+	public function enforce_block( $user, $username, $password ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		if ( null === $this->blocked_error ) {
+			return $user;
+		}
+		return $this->blocked_error;
 	}
 
 	/**
@@ -511,15 +568,36 @@ class Segurium_Brute_Force {
 	 * @return void
 	 */
 	public function on_login_failed( $username ) {
-		if ( $this->self_blocked_in_request ) {
-			// Authenticate filter already returned a self-issued error for this request;
-			// don't double-count. Reset so subsequent requests in the same PHP process
-			// (e.g. tests) start clean.
-			$this->self_blocked_in_request = false;
+		if ( null !== $this->blocked_error ) {
+			// Authenticate filter already returned a self-issued verdict for this
+			// request; don't double-count. Reset so subsequent requests in the same
+			// PHP process (e.g. tests) start clean.
+			$this->blocked_error = null;
 			return;
 		}
 
 		if ( ! $this->is_login_surface() ) {
+			return;
+		}
+
+		$this->record_failed_attempt( $username );
+	}
+
+	/**
+	 * Count a failed credential check and lock the IP out once it crosses
+	 * the threshold.
+	 *
+	 * Public because authentication surfaces the `authenticate` filter does
+	 * not cover must call it directly (SEGURIUM-635). `on_login_failed()` is
+	 * the hook-driven entry point for wp-login.php and XML-RPC; the pre-login
+	 * 2FA AJAX endpoint calls this method itself, since `wp_login_failed`
+	 * fires on that request but `is_login_surface()` rejects admin-ajax.php.
+	 *
+	 * @param string $username The username that failed to authenticate.
+	 * @return void
+	 */
+	public function record_failed_attempt( $username ) {
+		if ( empty( $this->get_settings()['enabled'] ) ) {
 			return;
 		}
 		$ip = $this->get_real_ip();
@@ -546,6 +624,34 @@ class Segurium_Brute_Force {
 		if ( $ip_count >= $max || $user_count >= $max ) {
 			$this->apply_lockout( $ip, $username, self::REASON_THRESHOLD );
 		}
+	}
+
+	/**
+	 * Lockout verdict for the current request, for callers that authenticate
+	 * outside the `authenticate` filter (SEGURIUM-635).
+	 *
+	 * Callers must deny the request before reaching `wp_authenticate()`. The
+	 * `authenticate` filter cannot cover them: `authenticate_check` bails on
+	 * anything that is not a login surface, so neither it nor `enforce_block`
+	 * ever runs for admin-ajax.
+	 *
+	 * @return WP_Error|null Lockout error, or null when the request may proceed.
+	 */
+	public function lockout_error_for_request() {
+		if ( empty( $this->get_settings()['enabled'] ) ) {
+			return null;
+		}
+		$ip = $this->get_real_ip();
+		if ( ! $ip ) {
+			return null;
+		}
+		if ( $this->is_whitelisted( $ip ) ) {
+			return null;
+		}
+		if ( ! $this->is_locked_out( $ip ) ) {
+			return null;
+		}
+		return $this->wp_error_lockout( $ip );
 	}
 
 	/**

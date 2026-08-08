@@ -4825,3 +4825,15 @@ msgstr "Wyzwalacz skanowania wymaga uwierzytelnienia."
 
 msgid "Scan trigger secret did not match."
 msgstr "Sekret wyzwalacza skanowania nie pasuje."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Usuwanie i czyszczenie złośliwego oprogramowania, zapora sieciowa, uwierzytelnianie dwuskładnikowe"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Bezpłatne czyszczenie złośliwego oprogramowania, a nie tylko wykrywanie — skanuj, oczyszczaj i przywracaj zhakowane witryny. Dodatkowo zapora sieciowa, ochrona przed atakami brute force, 2FA i blokowanie geograficzne."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importer migracji (Wordfence, AIOS, Solid Security)"

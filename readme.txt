@@ -1,10 +1,10 @@
 === Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication ===
 Contributors: segurium
-Tags: security, malware, malware-scanner, two-factor-authentication, login-security
+Tags: malware-removal, hacked, malware-scanner, two-factor-authentication, brute-force-protection
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ Every feature below ships in the plugin and runs on every install — Free and P
 * **Security headers** — Security HTTP response headers, cookie hardening (SameSite/Secure/HttpOnly), and five one-click preset modes.
 * **Information Shield** — Toggles that hide WordPress version fingerprints, discovery endpoints, asset `?ver=` strings, and XML-RPC when you don't use them.
 * **Self-Check security grade** — Checks roll up into an A+ to F grade, each with one-click Fix buttons and cross-referenced with external scanners.
-* **Migration importer** — Import your existing settings from Wordfence, All-In-One Security, Sucuri Security and Solid Security so you don't lose your hardening when you switch.
+* **Migration importer** — Import your existing settings from Wordfence, All-In-One Security and Solid Security so you don't lose your hardening when you switch. Sucuri Security is detected too, but its settings live in Sucuri's cloud dashboard and cannot be read locally, so there is nothing to import.
 * **Disaster recovery** — Local encrypted backups can be extracted with a tiny PHP one-liner, even if Segurium is uninstalled.
 * **Malware scanner** — Full filesystem scan, and a unified "Threats" view across every scan.
 * **Real-time and upload scanning** — New and modified files are checked automatically; infected uploads are blocked before they land on disk.
@@ -73,7 +73,7 @@ Every cleanup is reversible. Originals are encrypted (AES-256-GCM) and stored lo
 
 = Can I use Segurium alongside my existing security plugin? =
 
-You can, but we recommend migrating. The **Migration** tab imports settings from Wordfence, All-In-One Security, Sucuri Security and Solid Security so you can switch without losing your hardening. Running two security plugins in parallel usually means double the cron overhead for no extra protection.
+You can, but we recommend migrating. The **Migration** tab imports settings from Wordfence, All-In-One Security and Solid Security so you can switch without losing your hardening. It also detects Sucuri Security, but Sucuri keeps its rules in its own cloud dashboard, so those settings have to be re-entered by hand. Running two security plugins in parallel usually means double the cron overhead for no extra protection.
 
 = Is hCaptcha required for brute-force protection? =
 
@@ -86,6 +86,10 @@ PHP 7.4 or newer and WordPress 6.2 or newer. Regularly tested against PHP 8.1 / 
 = What happens if I uninstall the plugin? =
 
 Plugin options, custom tables and local scan backups are removed. The local encrypted backups remain extractable with a small PHP one-liner before uninstall (see the Disaster Recovery documentation on segurium.com) if you want to keep copies.
+
+= How do I report a security issue in Segurium itself? =
+
+Email security@segurium.com rather than opening a public support topic. Our disclosure policy, testing ground rules and researcher acknowledgements are at https://segurium.com/security/ — it also explains what we can and cannot offer in return. Please keep details private until a fix is available to users.
 
 == External Services ==
 
@@ -170,6 +174,11 @@ The SDK version bundled with this release is recorded in
 12. Free vs Pro plan comparison — every hardening feature ships in the free tier; Pro unlocks unlimited cleanup quota and reversible-backup recovery.
 
 == Changelog ==
+
+= 1.0.1 - 2026-08-08 =
+* Brute-force lockout covers XML-RPC logins.
+* Brute-force lockout covers 2FA login step.
+* Translations updated.
 
 = 1.0.0 - 2026-07-19 =
 * Fixes integrity scans stalling on large sites

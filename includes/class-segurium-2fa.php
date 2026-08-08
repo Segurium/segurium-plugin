@@ -1520,9 +1520,30 @@ class Segurium_2FA {
 			segurium_send_json_error( array( 'message' => __( 'Please enter your username and password.', 'segurium' ) ) );
 		}
 
+		// SEGURIUM-635: this endpoint validates credentials outside
+		// wp-login.php, so brute-force protection cannot see it through the
+		// `authenticate` filter or `wp_login_failed` — both bail on
+		// `is_login_surface()`. Gate and count here instead, otherwise the
+		// endpoint is an unthrottled password oracle that also ignores
+		// lockouts earned on the normal login form.
+		$brute_force = Segurium_Brute_Force::get_instance();
+
+		$lockout = $brute_force->lockout_error_for_request();
+		if ( is_wp_error( $lockout ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => $lockout->get_error_code(),
+					'message' => $lockout->get_error_message(),
+					'locked'  => true,
+				),
+				403
+			);
+		}
+
 		$user = wp_authenticate( $username, $password );
 
 		if ( is_wp_error( $user ) ) {
+			$brute_force->record_failed_attempt( $username );
 			segurium_send_json_error( array( 'message' => $user->get_error_message() ) );
 		}
 

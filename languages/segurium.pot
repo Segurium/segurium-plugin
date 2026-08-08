@@ -2,20 +2,34 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Segurium 0.1.8\n"
+"Project-Id-Version: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-09T03:34:03+00:00
+"POT-Creation-Date: 2026-08-08T03:34:04+00:00
 "
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
 
 #. Plugin Name of the plugin
+#: segurium.php
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr ""
+
+#. Description of the plugin
+#: segurium.php
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+
 #. Author of the plugin
 #: segurium.php
 #: includes/class-segurium.php:434
@@ -26,16 +40,6 @@ msgstr ""
 #: includes/segurium-admin-menu-shell.php:39
 #: includes/segurium-admin-menu-shell.php:102
 msgid "Segurium"
-msgstr ""
-
-#. Plugin URI of the plugin
-#: segurium.php
-msgid "https://segurium.com"
-msgstr ""
-
-#. Description of the plugin
-#: segurium.php
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr ""
 
 #: includes/class-segurium-2fa.php:597
@@ -89,9 +93,9 @@ msgid "Trust this device for %d days"
 msgstr ""
 
 #: includes/class-segurium-2fa.php:1010
-#: includes/class-segurium-2fa.php:1577
-#: includes/class-segurium-2fa.php:1656
-#: includes/class-segurium-2fa.php:1714
+#: includes/class-segurium-2fa.php:1598
+#: includes/class-segurium-2fa.php:1677
+#: includes/class-segurium-2fa.php:1735
 msgid "Too many failed attempts. Please try again later."
 msgstr ""
 
@@ -258,8 +262,8 @@ msgstr ""
 #: includes/class-segurium-2fa.php:1393
 #: includes/class-segurium-2fa.php:1447
 #: includes/class-segurium-2fa.php:1503
-#: includes/class-segurium-2fa.php:1617
-#: includes/class-segurium-2fa.php:1741
+#: includes/class-segurium-2fa.php:1638
+#: includes/class-segurium-2fa.php:1762
 #: includes/class-segurium.php:366
 #: includes/class-segurium.php:4817
 #: includes/segurium-ajax-envelope.php:125
@@ -296,47 +300,47 @@ msgstr ""
 msgid "Please enter your username and password."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1636
+#: includes/class-segurium-2fa.php:1657
 msgid "Session expired. Please log in again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1642
-#: includes/class-segurium-2fa.php:1756
+#: includes/class-segurium-2fa.php:1663
+#: includes/class-segurium-2fa.php:1777
 msgid "Invalid session."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1723
+#: includes/class-segurium-2fa.php:1744
 msgid "Invalid verification code. Please try again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1751
+#: includes/class-segurium-2fa.php:1772
 msgid "Session expired."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1761
+#: includes/class-segurium-2fa.php:1782
 msgid "Code sent."
 msgstr ""
 
-#: includes/class-segurium-brute-force.php:486
+#: includes/class-segurium-brute-force.php:503
 msgid "Login blocked."
 msgstr ""
 
-#: includes/class-segurium-brute-force.php:499
+#: includes/class-segurium-brute-force.php:517
 msgid "Please complete the CAPTCHA challenge."
 msgstr ""
 
-#: includes/class-segurium-brute-force.php:1230
+#: includes/class-segurium-brute-force.php:1336
 msgid "Leave this field empty"
 msgstr ""
 
 #. translators: %s: human-readable time remaining
-#: includes/class-segurium-brute-force.php:1378
-#: includes/class-segurium-brute-force.php:1401
+#: includes/class-segurium-brute-force.php:1484
+#: includes/class-segurium-brute-force.php:1507
 #, php-format
 msgid "Too many failed login attempts. Try again in %s."
 msgstr ""
 
-#: includes/class-segurium-brute-force.php:1382
+#: includes/class-segurium-brute-force.php:1488
 msgid "Login Locked"
 msgstr ""
 
@@ -3295,7 +3299,7 @@ msgid "File-integrity monitoring (core / plugins / themes)"
 msgstr ""
 
 #: includes/class-segurium.php:2940
-msgid "Migration importer (Wordfence, AIOS, Sucuri, Solid Security)"
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
 msgstr ""
 
 #: includes/class-segurium.php:2941

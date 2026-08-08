@@ -4769,3 +4769,15 @@ msgstr "Le déclencheur d’analyse requiert une authentification."
 
 msgid "Scan trigger secret did not match."
 msgstr "Le secret du déclencheur d’analyse ne correspond pas."
+
+#. Plugin Name of the plugin
+msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – Suppression et nettoyage de malwares, pare-feu, authentification à deux facteurs"
+
+#. Description of the plugin
+msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Nettoyage gratuit des malwares, pas seulement leur détection — analysez, nettoyez et restaurez les sites piratés. Avec pare-feu, protection contre la force brute, 2FA et géoblocage."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importateur de migration (Wordfence, AIOS, Solid Security)"
