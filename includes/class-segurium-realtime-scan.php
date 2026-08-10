@@ -285,7 +285,10 @@ class Segurium_Realtime_Scan {
 		);
 		$threats = (int) $stats['threats'];
 
-		$this->record_history( $scan_id, $now, count( $files ), $threats );
+		// SEGURIUM-689: on-premise leaves every unknown hash unresolved.
+		// Without this the history row is byte-identical to a pass where
+		// every file came back clean.
+		$this->record_history( $scan_id, $now, count( $files ), $threats, (int) $stats['neoray_skipped'] );
 
 		if ( $threats > 0 ) {
 			Segurium_Storage::cti_send_message(
@@ -872,8 +875,11 @@ class Segurium_Realtime_Scan {
 	 * @param int    $now           Timestamp of the scan.
 	 * @param int    $files_checked Number of files checked.
 	 * @param int    $threats_found Threats found in this realtime pass (SEGURIUM-548).
+	 * @param int    $files_skipped Files left unresolved, e.g. an unknown hash
+	 *                              on-premise or a body over the size cap
+	 *                              (SEGURIUM-689).
 	 */
-	private function record_history( $scan_id, $now, $files_checked, $threats_found = 0 ) {
+	private function record_history( $scan_id, $now, $files_checked, $threats_found = 0, $files_skipped = 0 ) {
 		try {
 			Segurium_Storage::table_insert(
 				'scan_history',
@@ -884,6 +890,7 @@ class Segurium_Realtime_Scan {
 					'started_at'     => (int) $now,
 					'finished_at'    => (int) $now,
 					'files_scanned'  => (int) $files_checked,
+					'files_skipped'  => (int) $files_skipped,
 					'threats_found'  => (int) $threats_found,
 					'trigger_source' => 'realtime',
 					'error_code'     => null,

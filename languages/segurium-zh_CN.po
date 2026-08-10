@@ -45,6 +45,11 @@ msgstr ""
 "精简的 AI 驱动 WordPress 安全防护：恶意软件扫描、暴力破解防护、2FA、地理位置"
 "封锁、完整性检查 —— 无冗余功能。"
 
+#. Description of the plugin
+#: segurium.php
+msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "网站被黑？免费的 WordPress 恶意软件清除：扫描、清理受感染文件并进行还原。此外还提供防火墙、暴力破解防护、2FA 和地理位置封锁。"
+
 #: includes/class-segurium-2fa.php:589
 msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
@@ -522,62 +527,6 @@ msgstr "支持服务错误（HTTP %d）。"
 msgid "Clean version not available for this file"
 msgstr "此文件没有可用的干净版本"
 
-#: includes/class-segurium-cti-client.php:910
-msgid "Invalid CTI billing response."
-msgstr "无效的 CTI 计费响应。"
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:89
-#, php-format
-msgid "CTI %s: no response to verify."
-msgstr "CTI %s：无可验证的响应。"
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:102
-#, php-format
-msgid "CTI %s: response missing signature headers."
-msgstr "CTI %s：响应缺少签名头。"
-
-#. translators: 1: endpoint label, 2: key id from response
-#: includes/class-segurium-cti-signature.php:112
-#, php-format
-msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
-msgstr "CTI %1$s：响应由不受信任的密钥 \"%2$s\" 签名。"
-
-#: includes/class-segurium-cti-signature.php:123
-msgid "CTI signature trust list is corrupt — public key failed to decode."
-msgstr "CTI 签名信任列表已损坏 —— 公钥解码失败。"
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:133
-#, php-format
-msgid "CTI %s: signature header malformed."
-msgstr "CTI %s：签名头格式错误。"
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:144
-#, php-format
-msgid "CTI %s: signature timestamp malformed."
-msgstr "CTI %s：签名时间戳格式错误。"
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#: includes/class-segurium-cti-signature.php:157
-#, php-format
-msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
-msgstr "CTI %1$s：签名时间戳超出范围 %2$d 秒。"
-
-#. translators: 1: endpoint label, 2: error message
-#: includes/class-segurium-cti-signature.php:174
-#, php-format
-msgid "CTI %1$s: libsodium rejected signature (%2$s)."
-msgstr "CTI %1$s：libsodium 拒绝了签名（%2$s）。"
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:186
-#, php-format
-msgid "CTI %s: signature did not verify — response rejected."
-msgstr "CTI %s：签名未通过验证 —— 响应已拒绝。"
-
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
 msgstr "不允许从您所在的位置访问。"
@@ -1033,15 +982,6 @@ msgstr "%d 个 cookie 中没有任何一个设置了 SameSite=Lax 或 Strict。"
 msgid "Cloud-assisted malware detection"
 msgstr "云端协助恶意软件检测"
 
-#: includes/class-segurium-self-check.php:818
-msgid ""
-"On-premise mode is enabled, which limits malware-detection accuracy. Files "
-"are never stored after scan — turn this off to get full cloud-assisted "
-"detection."
-msgstr ""
-"已启用本地模式，这会限制恶意软件检测的准确性。扫描后绝不会存储文件 —— 请关闭"
-"此模式以获得完整的云端协助检测。"
-
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
 msgstr "云端协助恶意软件检测已启用。"
@@ -1318,10 +1258,6 @@ msgstr "连接已中断。正在重试…"
 #: includes/class-segurium.php:837
 msgid "Request failed"
 msgstr "请求失败"
-
-#: includes/class-segurium.php:840 includes/class-segurium.php:3070
-msgid "CTI service consent is required before scanning."
-msgstr "扫描前需要 CTI 服务授权。"
 
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
@@ -2323,12 +2259,6 @@ msgstr "位于 cti.segurium.com 的 Segurium 服务器。"
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "保留期："
-
-#: includes/class-segurium.php:1227
-msgid ""
-"File samples uploaded for analysis are not retained beyond what is needed to "
-"produce a verdict."
-msgstr "上传用于分析的文件样本仅保留至判定生成所需，不会更久。"
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
@@ -3468,18 +3398,6 @@ msgstr ""
 "使用 * 作为通配符。例如，*.log 将排除所有日志文件；vendor/* 将排除 vendor 目"
 "录及其内部的全部内容。"
 
-#: includes/class-segurium.php:2664
-msgid ""
-"When enabled, file contents may be shared with the CTI service to enable "
-"advanced malware detection and CTI-powered cleanup. Only suspicious files "
-"are transmitted, and contents are not retained after analysis. Keep it "
-"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
-"will be transmitted."
-msgstr ""
-"启用后，文件内容可能会与 CTI 服务共享，以启用高级恶意软件检测和由 CTI 驱动的"
-"清理。仅传输可疑文件，且分析后不会保留文件内容。如需本地模式请保持禁用 —— 仅"
-"会传输 SHA-256 哈希、文件路径和元数据。"
-
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
 msgstr "卸载插件时清除加密备份"
@@ -3556,10 +3474,6 @@ msgstr ""
 #: includes/class-segurium.php:2798
 msgid "Version"
 msgstr "版本"
-
-#: includes/class-segurium.php:2802
-msgid "CTI"
-msgstr "CTI"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
@@ -4089,26 +4003,6 @@ msgstr "未找到 Wordfence 2FA 数据"
 msgid "Your session has expired. Please reload the page and try again."
 msgstr "您的会话已过期。请重新加载页面后重试。"
 
-#: includes/storage/class-segurium-storage.php:953
-msgid "Invalid CTI response."
-msgstr "CTI 响应无效。"
-
-#: includes/storage/class-segurium-storage.php:965
-msgid "CTI response missing content."
-msgstr "CTI 响应缺少内容。"
-
-#: includes/storage/class-segurium-storage.php:973
-msgid "CTI response content failed base64 decode."
-msgstr "CTI 响应内容 base64 解码失败。"
-
-#: includes/storage/class-segurium-storage.php:980
-msgid "CTI response missing sha256."
-msgstr "CTI 响应缺少 sha256。"
-
-#: includes/storage/class-segurium-storage.php:987
-msgid "CTI response hash did not match decoded content."
-msgstr "CTI 响应哈希与解码后的内容不匹配。"
-
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
 msgstr "插件激活错误"
@@ -4146,20 +4040,8 @@ msgstr "Segurium 检测到此站点已被迁移或克隆，正在后台重新建
 msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
 msgstr "Segurium 无法在此站点激活 Pro 许可证，因为它当前已绑定到另一个安装。请在原始安装上打开 Segurium 账户门户并停用该许可证；绑定将被解除，下次许可证检查时此处的 Pro 功能将重新激活。"
 
-msgid "Invalid CTI cleanup response."
-msgstr "CTI 清理响应无效。"
-
 msgid "Cleanup unavailable."
 msgstr "清理不可用。"
-
-msgid "CTI returned non-base64 cleanup content."
-msgstr "CTI 返回的清理内容并非 base64 编码。"
-
-msgid "CTI cleanup response missing sha256_clean."
-msgstr "CTI 清理响应缺少 sha256_clean。"
-
-msgid "CTI cleanup hash mismatch."
-msgstr "CTI 清理哈希不匹配。"
 
 #. translators: %d: number of seconds since the scan worker last reported progress
 #, php-format
@@ -4309,16 +4191,102 @@ msgstr "已跳过"
 msgid "scanned"
 msgstr "已扫描"
 
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "来自 Segurium Cloud 的账单响应无效。"
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud（%s）：无可验证的响应。"
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud（%s）：缺少签名头。"
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud（%1$s）：使用不受信任的密钥 \"%2$s\" 签名。"
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "签名信任列表已损坏 —— 公钥解码失败。"
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud（%s）：签名头格式不正确。"
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud（%s）：签名时间戳格式不正确。"
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#, php-format
+msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud（%1$s）：签名时间戳超出范围 %2$d 秒。"
+
+#. translators: 1: endpoint label, 2: error message
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud（%1$s）：libsodium 拒绝了签名（%2$s）。"
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud（%s）：签名验证失败。"
+
+msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
+msgstr "已启用本地部署模式：文件内容仅保留在此服务器上，云端无法通过哈希识别的任何文件都将保持未解决状态。开启云端协助检测以获得完整准确度。"
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "扫描前必须同意 Segurium Cloud。"
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
+msgstr "上传用于分析的文件样本最多保留 365 天，之后由自动每夜清理任务移除。样本一经审核可能会更早被移除。"
+
+msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
+msgstr "启用后，文件内容可能会与 Segurium Cloud 共享，用于高级恶意软件检测和云端驱动的清理。仅传输可疑文件。关闭此项以启用本地部署模式：扫描时仅发送 SHA-256 哈希、文件路径和元数据，云端无法通过哈希识别的文件将保持未解决状态。报告误报或将文件附加到支持工单时仍会发送该文件，因为文件由您本人选择。"
+
+#. translators: brand name of the service, do not translate
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "来自 Segurium Cloud 的清理响应无效。"
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud 返回的清理内容不是有效的 base64。"
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "清理响应缺少已清理文件的校验和。"
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "已清理的文件与清理响应中的校验和不匹配。"
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "来自 Segurium Cloud 的响应无效。"
+
+#. translators: %d: numeric error code returned by the service
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud 返回错误 %d。"
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Segurium Cloud 响应缺少文件内容。"
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud 返回的文件内容不是有效的 base64。"
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Segurium Cloud 响应缺少文件校验和。"
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "下载的文件与响应中的校验和不匹配。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"
-
-#~ msgid ""
-#~ "Segurium scans your WordPress files and checks them against the Segurium "
-#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
-#~ "threats."
-#~ msgstr ""
-#~ "Segurium 会扫描您的 WordPress 文件，并通过 Segurium 云端威胁情报（CTI）服"
-#~ "务对其进行核查，以检测恶意软件和安全威胁。"
 
 #~ msgid "What data is sent:"
 #~ msgstr "发送的数据："
@@ -4331,9 +4299,6 @@ msgstr "已扫描"
 
 #~ msgid "File sizes"
 #~ msgstr "文件大小"
-
-#~ msgid "Segurium CTI service at cti.segurium.com"
-#~ msgstr "位于 cti.segurium.com 的 Segurium CTI 服务"
 
 #~ msgid "Why:"
 #~ msgstr "用途："
@@ -4482,11 +4447,6 @@ msgstr "还原失败：%s"
 #. Description of the plugin
 msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr "还原原始文件、防病毒、恶意软件扫描、暴力破解防护、防火墙、2FA、地理屏蔽等功能，全部免费。"
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "CTI %s: request missing signature headers."
-msgstr "CTI %s：请求缺少签名标头。"
 
 msgid "Scan trigger requires authentication."
 msgstr "扫描触发器需要身份验证。"

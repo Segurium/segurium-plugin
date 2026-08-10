@@ -658,6 +658,26 @@ class Segurium_CTI_Client {
 	 *                       WP_Error on transport / HTTP / decode failure.
 	 */
 	public function scan_submit( $scan_id, $client_batch_id, $files ) {
+		// SEGURIUM-689: the only route that ships file bytes on its own,
+		// without the user naming the file. `neo_ray_scan()` reaches the
+		// network through here too. The two user-initiated uploads
+		// ({@see submit_fp()}, {@see submit_support_ticket()}) stay open
+		// on purpose: the user picks that file by hand each time.
+		//
+		// The gate sits ahead of every argument check because a caller
+		// that forgets it must still be unable to leak a body — same
+		// reasoning as the SEGURIUM-295 consent gate. Anything automatic
+		// added to submit_fp() would need its own gate.
+		if ( Segurium_Storage::on_premise_mode() ) {
+			Segurium_Debug::log(
+				'[segurium-cti] scan_submit blocked: on-premise mode keeps file contents on the server'
+			);
+			return new WP_Error(
+				'cti_on_premise_blocked',
+				'scan_submit blocked: on-premise mode keeps file contents on the server'
+			);
+		}
+
 		$scan_id         = is_string( $scan_id ) ? trim( $scan_id ) : '';
 		$client_batch_id = is_string( $client_batch_id ) ? trim( $client_batch_id ) : '';
 		if ( '' === $scan_id || '' === $client_batch_id ) {
@@ -1505,7 +1525,7 @@ class Segurium_CTI_Client {
 		if ( ! is_array( $data ) ) {
 			return new WP_Error(
 				'cti_billing_invalid_response',
-				__( 'Invalid CTI billing response.', 'segurium' ),
+				__( 'Invalid billing response from Segurium Cloud.', 'segurium' ),
 				array( 'body' => $raw )
 			);
 		}

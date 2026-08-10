@@ -952,7 +952,7 @@ class Segurium_Self_Check {
 				'label'    => __( 'Cloud-assisted malware detection', 'segurium' ),
 				'status'   => $on_premise ? self::STATUS_FAIL : self::STATUS_PASS,
 				'detail'   => $on_premise
-					? __( 'On-premise mode is enabled, which limits malware-detection accuracy. Files are never stored after scan — turn this off to get full cloud-assisted detection.', 'segurium' )
+					? __( 'On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy.', 'segurium' )
 					: __( 'Cloud-assisted malware detection is active.', 'segurium' ),
 				'fix_tab'  => self::TAB_SETTINGS,
 				'points'   => $on_premise ? 0 : $pts,

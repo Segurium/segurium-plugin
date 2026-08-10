@@ -205,6 +205,26 @@ class Segurium_Storage {
 	}
 
 	/**
+	 * SEGURIUM-689: whether file bodies must stay on this server.
+	 *
+	 * Lives on the storage façade rather than on `Segurium` because the
+	 * CTI client gates `scan_submit()` on it and ships in every request
+	 * tier, including the lightweight ones that never load
+	 * `class-segurium.php`. Reading it through the singleton there would
+	 * turn a blocked upload into a fatal.
+	 *
+	 * The option is semantically inverted (cloud on = on-premise off) and
+	 * defaults to absent, so a site that never touched the setting keeps
+	 * its file contents local. {@see Segurium::is_on_premise()} is the
+	 * public accessor and delegates here.
+	 *
+	 * @return bool True when file bodies must not leave the server.
+	 */
+	public static function on_premise_mode(): bool {
+		return ! self::setting_get_bool( 'segurium_cloud_detection_enabled', false );
+	}
+
+	/**
 	 * Typed string getter.
 	 *
 	 * @param string $key     Option name.
@@ -766,7 +786,7 @@ class Segurium_Storage {
 			return $result;
 		}
 		if ( ! is_array( $result ) || ! isset( $result['content'] ) ) {
-			return new WP_Error( 'cti_invalid_response', __( 'Invalid CTI cleanup response.', 'segurium' ) );
+			return new WP_Error( 'cti_invalid_response', __( 'Invalid cleanup response from Segurium Cloud.', 'segurium' ) );
 		}
 
 		// SEGURIUM-353: `error_code` is the wire-level status returned
@@ -786,7 +806,7 @@ class Segurium_Storage {
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$decoded = base64_decode( (string) $result['content'], true );
 		if ( false === $decoded ) {
-			return new WP_Error( 'cti_invalid_response', __( 'CTI returned non-base64 cleanup content.', 'segurium' ) );
+			return new WP_Error( 'cti_invalid_response', __( 'Segurium Cloud returned cleanup content that is not valid base64.', 'segurium' ) );
 		}
 
 		// SEGURIUM-192: the JSON envelope is Ed25519-signed (verified in
@@ -799,11 +819,11 @@ class Segurium_Storage {
 		// the signed envelope.
 		$expected = isset( $result['sha256_clean'] ) ? strtolower( (string) $result['sha256_clean'] ) : '';
 		if ( '' === $expected ) {
-			return new WP_Error( 'cti_invalid_response', __( 'CTI cleanup response missing sha256_clean.', 'segurium' ) );
+			return new WP_Error( 'cti_invalid_response', __( 'Cleanup response is missing the checksum of the cleaned file.', 'segurium' ) );
 		}
 		$actual = hash( 'sha256', $decoded );
 		if ( ! hash_equals( $expected, $actual ) ) {
-			return new WP_Error( 'cti_hash_mismatch', __( 'CTI cleanup hash mismatch.', 'segurium' ) );
+			return new WP_Error( 'cti_hash_mismatch', __( 'Cleaned file does not match the checksum in the cleanup response.', 'segurium' ) );
 		}
 
 		// SEGURIUM-549: surface the post-charge quota envelope so the
@@ -1033,19 +1053,23 @@ class Segurium_Storage {
 		if ( ! is_array( $body ) || ! isset( $body['error_code'] ) ) {
 			return new WP_Error(
 				'cti_invalid_response',
-				__( 'Invalid CTI response.', 'segurium' )
+				__( 'Invalid response from Segurium Cloud.', 'segurium' )
 			);
 		}
 		if ( 0 !== (int) $body['error_code'] ) {
 			$msg = isset( $body['error'] ) && '' !== (string) $body['error']
 				? (string) $body['error']
-				: 'CTI error ' . (int) $body['error_code'];
+				: sprintf(
+					/* translators: %d: numeric error code returned by the service */
+					__( 'Segurium Cloud returned error %d.', 'segurium' ),
+					(int) $body['error_code']
+				);
 			return new WP_Error( 'cti_upstream_error', $msg );
 		}
 		if ( ! isset( $body['content'] ) ) {
 			return new WP_Error(
 				'cti_invalid_response',
-				__( 'CTI response missing content.', 'segurium' )
+				__( 'Segurium Cloud response is missing the file content.', 'segurium' )
 			);
 		}
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
@@ -1053,21 +1077,21 @@ class Segurium_Storage {
 		if ( false === $decoded ) {
 			return new WP_Error(
 				'cti_invalid_response',
-				__( 'CTI response content failed base64 decode.', 'segurium' )
+				__( 'Segurium Cloud returned file content that is not valid base64.', 'segurium' )
 			);
 		}
 		$expected = isset( $body['sha256'] ) ? strtolower( (string) $body['sha256'] ) : '';
 		if ( '' === $expected ) {
 			return new WP_Error(
 				'cti_invalid_response',
-				__( 'CTI response missing sha256.', 'segurium' )
+				__( 'Segurium Cloud response is missing the file checksum.', 'segurium' )
 			);
 		}
 		$actual = hash( 'sha256', $decoded );
 		if ( ! hash_equals( $expected, $actual ) ) {
 			return new WP_Error(
 				'cti_hash_mismatch',
-				__( 'CTI response hash did not match decoded content.', 'segurium' )
+				__( 'Downloaded file does not match the checksum in the response.', 'segurium' )
 			);
 		}
 		return $decoded;

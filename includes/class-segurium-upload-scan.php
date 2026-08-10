@@ -70,7 +70,10 @@ class Segurium_Upload_Scan {
 			rtrim( Segurium_Path_Helpers::wp_root(), '/' )
 		);
 
-		$this->record_scan( $scan_id, $now );
+		// SEGURIUM-689: on-premise leaves an unknown hash unresolved. The
+		// file is accepted, so the history row has to say the scan reached
+		// no verdict rather than look identical to a clean one.
+		$this->record_scan( $scan_id, $now, (int) $stats['neoray_skipped'] );
 
 		if ( (int) $stats['threats'] > 0 ) {
 			Segurium_Fs::delete( $file_path );
@@ -98,11 +101,13 @@ class Segurium_Upload_Scan {
 	 * Record the upload scan into scan_history. Findings are written by
 	 * {@see Segurium_Verdict_Queue::resolve_and_record} directly.
 	 *
-	 * @param string $scan_id Scan UUID.
-	 * @param int    $now     Current Unix timestamp.
+	 * @param string $scan_id       Scan UUID.
+	 * @param int    $now           Current Unix timestamp.
+	 * @param int    $files_skipped 1 when the upload was left unresolved, e.g.
+	 *                              an unknown hash on-premise (SEGURIUM-689).
 	 * @return void
 	 */
-	private function record_scan( $scan_id, $now ) {
+	private function record_scan( $scan_id, $now, $files_skipped = 0 ) {
 		try {
 			Segurium_Storage::table_insert(
 				'scan_history',
@@ -113,6 +118,7 @@ class Segurium_Upload_Scan {
 					'started_at'     => (int) $now,
 					'finished_at'    => (int) $now,
 					'files_scanned'  => 1,
+					'files_skipped'  => (int) $files_skipped,
 					'trigger_source' => 'upload',
 					'error_code'     => null,
 				)

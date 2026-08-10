@@ -81,12 +81,12 @@ class Segurium_CTI_Signature {
 	 * @param string      $label    Endpoint label for error messages / logs.
 	 * @return true|WP_Error
 	 */
-	public static function verify_response( $response, string $label = 'cti' ) {
+	public static function verify_response( $response, string $label = 'service' ) {
 		if ( ! is_array( $response ) ) {
 			return new WP_Error(
 				'cti_signature_no_response',
 				/* translators: %s: endpoint label */
-				sprintf( __( 'CTI %s: no response to verify.', 'segurium' ), $label )
+				sprintf( __( 'Segurium Cloud (%s): no response to verify.', 'segurium' ), $label )
 			);
 		}
 
@@ -113,12 +113,12 @@ class Segurium_CTI_Signature {
 	 * @param string $label   Endpoint label for error messages / logs.
 	 * @return true|WP_Error
 	 */
-	public static function verify_signature( string $sig_b64, string $ts_str, string $key_id, string $body, string $label = 'cti' ) {
+	public static function verify_signature( string $sig_b64, string $ts_str, string $key_id, string $body, string $label = 'service' ) {
 		if ( '' === $sig_b64 || '' === $ts_str || '' === $key_id ) {
 			return new WP_Error(
 				'cti_signature_missing',
 				/* translators: %s: endpoint label */
-				sprintf( __( 'CTI %s: request missing signature headers.', 'segurium' ), $label )
+				sprintf( __( 'Segurium Cloud (%s): missing signature headers.', 'segurium' ), $label )
 			);
 		}
 
@@ -127,8 +127,8 @@ class Segurium_CTI_Signature {
 			return new WP_Error(
 				'cti_signature_untrusted_key',
 				sprintf(
-					/* translators: 1: endpoint label, 2: key id from response */
-					__( 'CTI %1$s: response signed by untrusted key "%2$s".', 'segurium' ),
+					/* translators: 1: endpoint label, 2: key id from the signature header */
+					__( 'Segurium Cloud (%1$s): signed with an untrusted key "%2$s".', 'segurium' ),
 					$label,
 					$key_id
 				)
@@ -139,7 +139,7 @@ class Segurium_CTI_Signature {
 		if ( false === $pub || SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES !== strlen( $pub ) ) {
 			return new WP_Error(
 				'cti_signature_bad_trust_list',
-				__( 'CTI signature trust list is corrupt — public key failed to decode.', 'segurium' )
+				__( 'Signature trust list is corrupt — public key failed to decode.', 'segurium' )
 			);
 		}
 
@@ -149,7 +149,7 @@ class Segurium_CTI_Signature {
 				'cti_signature_bad_signature',
 				sprintf(
 					/* translators: %s: endpoint label */
-					__( 'CTI %s: signature header malformed.', 'segurium' ),
+					__( 'Segurium Cloud (%s): signature header malformed.', 'segurium' ),
 					$label
 				)
 			);
@@ -160,7 +160,7 @@ class Segurium_CTI_Signature {
 				'cti_signature_bad_timestamp',
 				sprintf(
 					/* translators: %s: endpoint label */
-					__( 'CTI %s: signature timestamp malformed.', 'segurium' ),
+					__( 'Segurium Cloud (%s): signature timestamp malformed.', 'segurium' ),
 					$label
 				)
 			);
@@ -173,7 +173,7 @@ class Segurium_CTI_Signature {
 				'cti_signature_stale',
 				sprintf(
 					/* translators: 1: endpoint label, 2: skew in seconds */
-					__( 'CTI %1$s: signature timestamp is %2$d seconds out of range.', 'segurium' ),
+					__( 'Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range.', 'segurium' ),
 					$label,
 					$skew
 				)
@@ -190,7 +190,7 @@ class Segurium_CTI_Signature {
 				'cti_signature_sodium_error',
 				sprintf(
 					/* translators: 1: endpoint label, 2: error message */
-					__( 'CTI %1$s: libsodium rejected signature (%2$s).', 'segurium' ),
+					__( 'Segurium Cloud (%1$s): libsodium rejected the signature (%2$s).', 'segurium' ),
 					$label,
 					$e->getMessage()
 				)
@@ -202,7 +202,7 @@ class Segurium_CTI_Signature {
 				'cti_signature_invalid',
 				sprintf(
 					/* translators: %s: endpoint label */
-					__( 'CTI %s: signature did not verify — response rejected.', 'segurium' ),
+					__( 'Segurium Cloud (%s): signature did not verify.', 'segurium' ),
 					$label
 				)
 			);

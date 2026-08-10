@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"PO-Revision-Date: 2026-08-09 03:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl_PL\n"
@@ -46,6 +46,11 @@ msgstr ""
 "Lekkie zabezpieczenia WordPressa wspierane przez SI: skanowanie złośliwego "
 "oprogramowania, ochrona przed atakami siłowymi, 2FA, blokowanie geograficzne "
 "i kontrola integralności — bez zbędnych dodatków."
+
+#. Description of the plugin
+#: segurium.php
+msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Włamanie na stronę? Bezpłatne usuwanie malware z WordPressa: skanowanie, czyszczenie zainfekowanych plików i ich przywracanie. Do tego zapora sieciowa, ochrona przed atakami siłowymi, 2FA i blokowanie geograficzne."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -547,66 +552,6 @@ msgstr "Błąd usługi wsparcia (HTTP %d)."
 msgid "Clean version not available for this file"
 msgstr "Czysta wersja tego pliku nie jest dostępna"
 
-#: includes/class-segurium-cti-client.php:910
-msgid "Invalid CTI billing response."
-msgstr "Nieprawidłowa odpowiedź rozliczeniowa CTI."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:89
-#, php-format
-msgid "CTI %s: no response to verify."
-msgstr "CTI %s: brak odpowiedzi do weryfikacji."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:102
-#, php-format
-msgid "CTI %s: response missing signature headers."
-msgstr "CTI %s: w odpowiedzi brakuje nagłówków podpisu."
-
-#. translators: 1: endpoint label, 2: key id from response
-#: includes/class-segurium-cti-signature.php:112
-#, php-format
-msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
-msgstr "CTI %1$s: odpowiedź podpisana niezaufanym kluczem „%2$s”."
-
-#: includes/class-segurium-cti-signature.php:123
-msgid "CTI signature trust list is corrupt — public key failed to decode."
-msgstr ""
-"Lista zaufania podpisów CTI jest uszkodzona — nie udało się zdekodować "
-"klucza publicznego."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:133
-#, php-format
-msgid "CTI %s: signature header malformed."
-msgstr "CTI %s: nieprawidłowy nagłówek podpisu."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:144
-#, php-format
-msgid "CTI %s: signature timestamp malformed."
-msgstr "CTI %s: nieprawidłowy znacznik czasu podpisu."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#: includes/class-segurium-cti-signature.php:157
-#, php-format
-msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
-msgstr ""
-"CTI %1$s: znacznik czasu podpisu wykracza poza dopuszczalny zakres o %2$d "
-"sekund."
-
-#. translators: 1: endpoint label, 2: error message
-#: includes/class-segurium-cti-signature.php:174
-#, php-format
-msgid "CTI %1$s: libsodium rejected signature (%2$s)."
-msgstr "CTI %1$s: libsodium odrzucił podpis (%2$s)."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:186
-#, php-format
-msgid "CTI %s: signature did not verify — response rejected."
-msgstr "CTI %s: weryfikacja podpisu nie powiodła się — odpowiedź odrzucona."
-
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
 msgstr "Dostęp z Państwa lokalizacji jest niedozwolony."
@@ -1093,16 +1038,6 @@ msgstr "Żadne ciasteczko nie ustawia SameSite=Lax lub Strict (z %d)."
 msgid "Cloud-assisted malware detection"
 msgstr "Wykrywanie złośliwego oprogramowania wspierane chmurą"
 
-#: includes/class-segurium-self-check.php:818
-msgid ""
-"On-premise mode is enabled, which limits malware-detection accuracy. Files "
-"are never stored after scan — turn this off to get full cloud-assisted "
-"detection."
-msgstr ""
-"Tryb lokalny (on-premise) jest włączony, co ogranicza dokładność wykrywania "
-"złośliwego oprogramowania. Pliki nigdy nie są przechowywane po skanowaniu — "
-"proszę wyłączyć tę opcję, aby uzyskać pełne wykrywanie wspierane chmurą."
-
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
 msgstr "Wykrywanie złośliwego oprogramowania wspierane chmurą jest aktywne."
@@ -1416,10 +1351,6 @@ msgstr "Utracono połączenie. Ponawianie próby..."
 #: includes/class-segurium.php:837
 msgid "Request failed"
 msgstr "Żądanie nie powiodło się"
-
-#: includes/class-segurium.php:840 includes/class-segurium.php:3070
-msgid "CTI service consent is required before scanning."
-msgstr "Przed rozpoczęciem skanowania wymagana jest zgoda na usługę CTI."
 
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
@@ -2476,14 +2407,6 @@ msgstr "Serwery Segurium pod adresem cti.segurium.com."
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "Okres przechowywania:"
-
-#: includes/class-segurium.php:1227
-msgid ""
-"File samples uploaded for analysis are not retained beyond what is needed to "
-"produce a verdict."
-msgstr ""
-"Próbki plików przesłane do analizy nie są przechowywane dłużej, niż jest to "
-"konieczne do wydania werdyktu."
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
@@ -3698,21 +3621,6 @@ msgstr ""
 "wszystkie pliki dziennika, a vendor/* wykluczy katalog vendor wraz z całą "
 "jego zawartością."
 
-#: includes/class-segurium.php:2664
-msgid ""
-"When enabled, file contents may be shared with the CTI service to enable "
-"advanced malware detection and CTI-powered cleanup. Only suspicious files "
-"are transmitted, and contents are not retained after analysis. Keep it "
-"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
-"will be transmitted."
-msgstr ""
-"Po włączeniu zawartość plików może być udostępniana usłudze CTI w celu "
-"zaawansowanego wykrywania złośliwego oprogramowania oraz czyszczenia "
-"opartego o CTI. Przesyłane są wyłącznie podejrzane pliki, a ich zawartość "
-"nie jest przechowywana po analizie. Aby pracować w trybie lokalnym, należy "
-"pozostawić tę opcję wyłączoną — przesyłane będą wyłącznie skróty SHA-256, "
-"ścieżki plików oraz metadane."
-
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
 msgstr "Wymaż szyfrowane kopie zapasowe przy odinstalowaniu wtyczki"
@@ -3798,10 +3706,6 @@ msgstr ""
 #: includes/class-segurium.php:2798
 msgid "Version"
 msgstr "Wersja"
-
-#: includes/class-segurium.php:2802
-msgid "CTI"
-msgstr "CTI"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
@@ -4359,26 +4263,6 @@ msgstr "Nie znaleziono danych 2FA Wordfence"
 msgid "Your session has expired. Please reload the page and try again."
 msgstr "Państwa sesja wygasła. Proszę odświeżyć stronę i spróbować ponownie."
 
-#: includes/storage/class-segurium-storage.php:953
-msgid "Invalid CTI response."
-msgstr "Nieprawidłowa odpowiedź CTI."
-
-#: includes/storage/class-segurium-storage.php:965
-msgid "CTI response missing content."
-msgstr "Brak zawartości w odpowiedzi CTI."
-
-#: includes/storage/class-segurium-storage.php:973
-msgid "CTI response content failed base64 decode."
-msgstr "Dekodowanie base64 zawartości odpowiedzi CTI nie powiodło się."
-
-#: includes/storage/class-segurium-storage.php:980
-msgid "CTI response missing sha256."
-msgstr "Brak sha256 w odpowiedzi CTI."
-
-#: includes/storage/class-segurium-storage.php:987
-msgid "CTI response hash did not match decoded content."
-msgstr "Skrót w odpowiedzi CTI nie zgadza się ze zdekodowaną zawartością."
-
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
 msgstr "Błąd aktywacji wtyczki"
@@ -4436,20 +4320,8 @@ msgstr ""
 "zwolnione, a funkcje Pro zostaną ponownie aktywowane w tej witrynie podczas "
 "kolejnej weryfikacji licencji."
 
-msgid "Invalid CTI cleanup response."
-msgstr "Nieprawidłowa odpowiedź czyszczenia z CTI."
-
 msgid "Cleanup unavailable."
 msgstr "Czyszczenie niedostępne."
-
-msgid "CTI returned non-base64 cleanup content."
-msgstr "CTI zwróciło zawartość czyszczenia niebędącą w formacie base64."
-
-msgid "CTI cleanup response missing sha256_clean."
-msgstr "W odpowiedzi czyszczenia z CTI brakuje pola sha256_clean."
-
-msgid "CTI cleanup hash mismatch."
-msgstr "Niezgodność skrótu czyszczenia z CTI."
 
 #. translators: %d: number of seconds since the scan worker last reported progress
 #: includes/class-segurium.php:900
@@ -4619,15 +4491,6 @@ msgstr "zeskanowane"
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Wtyczka Segurium dla WordPressa."
 
-#~ msgid ""
-#~ "Segurium scans your WordPress files and checks them against the Segurium "
-#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
-#~ "threats."
-#~ msgstr ""
-#~ "Segurium skanuje pliki WordPressa i porównuje je z usługą Segurium Cloud "
-#~ "Threat Intelligence (CTI) w celu wykrycia złośliwego oprogramowania oraz "
-#~ "zagrożeń bezpieczeństwa."
-
 #~ msgid "What data is sent:"
 #~ msgstr "Jakie dane są wysyłane:"
 
@@ -4639,9 +4502,6 @@ msgstr "zeskanowane"
 
 #~ msgid "File sizes"
 #~ msgstr "Rozmiary plików"
-
-#~ msgid "Segurium CTI service at cti.segurium.com"
-#~ msgstr "Usługa Segurium CTI pod adresem cti.segurium.com"
 
 #~ msgid "Why:"
 #~ msgstr "Dlaczego:"
@@ -4815,11 +4675,6 @@ msgstr "Przywracanie nie powiodło się: %s"
 msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr "Przywracanie oryginalnych plików, antywirus, skanowanie złośliwego oprogramowania, ochrona przed atakami brute force, zapora sieciowa, 2FA, blokowanie geograficzne i wiele więcej — bezpłatnie."
 
-#. translators: %s: endpoint label
-#, php-format
-msgid "CTI %s: request missing signature headers."
-msgstr "CTI %s: w żądaniu brakuje nagłówków podpisu."
-
 msgid "Scan trigger requires authentication."
 msgstr "Wyzwalacz skanowania wymaga uwierzytelnienia."
 
@@ -4837,3 +4692,123 @@ msgstr "Bezpłatne czyszczenie złośliwego oprogramowania, a nie tylko wykrywan
 #: includes/class-segurium.php:2940
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
 msgstr "Importer migracji (Wordfence, AIOS, Solid Security)"
+
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Nieprawidłowa odpowiedź rozliczeniowa z Segurium Cloud."
+
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): brak odpowiedzi do zweryfikowania."
+
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): brak nagłówków podpisu."
+
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): podpisano niezaufanym kluczem „%2$s”."
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr ""
+"Lista zaufanych podpisów jest uszkodzona — nie udało się zdekodować klucza "
+"publicznego."
+
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): nieprawidłowo sformatowany nagłówek podpisu."
+
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr ""
+"Segurium Cloud (%s): nieprawidłowo sformatowany znacznik czasu podpisu."
+
+#, php-format
+msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): znacznik czasu podpisu jest %2$d sekund poza zakresem."
+
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium odrzuciło podpis (%2$s)."
+
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): podpis nie przeszedł weryfikacji."
+
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Tryb on-premise jest włączony: zawartość plików pozostaje na tym serwerze, "
+"a każdy plik, którego chmura nie potrafi zidentyfikować po skrócie, "
+"pozostaje nierozstrzygnięty. Aby uzyskać pełną dokładność, proszę włączyć "
+"wykrywanie wspierane chmurą."
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Przed skanowaniem wymagana jest zgoda na Segurium Cloud."
+
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Próbki plików przesłane do analizy są przechowywane maksymalnie przez 365 "
+"dni, a następnie usuwane w ramach automatycznego nocnego czyszczenia. Po "
+"przejrzeniu próbka może zostać usunięta wcześniej."
+
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Po włączeniu zawartość plików może być udostępniana Segurium Cloud w celu "
+"zaawansowanego wykrywania złośliwego oprogramowania oraz czyszczenia "
+"wspieranego chmurą. Przesyłane są wyłącznie podejrzane pliki. Aby korzystać "
+"z trybu on-premise, proszę wyłączyć tę opcję: skanowania będą wtedy wysyłać "
+"jedynie skróty SHA-256, ścieżki plików i metadane, a plik, którego chmura "
+"nie potrafi zidentyfikować po skrócie, pozostanie nierozstrzygnięty. "
+"Zgłoszenie fałszywego trafienia lub dołączenie pliku do zgłoszenia wsparcia "
+"nadal powoduje wysłanie tego pliku, ponieważ jest on wybierany przez "
+"Państwa samodzielnie."
+
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Nieprawidłowa odpowiedź czyszczenia z Segurium Cloud."
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr ""
+"Segurium Cloud zwrócił zawartość czyszczenia, która nie jest prawidłowym "
+"base64."
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "W odpowiedzi czyszczenia brakuje sumy kontrolnej wyczyszczonego pliku."
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr ""
+"Wyczyszczony plik nie zgadza się z sumą kontrolną z odpowiedzi czyszczenia."
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Nieprawidłowa odpowiedź z Segurium Cloud."
+
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud zwrócił błąd %d."
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "W odpowiedzi Segurium Cloud brakuje zawartości pliku."
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr ""
+"Segurium Cloud zwrócił zawartość pliku, która nie jest prawidłowym base64."
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "W odpowiedzi Segurium Cloud brakuje sumy kontrolnej pliku."
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "Pobrany plik nie zgadza się z sumą kontrolną z odpowiedzi."

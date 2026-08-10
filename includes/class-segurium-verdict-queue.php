@@ -1132,6 +1132,28 @@ class Segurium_Verdict_Queue {
 	 * @return string|null Body to escalate, or null when handled.
 	 */
 	private static function load_unknown_body( $scan_id, $detector, $sha256, $path, $base_path, array &$stats, $now ) {
+		// SEGURIUM-689: on-premise means an Unknown hash stays unresolved.
+		// Counted as `neoray_skipped` — the same bucket an oversize file
+		// lands in — so `verdicted + failed + neoray_skipped == submitted`
+		// holds and the scan settles instead of stalling on a verdict that
+		// can never arrive. The body is never read off disk.
+		if ( Segurium_Storage::on_premise_mode() ) {
+			++$stats['neoray_skipped'];
+			// `neoray_skipped` also holds oversize files and cancelled
+			// ones. The event is what tells an operator that a skip was
+			// policy rather than a failure.
+			Segurium_Scan_Runner::debug(
+				'on_premise_unresolved',
+				array(
+					'scan_id'  => (string) $scan_id,
+					'detector' => (string) $detector,
+					'sha256'   => (string) $sha256,
+					'path'     => (string) $path,
+				)
+			);
+			return null;
+		}
+
 		if ( '' === $base_path || '' === $path || '' === $sha256 ) {
 			++$stats['failed'];
 			++$stats['neoray_errors'];

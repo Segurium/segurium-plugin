@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"PO-Revision-Date: 2026-08-09 03:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko_KR\n"
@@ -41,6 +41,11 @@ msgid ""
 msgstr ""
 "가볍고 AI 기반의 WordPress 보안: 멀웨어 검사, 무차별 대입 공격 차단, 2FA, 지"
 "역 차단, 무결성 검사 — 불필요한 기능 없이 핵심만."
+
+#. Description of the plugin
+#: segurium.php
+msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "사이트가 해킹당하셨나요? 무료 WordPress 멀웨어 제거: 검사, 감염된 파일 정리, 복원. 방화벽, 무차별 대입 공격 차단, 2FA, 지역 차단까지."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -524,62 +529,6 @@ msgstr "지원 서비스 오류(HTTP %d)."
 msgid "Clean version not available for this file"
 msgstr "이 파일의 클린 버전을 사용할 수 없습니다"
 
-#: includes/class-segurium-cti-client.php:910
-msgid "Invalid CTI billing response."
-msgstr "잘못된 CTI 청구 응답입니다."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:89
-#, php-format
-msgid "CTI %s: no response to verify."
-msgstr "CTI %s: 검증할 응답이 없습니다."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:102
-#, php-format
-msgid "CTI %s: response missing signature headers."
-msgstr "CTI %s: 응답에 서명 헤더가 없습니다."
-
-#. translators: 1: endpoint label, 2: key id from response
-#: includes/class-segurium-cti-signature.php:112
-#, php-format
-msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
-msgstr "CTI %1$s: 신뢰할 수 없는 키 \"%2$s\"로 서명된 응답입니다."
-
-#: includes/class-segurium-cti-signature.php:123
-msgid "CTI signature trust list is corrupt — public key failed to decode."
-msgstr "CTI 서명 신뢰 목록이 손상되었습니다 — 공개 키 디코딩에 실패했습니다."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:133
-#, php-format
-msgid "CTI %s: signature header malformed."
-msgstr "CTI %s: 서명 헤더 형식이 잘못되었습니다."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:144
-#, php-format
-msgid "CTI %s: signature timestamp malformed."
-msgstr "CTI %s: 서명 타임스탬프 형식이 잘못되었습니다."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#: includes/class-segurium-cti-signature.php:157
-#, php-format
-msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
-msgstr "CTI %1$s: 서명 타임스탬프가 허용 범위에서 %2$d초 벗어났습니다."
-
-#. translators: 1: endpoint label, 2: error message
-#: includes/class-segurium-cti-signature.php:174
-#, php-format
-msgid "CTI %1$s: libsodium rejected signature (%2$s)."
-msgstr "CTI %1$s: libsodium이 서명을 거부했습니다(%2$s)."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:186
-#, php-format
-msgid "CTI %s: signature did not verify — response rejected."
-msgstr "CTI %s: 서명이 검증되지 않았습니다 — 응답이 거부되었습니다."
-
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
 msgstr "현재 위치에서의 접근이 허용되지 않습니다."
@@ -1053,16 +1002,6 @@ msgstr "쿠키 %d개 중 SameSite=Lax 또는 Strict를 설정한 쿠키가 없�
 msgid "Cloud-assisted malware detection"
 msgstr "클라우드 기반 멀웨어 탐지"
 
-#: includes/class-segurium-self-check.php:818
-msgid ""
-"On-premise mode is enabled, which limits malware-detection accuracy. Files "
-"are never stored after scan — turn this off to get full cloud-assisted "
-"detection."
-msgstr ""
-"온프레미스 모드가 활성화되어 있어 멀웨어 탐지 정확도가 제한됩니다. 검사 후 파"
-"일이 저장되지 않습니다 — 클라우드 기반 탐지를 모두 활용하려면 이 옵션을 끄십"
-"시오."
-
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
 msgstr "클라우드 기반 멀웨어 탐지가 활성화되어 있습니다."
@@ -1354,10 +1293,6 @@ msgstr "연결이 끊겼습니다. 재시도 중..."
 #: includes/class-segurium.php:837
 msgid "Request failed"
 msgstr "요청 실패"
-
-#: includes/class-segurium.php:840 includes/class-segurium.php:3070
-msgid "CTI service consent is required before scanning."
-msgstr "검사 전에 CTI 서비스에 대한 동의가 필요합니다."
 
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
@@ -2383,14 +2318,6 @@ msgstr "cti.segurium.com의 Segurium 서버."
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "보관:"
-
-#: includes/class-segurium.php:1227
-msgid ""
-"File samples uploaded for analysis are not retained beyond what is needed to "
-"produce a verdict."
-msgstr ""
-"분석을 위해 업로드된 파일 샘플은 판정을 내리는 데 필요한 기간을 넘어 보관되"
-"지 않습니다."
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
@@ -3561,19 +3488,6 @@ msgstr ""
 "와일드카드로 *를 사용하십시오. 예를 들어 *.log는 모든 로그 파일을 제외합니"
 "다. vendor/*는 vendor 디렉터리와 그 안의 모든 항목을 제외합니다."
 
-#: includes/class-segurium.php:2664
-msgid ""
-"When enabled, file contents may be shared with the CTI service to enable "
-"advanced malware detection and CTI-powered cleanup. Only suspicious files "
-"are transmitted, and contents are not retained after analysis. Keep it "
-"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
-"will be transmitted."
-msgstr ""
-"활성화하면 고급 멀웨어 탐지와 CTI 기반 정리를 위해 파일 내용을 CTI 서비스와 "
-"공유할 수 있습니다. 의심스러운 파일만 전송되며 분석 후 내용은 보관되지 않습니"
-"다. 온프레미스 모드를 위해 비활성화 상태로 두면 SHA-256 해시, 파일 경로, 메타"
-"데이터만 전송됩니다."
-
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
 msgstr "플러그인 제거 시 암호화 백업 삭제"
@@ -3651,10 +3565,6 @@ msgstr ""
 #: includes/class-segurium.php:2798
 msgid "Version"
 msgstr "버전"
-
-#: includes/class-segurium.php:2802
-msgid "CTI"
-msgstr "CTI"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
@@ -4191,26 +4101,6 @@ msgstr "Wordfence 2FA 데이터를 찾을 수 없습니다"
 msgid "Your session has expired. Please reload the page and try again."
 msgstr "세션이 만료되었습니다. 페이지를 새로고침하고 다시 시도하십시오."
 
-#: includes/storage/class-segurium-storage.php:953
-msgid "Invalid CTI response."
-msgstr "잘못된 CTI 응답입니다."
-
-#: includes/storage/class-segurium-storage.php:965
-msgid "CTI response missing content."
-msgstr "CTI 응답에 콘텐츠가 없습니다."
-
-#: includes/storage/class-segurium-storage.php:973
-msgid "CTI response content failed base64 decode."
-msgstr "CTI 응답 콘텐츠의 base64 디코딩에 실패했습니다."
-
-#: includes/storage/class-segurium-storage.php:980
-msgid "CTI response missing sha256."
-msgstr "CTI 응답에 sha256이 없습니다."
-
-#: includes/storage/class-segurium-storage.php:987
-msgid "CTI response hash did not match decoded content."
-msgstr "CTI 응답 해시가 디코딩된 콘텐츠와 일치하지 않습니다."
-
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
 msgstr "플러그인 활성화 오류"
@@ -4248,20 +4138,8 @@ msgstr "Segurium이 이 사이트가 이동되었거나 복제된 것을 감지�
 msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
 msgstr "현재 라이선스가 다른 설치에 바인딩되어 있어 이 사이트에서 Pro 라이선스를 활성화할 수 없습니다. 원래 설치에서 Segurium 계정 포털을 열어 해당 위치의 라이선스를 비활성화하십시오. 바인딩이 해제되면 다음 라이선스 확인 시 이 사이트에서 Pro 기능이 다시 활성화됩니다."
 
-msgid "Invalid CTI cleanup response."
-msgstr "잘못된 CTI 정리 응답입니다."
-
 msgid "Cleanup unavailable."
 msgstr "정리를 사용할 수 없습니다."
-
-msgid "CTI returned non-base64 cleanup content."
-msgstr "CTI가 base64 형식이 아닌 정리 콘텐츠를 반환했습니다."
-
-msgid "CTI cleanup response missing sha256_clean."
-msgstr "CTI 정리 응답에 sha256_clean 값이 없습니다."
-
-msgid "CTI cleanup hash mismatch."
-msgstr "CTI 정리 해시가 일치하지 않습니다."
 
 #. translators: %d: number of seconds since the scan worker last reported progress
 msgid "no progress for %ds — waiting for worker"
@@ -4405,6 +4283,100 @@ msgstr "파일"
 msgid "failed"
 msgstr "실패"
 
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Segurium Cloud의 결제 응답이 잘못되었습니다."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud(%s): 검증할 응답이 없습니다."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud(%s): 서명 헤더가 누락되었습니다."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud(%1$s): 신뢰할 수 없는 키 \"%2$s\"(으)로 서명되었습니다."
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "서명 신뢰 목록이 손상되었습니다 — 공개 키를 디코딩하지 못했습니다."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud(%s): 서명 헤더 형식이 잘못되었습니다."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud(%s): 서명 타임스탬프 형식이 잘못되었습니다."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#, php-format
+msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud(%1$s): 서명 타임스탬프가 허용 범위를 %2$d초 벗어났습니다."
+
+#. translators: 1: endpoint label, 2: error message
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud(%1$s): libsodium이 서명을 거부했습니다(%2$s)."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud(%s): 서명이 검증되지 않았습니다."
+
+msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
+msgstr "온프레미스 모드가 활성화되어 있습니다: 파일 내용은 이 서버에 남으며, 클라우드가 해시로 식별할 수 없는 파일은 미해결로 남습니다. 완전한 정확도를 위해 클라우드 기반 탐지를 켜십시오."
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "검사를 진행하기 전에 Segurium Cloud 사용 동의가 필요합니다."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
+msgstr "분석을 위해 업로드된 파일 샘플은 최대 365일 동안 보관된 후 자동 야간 삭제 작업으로 제거됩니다. 검토가 완료되면 샘플이 더 일찍 제거될 수 있습니다."
+
+msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
+msgstr "활성화하면 고급 멀웨어 탐지와 클라우드 기반 정리를 위해 파일 내용이 Segurium Cloud와 공유될 수 있습니다. 의심스러운 파일만 전송됩니다. 온프레미스 모드로 사용하려면 끄십시오: 이 경우 검사는 SHA-256 해시, 파일 경로, 메타데이터만 전송하며, 클라우드가 해시로 식별할 수 없는 파일은 미해결로 남습니다. 오탐지 보고나 지원 티켓에 파일을 첨부하는 경우에는 사용자가 직접 선택한 파일이므로 해당 파일이 계속 전송됩니다."
+
+#. translators: brand name of the service, do not translate
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Segurium Cloud의 정리 응답이 잘못되었습니다."
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud가 반환한 정리 콘텐츠가 유효한 base64가 아닙니다."
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "정리 응답에 정리된 파일의 체크섬이 누락되었습니다."
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "정리된 파일이 정리 응답의 체크섬과 일치하지 않습니다."
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Segurium Cloud의 응답이 잘못되었습니다."
+
+#. translators: %d: numeric error code returned by the service
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud가 오류 %d을(를) 반환했습니다."
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Segurium Cloud 응답에 파일 내용이 누락되었습니다."
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud가 반환한 파일 내용이 유효한 base64가 아닙니다."
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Segurium Cloud 응답에 파일 체크섬이 누락되었습니다."
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "다운로드한 파일이 응답의 체크섬과 일치하지 않습니다."
+
 #: includes/class-segurium.php:880
 msgid "skipped"
 msgstr "건너뜀"
@@ -4415,14 +4387,6 @@ msgstr "검사됨"
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
-
-#~ msgid ""
-#~ "Segurium scans your WordPress files and checks them against the Segurium "
-#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
-#~ "threats."
-#~ msgstr ""
-#~ "Segurium은 WordPress 파일을 검사하고 Segurium 클라우드 위협 인텔리전스"
-#~ "(CTI) 서비스와 대조하여 멀웨어 및 보안 위협을 탐지합니다."
 
 #~ msgid "What data is sent:"
 #~ msgstr "전송되는 데이터:"
@@ -4435,9 +4399,6 @@ msgstr "검사됨"
 
 #~ msgid "File sizes"
 #~ msgstr "파일 크기"
-
-#~ msgid "Segurium CTI service at cti.segurium.com"
-#~ msgstr "cti.segurium.com의 Segurium CTI 서비스"
 
 #~ msgid "Why:"
 #~ msgstr "이유:"
@@ -4598,11 +4559,6 @@ msgstr "복원에 실패했습니다: %s"
 #. Description of the plugin
 msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr "원본 파일 복원, 안티바이러스, 멀웨어 검사, 무차별 대입 공격 방지, 방화벽, 2FA, 지역 차단 등 모든 기능을 무료로 제공합니다."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "CTI %s: request missing signature headers."
-msgstr "CTI %s: 요청에 서명 헤더가 없습니다."
 
 msgid "Scan trigger requires authentication."
 msgstr "스캔 트리거에는 인증이 필요합니다."

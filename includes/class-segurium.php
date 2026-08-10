@@ -1036,7 +1036,7 @@ class Segurium {
 						'errGeneric'              => __( 'Request failed', 'segurium' ),
 						'errSessionExpired'       => __( 'Your session has expired. Reload the page and try again.', 'segurium' ),
 						'errUnauthorized'         => __( 'You do not have permission to manage scans.', 'segurium' ),
-						'errConsentRequired'      => __( 'CTI service consent is required before scanning.', 'segurium' ),
+						'errConsentRequired'      => __( 'Segurium Cloud consent is required before scanning.', 'segurium' ),
 						'errInitializeFailed'     => __( 'The scan could not be initialized. Check the PHP error log.', 'segurium' ),
 						'errDispatchFailed'       => __( 'The scan started but the background worker could not be dispatched. Try again.', 'segurium' ),
 						'errScanStartException'   => __( 'The scan could not be started due to a server error. Check the PHP error log.', 'segurium' ),
@@ -1403,7 +1403,7 @@ class Segurium {
 	 * @return bool True if on-premise mode is enabled.
 	 */
 	public function is_on_premise() {
-		return ! Segurium_Storage::setting_get_bool( 'segurium_cloud_detection_enabled', false );
+		return Segurium_Storage::on_premise_mode();
 	}
 
 	/**
@@ -1607,7 +1607,7 @@ class Segurium {
 				</ul>
 
 				<p><strong><?php esc_html_e( 'Where it is sent:', 'segurium' ); ?></strong> <?php esc_html_e( 'Segurium servers at cti.segurium.com.', 'segurium' ); ?></p>
-				<p><strong><?php esc_html_e( 'Retention:', 'segurium' ); ?></strong> <?php esc_html_e( 'File samples uploaded for analysis are not retained beyond what is needed to produce a verdict.', 'segurium' ); ?></p>
+				<p><strong><?php esc_html_e( 'Retention:', 'segurium' ); ?></strong> <?php esc_html_e( 'File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed.', 'segurium' ); ?></p>
 
 				<p>
 					<?php
@@ -3049,7 +3049,7 @@ class Segurium {
 								<input type="checkbox" id="segurium_cloud_detection" <?php checked( Segurium_Storage::setting_get_bool( 'segurium_cloud_detection_enabled', false ) ); ?>>
 								<strong><?php esc_html_e( 'Cloud-assisted malware detection', 'segurium' ); ?></strong>
 							</label>
-							<p class="description"><?php esc_html_e( 'When enabled, file contents may be shared with the CTI service to enable advanced malware detection and CTI-powered cleanup. Only suspicious files are transmitted, and contents are not retained after analysis. Keep it disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata will be transmitted.', 'segurium' ); ?></p>
+							<p class="description"><?php esc_html_e( 'When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself.', 'segurium' ); ?></p>
 						</div>
 						<div class="segurium-setting-row segurium-danger-zone">
 							<label>
@@ -3187,7 +3187,8 @@ class Segurium {
 							<dd><?php echo esc_html( SEGURIUM_VERSION ); ?></dd>
 							<dt><?php esc_html_e( 'Plan', 'segurium' ); ?></dt>
 							<dd><?php $is_pro ? esc_html_e( 'Pro', 'segurium' ) : esc_html_e( 'Free', 'segurium' ); ?></dd>
-							<dt><?php esc_html_e( 'CTI', 'segurium' ); ?></dt>
+							<?php /* translators: brand name of the service, do not translate */ ?>
+							<dt><?php esc_html_e( 'Segurium Cloud', 'segurium' ); ?></dt>
 							<dd id="segurium-cti-status"></dd>
 							<dt><?php esc_html_e( 'Geo DB updated', 'segurium' ); ?></dt>
 							<?php
@@ -3474,7 +3475,7 @@ class Segurium {
 			segurium_send_json_error(
 				array(
 					'code'    => 'consent_required',
-					'message' => __( 'CTI service consent is required before scanning.', 'segurium' ),
+					'message' => __( 'Segurium Cloud consent is required before scanning.', 'segurium' ),
 				)
 			);
 		}

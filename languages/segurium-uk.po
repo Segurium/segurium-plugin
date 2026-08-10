@@ -43,6 +43,11 @@ msgstr ""
 "Легкий захист WordPress на базі ШІ: сканування шкідливого ПЗ, захист від "
 "перебору, 2FA, геоблокування, перевірка цілісності — без зайвого."
 
+#. Description of the plugin
+#: segurium.php
+msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "Сайт зламано? Безкоштовне видалення шкідливого ПЗ з WordPress: сканування, очищення інфікованих файлів і їх відновлення. А також фаєрвол, захист від перебору, 2FA та геоблокування."
+
 #: includes/class-segurium-2fa.php:589
 msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
@@ -535,65 +540,6 @@ msgstr "Помилка сервісу підтримки (HTTP %d)."
 msgid "Clean version not available for this file"
 msgstr "Чиста версія цього файлу недоступна"
 
-#: includes/class-segurium-cti-client.php:910
-msgid "Invalid CTI billing response."
-msgstr "Недійсна відповідь оплати CTI."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:89
-#, php-format
-msgid "CTI %s: no response to verify."
-msgstr "CTI %s: немає відповіді для перевірки."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:102
-#, php-format
-msgid "CTI %s: response missing signature headers."
-msgstr "CTI %s: у відповіді відсутні заголовки підпису."
-
-#. translators: 1: endpoint label, 2: key id from response
-#: includes/class-segurium-cti-signature.php:112
-#, php-format
-msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
-msgstr "CTI %1$s: відповідь підписано недовіреним ключем «%2$s»."
-
-#: includes/class-segurium-cti-signature.php:123
-msgid "CTI signature trust list is corrupt — public key failed to decode."
-msgstr ""
-"Список довірених підписів CTI пошкоджено — не вдалося декодувати публічний "
-"ключ."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:133
-#, php-format
-msgid "CTI %s: signature header malformed."
-msgstr "CTI %s: некоректний формат заголовка підпису."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:144
-#, php-format
-msgid "CTI %s: signature timestamp malformed."
-msgstr "CTI %s: некоректний формат позначки часу підпису."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#: includes/class-segurium-cti-signature.php:157
-#, php-format
-msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
-msgstr ""
-"CTI %1$s: позначка часу підпису поза допустимим діапазоном на %2$d секунд."
-
-#. translators: 1: endpoint label, 2: error message
-#: includes/class-segurium-cti-signature.php:174
-#, php-format
-msgid "CTI %1$s: libsodium rejected signature (%2$s)."
-msgstr "CTI %1$s: libsodium відхилив підпис (%2$s)."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:186
-#, php-format
-msgid "CTI %s: signature did not verify — response rejected."
-msgstr "CTI %s: підпис не пройшов перевірку — відповідь відхилено."
-
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
 msgstr "Доступ із вашого місцезнаходження не дозволено."
@@ -1070,16 +1016,6 @@ msgstr "Жоден cookie не встановлює SameSite=Lax або Strict (
 msgid "Cloud-assisted malware detection"
 msgstr "Хмарно-асистоване виявлення шкідливого ПЗ"
 
-#: includes/class-segurium-self-check.php:818
-msgid ""
-"On-premise mode is enabled, which limits malware-detection accuracy. Files "
-"are never stored after scan — turn this off to get full cloud-assisted "
-"detection."
-msgstr ""
-"Увімкнено локальний режим, що обмежує точність виявлення шкідливого ПЗ. "
-"Файли не зберігаються після сканування — вимкніть його, щоб отримати повне "
-"хмарно-асистоване виявлення."
-
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
 msgstr "Хмарно-асистоване виявлення шкідливого ПЗ активне."
@@ -1385,10 +1321,6 @@ msgstr "З'єднання втрачено. Повтор..."
 #: includes/class-segurium.php:837
 msgid "Request failed"
 msgstr "Запит не вдався"
-
-#: includes/class-segurium.php:840 includes/class-segurium.php:3070
-msgid "CTI service consent is required before scanning."
-msgstr "Перед скануванням потрібна згода на сервіс CTI."
 
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
@@ -2427,14 +2359,6 @@ msgstr "Сервери Segurium за адресою cti.segurium.com."
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "Зберігання:"
-
-#: includes/class-segurium.php:1227
-msgid ""
-"File samples uploaded for analysis are not retained beyond what is needed to "
-"produce a verdict."
-msgstr ""
-"Зразки файлів, завантажені для аналізу, не зберігаються довше, ніж необхідно "
-"для винесення вердикту."
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
@@ -3630,20 +3554,6 @@ msgstr ""
 "Використовуйте * як підстановочний знак. Наприклад, *.log виключить усі лог-"
 "файли. vendor/* виключить каталог vendor і весь його вміст."
 
-#: includes/class-segurium.php:2664
-msgid ""
-"When enabled, file contents may be shared with the CTI service to enable "
-"advanced malware detection and CTI-powered cleanup. Only suspicious files "
-"are transmitted, and contents are not retained after analysis. Keep it "
-"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
-"will be transmitted."
-msgstr ""
-"Коли ввімкнено, вміст файлів може передаватися сервісу CTI для розширеного "
-"виявлення шкідливого ПЗ та очищення на основі CTI. Передаються лише "
-"підозрілі файли, а вміст не зберігається після аналізу. Залишайте вимкненим "
-"для локального режиму — передаватимуться лише SHA-256 хеші, шляхи до файлів "
-"та метадані."
-
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
 msgstr "Стерти зашифровані резервні копії під час видалення плагіна"
@@ -3725,10 +3635,6 @@ msgstr ""
 #: includes/class-segurium.php:2798
 msgid "Version"
 msgstr "Версія"
-
-#: includes/class-segurium.php:2802
-msgid "CTI"
-msgstr "CTI"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
@@ -4280,26 +4186,6 @@ msgid "Your session has expired. Please reload the page and try again."
 msgstr ""
 "Ваш сеанс завершився. Будь ласка, перезавантажте сторінку та спробуйте знову."
 
-#: includes/storage/class-segurium-storage.php:953
-msgid "Invalid CTI response."
-msgstr "Недійсна відповідь CTI."
-
-#: includes/storage/class-segurium-storage.php:965
-msgid "CTI response missing content."
-msgstr "У відповіді CTI відсутній вміст."
-
-#: includes/storage/class-segurium-storage.php:973
-msgid "CTI response content failed base64 decode."
-msgstr "Вміст відповіді CTI не пройшов декодування base64."
-
-#: includes/storage/class-segurium-storage.php:980
-msgid "CTI response missing sha256."
-msgstr "У відповіді CTI відсутній sha256."
-
-#: includes/storage/class-segurium-storage.php:987
-msgid "CTI response hash did not match decoded content."
-msgstr "Хеш відповіді CTI не відповідає декодованому вмісту."
-
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
 msgstr "Помилка активації плагіна"
@@ -4357,20 +4243,8 @@ msgstr ""
 "буде знято, і функції Pro повторно активуються тут під час наступної "
 "перевірки ліцензії."
 
-msgid "Invalid CTI cleanup response."
-msgstr "Недійсна відповідь очищення CTI."
-
 msgid "Cleanup unavailable."
 msgstr "Очищення недоступне."
-
-msgid "CTI returned non-base64 cleanup content."
-msgstr "CTI повернув вміст очищення не у форматі base64."
-
-msgid "CTI cleanup response missing sha256_clean."
-msgstr "У відповіді очищення CTI відсутнє поле sha256_clean."
-
-msgid "CTI cleanup hash mismatch."
-msgstr "Невідповідність хешу очищення CTI."
 
 #. translators: %d: number of seconds since the scan worker last reported progress
 #: includes/class-segurium.php:900
@@ -4540,15 +4414,6 @@ msgstr "проскановано"
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Плагін Segurium для WordPress."
 
-#~ msgid ""
-#~ "Segurium scans your WordPress files and checks them against the Segurium "
-#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
-#~ "threats."
-#~ msgstr ""
-#~ "Segurium сканує файли WordPress і перевіряє їх через хмарний сервіс "
-#~ "Segurium Cloud Threat Intelligence (CTI) для виявлення шкідливого "
-#~ "програмного забезпечення та загроз безпеці."
-
 #~ msgid "What data is sent:"
 #~ msgstr "Які дані надсилаються:"
 
@@ -4560,9 +4425,6 @@ msgstr "проскановано"
 
 #~ msgid "File sizes"
 #~ msgstr "Розміри файлів"
-
-#~ msgid "Segurium CTI service at cti.segurium.com"
-#~ msgstr "Сервіс Segurium CTI за адресою cti.segurium.com"
 
 #~ msgid "Why:"
 #~ msgstr "Навіщо:"
@@ -4728,11 +4590,6 @@ msgstr "Не вдалося відновити: %s"
 msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr "Відновлення оригінальних файлів, антивірус, сканування шкідливого ПЗ, захист від атак перебором, файрвол, 2FA, геоблокування та інше — безкоштовно."
 
-#. translators: %s: endpoint label
-#, php-format
-msgid "CTI %s: request missing signature headers."
-msgstr "CTI %s: у запиті відсутні заголовки підпису."
-
 msgid "Scan trigger requires authentication."
 msgstr "Тригер сканування потребує автентифікації."
 
@@ -4750,3 +4607,78 @@ msgstr "Безкоштовне очищення від шкідливого ПЗ
 #: includes/class-segurium.php:2940
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
 msgstr "Імпортер міграції (Wordfence, AIOS, Solid Security)"
+
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Некоректна відповідь щодо оплати від Segurium Cloud."
+
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): немає відповіді для перевірки."
+
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): відсутні заголовки підпису."
+
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): підписано ненадійним ключем «%2$s»."
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "Список довірених підписів пошкоджено — не вдалося декодувати відкритий ключ."
+
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): заголовок підпису має неправильний формат."
+
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): позначка часу підпису має неправильний формат."
+
+msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud (%1$s): позначка часу підпису виходить за межі діапазону на %2$d секунд."
+
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium відхилив підпис (%2$s)."
+
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): підпис не пройшов перевірку."
+
+msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
+msgstr "Увімкнено локальний режим: вміст файлів залишається на цьому сервері, а будь-який файл, який хмара не може ідентифікувати за хешем, залишається нерозв’язаним. Увімкніть виявлення за допомогою хмари для повної точності."
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Перед скануванням потрібна згода на використання Segurium Cloud."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
+msgstr "Зразки файлів, завантажені для аналізу, зберігаються до 365 днів, а потім видаляються автоматичним нічним очищенням. Зразок може бути видалено раніше після його перевірки."
+
+msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
+msgstr "Коли увімкнено, вміст файлів може передаватися до Segurium Cloud для розширеного виявлення шкідливого ПЗ та очищення за допомогою хмари. Передаються лише підозрілі файли. Вимкніть для локального режиму: тоді сканування надсилає лише хеші SHA-256, шляхи до файлів і метадані, а файл, який хмара не може ідентифікувати за хешем, залишається нерозв’язаним. Повідомлення про хибне спрацювання або долучення файлу до звернення в підтримку все одно надсилає цей файл, оскільки ви обираєте його самостійно."
+
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Некоректна відповідь щодо очищення від Segurium Cloud."
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud повернув вміст очищення, який не є коректним base64."
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "У відповіді щодо очищення відсутня контрольна сума очищеного файлу."
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "Очищений файл не збігається з контрольною сумою у відповіді щодо очищення."
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Некоректна відповідь від Segurium Cloud."
+
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud повернув помилку %d."
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "У відповіді Segurium Cloud відсутній вміст файлу."
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud повернув вміст файлу, який не є коректним base64."
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "У відповіді Segurium Cloud відсутня контрольна сума файлу."
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "Завантажений файл не збігається з контрольною сумою у відповіді."

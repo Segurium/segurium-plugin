@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"PO-Revision-Date: 2026-08-09 03:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -43,22 +43,27 @@ msgstr ""
 "protección contra fuerza bruta, 2FA, bloqueo geográfico y comprobaciones de "
 "integridad — sin recargas innecesarias."
 
+#. Description of the plugin
+#: segurium.php
+msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "¿Sitio hackeado? Eliminación gratuita de malware para WordPress: análisis, limpieza de archivos infectados y restauración. Además, cortafuegos, protección contra fuerza bruta, 2FA y bloqueo geográfico."
+
 #: includes/class-segurium-2fa.php:589
 msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
 "login."
-msgstr "Se requiere autenticación de dos factores. Activa JavaScript para completar el inicio de sesión."
+msgstr "Se la identificación de dos factores es obligatoria. Activa JavaScript para completar el inicio de sesión."
 
 #: includes/class-segurium-2fa.php:609
 msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
-msgstr "Se requiere configurar la autenticación de dos factores para tu rol. Ponte en contacto con tu administrador."
+msgstr "Para tu perfil es necesario configurar la autenticación de dos factores. Ponte en contacto con tu administrador."
 
 #: includes/class-segurium-2fa.php:650
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
-msgstr "Se requiere autenticación de dos factores. Añade tu código 2FA a tu contraseña."
+msgstr "Se requiere identificación de dos factores. Añade tu código de 2FA a tu contraseña."
 
 #: includes/class-segurium-2fa.php:993
 msgid "Verifying..."
@@ -70,7 +75,7 @@ msgstr "Iniciando sesión..."
 
 #: includes/class-segurium-2fa.php:995
 msgid "Enter the code from your authenticator app:"
-msgstr "Introduce el código de tu aplicación de autenticación:"
+msgstr "Introduce el código de tu aplicación de identificación:"
 
 #: includes/class-segurium-2fa.php:996
 msgid "Enter the code sent to your email:"
@@ -105,7 +110,7 @@ msgstr "Demasiados intentos fallidos. Inténtalo de nuevo más tarde."
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
-msgstr "Se requiere configurar la autenticación de dos factores para tu rol."
+msgstr "Es necesario configurar la autenticación de dos factores para tu perfil."
 
 #: includes/class-segurium-2fa.php:1028
 #: includes/migrations/class-segurium-migration-solid-security.php:60
@@ -121,7 +126,7 @@ msgstr "Estado"
 
 #: includes/class-segurium-2fa.php:1034
 msgid "JavaScript is required for 2FA setup."
-msgstr "Se requiere JavaScript para configurar 2FA."
+msgstr "Se necesita JavaScript para configurar 2FA."
 
 #: includes/class-segurium-2fa.php:1072
 msgid "Not configured"
@@ -129,7 +134,7 @@ msgstr "No configurado"
 
 #: includes/class-segurium-2fa.php:1073
 msgid "Set up Authenticator App"
-msgstr "Configurar aplicación de autenticación"
+msgstr "Configurar aplicación Authenticator"
 
 #: includes/class-segurium-2fa.php:1074
 msgid "Set up Email Verification"
@@ -161,7 +166,7 @@ msgstr "Desactivar 2FA"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Scan this QR code with your authenticator app:"
-msgstr "Escanea este código QR con tu aplicación de autenticación:"
+msgstr "Escanea este código QR con tu aplicación de identificación:"
 
 #: includes/class-segurium-2fa.php:1082
 msgid "Or enter this key manually:"
@@ -208,7 +213,7 @@ msgstr "Se ha enviado un código de verificación a tu correo electrónico."
 
 #: includes/class-segurium-2fa.php:1092
 msgid "Your administrator requires 2FA for your role."
-msgstr "Tu administrador exige 2FA para tu rol."
+msgstr "Tu administrador exige 2FA para tu perfil."
 
 #. translators: %d: number of days remaining
 #: includes/class-segurium-2fa.php:1126
@@ -226,7 +231,7 @@ msgstr "Configurar ahora"
 msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
-msgstr "Se requiere autenticación de dos factores para tu rol. Configúrala inmediatamente."
+msgstr "Se requiere autenticación de dos factores para tu perfil. Configúrala inmediatamente."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1173
@@ -267,7 +272,7 @@ msgstr "Código de verificación enviado a tu correo electrónico."
 
 #: includes/class-segurium-2fa.php:1351
 msgid "2FA is required for your role and cannot be disabled."
-msgstr "2FA es obligatorio para tu rol y no se puede desactivar."
+msgstr "2FA es obligatorio para tu perfil y no se puede desactivar."
 
 #: includes/class-segurium-2fa.php:1374 includes/class-segurium-2fa.php:1411
 msgid "Invalid verification code."
@@ -517,66 +522,6 @@ msgstr "Error del servicio de soporte (HTTP %d)."
 msgid "Clean version not available for this file"
 msgstr "No hay versión limpia disponible para este archivo"
 
-#: includes/class-segurium-cti-client.php:910
-msgid "Invalid CTI billing response."
-msgstr "Respuesta de facturación CTI no válida."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:89
-#, php-format
-msgid "CTI %s: no response to verify."
-msgstr "CTI %s: no hay respuesta para verificar."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:102
-#, php-format
-msgid "CTI %s: response missing signature headers."
-msgstr "CTI %s: la respuesta no contiene cabeceras de firma."
-
-#. translators: 1: endpoint label, 2: key id from response
-#: includes/class-segurium-cti-signature.php:112
-#, php-format
-msgid "CTI %1$s: response signed by untrusted key \"%2$s\"."
-msgstr "CTI %1$s: la respuesta está firmada por una clave no confiable «%2$s»."
-
-#: includes/class-segurium-cti-signature.php:123
-msgid "CTI signature trust list is corrupt — public key failed to decode."
-msgstr ""
-"La lista de claves confiables de CTI está dañada — la clave pública no se "
-"pudo decodificar."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:133
-#, php-format
-msgid "CTI %s: signature header malformed."
-msgstr "CTI %s: cabecera de firma con formato no válido."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:144
-#, php-format
-msgid "CTI %s: signature timestamp malformed."
-msgstr "CTI %s: marca temporal de firma con formato no válido."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#: includes/class-segurium-cti-signature.php:157
-#, php-format
-msgid "CTI %1$s: signature timestamp is %2$d seconds out of range."
-msgstr ""
-"CTI %1$s: la marca temporal de la firma está fuera de rango por %2$d "
-"segundos."
-
-#. translators: 1: endpoint label, 2: error message
-#: includes/class-segurium-cti-signature.php:174
-#, php-format
-msgid "CTI %1$s: libsodium rejected signature (%2$s)."
-msgstr "CTI %1$s: libsodium rechazó la firma (%2$s)."
-
-#. translators: %s: endpoint label
-#: includes/class-segurium-cti-signature.php:186
-#, php-format
-msgid "CTI %s: signature did not verify — response rejected."
-msgstr "CTI %s: la firma no se verificó — respuesta rechazada."
-
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
 msgstr "El acceso desde tu ubicación no está permitido."
@@ -659,7 +604,7 @@ msgstr ""
 
 #: includes/class-segurium-scan-runner.php:193
 msgid "A scan type is required."
-msgstr "Se requiere un tipo de análisis."
+msgstr "El tipo de análisis es obligatorio."
 
 #: includes/class-segurium-scan-runner.php:207 includes/class-segurium.php:852
 #: includes/class-segurium.php:4317
@@ -938,8 +883,7 @@ msgstr "Dos factores obligatorios para los administradores"
 
 #: includes/class-segurium-self-check.php:512
 msgid "Two-factor authentication is enforced for the administrator role."
-msgstr ""
-"La autenticación de dos factores es obligatoria para el rol de administrador."
+msgstr "La identificación de dos factores es obligatoria para el perfil de administrador."
 
 #: includes/class-segurium-self-check.php:513
 msgid "Administrators can log in with a password alone."
@@ -1039,13 +983,6 @@ msgstr "Ninguna cookie establece SameSite=Lax o Strict (de %d)."
 #: includes/class-segurium-self-check.php:815 includes/class-segurium.php:2662
 msgid "Cloud-assisted malware detection"
 msgstr "Detección de malware asistida por la nube"
-
-#: includes/class-segurium-self-check.php:818
-msgid ""
-"On-premise mode is enabled, which limits malware-detection accuracy. Files "
-"are never stored after scan — turn this off to get full cloud-assisted "
-"detection."
-msgstr "El modo local está activado, lo que limita la precisión de la detección de malware. Los archivos nunca se almacenan tras el análisis — desactívalo para obtener una detección completa asistida por la nube."
 
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
@@ -1336,10 +1273,6 @@ msgstr "Conexión perdida. Reintentando..."
 msgid "Request failed"
 msgstr "La solicitud falló"
 
-#: includes/class-segurium.php:840 includes/class-segurium.php:3070
-msgid "CTI service consent is required before scanning."
-msgstr "Se requiere el consentimiento del servicio CTI antes de analizar."
-
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
 msgstr "No se pudo inicializar el análisis. Revisa el registro de errores de PHP."
@@ -1391,10 +1324,7 @@ msgid ""
 "Segurium received a response wrapped in valid markers but the JSON inside "
 "did not parse. This usually indicates a fatal PHP error inside the Segurium "
 "handler — check the PHP error log."
-msgstr ""
-"Segurium recibió una respuesta envuelta en marcadores válidos, pero el JSON "
-"contenido no se pudo analizar. Esto suele indicar un error grave de PHP "
-"dentro del controlador de Segurium — revise el registro de errores de PHP."
+msgstr "Segurium ha recibido una respuesta con los marcadores correctos, pero el JSON que contiene no se ha podido analizar. Esto suele indicar un error grave de PHP dentro del gestor de Segurium; echa un vistazo al registro de errores de PHP."
 
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
 msgid "This version of the admin page is stale. Reload the page to continue."
@@ -2356,14 +2286,6 @@ msgstr "Servidores de Segurium en cti.segurium.com."
 msgid "Retention:"
 msgstr "Retención:"
 
-#: includes/class-segurium.php:1227
-msgid ""
-"File samples uploaded for analysis are not retained beyond what is needed to "
-"produce a verdict."
-msgstr ""
-"Las muestras de archivos subidas para su análisis no se conservan más allá "
-"de lo necesario para emitir un veredicto."
-
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
@@ -2678,11 +2600,11 @@ msgstr "Selecciona entre qué métodos de 2FA pueden elegir los usuarios."
 
 #: includes/class-segurium.php:1985
 msgid "Enforced Roles"
-msgstr "Roles obligatorios"
+msgstr "Pefiles en los que es obligatorio"
 
 #: includes/class-segurium.php:1986
 msgid "Users in these roles will be required to set up 2FA."
-msgstr "Los usuarios con estos roles deberán configurar 2FA."
+msgstr "Los usuarios con estos perfiles deberán configurar 2FA."
 
 #: includes/class-segurium.php:1990
 msgid "Grace Period (days)"
@@ -3175,7 +3097,7 @@ msgstr "Eliminar la cabecera X-Powered-By"
 
 #: includes/class-segurium.php:2318
 msgid "Removes the header that reveals your PHP version."
-msgstr "Elimina la cabecera que revela tu versión de PHP."
+msgstr "Quita la cabecera que revela tu versión de PHP."
 
 #: includes/class-segurium.php:2324
 msgid "Remove Server header"
@@ -3184,7 +3106,7 @@ msgstr "Eliminar la cabecera Server"
 #: includes/class-segurium.php:2326
 msgid ""
 "Removes the header that identifies your web server software. Best-effort."
-msgstr "Elimina la cabecera que identifica el software de tu servidor web. Esfuerzo razonable."
+msgstr "Quita la cabecera que identifica el software de tu servidor web. Esfuerzo razonable."
 
 #: includes/class-segurium.php:2332
 msgid "Remove X-Pingback header"
@@ -3219,49 +3141,45 @@ msgstr "Meta y enlaces HTML"
 
 #: includes/class-segurium.php:2355
 msgid "Remove WordPress generator tag"
-msgstr "Eliminar la etiqueta generator de WordPress"
+msgstr "Quitar la etiqueta generator de WordPress"
 
 #: includes/class-segurium.php:2357
 msgid ""
 "Removes the meta generator tag and RSS generator that reveal your WordPress "
 "version."
-msgstr "Elimina la etiqueta meta generator y el generator de RSS que revelan tu versión de WordPress."
+msgstr "Quita la etiqueta meta generator y el generator de RSS que revelan tu versión de WordPress."
 
 #: includes/class-segurium.php:2362
 msgid "Remove RSD link"
-msgstr "Eliminar el enlace RSD"
+msgstr "Quitar el enlace RSD"
 
 #: includes/class-segurium.php:2364
 msgid "Removes the Really Simple Discovery endpoint link from HTML head."
-msgstr "Elimina del head HTML el enlace al punto de Really Simple Discovery."
+msgstr "Quita del head HTML el enlace al punto de Really Simple Discovery."
 
 #: includes/class-segurium.php:2369
 msgid "Remove WLW manifest link"
-msgstr "Eliminar el enlace de manifiesto WLW"
+msgstr "Quitar el enlace de manifiesto WLW"
 
 #: includes/class-segurium.php:2371
 msgid ""
 "Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
 "write posts."
-msgstr ""
-"Elimina el enlace de manifiesto de Windows Live Writer. Solo es necesario si "
-"usa WLW para redactar entradas."
+msgstr "Quita el enlace de manifiesto de Windows Live Writer. Solo es necesario si usa WLW para redactar entradas."
 
 #: includes/class-segurium.php:2376
 msgid "Remove REST API discovery link"
-msgstr "Eliminar el enlace de descubrimiento de la API REST"
+msgstr "Quitar el enlace de descubrimiento de la API REST"
 
 #: includes/class-segurium.php:2378
 msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
-msgstr ""
-"Elimina la etiqueta de enlace de descubrimiento del head HTML. La propia API "
-"REST sigue funcionando en /wp-json/."
+msgstr "Quita la etiqueta de enlace de descubrimiento del head HTML. La propia API REST sigue funcionando en /wp-json/."
 
 #: includes/class-segurium.php:2383
 msgid "Remove oEmbed discovery links"
-msgstr "Eliminar los enlaces de descubrimiento de oEmbed"
+msgstr "Quitar los enlaces de descubrimiento de oEmbed"
 
 #: includes/class-segurium.php:2385
 msgid ""
@@ -3271,27 +3189,25 @@ msgstr "Evita que otros sitios muestren vistas previas enriquecidas al enlazar a
 
 #: includes/class-segurium.php:2390
 msgid "Remove shortlink meta tag"
-msgstr "Eliminar la metaetiqueta shortlink"
+msgstr "Quitar la metaetiqueta shortlink"
 
 #: includes/class-segurium.php:2392
 msgid "Removes the shortlink link tag from HTML head."
-msgstr "Elimina la etiqueta de enlace shortlink del head HTML."
+msgstr "Quita la etiqueta de enlace shortlink del head HTML."
 
 #: includes/class-segurium.php:2397
 msgid "Remove emoji scripts and styles"
-msgstr "Eliminar los scripts y estilos de emojis"
+msgstr "Quitar los scripts y estilos de emojis"
 
 #: includes/class-segurium.php:2399
 msgid ""
 "Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
 "have native emoji support."
-msgstr ""
-"Elimina el polyfill de emojis de WordPress en JavaScript y CSS. Los "
-"navegadores modernos admiten emojis de forma nativa."
+msgstr "Quita el polyfill de emojis de WordPress en JavaScript y CSS. Los navegadores modernos admiten emojis de forma nativa."
 
 #: includes/class-segurium.php:2404
 msgid "Remove RSS/Atom feed links"
-msgstr "Eliminar los enlaces a feeds RSS/Atom"
+msgstr "Quitar los enlaces a feeds RSS/Atom"
 
 #: includes/class-segurium.php:2406
 msgid ""
@@ -3301,11 +3217,11 @@ msgstr "Puede romper los lectores RSS y el Reader de WordPress.com. Actívalo so
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
-msgstr "Eliminar los enlaces a entradas adyacentes"
+msgstr "Quitar los enlaces a entradas adyacentes"
 
 #: includes/class-segurium.php:2413
 msgid "Removes prev/next post rel links from HTML head."
-msgstr "Elimina los enlaces rel prev/next a entradas del head HTML."
+msgstr "Quita los enlaces rel prev/next a entradas del head HTML."
 
 #: includes/class-segurium.php:2416
 msgid "Asset Fingerprinting"
@@ -3313,15 +3229,13 @@ msgstr "Huella digital de recursos"
 
 #: includes/class-segurium.php:2420
 msgid "Remove version query strings"
-msgstr "Eliminar las cadenas de consulta de versión"
+msgstr "Quitar las cadenas de consulta de versión"
 
 #: includes/class-segurium.php:2422
 msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
-msgstr ""
-"Elimina ?ver= de las URL de CSS y JavaScript. Los recursos en caché del "
-"navegador pueden quedar obsoletos tras actualizar plugins o temas."
+msgstr "Quita ?ver= de las URL de CSS y JavaScript. Los recursos en caché del navegador pueden quedar obsoletos tras actualizar plugins o temas."
 
 #: includes/class-segurium.php:2429
 msgid "Disable XML-RPC entirely"
@@ -3529,21 +3443,6 @@ msgid ""
 "will exclude the vendor directory and everything inside it."
 msgstr "Usa * como comodín. Por ejemplo, *.log excluirá todos los archivos de registro. vendor/* excluirá el directorio vendor y todo su contenido."
 
-#: includes/class-segurium.php:2664
-msgid ""
-"When enabled, file contents may be shared with the CTI service to enable "
-"advanced malware detection and CTI-powered cleanup. Only suspicious files "
-"are transmitted, and contents are not retained after analysis. Keep it "
-"disabled for On-premise mode — only SHA-256 hashes, file paths, and metadata "
-"will be transmitted."
-msgstr ""
-"Cuando está activado, el contenido de los archivos puede compartirse con el "
-"servicio CTI para permitir una detección avanzada de malware y una limpieza "
-"impulsada por CTI. Solo se transmiten los archivos sospechosos, y el "
-"contenido no se conserva tras el análisis. Manténgalo desactivado para el "
-"modo local — solo se transmitirán hashes SHA-256, rutas de archivo y "
-"metadatos."
-
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
 msgstr "Borrar las copias de seguridad cifradas al desinstalar el plugin"
@@ -3617,10 +3516,6 @@ msgstr ""
 #: includes/class-segurium.php:2798
 msgid "Version"
 msgstr "Versión"
-
-#: includes/class-segurium.php:2802
-msgid "CTI"
-msgstr "CTI"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
@@ -4159,28 +4054,6 @@ msgstr "No se encontraron datos de 2FA de Wordfence"
 msgid "Your session has expired. Please reload the page and try again."
 msgstr "Tu sesión ha caducado. Recarga la página e inténtalo de nuevo."
 
-#: includes/storage/class-segurium-storage.php:953
-msgid "Invalid CTI response."
-msgstr "Respuesta de CTI no válida."
-
-#: includes/storage/class-segurium-storage.php:965
-msgid "CTI response missing content."
-msgstr "La respuesta de CTI no contiene contenido."
-
-#: includes/storage/class-segurium-storage.php:973
-msgid "CTI response content failed base64 decode."
-msgstr ""
-"El contenido de la respuesta de CTI falló al decodificarse como base64."
-
-#: includes/storage/class-segurium-storage.php:980
-msgid "CTI response missing sha256."
-msgstr "La respuesta de CTI no incluye sha256."
-
-#: includes/storage/class-segurium-storage.php:987
-msgid "CTI response hash did not match decoded content."
-msgstr ""
-"El hash de la respuesta de CTI no coincidió con el contenido decodificado."
-
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
 msgstr "Error de activación del plugin"
@@ -4217,25 +4090,9 @@ msgstr "Segurium ha detectado que este sitio se ha movido o clonado y está rest
 msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
 msgstr "Segurium no ha podido activar la licencia Pro en este sitio porque actualmente está vinculada a otra instalación. Abre el portal de cuenta de Segurium en la instalación original y desactiva la licencia allí; el vínculo se liberará y las funciones Pro se reactivarán aquí en la próxima comprobación de licencia."
 
-#: includes/storage/class-segurium-storage.php:727
-msgid "Invalid CTI cleanup response."
-msgstr "Respuesta de limpieza de CTI no válida."
-
 #: includes/storage/class-segurium-storage.php:739
 msgid "Cleanup unavailable."
 msgstr "Limpieza no disponible."
-
-#: includes/storage/class-segurium-storage.php:747
-msgid "CTI returned non-base64 cleanup content."
-msgstr "CTI devolvió contenido de limpieza que no es base64."
-
-#: includes/storage/class-segurium-storage.php:760
-msgid "CTI cleanup response missing sha256_clean."
-msgstr "La respuesta de limpieza de CTI no contiene sha256_clean."
-
-#: includes/storage/class-segurium-storage.php:764
-msgid "CTI cleanup hash mismatch."
-msgstr "Discordancia en el hash de limpieza de CTI."
 
 #. translators: %d: number of seconds since the scan worker last reported progress
 #, php-format
@@ -4380,17 +4237,127 @@ msgstr "omitidos"
 msgid "scanned"
 msgstr "analizados"
 
+#: includes/class-segurium-cti-client.php:1528
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Respuesta de facturación no válida de Segurium Cloud."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:89
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): no hay respuesta que verificar."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:121
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): faltan las cabeceras de firma."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:131
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): firmado con una clave no fiable «%2$s»."
+
+#: includes/class-segurium-cti-signature.php:142
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "La lista de confianza de firmas está dañada: no se ha podido descodificar la clave pública."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:152
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): la cabecera de firma está mal formada."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:163
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): la marca de tiempo de la firma está mal formada."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:176
+#, php-format
+msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud (%1$s): la marca de tiempo de la firma está %2$d segundos fuera de rango."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:193
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium ha rechazado la firma (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:205
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): la firma no se ha podido verificar."
+
+#: includes/class-segurium-self-check.php:955
+msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
+msgstr "El modo local está activado: el contenido de los archivos permanece en este servidor y cualquier archivo que la nube no pueda identificar por hash queda sin resolver. Activa la detección asistida por la nube para obtener la máxima precisión."
+
+#: includes/class-segurium.php:1039 includes/class-segurium.php:3478
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Se requiere el consentimiento de Segurium Cloud antes de analizar."
+
+#: includes/class-segurium.php:1610
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
+msgstr "Las muestras de archivos enviadas para su análisis se conservan hasta 365 días y luego se eliminan mediante una purga nocturna automática. Una muestra puede eliminarse antes en cuanto haya sido revisada."
+
+#: includes/class-segurium.php:3052
+msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
+msgstr "Cuando está activado, el contenido de los archivos puede compartirse con Segurium Cloud para la detección avanzada de malware y la limpieza asistida por la nube. Solo se transmiten los archivos sospechosos. Desactívalo para el modo local: los análisis enviarán entonces solo hashes SHA-256, rutas de archivo y metadatos, y cualquier archivo que la nube no pueda identificar por hash quedará sin resolver. Notificar un falso positivo o adjuntar un archivo a un ticket de soporte sigue enviando ese archivo, porque lo eliges tú."
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3191
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/storage/class-segurium-storage.php:789
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Respuesta de limpieza no válida de Segurium Cloud."
+
+#: includes/storage/class-segurium-storage.php:809
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud ha devuelto contenido de limpieza que no es base64 válido."
+
+#: includes/storage/class-segurium-storage.php:822
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "A la respuesta de limpieza le falta la suma de comprobación del archivo limpio."
+
+#: includes/storage/class-segurium-storage.php:826
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "El archivo limpio no coincide con la suma de comprobación de la respuesta de limpieza."
+
+#: includes/storage/class-segurium-storage.php:1056
+msgid "Invalid response from Segurium Cloud."
+msgstr "Respuesta no válida de Segurium Cloud."
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1064
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud ha devuelto el error %d."
+
+#: includes/storage/class-segurium-storage.php:1072
+msgid "Segurium Cloud response is missing the file content."
+msgstr "A la respuesta de Segurium Cloud le falta el contenido del archivo."
+
+#: includes/storage/class-segurium-storage.php:1080
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud ha devuelto contenido de archivo que no es base64 válido."
+
+#: includes/storage/class-segurium-storage.php:1087
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "A la respuesta de Segurium Cloud le falta la suma de comprobación del archivo."
+
+#: includes/storage/class-segurium-storage.php:1094
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "El archivo descargado no coincide con la suma de comprobación de la respuesta."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
-
-#~ msgid ""
-#~ "Segurium scans your WordPress files and checks them against the Segurium "
-#~ "Cloud Threat Intelligence (CTI) service to detect malware and security "
-#~ "threats."
-#~ msgstr ""
-#~ "Segurium analiza sus archivos de WordPress y los contrasta con el "
-#~ "servicio Segurium Cloud Threat Intelligence (CTI) para detectar malware y "
-#~ "amenazas de seguridad."
 
 #~ msgid "What data is sent:"
 #~ msgstr "Qué datos se envían:"
@@ -4403,9 +4370,6 @@ msgstr "analizados"
 
 #~ msgid "File sizes"
 #~ msgstr "Tamaños de archivo"
-
-#~ msgid "Segurium CTI service at cti.segurium.com"
-#~ msgstr "Servicio Segurium CTI en cti.segurium.com"
 
 #~ msgid "Why:"
 #~ msgstr "Motivo:"
@@ -4558,11 +4522,6 @@ msgstr "Error en la restauración: %s"
 msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
 msgstr "Restauración de archivos originales, antivirus, análisis de malware, protección contra ataques de fuerza bruta, cortafuegos, 2FA, bloqueo geográfico y mucho más — gratis."
 
-#. translators: %s: endpoint label
-#, php-format
-msgid "CTI %s: request missing signature headers."
-msgstr "CTI %s: la solicitud no incluye las cabeceras de firma."
-
 msgid "Scan trigger requires authentication."
 msgstr "El activador del análisis requiere autenticación."
 
@@ -4579,4 +4538,4 @@ msgstr "Limpieza gratuita de malware, no solo detección — analice, limpie y r
 
 #: includes/class-segurium.php:2940
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "Importador de migración (Wordfence, AIOS, Solid Security)"
+msgstr "Importador de migración (Wordfence, AIOS, Sucuri, Solid Security)"

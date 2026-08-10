@@ -58,7 +58,7 @@ class Segurium_CLI_Iid {
 		WP_CLI::log( 'reregister_armed:         ' . ( $summary['reregister_armed'] ? 'yes' : 'no' ) );
 
 		WP_CLI::success(
-			'IID reset. The next admin page load will re-register with CTI '
+			'IID reset. The next admin page load will re-register with Segurium Cloud '
 			. '(consent permitting). If you have a Pro license, re-activate it '
 			. 'on the Segurium account screen so Pro features are restored.'
 		);
