@@ -88,6 +88,7 @@
             legacy_continue_action: i18n.errLegacyContinueAction,
             server_error: i18n.errServerError,
             network_error: i18n.errNetworkError,
+            poll_handler_error: i18n.errPollHandler,
             unexpected_response: i18n.errUnexpectedResponse,
             envelope_empty: i18n.errEnvelopeEmpty || i18n.errUnexpectedResponse,
             envelope_absent: i18n.errEnvelopeAbsent || i18n.errUnexpectedResponse,
@@ -190,6 +191,47 @@
         var m = Math.floor(seconds / 60);
         var s = Math.floor(seconds % 60);
         return (m > 0 ? m + 'm ' : '') + s + 's';
+    }
+
+    // SEGURIUM-399: surface a "no progress" hint while data.running is
+    // still true but the server-side heartbeat is older than the soft
+    // threshold. Threshold matches HEARTBEAT_MAX_AGE (60 s) so the hint
+    // stays silent during legitimate per-file work — a single
+    // /v1/neo-ray RTT can take ~30 s, and the per-file heartbeat in
+    // verdict_queue refreshes between files. If the user does see the
+    // hint, it means the heartbeat has aged past the watchdog window
+    // without the lock being reclaimed — i.e. the watchdog isn't doing
+    // its job — which is the diagnostic signal we want surfaced. Clock
+    // skew between browser and server can produce small negative ages;
+    // clamp at zero and require >= threshold.
+    //
+    // SEGURIUM-764: lives at module scope because both the malware and
+    // the integrity poller call it from their own IIFEs.
+    function appendStalledHint(parts, data) {
+        var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
+        if (!data || data.running !== true) return;
+        var hb = data.heartbeat || 0;
+        if (hb <= 0) return;
+        var ageS = Math.max(0, Math.floor(Date.now() / 1000) - hb);
+        if (ageS < 60) return;
+        var msg = (i18n.scanWorkerStalled || 'no progress for %ds — waiting for worker')
+            .replace('%d', ageS);
+        parts.push(msg);
+    }
+
+    // SEGURIUM-764: post() resolves for every transport outcome — a failed
+    // request comes back as a success:false envelope with code
+    // network_error. An exception that reaches a .catch() on a post() chain
+    // is therefore a bug in the handler, never a lost connection. Log it
+    // under a stable label so support can find it in the console, and hand
+    // back a status string that says what the user should do.
+    function reportPollHandlerError(label, err) {
+        var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
+        if (window.console && window.console.error) {
+            window.console.error('[segurium] ' + label + ' poll_handler_error', err);
+        }
+        return (i18n.scanError || 'Error') + ': ' +
+            describeAjaxError({ code: 'poll_handler_error' });
     }
 
     function restoreWithPreflight(backupId, btn, onSuccess) {
@@ -1857,28 +1899,6 @@
             }
         }
 
-        // SEGURIUM-399: surface a "no progress" hint while data.running is
-        // still true but the server-side heartbeat is older than the soft
-        // threshold. Threshold matches HEARTBEAT_MAX_AGE (60 s) so the hint
-        // stays silent during legitimate per-file work — a single
-        // /v1/neo-ray RTT can take ~30 s, and the per-file heartbeat in
-        // verdict_queue refreshes between files. If the user does see the
-        // hint, it means the heartbeat has aged past the watchdog window
-        // without the lock being reclaimed — i.e. the watchdog isn't doing
-        // its job — which is the diagnostic signal we want surfaced. Clock
-        // skew between browser and server can produce small negative ages;
-        // clamp at zero and require >= threshold.
-        function appendStalledHint(parts, data) {
-            if (!data || data.running !== true) return;
-            var hb = data.heartbeat || 0;
-            if (hb <= 0) return;
-            var ageS = Math.max(0, Math.floor(Date.now() / 1000) - hb);
-            if (ageS < 60) return;
-            var msg = (i18n.scanWorkerStalled || 'no progress for %ds — waiting for worker')
-                .replace('%d', ageS);
-            parts.push(msg);
-        }
-
         function ssShowResult(data) {
             var elapsed = ssTotalStart ? Math.floor((Date.now() - ssTotalStart) / 1000) : 0;
             var summary = {
@@ -1989,6 +2009,12 @@
                     ssPollScanStatus,
                     advanced ? SS_POLL_FAST_MS : SS_POLL_SLOW_MS
                 );
+            }).catch(function (err) {
+                // SEGURIUM-764: same guard as the integrity poll. Without it a
+                // handler exception stops the loop with the Scan button stuck
+                // disabled and nothing in the console.
+                ssStatus.textContent = reportPollHandlerError('malware-poll', err);
+                ssDone();
             });
         }
 
@@ -3190,9 +3216,12 @@
                     isRenderCompletion();
                     isScanDone();
                 }
-            }).catch(function () {
-                isStatus.textContent = i18n.connectionLost || 'Connection lost. Retrying...';
-                isPollTimer = setTimeout(isPollStatus, IS_POLL_SLOW_MS);
+            }).catch(function (err) {
+                // Stop observing rather than retry: a handler bug repeats on
+                // every poll. The runner keeps working server-side, so a
+                // reload reattaches through isResumeIfRunning().
+                isStatus.textContent = reportPollHandlerError('integrity-poll', err);
+                isScanDone();
             });
         }
 
@@ -3240,7 +3269,7 @@
             if (isScanning) return;
             isScanning = true;
             isBtn.disabled = true;
-            isStatus.textContent = i18n.startingScan || 'Starting scan...';
+            isStatus.textContent = i18n.scanStarting || 'Starting scan...';
             isProgress.style.display = '';
             // SEGURIUM-247: indeterminate animation until the first poll
             // returns a total — same UX as the malware scanner's listing phase.
@@ -3271,8 +3300,12 @@
                     return;
                 }
                 isBeginObserving();
-            }).catch(function () {
-                isStatus.textContent = i18n.startFailed || 'Failed to start scan.';
+            }).catch(function (err) {
+                // The start request itself reports failure through the
+                // success:false branch above, so this only fires when
+                // isBeginObserving() throws — the scan is running, the
+                // observer is not.
+                isStatus.textContent = reportPollHandlerError('integrity-start', err);
                 isScanDone();
             });
         });
@@ -3336,6 +3369,12 @@
                     isUpdateStatus(response.data);
                     isBeginObserving();
                 }
+            }).catch(function (err) {
+                // SEGURIUM-764: isUpdateStatus() runs here too. Without this
+                // guard an exception is an unhandled rejection — silent, with
+                // the tab left claiming nothing is running.
+                isStatus.textContent = reportPollHandlerError('integrity-resume', err);
+                isScanDone();
             });
         })();
 

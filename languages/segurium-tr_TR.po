@@ -5,20 +5,24 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-09 03:34+0000\n"
+"PO-Revision-Date: 2026-08-12 03:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Domain: segurium\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #: includes/class-segurium-scan-runner.php:369
-msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
-msgstr "Segurium bulut hizmetiyle etkinleştirme hâlâ beklemede. Lütfen birazdan tekrar deneyin."
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"Segurium bulut hizmetiyle etkinleştirme hâlâ beklemede. Lütfen birazdan "
+"yeniden deneyin."
 
 #. Plugin Name of the plugin
 #. Author of the plugin
@@ -42,14 +46,19 @@ msgid ""
 "Lean, AI-powered WordPress security: malware scanning, brute-force "
 "protection, 2FA, geo-blocking, integrity checks — without the bloat."
 msgstr ""
-"Sade, yapay zekâ destekli WordPress güvenliği: kötü amaçlı yazılım taraması, "
-"kaba kuvvet koruması, 2FA, coğrafi engelleme, bütünlük kontrolleri — "
+"Sade, yapay zekâ destekli WordPress güvenliği: kötü amaçlı yazılım taraması,"
+" kaba kuvvet koruması, 2FA, coğrafi engelleme, bütünlük kontrolleri — "
 "fazlalıklar olmadan."
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Site saldırıya mı uğradı? Ücretsiz WordPress kötü amaçlı yazılım temizliği: tarama, virüslü dosyaları temizleme ve geri yükleme. Ayrıca güvenlik duvarı, kaba kuvvet koruması, 2FA ve coğrafi engelleme."
+msgid ""
+"Site hacked? Free WordPress malware removal: scan, clean infected files, "
+"restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Site saldırıya mı uğradı? Ücretsiz WordPress kötü amaçlı yazılım temizliği: "
+"tarama, virüslü dosyaları temizleme ve geri yükleme. Ayrıca güvenlik duvarı,"
+" kaba kuvvet koruması, 2FA ve coğrafi engelleme."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -104,7 +113,7 @@ msgstr "E-postanıza yeni bir kod gönderildi."
 
 #: includes/class-segurium-2fa.php:1000
 msgid "Lost your device? Enter a backup code instead."
-msgstr "Cihazınızı mı kaybettiniz? Bunun yerine bir yedek kod girin."
+msgstr "Cihazınızı mı kaybettiniz? Bunun yerine bir yedekleme kodu girin."
 
 #. translators: %d: number of days
 #: includes/class-segurium-2fa.php:1002
@@ -115,7 +124,7 @@ msgstr "Bu cihaza %d gün boyunca güven"
 #: includes/class-segurium-2fa.php:1003 includes/class-segurium-2fa.php:1504
 #: includes/class-segurium-2fa.php:1573 includes/class-segurium-2fa.php:1631
 msgid "Too many failed attempts. Please try again later."
-msgstr "Çok fazla başarısız deneme. Lütfen daha sonra tekrar deneyin."
+msgstr "Çok fazla başarısız deneme. Lütfen daha sonra yeniden deneyin."
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
@@ -199,7 +208,8 @@ msgstr "İptal"
 #: includes/class-segurium-2fa.php:1086
 msgid "Save these backup codes in a safe place. They will not be shown again."
 msgstr ""
-"Bu yedek kodları güvenli bir yerde saklayın. Bir daha gösterilmeyeceklerdir."
+"Bu yedekleme kodlarını güvenli bir yerde saklayın. Bunlar yeniden "
+"gösterilmeyecektir."
 
 #: includes/class-segurium-2fa.php:1087
 msgid "2FA has been set up successfully."
@@ -278,7 +288,7 @@ msgstr "Kurulum oturumu sona erdi. Lütfen yeniden başlayın."
 
 #: includes/class-segurium-2fa.php:1269 includes/class-segurium-2fa.php:1322
 msgid "Invalid code. Please try again."
-msgstr "Geçersiz kod. Lütfen tekrar deneyin."
+msgstr "Geçersiz kod. Lütfen yeniden deneyin."
 
 #: includes/class-segurium-2fa.php:1275
 msgid "Encryption error."
@@ -302,7 +312,7 @@ msgstr "Lütfen kullanıcı adınızı ve parolanızı girin."
 
 #: includes/class-segurium-2fa.php:1553
 msgid "Session expired. Please log in again."
-msgstr "Oturumun süresi doldu. Lütfen tekrar oturum açın."
+msgstr "Oturumun süresi doldu. Lütfen yeniden oturum açın."
 
 #: includes/class-segurium-2fa.php:1559 includes/class-segurium-2fa.php:1666
 msgid "Invalid session."
@@ -310,7 +320,7 @@ msgstr "Geçersiz oturum."
 
 #: includes/class-segurium-2fa.php:1640
 msgid "Invalid verification code. Please try again."
-msgstr "Geçersiz doğrulama kodu. Lütfen tekrar deneyin."
+msgstr "Geçersiz doğrulama kodu. Lütfen yeniden deneyin."
 
 #: includes/class-segurium-2fa.php:1661
 msgid "Session expired."
@@ -364,7 +374,7 @@ msgstr "Lisansı eşitle"
 
 #: includes/class-segurium-account-page.php:421
 msgid "Deactivate license"
-msgstr "Lisansı devre dışı bırak"
+msgstr "Lisansı etkisizleştir"
 
 #: includes/class-segurium-account-page.php:425
 msgid "Manage billing"
@@ -377,9 +387,10 @@ msgstr "Ücretsiz hesap"
 
 #: includes/class-segurium-account-page.php:453
 #: includes/class-segurium-account-page.php:482
-#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
-#: includes/class-segurium.php:928 includes/class-segurium.php:940
-#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+#: includes/class-segurium-account-page.php:553
+#: includes/class-segurium.php:927 includes/class-segurium.php:928
+#: includes/class-segurium.php:940 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
 msgstr "Pro'ya Yükselt"
 
@@ -425,7 +436,7 @@ msgstr "Bu alanı boş bırakın"
 #: includes/class-segurium-brute-force.php:1392
 #, php-format
 msgid "Too many failed login attempts. Try again in %s."
-msgstr "Çok fazla başarısız oturum açma denemesi. %s sonra tekrar deneyin."
+msgstr "Çok fazla başarısız oturum açma denemesi. %s sonra yeniden deneyin."
 
 #: includes/class-segurium-brute-force.php:1373
 msgid "Login Locked"
@@ -530,7 +541,7 @@ msgstr ""
 
 #: includes/class-segurium-cti-client.php:228
 msgid "Too many requests. Please try again later."
-msgstr "Çok fazla istek. Lütfen daha sonra tekrar deneyin."
+msgstr "Çok fazla istek. Lütfen daha sonra yeniden deneyin."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:234
@@ -591,8 +602,8 @@ msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
 msgstr ""
-"Sunucunuz FastCGI kullanıyor; bu, X-Powered-By başlığını yeniden "
-"ekleyebilir. Yanıt başlıklarını inceleyerek kaldırıldığını doğrulayın."
+"Sunucunuz FastCGI kullanıyor; bu, X-Powered-By üst bilgisini yeniden "
+"ekleyebilir. Yanıt üst bilgilerini inceleyerek kaldırıldığını doğrulayın."
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
@@ -638,8 +649,8 @@ msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
 msgstr ""
-"Tarama depolaması hazır değil. Lütfen Segurium eklentisini devre dışı "
-"bırakıp yeniden etkinleştirin, ardından tekrar deneyin."
+"Tarama depolaması hazır değil. Lütfen Segurium eklentisini etkisizleştirip "
+"yeniden etkinleştirin, ardından yeniden deneyin."
 
 #: includes/class-segurium-scan-runner.php:215
 #: includes/class-segurium-scan-runner.php:227 includes/class-segurium.php:835
@@ -651,7 +662,7 @@ msgid ""
 "Scan storage was not ready. It has been repaired automatically — please "
 "click \"Start scan\" again."
 msgstr ""
-"Tarama depolaması hazır değildi. Otomatik olarak onarıldı — lütfen tekrar "
+"Tarama depolaması hazır değildi. Otomatik olarak onarıldı — lütfen yeniden "
 "\"Taramayı başlat\"a tıklayın."
 
 #. translators: %s: underlying exception message
@@ -676,7 +687,8 @@ msgstr "Oturumunuzun süresi doldu. Sayfayı yeniden yükleyip tekrar deneyin."
 msgid "You do not have permission to manage scans."
 msgstr "Taramaları yönetme izniniz yok."
 
-#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+#: includes/class-segurium-scan-runner.php:570
+#: includes/class-segurium.php:3998
 msgid "Could not fetch scan status due to a server error."
 msgstr "Sunucu hatası nedeniyle tarama durumu alınamadı."
 
@@ -687,16 +699,16 @@ msgid ""
 "PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
 "host to raise it to at least 30s."
 msgstr ""
-"PHP max_execution_time değeri %d sn — güvenilir tarama için çok kısa. Sunucu "
-"sağlayıcınızdan bunu en az 30 sn'ye çıkarmasını isteyin."
+"PHP max_execution_time değeri %d sn — güvenilir tarama için çok kısa. Sunucu"
+" sağlayıcınızdan bunu en az 30 sn'ye çıkarmasını isteyin."
 
 #: includes/class-segurium-scan-runner.php:1105
 msgid ""
 "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
-"to detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
 "WordPress cron devre dışı (DISABLE_WP_CRON) ve PHP kurulumunuzun uzun "
 "görevleri sayfa isteklerinden ayırma imkânı yok. Arka plan taramaları "
@@ -823,15 +835,15 @@ msgstr "X-XSS-Protection"
 
 #: includes/class-segurium-self-check.php:369
 msgid "Legacy XSS filter directive present."
-msgstr "Eski XSS filtre yönergesi mevcut."
+msgstr "Eski XSS süzgeç yönergesi mevcut."
 
 #: includes/class-segurium-self-check.php:370
 msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
 msgstr ""
-"X-XSS-Protection eksik. Eski tarayıcı XSS filtrelerini güvenli şekilde devre "
-"dışı bırakmak için 0 olarak ayarlayın."
+"X-XSS-Protection eksik. Eski tarayıcı XSS filtrelerini güvenli şekilde devre"
+" dışı bırakmak için 0 olarak ayarlayın."
 
 #: includes/class-segurium-self-check.php:395
 msgid "X-Powered-By hidden"
@@ -886,7 +898,7 @@ msgid ""
 "XML-RPC is reachable. A frequent brute-force and pingback-amplification "
 "target."
 msgstr ""
-"XML-RPC erişilebilir durumda. Sık görülen bir kaba kuvvet ve pingback "
+"XML-RPC erişilebilir durumda. Sık görülen bir kaba kuvvet ve geri bağlantı "
 "yükseltme hedefidir."
 
 #: includes/class-segurium-self-check.php:475
@@ -900,7 +912,8 @@ msgstr "REST API keşif bağlantısı <head> içinden kaldırıldı."
 #: includes/class-segurium-self-check.php:479
 msgid "REST API discovery link exposed — simplifies reconnaissance."
 msgstr ""
-"REST API keşif bağlantısı açığa çıkarılmış — keşif çalışmasını kolaylaştırır."
+"REST API keşif bağlantısı açığa çıkarılmış — keşif çalışmasını "
+"kolaylaştırır."
 
 #: includes/class-segurium-self-check.php:490
 msgid "Brute-force protection"
@@ -955,7 +968,7 @@ msgid ""
 "No Set-Cookie headers on the homepage; cannot assess cookie flags from "
 "outside."
 msgstr ""
-"Ana sayfada Set-Cookie başlıkları yok; çerez bayrakları dışarıdan "
+"Ana sayfada Set-Cookie üst bilgileri yok; çerez bayrakları dışarıdan "
 "değerlendirilemiyor."
 
 #: includes/class-segurium-self-check.php:591
@@ -981,7 +994,8 @@ msgstr "Çerezler — SameSite"
 msgid "All %1$d cookies set the %2$s attribute."
 msgstr "%1$d çerezin tamamı %2$s özniteliğini ayarlıyor."
 
-#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
 #: includes/class-segurium-self-check.php:671
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
@@ -1081,8 +1095,8 @@ msgstr "Son 24 saatte kötü amaçlı yazılım yok"
 msgid ""
 "The most recent malware scan ran in the last 24 hours and found nothing."
 msgstr ""
-"En son kötü amaçlı yazılım taraması son 24 saat içinde çalıştı ve hiçbir şey "
-"bulamadı."
+"En son kötü amaçlı yazılım taraması son 24 saat içinde çalıştı ve hiçbir şey"
+" bulamadı."
 
 #: includes/class-segurium-self-check.php:892
 msgid ""
@@ -1098,7 +1112,8 @@ msgstr ""
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
 msgstr[0] ""
 "Son kötü amaçlı yazılım taraması %d tehdit işaretledi. Kötü Amaçlı Yazılım "
 "tarayıcı sekmesinden inceleyin."
@@ -1120,8 +1135,8 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:924
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
 msgstr ""
 "Son 24 saat içinde bütünlük taraması çalışmadı. Taramalar hızlıdır — bu "
 "kararı yenilemek için bir tane çalıştırın."
@@ -1261,7 +1276,7 @@ msgstr "Geri yükle"
 #: includes/class-segurium.php:823
 msgid "This will restore the original infected file from backup. Continue?"
 msgstr ""
-"Bu işlem orijinal virüslü dosyayı yedekten geri yükleyecek. Devam edilsin mi?"
+"Bu işlem özgün virüslü dosyayı yedekten geri yükleyecek. Devam edilsin mi?"
 
 #: includes/class-segurium.php:824
 msgid "Restore file"
@@ -1288,7 +1303,8 @@ msgid ""
 "undone."
 msgstr ""
 "%s konumundaki dosya son temizlemeden bu yana değiştirilmiş. Geri yükleme, "
-"mevcut dosyanın üzerine yedeklenen sürümü yazacaktır. Bu işlem geri alınamaz."
+"mevcut dosyanın üzerine yedeklenen sürümü yazacaktır. Bu işlem geri "
+"alınamaz."
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
@@ -1331,11 +1347,12 @@ msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
 msgstr ""
-"Tarama başlatıldı ancak arka plan çalışanı sevk edilemedi. Tekrar deneyin."
+"Tarama başlatıldı ancak arka plan çalışanı sevk edilemedi. Yeniden deneyin."
 
 #: includes/class-segurium.php:843
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
 msgstr ""
 "Sunucu hatası nedeniyle tarama başlatılamadı. PHP hata günlüğüne bakın."
 
@@ -1374,10 +1391,10 @@ msgid ""
 "content before Segurium can respond. Check wp-content/mu-plugins, wp-"
 "config.php, and your active theme/plugins for recent unexpected changes."
 msgstr ""
-"Site bulaşmış görünüyor: sunucudaki başka bir dosya, Segurium yanıt vermeden "
-"önce içerik yazıyor. wp-content/mu-plugins, wp-config.php ve etkin tema/"
-"eklentilerinizde son zamanlarda yapılmış beklenmeyen değişiklikleri kontrol "
-"edin."
+"Site bulaşmış görünüyor: sunucudaki başka bir dosya, Segurium yanıt vermeden"
+" önce içerik yazıyor. wp-content/mu-plugins, wp-config.php ve etkin "
+"tema/eklentilerinizde son zamanlarda yapılmış beklenmeyen değişiklikleri "
+"kontrol edin."
 
 #: includes/class-segurium.php:850
 msgid ""
@@ -1392,14 +1409,14 @@ msgstr ""
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
 msgid "This version of the admin page is stale. Reload the page to continue."
 msgstr ""
-"Yönetici sayfasının bu sürümü güncel değil. Devam etmek için sayfayı yeniden "
-"yükleyin."
+"Yönetici sayfasının bu sürümü güncel değil. Devam etmek için sayfayı yeniden"
+" yükleyin."
 
 #: includes/class-segurium.php:853
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
 msgstr ""
-"Beklenmeyen bir sunucu hatası oluştu. PHP hata günlüğüne bakıp tekrar "
+"Beklenmeyen bir sunucu hatası oluştu. PHP hata günlüğüne bakıp yeniden "
 "deneyin."
 
 #: includes/class-segurium.php:854 includes/class-segurium.php:2716
@@ -1453,7 +1470,7 @@ msgstr "ilk gösteriliyor"
 
 #: includes/class-segurium.php:866
 msgid "Original file content (malware)"
-msgstr "Orijinal dosya içeriği (kötü amaçlı yazılım)"
+msgstr "Özgün dosya içeriği (kötü amaçlı yazılım)"
 
 #. translators: %s: relative file path
 #: includes/class-segurium.php:868
@@ -1607,7 +1624,7 @@ msgid ""
 "This file is not part of the original installation and will be deleted. A "
 "backup will be created. Continue?"
 msgstr ""
-"Bu dosya orijinal kurulumun parçası değil ve silinecek. Bir yedek "
+"Bu dosya özgün kurulumun parçası değil ve silinecek. Bir yedek "
 "oluşturulacak. Devam edilsin mi?"
 
 #: includes/class-segurium.php:904
@@ -1627,13 +1644,15 @@ msgstr "Dosyalar düzeltiliyor..."
 msgid "Older backups will be rotated out"
 msgstr "Eski yedekler döndürülerek çıkarılacak"
 
-#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
 #: includes/class-segurium.php:909
 #, php-format
 msgid "You are about to fix %1$d files (~%2$s)."
 msgstr "%1$d dosyayı düzeltmek üzeresiniz (~%2$s)."
 
-#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
 #: includes/class-segurium.php:911
 #, php-format
 msgid ""
@@ -1703,39 +1722,45 @@ msgstr "Belki daha sonra"
 msgid ""
 "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
 msgstr ""
-"Temizleme kotasına ulaşıldı. Sınırsız bulut temizleme kotası için Pro’ya "
+"Temizleme kotasına ulaşıldı. Sınırsız bulut temizleme kotası için Pro'ya "
 "yükseltin."
 
 #: includes/class-segurium.php:931
 msgid "Cleanup quota reached"
 msgstr "Temizleme kotasına ulaşıldı"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:933
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
 msgstr ""
 "Son %2$d günde %1$d bulut temizleme kullandınız. Sınırsız bulut temizleme "
-"kotası için Pro’ya yükseltin."
+"kotası için Pro'ya yükseltin."
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
 msgstr "Sonraki yuva %s tarihinde açılır"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:937 includes/class-segurium.php:1313
 #, php-format
 msgid "%1$d of %2$d cleanups used in the last %3$d days"
 msgstr "Son %3$d gün içinde %2$d temizlemenin %1$d tanesi kullanıldı"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
 #: includes/class-segurium.php:939 includes/class-segurium.php:1304
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr ""
 "Son %3$d gün içinde %2$d temizlemenin %1$d tanesi kullanıldı — sonraki yuva "
 "%4$s tarihinde açılır"
@@ -1832,7 +1857,7 @@ msgid ""
 "These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
 "CIDR ranges."
 msgstr ""
-"Bu IP'ler her zaman engellenir. Her satıra bir giriş. IPv4, IPv6 ve CIDR "
+"Bu IP'ler her zaman engellenir. Her satıra bir kayıt. IPv4, IPv6 ve CIDR "
 "aralıklarını kabul eder."
 
 #: includes/class-segurium.php:964
@@ -1845,7 +1870,7 @@ msgid ""
 "line."
 msgstr ""
 "Yalnızca bu IP'ler siteye erişebilir. Diğerlerinin tümü engellenir. Her "
-"satıra bir giriş."
+"satıra bir kayıt."
 
 #: includes/class-segurium.php:966
 msgid "No supported security plugins detected."
@@ -1910,11 +1935,11 @@ msgstr "Bilet başarıyla gönderildi."
 
 #: includes/class-segurium.php:982
 msgid "Your ticket reference:"
-msgstr "Bilet referansınız:"
+msgstr "Bilet başvurunuz:"
 
 #: includes/class-segurium.php:983
 msgid "Failed to submit ticket. Please try again."
-msgstr "Bilet gönderilemedi. Lütfen tekrar deneyin."
+msgstr "Bilet gönderilemedi. Lütfen yeniden deneyin."
 
 #: includes/class-segurium.php:984
 msgid "Please attach a file before submitting."
@@ -2214,7 +2239,7 @@ msgstr "uyarı"
 
 #: includes/class-segurium.php:1067
 msgid "HTTP Security Headers"
-msgstr "HTTP Güvenlik Başlıkları"
+msgstr "HTTP Güvenlik Üst Bilgileri"
 
 #: includes/class-segurium.php:1068
 msgid "Information Disclosure"
@@ -2244,7 +2269,8 @@ msgstr "%1$d geçti, %2$d uyarı, %3$d başarısız"
 msgid "%1$d/100"
 msgstr "%1$d/100"
 
-#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
 #: includes/class-segurium.php:1077
 #, php-format
 msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
@@ -2262,7 +2288,7 @@ msgstr "Öz denetim sitenize ulaşamadı: %s. Sonuçlar eksik."
 
 #: includes/class-segurium.php:1081
 msgid "Verify with securityheaders.com"
-msgstr "securityheaders.com ile doğrula"
+msgstr "Sonucu securityheaders.com ile doğrula"
 
 #: includes/class-segurium.php:1082
 msgid "Verify with Mozilla Observatory"
@@ -2292,8 +2318,8 @@ msgid ""
 "File metadata: SHA-256 hash, path relative to your WordPress installation, "
 "size, modification time."
 msgstr ""
-"Dosya meta verileri: SHA-256 özeti, WordPress kurulumunuza göre göreceli "
-"yol, boyut, değiştirme zamanı."
+"Dosya meta verileri: SHA-256 özeti, WordPress kurulumunuza göre göreli yol, "
+"boyut, değiştirme zamanı."
 
 #: includes/class-segurium.php:1213
 msgid ""
@@ -2305,17 +2331,17 @@ msgstr ""
 
 #: includes/class-segurium.php:1214
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
 msgstr ""
 "İsteklerin bu kurulumla ilişkilendirilmesi için kullanılan, rastgele "
-"oluşturulmuş bir kurulum tanımlayıcısı ve temel site bilgileri (URL, ad, "
+"oluşturulmuş bir kurulum tanımlayıcısı ve temel site bilgileri (adres, ad, "
 "WordPress sürümü)."
 
 #: includes/class-segurium.php:1215
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
 msgstr ""
 "Bulutun site korumanızı eşitli tutabilmesi için tarama, temizleme ve "
 "güvenlik ayarları olayları."
@@ -2340,7 +2366,7 @@ msgstr ""
 
 #: includes/class-segurium.php:1222
 msgid "Database content, posts, comments, or media files."
-msgstr "Veritabanı içeriği, gönderiler, yorumlar veya medya dosyaları."
+msgstr "Veritabanı içeriği, gönderiler, yorumlar veya ortam dosyaları."
 
 #: includes/class-segurium.php:1223
 msgid ""
@@ -2356,13 +2382,14 @@ msgstr "Nereye gönderilir:"
 
 #: includes/class-segurium.php:1226
 msgid "Segurium servers at cti.segurium.com."
-msgstr "cti.segurium.com adresindeki Segurium sunucuları."
+msgstr "Segurium sunucuları, cti.segurium.com adresinde."
 
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "Saklama:"
 
-#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
 msgid ""
@@ -2402,7 +2429,7 @@ msgstr "2FA"
 
 #: includes/class-segurium.php:1395
 msgid "Headers"
-msgstr "Başlıklar"
+msgstr "Üst bilgiler"
 
 #: includes/class-segurium.php:1399
 msgid "Info Shield"
@@ -2476,8 +2503,8 @@ msgstr "Son Tarama"
 #: includes/class-segurium.php:1602 includes/class-segurium.php:1690
 msgid "Settings applied. Confirm to keep, or changes revert in"
 msgstr ""
-"Ayarlar uygulandı. Korumak için onaylayın, aksi halde değişiklikler şu kadar "
-"zaman içinde geri alınır:"
+"Ayarlar uygulandı. Korumak için onaylayın, aksi halde değişiklikler şu kadar"
+" zaman içinde geri alınır:"
 
 #: includes/class-segurium.php:1603 includes/class-segurium.php:1691
 msgid "s."
@@ -2493,7 +2520,7 @@ msgstr "Coğrafi Engellemeyi Etkinleştir"
 
 #: includes/class-segurium.php:1621
 msgid "Blocking Mode"
-msgstr "Engelleme Modu"
+msgstr "Engelleme Kipi"
 
 #: includes/class-segurium.php:1625
 msgid "Block specific countries"
@@ -2541,7 +2568,7 @@ msgstr "403 Yasak döndür"
 
 #: includes/class-segurium.php:1657
 msgid "Redirect to URL"
-msgstr "URL'ye yönlendir"
+msgstr "Adrese yönlendir"
 
 #: includes/class-segurium.php:1658
 msgid "Silent drop (no response)"
@@ -2571,7 +2598,7 @@ msgstr "Güvenlik Duvarını Etkinleştir"
 
 #: includes/class-segurium.php:1709 includes/class-segurium.php:2243
 msgid "Mode"
-msgstr "Mod"
+msgstr "Kip"
 
 #: includes/class-segurium.php:1713
 msgid "Allow everything except…"
@@ -2603,8 +2630,8 @@ msgid ""
 "threshold. Reuses the firewall allow-list for trusted IPs."
 msgstr ""
 "Başarısız oturum açma denemelerini izler ve yapılandırılabilir bir eşikten "
-"sonra IP'leri kilitler. Güvenilir IP'ler için güvenlik duvarı izin listesini "
-"yeniden kullanır."
+"sonra IP'leri kilitler. Güvenilir IP'ler için güvenlik duvarı izin listesini"
+" yeniden kullanır."
 
 #: includes/class-segurium.php:1754
 msgid "Settings:"
@@ -2640,8 +2667,8 @@ msgstr ""
 
 #: includes/class-segurium.php:1812
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
 "Yapılandırılabilir sayıda başarısız denemeden sonra oturum açma formunda "
 "isteğe bağlı olarak bir hCaptcha doğrulaması gösterin. Ücretsiz anahtarları "
@@ -2773,8 +2800,8 @@ msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
 msgstr ""
-"Destek ekibinin sitenizi tanımlayabilmesi için otomatik olarak dahil edilir. "
-"Bunu Ayarlar → Genel altından değiştirin."
+"Destek ekibinin sitenizi tanımlayabilmesi için otomatik olarak dahil edilir."
+" Bunu Ayarlar → Genel altından değiştirin."
 
 #: includes/class-segurium.php:2043
 msgid "Type"
@@ -2811,7 +2838,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2058
 msgid "Message"
-msgstr "Mesaj"
+msgstr "İleti"
 
 #: includes/class-segurium.php:2064
 msgid ""
@@ -2827,19 +2854,19 @@ msgstr "Bilet Gönder"
 
 #: includes/class-segurium.php:2079
 msgid "Enable Security Headers"
-msgstr "Güvenlik Başlıklarını Etkinleştir"
+msgstr "Güvenlik Üst Bilgilerini Etkinleştir"
 
 #: includes/class-segurium.php:2081
 msgid ""
 "Adds HTTP security response headers to all responses. Protects against "
 "clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
 msgstr ""
-"Tüm yanıtlara HTTP güvenlik yanıt başlıkları ekler. Tıklama hırsızlığı, MIME "
-"koklama, XSS ve protokol düşürme saldırılarına karşı koruma sağlar."
+"Tüm yanıtlara HTTP güvenlik yanıt üst bilgileri ekler. Tıklama hırsızlığı, "
+"MIME koklama, XSS ve protokol düşürme saldırılarına karşı koruma sağlar."
 
 #: includes/class-segurium.php:2085
 msgid "Mode:"
-msgstr "Mod:"
+msgstr "Kip:"
 
 #: includes/class-segurium.php:2089
 msgid "Basic"
@@ -2905,7 +2932,7 @@ msgstr "Çapraz kaynakta sıkı kaynak"
 
 #: includes/class-segurium.php:2124
 msgid "Unsafe URL"
-msgstr "Güvensiz URL"
+msgstr "Güvensiz adres"
 
 #: includes/class-segurium.php:2135
 msgid "Disabled (recommended)"
@@ -2917,7 +2944,7 @@ msgstr "Etkin"
 
 #: includes/class-segurium.php:2137
 msgid "Enabled with block mode"
-msgstr "Engelleme moduyla etkin"
+msgstr "Engelleme kipiyle etkin"
 
 #: includes/class-segurium.php:2140
 msgid "HSTS (Strict-Transport-Security)"
@@ -2960,7 +2987,7 @@ msgid ""
 "control."
 msgstr ""
 "Siteniz bir alt alan adında görünüyor. HSTS'te includeSubDomains'i "
-"etkinleştirmek, kontrol etmediğiniz olanlar dahil olmak üzere ana alan "
+"etkinleştirmek, kontrol etmediğiniz olanlar dahil olmak üzere üst alan "
 "adının tüm alt alan adlarını etkiler."
 
 #: includes/class-segurium.php:2170
@@ -3009,7 +3036,8 @@ msgstr "CORP gerektir"
 
 #: includes/class-segurium.php:2199
 msgid "Control which browser features your site may use."
-msgstr "Sitenizin hangi tarayıcı özelliklerini kullanabileceğini kontrol edin."
+msgstr ""
+"Sitenizin hangi tarayıcı özelliklerini kullanabileceğini kontrol edin."
 
 #: includes/class-segurium.php:2203
 msgid "Accelerometer"
@@ -3025,7 +3053,7 @@ msgstr "Kamera"
 
 #: includes/class-segurium.php:2206
 msgid "Encrypted media"
-msgstr "Şifreli medya"
+msgstr "Şifreli ortam"
 
 #: includes/class-segurium.php:2207
 msgid "Fullscreen"
@@ -3083,9 +3111,9 @@ msgid ""
 "enforcing."
 msgstr ""
 "CSP, betiklerin, stillerin ve diğer kaynakların nereden yüklenebileceğini "
-"kısıtlayarak XSS ve enjeksiyonu azaltır. CSP siteye özeldir ve temaları veya "
-"sayfa oluşturucuları bozabilir — zorunlu kılmadan önce ihlalleri ortaya "
-"çıkarmak için yalnızca raporlama modunda başlayın."
+"kısıtlayarak XSS ve enjeksiyonu azaltır. CSP siteye özeldir ve temaları veya"
+" sayfa oluşturucuları bozabilir — zorunlu kılmadan önce ihlalleri ortaya "
+"çıkarmak için yalnızca raporlama kipinde başlayın."
 
 #: includes/class-segurium.php:2245
 msgid "Report-only (recommended for first deploy)"
@@ -3098,8 +3126,8 @@ msgstr "Zorunlu kıl"
 #: includes/class-segurium.php:2248
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
 "Yalnızca raporlama, Content-Security-Policy-Report-Only gönderir — tarayıcı "
 "ihlalleri günlüğe kaydeder ancak engellenen kaynakları yine de yükler. "
@@ -3121,7 +3149,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
-msgstr "CSP referansı (MDN)"
+msgstr "CSP başvurusu (MDN)"
 
 #: includes/class-segurium.php:2259
 msgid "Report URI (optional)"
@@ -3132,8 +3160,9 @@ msgid ""
 "When set, browsers will POST violation reports to this URL. Appended "
 "automatically as report-uri unless your directives already contain one."
 msgstr ""
-"Ayarlandığında, tarayıcılar ihlal raporlarını bu URL'ye POST ile gönderir. "
-"Yönergeleriniz zaten bir tane içermiyorsa report-uri olarak otomatik eklenir."
+"Ayarlandığında, tarayıcılar ihlal raporlarını bu adrese POST ile gönderir. "
+"Yönergeleriniz zaten bir tane içermiyorsa report-uri olarak otomatik "
+"eklenir."
 
 #: includes/class-segurium.php:2265
 msgid "Cookie Hardening"
@@ -3160,13 +3189,15 @@ msgid "Lax (recommended)"
 msgstr "Lax (önerilen)"
 
 #: includes/class-segurium.php:2280
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr ""
-"Strict, sitenize geri yönlendiren OAuth/SSO oturum açma akışlarını bozabilir."
+"Strict, sitenize geri yönlendiren OAuth/SSO oturum açma akışlarını "
+"bozabilir."
 
 #: includes/class-segurium.php:2291
 msgid "Headers Preview"
-msgstr "Başlıkların Önizlemesi"
+msgstr "Üst Bilgilerin Önizlemesi"
 
 #: includes/class-segurium.php:2303
 msgid "Enable Information Shield"
@@ -3179,7 +3210,7 @@ msgid ""
 "output."
 msgstr ""
 "Sürüm parmak izlerini, keşif uç noktalarını ve gereksiz meta verileri HTTP "
-"başlıklarından ve HTML çıktısından kaldırarak WordPress bilgi ifşasını "
+"üst bilgilerinden ve HTML çıktısından kaldırarak WordPress bilgi ifşasını "
 "azaltır."
 
 #: includes/class-segurium.php:2308
@@ -3205,7 +3236,8 @@ msgstr "Server başlığını kaldır"
 #: includes/class-segurium.php:2326
 msgid ""
 "Removes the header that identifies your web server software. Best-effort."
-msgstr "Web sunucusu yazılımınızı tanımlayan başlığı kaldırır. En iyi çaba."
+msgstr ""
+"Site sunucusu yazılımınızı tanımlayan üst bilgisini kaldırır. En iyi çaba."
 
 #: includes/class-segurium.php:2332
 msgid "Remove X-Pingback header"
@@ -3213,7 +3245,7 @@ msgstr "X-Pingback başlığını kaldır"
 
 #: includes/class-segurium.php:2334
 msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
-msgstr "Pingback/XML-RPC uç nokta URL'sini yanıt başlıklarından gizler."
+msgstr "Pingback/XML-RPC uç nokta adresini yanıt üst bilgilerinden gizler."
 
 #: includes/class-segurium.php:2339
 msgid "Remove REST API Link: header"
@@ -3229,11 +3261,11 @@ msgstr "Shortlink Link: başlığını kaldır"
 
 #: includes/class-segurium.php:2348
 msgid "Removes the rel=shortlink HTTP header."
-msgstr "rel=shortlink HTTP başlığını kaldırır."
+msgstr "HTTP rel=shortlink üst bilgisini kaldırır."
 
 #: includes/class-segurium.php:2351
 msgid "HTML Meta and Links"
-msgstr "HTML Meta ve Bağlantılar"
+msgstr "HTML Üst Verileri ve Bağlantılar"
 
 #: includes/class-segurium.php:2355
 msgid "Remove WordPress generator tag"
@@ -3244,8 +3276,8 @@ msgid ""
 "Removes the meta generator tag and RSS generator that reveal your WordPress "
 "version."
 msgstr ""
-"WordPress sürümünüzü açığa çıkaran meta üretici etiketini ve RSS üreticisini "
-"kaldırır."
+"WordPress sürümünüzü açığa çıkaran üst veri üretici etiketini ve RSS "
+"üreticisini kaldırır."
 
 #: includes/class-segurium.php:2362
 msgid "Remove RSD link"
@@ -3262,8 +3294,8 @@ msgstr "WLW manifest bağlantısını kaldır"
 
 #: includes/class-segurium.php:2371
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
 msgstr ""
 "Windows Live Writer manifest bağlantısını kaldırır. Yalnızca gönderi yazmak "
 "için WLW kullanıyorsanız gereklidir."
@@ -3277,24 +3309,24 @@ msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
 msgstr ""
-"Keşif bağlantı etiketini HTML başlığından kaldırır. REST API'nin kendisi /wp-"
-"json/ adresinde işlevsel kalır."
+"Keşif bağlantı etiketini HTML başlığından kaldırır. REST API'nin kendisi "
+"/wp-json/ adresinde işlevsel kalır."
 
 #: includes/class-segurium.php:2383
 msgid "Remove oEmbed discovery links"
-msgstr "oEmbed keşif bağlantılarını kaldır"
+msgstr "Keşif bağlantılarını kaldır (oEmbed)"
 
 #: includes/class-segurium.php:2385
 msgid ""
 "Prevents other sites from showing rich embed previews when linking to your "
 "content."
 msgstr ""
-"Diğer sitelerin içeriğinize bağlantı verirken zengin yerleştirme "
-"önizlemeleri göstermesini engeller."
+"Diğer sitelerin içeriğinize bağlantı verirken zengin gömme önizlemeleri "
+"göstermesini engeller."
 
 #: includes/class-segurium.php:2390
 msgid "Remove shortlink meta tag"
-msgstr "Shortlink meta etiketini kaldır"
+msgstr "Shortlink üst veri etiketini kaldır"
 
 #: includes/class-segurium.php:2392
 msgid "Removes the shortlink link tag from HTML head."
@@ -3314,7 +3346,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2404
 msgid "Remove RSS/Atom feed links"
-msgstr "RSS/Atom besleme bağlantılarını kaldır"
+msgstr "RSS/Atom akış bağlantılarını kaldır"
 
 #: includes/class-segurium.php:2406
 msgid ""
@@ -3385,7 +3417,7 @@ msgstr "Bağımsız doğrulama"
 
 #: includes/class-segurium.php:2468
 msgid "Cross-check results with these public scanners:"
-msgstr "Sonuçları bu ortak tarayıcılarla çapraz doğrulayın:"
+msgstr "Sonuçları herkese açık bu tarayıcılarla çapraz doğrulayın:"
 
 #: includes/class-segurium.php:2471
 msgid "securityheaders.com"
@@ -3427,11 +3459,11 @@ msgstr ""
 #: includes/class-segurium.php:2506
 msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
 msgstr ""
-"Güvenlik duvarı (izin verme / reddetme IP kuralları, CIDR, ülke filtresi)"
+"Güvenlik duvarı (izin verme / reddetme IP kuralları, CIDR, ülke süzgeci)"
 
 #: includes/class-segurium.php:2511
 msgid "Security headers and cookie hardening (presets, custom)"
-msgstr "Güvenlik başlıkları ve çerez sertleştirme (ön ayarlar, özel)"
+msgstr "Güvenlik üst bilgileri ve çerez sertleştirme (ön ayarlar, özel)"
 
 #: includes/class-segurium.php:2516
 msgid "Information Shield (version and endpoint hiding)"
@@ -3452,7 +3484,8 @@ msgstr "Geçiş içe aktarıcı (Wordfence, AIOS, Sucuri, Solid Security)"
 #: includes/class-segurium.php:2536
 msgid "Disaster recovery (encrypted reversible backups, extractable offline)"
 msgstr ""
-"Felaket kurtarma (şifreli geri alınabilir yedekler, çevrimdışı çıkarılabilir)"
+"Felaket kurtarma (şifreli geri alınabilir yedekler, çevrimdışı "
+"çıkarılabilir)"
 
 #: includes/class-segurium.php:2543
 msgid "Detection and remediation"
@@ -3523,10 +3556,10 @@ msgstr "Hizmet düzeyleri"
 #: includes/class-segurium.php:2599
 msgid ""
 "Every plugin feature ships on every install. The service tier governs the "
-"cloud cleanup quota Segurium will perform on your behalf — your current tier "
-"is highlighted."
+"cloud cleanup quota Segurium will perform on your behalf — your current tier"
+" is highlighted."
 msgstr ""
-"Her eklenti özelliği her kurulumda yer alır. Hizmet düzeyi, Segurium’un "
+"Her eklenti özelliği her kurulumda yer alır. Hizmet düzeyi, Segurium'un "
 "sizin adınıza gerçekleştireceği bulut temizleme kotasını belirler — mevcut "
 "düzeyiniz vurgulanmıştır."
 
@@ -3550,13 +3583,13 @@ msgstr "Tarama Ayarları"
 msgid ""
 "Exclude files from scan that match these wildcard patterns (one per line)"
 msgstr ""
-"Bu joker karakter desenlerine uyan dosyaları taramadan hariç tut (her satıra "
-"bir tane)"
+"Bu joker karakter desenlerine uyan dosyaları taramadan hariç tut (her satıra"
+" bir tane)"
 
 #: includes/class-segurium.php:2656
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
 msgstr ""
 "Joker karakter olarak * kullanın. Örneğin, *.log tüm günlük dosyalarını "
 "hariç tutar. vendor/* vendor dizinini ve içindeki her şeyi hariç tutar."
@@ -3573,8 +3606,8 @@ msgid ""
 msgstr ""
 "Kapalı (varsayılan): silinen bileşenlerin ve iyileştirilen dosyaların "
 "şifreli yedekleri, kaldırma sonrasında wp-content/segurium-data içinde "
-"tutulur, böylece yeniden kurulum bunları yine de geri yükleyebilir. Yalnızca "
-"kaldırmada kalıcı silme istiyorsanız açın."
+"tutulur, böylece yeniden kurulum bunları yine de geri yükleyebilir. Yalnızca"
+" kaldırmada kalıcı silme istiyorsanız açın."
 
 #: includes/class-segurium.php:2677
 msgid "Email me about findings"
@@ -3585,9 +3618,9 @@ msgid ""
 "Send a daily digest of malware verdicts and successful cleanups, delivered "
 "from support@segurium.com. At most one email per site per 24 hours."
 msgstr ""
-"support@segurium.com adresinden gönderilen, kötü amaçlı yazılım kararlarının "
-"ve başarılı temizlemelerin günlük özetini gönder. 24 saatte site başına en "
-"fazla bir e-posta."
+"Kötü amaçlı yazılım kararlarının ve başarılı temizlemelerin günlük özetini "
+"support@segurium.com adresinden gönder. 24 saatte site başına en fazla bir "
+"e-posta."
 
 #: includes/class-segurium.php:2680
 msgid "Alert email address"
@@ -3607,8 +3640,8 @@ msgid ""
 "injection verdict are cleaned without requiring a click. Files you have "
 "ignored (by path or by hash) are skipped."
 msgstr ""
-"Her zamanlanmış veya gerçek zamanlı taramadan sonra, bilinen bir kötü amaçlı "
-"yazılım veya enjeksiyon kararı olan dosyalar tıklama gerektirmeden "
+"Her zamanlanmış veya gerçek zamanlı taramadan sonra, bilinen bir kötü amaçlı"
+" yazılım veya enjeksiyon kararı olan dosyalar tıklama gerektirmeden "
 "temizlenir. Yok saydığınız dosyalar (yola veya özete göre) atlanır."
 
 #: includes/class-segurium.php:2710
@@ -3622,8 +3655,8 @@ msgid ""
 "your browser open. A scheduled tick that fires while a manual scan is "
 "already in progress is skipped, not queued."
 msgstr ""
-"Yinelenen bir zamanlamada tam kötü amaçlı yazılım taramasını otomatik olarak "
-"çalıştırın. Zamanlanmış bir tarama, manuel bir taramayla aynı işi yapar "
+"Yinelenen bir zamanlamada tam kötü amaçlı yazılım taramasını otomatik olarak"
+" çalıştırın. Zamanlanmış bir tarama, manuel bir taramayla aynı işi yapar "
 "ancak tarayıcınızı açık tutmanızı gerektirmez. Manuel tarama zaten devam "
 "ederken tetiklenen zamanlanmış bir tetikleme kuyruğa alınmaz, atlanır."
 
@@ -3633,8 +3666,8 @@ msgstr "Zamanlamayı Kaydet"
 
 #: includes/class-segurium.php:2747
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
 msgstr ""
 "Diğer güvenlik eklentilerinden Segurium'a ayarları içe aktarın. Mevcut "
 "Segurium ayarları korunur; içe aktarılan veriler birleştirilir."
@@ -3669,11 +3702,10 @@ msgid_plural ""
 "%d absolute paths were rewritten to paths relative to the WordPress install "
 "root."
 msgstr[0] ""
-"%d mutlak yol, WordPress kurulum köküne göre göreceli bir yola yeniden "
+"%d mutlak yol, WordPress kurulum köküne göre göreli bir yola yeniden "
 "yazıldı."
 msgstr[1] ""
-"%d mutlak yol, WordPress kurulum köküne göre göreceli yollara yeniden "
-"yazıldı."
+"%d mutlak yol, WordPress kurulum köküne göre göreli yollara yeniden yazıldı."
 
 #: includes/class-segurium.php:2923
 msgid "Scan exclusion list is limited to 500 entries."
@@ -3684,8 +3716,8 @@ msgstr "Tarama hariç tutma listesi 500 girişle sınırlıdır."
 #, php-format
 msgid "%d entry longer than 191 characters was removed."
 msgid_plural "%d entries longer than 191 characters were removed."
-msgstr[0] "191 karakterden uzun %d giriş kaldırıldı."
-msgstr[1] "191 karakterden uzun %d giriş kaldırıldı."
+msgstr[0] "191 karakterden uzun %d kayıt kaldırıldı."
+msgstr[1] "191 karakterden uzun %d kayıt kaldırıldı."
 
 #: includes/class-segurium.php:2979 includes/class-segurium.php:3012
 msgid "You do not have permission to manage scan settings."
@@ -3780,7 +3812,7 @@ msgstr "Hedef dosya okunamadı"
 
 #: includes/class-segurium.php:3731
 msgid "File is not an active malware entry."
-msgstr "Dosya, etkin bir kötü amaçlı yazılım girişi değil."
+msgstr "Dosya, etkin bir kötü amaçlı yazılım kaydı değil."
 
 #: includes/class-segurium.php:3738
 msgid "File is outside the WordPress root."
@@ -3952,8 +3984,8 @@ msgstr "Yedek meta verileri eksik veya okunamıyor."
 
 #: includes/class-segurium.php:6479
 msgid ""
-"Backup file is unreadable. Check filesystem permissions on wp-content/"
-"segurium-data."
+"Backup file is unreadable. Check filesystem permissions on wp-"
+"content/segurium-data."
 msgstr ""
 "Yedek dosyası okunamıyor. wp-content/segurium-data üzerindeki dosya sistemi "
 "izinlerini denetleyin."
@@ -3993,11 +4025,11 @@ msgstr "Diğer istek"
 
 #: includes/class-segurium.php:6973
 msgid "Permission denied."
-msgstr "İzin reddedildi."
+msgstr "İzin verilmedi."
 
 #: includes/class-segurium.php:6985
 msgid "Message is required."
-msgstr "Mesaj gereklidir."
+msgstr "İleti gereklidir."
 
 #: includes/class-segurium.php:6992
 msgid "A valid reply-to email is required."
@@ -4005,11 +4037,11 @@ msgstr "Geçerli bir yanıt e-postası gereklidir."
 
 #: includes/class-segurium.php:7010
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "Bugün çok fazla bilet gönderdiniz. Lütfen yarın tekrar deneyin."
+msgstr "Bugün çok fazla bilet gönderdiniz. Lütfen yarın yeniden deneyin."
 
 #: includes/class-segurium.php:7019
 msgid "Failed to upload the file. Try again."
-msgstr "Dosya yüklenemedi. Tekrar deneyin."
+msgstr "Dosya yüklenemedi. Yeniden deneyin."
 
 #: includes/class-segurium.php:7023
 msgid "File is empty or too large (max 100 MB)."
@@ -4047,7 +4079,7 @@ msgid ""
 "firewall mode. Configure manually if needed."
 msgstr ""
 "AIOS IP beyaz listesinin (atlama), Segurium'un reddetme listesi güvenlik "
-"duvarı modunda doğrudan bir karşılığı yoktur. Gerekirse manuel olarak "
+"duvarı kipinde doğrudan bir karşılığı yoktur. Gerekirse manuel olarak "
 "yapılandırın."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
@@ -4070,7 +4102,8 @@ msgstr "Ülke Engelleme"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr ""
 "AIOS ülke engelleme, ücretli bir bulut özelliğidir ve yerel olarak içe "
 "aktarılamaz."
@@ -4135,8 +4168,8 @@ msgid ""
 "Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
-"Sucuri Security, WAF kurallarını, coğrafi engellemeyi ve kötü amaçlı yazılım "
-"tarama ayarlarını Sucuri bulut panosunda saklar. Bunlar yerel olarak içe "
+"Sucuri Security, WAF kurallarını, coğrafi engellemeyi ve kötü amaçlı yazılım"
+" tarama ayarlarını Sucuri bulut panosunda saklar. Bunlar yerel olarak içe "
 "aktarılamaz."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
@@ -4243,16 +4276,16 @@ msgid ""
 "license check."
 msgstr ""
 "Segurium, şu anda başka bir kuruluma bağlı olduğu için bu sitede Pro "
-"lisansını etkinleştiremedi. Lütfen orijinal kurulumda Segurium hesap "
-"portalını açıp lisansı orada devre dışı bırakın; bağlama serbest bırakılacak "
-"ve Pro özellikleri buradaki bir sonraki lisans kontrolünde yeniden "
-"etkinleşecektir."
+"lisansını etkinleştiremedi. Lütfen özgün kurulumda Segurium hesap portalını "
+"açıp lisansı orada etkisizleştirin; bağlama serbest bırakılacak ve Pro "
+"özellikleri buradaki bir sonraki lisans kontrolünde yeniden etkinleşecektir."
 
 #: includes/storage/class-segurium-storage.php:739
 msgid "Cleanup unavailable."
 msgstr "Temizleme kullanılamıyor."
 
-#. translators: %d: number of seconds since the scan worker last reported progress
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
 msgid "no progress for %ds — waiting for worker"
 msgstr "%d sn boyunca ilerleme yok — işçi bekleniyor"
 
@@ -4266,7 +4299,9 @@ msgid "Auto-fix and Bulk Fix All"
 msgstr "Otomatik düzeltme ve Toplu Tümünü Düzelt"
 
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
-msgstr "Sıkılaştırma: 2FA, kaba kuvvet, coğrafi engelleme, güvenlik duvarı, güvenlik başlıkları"
+msgstr ""
+"Sıkılaştırma: 2FA, kaba kuvvet, coğrafi engelleme, güvenlik duvarı, güvenlik"
+" üst bilgileri"
 
 msgid "File-integrity monitoring (core / plugins / themes)"
 msgstr "Dosya bütünlüğü izleme (çekirdek / eklentiler / temalar)"
@@ -4283,8 +4318,10 @@ msgstr "Ücretsiz sürümdeki her şey"
 msgid "Email support, priority queue"
 msgstr "E-posta desteği, öncelikli kuyruk"
 
-msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
-msgstr "Her özellik her kurulumda gelir. Pro, aylık temizleme sınırını kaldırır."
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Her özellik her kurulumda gelir. Pro, aylık temizleme sınırını kaldırır."
 
 msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
 msgstr "Her özellik, her sitede. Temizlemeler 30 günde 3 ile sınırlıdır."
@@ -4293,7 +4330,8 @@ msgid "forever"
 msgstr "süresiz"
 
 msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
-msgstr "Sınırsız temizleme. Ücretsiz sürümle aynı özellikler, aylık sınır olmadan."
+msgstr ""
+"Sınırsız temizleme. Ücretsiz sürümle aynı özellikler, aylık sınır olmadan."
 
 msgid "/year per site"
 msgstr "/yıl, site başına"
@@ -4302,8 +4340,12 @@ msgid "14-day money-back guarantee."
 msgstr "14 gün para iade garantisi."
 
 #. translators: 1: opening anchor tag, 2: closing anchor tag
-msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
-msgstr "5 ve 25 sitelik paketler ile 100+ teklif için %1$ssegurium.com/pricing/%2$s adresine bakın."
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"5 ve 25 sitelik paketler ile 100+ teklif için %1$ssegurium.com/pricing/%2$s "
+"adresine bakın."
 
 msgid "Every 60 seconds (Segurium scan rescue)"
 msgstr "Her 60 saniyede bir (Segurium tarama kurtarma)"
@@ -4353,8 +4395,12 @@ msgid "View failed"
 msgstr "Görüntüleme başarısız"
 
 #: includes/class-segurium.php:905
-msgid "Cannot restore — no backup recorded for this file. The backup may have been rotated out."
-msgstr "Geri yüklenemiyor — bu dosya için kayıtlı bir yedek yok. Yedek döndürme nedeniyle silinmiş olabilir."
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Geri yüklenemiyor — bu dosya için kayıtlı bir yedek yok. Yedek döndürme "
+"nedeniyle silinmiş olabilir."
 
 #. translators: %s is the name of the missing form field.
 #: includes/segurium-ajax-envelope.php:109
@@ -4363,20 +4409,42 @@ msgid "Missing parameter: %s"
 msgstr "Eksik parametre: %s"
 
 #: includes/class-segurium.php:2196
-msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
-msgstr "Bu mod sabit ön ayar değerleri gönderir. Tek tek başlıkları geçersiz kılmak için Özel moduna geçin."
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Bu kip sabit ön ayar değerleri gönderir. Tek tek üst bilgileri geçersiz "
+"kılmak için Özel kipine geçin."
 
 #: includes/class-segurium.php:2235
-msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
-msgstr "Eski IE ve eski Edge'in XSS filtresini açıkça devre dışı bırakır. Bu filtrede silah olarak kullanılabilen evrensel XSS hataları bulunuyordu. Modern tarayıcılar bu başlığı yok sayar; gerçek XSS savunması CSP'dir."
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Eski IE ve eski Edge'in XSS süzgecini açıkça devre dışı bırakır. Bu süzgeçte"
+" silah olarak kullanılabilen evrensel XSS hataları bulunuyordu. Modern "
+"tarayıcılar bu üst bilgiyi yok sayar; gerçek XSS savunması CSP'dir."
 
 #: includes/class-segurium.php:2236
-msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
-msgstr "Eski tarayıcılara yansımaları temizlemelerini söyler. Filtre, geçerli sayfaları sessizce bozan yanlış pozitifler üretir ve bilinen UXSS atlatma yöntemleri vardır. Önerilmez."
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Eski tarayıcılara yansımaları temizlemelerini söyler. Süzgeç, geçerli "
+"sayfaları sessizce bozan yanlış pozitifler üretir ve bilinen UXSS atlatma "
+"yöntemleri vardır. Önerilmez."
 
 #: includes/class-segurium.php:2237
-msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
-msgstr "Yukarıdakiyle aynı filtre, ancak yansıma şüphesinde sayfayı tamamen engeller. Aynı hatalar, ek olarak çapraz kaynaklı verileri sızdırabilecek bir zamanlama yan kanalı bulunur. Önerilmez."
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Yukarıdakiyle aynı süzgeç, ancak yansıma şüphesinde sayfayı tamamen "
+"engeller. Aynı hatalar, ek olarak çapraz kaynaklı verileri sızdırabilecek "
+"bir zamanlama yan kanalı bulunur. Önerilmez."
 
 #: includes/class-segurium-async-scan-poller.php:125
 msgid "Segurium async scan poll (1 min)"
@@ -4397,6 +4465,284 @@ msgstr "atlandı"
 #: includes/class-segurium.php:881
 msgid "scanned"
 msgstr "tarandı"
+
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium sunucudan boş bir yanıt aldı. PHP işleyicisi muhtemelen herhangi "
+"bir çıktı üretmeden çöktü — ölümcül hata, OOM veya zaman aşımı için PHP hata"
+" günlüğünü kontrol edin."
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"Segurium'un yanıt işaretleri gövdede eksik. Segurium AJAX işleyicisi "
+"çalışmadı veya başka bir eklenti tüm yanıtı değiştirdi. wp-content/mu-"
+"plugins'i, etkin eklentileri ve PHP hata günlüğünü kontrol edin."
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Segurium'un yanıtı akış ortasında kesildi — başlangıç işareti geldi ancak "
+"bitiş işareti gelmedi. PHP işleyicisi yanıtın ortasında çöktü (ölümcül hata,"
+" OOM veya zaman aşımı). PHP hata günlüğünü kontrol edin."
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium sunucu yanıtını açamadı. Segurium işleyicisindeki ölümcül hata, OOM"
+" veya zaman aşımı için PHP hata günlüğünü kontrol edin."
+
+#: includes/class-segurium-2fa.php:1281
+msgid "Forbidden"
+msgstr "Yasak"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Kapalı (varsayılan): silinen bileşenlerin ve iyileştirilen dosyaların "
+"şifreli yedekleri, kaldırma işleminden sonra uploads/segurium-data dizininde"
+" tutulur; böylece yeniden kurulum bunları geri yükleyebilir. Yalnızca "
+"kaldırma sırasında kalıcı silme istiyorsanız etkinleştirin."
+
+#: includes/class-segurium.php:6868
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Yedek dosyası okunamıyor. uploads/segurium-data üzerindeki dosya sistemi "
+"izinlerini kontrol edin."
+
+#: includes/class-segurium.php:351
+msgid "Unknown or unsupported action."
+msgstr "Bilinmeyen veya desteklenmeyen işlem."
+
+#: includes/class-segurium.php:386
+msgid "This action is temporarily unavailable."
+msgstr "Bu işlem geçici olarak kullanılamıyor."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "Bileşen yedeklemeleri için PHP Phar uzantısı gereklidir."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Yedekleme başarısız: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "Yedekleme arşivi oluşturulmadı."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Geri yükleme başarısız: %s"
+
+#. Description of the plugin
+msgid ""
+"Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
+"Firewall, 2FA, Geo-blocking, and more for free."
+msgstr ""
+"Özgün dosyaları geri yükleme, antivirüs, kötü amaçlı yazılım taraması, kaba "
+"kuvvet saldırılarına karşı koruma, güvenlik duvarı, 2FA, coğrafi engelleme "
+"ve daha fazlası — ücretsiz."
+
+msgid "Scan trigger requires authentication."
+msgstr "Tarama tetikleyicisi kimlik doğrulaması gerektirir."
+
+msgid "Scan trigger secret did not match."
+msgstr "Tarama tetikleyicisi gizli anahtarı eşleşmedi."
+
+#. Plugin Name of the plugin
+msgid ""
+"Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr ""
+"Segurium – Kötü Amaçlı Yazılım Kaldırma ve Temizleme, Güvenlik Duvarı, İki "
+"Faktörlü Kimlik Doğrulama"
+
+#. Description of the plugin
+msgid ""
+"Free malware cleanup, not just detection — scan, clean, and restore hacked "
+"sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Yalnızca tespit değil, ücretsiz kötü amaçlı yazılım temizliği — hacklenmiş "
+"siteleri tarayın, temizleyin ve geri yükleyin. Ayrıca güvenlik duvarı, kaba "
+"kuvvet saldırılarına karşı koruma, 2FA ve coğrafi engelleme."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Geçiş içe aktarıcı (Wordfence, AIOS, Solid Security)"
+
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Segurium Cloud'dan geçersiz faturalandırma yanıtı."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): doğrulanacak yanıt yok."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): imza üst bilgileri eksik."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): güvenilmeyen \"%2$s\" anahtarıyla imzalandı."
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "İmza güven listesi bozuk — herkese açık anahtar çözümlenemedi."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): imza başlığı hatalı biçimlendirilmiş."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): imza zaman damgası hatalı biçimlendirilmiş."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud (%1$s): imza zaman damgası %2$d saniye aralık dışında."
+
+#. translators: 1: endpoint label, 2: error message
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium imzayı reddetti (%2$s)."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): imza doğrulanamadı."
+
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Yerinde çalışma kipi etkin: dosya içerikleri bu sunucuda kalır ve bulutun "
+"özet ile tanımlayamadığı dosyalar çözümlenmemiş kalır. Tam doğruluk için "
+"bulut destekli tespiti açın."
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Tarama öncesinde Segurium Cloud onayı gereklidir."
+
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Analiz için yüklenen dosya örnekleri en fazla 365 gün saklanır ve ardından "
+"otomatik gecelik temizleme ile kaldırılır. Bir örnek incelendikten sonra "
+"daha erken kaldırılabilir."
+
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Etkinleştirildiğinde, gelişmiş kötü amaçlı yazılım tespiti ve bulut destekli"
+" temizleme için dosya içerikleri Segurium Cloud ile paylaşılabilir. Yalnızca"
+" şüpheli dosyalar iletilir. Yerinde çalışma kipi için kapatın: taramalar bu "
+"durumda yalnızca SHA-256 özetlerini, dosya yollarını ve meta verileri "
+"gönderir; bulutun özet ile tanımlayamadığı bir dosya çözümlenmemiş kalır. "
+"Yanlış pozitif bildirmek veya bir destek biletine dosya eklemek, dosyayı "
+"kendiniz seçtiğiniz için yine o dosyayı gönderir."
+
+#. translators: brand name of the service, do not translate
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Segurium Cloud'dan geçersiz temizleme yanıtı."
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud, geçerli base64 olmayan temizleme içeriği döndürdü."
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "Temizleme yanıtında, temizlenen dosyanın sağlama toplamı eksik."
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr ""
+"Temizlenen dosya, temizleme yanıtındaki sağlama toplamıyla eşleşmiyor."
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Segurium Cloud'dan geçersiz yanıt."
+
+#. translators: %d: numeric error code returned by the service
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud %d hatasını döndürdü."
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Segurium Cloud yanıtında dosya içeriği eksik."
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud, geçerli base64 olmayan dosya içeriği döndürdü."
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Segurium Cloud yanıtında dosya sağlama toplamı eksik."
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "İndirilen dosya, yanıttaki sağlama toplamıyla eşleşmiyor."
+
+msgid "Leave a review"
+msgstr "Değerlendirme yaz"
+
+msgid "Don't ask again"
+msgstr "Yeniden sorma"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium sitenizi az önce temizledi."
+
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Yardımcı olabildiğimize sevindik. Segurium bugün size zaman ya da para "
+"kazandırdıysa, WordPress.org üzerinde yazacağınız dürüst bir değerlendirme "
+"diğer site sahiplerinin onu bulmasına ve temizleme katmanını ücretsiz "
+"tutmamıza yardımcı olur."
+
+msgid "Scan complete. Your site is clean."
+msgstr "Tarama tamamlandı. Siteniz temiz."
+
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Segurium işini yapıyorsa, WordPress.org üzerinde dürüst bir değerlendirme "
+"yazar mısınız? Yalnızca bir dakikanızı alır."
+
+msgid "Unknown review prompt action."
+msgstr "Bilinmeyen değerlendirme istemi eylemi."
+
+msgid "Could not save your choice. Please try again."
+msgstr "Seçiminiz kaydedilemedi. Lütfen yeniden deneyin."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress için Segurium eklentisi."
@@ -4469,14 +4815,13 @@ msgstr "tarandı"
 #~ "yükseltin."
 
 #~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
-#~ "one click."
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in one"
+#~ " click."
 #~ msgstr ""
 #~ "\"Tümünü Düzelt\" bir Pro özelliğidir. Tespit edilen her kötü amaçlı "
 #~ "yazılımı tek tıkla temizlemek için yükseltin."
 
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgid "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
 #~ msgstr ""
 #~ "\"Tümünü Düzelt\" bir Pro özelliğidir. Her düzeltmeyi tek tıkla uygulamak "
 #~ "için yükseltin."
@@ -4487,205 +4832,14 @@ msgstr "tarandı"
 #~ "Ücretsiz katman onarım kotası aşıldı. Sınırsız düzeltme için Pro'ya "
 #~ "yükseltin."
 
-msgid ""
-"Segurium got an empty response from the server. The PHP handler likely "
-"crashed before producing any output — check the PHP error log for a fatal, "
-"OOM, or timeout."
-msgstr ""
-"Segurium sunucudan boş bir yanıt aldı. PHP işleyicisi muhtemelen herhangi "
-"bir çıktı üretmeden çöktü — ölümcül hata, OOM veya zaman aşımı için PHP "
-"hata günlüğünü kontrol edin."
+msgid "Scan in progress..."
+msgstr "Tarama sürüyor..."
 
 msgid ""
-"Segurium's response markers are missing from the body. The Segurium AJAX "
-"handler did not run, or another plugin replaced the entire response. Check "
-"wp-content/mu-plugins, active plugins, and the PHP error log."
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
 msgstr ""
-"Segurium'un yanıt işaretleri gövdede eksik. Segurium AJAX işleyicisi "
-"çalışmadı veya başka bir eklenti tüm yanıtı değiştirdi. wp-content/mu-"
-"plugins'i, etkin eklentileri ve PHP hata günlüğünü kontrol edin."
-
-msgid ""
-"Segurium's response was cut off mid-stream — the start marker arrived but "
-"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
-"or timeout). Check the PHP error log."
-msgstr ""
-"Segurium'un yanıtı akış ortasında kesildi — başlangıç işareti geldi ancak "
-"bitiş işareti gelmedi. PHP işleyicisi yanıtın ortasında çöktü (ölümcül "
-"hata, OOM veya zaman aşımı). PHP hata günlüğünü kontrol edin."
-
-msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for "
-"a fatal, OOM, or timeout in the Segurium handler."
-msgstr ""
-"Segurium sunucu yanıtını açamadı. Segurium işleyicisindeki ölümcül hata, "
-"OOM veya zaman aşımı için PHP hata günlüğünü kontrol edin."
-
-#: includes/class-segurium-2fa.php:1281
-msgid "Forbidden"
-msgstr "Yasak"
-
-#: includes/class-segurium.php:2945
-msgid ""
-"Off (default): encrypted backups of deleted components and cured files are "
-"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
-"can still restore them. Turn on only if you want a hard deletion on "
-"uninstall."
-msgstr ""
-"Kapalı (varsayılan): silinen bileşenlerin ve iyileştirilen dosyaların "
-"şifreli yedekleri, kaldırma işleminden sonra uploads/segurium-data "
-"dizininde tutulur; böylece yeniden kurulum bunları geri yükleyebilir. "
-"Yalnızca kaldırma sırasında kalıcı silme istiyorsanız etkinleştirin."
-
-#: includes/class-segurium.php:6868
-msgid ""
-"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
-"data."
-msgstr ""
-"Yedek dosyası okunamıyor. uploads/segurium-data üzerindeki dosya sistemi "
-"izinlerini kontrol edin."
-
-#: includes/class-segurium.php:351
-msgid "Unknown or unsupported action."
-msgstr "Bilinmeyen veya desteklenmeyen işlem."
-
-#: includes/class-segurium.php:386
-msgid "This action is temporarily unavailable."
-msgstr "Bu işlem geçici olarak kullanılamıyor."
-
-#: includes/class-segurium-component-backup.php:59
-#: includes/class-segurium-component-backup.php:168
-msgid "The PHP Phar extension is required for component backups."
-msgstr "Bileşen yedeklemeleri için PHP Phar uzantısı gereklidir."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:80
-#, php-format
-msgid "Backup failed: %s"
-msgstr "Yedekleme başarısız: %s"
-
-#: includes/class-segurium-component-backup.php:92
-msgid "Backup archive was not created."
-msgstr "Yedekleme arşivi oluşturulmadı."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:209
-#, php-format
-msgid "Restore failed: %s"
-msgstr "Geri yükleme başarısız: %s"
-
-#. Description of the plugin
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
-msgstr "Orijinal dosyaları geri yükleme, antivirüs, kötü amaçlı yazılım taraması, kaba kuvvet saldırılarına karşı koruma, güvenlik duvarı, 2FA, coğrafi engelleme ve daha fazlası — ücretsiz."
-
-msgid "Scan trigger requires authentication."
-msgstr "Tarama tetikleyicisi kimlik doğrulaması gerektirir."
-
-msgid "Scan trigger secret did not match."
-msgstr "Tarama tetikleyicisi gizli anahtarı eşleşmedi."
-
-#. Plugin Name of the plugin
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
-msgstr "Segurium – Kötü Amaçlı Yazılım Kaldırma ve Temizleme, Güvenlik Duvarı, İki Faktörlü Kimlik Doğrulama"
-
-#. Description of the plugin
-msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Yalnızca tespit değil, ücretsiz kötü amaçlı yazılım temizliği — hacklenmiş siteleri tarayın, temizleyin ve geri yükleyin. Ayrıca güvenlik duvarı, kaba kuvvet saldırılarına karşı koruma, 2FA ve coğrafi engelleme."
-
-#: includes/class-segurium.php:2940
-msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "Geçiş içe aktarıcı (Wordfence, AIOS, Solid Security)"
-
-msgid "Invalid billing response from Segurium Cloud."
-msgstr "Segurium Cloud'dan geçersiz faturalandırma yanıtı."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): no response to verify."
-msgstr "Segurium Cloud (%s): doğrulanacak yanıt yok."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): missing signature headers."
-msgstr "Segurium Cloud (%s): imza başlıkları eksik."
-
-#. translators: 1: endpoint label, 2: key id from the signature header
-#, php-format
-msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
-msgstr "Segurium Cloud (%1$s): güvenilmeyen \"%2$s\" anahtarıyla imzalandı."
-
-msgid "Signature trust list is corrupt — public key failed to decode."
-msgstr "İmza güven listesi bozuk — açık anahtar çözümlenemedi."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature header malformed."
-msgstr "Segurium Cloud (%s): imza başlığı hatalı biçimlendirilmiş."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature timestamp malformed."
-msgstr "Segurium Cloud (%s): imza zaman damgası hatalı biçimlendirilmiş."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#, php-format
-msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
-msgstr "Segurium Cloud (%1$s): imza zaman damgası %2$d saniye aralık dışında."
-
-#. translators: 1: endpoint label, 2: error message
-#, php-format
-msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
-msgstr "Segurium Cloud (%1$s): libsodium imzayı reddetti (%2$s)."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature did not verify."
-msgstr "Segurium Cloud (%s): imza doğrulanamadı."
-
-msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
-msgstr "Yerinde çalışma modu etkin: dosya içerikleri bu sunucuda kalır ve bulutun özet ile tanımlayamadığı dosyalar çözümlenmemiş kalır. Tam doğruluk için bulut destekli tespiti açın."
-
-msgid "Segurium Cloud consent is required before scanning."
-msgstr "Tarama öncesinde Segurium Cloud onayı gereklidir."
-
-msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
-msgstr "Analiz için yüklenen dosya örnekleri en fazla 365 gün saklanır ve ardından otomatik gecelik temizleme ile kaldırılır. Bir örnek incelendikten sonra daha erken kaldırılabilir."
-
-msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "Etkinleştirildiğinde, gelişmiş kötü amaçlı yazılım tespiti ve bulut destekli temizleme için dosya içerikleri Segurium Cloud ile paylaşılabilir. Yalnızca şüpheli dosyalar iletilir. Yerinde çalışma modu için kapatın: taramalar bu durumda yalnızca SHA-256 özetlerini, dosya yollarını ve meta verileri gönderir; bulutun özet ile tanımlayamadığı bir dosya çözümlenmemiş kalır. Yanlış pozitif bildirmek veya bir destek biletine dosya eklemek, dosyayı kendiniz seçtiğiniz için yine o dosyayı gönderir."
-
-#. translators: brand name of the service, do not translate
-msgid "Segurium Cloud"
-msgstr "Segurium Cloud"
-
-msgid "Invalid cleanup response from Segurium Cloud."
-msgstr "Segurium Cloud'dan geçersiz temizleme yanıtı."
-
-msgid "Segurium Cloud returned cleanup content that is not valid base64."
-msgstr "Segurium Cloud, geçerli base64 olmayan temizleme içeriği döndürdü."
-
-msgid "Cleanup response is missing the checksum of the cleaned file."
-msgstr "Temizleme yanıtında, temizlenen dosyanın sağlama toplamı eksik."
-
-msgid "Cleaned file does not match the checksum in the cleanup response."
-msgstr "Temizlenen dosya, temizleme yanıtındaki sağlama toplamıyla eşleşmiyor."
-
-msgid "Invalid response from Segurium Cloud."
-msgstr "Segurium Cloud'dan geçersiz yanıt."
-
-#. translators: %d: numeric error code returned by the service
-#, php-format
-msgid "Segurium Cloud returned error %d."
-msgstr "Segurium Cloud %d hatasını döndürdü."
-
-msgid "Segurium Cloud response is missing the file content."
-msgstr "Segurium Cloud yanıtında dosya içeriği eksik."
-
-msgid "Segurium Cloud returned file content that is not valid base64."
-msgstr "Segurium Cloud, geçerli base64 olmayan dosya içeriği döndürdü."
-
-msgid "Segurium Cloud response is missing the file checksum."
-msgstr "Segurium Cloud yanıtında dosya sağlama toplamı eksik."
-
-msgid "Downloaded file does not match the checksum in the response."
-msgstr "İndirilen dosya, yanıttaki sağlama toplamıyla eşleşmiyor."
+"İlerleme göstergesinde bir betik hatası oluştu ve güncellenmesi durdu. "
+"Geçerli durumu görmek için sayfayı yeniden yükleyin — taramanın kendisi "
+"etkilenmez. Ayrıntılar tarayıcı konsolundadır."

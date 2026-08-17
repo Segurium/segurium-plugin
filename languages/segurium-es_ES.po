@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-09 03:34+0000\n"
+"PO-Revision-Date: 2026-08-12 03:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -46,7 +46,7 @@ msgstr ""
 #. Description of the plugin
 #: segurium.php
 msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "¿Sitio hackeado? Eliminación gratuita de malware para WordPress: análisis, limpieza de archivos infectados y restauración. Además, cortafuegos, protección contra fuerza bruta, 2FA y bloqueo geográfico."
+msgstr "¿Sitio hackeado? Eliminación gratuita de malware para WordPress: exploración, limpieza de archivos infectados y restauración. Además, cortafuegos, protección contra fuerza bruta, 2FA y bloqueo geográfico."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -4261,7 +4261,7 @@ msgstr "Segurium Cloud (%1$s): firmado con una clave no fiable «%2$s»."
 
 #: includes/class-segurium-cti-signature.php:142
 msgid "Signature trust list is corrupt — public key failed to decode."
-msgstr "La lista de confianza de firmas está dañada: no se ha podido descodificar la clave pública."
+msgstr "La lista de confianza de firmas se ha corrompido: no se ha podido decodificar la clave pública."
 
 #. translators: %s: endpoint label
 #: includes/class-segurium-cti-signature.php:152
@@ -4299,15 +4299,15 @@ msgstr "El modo local está activado: el contenido de los archivos permanece en 
 
 #: includes/class-segurium.php:1039 includes/class-segurium.php:3478
 msgid "Segurium Cloud consent is required before scanning."
-msgstr "Se requiere el consentimiento de Segurium Cloud antes de analizar."
+msgstr "El consentimiento de Segurium Cloud es obligatorio antes de explorar."
 
 #: includes/class-segurium.php:1610
 msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
-msgstr "Las muestras de archivos enviadas para su análisis se conservan hasta 365 días y luego se eliminan mediante una purga nocturna automática. Una muestra puede eliminarse antes en cuanto haya sido revisada."
+msgstr "Las muestras de archivos subidas para su análisis se conservan hasta 365 días y luego se eliminan mediante una purga nocturna automática. Una muestra puede eliminarse antes en cuanto haya sido revisada."
 
 #: includes/class-segurium.php:3052
 msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "Cuando está activado, el contenido de los archivos puede compartirse con Segurium Cloud para la detección avanzada de malware y la limpieza asistida por la nube. Solo se transmiten los archivos sospechosos. Desactívalo para el modo local: los análisis enviarán entonces solo hashes SHA-256, rutas de archivo y metadatos, y cualquier archivo que la nube no pueda identificar por hash quedará sin resolver. Notificar un falso positivo o adjuntar un archivo a un ticket de soporte sigue enviando ese archivo, porque lo eliges tú."
+msgstr "Cuando está activado, el contenido de los archivos puede compartirse con Segurium Cloud para la detección avanzada de malware y la limpieza asistida por la nube. Solo se transmiten los archivos sospechosos. Desactívalo para el modo local: las exploraciones enviarán entonces solo hashes SHA-256, rutas de archivo y metadatos, y cualquier archivo que la nube no pueda identificar por hash quedará sin resolver. Informar de un falso positivo o adjuntar un archivo a un tique de soporte sigue enviando ese archivo, porque lo eliges tú."
 
 #. translators: brand name of the service, do not translate
 #: includes/class-segurium.php:3191
@@ -4539,3 +4539,39 @@ msgstr "Limpieza gratuita de malware, no solo detección — analice, limpie y r
 #: includes/class-segurium.php:2940
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
 msgstr "Importador de migración (Wordfence, AIOS, Sucuri, Solid Security)"
+
+msgid "Leave a review"
+msgstr "Deja una reseña"
+
+msgid "Don't ask again"
+msgstr "No volver a preguntar"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium acaba de limpiar tu sitio."
+
+msgid "Glad we could help. If Segurium saved you time or money today, an honest review on WordPress.org helps other site owners find it, and helps us keep the cleanup tier free."
+msgstr "Nos alegra haber podido ayudar. Si Segurium te ahorró tiempo o dinero hoy, una reseña honesta en WordPress.org ayuda a que otros propietarios de sitios lo encuentren y a que podamos mantener gratuito el nivel de limpieza."
+
+msgid "Scan complete. Your site is clean."
+msgstr "Análisis completado. Tu sitio está limpio."
+
+msgid "If Segurium is doing its job, would you leave an honest review on WordPress.org? It takes a minute."
+msgstr "Si Segurium está haciendo su trabajo, ¿te importaría dejar una reseña honesta en WordPress.org? Solo lleva un minuto."
+
+msgid "Unknown review prompt action."
+msgstr "Acción del aviso de reseña desconocida."
+
+msgid "Could not save your choice. Please try again."
+msgstr "No se pudo guardar tu elección. Inténtalo de nuevo."
+
+msgid "Scan in progress..."
+msgstr "Análisis en curso..."
+
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"El indicador de progreso ha tenido un error de script y ha dejado de "
+"actualizarse. Recarga la página para ver el estado actual — el análisis en "
+"sí no se ve afectado. Los detalles están en la consola del navegador."

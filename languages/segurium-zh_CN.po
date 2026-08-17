@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"PO-Revision-Date: 2026-08-12 06:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -13,12 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #: includes/class-segurium-scan-runner.php:369
-msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
-msgstr "与 Segurium 云服务的激活仍在等待中。请稍后重试。"
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr "与 Segurium 云服务的启用仍在等待中。请稍后再试一次。"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
@@ -41,14 +43,15 @@ msgstr "https://segurium.com"
 msgid ""
 "Lean, AI-powered WordPress security: malware scanning, brute-force "
 "protection, 2FA, geo-blocking, integrity checks — without the bloat."
-msgstr ""
-"精简的 AI 驱动 WordPress 安全防护：恶意软件扫描、暴力破解防护、2FA、地理位置"
-"封锁、完整性检查 —— 无冗余功能。"
+msgstr "精简的 AI 驱动 WordPress 安全防护：恶意软件扫描、暴力破解防护、2FA、地理位置封锁、完整性检查 —— 无冗余功能。"
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "网站被黑？免费的 WordPress 恶意软件清除：扫描、清理受感染文件并进行还原。此外还提供防火墙、暴力破解防护、2FA 和地理位置封锁。"
+msgid ""
+"Site hacked? Free WordPress malware removal: scan, clean infected files, "
+"restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"站点被黑？免费的 WordPress 恶意软件清除：扫描、清理受感染文件并进行还原。此外还提供防火墙、暴力破解防护、2FA 和地理位置封锁。"
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -97,7 +100,7 @@ msgstr "新代码已发送至您的邮箱。"
 
 #: includes/class-segurium-2fa.php:1000
 msgid "Lost your device? Enter a backup code instead."
-msgstr "设备丢失？请改用备份代码。"
+msgstr "设备丢失？请改为输入备份代码。"
 
 #. translators: %d: number of days
 #: includes/class-segurium-2fa.php:1002
@@ -108,7 +111,7 @@ msgstr "信任此设备 %d 天"
 #: includes/class-segurium-2fa.php:1003 includes/class-segurium-2fa.php:1504
 #: includes/class-segurium-2fa.php:1573 includes/class-segurium-2fa.php:1631
 msgid "Too many failed attempts. Please try again later."
-msgstr "失败尝试次数过多。请稍后重试。"
+msgstr "失败尝试次数过多。请稍后再试一次。"
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
@@ -164,7 +167,7 @@ msgstr "重新生成备份代码"
 
 #: includes/class-segurium-2fa.php:1080
 msgid "Disable 2FA"
-msgstr "禁用 2FA"
+msgstr "停用 2FA"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Scan this QR code with your authenticator app:"
@@ -267,7 +270,7 @@ msgstr "设置会话已过期。请重新开始。"
 
 #: includes/class-segurium-2fa.php:1269 includes/class-segurium-2fa.php:1322
 msgid "Invalid code. Please try again."
-msgstr "代码无效。请重试。"
+msgstr "代码无效。请再试一次。"
 
 #: includes/class-segurium-2fa.php:1275
 msgid "Encryption error."
@@ -299,7 +302,7 @@ msgstr "会话无效。"
 
 #: includes/class-segurium-2fa.php:1640
 msgid "Invalid verification code. Please try again."
-msgstr "验证代码无效。请重试。"
+msgstr "验证代码无效。请再试一次。"
 
 #: includes/class-segurium-2fa.php:1661
 msgid "Session expired."
@@ -357,7 +360,7 @@ msgstr "停用许可证"
 
 #: includes/class-segurium-account-page.php:425
 msgid "Manage billing"
-msgstr "管理账单"
+msgstr "管理帐单"
 
 #: includes/class-segurium-account-page.php:441
 #: includes/class-segurium-account-page.php:475
@@ -366,9 +369,10 @@ msgstr "免费账户"
 
 #: includes/class-segurium-account-page.php:453
 #: includes/class-segurium-account-page.php:482
-#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
-#: includes/class-segurium.php:928 includes/class-segurium.php:940
-#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+#: includes/class-segurium-account-page.php:553
+#: includes/class-segurium.php:927 includes/class-segurium.php:928
+#: includes/class-segurium.php:940 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
 msgstr "升级到 Pro"
 
@@ -376,9 +380,7 @@ msgstr "升级到 Pro"
 msgid ""
 "Segurium runs without sharing any account information. The Pro service tier "
 "raises the cloud cleanup quota and adds email support."
-msgstr ""
-"Segurium 在运行时不会共享任何账户信息。Pro 服务级别可提高云清理配额，并提供"
-"电子邮件支持。"
+msgstr "Segurium 在运行时不会共享任何账户信息。Pro 服务级别可提高云清理配额，并提供电子邮件支持。"
 
 #: includes/class-segurium-account-page.php:490
 msgid "Connect account"
@@ -412,7 +414,7 @@ msgstr "请将此字段保持为空"
 #: includes/class-segurium-brute-force.php:1392
 #, php-format
 msgid "Too many failed login attempts. Try again in %s."
-msgstr "登录失败尝试次数过多。请在 %s 后重试。"
+msgstr "登录失败尝试次数过多。请在 %s 后再试一次。"
 
 #: includes/class-segurium-brute-force.php:1373
 msgid "Login Locked"
@@ -453,7 +455,7 @@ msgstr "组件类型无效。"
 
 #: includes/class-segurium-component-backup.php:48
 msgid "Invalid component slug."
-msgstr "组件标识符无效。"
+msgstr "组件别名无效。"
 
 #. translators: 1: exit code, 2: error output.
 #: includes/class-segurium-component-backup.php:76
@@ -467,9 +469,7 @@ msgstr "备份失败（退出代码 %1$d）：%2$s"
 msgid ""
 "Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
 "Delete skipped so your site does not lose uncovered data."
-msgstr ""
-"组件大小为 %1$.1f MB，超出了 %2$d MB 的加密备份上限。已跳过删除，以免您的站点"
-"丢失未覆盖的数据。"
+msgstr "组件大小为 %1$.1f MB，超出了 %2$d MB 的加密备份上限。已跳过删除，以免您的站点丢失未覆盖的数据。"
 
 #: includes/class-segurium-component-backup.php:106
 msgid "Failed to read packed component archive."
@@ -511,11 +511,11 @@ msgstr "此主机不提供安全随机数。"
 #: includes/class-segurium-cti-client.php:62
 msgid ""
 "Installation ID unavailable. Please ensure the plugin is properly activated."
-msgstr "安装 ID 不可用。请确保插件已正确激活。"
+msgstr "安装 ID 不可用。请确保插件已启用。"
 
 #: includes/class-segurium-cti-client.php:228
 msgid "Too many requests. Please try again later."
-msgstr "请求过多。请稍后重试。"
+msgstr "请求过多。请稍后再试一次。"
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:234
@@ -551,38 +551,33 @@ msgstr "安装地理数据库失败。"
 msgid ""
 "On Nginx, the Server header must be removed at the server level "
 "(server_tokens off;). This toggle has no effect."
-msgstr ""
-"在 Nginx 上，必须在服务器级别移除 Server 头（server_tokens off;）。此开关无"
-"效。"
+msgstr "在 Nginx 上，必须在服务器级别移除 Server 头（server_tokens off;）。此开关无效。"
 
 #: includes/class-segurium-info-shield.php:334
 msgid ""
 "On Apache with FastCGI, the Server header is added after PHP runs. Use "
 "ServerTokens Prod in Apache config."
 msgstr ""
-"在使用 FastCGI 的 Apache 上，Server 头在 PHP 运行后才添加。请在 Apache 配置中"
-"使用 ServerTokens Prod。"
+"在使用 FastCGI 的 Apache 上，Server 头在 PHP 运行后才添加。请在 Apache 配置中使用 ServerTokens "
+"Prod。"
 
 #: includes/class-segurium-info-shield.php:338
 msgid ""
 "On IIS, use the removeServerHeader attribute in web.config. This toggle has "
 "limited effect."
-msgstr ""
-"在 IIS 上，请在 web.config 中使用 removeServerHeader 属性。此开关效果有限。"
+msgstr "在 IIS 上，请在 web.config 中使用 removeServerHeader 属性。此开关效果有限。"
 
 #: includes/class-segurium-info-shield.php:352
 msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
-msgstr ""
-"您的服务器使用 FastCGI，可能会重新添加 X-Powered-By 头。请通过检查响应头确认"
-"其已被移除。"
+msgstr "您的服务器使用 FastCGI，可能会重新添加 X-Powered-By 头。请通过检查响应头验证其已被移除。"
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
 "Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
 "Jetpack connection."
-msgstr "Jetpack 已激活并依赖 XML-RPC。禁用 XML-RPC 将中断 Jetpack 连接。"
+msgstr "Jetpack 已启用并依赖 XML-RPC。停用 XML-RPC 将中断 Jetpack 连接。"
 
 #: includes/class-segurium-integrity-chain.php:149
 #: includes/class-segurium.php:926 includes/class-segurium.php:4236
@@ -615,7 +610,7 @@ msgstr "必须指定扫描类型。"
 msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
-msgstr "扫描存储尚未就绪。请停用并重新激活 Segurium 插件，然后重试。"
+msgstr "扫描存储尚未就绪。请停用并重新启用 Segurium 插件，然后再试一次。"
 
 #: includes/class-segurium-scan-runner.php:215
 #: includes/class-segurium-scan-runner.php:227 includes/class-segurium.php:835
@@ -626,7 +621,7 @@ msgstr "已有扫描正在进行中。"
 msgid ""
 "Scan storage was not ready. It has been repaired automatically — please "
 "click \"Start scan\" again."
-msgstr "扫描存储未就绪，已自动修复 —— 请再次点击 \"开始扫描\"。"
+msgstr "扫描存储未就绪，已自动修复 —— 请再次点击「开始扫描」。"
 
 #. translators: %s: underlying exception message
 #: includes/class-segurium-scan-runner.php:257
@@ -643,14 +638,15 @@ msgstr "启动扫描时发生意外错误：%s"
 #: includes/class-segurium-scan-runner.php:528 includes/class-segurium.php:838
 #: includes/class-segurium.php:3189 includes/class-segurium.php:4288
 msgid "Your session has expired. Reload the page and try again."
-msgstr "您的会话已过期。请重新加载页面后重试。"
+msgstr "您的会话已过期。请重新加载页面后再试一次。"
 
 #: includes/class-segurium-scan-runner.php:538 includes/class-segurium.php:839
 #: includes/class-segurium.php:3199
 msgid "You do not have permission to manage scans."
 msgstr "您没有管理扫描的权限。"
 
-#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+#: includes/class-segurium-scan-runner.php:570
+#: includes/class-segurium.php:3998
 msgid "Could not fetch scan status due to a server error."
 msgstr "因服务器错误，无法获取扫描状态。"
 
@@ -660,22 +656,19 @@ msgstr "因服务器错误，无法获取扫描状态。"
 msgid ""
 "PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
 "host to raise it to at least 30s."
-msgstr ""
-"PHP max_execution_time 为 %d 秒 —— 对于可靠的扫描而言过短。请要求主机将其提高"
-"到至少 30 秒。"
+msgstr "PHP max_execution_time 为 %d 秒 —— 对于可靠的扫描而言过短。请要求主机将其提高到至少 30 秒。"
 
 #: includes/class-segurium-scan-runner.php:1105
 msgid ""
 "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
-"to detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
-"WordPress cron 已禁用（DISABLE_WP_CRON），且您的 PHP 配置无法将长任务与页面请"
-"求分离。后台扫描仅在 Segurium 管理标签页保持打开时才会推进。请要求主机启用每"
-"分钟访问一次 wp-cron.php 的真实系统 cron 任务，或将 mod_php 切换为 PHP-FPM / "
-"LiteSpeed。"
+"WordPress cron 已停用（DISABLE_WP_CRON），且您的 PHP 配置无法将长任务与页面请求分离。后台扫描仅在 Segurium "
+"管理标签页保持打开时才会推进。请要求主机启用每分钟访问一次 wp-cron.php 的真实系统 cron 任务，或将 mod_php 切换为 PHP-"
+"FPM / LiteSpeed。"
 
 #: includes/class-segurium-scan-runner.php:1107
 msgid ""
@@ -683,8 +676,8 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute. Ask your host to set "
 "one up."
 msgstr ""
-"WordPress cron 已禁用（DISABLE_WP_CRON）。计划扫描依赖每分钟访问一次 wp-"
-"cron.php 的真实系统 cron 任务。请要求主机配置该任务。"
+"WordPress cron 已停用（DISABLE_WP_CRON）。定时扫描依赖每分钟访问一次 wp-cron.php 的真实系统 cron "
+"任务。请要求主机配置该任务。"
 
 #: includes/class-segurium-scheduled-scan-settings.php:108
 msgid "Invalid settings payload."
@@ -692,7 +685,7 @@ msgstr "设置载荷无效。"
 
 #: includes/class-segurium-scheduled-scan-settings.php:127
 msgid "Frequency must be one of: off, daily, weekly."
-msgstr "频率必须为以下之一：off、daily、weekly。"
+msgstr "频率必须为以下之一：关闭、每日、每周。"
 
 #: includes/class-segurium-scheduled-scan-settings.php:138
 msgid "Hour must be between 0 and 23."
@@ -792,14 +785,13 @@ msgstr "X-XSS-Protection"
 
 #: includes/class-segurium-self-check.php:369
 msgid "Legacy XSS filter directive present."
-msgstr "存在旧版 XSS 过滤指令。"
+msgstr "存在传统 XSS 过滤指令。"
 
 #: includes/class-segurium-self-check.php:370
 msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
-msgstr ""
-"缺少 X-XSS-Protection。请将其设为 0 以安全禁用旧版浏览器的 XSS 过滤器。"
+msgstr "缺少 X-XSS-Protection。请将其设为 0 以安全停用传统浏览器的 XSS 过滤器。"
 
 #: includes/class-segurium-self-check.php:395
 msgid "X-Powered-By hidden"
@@ -922,61 +914,62 @@ msgstr "首页上没有 Set-Cookie 头，无法从外部评估 cookie 标志。"
 #: includes/class-segurium-self-check.php:591
 #: includes/class-segurium-self-check.php:624
 msgid "Cookies — Secure"
-msgstr "Cookie —— Secure"
+msgstr "Cookies —— Secure"
 
 #: includes/class-segurium-self-check.php:602
 #: includes/class-segurium-self-check.php:625
 msgid "Cookies — HttpOnly"
-msgstr "Cookie —— HttpOnly"
+msgstr "Cookies —— HttpOnly"
 
 #: includes/class-segurium-self-check.php:613
 #: includes/class-segurium-self-check.php:721
 #: includes/class-segurium-self-check.php:735
 #: includes/class-segurium-self-check.php:753
 msgid "Cookies — SameSite"
-msgstr "Cookie —— SameSite"
+msgstr "Cookies —— SameSite"
 
 #. translators: 1: total cookie count, 2: cookie attribute name
 #: includes/class-segurium-self-check.php:657
 #, php-format
 msgid "All %1$d cookies set the %2$s attribute."
-msgstr "全部 %1$d 个 cookie 都设置了 %2$s 属性。"
+msgstr "全部 %1$d 个 Cookies 都设置了 %2$s 属性。"
 
-#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
 #: includes/class-segurium-self-check.php:671
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
-msgstr "%2$d 个 cookie 中有 %1$d 个设置了 %3$s。"
+msgstr "%2$d 个 Cookies 中有 %1$d 个设置了 %3$s。"
 
 #. translators: 1: total cookie count, 2: cookie attribute name
 #: includes/class-segurium-self-check.php:684
 #, php-format
 msgid "None of the %1$d cookies set the %2$s attribute."
-msgstr "%1$d 个 cookie 均未设置 %2$s 属性。"
+msgstr "%1$d 个 Cookies 均未设置 %2$s 属性。"
 
 #. translators: %d: total cookie count
 #: includes/class-segurium-self-check.php:724
 #, php-format
 msgid "All %d cookies set SameSite=Lax/Strict."
-msgstr "全部 %d 个 cookie 都设置了 SameSite=Lax/Strict。"
+msgstr "全部 %d 个 Cookies 都设置了 SameSite=Lax/Strict。"
 
 #. translators: 1: good cookie count, 2: total cookie count
 #: includes/class-segurium-self-check.php:738
 #, php-format
 msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
-msgstr "%2$d 个 cookie 中有 %1$d 个设置了 SameSite=Lax/Strict。"
+msgstr "%2$d 个 Cookies 中有 %1$d 个设置了 SameSite=Lax/Strict。"
 
 #. translators: 1: count of cookies using SameSite=None, 2: total cookie count
 #: includes/class-segurium-self-check.php:746
 #, php-format
 msgid "%1$d of %2$d cookies use SameSite=None."
-msgstr "%2$d 个 cookie 中有 %1$d 个使用了 SameSite=None。"
+msgstr "%2$d 个 Cookies 中有 %1$d 个使用了 SameSite=None。"
 
 #. translators: %d: total cookie count
 #: includes/class-segurium-self-check.php:748
 #, php-format
 msgid "No cookies set SameSite=Lax or Strict (out of %d)."
-msgstr "%d 个 cookie 中没有任何一个设置了 SameSite=Lax 或 Strict。"
+msgstr "%d 个 Cookies 中没有任何一个设置了 SameSite=Lax 或 Strict。"
 
 #: includes/class-segurium-self-check.php:815 includes/class-segurium.php:2662
 msgid "Cloud-assisted malware detection"
@@ -1051,9 +1044,9 @@ msgstr "过去 24 小时内未运行恶意软件扫描。扫描很快 —— 运
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
-msgstr[0] ""
-"最近一次恶意软件扫描标记了 %d 个威胁。请在 \"恶意软件扫描器\" 标签页中查看。"
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] "最近一次恶意软件扫描标记了 %d 个威胁。请在「恶意软件扫描器」标签页中查看。"
 
 #: includes/class-segurium-self-check.php:919
 msgid "No integrity issues in the last 24 hours"
@@ -1067,8 +1060,8 @@ msgstr "最近一次完整性扫描在过去 24 小时内运行，未报告任�
 
 #: includes/class-segurium-self-check.php:924
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
 msgstr "过去 24 小时内未运行完整性扫描。扫描很快 —— 运行一次即可刷新此判定。"
 
 #. translators: %d: number of open integrity issues
@@ -1080,7 +1073,7 @@ msgid ""
 msgid_plural ""
 "%d open integrity issues are unresolved. Review them on the Integrity "
 "scanner tab."
-msgstr[0] "%d 个未解决的完整性问题。请在 \"完整性扫描器\" 标签页中查看。"
+msgstr[0] "%d 个未解决的完整性问题。请在「完整性扫描器」标签页中查看。"
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-trusted-proxies.php:92
@@ -1223,9 +1216,7 @@ msgid ""
 "The file at %s has been modified since the last cleanup. Restoring will "
 "overwrite the existing file with the backed-up version. This cannot be "
 "undone."
-msgstr ""
-"%s 处的文件自上次清理后已被修改。还原将使用备份版本覆盖现有文件。此操作无法撤"
-"销。"
+msgstr "%s 处的文件自上次清理后已被修改。还原将使用备份版本覆盖现有文件。此操作无法撤销。"
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
@@ -1267,11 +1258,12 @@ msgstr "无法初始化扫描。请查看 PHP 错误日志。"
 msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
-msgstr "扫描已启动，但无法调度后台工作进程。请重试。"
+msgstr "扫描已启动，但无法调度后台工作进程。请再试一次。"
 
 #: includes/class-segurium.php:843
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
 msgstr "因服务器错误，无法启动扫描。请查看 PHP 错误日志。"
 
 #: includes/class-segurium.php:844
@@ -1296,7 +1288,7 @@ msgstr "网络错误 —— 请求未能到达服务器。"
 #: includes/class-segurium.php:848
 msgid ""
 "The server returned an unexpected response. Reload the page and try again."
-msgstr "服务器返回了意外响应。请重新加载页面后重试。"
+msgstr "服务器返回了意外响应。请重新加载页面后再试一次。"
 
 #: includes/class-segurium.php:849
 msgid ""
@@ -1304,9 +1296,8 @@ msgid ""
 "content before Segurium can respond. Check wp-content/mu-plugins, wp-"
 "config.php, and your active theme/plugins for recent unexpected changes."
 msgstr ""
-"站点似乎已被污染：服务器上的其他文件在 Segurium 响应之前就输出了内容。请检查 "
-"wp-content/mu-plugins、wp-config.php 以及您当前启用的主题/插件，查看是否有近"
-"期的意外更改。"
+"站点似乎已被污染：服务器上的其他文件在 Segurium 响应之前就输出了内容。请检查 wp-content/mu-plugins、wp-"
+"config.php 以及您当前启用的主题/插件，查看是否有近期的意外更改。"
 
 #: includes/class-segurium.php:850
 msgid ""
@@ -1314,8 +1305,8 @@ msgid ""
 "did not parse. This usually indicates a fatal PHP error inside the Segurium "
 "handler — check the PHP error log."
 msgstr ""
-"Segurium 收到了带有有效标记的响应，但其中的 JSON 无法解析。这通常表示 "
-"Segurium 处理程序内发生了致命的 PHP 错误 —— 请查看 PHP 错误日志。"
+"Segurium 收到了带有有效标记的响应，但其中的 JSON 无法解析。这通常表示 Segurium 处理程序内发生了致命的 PHP 错误 —— "
+"请查看 PHP 错误日志。"
 
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
 msgid "This version of the admin page is stale. Reload the page to continue."
@@ -1324,7 +1315,7 @@ msgstr "此管理页面版本已过期。请重新加载页面以继续。"
 #: includes/class-segurium.php:853
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
-msgstr "发生了意外的服务器错误。请查看 PHP 错误日志后重试。"
+msgstr "发生了意外的服务器错误。请查看 PHP 错误日志后再试一次。"
 
 #: includes/class-segurium.php:854 includes/class-segurium.php:2716
 msgid "Frequency"
@@ -1357,15 +1348,15 @@ msgstr "下次运行："
 
 #: includes/class-segurium.php:861
 msgid "Schedule saved."
-msgstr "计划已保存。"
+msgstr "定时设置已保存。"
 
 #: includes/class-segurium.php:862
 msgid "Could not save schedule."
-msgstr "无法保存计划。"
+msgstr "无法保存定时设置。"
 
 #: includes/class-segurium.php:863
 msgid "Stored in UTC. Displayed in your browser locale."
-msgstr "以 UTC 存储，按您的浏览器区域设置显示。"
+msgstr "以国际标准时间 (UTC) 存储，按您的浏览器地区语言显示。"
 
 #: includes/class-segurium.php:864
 msgid "Scanned files"
@@ -1490,7 +1481,7 @@ msgstr "此会话中最近处理"
 
 #: includes/class-segurium.php:892 includes/class-segurium.php:1041
 msgid "Page"
-msgstr "页"
+msgstr "页面"
 
 #: includes/class-segurium.php:893 includes/class-segurium.php:1042
 msgid "of"
@@ -1536,9 +1527,7 @@ msgstr "此文件不属于原始安装内容，将被删除。系统将创建备
 msgid ""
 "Some files will be deleted (unknown files) and some will be replaced with "
 "originals (modified files). Backups will be created for all. Continue?"
-msgstr ""
-"部分文件将被删除（未知文件），部分将被还原为原始文件（修改过的文件）。系统会"
-"为所有文件创建备份。是否继续？"
+msgstr "部分文件将被删除（未知文件），部分将被还原为原始文件（修改过的文件）。系统会为所有文件创建备份。是否继续？"
 
 #: includes/class-segurium.php:905
 msgid "Fixing files..."
@@ -1548,13 +1537,15 @@ msgstr "正在修复文件…"
 msgid "Older backups will be rotated out"
 msgstr "旧备份将被轮换移除"
 
-#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
 #: includes/class-segurium.php:909
 #, php-format
 msgid "You are about to fix %1$d files (~%2$s)."
 msgstr "您即将修复 %1$d 个文件（约 %2$s）。"
 
-#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
 #: includes/class-segurium.php:911
 #, php-format
 msgid ""
@@ -1618,39 +1609,42 @@ msgstr "稍后再说"
 #: includes/class-segurium.php:6224
 msgid ""
 "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
-msgstr ""
-"已达到清理配额。升级到 Pro 即可获得无限制的云清理配额。"
+msgstr "已达到清理配额。升级到 Pro 即可获得无限制的云清理配额。"
 
 #: includes/class-segurium.php:931
 msgid "Cleanup quota reached"
 msgstr "已达到清理配额"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:933
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
-msgstr ""
-"您在过去 %2$d 天内已使用了 %1$d 次云清理。升级到 Pro 即可获得无限制的云清理"
-"配额。"
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr "您在过去 %2$d 天内已使用了 %1$d 次云清理。升级到 Pro 即可获得无限制的云清理配额。"
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
 msgstr "下一个名额于 %s 开放"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:937 includes/class-segurium.php:1313
 #, php-format
 msgid "%1$d of %2$d cleanups used in the last %3$d days"
 msgstr "过去 %3$d 天内已使用 %2$d 次中的 %1$d 次清理"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
 #: includes/class-segurium.php:939 includes/class-segurium.php:1304
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr "过去 %3$d 天内已使用 %2$d 次中的 %1$d 次清理 —— 下一个名额于 %4$s 开放"
 
 #: includes/class-segurium.php:941 includes/class-segurium.php:2612
@@ -1823,7 +1817,7 @@ msgstr "您的工单编号："
 
 #: includes/class-segurium.php:983
 msgid "Failed to submit ticket. Please try again."
-msgstr "提交工单失败。请重试。"
+msgstr "提交工单失败。请再试一次。"
 
 #: includes/class-segurium.php:984
 msgid "Please attach a file before submitting."
@@ -1879,7 +1873,7 @@ msgstr "延长锁定时长（秒）"
 
 #: includes/class-segurium.php:997 includes/class-segurium.php:1789
 msgid "History window (seconds)"
-msgstr "历史窗口（秒）"
+msgstr "历史记录窗口（秒）"
 
 #: includes/class-segurium.php:998 includes/class-segurium.php:1795
 msgid "Also protect XML-RPC (xmlrpc.php)"
@@ -1977,7 +1971,7 @@ msgstr "点击预设以填充表单，然后保存。"
 
 #: includes/class-segurium.php:1020 includes/class-segurium.php:1867
 msgid "Statistics"
-msgstr "统计信息"
+msgstr "统计数据"
 
 #: includes/class-segurium.php:1021 includes/class-segurium.php:1870
 msgid "Active lockouts"
@@ -2102,7 +2096,7 @@ msgstr "运行中…"
 
 #: includes/class-segurium.php:1059
 msgid "Click Run Self-Check to grade your site."
-msgstr "点击 \"运行自检\" 为您的站点评级。"
+msgstr "点击「运行自检」为您的站点评级。"
 
 #: includes/class-segurium.php:1063
 msgid "How to fix"
@@ -2152,7 +2146,8 @@ msgstr "%1$d 通过，%2$d 警告，%3$d 失败"
 msgid "%1$d/100"
 msgstr "%1$d/100"
 
-#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
 #: includes/class-segurium.php:1077
 #, php-format
 msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
@@ -2186,8 +2181,8 @@ msgid ""
 "When you enable it, Segurium exchanges data with our servers so it can "
 "detect malware, verify your files, and adapt protection to active threats."
 msgstr ""
-"Segurium 通过与 Segurium 云端协同工作来保护您的站点。启用后，Segurium 将与我"
-"们的服务器交换数据，以检测恶意软件、验证文件并使防护适应当前威胁。"
+"Segurium 通过与 Segurium 云端协同工作来保护您的站点。启用后，Segurium "
+"将与我们的服务器交换数据，以检测恶意软件、验证文件并使防护适应当前威胁。"
 
 #: includes/class-segurium.php:1210
 msgid "What is sent:"
@@ -2197,38 +2192,31 @@ msgstr "发送的数据："
 msgid ""
 "File metadata: SHA-256 hash, path relative to your WordPress installation, "
 "size, modification time."
-msgstr ""
-"文件元数据：SHA-256 哈希、相对于 WordPress 安装目录的路径、大小、修改时间。"
+msgstr "文件元数据：SHA-256 哈希、相对于 WordPress 安装目录的路径、大小、修改时间。"
 
 #: includes/class-segurium.php:1213
 msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
-msgstr ""
-"文件内容 —— 仅当仅凭哈希无法判定，或在清理过程中需要生成干净的替换文件时发"
-"送。"
+msgstr "文件内容 —— 仅当仅凭哈希无法判定，或在清理过程中需要生成干净的替换文件时发送。"
 
 #: includes/class-segurium.php:1214
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
-msgstr ""
-"随机生成的安装标识符以及基本站点信息（URL、名称、WordPress 版本），用于将请求"
-"关联到此安装。"
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr "随机生成的安装标识符以及基本站点信息（URL、名称、WordPress 版本），用于将请求关联到此安装。"
 
 #: includes/class-segurium.php:1215
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
 msgstr "扫描、清理和安全设置事件，以便云端使您的站点防护保持同步。"
 
 #: includes/class-segurium.php:1216
 msgid ""
 "Firewall events (blocked IPs, attack patterns) used to adapt protection "
 "across all Segurium-protected sites."
-msgstr ""
-"防火墙事件（被封锁的 IP、攻击模式），用于在所有受 Segurium 保护的站点上调整防"
-"护策略。"
+msgstr "防火墙事件（被封锁的 IP、攻击模式），用于在所有受 Segurium 保护的站点上调整防护策略。"
 
 #: includes/class-segurium.php:1219
 msgid "What is NOT sent:"
@@ -2260,13 +2248,14 @@ msgstr "位于 cti.segurium.com 的 Segurium 服务器。"
 msgid "Retention:"
 msgstr "保留期："
 
-#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
 msgid ""
 "By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
 "%3$sPrivacy Policy%4$s."
-msgstr "启用扫描即表示您同意%1$s服务条款%2$s和%3$s隐私政策%4$s。"
+msgstr "启用扫描即表示您同意 %1$s服务条款%2$s 和 %3$s隐私政策%4$s。"
 
 #: includes/class-segurium.php:1242
 msgid "I agree"
@@ -2487,17 +2476,13 @@ msgstr "正在加载自动检测的代理状态…"
 msgid ""
 "Additional proxy IPs beyond the auto-detected list, one per line. Leave "
 "empty if all your proxies are covered above."
-msgstr ""
-"除自动检测列表之外的其他代理 IP，每行一条。如果上述列表已覆盖您所有的代理，可"
-"留空。"
+msgstr "除自动检测列表之外的其他代理 IP，每行一条。如果上述列表已覆盖您所有的代理，可留空。"
 
 #: includes/class-segurium.php:1750
 msgid ""
 "Tracks failed login attempts and locks out IPs after a configurable "
 "threshold. Reuses the firewall allow-list for trusted IPs."
-msgstr ""
-"跟踪失败的登录尝试，并在达到可配置阈值后锁定 IP。复用防火墙的可信 IP 允许列"
-"表。"
+msgstr "跟踪失败的登录尝试，并在达到可配置阈值后锁定 IP。复用防火墙的可信 IP 允许列表。"
 
 #: includes/class-segurium.php:1754
 msgid "Settings:"
@@ -2519,21 +2504,19 @@ msgstr "自行编辑每项设置。"
 msgid ""
 "After this many lockouts within the history window, the next lockout will "
 "use the extended duration."
-msgstr "在历史窗口内达到此锁定次数后，下次锁定将使用延长时长。"
+msgstr "在历史记录窗口内达到此锁定次数后，下次锁定将使用延长时长。"
 
 #: includes/class-segurium.php:1803
 msgid ""
 "Adds an off-screen input that legitimate users never see. Filling it "
 "triggers an immediate lockout."
-msgstr "添加一个屏幕外输入框，正常用户不会看到。填写该字段将立即触发锁定。"
+msgstr "添加一个屏幕外输入框，合法用户不会看到。填写该字段将立即触发锁定。"
 
 #: includes/class-segurium.php:1812
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
-msgstr ""
-"可选：在登录表单上经过可配置的失败尝试次数后显示 hCaptcha 验证。可在 "
-"hcaptcha.com 获取免费密钥。"
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr "可选：在登录表单上经过可配置的失败尝试次数后显示 hCaptcha 验证。可在 hcaptcha.com 获取免费密钥。"
 
 #: includes/class-segurium.php:1838
 msgid ""
@@ -2595,7 +2578,7 @@ msgstr "保存设置"
 
 #: includes/class-segurium.php:2006
 msgid "User Statistics"
-msgstr "用户统计"
+msgstr "用户统计数据"
 
 #: includes/class-segurium.php:2010
 msgid "Method"
@@ -2647,7 +2630,7 @@ msgstr "网站"
 msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
-msgstr "自动包含，以便支持团队识别您的站点。请在 \"设置 → 常规\" 中修改。"
+msgstr "自动包含，以便支持团队识别您的站点。请在「设置 → 常规」中修改。"
 
 #: includes/class-segurium.php:2043
 msgid "Type"
@@ -2655,7 +2638,7 @@ msgstr "类型"
 
 #: includes/class-segurium.php:2045 includes/class-segurium.php:6936
 msgid "Bug report"
-msgstr "错误报告"
+msgstr "Bug 报告"
 
 #: includes/class-segurium.php:2046 includes/class-segurium.php:6938
 msgid "Feature request"
@@ -2689,8 +2672,7 @@ msgstr "消息"
 msgid ""
 "Attach system information (WP version, PHP version, plugin version, active "
 "plugins, last scan date)"
-msgstr ""
-"附加系统信息（WP 版本、PHP 版本、插件版本、已启用的插件、上次扫描日期）"
+msgstr "附加系统信息（WP 版本、PHP 版本、插件版本、已启用的插件、上次扫描日期）"
 
 #: includes/class-segurium.php:2068
 msgid "Submit Ticket"
@@ -2704,9 +2686,7 @@ msgstr "启用安全头"
 msgid ""
 "Adds HTTP security response headers to all responses. Protects against "
 "clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
-msgstr ""
-"为所有响应添加 HTTP 安全响应头。可防御点击劫持、MIME 嗅探、XSS 和协议降级攻"
-"击。"
+msgstr "为所有响应添加 HTTP 安全响应头。可防御点击劫持、MIME 嗅探、XSS 和协议降级攻击。"
 
 #: includes/class-segurium.php:2085
 msgid "Mode:"
@@ -2818,7 +2798,7 @@ msgstr "预加载"
 msgid ""
 "Warning: preload is difficult to undo. Requires max-age at least 1 year and "
 "subdomains included."
-msgstr "警告：预加载难以撤销。要求 max-age 至少为 1 年并包含子域。"
+msgstr "警告：预加载难以撤消。要求 max-age 至少为 1 年并包含子域名。"
 
 #: includes/class-segurium.php:2168
 msgid ""
@@ -2826,8 +2806,7 @@ msgid ""
 "will affect all subdomains of the parent domain, including ones you may not "
 "control."
 msgstr ""
-"您的站点似乎位于子域上。在 HSTS 中启用 includeSubDomains 会影响父域的所有子"
-"域，包括您可能未控制的子域。"
+"您的站点似乎位于子域名上。在 HSTS 中启用 includeSubDomains 会影响上级域名下的所有子域名，包括您可能未控制的子域名。"
 
 #: includes/class-segurium.php:2170
 msgid "Cross-Origin Policies"
@@ -2855,7 +2834,7 @@ msgstr "Cross-Origin-Resource-Policy"
 
 #: includes/class-segurium.php:2185
 msgid "Same site"
-msgstr "同站"
+msgstr "同一站点"
 
 #: includes/class-segurium.php:2186
 msgid "Cross origin"
@@ -2948,9 +2927,8 @@ msgid ""
 "page builders — start in report-only mode to surface violations before "
 "enforcing."
 msgstr ""
-"CSP 限制脚本、样式和其他资源可加载的来源，从而缓解 XSS 和注入攻击。CSP 与站点"
-"高度相关，可能会破坏主题或页面构建器 —— 请先在仅报告模式下运行以发现违规情"
-"况，再正式强制执行。"
+"CSP 限制脚本、样式和其他资源可加载的来源，从而缓解 XSS 和注入攻击。CSP 与站点高度相关，可能会破坏主题或页面构建器 —— "
+"请先在仅报告模式下运行以发现违规情况，再正式强制执行。"
 
 #: includes/class-segurium.php:2245
 msgid "Report-only (recommended for first deploy)"
@@ -2963,11 +2941,11 @@ msgstr "强制执行"
 #: includes/class-segurium.php:2248
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
-"仅报告会发送 Content-Security-Policy-Report-Only —— 浏览器记录违规但仍加载被"
-"阻止的资源。强制执行会发送 Content-Security-Policy 并阻止它们。"
+"仅报告会发送 Content-Security-Policy-Report-Only —— 浏览器记录违规但仍加载被阻止的资源。强制执行会发送 "
+"Content-Security-Policy 并阻止它们。"
 
 #: includes/class-segurium.php:2251
 msgid "Policy directives"
@@ -2978,9 +2956,7 @@ msgid ""
 "Single line of directives separated by semicolons. The default starter "
 "policy permits Gutenberg and most themes; tighten once your reports are "
 "clean."
-msgstr ""
-"以分号分隔的单行指令。默认的起始策略允许 Gutenberg 和大多数主题；待报告无违规"
-"后再收紧。"
+msgstr "以分号分隔的单行指令。默认的起始策略允许 Gutenberg 和大多数主题；待报告无违规后再收紧。"
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
@@ -2994,9 +2970,7 @@ msgstr "Report URI（可选）"
 msgid ""
 "When set, browsers will POST violation reports to this URL. Appended "
 "automatically as report-uri unless your directives already contain one."
-msgstr ""
-"设置后，浏览器会将违规报告 POST 到此 URL。除非您的指令中已包含 report-uri，否"
-"则会自动追加。"
+msgstr "设置后，浏览器会将违规报告 POST 到此 URL。除非您的指令中已包含 report-uri，否则会自动追加。"
 
 #: includes/class-segurium.php:2265
 msgid "Cookie Hardening"
@@ -3004,15 +2978,15 @@ msgstr "Cookie 加固"
 
 #: includes/class-segurium.php:2269
 msgid "Add SameSite attribute to auth cookies"
-msgstr "为认证 cookie 添加 SameSite 属性"
+msgstr "为认证 Cookies 添加 SameSite 属性"
 
 #: includes/class-segurium.php:2271
 msgid ""
 "Adds SameSite flag to WordPress session cookies. Protects against CSRF "
 "attacks. Mozilla Observatory penalizes missing SameSite."
 msgstr ""
-"为 WordPress 会话 cookie 添加 SameSite 标志。可防御 CSRF 攻击。Mozilla "
-"Observatory 会对缺失 SameSite 的站点扣分。"
+"为 WordPress 会话 Cookies 添加 SameSite 标志。可防御 CSRF 攻击。Mozilla Observatory 会对缺失 "
+"SameSite 的站点扣分。"
 
 #: includes/class-segurium.php:2275
 msgid "SameSite value"
@@ -3023,7 +2997,8 @@ msgid "Lax (recommended)"
 msgstr "Lax（推荐）"
 
 #: includes/class-segurium.php:2280
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr "Strict 可能会破坏会重定向回您站点的 OAuth/SSO 登录流程。"
 
 #: includes/class-segurium.php:2291
@@ -3039,9 +3014,7 @@ msgid ""
 "Reduces WordPress information disclosure by removing version fingerprints, "
 "discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
 "output."
-msgstr ""
-"通过从 HTTP 头部和 HTML 输出中移除版本指纹、发现端点和不必要的元数据，减少 "
-"WordPress 的信息泄露。"
+msgstr "通过从 HTTP 头部和 HTML 输出中移除版本指纹、发现端点和不必要的元数据，减少 WordPress 的信息泄露。"
 
 #: includes/class-segurium.php:2308
 msgid "Enable All Recommended"
@@ -3116,13 +3089,13 @@ msgstr "从 HTML head 中移除 Really Simple Discovery 端点链接。"
 
 #: includes/class-segurium.php:2369
 msgid "Remove WLW manifest link"
-msgstr "移除 WLW 清单链接"
+msgstr "移除 WLW 信息清单链接"
 
 #: includes/class-segurium.php:2371
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
-msgstr "移除 Windows Live Writer 清单链接。仅当您使用 WLW 撰写文章时才需要。"
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr "移除 Windows Live Writer 信息清单链接。仅当您使用 WLW 撰写文章时才需要。"
 
 #: includes/class-segurium.php:2376
 msgid "Remove REST API discovery link"
@@ -3150,31 +3123,27 @@ msgstr "移除 shortlink meta 标签"
 
 #: includes/class-segurium.php:2392
 msgid "Removes the shortlink link tag from HTML head."
-msgstr "从 HTML head 中移除 shortlink link 标签。"
+msgstr "从 HTML head 中移除 shortlink 链接标签。"
 
 #: includes/class-segurium.php:2397
 msgid "Remove emoji scripts and styles"
-msgstr "移除表情符号脚本和样式"
+msgstr "移除 Emoji 脚本和样式"
 
 #: includes/class-segurium.php:2399
 msgid ""
 "Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
 "have native emoji support."
-msgstr ""
-"移除 WordPress 表情符号 polyfill 的 JavaScript 和 CSS。现代浏览器原生支持表情"
-"符号。"
+msgstr "移除 WordPress Emoji polyfill 的 JavaScript 和 CSS。现代浏览器原生支持 Emoji。"
 
 #: includes/class-segurium.php:2404
 msgid "Remove RSS/Atom feed links"
-msgstr "移除 RSS/Atom 订阅源链接"
+msgstr "移除 RSS/Atom Feed 链接"
 
 #: includes/class-segurium.php:2406
 msgid ""
 "May break RSS readers and WordPress.com Reader. Only enable if your site "
 "does not use RSS feeds."
-msgstr ""
-"可能会破坏 RSS 阅读器和 WordPress.com Reader。仅当您的站点不使用 RSS 订阅源时"
-"才启用。"
+msgstr "可能会破坏 RSS 阅读器和 WordPress.com Reader。仅当您的站点不使用 RSS 订阅源时才启用。"
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
@@ -3196,20 +3165,17 @@ msgstr "移除版本查询字符串"
 msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
-msgstr ""
-"从 CSS 和 JavaScript URL 中去除 ?ver=。插件或主题更新后，浏览器缓存的资源可能"
-"会过期。"
+msgstr "从 CSS 和 JavaScript URL 中去除 ?ver=。插件或主题更新后，浏览器缓存的资源可能会过期。"
 
 #: includes/class-segurium.php:2429
 msgid "Disable XML-RPC entirely"
-msgstr "完全禁用 XML-RPC"
+msgstr "完全停用 XML-RPC"
 
 #: includes/class-segurium.php:2431
 msgid ""
 "Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
 "if you do not use them."
-msgstr ""
-"部分插件（Jetpack、WordPress 移动应用）需要 XML-RPC。仅在您不使用它们时禁用。"
+msgstr "部分插件（Jetpack、WordPress 移动应用）需要 XML-RPC。仅在您不使用它们时停用。"
 
 #: includes/class-segurium.php:2443
 msgid "Security Self-Check"
@@ -3221,8 +3187,8 @@ msgid ""
 "WordPress-specific hardening checks, and grades your site A+ to F. Results "
 "are saved until the next run."
 msgstr ""
-"Segurium 运行与主流外部安全扫描器相同的检查，再加上针对 WordPress 的加固检"
-"查，并将您的站点评级为 A+ 到 F。结果会保留到下一次运行。"
+"Segurium 运行与主流外部安全扫描器相同的检查，再加上针对 WordPress 的加固检查，并将您的站点评级为 A+ 到 "
+"F。结果会保留到下一次运行。"
 
 #: includes/class-segurium.php:2464
 msgid "Check results"
@@ -3256,7 +3222,7 @@ msgstr "加固 —— 每次安装均包含"
 msgid ""
 "Two-factor authentication (TOTP, email fallback, backup codes, trusted "
 "devices)"
-msgstr "双重身份验证（TOTP、电子邮件备用、备份代码、可信设备）"
+msgstr "双重身份验证（TOTP、邮件回退、备份代码、可信设备）"
 
 #: includes/class-segurium.php:2496
 msgid ""
@@ -3265,7 +3231,7 @@ msgstr "暴力破解防护（速率限制、锁定、蜜罐、可选 hCaptcha）
 
 #: includes/class-segurium.php:2501
 msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
-msgstr "地理位置封锁（登录 + 管理后台限制，带 \"确认或还原\" 安全网）"
+msgstr "地理位置封锁（登录 + 管理后台限制，带「确认或还原」安全网）"
 
 #: includes/class-segurium.php:2506
 msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
@@ -3338,7 +3304,7 @@ msgstr "计入 3 / 30 天清理配额"
 
 #: includes/class-segurium.php:2567
 msgid "Bulk “Fix All” (malware + integrity)"
-msgstr "批量 \"全部修复\"（恶意软件 + 完整性）"
+msgstr "批量「全部修复」（恶意软件 + 完整性）"
 
 #: includes/class-segurium.php:2572
 msgid "Auto-fix (unattended remediation)"
@@ -3363,15 +3329,13 @@ msgstr "服务级别"
 #: includes/class-segurium.php:2599
 msgid ""
 "Every plugin feature ships on every install. The service tier governs the "
-"cloud cleanup quota Segurium will perform on your behalf — your current tier "
-"is highlighted."
-msgstr ""
-"每项插件功能都会包含在每次安装中。服务级别决定了 Segurium 将代您执行的云清理"
-"配额——您当前的级别已突出显示。"
+"cloud cleanup quota Segurium will perform on your behalf — your current tier"
+" is highlighted."
+msgstr "每项插件功能都会包含在每次安装中。服务级别决定了 Segurium 将代您执行的云清理配额——您当前的级别已突出显示。"
 
 #: includes/class-segurium.php:2604
 msgid "Capability"
-msgstr "功能"
+msgstr "权限"
 
 #: includes/class-segurium.php:2606 includes/class-segurium.php:2801
 msgid "Free"
@@ -3392,15 +3356,13 @@ msgstr "从扫描中排除与下列通配符模式匹配的文件（每行一项
 
 #: includes/class-segurium.php:2656
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
-msgstr ""
-"使用 * 作为通配符。例如，*.log 将排除所有日志文件；vendor/* 将排除 vendor 目"
-"录及其内部的全部内容。"
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr "使用 * 作为通配符。例如，*.log 将排除所有日志文件；vendor/* 将排除 vendor 目录及其内部的全部内容。"
 
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
-msgstr "卸载插件时清除加密备份"
+msgstr "卸载插件时抹除加密备份"
 
 #: includes/class-segurium.php:2671
 msgid ""
@@ -3408,8 +3370,8 @@ msgid ""
 "kept in wp-content/segurium-data after uninstall, so a reinstall can still "
 "restore them. Turn on only if you want a hard deletion on uninstall."
 msgstr ""
-"关闭（默认）：卸载后，已删除组件和已修复文件的加密备份保留在 wp-content/"
-"segurium-data 中，重新安装后仍可还原。仅当您希望在卸载时进行硬删除时才开启。"
+"关闭（默认）：卸载后，已删除组件和已修复文件的加密备份保留在 wp-content/segurium-data "
+"中，重新安装后仍可还原。仅当您希望在卸载时进行硬删除时才开启。"
 
 #: includes/class-segurium.php:2677
 msgid "Email me about findings"
@@ -3419,9 +3381,7 @@ msgstr "通过电子邮件通知我发现的问题"
 msgid ""
 "Send a daily digest of malware verdicts and successful cleanups, delivered "
 "from support@segurium.com. At most one email per site per 24 hours."
-msgstr ""
-"发送每日摘要，包含恶意软件判定和成功的清理，由 support@segurium.com 发送。每"
-"个站点每 24 小时最多一封。"
+msgstr "发送每日摘要，包含恶意软件判定和成功的清理，由 support@segurium.com 发送。每个站点每 24 小时最多一封。"
 
 #: includes/class-segurium.php:2680
 msgid "Alert email address"
@@ -3440,9 +3400,7 @@ msgid ""
 "After every scheduled or real-time scan, files with a known malware or "
 "injection verdict are cleaned without requiring a click. Files you have "
 "ignored (by path or by hash) are skipped."
-msgstr ""
-"每次计划扫描或实时扫描后，被判定为已知恶意软件或注入的文件将被自动清理，无需"
-"点击。您已忽略的文件（按路径或按哈希）会被跳过。"
+msgstr "每次计划扫描或实时扫描后，被判定为已知恶意软件或注入的文件将被自动清理，无需点击。您已忽略的文件（按路径或按哈希）会被跳过。"
 
 #: includes/class-segurium.php:2710
 msgid "Scheduled Scan"
@@ -3455,21 +3413,17 @@ msgid ""
 "your browser open. A scheduled tick that fires while a manual scan is "
 "already in progress is skipped, not queued."
 msgstr ""
-"按循环计划自动运行完整恶意软件扫描。计划扫描与手动扫描完成相同的工作，但无需"
-"您保持浏览器打开。如果计划触发时已有手动扫描在进行中，则会跳过此次触发，不会"
-"排队。"
+"按周期定时自动运行完整恶意软件扫描。定时扫描与手动扫描完成相同的工作，但无需您保持浏览器打开。如果定时触发时已有手动扫描在进行中，则会跳过此次触发，不会排队。"
 
 #: includes/class-segurium.php:2739
 msgid "Save Schedule"
-msgstr "保存计划"
+msgstr "保存定时设置"
 
 #: includes/class-segurium.php:2747
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
-msgstr ""
-"将其他安全插件的设置导入到 Segurium。现有 Segurium 设置会被保留；导入的数据会"
-"被合并。"
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr "将其他安全插件的设置导入到 Segurium。现有 Segurium 设置会被保留；导入的数据会被合并。"
 
 #: includes/class-segurium.php:2798
 msgid "Version"
@@ -3671,13 +3625,13 @@ msgstr "无法删除当前启用的主题。请先切换到其他主题。"
 #: includes/class-segurium.php:4864
 #, php-format
 msgid "%1$s \"%2$s\" has been deleted. A backup was created."
-msgstr "%1$s \"%2$s\" 已被删除。已创建备份。"
+msgstr "%1$s「%2$s」已被删除。已创建备份。"
 
 #. translators: 1: component type, 2: component slug.
 #: includes/class-segurium.php:4971
 #, php-format
 msgid "%1$s \"%2$s\" has been restored from backup."
-msgstr "%1$s \"%2$s\" 已从备份还原。"
+msgstr "%1$s「%2$s」已从备份还原。"
 
 #: includes/class-segurium.php:5030
 msgid "Cannot delete active theme. Switch first."
@@ -3691,7 +3645,7 @@ msgstr "已从 WordPress.org 下架"
 #: includes/class-segurium.php:5047
 #, php-format
 msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
-msgstr "主题 \"%s\" 已停止维护，但当前已启用。将被跳过。"
+msgstr "主题「%s」已停止维护，但当前已启用。将被跳过。"
 
 #: includes/class-segurium.php:5053
 msgid "Active abandoned theme — switch manually."
@@ -3776,8 +3730,8 @@ msgstr "备份元数据缺失或不可读。"
 
 #: includes/class-segurium.php:6479
 msgid ""
-"Backup file is unreadable. Check filesystem permissions on wp-content/"
-"segurium-data."
+"Backup file is unreadable. Check filesystem permissions on wp-"
+"content/segurium-data."
 msgstr "备份文件不可读。请检查 wp-content/segurium-data 的文件系统权限。"
 
 #: includes/class-segurium.php:6481
@@ -3826,11 +3780,11 @@ msgstr "需要有效的回复邮箱。"
 
 #: includes/class-segurium.php:7010
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "您今天提交的工单数量过多。请明日再试。"
+msgstr "您今天提交的工单数量过多。请明天再试一次。"
 
 #: includes/class-segurium.php:7019
 msgid "Failed to upload the file. Try again."
-msgstr "上传文件失败。请重试。"
+msgstr "上传文件失败。请再试一次。"
 
 #: includes/class-segurium.php:7023
 msgid "File is empty or too large (max 100 MB)."
@@ -3866,9 +3820,7 @@ msgstr "IP 白名单"
 msgid ""
 "AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
 "firewall mode. Configure manually if needed."
-msgstr ""
-"AIOS 的 IP 白名单（绕过）在 Segurium 的拒绝列表防火墙模式下没有直接对应项。如"
-"需要请手动配置。"
+msgstr "AIOS 的 IP 白名单（绕过）在 Segurium 的拒绝列表防火墙模式下没有直接对应项。如需要请手动配置。"
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
@@ -3890,7 +3842,8 @@ msgstr "国家/地区封锁"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr "AIOS 国家/地区封锁是付费云端功能，无法本地导入。"
 
 #: includes/migrations/class-segurium-migration-aios.php:128
@@ -3931,9 +3884,7 @@ msgstr "Segurium 2FA（计划中）"
 msgid ""
 "Solid Security stores country blocks in the cloud dashboard. Configure "
 "manually in the Geo Blocking tab."
-msgstr ""
-"Solid Security 将国家/地区封锁存储在云端仪表板中。请在 \"地理位置封锁\" 标签"
-"页中手动配置。"
+msgstr "Solid Security 将国家/地区封锁存储在云端仪表盘中。请在「地理位置封锁」标签页中手动配置。"
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 #: includes/migrations/class-segurium-migration-solid-security.php:127
@@ -3953,8 +3904,7 @@ msgid ""
 "Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
-"Sucuri Security 将其 WAF 规则、地理位置封锁和恶意软件扫描设置存储在 Sucuri 云"
-"端仪表板中。这些设置无法本地导入。"
+"Sucuri Security 将其 WAF 规则、地理位置封锁和恶意软件扫描设置存储在 Sucuri 云端仪表盘中。这些设置无法本地导入。"
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
 #: includes/migrations/class-segurium-migration-wordfence.php:69
@@ -3970,8 +3920,7 @@ msgstr "Segurium WAF 规则（计划中）"
 msgid ""
 "Segurium geo-blocking (available) — configure manually in the Geo Blocking "
 "tab."
-msgstr ""
-"Segurium 地理位置封锁（可用）—— 请在 \"地理位置封锁\" 标签页中手动配置。"
+msgstr "Segurium 地理位置封锁（可用）—— 请在「地理位置封锁」标签页中手动配置。"
 
 #: includes/migrations/class-segurium-migration-wordfence.php:152
 msgid "No exclusion patterns configured in Wordfence."
@@ -4001,7 +3950,7 @@ msgstr "未找到 Wordfence 2FA 数据"
 
 #: includes/segurium-ajax-envelope.php:116
 msgid "Your session has expired. Please reload the page and try again."
-msgstr "您的会话已过期。请重新加载页面后重试。"
+msgstr "您的会话已过期。请重新加载页面后再试一次。"
 
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
@@ -4014,8 +3963,7 @@ msgid ""
 "Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
-"Segurium 需要 PHP %1$s 或更高版本。此站点运行的是 PHP %2$s。请要求主机升级 "
-"PHP，然后再次尝试激活 Segurium。"
+"Segurium 需要 PHP %1$s 或更高版本。此站点运行的是 PHP %2$s。请要求主机升级 PHP，然后再次尝试激活 Segurium。"
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:587
@@ -4024,8 +3972,8 @@ msgid ""
 "Segurium requires WordPress %1$s or higher. This site is running WordPress "
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
-"Segurium 需要 WordPress %1$s 或更高版本。此站点运行的是 WordPress %2$s。请更"
-"新 WordPress，然后再次尝试激活 Segurium。"
+"Segurium 需要 WordPress %1$s 或更高版本。此站点运行的是 WordPress %2$s。请更新 "
+"WordPress，然后再次尝试激活 Segurium。"
 
 #: segurium.php:589
 msgid "unknown"
@@ -4034,16 +3982,30 @@ msgstr "未知"
 msgid "Cleanup quota reached."
 msgstr "已达到清理配额。"
 
-msgid "Segurium detected this site was moved or cloned and is re-establishing its secure connection in the background. If you have a Pro license, please re-activate it on the Segurium account screen so Pro features are restored on the new identity."
-msgstr "Segurium 检测到此站点已被迁移或克隆，正在后台重新建立安全连接。如果您持有 Pro 许可证，请在 Segurium 账户页面重新激活，以便在新身份上恢复 Pro 功能。"
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium 检测到此站点已被迁移或克隆，正在后台重新建立安全连接。如果您持有 Pro 许可证，请在 Segurium "
+"账户页面重新启用，以便在新身份上恢复 Pro 功能。"
 
-msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
-msgstr "Segurium 无法在此站点激活 Pro 许可证，因为它当前已绑定到另一个安装。请在原始安装上打开 Segurium 账户门户并停用该许可证；绑定将被解除，下次许可证检查时此处的 Pro 功能将重新激活。"
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium 无法在此站点启用 Pro 许可证，因为它当前已绑定到另一个安装。请在原始安装上打开 Segurium "
+"账户门户并停用该许可证；绑定将被解除，下次许可证检查时此处的 Pro 功能将重新启用。"
 
 msgid "Cleanup unavailable."
 msgstr "清理不可用。"
 
-#. translators: %d: number of seconds since the scan worker last reported progress
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
 #, php-format
 msgid "no progress for %ds — waiting for worker"
 msgstr "%d 秒内无进度 —— 正在等待工作进程"
@@ -4055,7 +4017,7 @@ msgid "Full malware detection — same findings as Pro"
 msgstr "完整恶意软件检测 —— 与 Pro 相同的检测结果"
 
 msgid "Auto-fix and Bulk Fix All"
-msgstr "自动修复与批量\"全部修复\""
+msgstr "自动修复与批量「全部修复」"
 
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
 msgstr "加固：2FA、暴力破解防护、地理位置封锁、防火墙、安全头"
@@ -4075,7 +4037,8 @@ msgstr "免费版的全部功能"
 msgid "Email support, priority queue"
 msgstr "电子邮件支持，优先队列"
 
-msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
 msgstr "每项功能都包含在每次安装中。Pro 解除每月清理上限。"
 
 msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
@@ -4095,11 +4058,13 @@ msgstr "14 天退款保证。"
 
 #. translators: 1: opening anchor tag, 2: closing anchor tag
 #, php-format
-msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
 msgstr "5 站点和 25 站点套餐，以及 100+ 站点报价，请访问 %1$ssegurium.com/pricing/%2$s。"
 
 msgid "Every 60 seconds (Segurium scan rescue)"
-msgstr "每 60 秒(Segurium 扫描救援)"
+msgstr "每 60 秒（Segurium 扫描救援）"
 
 msgid "Up to date"
 msgstr "已是最新"
@@ -4146,7 +4111,9 @@ msgid "View failed"
 msgstr "查看失败"
 
 #: includes/class-segurium.php:905
-msgid "Cannot restore — no backup recorded for this file. The backup may have been rotated out."
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
 msgstr "无法还原 —— 未记录此文件的备份。备份可能已被轮换替换。"
 
 #. translators: %s is the name of the missing form field.
@@ -4156,19 +4123,32 @@ msgid "Missing parameter: %s"
 msgstr "缺少参数：%s"
 
 #: includes/class-segurium.php:2196
-msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
 msgstr "此模式发送固定的预设值。切换到“自定义”以覆盖单个标头。"
 
 #: includes/class-segurium.php:2235
-msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
-msgstr "明确关闭旧版 IE 与旧版 Edge 的 XSS 过滤器。该过滤器存在可被利用的通用 XSS 漏洞。现代浏览器忽略此标头；真正的 XSS 防御是 CSP。"
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"明确关闭传统 IE 与旧版 Edge 的 XSS 过滤器。该过滤器存在可被利用的通用 XSS 漏洞。现代浏览器忽略此标头；真正的 XSS 防御是 "
+"CSP。"
 
 #: includes/class-segurium.php:2236
-msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
-msgstr "指示旧版浏览器对反射进行净化。该过滤器存在误报，会悄悄破坏正常页面，并已知存在 UXSS 绕过手段。不建议使用。"
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr "指示传统浏览器对反射进行净化。该过滤器存在误报，会悄悄破坏正常页面，并已知存在 UXSS 绕过手段。不建议使用。"
 
 #: includes/class-segurium.php:2237
-msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
 msgstr "与上述过滤器相同，但在疑似反射时会完全阻止页面。同样的漏洞，外加可能泄漏跨源数据的计时旁路。不建议使用。"
 
 #: includes/class-segurium-async-scan-poller.php:125
@@ -4192,7 +4172,7 @@ msgid "scanned"
 msgstr "已扫描"
 
 msgid "Invalid billing response from Segurium Cloud."
-msgstr "来自 Segurium Cloud 的账单响应无效。"
+msgstr "来自 Segurium Cloud 的帐单响应无效。"
 
 #. translators: %s: endpoint label
 #, php-format
@@ -4207,7 +4187,7 @@ msgstr "Segurium Cloud（%s）：缺少签名头。"
 #. translators: 1: endpoint label, 2: key id from the signature header
 #, php-format
 msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
-msgstr "Segurium Cloud（%1$s）：使用不受信任的密钥 \"%2$s\" 签名。"
+msgstr "Segurium Cloud（%1$s）：使用不受信任的密钥「%2$s」签名。"
 
 msgid "Signature trust list is corrupt — public key failed to decode."
 msgstr "签名信任列表已损坏 —— 公钥解码失败。"
@@ -4224,7 +4204,8 @@ msgstr "Segurium Cloud（%s）：签名时间戳格式不正确。"
 
 #. translators: 1: endpoint label, 2: skew in seconds
 #, php-format
-msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
 msgstr "Segurium Cloud（%1$s）：签名时间戳超出范围 %2$d 秒。"
 
 #. translators: 1: endpoint label, 2: error message
@@ -4237,17 +4218,32 @@ msgstr "Segurium Cloud（%1$s）：libsodium 拒绝了签名（%2$s）。"
 msgid "Segurium Cloud (%s): signature did not verify."
 msgstr "Segurium Cloud（%s）：签名验证失败。"
 
-msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
 msgstr "已启用本地部署模式：文件内容仅保留在此服务器上，云端无法通过哈希识别的任何文件都将保持未解决状态。开启云端协助检测以获得完整准确度。"
 
 msgid "Segurium Cloud consent is required before scanning."
 msgstr "扫描前必须同意 Segurium Cloud。"
 
-msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
 msgstr "上传用于分析的文件样本最多保留 365 天，之后由自动每夜清理任务移除。样本一经审核可能会更早被移除。"
 
-msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "启用后，文件内容可能会与 Segurium Cloud 共享，用于高级恶意软件检测和云端驱动的清理。仅传输可疑文件。关闭此项以启用本地部署模式：扫描时仅发送 SHA-256 哈希、文件路径和元数据，云端无法通过哈希识别的文件将保持未解决状态。报告误报或将文件附加到支持工单时仍会发送该文件，因为文件由您本人选择。"
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"启用后，文件内容可能会与 Segurium Cloud "
+"共享，用于高级恶意软件检测和云端驱动的清理。仅传输可疑文件。关闭此项以启用本地部署模式：扫描时仅发送 SHA-256 "
+"哈希、文件路径和元数据，云端无法通过哈希识别的文件将保持未解决状态。报告误报或将文件附加到支持工单时仍会发送该文件，因为文件由您本人选择。"
 
 #. translators: brand name of the service, do not translate
 msgid "Segurium Cloud"
@@ -4285,6 +4281,141 @@ msgstr "Segurium Cloud 响应缺少文件校验和。"
 msgid "Downloaded file does not match the checksum in the response."
 msgstr "下载的文件与响应中的校验和不匹配。"
 
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium 从服务器收到空响应。PHP 处理程序很可能在生成任何输出之前就已崩溃 — 请在 PHP 错误日志中查找致命错误、OOM 或超时。"
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"正文中缺少 Segurium 的响应标记。Segurium 的 AJAX 处理程序未运行，或其他插件替换了整个响应。请检查 wp-content/mu-"
+"plugins、已启用的插件以及 PHP 错误日志。"
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Segurium 的响应在传输过程中被截断 —— 起始标记已到达，但结束标记未到达。PHP 处理程序在响应过程中崩溃（致命错误、OOM 或超时）。请检查"
+" PHP 错误日志。"
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr "Segurium 无法解包服务器响应。请在 PHP 错误日志中查找 Segurium 处理程序中的致命错误、OOM 或超时。"
+
+#: includes/class-segurium-2fa.php:1281
+msgid "Forbidden"
+msgstr "已禁止"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"关闭（默认）：已删除组件和已修复文件的加密备份在卸载后仍保留在 uploads/segurium-data "
+"目录中，以便重新安装时可以恢复。仅当您希望在卸载时彻底删除时才开启。"
+
+#: includes/class-segurium.php:6868
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr "无法读取备份文件。请检查 uploads/segurium-data 的文件系统权限。"
+
+#: includes/class-segurium.php:351
+msgid "Unknown or unsupported action."
+msgstr "未知或不支持的操作。"
+
+#: includes/class-segurium.php:386
+msgid "This action is temporarily unavailable."
+msgstr "此操作暂时不可用。"
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "组件备份需要 PHP Phar 扩展。"
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "备份失败：%s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "未创建备份归档。"
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "还原失败：%s"
+
+#. Description of the plugin
+msgid ""
+"Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
+"Firewall, 2FA, Geo-blocking, and more for free."
+msgstr "还原原始文件、防病毒、恶意软件扫描、暴力破解防护、防火墙、2FA、地理屏蔽等功能，全部免费。"
+
+msgid "Scan trigger requires authentication."
+msgstr "扫描触发器需要身份验证。"
+
+msgid "Scan trigger secret did not match."
+msgstr "扫描触发器密钥不匹配。"
+
+#. Plugin Name of the plugin
+msgid ""
+"Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – 恶意软件清除与清理、防火墙、双因素身份验证"
+
+#. Description of the plugin
+msgid ""
+"Free malware cleanup, not just detection — scan, clean, and restore hacked "
+"sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr "免费的恶意软件清理，不仅仅是检测 — 扫描、清理并还原被入侵的网站。另外还有防火墙、暴力破解防护、2FA 和地理屏蔽。"
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "迁移导入器（Wordfence、AIOS、Solid Security）"
+
+msgid "Leave a review"
+msgstr "留下评价"
+
+msgid "Don't ask again"
+msgstr "不再询问"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium 刚刚清理了您的站点。"
+
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"很高兴能帮到您。如果 Segurium 今天为您节省了时间或金钱，一条真诚的 WordPress.org "
+"评价能帮助其他站点所有者发现它，也能帮助我们让清理服务保持免费。"
+
+msgid "Scan complete. Your site is clean."
+msgstr "扫描完成。您的站点很干净。"
+
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr "如果 Segurium 履行了它的职责，您愿意在 WordPress.org 上留下一条真诚的评价吗？只需一分钟。"
+
+msgid "Unknown review prompt action."
+msgstr "未知的评价提示操作。"
+
+msgid "Could not save your choice. Please try again."
+msgstr "无法保存您的选择。请再试一次。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"
 
@@ -4318,9 +4449,7 @@ msgstr "下载的文件与响应中的校验和不匹配。"
 #~ msgid ""
 #~ "Segurium runs without sharing any account information. Upgrade to Pro to "
 #~ "unlock unlimited cleanup, automatic fixes, and email support."
-#~ msgstr ""
-#~ "Segurium 无需共享任何账户信息即可运行。升级至 Pro 即可解锁无限次清理、自动"
-#~ "修复和电子邮件支持。"
+#~ msgstr "Segurium 无需共享任何账户信息即可运行。升级至 Pro 即可解锁无限次清理、自动修复和电子邮件支持。"
 
 #~ msgid "Automatic cleanup is a Pro feature."
 #~ msgstr "自动清理是 Pro 功能。"
@@ -4334,9 +4463,7 @@ msgstr "下载的文件与响应中的校验和不匹配。"
 #~ msgid ""
 #~ "You’ve used your %1$d free cleanups in the last %2$d days. Upgrade to Pro "
 #~ "for unlimited cleanups + auto-fix."
-#~ msgstr ""
-#~ "您已在过去 %2$d 天内使用了 %1$d 次免费清理。升级至 Pro 可获得无限次清理和"
-#~ "自动修复。"
+#~ msgstr "您已在过去 %2$d 天内使用了 %1$d 次免费清理。升级至 Pro 可获得无限次清理和自动修复。"
 
 #~ msgid "Free vs Pro"
 #~ msgstr "免费版 与 Pro"
@@ -4349,119 +4476,23 @@ msgstr "下载的文件与响应中的校验和不匹配。"
 #~ msgstr "免费版清理配额已用尽。升级至 Pro 可获得无限次清理。"
 
 #~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
-#~ "one click."
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in one"
+#~ " click."
 #~ msgstr "\"全部修复\" 是 Pro 功能。升级即可一键清理所有检测到的恶意软件。"
 
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgid "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
 #~ msgstr "\"全部修复\" 是 Pro 功能。升级即可一键应用所有修复。"
 
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "免费版修复配额已用尽。升级至 Pro 可获得无限次修复。"
 
-msgid ""
-"Segurium got an empty response from the server. The PHP handler likely "
-"crashed before producing any output — check the PHP error log for a fatal, "
-"OOM, or timeout."
-msgstr ""
-"Segurium 从服务器收到空响应。PHP 处理程序很可能在生成任何输出之前就已崩溃 "
-"— 请在 PHP 错误日志中查找致命错误、OOM 或超时。"
+msgid "Scan in progress..."
+msgstr "扫描进行中..."
 
 msgid ""
-"Segurium's response markers are missing from the body. The Segurium AJAX "
-"handler did not run, or another plugin replaced the entire response. Check "
-"wp-content/mu-plugins, active plugins, and the PHP error log."
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
 msgstr ""
-"正文中缺少 Segurium 的响应标记。Segurium 的 AJAX 处理程序未运行,或其他插"
-"件替换了整个响应。请检查 wp-content/mu-plugins、已启用的插件以及 PHP 错误日"
-"志。"
-
-msgid ""
-"Segurium's response was cut off mid-stream — the start marker arrived but "
-"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
-"or timeout). Check the PHP error log."
-msgstr ""
-"Segurium 的响应在传输过程中被截断 — 起始标记已到达,但结束标记未到达。PHP "
-"处理程序在响应过程中崩溃(致命错误、OOM 或超时)。请检查 PHP 错误日志。"
-
-msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for "
-"a fatal, OOM, or timeout in the Segurium handler."
-msgstr ""
-"Segurium 无法解包服务器响应。请在 PHP 错误日志中查找 Segurium 处理程序中的"
-"致命错误、OOM 或超时。"
-
-#: includes/class-segurium-2fa.php:1281
-msgid "Forbidden"
-msgstr "已禁止"
-
-#: includes/class-segurium.php:2945
-msgid ""
-"Off (default): encrypted backups of deleted components and cured files are "
-"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
-"can still restore them. Turn on only if you want a hard deletion on "
-"uninstall."
-msgstr ""
-"关闭(默认):已删除组件和已修复文件的加密备份在卸载后仍保留在 uploads/"
-"segurium-data 目录中,以便重新安装时可以恢复。仅当您希望在卸载时彻底删除时"
-"才开启。"
-
-#: includes/class-segurium.php:6868
-msgid ""
-"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
-"data."
-msgstr ""
-"无法读取备份文件。请检查 uploads/segurium-data 的文件系统权限。"
-
-#: includes/class-segurium.php:351
-msgid "Unknown or unsupported action."
-msgstr "未知或不支持的操作。"
-
-#: includes/class-segurium.php:386
-msgid "This action is temporarily unavailable."
-msgstr "此操作暂时不可用。"
-
-#: includes/class-segurium-component-backup.php:59
-#: includes/class-segurium-component-backup.php:168
-msgid "The PHP Phar extension is required for component backups."
-msgstr "组件备份需要 PHP Phar 扩展。"
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:80
-#, php-format
-msgid "Backup failed: %s"
-msgstr "备份失败：%s"
-
-#: includes/class-segurium-component-backup.php:92
-msgid "Backup archive was not created."
-msgstr "未创建备份归档。"
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:209
-#, php-format
-msgid "Restore failed: %s"
-msgstr "还原失败：%s"
-
-#. Description of the plugin
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
-msgstr "还原原始文件、防病毒、恶意软件扫描、暴力破解防护、防火墙、2FA、地理屏蔽等功能，全部免费。"
-
-msgid "Scan trigger requires authentication."
-msgstr "扫描触发器需要身份验证。"
-
-msgid "Scan trigger secret did not match."
-msgstr "扫描触发器密钥不匹配。"
-
-#. Plugin Name of the plugin
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
-msgstr "Segurium – 恶意软件清除与清理、防火墙、双因素身份验证"
-
-#. Description of the plugin
-msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "免费的恶意软件清理，不仅仅是检测 — 扫描、清理并还原被入侵的网站。另外还有防火墙、暴力破解防护、2FA 和地理屏蔽。"
-
-#: includes/class-segurium.php:2940
-msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "迁移导入器（Wordfence、AIOS、Solid Security）"
+"进度显示遇到脚本错误，已停止更新。请重新加载页面以查看当前状态——扫描本身不受影响。详细信息请查看浏览器控制台。"

@@ -339,9 +339,18 @@ final class Segurium_Scan_Runner {
 		if ( ! is_array( $schedules ) ) {
 			$schedules = array();
 		}
+		// register_hooks() calls wp_schedule_event() at plugin-include time,
+		// which applies `cron_schedules` before `after_setup_theme`. Translating
+		// there trips WP 6.7's "translation triggered too early" notice, so the
+		// label stays literal English until the textdomain may be loaded. The
+		// display string is only ever rendered by cron viewers, long after init.
+		$label = 'Every 60 seconds (Segurium scan rescue)';
+		if ( did_action( 'after_setup_theme' ) ) {
+			$label = __( 'Every 60 seconds (Segurium scan rescue)', 'segurium' );
+		}
 		$schedules[ self::TICK_RECURRING_SCHEDULE ] = array(
 			'interval' => 60,
-			'display'  => __( 'Every 60 seconds (Segurium scan rescue)', 'segurium' ),
+			'display'  => $label,
 		);
 		return $schedules;
 	}
@@ -1902,6 +1911,21 @@ final class Segurium_Scan_Runner {
 		}
 		$remaining = self::$tick_budget_active - ( microtime( true ) - self::$tick_started_at );
 		return $remaining > 0.0 ? $remaining : 0.0;
+	}
+
+	/**
+	 * SEGURIUM-745: whether a tick is currently driving the chunk loop.
+	 *
+	 * `time_left_in_tick()` clamps to 0.0, so on its own it cannot separate
+	 * "no tick is running" from "the tick already overran its budget" — and
+	 * those two want opposite treatment from a caller sizing an HTTP timeout.
+	 * Outside a tick there is no budget to respect; inside an overrun one the
+	 * caller must take the smallest window it can, not the most generous.
+	 *
+	 * @return bool
+	 */
+	public static function in_tick() {
+		return self::$tick_started_at > 0.0;
 	}
 
 	/**

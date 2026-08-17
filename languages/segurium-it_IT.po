@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-09 03:34+0000\n"
+"PO-Revision-Date: 2026-08-12 03:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it_IT\n"
@@ -13,12 +13,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #: includes/class-segurium-scan-runner.php:369
-msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
-msgstr "L'attivazione con il servizio cloud Segurium è ancora in sospeso. Riprovare tra un momento."
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"L'attivazione con il servizio cloud Segurium è ancora in attesa. Riprova tra"
+" un momento."
 
 #. Plugin Name of the plugin
 #. Author of the plugin
@@ -42,21 +46,26 @@ msgid ""
 "Lean, AI-powered WordPress security: malware scanning, brute-force "
 "protection, 2FA, geo-blocking, integrity checks — without the bloat."
 msgstr ""
-"Sicurezza WordPress essenziale e basata su IA: scansione malware, protezione "
-"contro attacchi brute-force, 2FA, blocco geografico e controlli di integrità "
-"— senza appesantimenti."
+"Sicurezza WordPress essenziale e basata su IA: scansione malware, protezione"
+" contro attacchi brute-force, 2FA, blocco geografico e controlli di "
+"integrità — senza appesantimenti."
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Sito violato? Rimozione gratuita di malware per WordPress: scansione, pulizia dei file infetti e ripristino. In più firewall, protezione contro attacchi brute-force, 2FA e blocco geografico."
+msgid ""
+"Site hacked? Free WordPress malware removal: scan, clean infected files, "
+"restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Sito violato? Rimozione gratuita di malware per WordPress: scansione, "
+"pulizia dei file infetti e ripristino. In più firewall, protezione contro "
+"attacchi brute-force, 2FA e blocco geografico."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
 "login."
 msgstr ""
-"L'autenticazione a due fattori è obbligatoria. Abilitare JavaScript per "
+"L'autenticazione a due fattori è necessaria. Abilita JavaScript per "
 "completare l'accesso."
 
 #: includes/class-segurium-2fa.php:609
@@ -64,14 +73,14 @@ msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
 msgstr ""
-"La configurazione dell'autenticazione a due fattori è obbligatoria per il "
-"proprio ruolo. Contattare l'amministratore."
+"La configurazione dell'autenticazione a due fattori è necessaria per il tuo "
+"ruolo. Contatta l'amministratore."
 
 #: includes/class-segurium-2fa.php:650
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
 msgstr ""
-"Autenticazione a due fattori obbligatoria. Aggiungere il codice 2FA alla "
+"Autenticazione a due fattori necessaria. Aggiungi il codice 2FA alla "
 "password."
 
 #: includes/class-segurium-2fa.php:993
@@ -84,11 +93,11 @@ msgstr "Accesso in corso..."
 
 #: includes/class-segurium-2fa.php:995
 msgid "Enter the code from your authenticator app:"
-msgstr "Inserire il codice dall'app di autenticazione:"
+msgstr "Inserisci il codice dall'app di autenticazione:"
 
 #: includes/class-segurium-2fa.php:996
 msgid "Enter the code sent to your email:"
-msgstr "Inserire il codice inviato all'indirizzo e-mail:"
+msgstr "Inserisci il codice inviato all'indirizzo email:"
 
 #: includes/class-segurium-2fa.php:997
 msgid "Verify"
@@ -100,11 +109,11 @@ msgstr "Invia di nuovo il codice"
 
 #: includes/class-segurium-2fa.php:999
 msgid "A new code has been sent to your email."
-msgstr "Un nuovo codice è stato inviato all'indirizzo e-mail."
+msgstr "Un nuovo codice è stato inviato all'indirizzo email."
 
 #: includes/class-segurium-2fa.php:1000
 msgid "Lost your device? Enter a backup code instead."
-msgstr "Dispositivo smarrito? Inserire invece un codice di backup."
+msgstr "Dispositivo smarrito? Inserisci invece un codice di backup."
 
 #. translators: %d: number of days
 #: includes/class-segurium-2fa.php:1002
@@ -115,13 +124,13 @@ msgstr "Considera attendibile questo dispositivo per %d giorni"
 #: includes/class-segurium-2fa.php:1003 includes/class-segurium-2fa.php:1504
 #: includes/class-segurium-2fa.php:1573 includes/class-segurium-2fa.php:1631
 msgid "Too many failed attempts. Please try again later."
-msgstr "Troppi tentativi non riusciti. Riprovare più tardi."
+msgstr "Troppi tentativi non riusciti. Riprova più tardi."
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
 msgstr ""
-"La configurazione dell'autenticazione a due fattori è obbligatoria per il "
-"proprio ruolo."
+"La configurazione dell'autenticazione a due fattori è necessaria per il tuo "
+"ruolo."
 
 #: includes/class-segurium-2fa.php:1028
 #: includes/migrations/class-segurium-migration-solid-security.php:60
@@ -137,7 +146,7 @@ msgstr "Stato"
 
 #: includes/class-segurium-2fa.php:1034
 msgid "JavaScript is required for 2FA setup."
-msgstr "JavaScript è richiesto per la configurazione del 2FA."
+msgstr "JavaScript è necessario per la configurazione del 2FA."
 
 #: includes/class-segurium-2fa.php:1072
 msgid "Not configured"
@@ -149,7 +158,7 @@ msgstr "Configura app di autenticazione"
 
 #: includes/class-segurium-2fa.php:1074
 msgid "Set up Email Verification"
-msgstr "Configura verifica via e-mail"
+msgstr "Configura verifica via email"
 
 #: includes/class-segurium-2fa.php:1075
 msgid "Current method:"
@@ -161,7 +170,7 @@ msgstr "App di autenticazione (TOTP)"
 
 #: includes/class-segurium-2fa.php:1077 includes/class-segurium.php:1982
 msgid "Email Verification"
-msgstr "Verifica via e-mail"
+msgstr "Verifica via email"
 
 #: includes/class-segurium-2fa.php:1078
 msgid "Backup codes remaining:"
@@ -173,19 +182,19 @@ msgstr "Rigenera codici di backup"
 
 #: includes/class-segurium-2fa.php:1080
 msgid "Disable 2FA"
-msgstr "Disattiva 2FA"
+msgstr "Disabilita 2FA"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Scan this QR code with your authenticator app:"
-msgstr "Scansionare questo codice QR con l'app di autenticazione:"
+msgstr "Scansiona questo codice QR con l'app di autenticazione:"
 
 #: includes/class-segurium-2fa.php:1082
 msgid "Or enter this key manually:"
-msgstr "Oppure inserire questa chiave manualmente:"
+msgstr "Oppure inserisci questa chiave manualmente:"
 
 #: includes/class-segurium-2fa.php:1083
 msgid "Enter the 6-digit code from your app to confirm:"
-msgstr "Inserire il codice a 6 cifre dell'app per confermare:"
+msgstr "Inserisci il codice a 6 cifre dell'app per confermare:"
 
 #: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:1606
 #: includes/class-segurium.php:1694
@@ -201,7 +210,7 @@ msgstr "Annulla"
 #: includes/class-segurium-2fa.php:1086
 msgid "Save these backup codes in a safe place. They will not be shown again."
 msgstr ""
-"Conservare questi codici di backup in un luogo sicuro. Non verranno mostrati "
+"Salva questi codici di backup in un luogo sicuro. Non verranno mostrati "
 "nuovamente."
 
 #: includes/class-segurium-2fa.php:1087
@@ -210,7 +219,7 @@ msgstr "Il 2FA è stato configurato correttamente."
 
 #: includes/class-segurium-2fa.php:1088 includes/class-segurium-2fa.php:1379
 msgid "2FA has been disabled."
-msgstr "Il 2FA è stato disattivato."
+msgstr "Il 2FA è stato disabilitato."
 
 #: includes/class-segurium-2fa.php:1089
 msgid "New backup codes generated."
@@ -218,15 +227,15 @@ msgstr "Nuovi codici di backup generati."
 
 #: includes/class-segurium-2fa.php:1090
 msgid "Enter your current 2FA code to confirm:"
-msgstr "Inserire il codice 2FA corrente per confermare:"
+msgstr "Inserisci il codice 2FA corrente per confermare:"
 
 #: includes/class-segurium-2fa.php:1091
 msgid "A verification code has been sent to your email."
-msgstr "Un codice di verifica è stato inviato all'indirizzo e-mail."
+msgstr "Un codice di verifica è stato inviato all'indirizzo email."
 
 #: includes/class-segurium-2fa.php:1092
 msgid "Your administrator requires 2FA for your role."
-msgstr "L'amministratore richiede il 2FA per il proprio ruolo."
+msgstr "L'amministratore richiede il 2FA per il tuo ruolo."
 
 #. translators: %d: number of days remaining
 #: includes/class-segurium-2fa.php:1126
@@ -235,8 +244,8 @@ msgid ""
 "Your administrator requires two-factor authentication. You have %d day(s) "
 "remaining to set it up."
 msgstr ""
-"L'amministratore richiede l'autenticazione a due fattori. Restano %d giorno/"
-"i per configurarla."
+"L'amministratore richiede l'autenticazione a due fattori. Restano %d "
+"giorno/i per configurarla."
 
 #: includes/class-segurium-2fa.php:1131 includes/class-segurium-2fa.php:1138
 msgid "Set up now"
@@ -247,8 +256,8 @@ msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
 msgstr ""
-"L'autenticazione a due fattori è obbligatoria per il proprio ruolo. "
-"Configurarla immediatamente."
+"L'autenticazione a due fattori è necessaria per il tuo ruolo. Configurarla "
+"immediatamente."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1173
@@ -270,7 +279,7 @@ msgstr ""
 "\n"
 "Il codice scade tra %2$d minuti.\n"
 "\n"
-"Se la richiesta non proviene dall'utente, ignorare questa e-mail."
+"Se non hai richiesto tu questo codice, ignora questa email."
 
 #: includes/class-segurium-2fa.php:1222
 msgid "Not authenticated."
@@ -278,11 +287,11 @@ msgstr "Utente non autenticato."
 
 #: includes/class-segurium-2fa.php:1265
 msgid "Setup session expired. Please start again."
-msgstr "Sessione di configurazione scaduta. Riprovare."
+msgstr "Sessione di configurazione scaduta. Riprova."
 
 #: includes/class-segurium-2fa.php:1269 includes/class-segurium-2fa.php:1322
 msgid "Invalid code. Please try again."
-msgstr "Codice non valido. Riprovare."
+msgstr "Codice non valido. Riprova."
 
 #: includes/class-segurium-2fa.php:1275
 msgid "Encryption error."
@@ -290,12 +299,11 @@ msgstr "Errore di crittografia."
 
 #: includes/class-segurium-2fa.php:1306
 msgid "Verification code sent to your email."
-msgstr "Codice di verifica inviato all'indirizzo e-mail."
+msgstr "Codice di verifica inviato all'indirizzo email."
 
 #: includes/class-segurium-2fa.php:1351
 msgid "2FA is required for your role and cannot be disabled."
-msgstr ""
-"Il 2FA è obbligatorio per il proprio ruolo e non può essere disattivato."
+msgstr "Il 2FA è necessario per il tuo ruolo e non può essere disabilitato."
 
 #: includes/class-segurium-2fa.php:1374 includes/class-segurium-2fa.php:1411
 msgid "Invalid verification code."
@@ -303,11 +311,11 @@ msgstr "Codice di verifica non valido."
 
 #: includes/class-segurium-2fa.php:1447
 msgid "Please enter your username and password."
-msgstr "Inserire nome utente e password."
+msgstr "Inserisci nome utente e password."
 
 #: includes/class-segurium-2fa.php:1553
 msgid "Session expired. Please log in again."
-msgstr "Sessione scaduta. Effettuare nuovamente l'accesso."
+msgstr "Sessione scaduta. Accedi di nuovo."
 
 #: includes/class-segurium-2fa.php:1559 includes/class-segurium-2fa.php:1666
 msgid "Invalid session."
@@ -315,7 +323,7 @@ msgstr "Sessione non valida."
 
 #: includes/class-segurium-2fa.php:1640
 msgid "Invalid verification code. Please try again."
-msgstr "Codice di verifica non valido. Riprovare."
+msgstr "Codice di verifica non valido. Riprova."
 
 #: includes/class-segurium-2fa.php:1661
 msgid "Session expired."
@@ -337,8 +345,7 @@ msgstr "Account"
 
 #: includes/class-segurium-account-page.php:230
 msgid "You do not have permission to access this page."
-msgstr ""
-"Non si dispone delle autorizzazioni necessarie per accedere a questa pagina."
+msgstr "Non hai i permessi per accedere a questa pagina."
 
 #: includes/class-segurium-account-page.php:395
 msgid "Pro account"
@@ -347,7 +354,7 @@ msgstr "Account Pro"
 #: includes/class-segurium-account-page.php:398
 #: includes/class-segurium-account-page.php:444
 msgid "Account email"
-msgstr "E-mail dell'account"
+msgstr "Email dell'account"
 
 #: includes/class-segurium-account-page.php:401
 #: includes/class-segurium-account-page.php:447
@@ -357,7 +364,7 @@ msgstr "Piano"
 
 #: includes/class-segurium-account-page.php:405
 msgid "Trial"
-msgstr "Prova"
+msgstr "Periodo di prova"
 
 #: includes/class-segurium-account-page.php:409
 msgid "License renews"
@@ -383,9 +390,10 @@ msgstr "Account gratuito"
 
 #: includes/class-segurium-account-page.php:453
 #: includes/class-segurium-account-page.php:482
-#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
-#: includes/class-segurium.php:928 includes/class-segurium.php:940
-#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+#: includes/class-segurium-account-page.php:553
+#: includes/class-segurium.php:927 includes/class-segurium.php:928
+#: includes/class-segurium.php:940 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
 msgstr "Passa a Pro"
 
@@ -396,7 +404,7 @@ msgid ""
 msgstr ""
 "Segurium funziona senza condividere alcuna informazione dell’account. Il "
 "livello di servizio Pro aumenta la quota di pulizia cloud e aggiunge il "
-"supporto via e-mail."
+"supporto via email."
 
 #: includes/class-segurium-account-page.php:490
 msgid "Connect account"
@@ -405,16 +413,15 @@ msgstr "Connetti account"
 #: includes/class-segurium-account-page.php:512
 #: includes/segurium-ajax-envelope.php:135
 msgid "You do not have permission to perform this action."
-msgstr ""
-"Non si dispone delle autorizzazioni necessarie per eseguire questa azione."
+msgstr "Non hai i permessi per eseguire questa azione."
 
 #: includes/class-segurium-account-page.php:548
 msgid ""
 "Account information is temporarily unavailable. Please reload the page in a "
 "moment."
 msgstr ""
-"Le informazioni dell'account sono temporaneamente non disponibili. "
-"Ricaricare la pagina tra un momento."
+"Le informazioni dell'account sono temporaneamente non disponibili. Ricarica "
+"la pagina tra un momento."
 
 #: includes/class-segurium-brute-force.php:476
 msgid "Login blocked."
@@ -422,18 +429,18 @@ msgstr "Accesso bloccato."
 
 #: includes/class-segurium-brute-force.php:489
 msgid "Please complete the CAPTCHA challenge."
-msgstr "Completare la verifica CAPTCHA."
+msgstr "Completa la verifica CAPTCHA."
 
 #: includes/class-segurium-brute-force.php:1219
 msgid "Leave this field empty"
-msgstr "Lasciare vuoto questo campo"
+msgstr "Lascia vuoto questo campo"
 
 #. translators: %s: human-readable time remaining
 #: includes/class-segurium-brute-force.php:1369
 #: includes/class-segurium-brute-force.php:1392
 #, php-format
 msgid "Too many failed login attempts. Try again in %s."
-msgstr "Troppi tentativi di accesso non riusciti. Riprovare tra %s."
+msgstr "Troppi tentativi di accesso non riusciti. Riprova tra %s."
 
 #: includes/class-segurium-brute-force.php:1373
 msgid "Login Locked"
@@ -450,7 +457,7 @@ msgstr "File non trovato."
 #: includes/class-segurium-cleanup.php:93 includes/class-segurium.php:6209
 msgid "File has been modified since scan. Re-scan first."
 msgstr ""
-"Il file è stato modificato dopo la scansione. Eseguire prima una nuova "
+"Il file è stato modificato dopo la scansione. Esegui prima una nuova "
 "scansione."
 
 #: includes/class-segurium-cleanup.php:99
@@ -492,7 +499,8 @@ msgid ""
 "Delete skipped so your site does not lose uncovered data."
 msgstr ""
 "Il componente è di %1$.1f MB e supera il limite di %2$d MB del backup "
-"cifrato. Eliminazione ignorata per evitare la perdita di dati non coperti."
+"cifrato. Eliminazione saltata per evitare che il tuo sito perda dati non "
+"coperti."
 
 #: includes/class-segurium-component-backup.php:106
 msgid "Failed to read packed component archive."
@@ -536,18 +544,18 @@ msgstr ""
 msgid ""
 "Installation ID unavailable. Please ensure the plugin is properly activated."
 msgstr ""
-"ID di installazione non disponibile. Verificare che il plugin sia attivato "
+"ID di installazione non disponibile. Verifica che il plugin sia attivato "
 "correttamente."
 
 #: includes/class-segurium-cti-client.php:228
 msgid "Too many requests. Please try again later."
-msgstr "Troppe richieste. Riprovare più tardi."
+msgstr "Troppe richieste. Riprova più tardi."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:234
 #, php-format
 msgid "Support service error (HTTP %d)."
-msgstr "Errore del servizio di assistenza (HTTP %d)."
+msgstr "Errore del servizio di supporto (HTTP %d)."
 
 #: includes/class-segurium-cti-client.php:575
 msgid "Clean version not available for this file"
@@ -555,7 +563,7 @@ msgstr "Versione pulita non disponibile per questo file"
 
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
-msgstr "L'accesso dalla propria posizione non è consentito."
+msgstr "Non è consentito accedere dalla tua posizione."
 
 #: includes/class-segurium-geo-blocker.php:426
 msgid "Access Denied"
@@ -587,14 +595,14 @@ msgid ""
 "ServerTokens Prod in Apache config."
 msgstr ""
 "Su Apache con FastCGI, l'header Server viene aggiunto dopo l'esecuzione di "
-"PHP. Utilizzare ServerTokens Prod nella configurazione di Apache."
+"PHP. Utilizza ServerTokens Prod nella configurazione di Apache."
 
 #: includes/class-segurium-info-shield.php:338
 msgid ""
 "On IIS, use the removeServerHeader attribute in web.config. This toggle has "
 "limited effect."
 msgstr ""
-"Su IIS, utilizzare l'attributo removeServerHeader in web.config. Questa "
+"Su IIS, utilizza l'attributo removeServerHeader in web.config. Questa "
 "opzione ha effetto limitato."
 
 #: includes/class-segurium-info-shield.php:352
@@ -602,16 +610,16 @@ msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
 msgstr ""
-"Il server utilizza FastCGI, che potrebbe ripristinare l'header X-Powered-By. "
-"Verificare la rimozione ispezionando gli header di risposta."
+"Il server utilizza FastCGI, che potrebbe ripristinare l'header X-Powered-By."
+" Verifica la rimozione ispezionando gli header di risposta."
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
 "Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
 "Jetpack connection."
 msgstr ""
-"Jetpack è attivo e richiede XML-RPC. Disattivando XML-RPC si interromperà la "
-"connessione Jetpack."
+"Jetpack è attivo e richiede XML-RPC. Disabilitando XML-RPC si interromperà "
+"la connessione Jetpack."
 
 #: includes/class-segurium-integrity-chain.php:149
 #: includes/class-segurium.php:926 includes/class-segurium.php:4236
@@ -640,7 +648,7 @@ msgstr ""
 
 #: includes/class-segurium-scan-runner.php:193
 msgid "A scan type is required."
-msgstr "È richiesto un tipo di scansione."
+msgstr "È necessario un tipo di scansione."
 
 #: includes/class-segurium-scan-runner.php:207 includes/class-segurium.php:852
 #: includes/class-segurium.php:4317
@@ -648,8 +656,8 @@ msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
 msgstr ""
-"L'archiviazione delle scansioni non è pronta. Disattivare e riattivare il "
-"plugin Segurium, quindi riprovare."
+"L'archiviazione delle scansioni non è pronta. Disattiva e riattiva il plugin"
+" Segurium, quindi riprova."
 
 #: includes/class-segurium-scan-runner.php:215
 #: includes/class-segurium-scan-runner.php:227 includes/class-segurium.php:835
@@ -679,15 +687,15 @@ msgstr "Errore imprevisto durante l'avvio della scansione: %s"
 #: includes/class-segurium-scan-runner.php:528 includes/class-segurium.php:838
 #: includes/class-segurium.php:3189 includes/class-segurium.php:4288
 msgid "Your session has expired. Reload the page and try again."
-msgstr "La sessione è scaduta. Ricaricare la pagina e riprovare."
+msgstr "La sessione è scaduta. Ricarica la pagina e riprova."
 
 #: includes/class-segurium-scan-runner.php:538 includes/class-segurium.php:839
 #: includes/class-segurium.php:3199
 msgid "You do not have permission to manage scans."
-msgstr ""
-"Non si dispone delle autorizzazioni necessarie per gestire le scansioni."
+msgstr "Non hai i permessi per gestire le scansioni."
 
-#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+#: includes/class-segurium-scan-runner.php:570
+#: includes/class-segurium.php:3998
 msgid "Could not fetch scan status due to a server error."
 msgstr ""
 "Impossibile recuperare lo stato della scansione a causa di un errore del "
@@ -701,20 +709,20 @@ msgid ""
 "host to raise it to at least 30s."
 msgstr ""
 "Il valore PHP max_execution_time è di %ds — troppo basso per una scansione "
-"affidabile. Chiedere al provider di portarlo ad almeno 30s."
+"affidabile. Chiedi al provider di portarlo ad almeno 30s."
 
 #: includes/class-segurium-scan-runner.php:1105
 msgid ""
 "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
-"to detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
-"Il cron di WordPress è disattivato (DISABLE_WP_CRON) e la configurazione PHP "
-"non consente di scollegare le attività lunghe dalle richieste di pagina. Le "
-"scansioni in background avanzeranno soltanto mentre una scheda admin di "
-"Segurium resta aperta. Chiedere al provider di abilitare un cron di sistema "
+"Il cron di WordPress è disabilitato (DISABLE_WP_CRON) e la configurazione "
+"PHP non consente di scollegare le attività lunghe dalle richieste di pagina."
+" Le scansioni in background avanzeranno soltanto mentre una scheda admin di "
+"Segurium resta aperta. Chiedi al provider di abilitare un cron di sistema "
 "reale che richiami wp-cron.php ogni minuto, oppure di passare da mod_php a "
 "PHP-FPM / LiteSpeed."
 
@@ -724,9 +732,9 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute. Ask your host to set "
 "one up."
 msgstr ""
-"Il cron di WordPress è disattivato (DISABLE_WP_CRON). Le scansioni "
-"pianificate richiedono un cron di sistema reale che richiami wp-cron.php "
-"ogni minuto. Chiedere al provider di configurarlo."
+"Il cron di WordPress è disabilitato (DISABLE_WP_CRON). Le scansioni "
+"programmate richiedono un cron di sistema reale che richiami wp-cron.php "
+"ogni minuto. Chiedi al provider di configurarlo."
 
 #: includes/class-segurium-scheduled-scan-settings.php:108
 msgid "Invalid settings payload."
@@ -734,7 +742,7 @@ msgstr "Payload delle impostazioni non valido."
 
 #: includes/class-segurium-scheduled-scan-settings.php:127
 msgid "Frequency must be one of: off, daily, weekly."
-msgstr "La frequenza deve essere una tra: off, daily, weekly."
+msgstr "La frequenza deve essere una tra: off, quotidiano, settimanale."
 
 #: includes/class-segurium-scheduled-scan-settings.php:138
 msgid "Hour must be between 0 and 23."
@@ -747,7 +755,8 @@ msgstr "I minuti devono essere compresi tra 0 e 59."
 #: includes/class-segurium-scheduled-scan-settings.php:160
 msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
 msgstr ""
-"Il giorno della settimana deve essere compreso tra 0 (domenica) e 6 (sabato)."
+"Il giorno della settimana deve essere compreso tra 0 (domenica) e 6 "
+"(sabato)."
 
 #: includes/class-segurium-self-check.php:264 includes/class-segurium.php:2233
 msgid "Content-Security-Policy"
@@ -760,8 +769,8 @@ msgstr "La CSP è applicata."
 #: includes/class-segurium-self-check.php:269
 msgid "CSP is report-only. Switch to enforce for full protection."
 msgstr ""
-"La CSP è in modalità solo segnalazione. Passare alla modalità di "
-"applicazione per una protezione completa."
+"La CSP è in modalità solo segnalazione. Passa alla modalità di applicazione "
+"per una protezione completa."
 
 #: includes/class-segurium-self-check.php:270
 msgid "No Content-Security-Policy header. Protects against XSS and injection."
@@ -855,8 +864,8 @@ msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
 msgstr ""
-"X-XSS-Protection assente. Impostare a 0 per disattivare in sicurezza i "
-"filtri XSS legacy del browser."
+"X-XSS-Protection assente. Imposta a 0 per disabilitare in sicurezza i filtri"
+" XSS legacy del browser."
 
 #: includes/class-segurium-self-check.php:395
 msgid "X-Powered-By hidden"
@@ -890,7 +899,8 @@ msgstr "Query della versione delle risorse nascosta"
 
 #: includes/class-segurium-self-check.php:432
 msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
-msgstr "Versione di core/tema/plugin esposta in ?ver= negli URL delle risorse."
+msgstr ""
+"Versione di core/tema/plugin esposta in ?ver= negli URL delle risorse."
 
 #: includes/class-segurium-self-check.php:433
 msgid "Asset URLs do not expose version numbers."
@@ -898,11 +908,11 @@ msgstr "Gli URL delle risorse non espongono numeri di versione."
 
 #: includes/class-segurium-self-check.php:460
 msgid "XML-RPC disabled"
-msgstr "XML-RPC disattivato"
+msgstr "XML-RPC disabilitato"
 
 #: includes/class-segurium-self-check.php:463
 msgid "XML-RPC endpoint is disabled."
-msgstr "L'endpoint XML-RPC è disattivato."
+msgstr "L'endpoint XML-RPC è disabilitato."
 
 #: includes/class-segurium-self-check.php:464
 msgid ""
@@ -914,7 +924,7 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:475
 msgid "REST API discovery disabled"
-msgstr "Rilevamento dell'API REST disattivato"
+msgstr "Rilevamento dell'API REST disabilitato"
 
 #: includes/class-segurium-self-check.php:478
 msgid "REST API discovery link removed from <head>."
@@ -936,7 +946,7 @@ msgstr "La protezione brute-force per l'accesso è attiva."
 
 #: includes/class-segurium-self-check.php:494
 msgid "Brute-force protection is disabled."
-msgstr "La protezione contro il brute-force è disattivata."
+msgstr "La protezione contro il brute-force è disabilitata."
 
 #: includes/class-segurium-self-check.php:509
 msgid "Two-factor enforced for administrators"
@@ -980,7 +990,7 @@ msgid ""
 "No Set-Cookie headers on the homepage; cannot assess cookie flags from "
 "outside."
 msgstr ""
-"Nessun header Set-Cookie sulla home page; impossibile valutare i flag dei "
+"Nessun header Set-Cookie sulla homepage; impossibile valutare i flag dei "
 "cookie dall'esterno."
 
 #: includes/class-segurium-self-check.php:591
@@ -1006,7 +1016,8 @@ msgstr "Cookie — SameSite"
 msgid "All %1$d cookies set the %2$s attribute."
 msgstr "Tutti i %1$d cookie impostano l'attributo %2$s."
 
-#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
 #: includes/class-segurium-self-check.php:671
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
@@ -1052,15 +1063,15 @@ msgstr "Il rilevamento malware assistito dal cloud è attivo."
 
 #: includes/class-segurium-self-check.php:831
 msgid "Scheduled malware scans"
-msgstr "Scansioni malware pianificate"
+msgstr "Scansioni malware programmate"
 
 #: includes/class-segurium-self-check.php:834
 msgid "A recurring malware scan is scheduled."
-msgstr "È pianificata una scansione malware ricorrente."
+msgstr "È programmata una scansione malware ricorrente."
 
 #: includes/class-segurium-self-check.php:835
 msgid "No recurring malware scan is scheduled."
-msgstr "Nessuna scansione malware ricorrente è pianificata."
+msgstr "Nessuna scansione malware ricorrente è programmata."
 
 #: includes/class-segurium-self-check.php:847
 msgid "Automatic malware cleanup"
@@ -1075,7 +1086,7 @@ msgid ""
 "Automatic cleanup is disabled. Detected malware requires a manual click to "
 "clean."
 msgstr ""
-"La pulizia automatica è disattivata. Il malware rilevato richiede un clic "
+"La pulizia automatica è disabilitata. Il malware rilevato richiede un clic "
 "manuale per essere pulito."
 
 #: includes/class-segurium-self-check.php:865
@@ -1112,8 +1123,8 @@ msgid ""
 "No malware scan has run in the last 24 hours. Scans are quick — run one to "
 "refresh this verdict."
 msgstr ""
-"Nessuna scansione malware è stata eseguita nelle ultime 24 ore. Le scansioni "
-"sono rapide — eseguirne una per aggiornare questo verdetto."
+"Nessuna scansione malware è stata eseguita nelle ultime 24 ore. Le scansioni"
+" sono rapide — eseguirne una per aggiornare questo verdetto."
 
 #. translators: %d: number of threats
 #: includes/class-segurium-self-check.php:895
@@ -1121,12 +1132,13 @@ msgstr ""
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
 msgstr[0] ""
-"L'ultima scansione malware ha segnalato %d minaccia. Esaminarla nella scheda "
+"L'ultima scansione malware ha segnalato %d minaccia. Esaminala nella scheda "
 "Scanner malware."
 msgstr[1] ""
-"L'ultima scansione malware ha segnalato %d minacce. Esaminarle nella scheda "
+"L'ultima scansione malware ha segnalato %d minacce. Esaminale nella scheda "
 "Scanner malware."
 
 #: includes/class-segurium-self-check.php:919
@@ -1138,13 +1150,13 @@ msgid ""
 "The most recent integrity scan ran in the last 24 hours and reported no "
 "issues."
 msgstr ""
-"La scansione di integrità più recente è stata eseguita nelle ultime 24 ore e "
-"non ha segnalato problemi."
+"La scansione di integrità più recente è stata eseguita nelle ultime 24 ore e"
+" non ha segnalato problemi."
 
 #: includes/class-segurium-self-check.php:924
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
 msgstr ""
 "Nessuna scansione di integrità è stata eseguita nelle ultime 24 ore. Le "
 "scansioni sono rapide — eseguirne una per aggiornare questo verdetto."
@@ -1159,10 +1171,10 @@ msgid_plural ""
 "%d open integrity issues are unresolved. Review them on the Integrity "
 "scanner tab."
 msgstr[0] ""
-"%d problema di integrità aperto non è risolto. Esaminarlo nella scheda "
+"%d problema di integrità aperto non è risolto. Esaminalo nella scheda "
 "Scanner di integrità."
 msgstr[1] ""
-"%d problemi di integrità aperti non sono risolti. Esaminarli nella scheda "
+"%d problemi di integrità aperti non sono risolti. Esaminali nella scheda "
 "Scanner di integrità."
 
 #. translators: %d: HTTP status code
@@ -1195,7 +1207,7 @@ msgstr "Ultimo controllo %s fa."
 msgid ""
 "Run a Self-Check from the Segurium admin page to see your security score."
 msgstr ""
-"Eseguire un controllo automatico dalla pagina di amministrazione di Segurium "
+"Esegui un controllo automatico dalla pagina di amministrazione di Segurium "
 "per visualizzare il punteggio di sicurezza."
 
 #: includes/class-segurium.php:301 includes/segurium-admin-menu-shell.php:118
@@ -1287,7 +1299,7 @@ msgstr "Ripristina"
 msgid "This will restore the original infected file from backup. Continue?"
 msgstr ""
 "Questa operazione ripristinerà il file infetto originale dal backup. "
-"Continuare?"
+"Continua?"
 
 #: includes/class-segurium.php:824
 msgid "Restore file"
@@ -1302,7 +1314,7 @@ msgid ""
 "The file on disk is already the backed-up version. Restore anyway to update "
 "database records?"
 msgstr ""
-"Il file su disco è già la versione di backup. Ripristinare comunque per "
+"Il file su disco è già la versione di backup. Ripristina comunque per "
 "aggiornare i record del database?"
 
 #. translators: %s: relative file path
@@ -1314,8 +1326,8 @@ msgid ""
 "undone."
 msgstr ""
 "Il file in %s è stato modificato dopo l'ultima pulizia. Il ripristino "
-"sovrascriverà il file esistente con la versione di backup. Questa operazione "
-"non può essere annullata."
+"sovrascriverà il file esistente con la versione di backup. Questa operazione"
+" non può essere annullata."
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
@@ -1352,7 +1364,7 @@ msgstr "Richiesta non riuscita"
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
 msgstr ""
-"Impossibile inizializzare la scansione. Controllare il log degli errori PHP."
+"Impossibile inizializzare la scansione. Controlla il log degli errori PHP."
 
 #: includes/class-segurium.php:842
 msgid ""
@@ -1360,21 +1372,22 @@ msgid ""
 "again."
 msgstr ""
 "La scansione è stata avviata ma non è stato possibile inviare il worker in "
-"background. Riprovare."
+"background. Riprova."
 
 #: includes/class-segurium.php:843
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
 msgstr ""
-"Impossibile avviare la scansione a causa di un errore del server. "
-"Controllare il log degli errori PHP."
+"Impossibile avviare la scansione a causa di un errore del server. Controlla "
+"il log degli errori PHP."
 
 #: includes/class-segurium.php:844
 msgid ""
 "Could not fetch scan status due to a server error. Check the PHP error log."
 msgstr ""
 "Impossibile recuperare lo stato della scansione a causa di un errore del "
-"server. Controllare il log degli errori PHP."
+"server. Controlla il log degli errori PHP."
 
 #: includes/class-segurium.php:845
 msgid ""
@@ -1382,7 +1395,7 @@ msgid ""
 "log."
 msgstr ""
 "Impossibile interrompere la scansione in corso a causa di un errore del "
-"server. Controllare il log degli errori PHP."
+"server. Controlla il log degli errori PHP."
 
 #: includes/class-segurium.php:846
 msgid "The server returned an error while processing the request."
@@ -1397,8 +1410,8 @@ msgstr "Errore di rete — la richiesta non ha raggiunto il server."
 msgid ""
 "The server returned an unexpected response. Reload the page and try again."
 msgstr ""
-"Il server ha restituito una risposta imprevista. Ricaricare la pagina e "
-"riprovare."
+"Il server ha restituito una risposta imprevista. Ricarica la pagina e "
+"riprova."
 
 #: includes/class-segurium.php:849
 msgid ""
@@ -1407,8 +1420,8 @@ msgid ""
 "config.php, and your active theme/plugins for recent unexpected changes."
 msgstr ""
 "Il sito sembra contaminato: un altro file sul server emette contenuto prima "
-"che Segurium possa rispondere. Controllare wp-content/mu-plugins, wp-"
-"config.php e il tema/i plugin attivi per modifiche recenti impreviste."
+"che Segurium possa rispondere. Controlla wp-content/mu-plugin, wp-config.php"
+" e il tema/i plugin attivi per modifiche recenti impreviste."
 
 #: includes/class-segurium.php:850
 msgid ""
@@ -1423,15 +1436,15 @@ msgstr ""
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
 msgid "This version of the admin page is stale. Reload the page to continue."
 msgstr ""
-"Questa versione della pagina di amministrazione non è aggiornata. Ricaricare "
+"Questa versione della pagina di amministrazione non è aggiornata. Ricarica "
 "la pagina per continuare."
 
 #: includes/class-segurium.php:853
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
 msgstr ""
-"Si è verificato un errore imprevisto del server. Controllare il log degli "
-"errori PHP e riprovare."
+"Si è verificato un errore imprevisto del server. Controlla il log degli "
+"errori PHP e riprova."
 
 #: includes/class-segurium.php:854 includes/class-segurium.php:2716
 msgid "Frequency"
@@ -1440,7 +1453,7 @@ msgstr "Frequenza"
 #: includes/class-segurium.php:855 includes/class-segurium.php:2088
 #: includes/class-segurium.php:2719
 msgid "Off"
-msgstr "Disattivato"
+msgstr "Off"
 
 #: includes/class-segurium.php:856 includes/class-segurium.php:2720
 msgid "Daily"
@@ -1464,11 +1477,11 @@ msgstr "Prossima esecuzione:"
 
 #: includes/class-segurium.php:861
 msgid "Schedule saved."
-msgstr "Pianificazione salvata."
+msgstr "Programma salvato."
 
 #: includes/class-segurium.php:862
 msgid "Could not save schedule."
-msgstr "Impossibile salvare la pianificazione."
+msgstr "Impossibile salvare la programmazione."
 
 #: includes/class-segurium.php:863
 msgid "Stored in UTC. Displayed in your browser locale."
@@ -1553,7 +1566,7 @@ msgstr "Interrompi scansione"
 #: includes/class-segurium.php:883
 msgid "Stop the running scan? Progress so far will be discarded."
 msgstr ""
-"Interrompere la scansione in corso? I progressi finora effettuati verranno "
+"Interrompi la scansione in corso? I progressi finora effettuati verranno "
 "scartati."
 
 #: includes/class-segurium.php:884
@@ -1642,7 +1655,7 @@ msgid ""
 "backup will be created. Continue?"
 msgstr ""
 "Questo file non fa parte dell'installazione originale e verrà eliminato. "
-"Verrà creato un backup. Continuare?"
+"Verrà creato un backup. Continua?"
 
 #: includes/class-segurium.php:904
 msgid ""
@@ -1651,7 +1664,7 @@ msgid ""
 msgstr ""
 "Alcuni file verranno eliminati (file sconosciuti) e altri verranno "
 "sostituiti con gli originali (file modificati). Verranno creati backup per "
-"tutti. Continuare?"
+"tutti. Continua?"
 
 #: includes/class-segurium.php:905
 msgid "Fixing files..."
@@ -1661,13 +1674,15 @@ msgstr "Correzione dei file in corso..."
 msgid "Older backups will be rotated out"
 msgstr "I backup più vecchi verranno ruotati"
 
-#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
 #: includes/class-segurium.php:909
 #, php-format
 msgid "You are about to fix %1$d files (~%2$s)."
-msgstr "Si stanno per correggere %1$d file (~%2$s)."
+msgstr "Stai per correggere %1$d file (~%2$s)."
 
-#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
 #: includes/class-segurium.php:911
 #, php-format
 msgid ""
@@ -1737,39 +1752,45 @@ msgstr "Forse più tardi"
 msgid ""
 "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
 msgstr ""
-"Quota di pulizia raggiunta. Esegua l’upgrade a Pro per una quota di pulizia "
+"Quota di pulizia raggiunta. Esegui l’upgrade a Pro per una quota di pulizia "
 "cloud illimitata."
 
 #: includes/class-segurium.php:931
 msgid "Cleanup quota reached"
 msgstr "Quota di pulizia raggiunta"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:933
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
 msgstr ""
-"Ha utilizzato %1$d pulizie cloud negli ultimi %2$d giorni. Esegua l’upgrade "
+"Ha utilizzato %1$d pulizie cloud negli ultimi %2$d giorni. Esegui l’upgrade "
 "a Pro per una quota di pulizia cloud illimitata."
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
 msgstr "Prossima disponibilità il %s"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:937 includes/class-segurium.php:1313
 #, php-format
 msgid "%1$d of %2$d cleanups used in the last %3$d days"
 msgstr "%1$d pulizie su %2$d utilizzate negli ultimi %3$d giorni"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
 #: includes/class-segurium.php:939 includes/class-segurium.php:1304
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr ""
 "%1$d pulizie su %2$d utilizzate negli ultimi %3$d giorni — prossima "
 "disponibilità il %4$s"
@@ -1852,13 +1873,13 @@ msgstr "Paesi consentiti"
 #: includes/class-segurium.php:960 includes/class-segurium.php:1643
 msgid "Type a country name or ISO code to add it to the block list."
 msgstr ""
-"Digitare il nome di un paese o un codice ISO per aggiungerlo all'elenco di "
+"Digita il nome di un paese o un codice ISO per aggiungerlo all'elenco di "
 "blocco."
 
 #: includes/class-segurium.php:961
 msgid "Type a country name or ISO code to add it to the allow list."
 msgstr ""
-"Digitare il nome di un paese o un codice ISO per aggiungerlo all'elenco "
+"Digita il nome di un paese o un codice ISO per aggiungerlo all'elenco "
 "consentiti."
 
 #: includes/class-segurium.php:962 includes/class-segurium.php:1722
@@ -1870,8 +1891,8 @@ msgid ""
 "These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
 "CIDR ranges."
 msgstr ""
-"Questi IP sono sempre bloccati. Una voce per riga. Sono accettati intervalli "
-"IPv4, IPv6 e CIDR."
+"Questi IP sono sempre bloccati. Una voce per riga. Sono accettati intervalli"
+" IPv4, IPv6 e CIDR."
 
 #: includes/class-segurium.php:964
 msgid "Allowed IPs / CIDRs"
@@ -1908,7 +1929,7 @@ msgstr "Importa"
 
 #: includes/class-segurium.php:972
 msgid "Skip"
-msgstr "Ignora"
+msgstr "Salta"
 
 #: includes/class-segurium.php:973
 msgid "Planned feature"
@@ -1952,11 +1973,11 @@ msgstr "Riferimento del ticket:"
 
 #: includes/class-segurium.php:983
 msgid "Failed to submit ticket. Please try again."
-msgstr "Impossibile inviare il ticket. Riprovare."
+msgstr "Impossibile inviare il ticket. Riprova."
 
 #: includes/class-segurium.php:984
 msgid "Please attach a file before submitting."
-msgstr "Allegare un file prima di inviare."
+msgstr "Allega un file prima di inviarlo."
 
 #: includes/class-segurium.php:985
 msgid "Selected file exceeds the 100 MB limit."
@@ -1964,11 +1985,11 @@ msgstr "Il file selezionato supera il limite di 100 MB."
 
 #: includes/class-segurium.php:986
 msgid "Please enter a valid reply-to email."
-msgstr "Inserire un indirizzo e-mail di risposta valido."
+msgstr "Inserisci un indirizzo email di risposta valido."
 
 #: includes/class-segurium.php:987
 msgid "Please enter your name."
-msgstr "Inserire il proprio nome."
+msgstr "Inserisci il tuo nome."
 
 #: includes/class-segurium.php:988
 msgid "Brute-Force Protection"
@@ -2060,7 +2081,7 @@ msgstr "Impostazioni salvate."
 
 #: includes/class-segurium.php:1008
 msgid "Unlock this IP?"
-msgstr "Sbloccare questo IP?"
+msgstr "Sblocca questo IP?"
 
 #: includes/class-segurium.php:1009 includes/class-segurium.php:1806
 msgid "Log retention (days)"
@@ -2076,11 +2097,11 @@ msgstr "Richiedi hCaptcha dopo errori ripetuti"
 
 #: includes/class-segurium.php:1012 includes/class-segurium.php:1824
 msgid "hCaptcha site key"
-msgstr "Chiave del sito hCaptcha"
+msgstr "hCaptcha: chiave del sito"
 
 #: includes/class-segurium.php:1013 includes/class-segurium.php:1830
 msgid "hCaptcha secret key"
-msgstr "Chiave segreta hCaptcha"
+msgstr "hCaptcha: chiave segreta"
 
 #: includes/class-segurium.php:1014 includes/class-segurium.php:1836
 msgid "Show CAPTCHA after N failed attempts"
@@ -2088,7 +2109,7 @@ msgstr "Mostra CAPTCHA dopo N tentativi non riusciti"
 
 #: includes/class-segurium.php:1015
 msgid "Presets:"
-msgstr "Preset:"
+msgstr "Preimpostazioni:"
 
 #: includes/class-segurium.php:1016
 msgid "Light"
@@ -2106,7 +2127,8 @@ msgstr "Rigoroso"
 
 #: includes/class-segurium.php:1019
 msgid "Click a preset to fill the form, then Save."
-msgstr "Fare clic su un preset per compilare il modulo, quindi salvare."
+msgstr ""
+"Fai clic su una preimpostazione per compilare il modulo, quindi salva."
 
 #: includes/class-segurium.php:1020 includes/class-segurium.php:1867
 msgid "Statistics"
@@ -2126,7 +2148,7 @@ msgstr "Blocchi (24 h)"
 
 #: includes/class-segurium.php:1024 includes/class-segurium.php:1882
 msgid "Honeypot hits (24h)"
-msgstr "Trigger honeypot (24 h)"
+msgstr "Hit honeypot (24 h)"
 
 #: includes/class-segurium.php:1025 includes/class-segurium.php:1886
 msgid "CAPTCHA failures (24h)"
@@ -2239,7 +2261,7 @@ msgstr "Fare clic su Esegui controllo automatico per valutare il sito."
 
 #: includes/class-segurium.php:1063
 msgid "How to fix"
-msgstr "Come risolvere"
+msgstr "Come correggere"
 
 #: includes/class-segurium.php:1064
 msgid "Hide details"
@@ -2285,7 +2307,8 @@ msgstr "%1$d superati, %2$d avvisi, %3$d non superati"
 msgid "%1$d/100"
 msgstr "%1$d/100"
 
-#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
 #: includes/class-segurium.php:1077
 #, php-format
 msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
@@ -2342,23 +2365,23 @@ msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
 msgstr ""
-"Contenuto del file — solo quando la classificazione tramite il solo hash non "
-"è conclusiva, oppure durante la generazione di una versione pulita in fase "
+"Contenuto del file — solo quando la classificazione tramite il solo hash non"
+" è conclusiva, oppure durante la generazione di una versione pulita in fase "
 "di pulizia."
 
 #: includes/class-segurium.php:1214
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
 msgstr ""
 "Un identificatore di installazione generato casualmente e informazioni di "
-"base sul sito (URL, nome, versione di WordPress) utilizzati per associare le "
-"richieste a questa installazione."
+"base sul sito (URL, nome, versione di WordPress) utilizzati per associare le"
+" richieste a questa installazione."
 
 #: includes/class-segurium.php:1215
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
 msgstr ""
 "Eventi di scansione, pulizia e modifica delle impostazioni di sicurezza, "
 "affinché il cloud possa mantenere sincronizzata la protezione del sito."
@@ -2403,15 +2426,16 @@ msgstr "Server Segurium all'indirizzo cti.segurium.com."
 msgid "Retention:"
 msgstr "Conservazione:"
 
-#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
 msgid ""
 "By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
 "%3$sPrivacy Policy%4$s."
 msgstr ""
-"Abilitando la scansione, l'utente accetta i %1$sTermini di servizio%2$s e "
-"l'%3$sInformativa sulla privacy%4$s."
+"Abilitando la scansione, accetti i %1$sTermini di servizio%2$s e la "
+"%3$sPrivacy policy%4$s."
 
 #: includes/class-segurium.php:1242
 msgid "I agree"
@@ -2460,7 +2484,7 @@ msgstr "Migrazione"
 #: includes/class-segurium.php:1411 includes/class-segurium.php:2025
 #: includes/class-segurium.php:2582
 msgid "Support"
-msgstr "Assistenza"
+msgstr "Supporto"
 
 #: includes/class-segurium.php:1415
 msgid "Plans"
@@ -2517,7 +2541,7 @@ msgstr "Ultima scansione"
 #: includes/class-segurium.php:1602 includes/class-segurium.php:1690
 msgid "Settings applied. Confirm to keep, or changes revert in"
 msgstr ""
-"Impostazioni applicate. Confermare per mantenerle, oppure le modifiche "
+"Impostazioni applicate. Conferma per mantenerle, oppure le modifiche "
 "verranno annullate tra"
 
 #: includes/class-segurium.php:1603 includes/class-segurium.php:1691
@@ -2636,16 +2660,16 @@ msgid ""
 "empty if all your proxies are covered above."
 msgstr ""
 "IP di proxy aggiuntivi oltre l'elenco rilevato automaticamente, uno per "
-"riga. Lasciare vuoto se tutti i proxy sono già coperti sopra."
+"riga. Lascia vuoto se tutti i tuoi proxy sono già coperti sopra."
 
 #: includes/class-segurium.php:1750
 msgid ""
 "Tracks failed login attempts and locks out IPs after a configurable "
 "threshold. Reuses the firewall allow-list for trusted IPs."
 msgstr ""
-"Tiene traccia dei tentativi di accesso non riusciti e blocca gli IP dopo una "
-"soglia configurabile. Riutilizza l'elenco consentiti del firewall per gli IP "
-"attendibili."
+"Tiene traccia dei tentativi di accesso non riusciti e blocca gli IP dopo una"
+" soglia configurabile. Riutilizza l'elenco consentiti del firewall per gli "
+"IP attendibili."
 
 #: includes/class-segurium.php:1754
 msgid "Settings:"
@@ -2676,16 +2700,16 @@ msgid ""
 "Adds an off-screen input that legitimate users never see. Filling it "
 "triggers an immediate lockout."
 msgstr ""
-"Aggiunge un campo fuori schermo invisibile agli utenti legittimi. La sua "
+"Aggiunge un input fuori schermo invisibile agli utenti legittimi. La sua "
 "compilazione provoca un blocco immediato."
 
 #: includes/class-segurium.php:1812
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
 "Mostra facoltativamente una verifica hCaptcha sul modulo di accesso dopo un "
-"numero configurabile di tentativi non riusciti. Ottenere chiavi gratuite su "
+"numero configurabile di tentativi non riusciti. Ottieni chiavi gratuite su "
 "hcaptcha.com."
 
 #: includes/class-segurium.php:1838
@@ -2717,7 +2741,7 @@ msgstr "Metodi disponibili"
 
 #: includes/class-segurium.php:1980
 msgid "Select which 2FA methods users can choose from."
-msgstr "Selezionare i metodi 2FA tra cui gli utenti possono scegliere."
+msgstr "Seleziona i metodi 2FA tra cui gli utenti possono scegliere."
 
 #: includes/class-segurium.php:1985
 msgid "Enforced Roles"
@@ -2725,7 +2749,7 @@ msgstr "Ruoli obbligatori"
 
 #: includes/class-segurium.php:1986
 msgid "Users in these roles will be required to set up 2FA."
-msgstr "Gli utenti con questi ruoli saranno tenuti a configurare il 2FA."
+msgstr "Per gli utenti con questi ruoli sarà necessario configurare il 2FA."
 
 #: includes/class-segurium.php:1990
 msgid "Grace Period (days)"
@@ -2737,7 +2761,7 @@ msgid ""
 "to 0 to enforce immediately."
 msgstr ""
 "Giorni prima che l'applicazione blocchi l'accesso agli utenti che non hanno "
-"configurato il 2FA. Impostare a 0 per applicare immediatamente."
+"configurato il 2FA. Imposta a 0 per applicare immediatamente."
 
 #: includes/class-segurium.php:1995
 msgid "Trusted Device Duration (days)"
@@ -2773,8 +2797,8 @@ msgstr "Reimposta 2FA utente"
 #: includes/class-segurium.php:2017
 msgid "Enter a username or user ID to reset their 2FA configuration."
 msgstr ""
-"Inserire un nome utente o un ID utente per reimpostare la sua configurazione "
-"2FA."
+"Inserisci un nome utente o un ID utente per reimpostare la sua "
+"configurazione 2FA."
 
 #: includes/class-segurium.php:2018
 msgid "Username or ID"
@@ -2787,8 +2811,7 @@ msgstr "Reimposta 2FA"
 #: includes/class-segurium.php:2026
 msgid "Submit a support ticket below. Our team will respond via email."
 msgstr ""
-"Inviare un ticket di assistenza qui sotto. Il nostro team risponderà via e-"
-"mail."
+"Invia un ticket di supporto qui sotto. Il nostro team risponderà via email."
 
 #: includes/class-segurium.php:2029
 msgid "Your name"
@@ -2796,15 +2819,15 @@ msgstr "Nome"
 
 #: includes/class-segurium.php:2033
 msgid "Reply-to email"
-msgstr "E-mail di risposta"
+msgstr "Email di risposta"
 
 #: includes/class-segurium.php:2035
 msgid ""
 "We will reply to this address. Change it if you want the response to go "
 "elsewhere."
 msgstr ""
-"Risponderemo a questo indirizzo. Modificarlo se si desidera ricevere la "
-"risposta altrove."
+"Risponderemo a questo indirizzo. Modificalo se vuoi ricevere la risposta "
+"altrove."
 
 #: includes/class-segurium.php:2038
 msgid "Website"
@@ -2815,8 +2838,8 @@ msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
 msgstr ""
-"Incluso automaticamente affinché l'assistenza possa identificare il sito. "
-"Modificare in Impostazioni → Generali."
+"Incluso automaticamente affinché il supporto possa identificare il sito. "
+"Modificalo in Impostazioni → Generali."
 
 #: includes/class-segurium.php:2043
 msgid "Type"
@@ -2848,7 +2871,7 @@ msgstr "File sospetto"
 
 #: includes/class-segurium.php:2055
 msgid "Attach the file you believe is malware. Max 100 MB."
-msgstr "Allegare il file che si ritiene sia un malware. Massimo 100 MB."
+msgstr "Allega il file che ritieni sia un malware. Massimo 100 MB."
 
 #: includes/class-segurium.php:2058
 msgid "Message"
@@ -2950,15 +2973,15 @@ msgstr "URL non sicuro"
 
 #: includes/class-segurium.php:2135
 msgid "Disabled (recommended)"
-msgstr "Disattivato (consigliato)"
+msgstr "Disabilitato (consigliato)"
 
 #: includes/class-segurium.php:2136
 msgid "Enabled"
-msgstr "Attivato"
+msgstr "Abilitato"
 
 #: includes/class-segurium.php:2137
 msgid "Enabled with block mode"
-msgstr "Attivato con modalità blocco"
+msgstr "Abilitato con modalità blocco"
 
 #: includes/class-segurium.php:2140
 msgid "HSTS (Strict-Transport-Security)"
@@ -2983,15 +3006,15 @@ msgstr "Includi sottodomini"
 
 #: includes/class-segurium.php:2162
 msgid "Preload"
-msgstr "Preload"
+msgstr "Precaricamento"
 
 #: includes/class-segurium.php:2164
 msgid ""
 "Warning: preload is difficult to undo. Requires max-age at least 1 year and "
 "subdomains included."
 msgstr ""
-"Attenzione: il preload è difficile da annullare. Richiede max-age di almeno "
-"1 anno e l'inclusione dei sottodomini."
+"Attenzione: il precaricamento è difficile da annullare. Richiede max-age di "
+"almeno 1 anno e l'inclusione dei sottodomini."
 
 #: includes/class-segurium.php:2168
 msgid ""
@@ -2999,9 +3022,9 @@ msgid ""
 "will affect all subdomains of the parent domain, including ones you may not "
 "control."
 msgstr ""
-"Il sito sembra essere su un sottodominio. L'attivazione di includeSubDomains "
-"in HSTS interesserà tutti i sottodomini del dominio principale, inclusi "
-"quelli eventualmente non controllati."
+"Il sito sembra essere su un sottodominio. L'abilitazione di "
+"includeSubDomains in HSTS interesserà tutti i sottodomini del dominio "
+"principale, inclusi quelli che potresti non controllare."
 
 #: includes/class-segurium.php:2170
 msgid "Cross-Origin Policies"
@@ -3123,8 +3146,8 @@ msgid ""
 "enforcing."
 msgstr ""
 "La CSP limita le origini da cui possono essere caricati script, stili e "
-"altre risorse, mitigando XSS e attacchi di iniezione. La CSP è specifica per "
-"ogni sito e può compromettere temi o page builder — iniziare in modalità "
+"altre risorse, mitigando XSS e attacchi di iniezione. La CSP è specifica per"
+" ogni sito e può compromettere temi o page builder — iniziare in modalità "
 "solo segnalazione per individuare le violazioni prima dell'applicazione."
 
 #: includes/class-segurium.php:2245
@@ -3138,12 +3161,12 @@ msgstr "Applica"
 #: includes/class-segurium.php:2248
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
 "Solo segnalazione invia Content-Security-Policy-Report-Only — il browser "
-"registra le violazioni ma carica comunque le risorse bloccate. Applica invia "
-"Content-Security-Policy e le blocca."
+"registra le violazioni ma carica comunque le risorse bloccate. Applica invia"
+" Content-Security-Policy e le blocca."
 
 #: includes/class-segurium.php:2251
 msgid "Policy directives"
@@ -3156,8 +3179,8 @@ msgid ""
 "clean."
 msgstr ""
 "Singola riga di direttive separate da punti e virgola. La policy iniziale "
-"predefinita consente Gutenberg e la maggior parte dei temi; restringerla una "
-"volta che le segnalazioni risultano pulite."
+"predefinita consente Gutenberg e la maggior parte dei temi; restringerla una"
+" volta che le segnalazioni risultano pulite."
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
@@ -3173,8 +3196,8 @@ msgid ""
 "automatically as report-uri unless your directives already contain one."
 msgstr ""
 "Se impostato, i browser invieranno tramite POST le segnalazioni di "
-"violazione a questo URL. Aggiunto automaticamente come report-uri a meno che "
-"le direttive non ne contengano già uno."
+"violazione a questo URL. Aggiunto automaticamente come report-uri a meno che"
+" le direttive non ne contengano già uno."
 
 #: includes/class-segurium.php:2265
 msgid "Cookie Hardening"
@@ -3189,8 +3212,8 @@ msgid ""
 "Adds SameSite flag to WordPress session cookies. Protects against CSRF "
 "attacks. Mozilla Observatory penalizes missing SameSite."
 msgstr ""
-"Aggiunge il flag SameSite ai cookie di sessione di WordPress. Protegge dagli "
-"attacchi CSRF. Mozilla Observatory penalizza l'assenza di SameSite."
+"Aggiunge il flag SameSite ai cookie di sessione di WordPress. Protegge dagli"
+" attacchi CSRF. Mozilla Observatory penalizza l'assenza di SameSite."
 
 #: includes/class-segurium.php:2275
 msgid "SameSite value"
@@ -3201,7 +3224,8 @@ msgid "Lax (recommended)"
 msgstr "Lax (consigliato)"
 
 #: includes/class-segurium.php:2280
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr ""
 "Strict può compromettere i flussi di accesso OAuth/SSO che reindirizzano "
 "verso il sito."
@@ -3221,8 +3245,8 @@ msgid ""
 "output."
 msgstr ""
 "Riduce la divulgazione di informazioni di WordPress rimuovendo le impronte "
-"di versione, gli endpoint di rilevamento e i metadati superflui dagli header "
-"HTTP e dall'output HTML."
+"di versione, gli endpoint di rilevamento e i metadati superflui dagli header"
+" HTTP e dall'output HTML."
 
 #: includes/class-segurium.php:2308
 msgid "Enable All Recommended"
@@ -3289,8 +3313,8 @@ msgid ""
 "Removes the meta generator tag and RSS generator that reveal your WordPress "
 "version."
 msgstr ""
-"Rimuove il tag meta generator e il generator RSS che rivelano la versione di "
-"WordPress."
+"Rimuove il tag meta generator e il generator RSS che rivelano la versione di"
+" WordPress."
 
 #: includes/class-segurium.php:2362
 msgid "Remove RSD link"
@@ -3299,7 +3323,8 @@ msgstr "Rimuovi collegamento RSD"
 #: includes/class-segurium.php:2364
 msgid "Removes the Really Simple Discovery endpoint link from HTML head."
 msgstr ""
-"Rimuove il collegamento dell'endpoint Really Simple Discovery dall'head HTML."
+"Rimuove il collegamento dell'endpoint Really Simple Discovery dall'head "
+"HTML."
 
 #: includes/class-segurium.php:2369
 msgid "Remove WLW manifest link"
@@ -3307,11 +3332,11 @@ msgstr "Rimuovi collegamento al manifesto WLW"
 
 #: includes/class-segurium.php:2371
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
 msgstr ""
-"Rimuove il collegamento al manifesto Windows Live Writer. Necessario solo se "
-"si utilizza WLW per scrivere articoli."
+"Rimuove il collegamento al manifesto Windows Live Writer. Necessario solo se"
+" si utilizza WLW per scrivere articoli."
 
 #: includes/class-segurium.php:2376
 msgid "Remove REST API discovery link"
@@ -3322,8 +3347,8 @@ msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
 msgstr ""
-"Rimuove il tag di rilevamento dall'head HTML. L'API REST rimane funzionante "
-"in /wp-json/."
+"Rimuove il tag link di rilevamento dall'head HTML. L'API REST rimane "
+"funzionante in /wp-json/."
 
 #: includes/class-segurium.php:2383
 msgid "Remove oEmbed discovery links"
@@ -3334,8 +3359,8 @@ msgid ""
 "Prevents other sites from showing rich embed previews when linking to your "
 "content."
 msgstr ""
-"Impedisce ad altri siti di mostrare anteprime di embed avanzate quando si "
-"collegano al contenuto."
+"Impedisce ad altri siti di mostrare anteprime di contenuti incorporati "
+"quando si collegano ai tuoi contenuti."
 
 #: includes/class-segurium.php:2390
 msgid "Remove shortlink meta tag"
@@ -3366,8 +3391,8 @@ msgid ""
 "May break RSS readers and WordPress.com Reader. Only enable if your site "
 "does not use RSS feeds."
 msgstr ""
-"Può compromettere i lettori RSS e WordPress.com Reader. Attivare solo se il "
-"sito non utilizza feed RSS."
+"Può compromettere i lettori RSS e WordPress.com Reader. Abilita solo se il "
+"tuo sito non utilizza feed RSS."
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
@@ -3390,13 +3415,13 @@ msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
 msgstr ""
-"Rimuove ?ver= dagli URL CSS e JavaScript. Le risorse memorizzate nella cache "
-"del browser possono risultare obsolete dopo gli aggiornamenti di plugin o "
+"Rimuove ?ver= dagli URL CSS e JavaScript. Le risorse memorizzate nella cache"
+" del browser possono risultare obsolete dopo gli aggiornamenti di plugin o "
 "temi."
 
 #: includes/class-segurium.php:2429
 msgid "Disable XML-RPC entirely"
-msgstr "Disattiva completamente XML-RPC"
+msgstr "Disabilita completamente XML-RPC"
 
 #: includes/class-segurium.php:2431
 msgid ""
@@ -3404,7 +3429,7 @@ msgid ""
 "if you do not use them."
 msgstr ""
 "Alcuni plugin (Jetpack, app WordPress per mobile) richiedono XML-RPC. "
-"Disattivare solo se non vengono utilizzati."
+"Disabilita solo se non li utilizzi."
 
 #: includes/class-segurium.php:2443
 msgid "Security Self-Check"
@@ -3431,7 +3456,7 @@ msgstr "Verifica indipendente"
 
 #: includes/class-segurium.php:2468
 msgid "Cross-check results with these public scanners:"
-msgstr "Confrontare i risultati con questi scanner pubblici:"
+msgstr "Confronta i risultati con questi scanner pubblici:"
 
 #: includes/class-segurium.php:2471
 msgid "securityheaders.com"
@@ -3454,7 +3479,7 @@ msgid ""
 "Two-factor authentication (TOTP, email fallback, backup codes, trusted "
 "devices)"
 msgstr ""
-"Autenticazione a due fattori (TOTP, fallback via e-mail, codici di backup, "
+"Autenticazione a due fattori (TOTP, email di riserva, codici di backup, "
 "dispositivi attendibili)"
 
 #: includes/class-segurium.php:2496
@@ -3476,7 +3501,8 @@ msgstr "Firewall (regole IP consenti / nega, CIDR, filtro per paese)"
 
 #: includes/class-segurium.php:2511
 msgid "Security headers and cookie hardening (presets, custom)"
-msgstr "Header di sicurezza e hardening dei cookie (preset, personalizzati)"
+msgstr ""
+"Header di sicurezza e hardening dei cookie (preimpostazioni, personalizzati)"
 
 #: includes/class-segurium.php:2516
 msgid "Information Shield (version and endpoint hiding)"
@@ -3485,8 +3511,8 @@ msgstr "Information Shield (occultamento di versioni ed endpoint)"
 #: includes/class-segurium.php:2521
 msgid "Self-Check security grade (A+ to F, one-click Fix)"
 msgstr ""
-"Voto di sicurezza tramite controllo automatico (da A+ a F, correzione con un "
-"clic)"
+"Voto di sicurezza tramite controllo automatico (da A+ a F, correzione con un"
+" clic)"
 
 #: includes/class-segurium.php:2526
 msgid "Activity log (append-only, per-event-type retention)"
@@ -3494,7 +3520,8 @@ msgstr "Log delle attività (solo append, conservazione per tipo di evento)"
 
 #: includes/class-segurium.php:2531
 msgid "Migration importer (Wordfence, AIOS, Sucuri, Solid Security)"
-msgstr "Importazione da altri plugin (Wordfence, AIOS, Sucuri, Solid Security)"
+msgstr ""
+"Importazione da altri plugin (Wordfence, AIOS, Sucuri, Solid Security)"
 
 #: includes/class-segurium.php:2536
 msgid "Disaster recovery (encrypted reversible backups, extractable offline)"
@@ -3543,7 +3570,7 @@ msgstr "Conteggiato nella quota di pulizia di 3 / 30 giorni"
 
 #: includes/class-segurium.php:2567
 msgid "Bulk “Fix All” (malware + integrity)"
-msgstr "“Correggi tutto” in blocco (malware + integrità)"
+msgstr "“Correggi tutto” di massa (malware + integrità)"
 
 #: includes/class-segurium.php:2572
 msgid "Auto-fix (unattended remediation)"
@@ -3551,7 +3578,7 @@ msgstr "Correzione automatica (correzione non presidiata)"
 
 #: includes/class-segurium.php:2577
 msgid "Email alerts on findings (max 1 / site / 24h)"
-msgstr "Avvisi via e-mail sui rilevamenti (massimo 1 per sito ogni 24 ore)"
+msgstr "Avvisi via email sui rilevamenti (massimo 1 per sito ogni 24 ore)"
 
 #: includes/class-segurium.php:2583
 msgid "Community"
@@ -3559,7 +3586,7 @@ msgstr "Community"
 
 #: includes/class-segurium.php:2584
 msgid "Email (best-effort queue)"
-msgstr "E-mail (coda best-effort)"
+msgstr "Email (coda best-effort)"
 
 #: includes/class-segurium.php:2597
 msgid "Service tiers"
@@ -3568,8 +3595,8 @@ msgstr "Livelli di servizio"
 #: includes/class-segurium.php:2599
 msgid ""
 "Every plugin feature ships on every install. The service tier governs the "
-"cloud cleanup quota Segurium will perform on your behalf — your current tier "
-"is highlighted."
+"cloud cleanup quota Segurium will perform on your behalf — your current tier"
+" is highlighted."
 msgstr ""
 "Ogni funzionalità del plugin è inclusa in ogni installazione. Il livello di "
 "servizio determina la quota di pulizia cloud che Segurium eseguirà per "
@@ -3577,7 +3604,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2604
 msgid "Capability"
-msgstr "Funzionalità"
+msgstr "Capacità"
 
 #: includes/class-segurium.php:2606 includes/class-segurium.php:2801
 msgid "Free"
@@ -3595,16 +3622,16 @@ msgstr "Impostazioni di scansione"
 msgid ""
 "Exclude files from scan that match these wildcard patterns (one per line)"
 msgstr ""
-"Escludi dalla scansione i file corrispondenti a questi pattern con caratteri "
-"jolly (uno per riga)"
+"Escludi dalla scansione i file corrispondenti a questi pattern con caratteri"
+" jolly (uno per riga)"
 
 #: includes/class-segurium.php:2656
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
 msgstr ""
-"Utilizzare * come carattere jolly. Ad esempio, *.log escluderà tutti i file "
-"di log. vendor/* escluderà la directory vendor e tutto il suo contenuto."
+"Utilizza * come carattere jolly. Ad esempio, *.log escluderà tutti i file di"
+" log. vendor/* escluderà la directory vendor e tutto il suo contenuto."
 
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
@@ -3616,15 +3643,15 @@ msgid ""
 "kept in wp-content/segurium-data after uninstall, so a reinstall can still "
 "restore them. Turn on only if you want a hard deletion on uninstall."
 msgstr ""
-"Disattivato (predefinito): i backup cifrati dei componenti eliminati e dei "
-"file ripuliti vengono conservati in wp-content/segurium-data dopo la "
+"Off (predefinito): i backup cifrati dei componenti eliminati e dei file "
+"ripuliti vengono conservati in wp-content/segurium-data dopo la "
 "disinstallazione, in modo che una reinstallazione possa ancora "
-"ripristinarli. Attivare solo per ottenere un'eliminazione completa alla "
+"ripristinarli. Attiva solo se vuoi un'eliminazione completa alla "
 "disinstallazione."
 
 #: includes/class-segurium.php:2677
 msgid "Email me about findings"
-msgstr "Inviami un'e-mail sui rilevamenti"
+msgstr "Inviami un'email sui rilevamenti"
 
 #: includes/class-segurium.php:2679
 msgid ""
@@ -3632,18 +3659,17 @@ msgid ""
 "from support@segurium.com. At most one email per site per 24 hours."
 msgstr ""
 "Invia un riepilogo giornaliero dei verdetti sui malware e delle pulizie "
-"riuscite, recapitato da support@segurium.com. Al massimo un'e-mail per sito "
+"riuscite, recapitato da support@segurium.com. Al massimo un'email per sito "
 "ogni 24 ore."
 
 #: includes/class-segurium.php:2680
 msgid "Alert email address"
-msgstr "Indirizzo e-mail per gli avvisi"
+msgstr "Indirizzo email per gli avvisi"
 
 #: includes/class-segurium.php:2688
 msgid "Leave blank to use the WordPress site admin email."
 msgstr ""
-"Lasciare vuoto per utilizzare l'e-mail dell'amministratore del sito "
-"WordPress."
+"Lascia vuoto per utilizzare l'email dell'amministratore del sito WordPress."
 
 #: includes/class-segurium.php:2698
 msgid "Automatically clean detected malware"
@@ -3655,13 +3681,13 @@ msgid ""
 "injection verdict are cleaned without requiring a click. Files you have "
 "ignored (by path or by hash) are skipped."
 msgstr ""
-"Dopo ogni scansione pianificata o in tempo reale, i file con un verdetto "
+"Dopo ogni scansione programmata o in tempo reale, i file con un verdetto "
 "noto di malware o iniezione vengono puliti senza richiedere un clic. I file "
 "ignorati (per percorso o hash) vengono saltati."
 
 #: includes/class-segurium.php:2710
 msgid "Scheduled Scan"
-msgstr "Scansione pianificata"
+msgstr "Scansione programmata"
 
 #: includes/class-segurium.php:2712
 msgid ""
@@ -3671,19 +3697,19 @@ msgid ""
 "already in progress is skipped, not queued."
 msgstr ""
 "Esegui automaticamente una scansione malware completa secondo una "
-"pianificazione ricorrente. Una scansione pianificata svolge lo stesso lavoro "
-"di una manuale, ma non richiede di tenere il browser aperto. Un'esecuzione "
-"pianificata che si attiva mentre è già in corso una scansione manuale viene "
+"programmazione ricorrente. Una scansione programmata svolge lo stesso lavoro"
+" di una manuale, ma non richiede di tenere il browser aperto. Un'esecuzione "
+"programmata che si attiva mentre è già in corso una scansione manuale viene "
 "saltata, non accodata."
 
 #: includes/class-segurium.php:2739
 msgid "Save Schedule"
-msgstr "Salva pianificazione"
+msgstr "Salva programmazione"
 
 #: includes/class-segurium.php:2747
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
 msgstr ""
 "Importa le impostazioni di altri plugin di sicurezza in Segurium. Le "
 "impostazioni esistenti di Segurium vengono mantenute; i dati importati "
@@ -3723,8 +3749,8 @@ msgstr[0] ""
 "%d percorso assoluto è stato riscritto come percorso relativo alla radice "
 "dell'installazione WordPress."
 msgstr[1] ""
-"%d percorsi assoluti sono stati riscritti come percorsi relativi alla radice "
-"dell'installazione WordPress."
+"%d percorsi assoluti sono stati riscritti come percorsi relativi alla radice"
+" dell'installazione WordPress."
 
 #: includes/class-segurium.php:2923
 msgid "Scan exclusion list is limited to 500 entries."
@@ -3740,9 +3766,7 @@ msgstr[1] "%d voci più lunghe di 191 caratteri sono state rimosse."
 
 #: includes/class-segurium.php:2979 includes/class-segurium.php:3012
 msgid "You do not have permission to manage scan settings."
-msgstr ""
-"Non si dispone delle autorizzazioni necessarie per gestire le impostazioni "
-"di scansione."
+msgstr "Non hai i permessi per gestire le impostazioni di scansione."
 
 #: includes/class-segurium.php:3083
 msgid "The scan could not be started due to a server error."
@@ -3756,7 +3780,7 @@ msgstr ""
 
 #: includes/class-segurium.php:3240
 msgid "Check the PHP error log for details."
-msgstr "Consultare il log degli errori PHP per i dettagli."
+msgstr "Consulta il log degli errori PHP per i dettagli."
 
 #: includes/class-segurium.php:3318 includes/class-segurium.php:3397
 #: includes/class-segurium.php:3483 includes/class-segurium.php:3519
@@ -3869,7 +3893,7 @@ msgstr "Errore imprevisto."
 
 #: includes/class-segurium.php:4376
 msgid "This endpoint has been removed. Please reload the page."
-msgstr "Questo endpoint è stato rimosso. Ricaricare la pagina."
+msgstr "Questo endpoint è stato rimosso. Ricarica la pagina."
 
 #: includes/class-segurium.php:4514 includes/class-segurium.php:4543
 #: includes/class-segurium.php:4574 includes/class-segurium.php:4675
@@ -3895,7 +3919,7 @@ msgstr "Parametri non validi."
 msgid ""
 "Cannot delete the currently active theme. Switch to a different theme first."
 msgstr ""
-"Impossibile eliminare il tema attualmente attivo. Passare prima a un altro "
+"Impossibile eliminare il tema attualmente attivo. Passa prima a un altro "
 "tema."
 
 #. translators: 1: component type, 2: component slug.
@@ -3912,7 +3936,7 @@ msgstr "%1$s \"%2$s\" è stato ripristinato dal backup."
 
 #: includes/class-segurium.php:5030
 msgid "Cannot delete active theme. Switch first."
-msgstr "Impossibile eliminare il tema attivo. Cambiare prima il tema."
+msgstr "Impossibile eliminare il tema attivo. Cambia prima il tema."
 
 #: includes/class-segurium.php:5037
 msgid "Delisted from WordPress.org"
@@ -3922,7 +3946,7 @@ msgstr "Rimosso da WordPress.org"
 #: includes/class-segurium.php:5047
 #, php-format
 msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
-msgstr "Il tema \"%s\" è abbandonato ma attualmente attivo. Verrà ignorato."
+msgstr "Il tema \"%s\" è abbandonato ma attualmente attivo. Verrà saltato."
 
 #: includes/class-segurium.php:5053
 msgid "Active abandoned theme — switch manually."
@@ -3930,7 +3954,8 @@ msgstr "Tema abbandonato attivo — cambiare manualmente."
 
 #: includes/class-segurium.php:5079
 msgid "Not from WordPress.org — integrity cannot be verified."
-msgstr "Non proveniente da WordPress.org — impossibile verificare l'integrità."
+msgstr ""
+"Non proveniente da WordPress.org — impossibile verificare l'integrità."
 
 #: includes/class-segurium.php:5107
 msgid "Protected file (exclusion list)."
@@ -3967,7 +3992,7 @@ msgstr "Non autorizzato."
 
 #: includes/class-segurium.php:5849 includes/class-segurium.php:5872
 msgid "Pending change not found or already expired."
-msgstr "Modifica in sospeso non trovata o già scaduta."
+msgstr "Modifica in attesa non trovata o già scaduta."
 
 #: includes/class-segurium.php:6181
 msgid "Failed to create directory"
@@ -4008,11 +4033,11 @@ msgstr "I metadati del backup sono mancanti o illeggibili."
 
 #: includes/class-segurium.php:6479
 msgid ""
-"Backup file is unreadable. Check filesystem permissions on wp-content/"
-"segurium-data."
+"Backup file is unreadable. Check filesystem permissions on wp-"
+"content/segurium-data."
 msgstr ""
-"Il file di backup non è leggibile. Verificare i permessi del filesystem su "
-"wp-content/segurium-data."
+"Il file di backup non è leggibile. Verifica le autorizzazioni del filesystem"
+" su wp-content/segurium-data."
 
 #: includes/class-segurium.php:6481
 msgid "Backup file is corrupt — decryption failed."
@@ -4054,19 +4079,19 @@ msgstr "Autorizzazione negata."
 
 #: includes/class-segurium.php:6985
 msgid "Message is required."
-msgstr "Il messaggio è obbligatorio."
+msgstr "Il messaggio è necessario."
 
 #: includes/class-segurium.php:6992
 msgid "A valid reply-to email is required."
-msgstr "È richiesta un'e-mail di risposta valida."
+msgstr "È necessaria un'email di risposta valida."
 
 #: includes/class-segurium.php:7010
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "Sono stati inviati troppi ticket oggi. Riprovare domani."
+msgstr "Sono stati inviati troppi ticket oggi. Riprova domani."
 
 #: includes/class-segurium.php:7019
 msgid "Failed to upload the file. Try again."
-msgstr "Impossibile caricare il file. Riprovare."
+msgstr "Impossibile caricare il file. Riprova."
 
 #: includes/class-segurium.php:7023
 msgid "File is empty or too large (max 100 MB)."
@@ -4082,7 +4107,7 @@ msgstr "Impossibile leggere il file caricato."
 
 #: includes/class-segurium.php:7163
 msgid "Please enter a username or user ID."
-msgstr "Inserire un nome utente o un ID utente."
+msgstr "Inserisci un nome utente o un ID utente."
 
 #: includes/class-segurium.php:7168
 msgid "User not found."
@@ -4104,7 +4129,7 @@ msgid ""
 "firewall mode. Configure manually if needed."
 msgstr ""
 "La whitelist IP (bypass) di AIOS non ha un equivalente diretto nella "
-"modalità firewall a deny-list di Segurium. Configurare manualmente se "
+"modalità firewall a deny-list di Segurium. Configura manualmente se "
 "necessario."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
@@ -4127,7 +4152,8 @@ msgstr "Blocco per paese"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr ""
 "Il blocco per paese di AIOS è una funzionalità cloud a pagamento e non può "
 "essere importato localmente."
@@ -4141,7 +4167,7 @@ msgstr "IP bloccati"
 
 #: includes/migrations/class-segurium-migration-aios.php:128
 msgid "No banned IPs configured in AIOS."
-msgstr "Nessun IP bandito configurato in AIOS."
+msgstr "Nessun IP bannato configurato in AIOS."
 
 #: includes/migrations/class-segurium-migration-aios.php:130
 #: includes/migrations/class-segurium-migration-aios.php:143
@@ -4172,16 +4198,16 @@ msgid ""
 "manually in the Geo Blocking tab."
 msgstr ""
 "Solid Security memorizza i blocchi per paese nella dashboard cloud. "
-"Configurare manualmente nella scheda Blocco geografico."
+"Configura manualmente nella scheda Blocco geografico."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 #: includes/migrations/class-segurium-migration-solid-security.php:127
 msgid "Banned IPs"
-msgstr "IP banditi"
+msgstr "IP bannati"
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 msgid "No banned IPs found in Solid Security."
-msgstr "Nessun IP bandito trovato in Solid Security."
+msgstr "Nessun IP bannato trovato in Solid Security."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:55
 msgid "Cloud-Managed Settings"
@@ -4242,7 +4268,7 @@ msgstr "Nessun dato 2FA di Wordfence trovato"
 
 #: includes/segurium-ajax-envelope.php:116
 msgid "Your session has expired. Please reload the page and try again."
-msgstr "La sessione è scaduta. Ricaricare la pagina e riprovare."
+msgstr "La sessione è scaduta. Ricarica la pagina e riprova."
 
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
@@ -4256,8 +4282,8 @@ msgid ""
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
 "Segurium richiede PHP %1$s o versione successiva. Questo sito utilizza PHP "
-"%2$s. Chiedere al provider di aggiornare PHP, quindi riprovare l'attivazione "
-"di Segurium."
+"%2$s. Chiedi al provider di aggiornare PHP, quindi riprova l'attivazione di "
+"Segurium."
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:587
@@ -4266,8 +4292,8 @@ msgid ""
 "Segurium requires WordPress %1$s or higher. This site is running WordPress "
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
-"Segurium richiede WordPress %1$s o versione successiva. Questo sito utilizza "
-"WordPress %2$s. Aggiornare WordPress, quindi riprovare l'attivazione di "
+"Segurium richiede WordPress %1$s o versione successiva. Questo sito utilizza"
+" WordPress %2$s. Aggiorna WordPress, quindi riprova l'attivazione di "
 "Segurium."
 
 #: segurium.php:589
@@ -4284,9 +4310,9 @@ msgid ""
 "the new identity."
 msgstr ""
 "Segurium ha rilevato che questo sito è stato spostato o clonato e sta "
-"ristabilendo la connessione sicura in background. Se si dispone di una "
-"licenza Pro, riattivarla nella schermata dell'account Segurium affinché le "
-"funzionalità Pro siano ripristinate sulla nuova identità."
+"ristabilendo la connessione sicura in background. Se hai una licenza Pro, "
+"riattivala nella schermata dell'account Segurium affinché le funzionalità "
+"Pro siano ripristinate sulla nuova identità."
 
 msgid ""
 "Segurium could not activate the Pro license on this site because it is "
@@ -4296,15 +4322,16 @@ msgid ""
 "license check."
 msgstr ""
 "Segurium non ha potuto attivare la licenza Pro su questo sito perché è "
-"attualmente associata a un'altra installazione. Aprire il portale account "
-"Segurium sull'installazione originale e disattivare in quella sede la "
-"licenza; l'associazione verrà rilasciata e le funzionalità Pro saranno "
-"riattivate qui al successivo controllo della licenza."
+"attualmente associata a un'altra installazione. Apri il portale account "
+"Segurium sull'installazione originale e disattiva in quella sede la licenza;"
+" l'associazione verrà rilasciata e le funzionalità Pro saranno riattivate "
+"qui al successivo controllo della licenza."
 
 msgid "Cleanup unavailable."
 msgstr "Pulizia non disponibile."
 
-#. translators: %d: number of seconds since the scan worker last reported progress
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
 #, php-format
 msgid "no progress for %ds — waiting for worker"
 msgstr "nessun progresso da %ds — in attesa del worker"
@@ -4316,12 +4343,12 @@ msgid "Full malware detection — same findings as Pro"
 msgstr "Rilevamento malware completo — stessi risultati della versione Pro"
 
 msgid "Auto-fix and Bulk Fix All"
-msgstr "Correzione automatica e Correggi tutto in blocco"
+msgstr "Correzione automatica e Correggi tutto di massa"
 
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
 msgstr ""
-"Irrobustimento: 2FA, brute-force, blocco geografico, firewall, intestazioni "
-"di sicurezza"
+"Irrobustimento: 2FA, brute-force, blocco geografico, firewall, header di "
+"sicurezza"
 
 msgid "File-integrity monitoring (core / plugins / themes)"
 msgstr "Monitoraggio dell'integrità dei file (core / plugin / temi)"
@@ -4336,9 +4363,10 @@ msgid "Everything in Free"
 msgstr "Tutto ciò che è incluso in Free"
 
 msgid "Email support, priority queue"
-msgstr "Assistenza via e-mail, coda prioritaria"
+msgstr "Supporto via email, coda prioritaria"
 
-msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
 msgstr ""
 "Tutte le funzionalità sono incluse in ogni installazione. Pro elimina il "
 "limite mensile di pulizia."
@@ -4363,7 +4391,9 @@ msgstr "Garanzia di rimborso entro 14 giorni."
 
 #. translators: 1: opening anchor tag, 2: closing anchor tag
 #, php-format
-msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
 msgstr ""
 "Pacchetti per 5 e 25 siti, oltre a preventivi per 100+, su "
 "%1$ssegurium.com/pricing/%2$s."
@@ -4416,8 +4446,12 @@ msgid "View failed"
 msgstr "Visualizzazione non riuscita"
 
 #: includes/class-segurium.php:905
-msgid "Cannot restore — no backup recorded for this file. The backup may have been rotated out."
-msgstr "Impossibile ripristinare — nessun backup registrato per questo file. Il backup potrebbe essere stato ruotato."
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Impossibile ripristinare — nessun backup registrato per questo file. Il "
+"backup potrebbe essere stato ruotato."
 
 #. translators: %s is the name of the missing form field.
 #: includes/segurium-ajax-envelope.php:109
@@ -4426,20 +4460,42 @@ msgid "Missing parameter: %s"
 msgstr "Parametro mancante: %s"
 
 #: includes/class-segurium.php:2196
-msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
-msgstr "Questa modalità invia valori preimpostati fissi. Passi a Personalizzata per sovrascrivere singole intestazioni."
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Questa modalità invia valori preimpostati fissi. Passa a Personalizzata per "
+"sovrascrivere singole intestazioni."
 
 #: includes/class-segurium.php:2235
-msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
-msgstr "Disattiva esplicitamente il vecchio filtro XSS di IE e del vecchio Edge, che presentava difetti XSS universali sfruttabili. I browser moderni ignorano questa intestazione; la vera difesa contro XSS è CSP."
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Disattiva esplicitamente il filtro XSS legacy di IE e del vecchio Edge, che "
+"presentava bug XSS universali sfruttabili. I browser moderni ignorano questo"
+" header; la vera difesa contro XSS è la CSP."
 
 #: includes/class-segurium.php:2236
-msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
-msgstr "Indica ai browser legacy di sanitizzare le riflessioni. Il filtro presenta falsi positivi che danneggiano silenziosamente pagine valide e sono noti aggiramenti UXSS. Non consigliato."
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Indica ai browser legacy di sanitizzare le riflessioni. Il filtro presenta "
+"falsi positivi che danneggiano silenziosamente pagine valide e sono noti "
+"aggiramenti UXSS. Non consigliato."
 
 #: includes/class-segurium.php:2237
-msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
-msgstr "Stesso filtro precedente, ma blocca completamente la pagina in caso di sospetta riflessione. Stessi difetti, più un canale laterale temporale che può divulgare dati cross-origin. Non consigliato."
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Stesso filtro precedente, ma blocca completamente la pagina in caso di "
+"sospetta riflessione. Stessi difetti, più un canale laterale temporale che "
+"può divulgare dati cross-origin. Non consigliato."
 
 #: includes/class-segurium-async-scan-poller.php:125
 msgid "Segurium async scan poll (1 min)"
@@ -4455,11 +4511,312 @@ msgstr "non riusciti"
 
 #: includes/class-segurium.php:880
 msgid "skipped"
-msgstr "ignorati"
+msgstr "saltati"
 
 #: includes/class-segurium.php:881
 msgid "scanned"
 msgstr "analizzati"
+
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium ha ricevuto una risposta vuota dal server. Il gestore PHP è "
+"probabilmente andato in crash prima di produrre alcun output — controllare "
+"il registro errori di PHP per un errore fatale, OOM o timeout."
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"I marcatori di risposta di Segurium mancano dal corpo. Il gestore AJAX di "
+"Segurium non è stato eseguito, oppure un altro plugin ha sostituito l'intera"
+" risposta. Controlla wp-content/mu-plugin, i plugin attivi e il registro "
+"errori di PHP."
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"La risposta di Segurium è stata interrotta a metà flusso — il indicatore di "
+"inizio è arrivato, ma quello di fine no. Il gestore PHP è andato in crash "
+"durante la risposta (errore fatale, OOM o timeout). Controlla il registro "
+"errori di PHP."
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium non è riuscito a estrarre la risposta del server. Controlla il "
+"registro errori di PHP per un errore fatale, OOM o timeout nel gestore di "
+"Segurium."
+
+#: includes/class-segurium-2fa.php:1281
+msgid "Forbidden"
+msgstr "Vietato"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Off (predefinito): i backup cifrati dei componenti eliminati e dei file "
+"ripuliti vengono conservati nella directory upload/segurium-data dopo la "
+"disinstallazione, in modo che una reinstallazione possa ancora "
+"ripristinarli. Attiva solo se vuoi un'eliminazione definitiva alla "
+"disinstallazione."
+
+#: includes/class-segurium.php:6868
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Il file di backup non è leggibile. Verifica le autorizzazioni del filesystem"
+" su upload/segurium-data."
+
+#: includes/class-segurium.php:351
+msgid "Unknown or unsupported action."
+msgstr "Azione sconosciuta o non supportata."
+
+#: includes/class-segurium.php:386
+msgid "This action is temporarily unavailable."
+msgstr "Questa azione è temporaneamente non disponibile."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "L'estensione PHP Phar è necessaria per i backup dei componenti."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Backup non riuscito: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "L'archivio di backup non è stato creato."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Ripristino non riuscito: %s"
+
+#. Description of the plugin
+msgid ""
+"Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
+"Firewall, 2FA, Geo-blocking, and more for free."
+msgstr ""
+"Ripristino dei file originali, antivirus, scansione malware, protezione "
+"contro attacchi di forza bruta, firewall, 2FA, geoblocco e altro ancora — "
+"gratuitamente."
+
+msgid "Scan trigger requires authentication."
+msgstr "Il trigger della scansione richiede l'autenticazione."
+
+msgid "Scan trigger secret did not match."
+msgstr "Il segreto del trigger della scansione non corrisponde."
+
+#. Plugin Name of the plugin
+msgid ""
+"Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr ""
+"Segurium – Rimozione e pulizia dei malware, firewall, autenticazione a due "
+"fattori"
+
+#. Description of the plugin
+msgid ""
+"Free malware cleanup, not just detection — scan, clean, and restore hacked "
+"sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Pulizia gratuita dei malware, non solo rilevamento — scansiona, pulisci e "
+"ripristina i siti compromessi. Inoltre firewall, protezione contro gli "
+"attacchi di forza bruta, 2FA e geoblocco."
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importazione da altri plugin (Wordfence, AIOS, Solid Security)"
+
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Risposta di fatturazione non valida da Segurium Cloud."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): nessuna risposta da verificare."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): header della firma mancanti."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): firmato con una chiave non attendibile \"%2$s\"."
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr ""
+"L'elenco di fiducia delle firme è danneggiato — decodifica della chiave "
+"pubblica non riuscita."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): header della firma malformato."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): timestamp della firma malformato."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): il timestamp della firma è fuori intervallo di %2$d "
+"secondi."
+
+#. translators: 1: endpoint label, 2: error message
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium ha rifiutato la firma (%2$s)."
+
+#. translators: %s: endpoint label
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): la firma non è stata verificata."
+
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"La modalità on-premise è abilitata: i contenuti dei file restano su questo "
+"server e qualsiasi file che il cloud non può identificare tramite hash resta"
+" non risolto. Attiva il rilevamento assistito dal cloud per la massima "
+"accuratezza."
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "È necessario il consenso a Segurium Cloud prima della scansione."
+
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"I campioni di file caricati per l'analisi vengono conservati fino a 365 "
+"giorni e poi rimossi da uno svuotamento notturno automatico. Un campione può"
+" essere rimosso prima una volta esaminato."
+
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Se abilitato, i contenuti dei file possono essere condivisi con Segurium "
+"Cloud per il rilevamento malware avanzato e la pulizia assistita dal cloud. "
+"Vengono trasmessi solo i file sospetti. Disattiva per la modalità On-"
+"premise: le scansioni inviano quindi solo hash SHA-256, percorsi dei file e "
+"metadati, e un file che il cloud non può identificare tramite hash resta non"
+" risolto. La segnalazione di un falso positivo o l'allegato di un file a un "
+"ticket di supporto invia comunque quel file, perché lo scegli tu."
+
+#. translators: brand name of the service, do not translate
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Risposta di pulizia non valida da Segurium Cloud."
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr ""
+"Segurium Cloud ha restituito un contenuto di pulizia che non è un base64 "
+"valido."
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "Nella risposta di pulizia manca il checksum del file ripulito."
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr ""
+"Il file ripulito non corrisponde al checksum indicato nella risposta di "
+"pulizia."
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Risposta non valida da Segurium Cloud."
+
+#. translators: %d: numeric error code returned by the service
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud ha restituito l'errore %d."
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Nella risposta di Segurium Cloud manca il contenuto del file."
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr ""
+"Segurium Cloud ha restituito un contenuto del file che non è un base64 "
+"valido."
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Nella risposta di Segurium Cloud manca il checksum del file."
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr ""
+"Il file scaricato non corrisponde al checksum indicato nella risposta."
+
+#: includes/class-segurium-review-prompt.php:345
+msgid "Leave a review"
+msgstr "Lascia una recensione"
+
+#: includes/class-segurium-review-prompt.php:349
+msgid "Don't ask again"
+msgstr "Non chiedermelo più"
+
+#: includes/class-segurium-review-prompt.php:365
+msgid "Segurium just cleaned your site."
+msgstr "Segurium ha appena pulito il tuo sito."
+
+#: includes/class-segurium-review-prompt.php:366
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Siamo felici di esserti stati d'aiuto. Se oggi Segurium ti ha fatto "
+"risparmiare tempo o denaro, una recensione sincera su WordPress.org aiuta "
+"altri proprietari di siti a trovarlo e ci aiuta a mantenere gratuita la "
+"fascia di pulizia."
+
+#: includes/class-segurium-review-prompt.php:371
+msgid "Scan complete. Your site is clean."
+msgstr "Scansione completata. Il tuo sito è pulito."
+
+#: includes/class-segurium-review-prompt.php:372
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Se Segurium sta facendo il suo lavoro, lasceresti una recensione sincera su "
+"WordPress.org? Ci vuole un minuto."
+
+#: includes/class-segurium-review-prompt.php:442
+msgid "Unknown review prompt action."
+msgstr "Azione del messaggio di recensione sconosciuta."
+
+#: includes/class-segurium.php:1224
+msgid "Could not save your choice. Please try again."
+msgstr "Impossibile salvare la tua scelta. Riprova."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium per WordPress."
@@ -4531,17 +4888,16 @@ msgstr "analizzati"
 #~ "illimitate."
 
 #~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
-#~ "one click."
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in one"
+#~ " click."
 #~ msgstr ""
-#~ "\"Correggi tutto\" è una funzionalità Pro. Aggiornare per pulire con un "
-#~ "solo clic tutti i malware rilevati."
+#~ "\"Correggi tutto\" è una funzionalità Pro. Aggiornare per pulire con un solo"
+#~ " clic tutti i malware rilevati."
 
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgid "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
 #~ msgstr ""
-#~ "\"Correggi tutto\" è una funzionalità Pro. Aggiornare per applicare con "
-#~ "un solo clic tutte le correzioni."
+#~ "\"Correggi tutto\" è una funzionalità Pro. Aggiornare per applicare con un "
+#~ "solo clic tutte le correzioni."
 
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
@@ -4549,209 +4905,15 @@ msgstr "analizzati"
 #~ "Quota di correzioni del piano gratuito superata. Passare a Pro per "
 #~ "correzioni illimitate."
 
-msgid ""
-"Segurium got an empty response from the server. The PHP handler likely "
-"crashed before producing any output — check the PHP error log for a fatal, "
-"OOM, or timeout."
-msgstr ""
-"Segurium ha ricevuto una risposta vuota dal server. Il gestore PHP è "
-"probabilmente andato in crash prima di produrre alcun output — controllare "
-"il registro errori di PHP per un errore fatale, OOM o timeout."
+msgid "Scan in progress..."
+msgstr "Scansione in corso..."
 
 msgid ""
-"Segurium's response markers are missing from the body. The Segurium AJAX "
-"handler did not run, or another plugin replaced the entire response. Check "
-"wp-content/mu-plugins, active plugins, and the PHP error log."
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
 msgstr ""
-"I marcatori di risposta di Segurium mancano dal corpo. Il gestore AJAX di "
-"Segurium non è stato eseguito, oppure un altro plugin ha sostituito "
-"l'intera risposta. Controllare wp-content/mu-plugins, i plugin attivi e il "
-"registro errori di PHP."
-
-msgid ""
-"Segurium's response was cut off mid-stream — the start marker arrived but "
-"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
-"or timeout). Check the PHP error log."
-msgstr ""
-"La risposta di Segurium è stata interrotta a metà flusso — il marcatore di "
-"inizio è arrivato, ma quello di fine no. Il gestore PHP è andato in crash "
-"durante la risposta (errore fatale, OOM o timeout). Controllare il "
-"registro errori di PHP."
-
-msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for "
-"a fatal, OOM, or timeout in the Segurium handler."
-msgstr ""
-"Segurium non è riuscito a estrarre la risposta del server. Controllare il "
-"registro errori di PHP per un errore fatale, OOM o timeout nel gestore di "
-"Segurium."
-
-#: includes/class-segurium-2fa.php:1281
-msgid "Forbidden"
-msgstr "Vietato"
-
-#: includes/class-segurium.php:2945
-msgid ""
-"Off (default): encrypted backups of deleted components and cured files are "
-"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
-"can still restore them. Turn on only if you want a hard deletion on "
-"uninstall."
-msgstr ""
-"Disattivato (predefinito): i backup cifrati dei componenti eliminati e dei "
-"file ripuliti vengono conservati nella directory uploads/segurium-data dopo "
-"la disinstallazione, in modo che una reinstallazione possa ancora "
-"ripristinarli. Attivare solo se si desidera un'eliminazione definitiva alla "
-"disinstallazione."
-
-#: includes/class-segurium.php:6868
-msgid ""
-"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
-"data."
-msgstr ""
-"Il file di backup non è leggibile. Controllare i permessi del file system "
-"su uploads/segurium-data."
-
-#: includes/class-segurium.php:351
-msgid "Unknown or unsupported action."
-msgstr "Azione sconosciuta o non supportata."
-
-#: includes/class-segurium.php:386
-msgid "This action is temporarily unavailable."
-msgstr "Questa azione è temporaneamente non disponibile."
-
-#: includes/class-segurium-component-backup.php:59
-#: includes/class-segurium-component-backup.php:168
-msgid "The PHP Phar extension is required for component backups."
-msgstr "L'estensione PHP Phar è necessaria per i backup dei componenti."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:80
-#, php-format
-msgid "Backup failed: %s"
-msgstr "Backup non riuscito: %s"
-
-#: includes/class-segurium-component-backup.php:92
-msgid "Backup archive was not created."
-msgstr "L'archivio di backup non è stato creato."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:209
-#, php-format
-msgid "Restore failed: %s"
-msgstr "Ripristino non riuscito: %s"
-
-#. Description of the plugin
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
-msgstr "Ripristino dei file originali, antivirus, scansione malware, protezione contro attacchi di forza bruta, firewall, 2FA, geoblocco e altro ancora — gratuitamente."
-
-msgid "Scan trigger requires authentication."
-msgstr "L'attivazione della scansione richiede l'autenticazione."
-
-msgid "Scan trigger secret did not match."
-msgstr "Il segreto dell'attivazione della scansione non corrisponde."
-
-#. Plugin Name of the plugin
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
-msgstr "Segurium – Rimozione e pulizia dei malware, firewall, autenticazione a due fattori"
-
-#. Description of the plugin
-msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Pulizia gratuita dei malware, non solo rilevamento — scansiona, pulisci e ripristina i siti compromessi. Inoltre firewall, protezione contro gli attacchi di forza bruta, 2FA e geoblocco."
-
-#: includes/class-segurium.php:2940
-msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "Importazione da altri plugin (Wordfence, AIOS, Solid Security)"
-
-msgid "Invalid billing response from Segurium Cloud."
-msgstr "Risposta di fatturazione non valida da Segurium Cloud."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): no response to verify."
-msgstr "Segurium Cloud (%s): nessuna risposta da verificare."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): missing signature headers."
-msgstr "Segurium Cloud (%s): header della firma mancanti."
-
-#. translators: 1: endpoint label, 2: key id from the signature header
-#, php-format
-msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
-msgstr "Segurium Cloud (%1$s): firmato con una chiave non attendibile \"%2$s\"."
-
-msgid "Signature trust list is corrupt — public key failed to decode."
-msgstr "L'elenco di fiducia delle firme è danneggiato — decodifica della chiave pubblica non riuscita."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature header malformed."
-msgstr "Segurium Cloud (%s): header della firma malformato."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature timestamp malformed."
-msgstr "Segurium Cloud (%s): timestamp della firma malformato."
-
-#. translators: 1: endpoint label, 2: skew in seconds
-#, php-format
-msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
-msgstr "Segurium Cloud (%1$s): il timestamp della firma è fuori intervallo di %2$d secondi."
-
-#. translators: 1: endpoint label, 2: error message
-#, php-format
-msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
-msgstr "Segurium Cloud (%1$s): libsodium ha rifiutato la firma (%2$s)."
-
-#. translators: %s: endpoint label
-#, php-format
-msgid "Segurium Cloud (%s): signature did not verify."
-msgstr "Segurium Cloud (%s): la firma non è stata verificata."
-
-msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
-msgstr "La modalità on-premise è attivata: i contenuti dei file restano su questo server e qualsiasi file che il cloud non può identificare tramite hash resta non risolto. Attivare il rilevamento assistito dal cloud per la massima accuratezza."
-
-msgid "Segurium Cloud consent is required before scanning."
-msgstr "È necessario il consenso a Segurium Cloud prima della scansione."
-
-msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
-msgstr "I campioni di file caricati per l'analisi vengono conservati fino a 365 giorni e poi rimossi da una pulizia notturna automatica. Un campione può essere rimosso prima una volta esaminato."
-
-msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "Se attivato, i contenuti dei file possono essere condivisi con Segurium Cloud per il rilevamento malware avanzato e la pulizia assistita dal cloud. Vengono trasmessi solo i file sospetti. Disattivare per la modalità On-premise: le scansioni inviano quindi solo hash SHA-256, percorsi dei file e metadati, e un file che il cloud non può identificare tramite hash resta non risolto. La segnalazione di un falso positivo o l'allegato di un file a un ticket di assistenza invia comunque quel file, poiché è l'utente stesso a selezionarlo."
-
-#. translators: brand name of the service, do not translate
-msgid "Segurium Cloud"
-msgstr "Segurium Cloud"
-
-msgid "Invalid cleanup response from Segurium Cloud."
-msgstr "Risposta di pulizia non valida da Segurium Cloud."
-
-msgid "Segurium Cloud returned cleanup content that is not valid base64."
-msgstr "Segurium Cloud ha restituito un contenuto di pulizia che non è un base64 valido."
-
-msgid "Cleanup response is missing the checksum of the cleaned file."
-msgstr "Nella risposta di pulizia manca il checksum del file ripulito."
-
-msgid "Cleaned file does not match the checksum in the cleanup response."
-msgstr "Il file ripulito non corrisponde al checksum indicato nella risposta di pulizia."
-
-msgid "Invalid response from Segurium Cloud."
-msgstr "Risposta non valida da Segurium Cloud."
-
-#. translators: %d: numeric error code returned by the service
-#, php-format
-msgid "Segurium Cloud returned error %d."
-msgstr "Segurium Cloud ha restituito l'errore %d."
-
-msgid "Segurium Cloud response is missing the file content."
-msgstr "Nella risposta di Segurium Cloud manca il contenuto del file."
-
-msgid "Segurium Cloud returned file content that is not valid base64."
-msgstr "Segurium Cloud ha restituito un contenuto del file che non è un base64 valido."
-
-msgid "Segurium Cloud response is missing the file checksum."
-msgstr "Nella risposta di Segurium Cloud manca il checksum del file."
-
-msgid "Downloaded file does not match the checksum in the response."
-msgstr "Il file scaricato non corrisponde al checksum indicato nella risposta."
+"La visualizzazione dell'avanzamento ha riscontrato un errore di script e non"
+" si aggiorna più. Ricarica la pagina per vedere lo stato attuale — la "
+"scansione in sé non è compromessa. I dettagli sono nella console del "
+"browser."

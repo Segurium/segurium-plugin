@@ -216,6 +216,16 @@ final class Segurium_Cleanup {
 			)
 		);
 
+		/**
+		 * SEGURIUM-709: fires once per successful cleanup, whatever the
+		 * actor. Emitted here so manual, fix-all and auto-fix paths all
+		 * reach listeners identically.
+		 *
+		 * @param string $path  Path relative to the WordPress root.
+		 * @param string $actor ACTOR_MANUAL | ACTOR_AUTO.
+		 */
+		do_action( 'segurium_cleanup_succeeded', (string) $path, $actor );
+
 		return array(
 			'ok'         => true,
 			'backup_id'  => (int) $backup_id,

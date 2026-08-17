@@ -178,6 +178,10 @@ class Segurium {
 		// completion handler so canonical scan_findings rows are persisted.
 		Segurium_Auto_Fix_Settings::register_hooks();
 		Segurium_Auto_Fix::register_hooks();
+		// SEGURIUM-709: review ask. Listens after auto-fix so a scan that
+		// auto-cleaned is judged on the cleanup, not on the scan that
+		// found the threats.
+		Segurium_Review_Prompt::register_hooks();
 		add_action( 'segurium_scan_completed', array( $this, 'on_scan_completed' ), 10, 1 );
 		add_action( 'segurium_integrity_scan_completed', array( $this, 'on_integrity_scan_completed' ), 10, 1 );
 	}
@@ -215,6 +219,7 @@ class Segurium {
 		$bf        = Segurium_Brute_Force::NONCE_ACTION;
 		$selfcheck = Segurium_Self_Check::NONCE_ACTION;
 		$twofa     = Segurium_2FA::NONCE_ACTION;
+		$review    = Segurium_Review_Prompt::NONCE_ACTION;
 
 		return array(
 			// Consent + core settings.
@@ -296,6 +301,9 @@ class Segurium {
 
 			// Support.
 			'segurium_submit_support_ticket'             => array( $support, $mo, array( $this, 'ajax_submit_support_ticket' ) ),
+
+			// SEGURIUM-709: review ask (leave / later / never).
+			Segurium_Review_Prompt::AJAX_ACTION          => array( $review, $mo, array( 'Segurium_Review_Prompt', 'ajax_review_prompt_action' ) ),
 
 			// Security headers + info shield.
 			'segurium_get_sh_settings'                   => array( $settings, $mo, array( $this, 'ajax_get_sh_settings' ) ),
@@ -912,6 +920,17 @@ class Segurium {
 			$this->asset_version( 'assets/js/segurium-iid-copy.js' ),
 			true
 		);
+		// SEGURIUM-709: only enqueued when the ask is actually painting
+		// this request, so the file costs nothing on every other load.
+		if ( Segurium_Review_Prompt::should_render() ) {
+			wp_enqueue_script(
+				'segurium-review-prompt',
+				SEGURIUM_PLUGIN_URL . 'assets/js/segurium-review-prompt.js',
+				array( 'segurium-ajax' ),
+				$this->asset_version( 'assets/js/segurium-review-prompt.js' ),
+				true
+			);
+		}
 		// SEGURIUM-413: feed the JS the most recent *terminal* scan so the
 		// summary line can render an honest "Scan stopped — X of Y" after a
 		// user cancellation or watchdog abort, not the stale previous
@@ -1029,10 +1048,9 @@ class Segurium {
 						'scanSummarySkipped'      => __( 'skipped', 'segurium' ),
 						'scanSummaryScanned'      => __( 'scanned', 'segurium' ),
 						'scanStarting'            => __( 'Starting scan...', 'segurium' ),
-						'scanStartFailed'         => __( 'Failed to start scan.', 'segurium' ),
 						'scanError'               => __( 'Error', 'segurium' ),
 						'scanAlreadyRunning'      => __( 'A scan is already in progress.', 'segurium' ),
-						'connectionLost'          => __( 'Connection lost. Retrying...', 'segurium' ),
+						'scanRunning'             => __( 'Scan in progress...', 'segurium' ),
 						'errGeneric'              => __( 'Request failed', 'segurium' ),
 						'errSessionExpired'       => __( 'Your session has expired. Reload the page and try again.', 'segurium' ),
 						'errUnauthorized'         => __( 'You do not have permission to manage scans.', 'segurium' ),
@@ -1044,6 +1062,7 @@ class Segurium {
 						'errScanStopException'    => __( 'Could not stop the running scan due to a server error. Check the PHP error log.', 'segurium' ),
 						'errServerError'          => __( 'The server returned an error while processing the request.', 'segurium' ),
 						'errNetworkError'         => __( 'Network error — the request could not reach the server.', 'segurium' ),
+						'errPollHandler'          => __( 'The progress display hit a script error and stopped updating. Reload the page to see the current state — the scan itself is unaffected. Details are in the browser console.', 'segurium' ),
 						'errUnexpectedResponse'   => __( 'The server returned an unexpected response. Reload the page and try again.', 'segurium' ),
 						'errEnvelopeEmpty'        => __( 'Segurium got an empty response from the server. The PHP handler likely crashed before producing any output — check the PHP error log for a fatal, OOM, or timeout.', 'segurium' ),
 						'errEnvelopeAbsent'       => __( 'Segurium\'s response markers are missing from the body. The Segurium AJAX handler did not run, or another plugin replaced the entire response. Check wp-content/mu-plugins, active plugins, and the PHP error log.', 'segurium' ),
@@ -1169,7 +1188,6 @@ class Segurium {
 						'issues'                  => __( 'issues', 'segurium' ),
 						'checking'                => __( 'Checking', 'segurium' ),
 						'discoveringComponents'   => __( 'Discovering components…', 'segurium' ),
-						'startingScan'            => __( 'Starting scan...', 'segurium' ),
 						'geoConfirmed'            => __( 'Saved permanently.', 'segurium' ),
 						'geoReverted'             => __( 'Changes reverted.', 'segurium' ),
 						'geoBlockedCountries'     => __( 'Blocked Countries', 'segurium' ),
@@ -1202,6 +1220,7 @@ class Segurium {
 						'suppFnTooLarge'          => __( 'Selected file exceeds the 100 MB limit.', 'segurium' ),
 						'suppInvalidEmail'        => __( 'Please enter a valid reply-to email.', 'segurium' ),
 						'suppMissingName'         => __( 'Please enter your name.', 'segurium' ),
+						'reviewPromptError'       => __( 'Could not save your choice. Please try again.', 'segurium' ),
 						'bfTitle'                 => __( 'Brute-Force Protection', 'segurium' ),
 						'bfEnable'                => __( 'Enable brute-force protection', 'segurium' ),
 						'bfMaxAttempts'           => __( 'Max failed attempts', 'segurium' ),

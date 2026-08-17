@@ -1,11 +1,13 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
 "PO-Revision-Date: 2026-08-09 03:35+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,8 +16,10 @@ msgstr ""
 "X-Domain: segurium\n"
 
 #: includes/class-segurium-scan-runner.php:369
-msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
-msgstr "Segurium 클라우드 서비스 활성화가 아직 대기 중입니다. 잠시 후 다시 시도해 주십시오."
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr "Segurium 클라우드 서비스 활성화가 아직 대기 중입니다. 잠시 후 다시 시도해 주세요."
 
 #. Plugin Name of the plugin
 #. Author of the plugin
@@ -39,32 +43,34 @@ msgid ""
 "Lean, AI-powered WordPress security: malware scanning, brute-force "
 "protection, 2FA, geo-blocking, integrity checks — without the bloat."
 msgstr ""
-"가볍고 AI 기반의 WordPress 보안: 멀웨어 검사, 무차별 대입 공격 차단, 2FA, 지"
-"역 차단, 무결성 검사 — 불필요한 기능 없이 핵심만."
+"가볍고 AI 기반의 워드프레스 보안: 멀웨어 검사, 무차별 대입 공격 차단, 2FA, 지역 차단, 무결성 검사 — 불필요한 기능 없이 "
+"핵심만"
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "사이트가 해킹당하셨나요? 무료 WordPress 멀웨어 제거: 검사, 감염된 파일 정리, 복원. 방화벽, 무차별 대입 공격 차단, 2FA, 지역 차단까지."
+msgid ""
+"Site hacked? Free WordPress malware removal: scan, clean infected files, "
+"restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"사이트가 해킹당했나요? 무료 워드프레스 멀웨어 제거: 검사, 감염된 파일 정리, 복원 — 방화벽, 무차별 대입 공격 차단, 2FA, 지역"
+" 차단까지"
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
 "login."
-msgstr ""
-"이중 인증이 필요합니다. 로그인을 완료하려면 JavaScript를 활성화하십시오."
+msgstr "이중 인증이 필요합니다. 로그인을 완료하려면 JavaScript를 활성화하세요."
 
 #: includes/class-segurium-2fa.php:609
 msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
-msgstr ""
-"사용자 역할에 대해 이중 인증 설정이 필요합니다. 관리자에게 문의하십시오."
+msgstr "사용자 역할에 대해 이중 인증 설정이 필요합니다. 관리자에게 문의하세요."
 
 #: includes/class-segurium-2fa.php:650
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
-msgstr "이중 인증이 필요합니다. 비밀번호 뒤에 2FA 코드를 붙여 입력하십시오."
+msgstr "이중 인증이 필요합니다. 비밀번호 뒤에 2FA 코드를 붙여 입력하세요."
 
 #: includes/class-segurium-2fa.php:993
 msgid "Verifying..."
@@ -76,11 +82,11 @@ msgstr "로그인 중..."
 
 #: includes/class-segurium-2fa.php:995
 msgid "Enter the code from your authenticator app:"
-msgstr "인증 앱의 코드를 입력하십시오:"
+msgstr "인증 앱의 코드를 입력하세요"
 
 #: includes/class-segurium-2fa.php:996
 msgid "Enter the code sent to your email:"
-msgstr "이메일로 전송된 코드를 입력하십시오:"
+msgstr "이메일로 전송된 코드를 입력하세요"
 
 #: includes/class-segurium-2fa.php:997
 msgid "Verify"
@@ -96,7 +102,7 @@ msgstr "새 코드가 이메일로 전송되었습니다."
 
 #: includes/class-segurium-2fa.php:1000
 msgid "Lost your device? Enter a backup code instead."
-msgstr "기기를 분실하셨습니까? 대신 백업 코드를 입력하십시오."
+msgstr "기기를 분실하셨습니까? 대신 백업 코드를 입력하세요."
 
 #. translators: %d: number of days
 #: includes/class-segurium-2fa.php:1002
@@ -107,7 +113,7 @@ msgstr "이 기기를 %d일 동안 신뢰"
 #: includes/class-segurium-2fa.php:1003 includes/class-segurium-2fa.php:1504
 #: includes/class-segurium-2fa.php:1573 includes/class-segurium-2fa.php:1631
 msgid "Too many failed attempts. Please try again later."
-msgstr "실패 시도가 너무 많습니다. 잠시 후 다시 시도하십시오."
+msgstr "실패 시도가 너무 많습니다. 잠시 후 다시 시도하세요."
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
@@ -167,15 +173,15 @@ msgstr "2FA 비활성화"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Scan this QR code with your authenticator app:"
-msgstr "인증 앱으로 이 QR 코드를 스캔하십시오:"
+msgstr "인증 앱으로 이 QR 코드를 스캔하세요"
 
 #: includes/class-segurium-2fa.php:1082
 msgid "Or enter this key manually:"
-msgstr "또는 이 키를 직접 입력하십시오:"
+msgstr "또는 이 키를 직접 입력하세요"
 
 #: includes/class-segurium-2fa.php:1083
 msgid "Enter the 6-digit code from your app to confirm:"
-msgstr "확인을 위해 앱의 6자리 코드를 입력하십시오:"
+msgstr "확인을 위해 앱의 6자리 코드를 입력하세요"
 
 #: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:1606
 #: includes/class-segurium.php:1694
@@ -190,7 +196,7 @@ msgstr "취소"
 
 #: includes/class-segurium-2fa.php:1086
 msgid "Save these backup codes in a safe place. They will not be shown again."
-msgstr "이 백업 코드를 안전한 곳에 보관하십시오. 다시 표시되지 않습니다."
+msgstr "이 백업 코드를 안전한 곳에 보관하세요. 다시 표시되지 않습니다."
 
 #: includes/class-segurium-2fa.php:1087
 msgid "2FA has been set up successfully."
@@ -206,7 +212,7 @@ msgstr "새 백업 코드가 생성되었습니다."
 
 #: includes/class-segurium-2fa.php:1090
 msgid "Enter your current 2FA code to confirm:"
-msgstr "확인을 위해 현재 2FA 코드를 입력하십시오:"
+msgstr "확인을 위해 현재 2FA 코드를 입력하세요"
 
 #: includes/class-segurium-2fa.php:1091
 msgid "A verification code has been sent to your email."
@@ -232,7 +238,7 @@ msgstr "지금 설정"
 msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
-msgstr "사용자 역할에 대해 이중 인증이 필요합니다. 즉시 설정하십시오."
+msgstr "사용자 역할에 대해 이중 인증이 필요합니다. 즉시 설정하세요."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1173
@@ -254,7 +260,7 @@ msgstr ""
 "\n"
 "이 코드는 %2$d분 후에 만료됩니다.\n"
 "\n"
-"요청하지 않았다면 이 이메일을 무시하십시오."
+"요청하지 않았다면 이 이메일을 무시하세요."
 
 #: includes/class-segurium-2fa.php:1222
 msgid "Not authenticated."
@@ -262,11 +268,11 @@ msgstr "인증되지 않았습니다."
 
 #: includes/class-segurium-2fa.php:1265
 msgid "Setup session expired. Please start again."
-msgstr "설정 세션이 만료되었습니다. 다시 시작하십시오."
+msgstr "설정 세션이 만료되었습니다. 다시 시작하세요."
 
 #: includes/class-segurium-2fa.php:1269 includes/class-segurium-2fa.php:1322
 msgid "Invalid code. Please try again."
-msgstr "잘못된 코드입니다. 다시 시도하십시오."
+msgstr "잘못된 코드입니다. 다시 시도하세요."
 
 #: includes/class-segurium-2fa.php:1275
 msgid "Encryption error."
@@ -286,11 +292,11 @@ msgstr "잘못된 인증 코드입니다."
 
 #: includes/class-segurium-2fa.php:1447
 msgid "Please enter your username and password."
-msgstr "사용자 이름과 비밀번호를 입력하십시오."
+msgstr "사용자 이름과 비밀번호를 입력하세요."
 
 #: includes/class-segurium-2fa.php:1553
 msgid "Session expired. Please log in again."
-msgstr "세션이 만료되었습니다. 다시 로그인하십시오."
+msgstr "세션이 만료되었습니다. 다시 로그인하세요."
 
 #: includes/class-segurium-2fa.php:1559 includes/class-segurium-2fa.php:1666
 msgid "Invalid session."
@@ -298,7 +304,7 @@ msgstr "잘못된 세션입니다."
 
 #: includes/class-segurium-2fa.php:1640
 msgid "Invalid verification code. Please try again."
-msgstr "잘못된 인증 코드입니다. 다시 시도하십시오."
+msgstr "잘못된 인증 코드입니다. 다시 시도하세요."
 
 #: includes/class-segurium-2fa.php:1661
 msgid "Session expired."
@@ -365,9 +371,10 @@ msgstr "무료 계정"
 
 #: includes/class-segurium-account-page.php:453
 #: includes/class-segurium-account-page.php:482
-#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
-#: includes/class-segurium.php:928 includes/class-segurium.php:940
-#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+#: includes/class-segurium-account-page.php:553
+#: includes/class-segurium.php:927 includes/class-segurium.php:928
+#: includes/class-segurium.php:940 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
 msgstr "Pro로 업그레이드"
 
@@ -376,8 +383,7 @@ msgid ""
 "Segurium runs without sharing any account information. The Pro service tier "
 "raises the cloud cleanup quota and adds email support."
 msgstr ""
-"Segurium은 계정 정보를 공유하지 않고 실행됩니다. Pro 서비스 등급은 클라우드 "
-"정리 할당량을 늘리고 이메일 지원을 추가합니다."
+"Segurium은 계정 정보를 공유하지 않고 실행됩니다. Pro 서비스 등급은 클라우드 정리 할당량을 늘리고 이메일 지원을 추가합니다."
 
 #: includes/class-segurium-account-page.php:490
 msgid "Connect account"
@@ -392,8 +398,7 @@ msgstr "이 작업을 수행할 권한이 없습니다."
 msgid ""
 "Account information is temporarily unavailable. Please reload the page in a "
 "moment."
-msgstr ""
-"계정 정보를 일시적으로 사용할 수 없습니다. 잠시 후 페이지를 새로고침하십시오."
+msgstr "계정 정보를 일시적으로 사용할 수 없습니다. 잠시 후 페이지를 새로고침하세요."
 
 #: includes/class-segurium-brute-force.php:476
 msgid "Login blocked."
@@ -401,18 +406,18 @@ msgstr "로그인이 차단되었습니다."
 
 #: includes/class-segurium-brute-force.php:489
 msgid "Please complete the CAPTCHA challenge."
-msgstr "CAPTCHA 인증을 완료하십시오."
+msgstr "CAPTCHA 인증을 완료하세요."
 
 #: includes/class-segurium-brute-force.php:1219
 msgid "Leave this field empty"
-msgstr "이 필드를 비워 두십시오"
+msgstr "이 필드를 비워 두세요"
 
 #. translators: %s: human-readable time remaining
 #: includes/class-segurium-brute-force.php:1369
 #: includes/class-segurium-brute-force.php:1392
 #, php-format
 msgid "Too many failed login attempts. Try again in %s."
-msgstr "실패한 로그인 시도가 너무 많습니다. %s 후에 다시 시도하십시오."
+msgstr "실패한 로그인 시도가 너무 많습니다. %s 후에 다시 시도하세요."
 
 #: includes/class-segurium-brute-force.php:1373
 msgid "Login Locked"
@@ -428,7 +433,7 @@ msgstr "파일을 찾을 수 없습니다."
 
 #: includes/class-segurium-cleanup.php:93 includes/class-segurium.php:6209
 msgid "File has been modified since scan. Re-scan first."
-msgstr "검사 이후 파일이 수정되었습니다. 다시 검사하십시오."
+msgstr "검사 이후 파일이 수정되었습니다. 다시 검사하세요."
 
 #: includes/class-segurium-cleanup.php:99
 msgid "Failed to read file for backup."
@@ -468,8 +473,8 @@ msgid ""
 "Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
 "Delete skipped so your site does not lose uncovered data."
 msgstr ""
-"구성 요소가 %1$.1f MB로 %2$d MB의 암호화 백업 한도를 초과합니다. 백업되지 않"
-"은 데이터의 손실을 방지하기 위해 삭제를 건너뛰었습니다."
+"구성 요소가 %1$.1f MB로 %2$d MB의 암호화 백업 한도를 초과합니다. 사이트가 백업되지 않은 데이터를 잃지 않도록 삭제를 "
+"건너뛰었습니다."
 
 #: includes/class-segurium-component-backup.php:106
 msgid "Failed to read packed component archive."
@@ -511,13 +516,11 @@ msgstr "이 호스트에서 보안 난수를 사용할 수 없습니다."
 #: includes/class-segurium-cti-client.php:62
 msgid ""
 "Installation ID unavailable. Please ensure the plugin is properly activated."
-msgstr ""
-"설치 ID를 사용할 수 없습니다. 플러그인이 올바르게 활성화되었는지 확인하십시"
-"오."
+msgstr "설치 ID를 사용할 수 없습니다. 플러그인이 올바르게 활성화되었는지 확인하세요."
 
 #: includes/class-segurium-cti-client.php:228
 msgid "Too many requests. Please try again later."
-msgstr "요청이 너무 많습니다. 잠시 후 다시 시도하십시오."
+msgstr "요청이 너무 많습니다. 잠시 후 다시 시도하세요."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:234
@@ -527,7 +530,7 @@ msgstr "지원 서비스 오류(HTTP %d)."
 
 #: includes/class-segurium-cti-client.php:575
 msgid "Clean version not available for this file"
-msgstr "이 파일의 클린 버전을 사용할 수 없습니다"
+msgstr "이 파일의 정상 버전을 사용할 수 없습니다"
 
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
@@ -554,40 +557,36 @@ msgid ""
 "On Nginx, the Server header must be removed at the server level "
 "(server_tokens off;). This toggle has no effect."
 msgstr ""
-"Nginx에서는 Server 헤더를 서버 레벨에서 제거해야 합니다(server_tokens off;). "
-"이 토글은 효과가 없습니다."
+"Nginx에서는 Server 헤더를 서버 레벨에서 제거해야 합니다(server_tokens off;). 이 토글은 효과가 없습니다."
 
 #: includes/class-segurium-info-shield.php:334
 msgid ""
 "On Apache with FastCGI, the Server header is added after PHP runs. Use "
 "ServerTokens Prod in Apache config."
 msgstr ""
-"FastCGI를 사용하는 Apache에서는 PHP 실행 이후에 Server 헤더가 추가됩니다. "
-"Apache 설정에서 ServerTokens Prod를 사용하십시오."
+"FastCGI를 사용하는 Apache에서는 PHP 실행 이후에 Server 헤더가 추가됩니다. Apache 설정에서 "
+"ServerTokens Prod를 사용하세요."
 
 #: includes/class-segurium-info-shield.php:338
 msgid ""
 "On IIS, use the removeServerHeader attribute in web.config. This toggle has "
 "limited effect."
-msgstr ""
-"IIS에서는 web.config의 removeServerHeader 속성을 사용하십시오. 이 토글의 효과"
-"는 제한적입니다."
+msgstr "IIS에서는 web.config의 removeServerHeader 속성을 사용하세요. 이 토글의 효과는 제한적입니다."
 
 #: includes/class-segurium-info-shield.php:352
 msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
 msgstr ""
-"서버에서 FastCGI를 사용하고 있어 X-Powered-By 헤더가 다시 추가될 수 있습니"
-"다. 응답 헤더를 확인하여 제거 여부를 검증하십시오."
+"서버에서 FastCGI를 사용하고 있어 X-Powered-By 헤더가 다시 추가될 수 있습니다. 응답 헤더를 확인하여 제거 여부를 "
+"검증하세요."
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
 "Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
 "Jetpack connection."
 msgstr ""
-"Jetpack이 활성화되어 있으며 XML-RPC를 필요로 합니다. XML-RPC를 비활성화하면 "
-"Jetpack 연결이 끊깁니다."
+"Jetpack이 활성화되어 있으며 XML-RPC를 필요로 합니다. XML-RPC를 비활성화하면 Jetpack 연결이 끊깁니다."
 
 #: includes/class-segurium-integrity-chain.php:149
 #: includes/class-segurium.php:926 includes/class-segurium.php:4236
@@ -597,14 +596,13 @@ msgstr "먼저 빠른 멀웨어 검사를 실행 중…"
 #: includes/class-segurium-integrity-chain.php:200
 msgid ""
 "The chained malware scan was cancelled — integrity scan was not started."
-msgstr ""
-"연결된 멀웨어 검사가 취소되었습니다 — 무결성 검사가 시작되지 않았습니다."
+msgstr "연결된 멀웨어 검사가 취소되었습니다 — 무결성 검사가 시작되지 않았습니다."
 
 #. translators: %s: underlying error message
 #: includes/class-segurium-integrity-chain.php:223
 #, php-format
 msgid "Could not start the chained integrity scan: %s"
-msgstr "연결된 무결성 검사를 시작할 수 없습니다: %s"
+msgstr "연결된 무결성 검사 시작 실패: %s"
 
 #. translators: %d: interval in seconds.
 #: includes/class-segurium-realtime-scan.php:129
@@ -621,9 +619,7 @@ msgstr "검사 유형이 필요합니다."
 msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
-msgstr ""
-"검사 저장소가 준비되지 않았습니다. Segurium 플러그인을 비활성화한 뒤 다시 활"
-"성화하고 재시도하십시오."
+msgstr "검사 저장소가 준비되지 않았습니다. Segurium 플러그인을 비활성화한 뒤 다시 활성화하고 재시도하세요."
 
 #: includes/class-segurium-scan-runner.php:215
 #: includes/class-segurium-scan-runner.php:227 includes/class-segurium.php:835
@@ -634,15 +630,13 @@ msgstr "이미 검사가 진행 중입니다."
 msgid ""
 "Scan storage was not ready. It has been repaired automatically — please "
 "click \"Start scan\" again."
-msgstr ""
-"검사 저장소가 준비되지 않았습니다. 자동으로 복구되었습니다 — \"검사 시작\"을 "
-"다시 클릭하십시오."
+msgstr "검사 저장소가 준비되지 않았습니다. 자동으로 복구되었습니다 — \"검사 시작\"을 다시 클릭하세요."
 
 #. translators: %s: underlying exception message
 #: includes/class-segurium-scan-runner.php:257
 #, php-format
 msgid "Failed to initialize scan: %s"
-msgstr "검사를 초기화하지 못했습니다: %s"
+msgstr "검사 초기화 실패: %s"
 
 #. translators: %s: underlying exception message
 #: includes/class-segurium-scan-runner.php:296
@@ -653,14 +647,15 @@ msgstr "검사 시작 중 예기치 않은 오류: %s"
 #: includes/class-segurium-scan-runner.php:528 includes/class-segurium.php:838
 #: includes/class-segurium.php:3189 includes/class-segurium.php:4288
 msgid "Your session has expired. Reload the page and try again."
-msgstr "세션이 만료되었습니다. 페이지를 새로고침하고 다시 시도하십시오."
+msgstr "세션이 만료되었습니다. 페이지를 새로고침하고 다시 시도하세요."
 
 #: includes/class-segurium-scan-runner.php:538 includes/class-segurium.php:839
 #: includes/class-segurium.php:3199
 msgid "You do not have permission to manage scans."
 msgstr "검사를 관리할 권한이 없습니다."
 
-#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+#: includes/class-segurium-scan-runner.php:570
+#: includes/class-segurium.php:3998
 msgid "Could not fetch scan status due to a server error."
 msgstr "서버 오류로 검사 상태를 가져올 수 없습니다."
 
@@ -671,22 +666,20 @@ msgid ""
 "PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
 "host to raise it to at least 30s."
 msgstr ""
-"PHP max_execution_time이 %d초로 안정적인 검사를 수행하기에 너무 짧습니다. 호"
-"스트에 최소 30초로 늘려달라고 요청하십시오."
+"PHP max_execution_time이 %d초로 안정적인 검사를 수행하기에 너무 짧습니다. 호스트에 최소 30초로 늘려달라고 "
+"요청하세요."
 
 #: includes/class-segurium-scan-runner.php:1105
 msgid ""
 "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
-"to detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
-"WordPress cron이 비활성화되어 있고(DISABLE_WP_CRON), PHP 설정상 긴 작업을 페"
-"이지 요청에서 분리할 방법이 없습니다. 백그라운드 검사는 Segurium 관리자 탭이 "
-"열려 있는 동안에만 진행됩니다. 호스트에 매분 wp-cron.php를 호출하는 실제 시스"
-"템 cron을 설정하거나, mod_php에서 PHP-FPM / LiteSpeed로 전환하도록 요청하십시"
-"오."
+"워드프레스 cron이 비활성화되어 있고(DISABLE_WP_CRON), PHP 설정상 긴 작업을 페이지 요청에서 분리할 방법이 없습니다."
+" 백그라운드 검사는 Segurium 관리자 탭이 열려 있는 동안에만 진행됩니다. 호스트에 매분 wp-cron.php를 호출하는 실제 "
+"시스템 cron을 설정하거나, mod_php에서 PHP-FPM / LiteSpeed로 전환하도록 요청하세요."
 
 #: includes/class-segurium-scan-runner.php:1107
 msgid ""
@@ -694,9 +687,8 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute. Ask your host to set "
 "one up."
 msgstr ""
-"WordPress cron이 비활성화되어 있습니다(DISABLE_WP_CRON). 예약된 검사는 매분 "
-"wp-cron.php를 호출하는 실제 시스템 cron에 의존합니다. 호스트에 설정을 요청하"
-"십시오."
+"워드프레스 cron이 비활성화되어 있습니다(DISABLE_WP_CRON). 예약된 검사는 매분 wp-cron.php를 호출하는 실제 "
+"시스템 cron에 의존합니다. 호스트에 설정을 요청하세요."
 
 #: includes/class-segurium-scheduled-scan-settings.php:108
 msgid "Invalid settings payload."
@@ -704,7 +696,7 @@ msgstr "잘못된 설정 페이로드입니다."
 
 #: includes/class-segurium-scheduled-scan-settings.php:127
 msgid "Frequency must be one of: off, daily, weekly."
-msgstr "빈도는 off, daily, weekly 중 하나여야 합니다."
+msgstr "빈도는 끔, 매일, 매주 중 하나여야 합니다."
 
 #: includes/class-segurium-scheduled-scan-settings.php:138
 msgid "Hour must be between 0 and 23."
@@ -728,13 +720,11 @@ msgstr "CSP가 적용되어 있습니다."
 
 #: includes/class-segurium-self-check.php:269
 msgid "CSP is report-only. Switch to enforce for full protection."
-msgstr ""
-"CSP가 보고 전용 모드입니다. 완전한 보호를 위해 적용 모드로 전환하십시오."
+msgstr "CSP가 보고 전용 모드입니다. 완전한 보호를 위해 적용 모드로 전환하세요."
 
 #: includes/class-segurium-self-check.php:270
 msgid "No Content-Security-Policy header. Protects against XSS and injection."
-msgstr ""
-"Content-Security-Policy 헤더가 없습니다. XSS 및 주입 공격을 방어합니다."
+msgstr "Content-Security-Policy 헤더가 없습니다. XSS 및 주입 공격을 방어합니다."
 
 #: includes/class-segurium-self-check.php:285
 msgid "Strict-Transport-Security"
@@ -774,8 +764,7 @@ msgstr "X-Frame-Options를 통한 클릭재킹 방어가 적용되어 있습니�
 
 #: includes/class-segurium-self-check.php:323
 msgid "Missing X-Frame-Options. Site may be framed by attackers."
-msgstr ""
-"X-Frame-Options가 없습니다. 공격자가 사이트를 프레임에 포함할 수 있습니다."
+msgstr "X-Frame-Options가 없습니다. 공격자가 사이트를 프레임에 포함할 수 있습니다."
 
 #: includes/class-segurium-self-check.php:335 includes/class-segurium.php:2113
 msgid "Referrer-Policy"
@@ -787,8 +776,7 @@ msgstr "Referrer-Policy가 탐색 시 정보 유출을 제한합니다."
 
 #: includes/class-segurium-self-check.php:339
 msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
-msgstr ""
-"Referrer-Policy가 없거나 안전하지 않습니다. 전체 URL이 유출될 수 있습니다."
+msgstr "Referrer-Policy가 없거나 안전하지 않습니다. 전체 URL이 유출될 수 있습니다."
 
 #: includes/class-segurium-self-check.php:350 includes/class-segurium.php:2198
 msgid "Permissions-Policy"
@@ -814,9 +802,7 @@ msgstr "구형 XSS 필터 지시문이 존재합니다."
 msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
-msgstr ""
-"X-XSS-Protection이 없습니다. 구형 브라우저 XSS 필터를 안전하게 비활성화하려"
-"면 0으로 설정하십시오."
+msgstr "X-XSS-Protection이 없습니다. 구형 브라우저 XSS 필터를 안전하게 비활성화하려면 0으로 설정하세요."
 
 #: includes/class-segurium-self-check.php:395
 msgid "X-Powered-By hidden"
@@ -834,15 +820,15 @@ msgstr "X-Powered-By 헤더가 노출되지 않습니다."
 
 #: includes/class-segurium-self-check.php:414
 msgid "WordPress version hidden"
-msgstr "WordPress 버전 숨김"
+msgstr "워드프레스 버전 숨김"
 
 #: includes/class-segurium-self-check.php:417
 msgid "WordPress version exposed in HTML source."
-msgstr "WordPress 버전이 HTML 소스에 노출됩니다."
+msgstr "워드프레스 버전이 HTML 소스에 노출됩니다."
 
 #: includes/class-segurium-self-check.php:418
 msgid "WordPress version not visible in HTML."
-msgstr "WordPress 버전이 HTML에 표시되지 않습니다."
+msgstr "워드프레스 버전이 HTML에 표시되지 않습니다."
 
 #: includes/class-segurium-self-check.php:429
 msgid "Asset version query hidden"
@@ -868,20 +854,19 @@ msgstr "XML-RPC 엔드포인트가 비활성화되어 있습니다."
 msgid ""
 "XML-RPC is reachable. A frequent brute-force and pingback-amplification "
 "target."
-msgstr ""
-"XML-RPC에 접근 가능합니다. 무차별 대입 및 핑백 증폭 공격의 빈번한 표적입니다."
+msgstr "XML-RPC에 접근 가능합니다. 무차별 대입 및 핑백 증폭 공격의 빈번한 표적입니다."
 
 #: includes/class-segurium-self-check.php:475
 msgid "REST API discovery disabled"
-msgstr "REST API 검색 비활성화됨"
+msgstr "REST API 디스커버리 비활성화됨"
 
 #: includes/class-segurium-self-check.php:478
 msgid "REST API discovery link removed from <head>."
-msgstr "<head>에서 REST API 검색 링크가 제거되었습니다."
+msgstr "<head>에서 REST API 디스커버리 링크가 제거되었습니다."
 
 #: includes/class-segurium-self-check.php:479
 msgid "REST API discovery link exposed — simplifies reconnaissance."
-msgstr "REST API 검색 링크가 노출되어 있어 정찰이 쉬워집니다."
+msgstr "REST API 디스커버리 링크가 노출되어 있어 정찰이 쉬워집니다."
 
 #: includes/class-segurium-self-check.php:490
 msgid "Brute-force protection"
@@ -935,9 +920,7 @@ msgstr "사이트가 HTTPS로 제공되지 않습니다. 트래픽이 암호화�
 msgid ""
 "No Set-Cookie headers on the homepage; cannot assess cookie flags from "
 "outside."
-msgstr ""
-"홈페이지에 Set-Cookie 헤더가 없습니다. 외부에서 쿠키 플래그를 평가할 수 없습"
-"니다."
+msgstr "홈페이지에 Set-Cookie 헤더가 없습니다. 외부에서 쿠키 플래그를 평가할 수 없습니다."
 
 #: includes/class-segurium-self-check.php:591
 #: includes/class-segurium-self-check.php:624
@@ -962,7 +945,8 @@ msgstr "쿠키 — SameSite"
 msgid "All %1$d cookies set the %2$s attribute."
 msgstr "모든 쿠키 %1$d개가 %2$s 속성을 설정합니다."
 
-#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
 #: includes/class-segurium-self-check.php:671
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
@@ -1030,9 +1014,7 @@ msgstr "검사할 때마다 탐지된 멀웨어가 자동으로 정리됩니다.
 msgid ""
 "Automatic cleanup is disabled. Detected malware requires a manual click to "
 "clean."
-msgstr ""
-"자동 정리가 비활성화되어 있습니다. 탐지된 멀웨어를 정리하려면 수동 클릭이 필"
-"요합니다."
+msgstr "자동 정리가 비활성화되어 있습니다. 탐지된 멀웨어를 정리하려면 수동 클릭이 필요합니다."
 
 #: includes/class-segurium-self-check.php:865
 msgid "Malware scan up to date"
@@ -1059,17 +1041,13 @@ msgstr "최근 24시간 동안 멀웨어 없음"
 #: includes/class-segurium-self-check.php:890
 msgid ""
 "The most recent malware scan ran in the last 24 hours and found nothing."
-msgstr ""
-"가장 최근 멀웨어 검사가 24시간 이내에 실행되었으며 아무것도 발견되지 않았습니"
-"다."
+msgstr "가장 최근 멀웨어 검사가 24시간 이내에 실행되었으며 아무것도 발견되지 않았습니다."
 
 #: includes/class-segurium-self-check.php:892
 msgid ""
 "No malware scan has run in the last 24 hours. Scans are quick — run one to "
 "refresh this verdict."
-msgstr ""
-"최근 24시간 동안 멀웨어 검사가 실행되지 않았습니다. 검사는 빠르게 끝납니다 — "
-"한 번 실행하여 결과를 갱신하십시오."
+msgstr "최근 24시간 동안 멀웨어 검사가 실행되지 않았습니다. 검사는 빠르게 끝납니다 — 한 번 실행하여 결과를 갱신하세요."
 
 #. translators: %d: number of threats
 #: includes/class-segurium-self-check.php:895
@@ -1077,10 +1055,9 @@ msgstr ""
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
-msgstr[0] ""
-"마지막 멀웨어 검사에서 %d개의 위협이 표시되었습니다. 멀웨어 스캐너 탭에서 검"
-"토하십시오."
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] "마지막 멀웨어 검사에서 %d개의 위협이 표시되었습니다. 멀웨어 스캐너 탭에서 검토하세요."
 
 #: includes/class-segurium-self-check.php:919
 msgid "No integrity issues in the last 24 hours"
@@ -1090,17 +1067,13 @@ msgstr "최근 24시간 동안 무결성 문제 없음"
 msgid ""
 "The most recent integrity scan ran in the last 24 hours and reported no "
 "issues."
-msgstr ""
-"가장 최근 무결성 검사가 24시간 이내에 실행되었으며 문제가 보고되지 않았습니"
-"다."
+msgstr "가장 최근 무결성 검사가 24시간 이내에 실행되었으며 문제가 보고되지 않았습니다."
 
 #: includes/class-segurium-self-check.php:924
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
-msgstr ""
-"최근 24시간 동안 무결성 검사가 실행되지 않았습니다. 검사는 빠르게 끝납니다 — "
-"한 번 실행하여 결과를 갱신하십시오."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr "최근 24시간 동안 무결성 검사가 실행되지 않았습니다. 검사는 빠르게 끝납니다 — 한 번 실행하여 결과를 갱신하세요."
 
 #. translators: %d: number of open integrity issues
 #: includes/class-segurium-self-check.php:927
@@ -1111,8 +1084,7 @@ msgid ""
 msgid_plural ""
 "%d open integrity issues are unresolved. Review them on the Integrity "
 "scanner tab."
-msgstr[0] ""
-"해결되지 않은 무결성 문제가 %d개 있습니다. 무결성 스캐너 탭에서 검토하십시오."
+msgstr[0] "해결되지 않은 무결성 문제가 %d개 있습니다. 무결성 스캐너 탭에서 검토하세요."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-trusted-proxies.php:92
@@ -1143,8 +1115,7 @@ msgstr "%s 전에 마지막으로 확인되었습니다."
 #: includes/class-segurium.php:295 includes/segurium-admin-menu-shell.php:112
 msgid ""
 "Run a Self-Check from the Segurium admin page to see your security score."
-msgstr ""
-"보안 점수를 확인하려면 Segurium 관리 페이지에서 자체 점검을 실행하십시오."
+msgstr "보안 점수를 확인하려면 Segurium 관리 페이지에서 자체 점검을 실행하세요."
 
 #: includes/class-segurium.php:301 includes/segurium-admin-menu-shell.php:118
 msgid "Open Segurium"
@@ -1247,9 +1218,7 @@ msgstr "확인 중…"
 msgid ""
 "The file on disk is already the backed-up version. Restore anyway to update "
 "database records?"
-msgstr ""
-"디스크의 파일이 이미 백업된 버전입니다. 데이터베이스 기록을 업데이트하기 위"
-"해 그래도 복원하시겠습니까?"
+msgstr "디스크의 파일이 이미 백업된 버전입니다. 데이터베이스 기록을 업데이트하기 위해 그래도 복원하시겠습니까?"
 
 #. translators: %s: relative file path
 #: includes/class-segurium.php:828
@@ -1259,8 +1228,7 @@ msgid ""
 "overwrite the existing file with the backed-up version. This cannot be "
 "undone."
 msgstr ""
-"%s 파일이 마지막 정리 이후 수정되었습니다. 복원하면 기존 파일이 백업된 버전으"
-"로 덮어씌워집니다. 이 작업은 되돌릴 수 없습니다."
+"%s 파일이 마지막 정리 이후 수정되었습니다. 복원하면 기존 파일이 백업된 버전으로 덮어씌워집니다. 이 작업은 되돌릴 수 없습니다."
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
@@ -1296,34 +1264,30 @@ msgstr "요청 실패"
 
 #: includes/class-segurium.php:841
 msgid "The scan could not be initialized. Check the PHP error log."
-msgstr "검사를 초기화할 수 없습니다. PHP 오류 로그를 확인하십시오."
+msgstr "검사를 초기화할 수 없습니다. PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:842
 msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
-msgstr ""
-"검사가 시작되었지만 백그라운드 작업자를 디스패치할 수 없습니다. 다시 시도하십"
-"시오."
+msgstr "검사가 시작되었지만 백그라운드 작업자를 디스패치할 수 없습니다. 다시 시도하세요."
 
 #: includes/class-segurium.php:843
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
-msgstr "서버 오류로 검사를 시작할 수 없습니다. PHP 오류 로그를 확인하십시오."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr "서버 오류로 검사를 시작할 수 없습니다. PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:844
 msgid ""
 "Could not fetch scan status due to a server error. Check the PHP error log."
-msgstr ""
-"서버 오류로 검사 상태를 가져올 수 없습니다. PHP 오류 로그를 확인하십시오."
+msgstr "서버 오류로 검사 상태를 가져올 수 없습니다. PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:845
 msgid ""
 "Could not stop the running scan due to a server error. Check the PHP error "
 "log."
-msgstr ""
-"서버 오류로 실행 중인 검사를 중지할 수 없습니다. PHP 오류 로그를 확인하십시"
-"오."
+msgstr "서버 오류로 실행 중인 검사를 중지할 수 없습니다. PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:846
 msgid "The server returned an error while processing the request."
@@ -1336,9 +1300,7 @@ msgstr "네트워크 오류 — 요청이 서버에 도달하지 못했습니다
 #: includes/class-segurium.php:848
 msgid ""
 "The server returned an unexpected response. Reload the page and try again."
-msgstr ""
-"서버가 예기치 않은 응답을 반환했습니다. 페이지를 새로고침하고 다시 시도하십시"
-"오."
+msgstr "서버가 예기치 않은 응답을 반환했습니다. 페이지를 새로고침하고 다시 시도하세요."
 
 #: includes/class-segurium.php:849
 msgid ""
@@ -1346,9 +1308,8 @@ msgid ""
 "content before Segurium can respond. Check wp-content/mu-plugins, wp-"
 "config.php, and your active theme/plugins for recent unexpected changes."
 msgstr ""
-"사이트가 오염된 것으로 보입니다. Segurium이 응답하기 전에 서버의 다른 파일이 "
-"콘텐츠를 출력하고 있습니다. wp-content/mu-plugins, wp-config.php 및 활성 테"
-"마/플러그인에서 최근의 예기치 않은 변경 사항을 확인하십시오."
+"사이트가 오염된 것으로 보입니다. Segurium이 응답하기 전에 서버의 다른 파일이 콘텐츠를 출력하고 있습니다. wp-"
+"content/mu-plugins, wp-config.php 및 활성 테마/플러그인에서 최근의 예기치 않은 변경 사항을 확인하세요."
 
 #: includes/class-segurium.php:850
 msgid ""
@@ -1356,21 +1317,17 @@ msgid ""
 "did not parse. This usually indicates a fatal PHP error inside the Segurium "
 "handler — check the PHP error log."
 msgstr ""
-"Segurium이 유효한 마커로 감싸진 응답을 받았지만 내부 JSON을 파싱할 수 없습니"
-"다. 일반적으로 Segurium 처리기에서 치명적 PHP 오류가 발생했음을 의미합니다 — "
-"PHP 오류 로그를 확인하십시오."
+"Segurium이 유효한 마커로 감싸진 응답을 받았지만 내부 JSON을 파싱할 수 없습니다. 일반적으로 Segurium 핸들러에서 치명적"
+" PHP 오류가 발생했음을 의미합니다 — PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
 msgid "This version of the admin page is stale. Reload the page to continue."
-msgstr ""
-"이 버전의 관리 페이지가 오래되었습니다. 계속하려면 페이지를 새로고침하십시오."
+msgstr "이 버전의 관리 페이지가 오래되었습니다. 계속하려면 페이지를 새로고침하세요."
 
 #: includes/class-segurium.php:853
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
-msgstr ""
-"예기치 않은 서버 오류가 발생했습니다. PHP 오류 로그를 확인하고 다시 시도하십"
-"시오."
+msgstr "예기치 않은 서버 오류가 발생했습니다. PHP 오류 로그를 확인하고 다시 시도하세요."
 
 #: includes/class-segurium.php:854 includes/class-segurium.php:2716
 msgid "Frequency"
@@ -1481,7 +1438,7 @@ msgstr "위협이 없습니다 — 안전합니다."
 
 #: includes/class-segurium.php:881
 msgid "No scans yet — run your first scan."
-msgstr "아직 검사가 없습니다 — 첫 검사를 실행하십시오."
+msgstr "아직 검사가 없습니다 — 첫 검사를 실행하세요."
 
 #: includes/class-segurium.php:882 includes/class-segurium.php:1437
 #: includes/class-segurium.php:1525
@@ -1576,17 +1533,14 @@ msgstr "찾을 수 없음"
 msgid ""
 "This file is not part of the original installation and will be deleted. A "
 "backup will be created. Continue?"
-msgstr ""
-"이 파일은 원본 설치의 일부가 아니며 삭제됩니다. 백업이 생성됩니다. 계속하시겠"
-"습니까?"
+msgstr "이 파일은 원본 설치의 일부가 아니며 삭제됩니다. 백업이 생성됩니다. 계속하시겠습니까?"
 
 #: includes/class-segurium.php:904
 msgid ""
 "Some files will be deleted (unknown files) and some will be replaced with "
 "originals (modified files). Backups will be created for all. Continue?"
 msgstr ""
-"일부 파일은 삭제되고(알 수 없는 파일) 일부는 원본으로 교체됩니다(수정된 파"
-"일). 모두에 대해 백업이 생성됩니다. 계속하시겠습니까?"
+"일부 파일은 삭제되고(알 수 없는 파일) 일부는 원본으로 교체됩니다(수정된 파일). 모두에 대해 백업이 생성됩니다. 계속하시겠습니까?"
 
 #: includes/class-segurium.php:905
 msgid "Fixing files..."
@@ -1596,21 +1550,21 @@ msgstr "파일을 복구하는 중..."
 msgid "Older backups will be rotated out"
 msgstr "이전 백업은 순환 폐기됩니다"
 
-#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
 #: includes/class-segurium.php:909
 #, php-format
 msgid "You are about to fix %1$d files (~%2$s)."
 msgstr "%1$d개의 파일(~%2$s)을 복구하려고 합니다."
 
-#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
 #: includes/class-segurium.php:911
 #, php-format
 msgid ""
 "%1$d older backups (~%2$s) will be rotated out — these are restore points "
 "for previously-fixed files."
-msgstr ""
-"%1$d개의 이전 백업(~%2$s)이 순환 폐기됩니다 — 이전에 복구된 파일의 복원 지점"
-"입니다."
+msgstr "%1$d개의 이전 백업(~%2$s)이 순환 폐기됩니다 — 이전에 복구된 파일의 복원 지점입니다."
 
 #. translators: %d: number of pinned backups that are protected from rotation
 #: includes/class-segurium.php:913
@@ -1668,40 +1622,43 @@ msgstr "나중에"
 #: includes/class-segurium.php:6224
 msgid ""
 "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
-msgstr ""
-"정리 할당량에 도달했습니다. 무제한 클라우드 정리 할당량을 사용하려면 Pro로 "
-"업그레이드하십시오."
+msgstr "정리 할당량에 도달했습니다. 무제한 클라우드 정리 할당량을 사용하려면 Pro로 업그레이드하세요."
 
 #: includes/class-segurium.php:931
 msgid "Cleanup quota reached"
 msgstr "정리 할당량에 도달했습니다"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:933
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
 msgstr ""
-"지난 %2$d일 동안 클라우드 정리를 %1$d회 사용했습니다. 무제한 클라우드 정리 "
-"할당량을 사용하려면 Pro로 업그레이드하십시오."
+"지난 %2$d일 동안 클라우드 정리를 %1$d회 사용했습니다. 무제한 클라우드 정리 할당량을 사용하려면 Pro로 업그레이드하세요."
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
 msgstr "다음 가능 시점: %s"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:937 includes/class-segurium.php:1313
 #, php-format
 msgid "%1$d of %2$d cleanups used in the last %3$d days"
 msgstr "지난 %3$d일 동안 정리 %2$d회 중 %1$d회 사용"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
 #: includes/class-segurium.php:939 includes/class-segurium.php:1304
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr "지난 %3$d일 동안 정리 %2$d회 중 %1$d회 사용 — 다음 가능 시점: %4$s"
 
 #: includes/class-segurium.php:941 includes/class-segurium.php:2612
@@ -1759,7 +1716,7 @@ msgstr "확인 중"
 
 #: includes/class-segurium.php:954
 msgid "Discovering components…"
-msgstr "구성 요소를 검색 중…"
+msgstr "구성 요소를 탐색하는 중…"
 
 #: includes/class-segurium.php:956
 msgid "Saved permanently."
@@ -1781,11 +1738,11 @@ msgstr "허용된 국가"
 
 #: includes/class-segurium.php:960 includes/class-segurium.php:1643
 msgid "Type a country name or ISO code to add it to the block list."
-msgstr "차단 목록에 추가하려면 국가 이름 또는 ISO 코드를 입력하십시오."
+msgstr "차단 목록에 추가하려면 국가 이름 또는 ISO 코드를 입력하세요."
 
 #: includes/class-segurium.php:961
 msgid "Type a country name or ISO code to add it to the allow list."
-msgstr "허용 목록에 추가하려면 국가 이름 또는 ISO 코드를 입력하십시오."
+msgstr "허용 목록에 추가하려면 국가 이름 또는 ISO 코드를 입력하세요."
 
 #: includes/class-segurium.php:962 includes/class-segurium.php:1722
 msgid "Blocked IPs / CIDRs"
@@ -1795,9 +1752,7 @@ msgstr "차단된 IP / CIDR"
 msgid ""
 "These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
 "CIDR ranges."
-msgstr ""
-"이 IP는 항상 차단됩니다. 한 줄에 하나씩 입력하십시오. IPv4, IPv6, CIDR 범위"
-"를 허용합니다."
+msgstr "이 IP는 항상 차단됩니다. 한 줄에 하나씩 입력하세요. IPv4, IPv6, CIDR 범위를 허용합니다."
 
 #: includes/class-segurium.php:964
 msgid "Allowed IPs / CIDRs"
@@ -1807,9 +1762,7 @@ msgstr "허용된 IP / CIDR"
 msgid ""
 "Only these IPs can access the site. All others are blocked. One entry per "
 "line."
-msgstr ""
-"이 IP에서만 사이트에 접근할 수 있습니다. 나머지는 모두 차단됩니다. 한 줄에 하"
-"나씩 입력하십시오."
+msgstr "이 IP에서만 사이트에 접근할 수 있습니다. 나머지는 모두 차단됩니다. 한 줄에 하나씩 입력하세요."
 
 #: includes/class-segurium.php:966
 msgid "No supported security plugins detected."
@@ -1878,11 +1831,11 @@ msgstr "티켓 참조 번호:"
 
 #: includes/class-segurium.php:983
 msgid "Failed to submit ticket. Please try again."
-msgstr "티켓 제출에 실패했습니다. 다시 시도하십시오."
+msgstr "티켓 제출에 실패했습니다. 다시 시도하세요."
 
 #: includes/class-segurium.php:984
 msgid "Please attach a file before submitting."
-msgstr "제출하기 전에 파일을 첨부하십시오."
+msgstr "제출하기 전에 파일을 첨부하세요."
 
 #: includes/class-segurium.php:985
 msgid "Selected file exceeds the 100 MB limit."
@@ -1890,11 +1843,11 @@ msgstr "선택한 파일이 100 MB 제한을 초과합니다."
 
 #: includes/class-segurium.php:986
 msgid "Please enter a valid reply-to email."
-msgstr "유효한 회신 이메일을 입력하십시오."
+msgstr "유효한 회신 이메일을 입력하세요."
 
 #: includes/class-segurium.php:987
 msgid "Please enter your name."
-msgstr "이름을 입력하십시오."
+msgstr "이름을 입력하세요."
 
 #: includes/class-segurium.php:988
 msgid "Brute-Force Protection"
@@ -2028,7 +1981,7 @@ msgstr "엄격"
 
 #: includes/class-segurium.php:1019
 msgid "Click a preset to fill the form, then Save."
-msgstr "프리셋을 클릭하여 양식을 채운 뒤 저장하십시오."
+msgstr "프리셋을 클릭하여 양식을 채운 뒤 저장하세요."
 
 #: includes/class-segurium.php:1020 includes/class-segurium.php:1867
 msgid "Statistics"
@@ -2089,7 +2042,7 @@ msgstr "사용자 이름"
 
 #: includes/class-segurium.php:1035 includes/class-segurium.php:1953
 msgid "Surface"
-msgstr "표면"
+msgstr "진입점"
 
 #: includes/class-segurium.php:1037 includes/class-segurium.php:1923
 msgid "All events"
@@ -2157,7 +2110,7 @@ msgstr "실행 중..."
 
 #: includes/class-segurium.php:1059
 msgid "Click Run Self-Check to grade your site."
-msgstr "사이트를 평가하려면 자체 점검 실행을 클릭하십시오."
+msgstr "사이트를 평가하려면 자체 점검 실행을 클릭하세요."
 
 #: includes/class-segurium.php:1063
 msgid "How to fix"
@@ -2185,7 +2138,7 @@ msgstr "정보 노출"
 
 #: includes/class-segurium.php:1069
 msgid "WordPress Hardening"
-msgstr "WordPress 강화"
+msgstr "워드프레스 강화"
 
 #: includes/class-segurium.php:1070
 msgid "Cookie Security"
@@ -2207,7 +2160,8 @@ msgstr "통과 %1$d, 경고 %2$d, 실패 %3$d"
 msgid "%1$d/100"
 msgstr "%1$d/100"
 
-#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
 #: includes/class-segurium.php:1077
 #, php-format
 msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
@@ -2215,17 +2169,17 @@ msgstr "%1$s(%2$d)에서 %3$s(%4$d)로 변경되었습니다."
 
 #: includes/class-segurium.php:1078
 msgid "No change since last run."
-msgstr "마지막 실행 이후 변경 없음."
+msgstr "마지막 실행 이후 변경 없음"
 
 #. translators: %s: error message returned by the self-ping
 #: includes/class-segurium.php:1080
 #, php-format
 msgid "Self-check could not reach your site: %s. Results are incomplete."
-msgstr "자체 점검이 사이트에 접근할 수 없습니다: %s. 결과가 불완전합니다."
+msgstr "자체 점검이 사이트에 접근하지 못했습니다(%s). 결과가 불완전합니다."
 
 #: includes/class-segurium.php:1081
 msgid "Verify with securityheaders.com"
-msgstr "securityheaders.com으로 검증"
+msgstr "헤더를 securityheaders.com으로 검증"
 
 #: includes/class-segurium.php:1082
 msgid "Verify with Mozilla Observatory"
@@ -2233,7 +2187,7 @@ msgstr "Mozilla Observatory로 검증"
 
 #: includes/class-segurium.php:1207
 msgid "External Service Disclosure"
-msgstr "외부 서비스 공개"
+msgstr "외부 서비스 고지"
 
 #: includes/class-segurium.php:1208
 msgid ""
@@ -2241,9 +2195,8 @@ msgid ""
 "When you enable it, Segurium exchanges data with our servers so it can "
 "detect malware, verify your files, and adapt protection to active threats."
 msgstr ""
-"Segurium은 Segurium 클라우드와 함께 작동하여 사이트를 보호합니다. 활성화하면 "
-"Segurium이 자사 서버와 데이터를 교환하여 멀웨어를 탐지하고 파일을 검증하며 활"
-"성 위협에 맞춰 보호를 조정합니다."
+"Segurium은 Segurium 클라우드와 함께 작동하여 사이트를 보호합니다. 활성화하면 Segurium이 자사 서버와 데이터를 "
+"교환하여 멀웨어를 탐지하고 파일을 검증하며 활성 위협에 맞춰 보호를 조정합니다."
 
 #: includes/class-segurium.php:1210
 msgid "What is sent:"
@@ -2253,41 +2206,31 @@ msgstr "전송되는 항목:"
 msgid ""
 "File metadata: SHA-256 hash, path relative to your WordPress installation, "
 "size, modification time."
-msgstr ""
-"파일 메타데이터: SHA-256 해시, WordPress 설치 기준 상대 경로, 크기, 수정 시"
-"간."
+msgstr "파일 메타데이터: SHA-256 해시, 워드프레스 설치 기준 상대 경로, 크기, 수정 시간"
 
 #: includes/class-segurium.php:1213
 msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
-msgstr ""
-"파일 내용 — 해시만으로 분류가 결정되지 않거나 정리 중 클린 대체본을 생성할 때"
-"만 전송됩니다."
+msgstr "파일 내용 — 해시만으로 분류가 결정되지 않거나 정리 중 정상 대체본을 생성할 때만 전송됩니다."
 
 #: includes/class-segurium.php:1214
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
-msgstr ""
-"이 설치와 요청을 연결하는 데 사용되는 무작위 생성 설치 식별자 및 기본 사이트 "
-"정보(URL, 이름, WordPress 버전)."
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr "이 설치와 요청을 연결하는 데 사용되는 무작위 생성 설치 식별자 및 기본 사이트 정보(URL, 이름, 워드프레스 버전)."
 
 #: includes/class-segurium.php:1215
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
-msgstr ""
-"검사, 정리, 보안 설정 이벤트로 클라우드가 사이트 보호 상태를 동기화할 수 있습"
-"니다."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr "검사, 정리, 보안 설정 이벤트로 클라우드가 사이트 보호 상태를 동기화할 수 있습니다."
 
 #: includes/class-segurium.php:1216
 msgid ""
 "Firewall events (blocked IPs, attack patterns) used to adapt protection "
 "across all Segurium-protected sites."
-msgstr ""
-"방화벽 이벤트(차단된 IP, 공격 패턴) — 모든 Segurium 보호 사이트의 보호를 조정"
-"하는 데 사용됩니다."
+msgstr "방화벽 이벤트(차단된 IP, 공격 패턴) — 모든 Segurium 보호 사이트의 보호를 조정하는 데 사용됩니다."
 
 #: includes/class-segurium.php:1219
 msgid "What is NOT sent:"
@@ -2295,11 +2238,11 @@ msgstr "전송되지 않는 항목:"
 
 #: includes/class-segurium.php:1221
 msgid "Visitor analytics or personal data of users who visit your site."
-msgstr "사이트 방문자의 분석 데이터 또는 개인 정보."
+msgstr "사이트 방문자의 분석 데이터 또는 개인 정보"
 
 #: includes/class-segurium.php:1222
 msgid "Database content, posts, comments, or media files."
-msgstr "데이터베이스 콘텐츠, 게시물, 댓글, 미디어 파일."
+msgstr "데이터베이스 콘텐츠, 글, 댓글, 미디어 파일"
 
 #: includes/class-segurium.php:1223
 msgid ""
@@ -2313,21 +2256,20 @@ msgstr "전송 대상:"
 
 #: includes/class-segurium.php:1226
 msgid "Segurium servers at cti.segurium.com."
-msgstr "cti.segurium.com의 Segurium 서버."
+msgstr "Segurium 서버(cti.segurium.com)"
 
 #: includes/class-segurium.php:1227
 msgid "Retention:"
 msgstr "보관:"
 
-#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
 msgid ""
 "By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
 "%3$sPrivacy Policy%4$s."
-msgstr ""
-"검사를 활성화하면 %1$s서비스 약관%2$s 및 %3$s개인정보 처리방침%4$s에 동의하"
-"는 것으로 간주됩니다."
+msgstr "검사를 활성화하면 %1$s서비스 약관%2$s 및 %3$s개인정보 처리방침%4$s에 동의하게 됩니다."
 
 #: includes/class-segurium.php:1242
 msgid "I agree"
@@ -2335,7 +2277,7 @@ msgstr "동의합니다"
 
 #: includes/class-segurium.php:1352
 msgid "WordPress Security"
-msgstr "WordPress 보안"
+msgstr "워드프레스 보안"
 
 #: includes/class-segurium.php:1363
 msgid "Malware Scanner"
@@ -2396,7 +2338,7 @@ msgstr "악성"
 
 #: includes/class-segurium.php:1459
 msgid "All"
-msgstr "전체"
+msgstr "모두"
 
 #: includes/class-segurium.php:1479
 msgid "File"
@@ -2432,13 +2374,11 @@ msgstr "마지막 검사"
 
 #: includes/class-segurium.php:1602 includes/class-segurium.php:1690
 msgid "Settings applied. Confirm to keep, or changes revert in"
-msgstr ""
-"설정이 적용되었습니다. 유지하려면 확인하십시오. 그렇지 않으면 변경 사항이 되"
-"돌려집니다 —"
+msgstr "설정이 적용되었습니다. 유지하려면 확인하세요. 그렇지 않으면 변경 사항이 되돌려집니다 —"
 
 #: includes/class-segurium.php:1603 includes/class-segurium.php:1691
 msgid "s."
-msgstr "초."
+msgstr "초"
 
 #: includes/class-segurium.php:1607 includes/class-segurium.php:1695
 msgid "Revert"
@@ -2550,17 +2490,15 @@ msgstr "자동 감지된 프록시 상태를 불러오는 중..."
 msgid ""
 "Additional proxy IPs beyond the auto-detected list, one per line. Leave "
 "empty if all your proxies are covered above."
-msgstr ""
-"자동 감지 목록 외 추가 프록시 IP를 한 줄에 하나씩 입력하십시오. 위에서 모든 "
-"프록시가 처리되었다면 비워 두십시오."
+msgstr "자동 감지 목록 외 추가 프록시 IP를 한 줄에 하나씩 입력하세요. 위에서 모든 프록시가 처리되었다면 비워 두세요."
 
 #: includes/class-segurium.php:1750
 msgid ""
 "Tracks failed login attempts and locks out IPs after a configurable "
 "threshold. Reuses the firewall allow-list for trusted IPs."
 msgstr ""
-"실패한 로그인 시도를 추적하여 설정된 임계값을 초과하면 IP를 잠급니다. 신뢰할 "
-"수 있는 IP에 대해서는 방화벽 허용 목록을 재사용합니다."
+"실패한 로그인 시도를 추적하여 설정된 임계값을 초과하면 IP를 잠급니다. 신뢰할 수 있는 IP에 대해서는 방화벽 허용 목록을 "
+"재사용합니다."
 
 #: includes/class-segurium.php:1754
 msgid "Settings:"
@@ -2582,25 +2520,21 @@ msgstr "모든 설정을 직접 편집합니다."
 msgid ""
 "After this many lockouts within the history window, the next lockout will "
 "use the extended duration."
-msgstr ""
-"이력 시간 창 내에서 이만큼의 잠금이 발생한 후에는 다음 잠금에 확장 시간이 적"
-"용됩니다."
+msgstr "이력 시간 창 내에서 이만큼의 잠금이 발생한 후에는 다음 잠금에 확장 시간이 적용됩니다."
 
 #: includes/class-segurium.php:1803
 msgid ""
 "Adds an off-screen input that legitimate users never see. Filling it "
 "triggers an immediate lockout."
-msgstr ""
-"정상 사용자에게는 보이지 않는 화면 밖 입력을 추가합니다. 이 필드가 채워지면 "
-"즉시 잠금됩니다."
+msgstr "정상 사용자에게는 보이지 않는 화면 밖 입력을 추가합니다. 이 필드가 채워지면 즉시 잠금됩니다."
 
 #: includes/class-segurium.php:1812
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
-"설정한 횟수만큼 실패한 후 로그인 폼에 hCaptcha 인증을 선택적으로 표시합니다. "
-"무료 키는 hcaptcha.com에서 받을 수 있습니다."
+"설정한 횟수만큼 실패한 후 로그인 폼에 hCaptcha 인증을 선택적으로 표시합니다. 무료 키는 hcaptcha.com에서 받을 수 "
+"있습니다."
 
 #: includes/class-segurium.php:1838
 msgid ""
@@ -2627,7 +2561,7 @@ msgstr "사용 가능한 방식"
 
 #: includes/class-segurium.php:1980
 msgid "Select which 2FA methods users can choose from."
-msgstr "사용자가 선택할 수 있는 2FA 방식을 선택하십시오."
+msgstr "사용자가 선택할 수 있는 2FA 방식을 선택하세요."
 
 #: includes/class-segurium.php:1985
 msgid "Enforced Roles"
@@ -2635,7 +2569,7 @@ msgstr "적용 역할"
 
 #: includes/class-segurium.php:1986
 msgid "Users in these roles will be required to set up 2FA."
-msgstr "이 역할의 사용자에게 2FA 설정이 요구됩니다."
+msgstr "이 역할의 사용자에게는 2FA 설정이 필요합니다."
 
 #: includes/class-segurium.php:1990
 msgid "Grace Period (days)"
@@ -2645,9 +2579,7 @@ msgstr "유예 기간(일)"
 msgid ""
 "Days before enforcement blocks login for users who have not set up 2FA. Set "
 "to 0 to enforce immediately."
-msgstr ""
-"2FA를 설정하지 않은 사용자의 로그인을 차단하기 전까지의 일수입니다. 즉시 적용"
-"하려면 0으로 설정하십시오."
+msgstr "2FA를 설정하지 않은 사용자의 로그인을 차단하기 전까지의 일수입니다. 즉시 적용하려면 0으로 설정하세요."
 
 #: includes/class-segurium.php:1995
 msgid "Trusted Device Duration (days)"
@@ -2680,7 +2612,7 @@ msgstr "사용자 2FA 재설정"
 
 #: includes/class-segurium.php:2017
 msgid "Enter a username or user ID to reset their 2FA configuration."
-msgstr "2FA 구성을 재설정하려면 사용자 이름 또는 사용자 ID를 입력하십시오."
+msgstr "2FA 구성을 재설정하려면 사용자 이름 또는 사용자 ID를 입력하세요."
 
 #: includes/class-segurium.php:2018
 msgid "Username or ID"
@@ -2692,7 +2624,7 @@ msgstr "2FA 재설정"
 
 #: includes/class-segurium.php:2026
 msgid "Submit a support ticket below. Our team will respond via email."
-msgstr "아래에서 지원 티켓을 제출하십시오. 저희 팀이 이메일로 답변드립니다."
+msgstr "아래에서 지원 티켓을 제출하세요. 저희 팀이 이메일로 답변드립니다."
 
 #: includes/class-segurium.php:2029
 msgid "Your name"
@@ -2706,7 +2638,7 @@ msgstr "회신 이메일"
 msgid ""
 "We will reply to this address. Change it if you want the response to go "
 "elsewhere."
-msgstr "이 주소로 답변을 보냅니다. 다른 곳으로 받으시려면 변경하십시오."
+msgstr "이 주소로 답변을 보냅니다. 다른 곳으로 받으려면 변경하세요."
 
 #: includes/class-segurium.php:2038
 msgid "Website"
@@ -2716,9 +2648,7 @@ msgstr "웹사이트"
 msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
-msgstr ""
-"지원팀이 사이트를 식별할 수 있도록 자동 포함됩니다. 설정 → 일반에서 변경할 "
-"수 있습니다."
+msgstr "지원팀이 사이트를 식별할 수 있도록 자동 포함됩니다. 설정 → 일반에서 변경할 수 있습니다."
 
 #: includes/class-segurium.php:2043
 msgid "Type"
@@ -2750,7 +2680,7 @@ msgstr "의심스러운 파일"
 
 #: includes/class-segurium.php:2055
 msgid "Attach the file you believe is malware. Max 100 MB."
-msgstr "멀웨어로 의심되는 파일을 첨부하십시오. 최대 100 MB."
+msgstr "멀웨어로 의심되는 파일을 첨부하세요. 최대 100 MB."
 
 #: includes/class-segurium.php:2058
 msgid "Message"
@@ -2760,9 +2690,7 @@ msgstr "메시지"
 msgid ""
 "Attach system information (WP version, PHP version, plugin version, active "
 "plugins, last scan date)"
-msgstr ""
-"시스템 정보 첨부(WP 버전, PHP 버전, 플러그인 버전, 활성 플러그인, 마지막 검"
-"사 날짜)"
+msgstr "시스템 정보 첨부(WP 버전, PHP 버전, 플러그인 버전, 활성 플러그인, 마지막 검사 날짜)"
 
 #: includes/class-segurium.php:2068
 msgid "Submit Ticket"
@@ -2777,8 +2705,7 @@ msgid ""
 "Adds HTTP security response headers to all responses. Protects against "
 "clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
 msgstr ""
-"모든 응답에 HTTP 보안 응답 헤더를 추가합니다. 클릭재킹, MIME 스니핑, XSS, 프"
-"로토콜 다운그레이드 공격을 방어합니다."
+"모든 응답에 HTTP 보안 응답 헤더를 추가합니다. 클릭재킹, MIME 스니핑, XSS, 프로토콜 다운그레이드 공격을 방어합니다."
 
 #: includes/class-segurium.php:2085
 msgid "Mode:"
@@ -2872,8 +2799,7 @@ msgstr "HSTS 활성화"
 
 #: includes/class-segurium.php:2146
 msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
-msgstr ""
-"브라우저가 HTTPS를 사용하도록 강제합니다. SSL이 활성화된 경우에만 전송됩니다."
+msgstr "브라우저가 HTTPS를 사용하도록 강제합니다. SSL이 활성화된 경우에만 전송됩니다."
 
 #: includes/class-segurium.php:2150
 msgid "Max-Age (seconds)"
@@ -2891,9 +2817,7 @@ msgstr "프리로드"
 msgid ""
 "Warning: preload is difficult to undo. Requires max-age at least 1 year and "
 "subdomains included."
-msgstr ""
-"경고: 프리로드는 되돌리기가 어렵습니다. max-age 최소 1년과 하위 도메인 포함"
-"이 필요합니다."
+msgstr "경고: 프리로드는 되돌리기가 어렵습니다. max-age 최소 1년과 하위 도메인 포함이 필요합니다."
 
 #: includes/class-segurium.php:2168
 msgid ""
@@ -2901,9 +2825,8 @@ msgid ""
 "will affect all subdomains of the parent domain, including ones you may not "
 "control."
 msgstr ""
-"사이트가 하위 도메인에 있는 것으로 보입니다. HSTS에서 includeSubDomains를 활"
-"성화하면 제어하지 않을 수 있는 하위 도메인을 포함해 상위 도메인의 모든 하위 "
-"도메인에 영향을 미칩니다."
+"사이트가 하위 도메인에 있는 것으로 보입니다. HSTS에서 includeSubDomains를 활성화하면 제어하지 않을 수 있는 하위 "
+"도메인을 포함해 상위 도메인의 모든 하위 도메인에 영향을 미칩니다."
 
 #: includes/class-segurium.php:2170
 msgid "Cross-Origin Policies"
@@ -3024,9 +2947,8 @@ msgid ""
 "page builders — start in report-only mode to surface violations before "
 "enforcing."
 msgstr ""
-"CSP는 스크립트, 스타일 등 리소스가 로드될 수 있는 출처를 제한하여 XSS 및 주"
-"입 공격을 완화합니다. CSP는 사이트별로 다르며 테마나 페이지 빌더가 깨질 수 있"
-"으므로 적용 전에 보고 전용 모드로 위반을 확인하십시오."
+"CSP는 스크립트, 스타일 등 리소스가 로드될 수 있는 출처를 제한하여 XSS 및 주입 공격을 완화합니다. CSP는 사이트별로 다르며 "
+"테마나 페이지 빌더가 깨질 수 있으므로 적용 전에 보고 전용 모드로 위반을 확인하세요."
 
 #: includes/class-segurium.php:2245
 msgid "Report-only (recommended for first deploy)"
@@ -3039,12 +2961,11 @@ msgstr "적용"
 #: includes/class-segurium.php:2248
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
-"보고 전용은 Content-Security-Policy-Report-Only를 보냅니다 — 브라우저는 위반"
-"을 기록하지만 차단된 리소스를 여전히 로드합니다. 적용 모드는 Content-"
-"Security-Policy를 보내며 리소스를 차단합니다."
+"보고 전용은 Content-Security-Policy-Report-Only를 보냅니다 — 브라우저는 위반을 기록하지만 차단된 리소스를 "
+"여전히 로드합니다. 적용 모드는 Content-Security-Policy를 보내며 리소스를 차단합니다."
 
 #: includes/class-segurium.php:2251
 msgid "Policy directives"
@@ -3056,8 +2977,8 @@ msgid ""
 "policy permits Gutenberg and most themes; tighten once your reports are "
 "clean."
 msgstr ""
-"세미콜론으로 구분된 한 줄의 지시문입니다. 기본 시작 정책은 Gutenberg와 대부분"
-"의 테마를 허용합니다. 보고서가 깨끗해지면 정책을 강화하십시오."
+"세미콜론으로 구분된 한 줄의 지시문입니다. 기본 시작 정책은 구텐베르크와 대부분의 테마를 허용합니다. 보고서가 깨끗해지면 정책을 "
+"강화하세요."
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
@@ -3072,8 +2993,7 @@ msgid ""
 "When set, browsers will POST violation reports to this URL. Appended "
 "automatically as report-uri unless your directives already contain one."
 msgstr ""
-"설정하면 브라우저가 이 URL로 위반 보고서를 POST합니다. 지시문에 이미 포함되"
-"어 있지 않으면 report-uri로 자동 추가됩니다."
+"설정하면 브라우저가 이 URL로 위반 보고서를 POST합니다. 지시문에 이미 포함되어 있지 않으면 report-uri로 자동 추가됩니다."
 
 #: includes/class-segurium.php:2265
 msgid "Cookie Hardening"
@@ -3088,8 +3008,8 @@ msgid ""
 "Adds SameSite flag to WordPress session cookies. Protects against CSRF "
 "attacks. Mozilla Observatory penalizes missing SameSite."
 msgstr ""
-"WordPress 세션 쿠키에 SameSite 플래그를 추가합니다. CSRF 공격을 방어합니다. "
-"Mozilla Observatory는 SameSite 누락에 점수를 감점합니다."
+"워드프레스 세션 쿠키에 SameSite 플래그를 추가합니다. CSRF 공격을 방어합니다. Mozilla Observatory는 "
+"SameSite 누락에 점수를 감점합니다."
 
 #: includes/class-segurium.php:2275
 msgid "SameSite value"
@@ -3100,9 +3020,9 @@ msgid "Lax (recommended)"
 msgstr "Lax(권장)"
 
 #: includes/class-segurium.php:2280
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
-msgstr ""
-"Strict는 사이트로 리디렉션되는 OAuth/SSO 로그인 흐름을 깨뜨릴 수 있습니다."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr "Strict는 사이트로 리디렉션되는 OAuth/SSO 로그인 흐름을 깨뜨릴 수 있습니다."
 
 #: includes/class-segurium.php:2291
 msgid "Headers Preview"
@@ -3118,8 +3038,7 @@ msgid ""
 "discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
 "output."
 msgstr ""
-"버전 지문, 검색 엔드포인트 및 불필요한 메타데이터를 HTTP 헤더와 HTML 출력에"
-"서 제거하여 WordPress 정보 노출을 줄입니다."
+"버전 지문, 디스커버리 엔드포인트 및 불필요한 메타데이터를 HTTP 헤더와 HTML 출력에서 제거하여 워드프레스 정보 노출을 줄입니다."
 
 #: includes/class-segurium.php:2308
 msgid "Enable All Recommended"
@@ -3144,8 +3063,7 @@ msgstr "Server 헤더 제거"
 #: includes/class-segurium.php:2326
 msgid ""
 "Removes the header that identifies your web server software. Best-effort."
-msgstr ""
-"웹 서버 소프트웨어를 식별하는 헤더를 제거합니다. 최선을 다하는 처리입니다."
+msgstr "웹 서버 소프트웨어를 식별하는 헤더를 제거합니다. 최선을 다하는 처리입니다."
 
 #: includes/class-segurium.php:2332
 msgid "Remove X-Pingback header"
@@ -3169,7 +3087,7 @@ msgstr "Shortlink Link 헤더 제거"
 
 #: includes/class-segurium.php:2348
 msgid "Removes the rel=shortlink HTTP header."
-msgstr "rel=shortlink HTTP 헤더를 제거합니다."
+msgstr "HTTP 응답에서 rel=shortlink 헤더를 제거합니다."
 
 #: includes/class-segurium.php:2351
 msgid "HTML Meta and Links"
@@ -3177,14 +3095,13 @@ msgstr "HTML 메타 및 링크"
 
 #: includes/class-segurium.php:2355
 msgid "Remove WordPress generator tag"
-msgstr "WordPress generator 태그 제거"
+msgstr "워드프레스 generator 태그 제거"
 
 #: includes/class-segurium.php:2357
 msgid ""
 "Removes the meta generator tag and RSS generator that reveal your WordPress "
 "version."
-msgstr ""
-"WordPress 버전을 노출하는 메타 generator 태그와 RSS generator를 제거합니다."
+msgstr "워드프레스 버전을 노출하는 메타 generator 태그와 RSS generator를 제거합니다."
 
 #: includes/class-segurium.php:2362
 msgid "Remove RSD link"
@@ -3200,39 +3117,33 @@ msgstr "WLW 매니페스트 링크 제거"
 
 #: includes/class-segurium.php:2371
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
-msgstr ""
-"Windows Live Writer 매니페스트 링크를 제거합니다. WLW로 글을 작성하는 경우에"
-"만 필요합니다."
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr "Windows Live Writer 매니페스트 링크를 제거합니다. WLW로 글을 작성하는 경우에만 필요합니다."
 
 #: includes/class-segurium.php:2376
 msgid "Remove REST API discovery link"
-msgstr "REST API 검색 링크 제거"
+msgstr "REST API 디스커버리 링크 제거"
 
 #: includes/class-segurium.php:2378
 msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
-msgstr ""
-"HTML head에서 검색 링크 태그를 제거합니다. REST API 자체는 /wp-json/에서 계"
-"속 동작합니다."
+msgstr "HTML head에서 디스커버리 링크 태그를 제거합니다. REST API 자체는 /wp-json/에서 계속 동작합니다."
 
 #: includes/class-segurium.php:2383
 msgid "Remove oEmbed discovery links"
-msgstr "oEmbed 검색 링크 제거"
+msgstr "자동 임베드(oEmbed) 디스커버리 링크 제거"
 
 #: includes/class-segurium.php:2385
 msgid ""
 "Prevents other sites from showing rich embed previews when linking to your "
 "content."
-msgstr ""
-"다른 사이트가 콘텐츠로 연결할 때 풍부한 임베드 미리보기를 표시하지 못하도록 "
-"합니다."
+msgstr "다른 사이트가 콘텐츠로 연결할 때 풍부한 임베드 미리보기를 표시하지 못하도록 합니다."
 
 #: includes/class-segurium.php:2390
 msgid "Remove shortlink meta tag"
-msgstr "shortlink 메타 태그 제거"
+msgstr "단축 링크(shortlink) 메타 태그 제거"
 
 #: includes/class-segurium.php:2392
 msgid "Removes the shortlink link tag from HTML head."
@@ -3246,9 +3157,7 @@ msgstr "이모지 스크립트 및 스타일 제거"
 msgid ""
 "Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
 "have native emoji support."
-msgstr ""
-"WordPress 이모지 폴리필 JavaScript 및 CSS를 제거합니다. 최신 브라우저는 이모"
-"지를 기본 지원합니다."
+msgstr "워드프레스 이모지 폴리필 JavaScript 및 CSS를 제거합니다. 최신 브라우저는 이모지를 기본 지원합니다."
 
 #: includes/class-segurium.php:2404
 msgid "Remove RSS/Atom feed links"
@@ -3259,8 +3168,8 @@ msgid ""
 "May break RSS readers and WordPress.com Reader. Only enable if your site "
 "does not use RSS feeds."
 msgstr ""
-"RSS 리더 및 WordPress.com Reader가 제대로 동작하지 않을 수 있습니다. 사이트"
-"가 RSS 피드를 사용하지 않는 경우에만 활성화하십시오."
+"RSS 리더 및 WordPress.com Reader가 제대로 동작하지 않을 수 있습니다. 사이트가 RSS 피드를 사용하지 않는 경우에만"
+" 활성화하세요."
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
@@ -3283,8 +3192,8 @@ msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
 msgstr ""
-"CSS 및 JavaScript URL에서 ?ver=를 제거합니다. 플러그인이나 테마 업데이트 후 "
-"브라우저 캐시 자산이 오래되었을 수 있습니다."
+"CSS 및 JavaScript URL에서 ?ver=를 제거합니다. 플러그인이나 테마 업데이트 후 브라우저 캐시 자산이 오래되었을 수 "
+"있습니다."
 
 #: includes/class-segurium.php:2429
 msgid "Disable XML-RPC entirely"
@@ -3295,8 +3204,7 @@ msgid ""
 "Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
 "if you do not use them."
 msgstr ""
-"일부 플러그인(Jetpack, WordPress 모바일 앱)은 XML-RPC를 필요로 합니다. 사용하"
-"지 않는 경우에만 비활성화하십시오."
+"일부 플러그인(Jetpack, 워드프레스 모바일 앱)은 XML-RPC를 필요로 합니다. 사용하지 않는 경우에만 비활성화하세요."
 
 #: includes/class-segurium.php:2443
 msgid "Security Self-Check"
@@ -3308,8 +3216,8 @@ msgid ""
 "WordPress-specific hardening checks, and grades your site A+ to F. Results "
 "are saved until the next run."
 msgstr ""
-"Segurium은 주요 외부 보안 스캐너와 동일한 점검과 WordPress 전용 강화 점검을 "
-"수행하며 사이트를 A+에서 F까지 평가합니다. 결과는 다음 실행까지 저장됩니다."
+"Segurium은 주요 외부 보안 스캐너와 동일한 점검과 워드프레스 전용 강화 점검을 수행하며 사이트를 A+에서 F까지 평가합니다. "
+"결과는 다음 실행까지 저장됩니다."
 
 #: includes/class-segurium.php:2464
 msgid "Check results"
@@ -3321,7 +3229,7 @@ msgstr "독립 검증"
 
 #: includes/class-segurium.php:2468
 msgid "Cross-check results with these public scanners:"
-msgstr "다음 공개 스캐너로 결과를 교차 검증하십시오:"
+msgstr "다음 공개 스캐너로 결과를 교차 검증하세요"
 
 #: includes/class-segurium.php:2471
 msgid "securityheaders.com"
@@ -3352,8 +3260,7 @@ msgstr "무차별 대입 차단(속도 제한, 잠금, 허니팟, 선택적 hCap
 
 #: includes/class-segurium.php:2501
 msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
-msgstr ""
-"지역 차단(로그인 및 관리자 접근 게이팅, 확인 후 적용 또는 되돌리기 안전망)"
+msgstr "지역 차단(로그인 및 관리자 접근 게이팅, 확인 후 적용 또는 되돌리기 안전망)"
 
 #: includes/class-segurium.php:2506
 msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
@@ -3410,7 +3317,7 @@ msgstr "무제한"
 
 #: includes/class-segurium.php:2557
 msgid "Integrity fix: clean files (modified, missing, or extra)"
-msgstr "무결성 복구: 클린 파일(수정됨, 누락, 추가)"
+msgstr "무결성 복구: 정상 파일(수정됨, 누락, 추가)"
 
 #: includes/class-segurium.php:2558
 msgid "Unlimited — does not count against the cleanup quota"
@@ -3451,12 +3358,11 @@ msgstr "서비스 등급"
 #: includes/class-segurium.php:2599
 msgid ""
 "Every plugin feature ships on every install. The service tier governs the "
-"cloud cleanup quota Segurium will perform on your behalf — your current tier "
-"is highlighted."
+"cloud cleanup quota Segurium will perform on your behalf — your current tier"
+" is highlighted."
 msgstr ""
-"모든 플러그인 기능은 모든 설치에 제공됩니다. 서비스 등급은 Segurium이 사용자"
-"를 대신하여 수행하는 클라우드 정리 할당량을 결정합니다 — 현재 등급이 강조 표"
-"시되어 있습니다."
+"모든 플러그인 기능은 모든 설치에 제공됩니다. 서비스 등급은 Segurium이 사용자를 대신하여 수행하는 클라우드 정리 할당량을 "
+"결정합니다 — 현재 등급이 강조 표시되어 있습니다."
 
 #: includes/class-segurium.php:2604
 msgid "Capability"
@@ -3477,16 +3383,15 @@ msgstr "검사 설정"
 #: includes/class-segurium.php:2654
 msgid ""
 "Exclude files from scan that match these wildcard patterns (one per line)"
-msgstr ""
-"다음 와일드카드 패턴과 일치하는 파일을 검사에서 제외합니다(한 줄에 하나씩)"
+msgstr "다음 와일드카드 패턴과 일치하는 파일을 검사에서 제외합니다(한 줄에 하나씩)"
 
 #: includes/class-segurium.php:2656
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
 msgstr ""
-"와일드카드로 *를 사용하십시오. 예를 들어 *.log는 모든 로그 파일을 제외합니"
-"다. vendor/*는 vendor 디렉터리와 그 안의 모든 항목을 제외합니다."
+"와일드카드로 *를 사용하세요. 예를 들어 *.log는 모든 로그 파일을 제외합니다. vendor/*는 vendor 디렉터리와 그 안의 "
+"모든 항목을 제외합니다."
 
 #: includes/class-segurium.php:2669
 msgid "Wipe encrypted backups when the plugin is uninstalled"
@@ -3498,9 +3403,8 @@ msgid ""
 "kept in wp-content/segurium-data after uninstall, so a reinstall can still "
 "restore them. Turn on only if you want a hard deletion on uninstall."
 msgstr ""
-"끔(기본값): 삭제된 구성 요소와 복구된 파일의 암호화 백업이 제거 후에도 wp-"
-"content/segurium-data에 보관되어, 재설치 시 복원할 수 있습니다. 제거 시 완전 "
-"삭제를 원할 때만 켜십시오."
+"끔(기본값): 삭제된 구성 요소 및 정리된 파일의 암호화 백업은 제거 후에도 wp-content/segurium-data에 보관되므로 "
+"재설치 시 복원할 수 있습니다. 제거 시 완전히 삭제하려는 경우에만 켜세요."
 
 #: includes/class-segurium.php:2677
 msgid "Email me about findings"
@@ -3511,8 +3415,8 @@ msgid ""
 "Send a daily digest of malware verdicts and successful cleanups, delivered "
 "from support@segurium.com. At most one email per site per 24 hours."
 msgstr ""
-"support@segurium.com에서 발송되는 멀웨어 판정 및 성공한 정리의 일일 요약을 보"
-"냅니다. 사이트당 24시간에 최대 한 통의 이메일이 발송됩니다."
+"멀웨어 판정 및 성공한 정리의 일일 요약을 support@segurium.com에서 발송합니다. 사이트당 24시간에 최대 한 통의 "
+"이메일이 발송됩니다."
 
 #: includes/class-segurium.php:2680
 msgid "Alert email address"
@@ -3520,7 +3424,7 @@ msgstr "알림 이메일 주소"
 
 #: includes/class-segurium.php:2688
 msgid "Leave blank to use the WordPress site admin email."
-msgstr "WordPress 사이트 관리자 이메일을 사용하려면 비워 두십시오."
+msgstr "워드프레스 사이트 관리자 이메일을 사용하려면 비워 두세요."
 
 #: includes/class-segurium.php:2698
 msgid "Automatically clean detected malware"
@@ -3532,8 +3436,8 @@ msgid ""
 "injection verdict are cleaned without requiring a click. Files you have "
 "ignored (by path or by hash) are skipped."
 msgstr ""
-"예약된 검사나 실시간 검사가 끝날 때마다 알려진 멀웨어 또는 주입 판정을 받은 "
-"파일이 클릭 없이 정리됩니다. (경로 또는 해시로) 무시한 파일은 건너뜁니다."
+"예약된 검사나 실시간 검사가 끝날 때마다 알려진 멀웨어 또는 주입 판정을 받은 파일이 클릭 없이 정리됩니다. (경로 또는 해시로) 무시한"
+" 파일은 건너뜁니다."
 
 #: includes/class-segurium.php:2710
 msgid "Scheduled Scan"
@@ -3546,9 +3450,8 @@ msgid ""
 "your browser open. A scheduled tick that fires while a manual scan is "
 "already in progress is skipped, not queued."
 msgstr ""
-"정기 일정에 따라 전체 멀웨어 검사를 자동으로 실행합니다. 예약 검사는 수동 검"
-"사와 동일한 작업을 수행하지만 브라우저를 열어둘 필요가 없습니다. 수동 검사가 "
-"이미 진행 중일 때 예약 시점이 도래하면 큐에 추가되지 않고 건너뜁니다."
+"정기 일정에 따라 전체 멀웨어 검사를 자동으로 실행합니다. 예약 검사는 수동 검사와 동일한 작업을 수행하지만 브라우저를 열어둘 필요가 "
+"없습니다. 수동 검사가 이미 진행 중일 때 예약 시점이 도래하면 큐에 추가되지 않고 건너뜁니다."
 
 #: includes/class-segurium.php:2739
 msgid "Save Schedule"
@@ -3556,11 +3459,10 @@ msgstr "일정 저장"
 
 #: includes/class-segurium.php:2747
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
 msgstr ""
-"다른 보안 플러그인의 설정을 Segurium으로 가져옵니다. 기존 Segurium 설정은 유"
-"지되며 가져온 데이터가 병합됩니다."
+"다른 보안 플러그인의 설정을 Segurium으로 가져옵니다. 기존 Segurium 설정은 유지되며 가져온 데이터가 병합됩니다."
 
 #: includes/class-segurium.php:2798
 msgid "Version"
@@ -3591,8 +3493,7 @@ msgid ""
 msgid_plural ""
 "%d absolute paths were rewritten to paths relative to the WordPress install "
 "root."
-msgstr[0] ""
-"%d개의 절대 경로가 WordPress 설치 루트 기준 상대 경로로 변환되었습니다."
+msgstr[0] "%d개의 절대 경로가 워드프레스 설치 루트 기준 상대 경로로 변환되었습니다."
 
 #: includes/class-segurium.php:2923
 msgid "Scan exclusion list is limited to 500 entries."
@@ -3619,7 +3520,7 @@ msgstr "서버 오류로 실행 중인 검사를 중지할 수 없습니다."
 
 #: includes/class-segurium.php:3240
 msgid "Check the PHP error log for details."
-msgstr "자세한 내용은 PHP 오류 로그를 확인하십시오."
+msgstr "자세한 내용은 PHP 오류 로그를 확인하세요."
 
 #: includes/class-segurium.php:3318 includes/class-segurium.php:3397
 #: includes/class-segurium.php:3483 includes/class-segurium.php:3519
@@ -3702,7 +3603,7 @@ msgstr "파일이 활성 멀웨어 항목이 아닙니다."
 
 #: includes/class-segurium.php:3738
 msgid "File is outside the WordPress root."
-msgstr "파일이 WordPress 루트 밖에 있습니다."
+msgstr "파일이 워드프레스 루트 밖에 있습니다."
 
 #: includes/class-segurium.php:3741
 msgid "File not found or not readable."
@@ -3710,7 +3611,7 @@ msgstr "파일을 찾을 수 없거나 읽을 수 없습니다."
 
 #: includes/class-segurium.php:3749
 msgid "File is too large to preview."
-msgstr "파일이 너무 커서 미리 볼 수 없습니다."
+msgstr "파일이 너무 커서 미리보기를 표시할 수 없습니다."
 
 #: includes/class-segurium.php:3759 includes/class-segurium.php:5395
 msgid "Failed to read file."
@@ -3732,7 +3633,7 @@ msgstr "예기치 않은 오류입니다."
 
 #: includes/class-segurium.php:4376
 msgid "This endpoint has been removed. Please reload the page."
-msgstr "이 엔드포인트는 제거되었습니다. 페이지를 새로고침하십시오."
+msgstr "이 엔드포인트는 제거되었습니다. 페이지를 새로고침하세요."
 
 #: includes/class-segurium.php:4514 includes/class-segurium.php:4543
 #: includes/class-segurium.php:4574 includes/class-segurium.php:4675
@@ -3757,8 +3658,7 @@ msgstr "잘못된 매개변수입니다."
 #: includes/class-segurium.php:4787
 msgid ""
 "Cannot delete the currently active theme. Switch to a different theme first."
-msgstr ""
-"현재 활성화된 테마는 삭제할 수 없습니다. 먼저 다른 테마로 전환하십시오."
+msgstr "현재 활성화된 테마는 삭제할 수 없습니다. 먼저 다른 테마로 전환하세요."
 
 #. translators: 1: component type, 2: component slug.
 #: includes/class-segurium.php:4864
@@ -3774,7 +3674,7 @@ msgstr "%1$s \"%2$s\"이(가) 백업에서 복원되었습니다."
 
 #: includes/class-segurium.php:5030
 msgid "Cannot delete active theme. Switch first."
-msgstr "활성 테마는 삭제할 수 없습니다. 먼저 전환하십시오."
+msgstr "활성 테마는 삭제할 수 없습니다. 먼저 전환하세요."
 
 #: includes/class-segurium.php:5037
 msgid "Delisted from WordPress.org"
@@ -3788,7 +3688,7 @@ msgstr "\"%s\" 테마는 방치되었지만 현재 활성 상태입니다. 건�
 
 #: includes/class-segurium.php:5053
 msgid "Active abandoned theme — switch manually."
-msgstr "활성화된 방치 테마 — 수동으로 전환하십시오."
+msgstr "활성화된 방치 테마 — 수동으로 전환하세요."
 
 #: includes/class-segurium.php:5079
 msgid "Not from WordPress.org — integrity cannot be verified."
@@ -3861,8 +3761,7 @@ msgstr "파일 읽기에 실패했습니다"
 
 #: includes/class-segurium.php:6475
 msgid "Backup is no longer available — it was rotated out by newer backups."
-msgstr ""
-"백업이 더 이상 사용 가능하지 않습니다 — 새 백업에 의해 순환 폐기되었습니다."
+msgstr "백업이 더 이상 사용 가능하지 않습니다 — 새 백업에 의해 순환 폐기되었습니다."
 
 #: includes/class-segurium.php:6477
 msgid "Backup metadata is missing or unreadable."
@@ -3870,11 +3769,9 @@ msgstr "백업 메타데이터가 누락되었거나 읽을 수 없습니다."
 
 #: includes/class-segurium.php:6479
 msgid ""
-"Backup file is unreadable. Check filesystem permissions on wp-content/"
-"segurium-data."
-msgstr ""
-"백업 파일을 읽을 수 없습니다. wp-content/segurium-data의 파일 시스템 권한을 "
-"확인하십시오."
+"Backup file is unreadable. Check filesystem permissions on wp-"
+"content/segurium-data."
+msgstr "백업 파일을 읽을 수 없습니다. wp-content/segurium-data의 파일 시스템 권한을 확인하세요."
 
 #: includes/class-segurium.php:6481
 msgid "Backup file is corrupt — decryption failed."
@@ -3886,9 +3783,7 @@ msgstr "백업 파일이 손상되었습니다 — 압축 해제에 실패했습
 
 #: includes/class-segurium.php:6485
 msgid "Backup integrity check failed — content hash does not match metadata."
-msgstr ""
-"백업 무결성 검사에 실패했습니다 — 콘텐츠 해시가 메타데이터와 일치하지 않습니"
-"다."
+msgstr "백업 무결성 검사에 실패했습니다 — 콘텐츠 해시가 메타데이터와 일치하지 않습니다."
 
 #: includes/class-segurium.php:6487
 msgid "Invalid backup reference."
@@ -3916,7 +3811,7 @@ msgstr "권한이 거부되었습니다."
 
 #: includes/class-segurium.php:6985
 msgid "Message is required."
-msgstr "메시지를 입력해야 합니다."
+msgstr "메시지는 필수 항목입니다."
 
 #: includes/class-segurium.php:6992
 msgid "A valid reply-to email is required."
@@ -3924,11 +3819,11 @@ msgstr "유효한 회신 이메일이 필요합니다."
 
 #: includes/class-segurium.php:7010
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "오늘 제출한 티켓이 너무 많습니다. 내일 다시 시도하십시오."
+msgstr "오늘 제출한 티켓이 너무 많습니다. 내일 다시 시도하세요."
 
 #: includes/class-segurium.php:7019
 msgid "Failed to upload the file. Try again."
-msgstr "파일 업로드에 실패했습니다. 다시 시도하십시오."
+msgstr "파일 업로드에 실패했습니다. 다시 시도하세요."
 
 #: includes/class-segurium.php:7023
 msgid "File is empty or too large (max 100 MB)."
@@ -3944,7 +3839,7 @@ msgstr "업로드된 파일을 읽지 못했습니다."
 
 #: includes/class-segurium.php:7163
 msgid "Please enter a username or user ID."
-msgstr "사용자 이름 또는 사용자 ID를 입력하십시오."
+msgstr "사용자 이름 또는 사용자 ID를 입력하세요."
 
 #: includes/class-segurium.php:7168
 msgid "User not found."
@@ -3965,8 +3860,8 @@ msgid ""
 "AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
 "firewall mode. Configure manually if needed."
 msgstr ""
-"AIOS IP 허용 목록(우회)은 Segurium의 거부 목록 방화벽 모드에 직접 대응되는 항"
-"목이 없습니다. 필요 시 수동으로 구성하십시오."
+"AIOS IP 허용 목록(우회)은 Segurium의 거부 목록 방화벽 모드에 직접 대응되는 항목이 없습니다. 필요 시 수동으로 "
+"구성하세요."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
@@ -3988,7 +3883,8 @@ msgstr "국가 차단"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr "AIOS 국가 차단은 유료 클라우드 기능이며 로컬로 가져올 수 없습니다."
 
 #: includes/migrations/class-segurium-migration-aios.php:128
@@ -4029,9 +3925,7 @@ msgstr "Segurium 2FA(계획됨)"
 msgid ""
 "Solid Security stores country blocks in the cloud dashboard. Configure "
 "manually in the Geo Blocking tab."
-msgstr ""
-"Solid Security는 국가 차단을 클라우드 대시보드에 저장합니다. 지역 차단 탭에"
-"서 수동으로 구성하십시오."
+msgstr "Solid Security는 국가 차단을 클라우드 대시보드에 저장합니다. 지역 차단 탭에서 수동으로 구성하세요."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 #: includes/migrations/class-segurium-migration-solid-security.php:127
@@ -4051,8 +3945,8 @@ msgid ""
 "Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
-"Sucuri Security는 WAF 규칙, 지역 차단, 멀웨어 검사 설정을 Sucuri 클라우드 대"
-"시보드에 저장합니다. 이러한 설정은 로컬로 가져올 수 없습니다."
+"Sucuri Security는 WAF 규칙, 지역 차단, 멀웨어 검사 설정을 Sucuri 클라우드 대시보드에 저장합니다. 이러한 설정은 "
+"로컬로 가져올 수 없습니다."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
 #: includes/migrations/class-segurium-migration-wordfence.php:69
@@ -4068,8 +3962,7 @@ msgstr "Segurium WAF 규칙(계획됨)"
 msgid ""
 "Segurium geo-blocking (available) — configure manually in the Geo Blocking "
 "tab."
-msgstr ""
-"Segurium 지역 차단(사용 가능) — 지역 차단 탭에서 수동으로 구성하십시오."
+msgstr "Segurium 지역 차단(사용 가능) — 지역 차단 탭에서 수동으로 구성하세요."
 
 #: includes/migrations/class-segurium-migration-wordfence.php:152
 msgid "No exclusion patterns configured in Wordfence."
@@ -4099,7 +3992,7 @@ msgstr "Wordfence 2FA 데이터를 찾을 수 없습니다"
 
 #: includes/segurium-ajax-envelope.php:116
 msgid "Your session has expired. Please reload the page and try again."
-msgstr "세션이 만료되었습니다. 페이지를 새로고침하고 다시 시도하십시오."
+msgstr "세션이 만료되었습니다. 페이지를 새로고침하고 다시 시도하세요."
 
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
@@ -4112,8 +4005,8 @@ msgid ""
 "Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
-"Segurium은 PHP %1$s 이상을 필요로 합니다. 이 사이트는 PHP %2$s에서 실행 중입"
-"니다. 호스트에 PHP 업그레이드를 요청한 뒤 Segurium을 다시 활성화하십시오."
+"Segurium은 PHP %1$s 이상을 필요로 합니다. 이 사이트는 PHP %2$s에서 실행 중입니다. 호스트에 PHP 업그레이드를 "
+"요청한 뒤 Segurium을 다시 활성화하세요."
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:587
@@ -4122,8 +4015,8 @@ msgid ""
 "Segurium requires WordPress %1$s or higher. This site is running WordPress "
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
-"Segurium은 WordPress %1$s 이상을 필요로 합니다. 이 사이트는 WordPress %2$s에"
-"서 실행 중입니다. WordPress를 업데이트한 뒤 Segurium을 다시 활성화하십시오."
+"Segurium은 워드프레스 %1$s 이상을 필요로 합니다. 이 사이트는 워드프레스 %2$s에서 실행 중입니다. 워드프레스를 업데이트한 "
+"뒤 Segurium을 다시 활성화하세요."
 
 #: segurium.php:589
 msgid "unknown"
@@ -4132,16 +4025,31 @@ msgstr "알 수 없음"
 msgid "Cleanup quota reached."
 msgstr "정리 할당량에 도달했습니다."
 
-msgid "Segurium detected this site was moved or cloned and is re-establishing its secure connection in the background. If you have a Pro license, please re-activate it on the Segurium account screen so Pro features are restored on the new identity."
-msgstr "Segurium이 이 사이트가 이동되었거나 복제된 것을 감지하여 백그라운드에서 보안 연결을 다시 설정하고 있습니다. Pro 라이선스를 보유하고 있다면 Segurium 계정 화면에서 라이선스를 다시 활성화하여 새 ID에서 Pro 기능이 복원되도록 하십시오."
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium이 이 사이트가 이동되었거나 복제된 것을 감지하여 백그라운드에서 보안 연결을 다시 설정하고 있습니다. Pro 라이선스를 "
+"보유하고 있다면 Segurium 계정 화면에서 라이선스를 다시 활성화하여 새 ID에서 Pro 기능이 복원되도록 하세요."
 
-msgid "Segurium could not activate the Pro license on this site because it is currently bound to another installation. Please open the Segurium account portal on the original installation and deactivate the license there; the binding will be released and Pro features will re-activate here on the next license check."
-msgstr "현재 라이선스가 다른 설치에 바인딩되어 있어 이 사이트에서 Pro 라이선스를 활성화할 수 없습니다. 원래 설치에서 Segurium 계정 포털을 열어 해당 위치의 라이선스를 비활성화하십시오. 바인딩이 해제되면 다음 라이선스 확인 시 이 사이트에서 Pro 기능이 다시 활성화됩니다."
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium이 이 사이트에서 Pro 라이선스를 활성화할 수 없습니다. 현재 라이선스가 다른 설치에 바인딩되어 있기 때문입니다. 원래 "
+"설치에서 Segurium 계정 포털을 열어 해당 위치의 라이선스를 비활성화하세요. 바인딩이 해제되면 다음 라이선스 확인 시 이 사이트에서"
+" Pro 기능이 다시 활성화됩니다."
 
 msgid "Cleanup unavailable."
 msgstr "정리를 사용할 수 없습니다."
 
-#. translators: %d: number of seconds since the scan worker last reported progress
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
 msgid "no progress for %ds — waiting for worker"
 msgstr "%d초 동안 진행 없음 — 워커 대기 중"
 
@@ -4172,7 +4080,8 @@ msgstr "Free의 모든 기능"
 msgid "Email support, priority queue"
 msgstr "이메일 지원, 우선 처리"
 
-msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
 msgstr "모든 기능은 모든 설치본에 제공됩니다. Pro는 월간 정리 한도를 해제합니다."
 
 msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
@@ -4182,20 +4091,23 @@ msgid "forever"
 msgstr "영구"
 
 msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
-msgstr "무제한 정리. Free와 동일한 기능이며 월간 한도가 없습니다."
+msgstr "무제한 정리 — Free와 동일한 기능이며 월간 한도가 없습니다."
 
 msgid "/year per site"
 msgstr "/사이트당 연간"
 
 msgid "14-day money-back guarantee."
-msgstr "14일 환불 보장."
+msgstr "14일 환불 보장"
 
 #. translators: 1: opening anchor tag, 2: closing anchor tag
-msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
-msgstr "5개 및 25개 사이트 번들, 그리고 100개 이상 사이트 견적은 %1$ssegurium.com/pricing/%2$s에서 확인하십시오."
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"5개 및 25개 사이트 번들, 그리고 100개 이상 사이트 견적은 %1$ssegurium.com/pricing/%2$s에서 확인하세요."
 
 msgid "Every 60 seconds (Segurium scan rescue)"
-msgstr "60초마다 (Segurium 스캔 복구)"
+msgstr "60초마다(Segurium 검사 복구)"
 
 msgid "Up to date"
 msgstr "최신"
@@ -4245,35 +4157,50 @@ msgstr "보기 실패"
 msgid ""
 "Cannot restore — no backup recorded for this file. The backup may have been "
 "rotated out."
-msgstr ""
-"복원할 수 없습니다 — 이 파일에 대한 백업이 기록되어 있지 않습니다. 백업이 순"
-"환 보관에서 제거되었을 수 있습니다."
+msgstr "복원할 수 없습니다 — 이 파일에 대한 백업이 기록되어 있지 않습니다. 백업이 순환 보관에서 제거되었을 수 있습니다."
 
 #. translators: %s is the name of the missing form field.
 #: includes/segurium-ajax-envelope.php:109
 #, php-format
 msgid "Missing parameter: %s"
-msgstr "누락된 매개변수: %s"
+msgstr "누락된 파라미터: %s"
 
 #: includes/class-segurium.php:2196
-msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
-msgstr "이 모드는 고정된 사전 설정 값을 전송합니다. 개별 헤더를 재정의하려면 사용자 정의로 전환하십시오."
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr "이 모드는 고정된 사전 설정 값을 전송합니다. 개별 헤더를 재정의하려면 사용자 정의로 전환하세요."
 
 #: includes/class-segurium.php:2235
-msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
-msgstr "악용될 가능성이 있는 유니버설 XSS 결함이 있었던 레거시 IE 및 구버전 Edge의 XSS 필터를 명시적으로 비활성화합니다. 최신 브라우저는 이 헤더를 무시하며, 실제 XSS 방어 수단은 CSP입니다."
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"악용될 가능성이 있는 유니버설 XSS 결함이 있었던 레거시 IE 및 구버전 Edge의 XSS 필터를 명시적으로 비활성화합니다. 최신 "
+"브라우저는 이 헤더를 무시하며, 실제 XSS 방어 수단은 CSP입니다."
 
 #: includes/class-segurium.php:2236
-msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
-msgstr "레거시 브라우저에 반사를 정제하도록 지시합니다. 이 필터는 유효한 페이지를 조용히 깨뜨리는 오탐을 일으키며, 알려진 UXSS 우회가 존재합니다. 권장되지 않습니다."
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"레거시 브라우저에 반사를 정제하도록 지시합니다. 이 필터는 유효한 페이지를 조용히 깨뜨리는 오탐을 일으키며, 알려진 UXSS 우회가 "
+"존재합니다. 권장되지 않습니다."
 
 #: includes/class-segurium.php:2237
-msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
-msgstr "위와 동일한 필터이지만, 반사가 의심되면 페이지 전체를 차단합니다. 동일한 결함에 더해, 교차 출처 데이터를 유출할 수 있는 타이밍 부채널이 존재합니다. 권장되지 않습니다."
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"위와 동일한 필터이지만, 반사가 의심되면 페이지 전체를 차단합니다. 동일한 결함에 더해, 교차 출처 데이터를 유출할 수 있는 타이밍 "
+"부채널이 존재합니다. 권장되지 않습니다."
 
 #: includes/class-segurium-async-scan-poller.php:125
 msgid "Segurium async scan poll (1 min)"
-msgstr "Segurium 비동기 스캔 폴링 (1분)"
+msgstr "Segurium 비동기 검사 폴링(1분)"
 
 #: includes/class-segurium.php:878
 msgid "files"
@@ -4316,7 +4243,8 @@ msgstr "Segurium Cloud(%s): 서명 타임스탬프 형식이 잘못되었습니�
 
 #. translators: 1: endpoint label, 2: skew in seconds
 #, php-format
-msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
 msgstr "Segurium Cloud(%1$s): 서명 타임스탬프가 허용 범위를 %2$d초 벗어났습니다."
 
 #. translators: 1: endpoint label, 2: error message
@@ -4329,17 +4257,37 @@ msgstr "Segurium Cloud(%1$s): libsodium이 서명을 거부했습니다(%2$s)."
 msgid "Segurium Cloud (%s): signature did not verify."
 msgstr "Segurium Cloud(%s): 서명이 검증되지 않았습니다."
 
-msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
-msgstr "온프레미스 모드가 활성화되어 있습니다: 파일 내용은 이 서버에 남으며, 클라우드가 해시로 식별할 수 없는 파일은 미해결로 남습니다. 완전한 정확도를 위해 클라우드 기반 탐지를 켜십시오."
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"온프레미스 모드가 활성화되어 있습니다. 파일 내용은 이 서버에 남으며, 클라우드가 해시로 식별할 수 없는 파일은 미해결로 남습니다. "
+"완전한 정확도를 위해 클라우드 기반 탐지를 켜세요."
 
 msgid "Segurium Cloud consent is required before scanning."
 msgstr "검사를 진행하기 전에 Segurium Cloud 사용 동의가 필요합니다."
 
-msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
-msgstr "분석을 위해 업로드된 파일 샘플은 최대 365일 동안 보관된 후 자동 야간 삭제 작업으로 제거됩니다. 검토가 완료되면 샘플이 더 일찍 제거될 수 있습니다."
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"분석을 위해 업로드된 파일 샘플은 최대 365일 동안 보관된 후 자동 야간 삭제 작업으로 제거됩니다. 검토가 완료되면 샘플이 더 일찍 "
+"제거될 수 있습니다."
 
-msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "활성화하면 고급 멀웨어 탐지와 클라우드 기반 정리를 위해 파일 내용이 Segurium Cloud와 공유될 수 있습니다. 의심스러운 파일만 전송됩니다. 온프레미스 모드로 사용하려면 끄십시오: 이 경우 검사는 SHA-256 해시, 파일 경로, 메타데이터만 전송하며, 클라우드가 해시로 식별할 수 없는 파일은 미해결로 남습니다. 오탐지 보고나 지원 티켓에 파일을 첨부하는 경우에는 사용자가 직접 선택한 파일이므로 해당 파일이 계속 전송됩니다."
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"활성화하면 고급 멀웨어 탐지와 클라우드 기반 정리를 위해 파일 내용이 Segurium Cloud와 공유될 수 있습니다. 의심스러운 파일만"
+" 전송됩니다. 온프레미스 모드로 사용하려면 끄세요. 이 경우 검사는 SHA-256 해시, 파일 경로, 메타데이터만 전송하며, 클라우드가 "
+"해시로 식별할 수 없는 파일은 미해결로 남습니다. 오탐지 보고나 지원 티켓에 파일을 첨부하는 경우에는 사용자가 직접 선택한 파일이므로 "
+"해당 파일이 계속 전송됩니다."
 
 #. translators: brand name of the service, do not translate
 msgid "Segurium Cloud"
@@ -4385,6 +4333,147 @@ msgstr "건너뜀"
 msgid "scanned"
 msgstr "검사됨"
 
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium이 서버로부터 빈 응답을 받았습니다. PHP 핸들러가 출력을 생성하기 전에 충돌한 것으로 보입니다 — PHP 오류 로그에서"
+" 치명적 오류, OOM 또는 시간 초과를 확인하세요."
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"본문에 Segurium의 응답 마커가 누락되었습니다. Segurium AJAX 핸들러가 실행되지 않았거나 다른 플러그인이 전체 응답을 "
+"대체했습니다. wp-content/mu-plugins, 활성 플러그인 및 PHP 오류 로그를 확인하세요."
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Segurium의 응답이 전송 도중 끊겼습니다 — 시작 마커는 도착했지만 종료 마커는 도착하지 않았습니다. PHP 핸들러가 응답 도중에 "
+"충돌했습니다(치명적 오류, OOM 또는 시간 초과). PHP 오류 로그를 확인하세요."
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium이 서버 응답을 풀 수 없습니다. Segurium 핸들러의 치명적 오류, OOM 또는 시간 초과에 대해 PHP 오류 로그를"
+" 확인하세요."
+
+#: includes/class-segurium-2fa.php:1281
+msgid "Forbidden"
+msgstr "금지됨"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"끔(기본값): 삭제된 구성 요소 및 정리된 파일의 암호화 백업은 제거 후에도 uploads/segurium-data 디렉터리에 보관되므로"
+" 재설치 시 복원할 수 있습니다. 제거 시 완전히 삭제하려는 경우에만 켜세요."
+
+#: includes/class-segurium.php:6868
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr "백업 파일을 읽을 수 없습니다. uploads/segurium-data의 파일 시스템 권한을 확인하세요."
+
+#: includes/class-segurium.php:351
+msgid "Unknown or unsupported action."
+msgstr "알 수 없거나 지원되지 않는 작업입니다."
+
+#: includes/class-segurium.php:386
+msgid "This action is temporarily unavailable."
+msgstr "이 작업은 일시적으로 사용할 수 없습니다."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "구성 요소 백업에는 PHP Phar 확장 모듈이 필요합니다."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "백업 실패: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "백업 아카이브가 생성되지 않았습니다."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "복원 실패: %s"
+
+#. Description of the plugin
+msgid ""
+"Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
+"Firewall, 2FA, Geo-blocking, and more for free."
+msgstr ""
+"원본 파일 복원, 안티바이러스, 멀웨어 검사, 무차별 대입 공격 방지, 방화벽, 2FA, 지역 차단 등 모든 기능을 무료로 제공합니다."
+
+msgid "Scan trigger requires authentication."
+msgstr "검사 트리거에는 인증이 필요합니다."
+
+msgid "Scan trigger secret did not match."
+msgstr "검사 트리거 시크릿이 일치하지 않습니다."
+
+#. Plugin Name of the plugin
+msgid ""
+"Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr "Segurium – 멀웨어 제거 및 정리, 방화벽, 이중 인증"
+
+#. Description of the plugin
+msgid ""
+"Free malware cleanup, not just detection — scan, clean, and restore hacked "
+"sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"탐지에 그치지 않는 무료 멀웨어 정리 — 해킹된 사이트를 검사하고 정리한 후 복원합니다. 방화벽, 무차별 대입 공격 차단, 2FA, 지역"
+" 차단까지"
+
+#: includes/class-segurium.php:2940
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "마이그레이션 가져오기(Wordfence, AIOS, Solid Security)"
+
+msgid "Leave a review"
+msgstr "리뷰 남기기"
+
+msgid "Don't ask again"
+msgstr "다시 묻지 않기"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium이 방금 사이트를 정리했습니다."
+
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"도움이 되어 기쁩니다. 오늘 Segurium이 시간이나 비용을 절약해 드렸다면, WordPress.org에 정직한 리뷰를 남겨 주면 다른"
+" 사이트 소유자들이 Segurium을 찾는 데 도움이 되고, 정리 등급을 무료로 유지하는 데에도 도움이 됩니다."
+
+msgid "Scan complete. Your site is clean."
+msgstr "검사가 완료되었습니다. 사이트가 깨끗합니다."
+
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr "Segurium이 제 역할을 하고 있다면, WordPress.org에 정직한 리뷰를 남겨 주시겠습니까? 1분이면 됩니다."
+
+msgid "Unknown review prompt action."
+msgstr "알 수 없는 리뷰 안내 작업입니다."
+
+msgid "Could not save your choice. Please try again."
+msgstr "선택 내용을 저장할 수 없습니다. 다시 시도해 주세요."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 
@@ -4419,15 +4508,14 @@ msgstr "검사됨"
 #~ "Segurium runs without sharing any account information. Upgrade to Pro to "
 #~ "unlock unlimited cleanup, automatic fixes, and email support."
 #~ msgstr ""
-#~ "Segurium은 계정 정보를 공유하지 않고도 작동합니다. Pro로 업그레이드하면 무"
-#~ "제한 정리, 자동 복구, 이메일 지원을 이용할 수 있습니다."
+#~ "Segurium은 계정 정보를 공유하지 않고도 작동합니다. Pro로 업그레이드하면 무제한 정리, 자동 복구, 이메일 지원을 이용할 수 "
+#~ "있습니다."
 
 #~ msgid "Automatic cleanup is a Pro feature."
 #~ msgstr "자동 정리는 Pro 기능입니다."
 
 #~ msgid "This is a Pro feature. Upgrade to enable bulk fixes."
-#~ msgstr ""
-#~ "이 기능은 Pro 전용입니다. 일괄 복구를 사용하려면 업그레이드하십시오."
+#~ msgstr "이 기능은 Pro 전용입니다. 일괄 복구를 사용하려면 업그레이드하십시오."
 
 #~ msgid "Free cleanups exhausted"
 #~ msgstr "무료 정리 한도 소진"
@@ -4436,8 +4524,7 @@ msgstr "검사됨"
 #~ "You’ve used your %1$d free cleanups in the last %2$d days. Upgrade to Pro "
 #~ "for unlimited cleanups + auto-fix."
 #~ msgstr ""
-#~ "지난 %2$d일 동안 무료 정리 %1$d회를 모두 사용했습니다. Pro로 업그레이드하"
-#~ "면 무제한 정리와 자동 복구를 이용할 수 있습니다."
+#~ "지난 %2$d일 동안 무료 정리 %1$d회를 모두 사용했습니다. Pro로 업그레이드하면 무제한 정리와 자동 복구를 이용할 수 있습니다."
 
 #~ msgid "Free vs Pro"
 #~ msgstr "무료 vs Pro"
@@ -4447,133 +4534,26 @@ msgstr "검사됨"
 
 #~ msgid ""
 #~ "Free-tier cleanup quota exceeded. Upgrade to Pro for unlimited cleanups."
-#~ msgstr ""
-#~ "무료 단계 정리 한도를 초과했습니다. 무제한 정리를 사용하려면 Pro로 업그레"
-#~ "이드하십시오."
+#~ msgstr "무료 단계 정리 한도를 초과했습니다. 무제한 정리를 사용하려면 Pro로 업그레이드하십시오."
 
 #~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
-#~ "one click."
-#~ msgstr ""
-#~ "\"모두 복구\"는 Pro 기능입니다. 탐지된 모든 멀웨어를 한 번에 정리하려면 업"
-#~ "그레이드하십시오."
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in one"
+#~ " click."
+#~ msgstr "\"모두 복구\"는 Pro 기능입니다. 탐지된 모든 멀웨어를 한 번에 정리하려면 업그레이드하십시오."
 
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
-#~ msgstr ""
-#~ "\"모두 복구\"는 Pro 기능입니다. 모든 복구를 한 번에 적용하려면 업그레이드"
-#~ "하십시오."
+#~ msgid "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgstr "\"모두 복구\"는 Pro 기능입니다. 모든 복구를 한 번에 적용하려면 업그레이드하십시오."
 
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
-#~ msgstr ""
-#~ "무료 단계 복구 한도를 초과했습니다. 무제한 복구를 사용하려면 Pro로 업그레"
-#~ "이드하십시오."
+#~ msgstr "무료 단계 복구 한도를 초과했습니다. 무제한 복구를 사용하려면 Pro로 업그레이드하십시오."
+
+msgid "Scan in progress..."
+msgstr "검사 진행 중..."
 
 msgid ""
-"Segurium got an empty response from the server. The PHP handler likely "
-"crashed before producing any output — check the PHP error log for a fatal, "
-"OOM, or timeout."
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
 msgstr ""
-"Segurium이 서버로부터 빈 응답을 받았습니다. PHP 핸들러가 출력을 생성하기 전"
-"에 충돌한 것으로 보입니다 — PHP 오류 로그에서 치명적 오류, OOM 또는 시간 초"
-"과를 확인하십시오."
-
-msgid ""
-"Segurium's response markers are missing from the body. The Segurium AJAX "
-"handler did not run, or another plugin replaced the entire response. Check "
-"wp-content/mu-plugins, active plugins, and the PHP error log."
-msgstr ""
-"본문에 Segurium의 응답 마커가 누락되었습니다. Segurium AJAX 핸들러가 실행되"
-"지 않았거나 다른 플러그인이 전체 응답을 대체했습니다. wp-content/mu-"
-"plugins, 활성 플러그인 및 PHP 오류 로그를 확인하십시오."
-
-msgid ""
-"Segurium's response was cut off mid-stream — the start marker arrived but "
-"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
-"or timeout). Check the PHP error log."
-msgstr ""
-"Segurium의 응답이 전송 도중 끊겼습니다 — 시작 마커는 도착했지만 종료 마커"
-"는 도착하지 않았습니다. PHP 핸들러가 응답 도중에 충돌했습니다 (치명적 오"
-"류, OOM 또는 시간 초과). PHP 오류 로그를 확인하십시오."
-
-msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for "
-"a fatal, OOM, or timeout in the Segurium handler."
-msgstr ""
-"Segurium이 서버 응답을 풀 수 없습니다. Segurium 핸들러의 치명적 오류, OOM "
-"또는 시간 초과에 대해 PHP 오류 로그를 확인하십시오."
-
-#: includes/class-segurium-2fa.php:1281
-msgid "Forbidden"
-msgstr "금지됨"
-
-#: includes/class-segurium.php:2945
-msgid ""
-"Off (default): encrypted backups of deleted components and cured files are "
-"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
-"can still restore them. Turn on only if you want a hard deletion on "
-"uninstall."
-msgstr ""
-"끄기 (기본값): 삭제된 구성 요소 및 치료된 파일의 암호화된 백업은 제거 후에도 "
-"uploads/segurium-data 디렉터리에 보관되므로 재설치 시 복원할 수 있습니다. "
-"제거 시 완전히 삭제하려는 경우에만 켜십시오."
-
-#: includes/class-segurium.php:6868
-msgid ""
-"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
-"data."
-msgstr ""
-"백업 파일을 읽을 수 없습니다. uploads/segurium-data의 파일 시스템 권한을 "
-"확인하십시오."
-
-#: includes/class-segurium.php:351
-msgid "Unknown or unsupported action."
-msgstr "알 수 없거나 지원되지 않는 작업입니다."
-
-#: includes/class-segurium.php:386
-msgid "This action is temporarily unavailable."
-msgstr "이 작업은 일시적으로 사용할 수 없습니다."
-
-#: includes/class-segurium-component-backup.php:59
-#: includes/class-segurium-component-backup.php:168
-msgid "The PHP Phar extension is required for component backups."
-msgstr "구성 요소 백업에는 PHP Phar 확장 모듈이 필요합니다."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:80
-#, php-format
-msgid "Backup failed: %s"
-msgstr "백업에 실패했습니다: %s"
-
-#: includes/class-segurium-component-backup.php:92
-msgid "Backup archive was not created."
-msgstr "백업 아카이브가 생성되지 않았습니다."
-
-#. translators: %s: underlying error message.
-#: includes/class-segurium-component-backup.php:209
-#, php-format
-msgid "Restore failed: %s"
-msgstr "복원에 실패했습니다: %s"
-
-#. Description of the plugin
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
-msgstr "원본 파일 복원, 안티바이러스, 멀웨어 검사, 무차별 대입 공격 방지, 방화벽, 2FA, 지역 차단 등 모든 기능을 무료로 제공합니다."
-
-msgid "Scan trigger requires authentication."
-msgstr "스캔 트리거에는 인증이 필요합니다."
-
-msgid "Scan trigger secret did not match."
-msgstr "스캔 트리거 시크릿이 일치하지 않습니다."
-
-#. Plugin Name of the plugin
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
-msgstr "Segurium – 멀웨어 제거 및 정리, 방화벽, 이중 인증"
-
-#. Description of the plugin
-msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "탐지에 그치지 않는 무료 멀웨어 정리 — 해킹된 사이트를 스캔하고 정리한 후 복원합니다. 또한 방화벽, 무차별 대입 공격 방지, 2FA, 지역 차단을 제공합니다."
-
-#: includes/class-segurium.php:2940
-msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "마이그레이션 가져오기(Wordfence, AIOS, Solid Security)"
+"진행 상황 표시에서 스크립트 오류가 발생하여 업데이트가 중지되었습니다. 현재 상태를 확인하려면 페이지를 새로고침하십시오. 검사 자체에는 영향이 없습니다. 자세한 내용은 브라우저 콘솔에서 확인할 수 있습니다."

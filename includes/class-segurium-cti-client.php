@@ -88,6 +88,37 @@ class Segurium_CTI_Client {
 	const INSPECT_TIMEOUT_SEC = 8;
 
 	/**
+	 * SEGURIUM-745: `/v1/scan/submit` timeout used outside a runner tick —
+	 * the realtime, upload and test paths, where `time_left_in_tick()`
+	 * returns 0.0 because there is no budget to derive from.
+	 */
+	const SUBMIT_TIMEOUT_DEFAULT_SEC = 30;
+
+	/**
+	 * SEGURIUM-745: smallest remaining budget that still justifies a *retry*.
+	 * Never applies to a batch's first attempt, which always runs with at
+	 * least {@see SUBMIT_TIMEOUT_DEFAULT_SEC}. Matches
+	 * `Segurium_Scan_Runner::TICK_BUDGET_MIN_SEC`.
+	 */
+	const SUBMIT_TIMEOUT_MIN_SEC = 5;
+
+	/**
+	 * SEGURIUM-745: hard ceiling for a derived submit timeout.
+	 *
+	 * No heartbeat is stamped while `wp_remote_post()` blocks — the runner
+	 * stamps per file, before the POST — so a single upload must stay well
+	 * inside `Segurium_Scan_Lock::HEARTBEAT_MAX_AGE` (60). Its docblock puts
+	 * the longest legitimate gap at one in-flight RTT and sizes the 60 s
+	 * around that; a longer POST makes `is_stale()` true and invites
+	 * `run_watchdog()` to reclaim a scan that is uploading fine. The same
+	 * ceiling keeps a POST under `compute_mutex_ttl()`, which caps at 300 s,
+	 * so the tick mutex cannot lapse mid-upload and let a second worker into
+	 * the same scan (the corruption SEGURIUM-426 closed). Without this a host
+	 * with `max_execution_time = 600` would derive a 588 s timeout.
+	 */
+	const SUBMIT_TIMEOUT_MAX_SEC = 50;
+
+	/**
 	 * SEGURIUM-477: classification buckets returned by
 	 * {@see classify_scan_response()}. Stringly-typed enum so callers
 	 * can `switch` / `===` on stable symbols instead of magic strings.
@@ -187,6 +218,72 @@ class Segurium_CTI_Client {
 			'mode'        => self::SCAN_CLASS_DROP,
 			'retry_after' => 0,
 		);
+	}
+
+	/**
+	 * SEGURIUM-745: wall-clock ceiling for one `/v1/scan/submit` POST.
+	 *
+	 * Implements the discipline already documented on
+	 * {@see Segurium_Scan_Runner::time_left_in_tick()}:
+	 * `min(known_max_call_time, time_left_in_tick() - safety)`. There is no
+	 * upper constant, because the host's own `max_execution_time` already
+	 * bounds `tick_budget()` — a site with a 300s limit may spend a genuinely
+	 * long time on one 34 MB upload, and a site with 30s may not.
+	 *
+	 * A batch's first attempt never drops below {@see SUBMIT_TIMEOUT_DEFAULT_SEC},
+	 * so this method can only widen the pre-745 window, never narrow it. That
+	 * floor is not politeness: the end-of-chunk tail flush fires immediately
+	 * after `time_allows_next_unknown()` yields at the 2 s safety floor, so a
+	 * budget-derived value there would be ~0. Squeezing a 10 MiB buffer into
+	 * that window fails, and
+	 * {@see Segurium_Verdict_Queue::flush_async_submitter()} counts every
+	 * buffered file as `failed` / `neoray_errors` — the submitter is
+	 * call-local, so its restored buffer dies with the object while the files
+	 * have already been shifted off the cursor's `unknown_queue`. Overrunning
+	 * a spent budget is recoverable; losing the files is not.
+	 *
+	 * Retries take the raw remaining window instead, so a retry can only ever
+	 * shorten the tick's overrun, never extend it.
+	 *
+	 * Callers reach this only from {@see scan_submit()}, which already depends
+	 * on `Segurium_Scan_Runner` unconditionally.
+	 *
+	 * @param bool $is_first_attempt Whether this is the batch's first attempt.
+	 * @return int Timeout in seconds.
+	 */
+	private static function submit_timeout_secs( $is_first_attempt ) {
+		if ( ! Segurium_Scan_Runner::in_tick() ) {
+			return self::SUBMIT_TIMEOUT_DEFAULT_SEC;
+		}
+		$usable = (int) floor(
+			(float) Segurium_Scan_Runner::time_left_in_tick()
+			- (float) Segurium_Scan_Runner::TICK_GRACEFUL_EXIT_SAFETY_SEC
+		);
+		if ( $is_first_attempt ) {
+			$usable = max( self::SUBMIT_TIMEOUT_DEFAULT_SEC, $usable );
+		}
+		return min( self::SUBMIT_TIMEOUT_MAX_SEC, $usable );
+	}
+
+	/**
+	 * SEGURIUM-745: whether the tick can still afford another attempt.
+	 *
+	 * Only gates *retries*. The first attempt always runs, because dropping a
+	 * batch costs the files (see {@see submit_timeout_secs()}), while a retry
+	 * that cannot fit is pure overrun — and when the previous attempt died on
+	 * its own timeout, a shorter retry over the same link cannot succeed
+	 * anyway. Transient failures (DNS, TLS, 5xx) return fast and leave the
+	 * budget intact, which is the case the retry loop actually exists for.
+	 *
+	 * @return bool
+	 */
+	private static function submit_budget_allows_retry() {
+		if ( ! Segurium_Scan_Runner::in_tick() ) {
+			return true;
+		}
+		$usable = (float) Segurium_Scan_Runner::time_left_in_tick()
+			- (float) Segurium_Scan_Runner::TICK_GRACEFUL_EXIT_SAFETY_SEC;
+		return $usable >= (float) self::SUBMIT_TIMEOUT_MIN_SEC;
 	}
 
 	/**
@@ -796,9 +893,6 @@ class Segurium_CTI_Client {
 		$post_args = array(
 			'headers'  => $wire_headers,
 			'body'     => $wire_body,
-			// Submit is fast (no scan inside) — CTI just enqueues. 30s
-			// gives ample slack for the upload itself on slow links.
-			'timeout'  => 30,
 			'blocking' => true,
 		);
 
@@ -814,6 +908,25 @@ class Segurium_CTI_Client {
 			'retry_after' => 0,
 		);
 		while ( $attempt < self::MAX_SCAN_ATTEMPTS ) {
+			// SEGURIUM-745: stop retrying once the budget is spent, but never
+			// skip the first attempt — see submit_budget_allows_retry().
+			if ( $attempt > 0 && ! self::submit_budget_allows_retry() ) {
+				Segurium_Scan_Runner::debug(
+					'scan_submit_retry_budget_spent',
+					array(
+						'endpoint'  => '/v1/scan/submit',
+						'scan_id'   => $scan_id,
+						'attempts'  => $attempt,
+						'time_left' => Segurium_Scan_Runner::time_left_in_tick(),
+						'min_sec'   => self::SUBMIT_TIMEOUT_MIN_SEC,
+					)
+				);
+				break;
+			}
+			// Recompute per attempt so three of them cannot outlive the tick
+			// that started them. One value computed once is what let 3 x 30s
+			// run inside a 50s budget.
+			$post_args['timeout'] = self::submit_timeout_secs( 0 === $attempt );
 			++$attempt;
 			$t0           = microtime( true );
 			$response     = wp_remote_post( self::SCAN_SUBMIT_ENDPOINT, $post_args );

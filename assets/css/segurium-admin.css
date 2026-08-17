@@ -2433,3 +2433,25 @@ button.button[hidden],
 	gap: 8px;
 	margin: 0;
 }
+
+/* SEGURIUM-709: review ask. */
+.segurium-review-prompt p:last-child {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.segurium-review-prompt__never {
+	color: #646970;
+	text-decoration: underline;
+}
+
+.segurium-review-prompt__never:hover,
+.segurium-review-prompt__never:focus {
+	color: #1d2327;
+}
+
+.segurium-review-prompt__error {
+	color: #b32d2e;
+}

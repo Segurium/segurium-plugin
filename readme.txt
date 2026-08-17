@@ -2,9 +2,9 @@
 Contributors: segurium
 Tags: malware-removal, hacked, malware-scanner, two-factor-authentication, firewall
 Requires at least: 6.2
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -213,6 +213,13 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 12. Free vs Pro plan comparison — every hardening feature ships in the free tier; Pro unlocks unlimited cleanup quota and reversible-backup recovery.
 
 == Changelog ==
+
+= 1.1.0 - 2026-08-16 =
+* Adds review request.
+* Prevents scan aborts on slow network uploads and huge files.
+* Declares compatibility with WordPress 7.1.
+* Minor translation improvements.
+* Minor UI fixes.
 
 = 1.0.2 - 2026-08-10 =
 * Language translation fixes.

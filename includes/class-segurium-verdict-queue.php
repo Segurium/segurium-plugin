@@ -75,6 +75,26 @@ class Segurium_Verdict_Queue {
 	const NEO_RAY_MAX_BODY = 104857600;
 
 	/**
+	 * SEGURIUM-745: `scan_submit()` error codes that mean "this link could not
+	 * carry this batch", as opposed to a rejection CTI made on the content.
+	 * Files in such a batch are counted `neoray_skipped` so the scan settles
+	 * and completes; how many skip is a function of the site's bandwidth and
+	 * its tick budget, which the plugin cannot control and must not assume.
+	 *
+	 * `cti_transport_error` covers cURL 28 (the upload outran the timeout) and
+	 * the DNS/TLS family. `body_incomplete` is CTI's SEGURIUM-745 status for a
+	 * client that hung up mid-upload; `payload_too_large` is what older CTI
+	 * builds returned for that same truncation before the split landed.
+	 *
+	 * @var string[]
+	 */
+	const UPLOAD_CAPACITY_ERROR_CODES = array(
+		'cti_transport_error',
+		'cti_scan_submit_body_incomplete',
+		'cti_scan_submit_payload_too_large',
+	);
+
+	/**
 	 * Mapping from the `/v1/neo-ray` verdict string to the numeric verdict
 	 * codes used by the rest of the pipeline.
 	 */
@@ -1249,20 +1269,41 @@ class Segurium_Verdict_Queue {
 		}
 		$result = $submitter->flush();
 		if ( is_wp_error( $result ) ) {
-			// flush() restores the buffer on transport failure. Every
-			// buffered file becomes a `neoray_errors` so the chunk's
-			// completion accounting stays whole; on the next scan pass
-			// these files re-enter the queue and get another shot.
-			$leftover = $submitter->buffer_count();
+			// flush() restores the buffer on transport failure, but the
+			// submitter is call-local so that buffer dies with it; the files
+			// were already shifted off `unknown_queue`. Either way the chunk's
+			// completion accounting has to stay whole.
+			//
+			// SEGURIUM-745: a batch the link could not carry is a skip, not an
+			// error. Counting it as `neoray_skipped` — the same bucket the
+			// cancel path uses, for the same reason — keeps the
+			// `verdicted+failed+neoray_skipped == submitted` invariant while
+			// telling an operator the difference between "this site's uplink
+			// could not ship a 34 MB file inside the tick" and "CTI rejected
+			// the batch". The scan finishes either way, which is the point:
+			// on a slow enough link every large file skips and the scan still
+			// completes instead of aborting.
+			$is_upload_capacity = in_array(
+				$result->get_error_code(),
+				self::UPLOAD_CAPACITY_ERROR_CODES,
+				true
+			);
+			$leftover           = $submitter->buffer_count();
 			for ( $i = 0; $i < $leftover; $i++ ) {
+				if ( $is_upload_capacity ) {
+					++$stats['neoray_skipped'];
+					continue;
+				}
 				++$stats['failed'];
 				++$stats['neoray_errors'];
 			}
 			Segurium_Debug::log(
 				sprintf(
-					'[segurium-verdict-queue] async submit flush failed: %s (%s)',
+					'[segurium-verdict-queue] async submit flush failed: %s (%s) — %d file(s) %s',
 					$result->get_error_message(),
-					$result->get_error_code()
+					$result->get_error_code(),
+					$leftover,
+					$is_upload_capacity ? 'skipped' : 'failed'
 				)
 			);
 			return;

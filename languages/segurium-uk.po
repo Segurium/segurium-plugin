@@ -10,13 +10,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
 #: includes/class-segurium-scan-runner.php:369
-msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
-msgstr "Активацію в хмарній службі Segurium ще не завершено. Повторіть спробу за хвилину."
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"Активацію в хмарній службі Segurium ще не завершено. Повторіть спробу за "
+"хвилину."
 
 #. Plugin Name of the plugin
 #. Author of the plugin
@@ -45,8 +48,13 @@ msgstr ""
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Сайт зламано? Безкоштовне видалення шкідливого ПЗ з WordPress: сканування, очищення інфікованих файлів і їх відновлення. А також фаєрвол, захист від перебору, 2FA та геоблокування."
+msgid ""
+"Site hacked? Free WordPress malware removal: scan, clean infected files, "
+"restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Сайт зламано? Безкоштовне видалення шкідливого ПЗ з WordPress: сканування, "
+"очищення інфікованих файлів і їх відновлення. А також брандмауер, захист від"
+" перебору, 2FA та геоблокування."
 
 #: includes/class-segurium-2fa.php:589
 msgid ""
@@ -67,7 +75,8 @@ msgstr ""
 #: includes/class-segurium-2fa.php:650
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
-msgstr "Потрібна двофакторна автентифікація. Додайте код 2FA до вашого пароля."
+msgstr ""
+"Потрібна двофакторна автентифікація. Додайте код 2FA до вашого пароля."
 
 #: includes/class-segurium-2fa.php:993
 msgid "Verifying..."
@@ -374,9 +383,10 @@ msgstr "Безкоштовний обліковий запис"
 
 #: includes/class-segurium-account-page.php:453
 #: includes/class-segurium-account-page.php:482
-#: includes/class-segurium-account-page.php:553 includes/class-segurium.php:927
-#: includes/class-segurium.php:928 includes/class-segurium.php:940
-#: includes/class-segurium.php:1327 includes/class-segurium.php:2640
+#: includes/class-segurium-account-page.php:553
+#: includes/class-segurium.php:927 includes/class-segurium.php:928
+#: includes/class-segurium.php:940 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
 msgstr "Перейти на Pro"
 
@@ -439,7 +449,8 @@ msgstr "Файл не знайдено."
 
 #: includes/class-segurium-cleanup.php:93 includes/class-segurium.php:6209
 msgid "File has been modified since scan. Re-scan first."
-msgstr "Файл було змінено з моменту сканування. Спочатку проскануйте повторно."
+msgstr ""
+"Файл було змінено з моменту сканування. Спочатку проскануйте повторно."
 
 #: includes/class-segurium-cleanup.php:99
 msgid "Failed to read file for backup."
@@ -498,7 +509,8 @@ msgstr "Недійсний ідентифікатор резервної коп�
 
 #: includes/class-segurium-component-backup.php:159
 msgid "Backup archive not found or failed integrity check."
-msgstr "Архів резервної копії не знайдено або не пройшов перевірку цілісності."
+msgstr ""
+"Архів резервної копії не знайдено або не пройшов перевірку цілісності."
 
 #: includes/class-segurium-component-backup.php:169
 msgid "Failed to stage backup for extraction."
@@ -589,8 +601,8 @@ msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
 msgstr ""
-"Ваш сервер використовує FastCGI, який може повторно додавати заголовок X-"
-"Powered-By. Перевірте видалення, переглянувши заголовки відповіді."
+"Ваш сервер використовує FastCGI, який може повторно додавати заголовок "
+"X-Powered-By. Перевірте видалення, переглянувши заголовки відповіді."
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
@@ -608,9 +620,7 @@ msgstr "Спочатку виконується швидке скануванн�
 #: includes/class-segurium-integrity-chain.php:200
 msgid ""
 "The chained malware scan was cancelled — integrity scan was not started."
-msgstr ""
-"Прив'язане сканування шкідливого ПЗ скасовано — сканування цілісності не "
-"запущено."
+msgstr "Прив'язане сканування скасовано — сканування цілісності не запущено."
 
 #. translators: %s: underlying error message
 #: includes/class-segurium-integrity-chain.php:223
@@ -674,7 +684,8 @@ msgstr "Ваш сеанс завершився. Перезавантажте с�
 msgid "You do not have permission to manage scans."
 msgstr "У вас немає дозволу керувати скануваннями."
 
-#: includes/class-segurium-scan-runner.php:570 includes/class-segurium.php:3998
+#: includes/class-segurium-scan-runner.php:570
+#: includes/class-segurium.php:3998
 msgid "Could not fetch scan status due to a server error."
 msgstr "Не вдалося отримати статус сканування через помилку сервера."
 
@@ -691,17 +702,17 @@ msgstr ""
 #: includes/class-segurium-scan-runner.php:1105
 msgid ""
 "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
-"to detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
 "WordPress cron вимкнено (DISABLE_WP_CRON), і ваше налаштування PHP не "
 "дозволяє відокремлювати тривалі завдання від запитів сторінок. Фонові "
 "сканування виконуватимуться лише доки відкрита вкладка адміністратора "
-"Segurium. Попросіть хостинг або налаштувати справжнє системне завдання cron, "
-"що звертається до wp-cron.php щохвилини, або перейти з mod_php на PHP-FPM / "
-"LiteSpeed."
+"Segurium. Попросіть хостинг або налаштувати справжнє системне завдання cron,"
+" що звертається до wp-cron.php щохвилини, або перейти з mod_php на PHP-FPM /"
+" LiteSpeed."
 
 #: includes/class-segurium-scan-runner.php:1107
 msgid ""
@@ -719,7 +730,7 @@ msgstr "Недійсний вміст налаштувань."
 
 #: includes/class-segurium-scheduled-scan-settings.php:127
 msgid "Frequency must be one of: off, daily, weekly."
-msgstr "Частота має бути однією з: off, daily, weekly."
+msgstr "Частота має бути однією з: вимкнено, щодня, щотижня."
 
 #: includes/class-segurium-scheduled-scan-settings.php:138
 msgid "Hour must be between 0 and 23."
@@ -766,7 +777,8 @@ msgstr "HSTS присутній, але max-age менше одного року
 
 #: includes/class-segurium-self-check.php:291
 msgid "No HSTS header. Browsers may connect over plain HTTP."
-msgstr "Заголовок HSTS відсутній. Браузери можуть з'єднуватися звичайним HTTP."
+msgstr ""
+"Заголовок HSTS відсутній. Браузери можуть з'єднуватися звичайним HTTP."
 
 #: includes/class-segurium-self-check.php:303
 msgid "X-Content-Type-Options"
@@ -950,8 +962,8 @@ msgid ""
 "No Set-Cookie headers on the homepage; cannot assess cookie flags from "
 "outside."
 msgstr ""
-"На головній сторінці немає заголовків Set-Cookie; неможливо оцінити прапорці "
-"cookie ззовні."
+"На головній сторінці немає заголовків Set-Cookie; неможливо оцінити прапорці"
+" cookie ззовні."
 
 #: includes/class-segurium-self-check.php:591
 #: includes/class-segurium-self-check.php:624
@@ -976,7 +988,8 @@ msgstr "Cookies — SameSite"
 msgid "All %1$d cookies set the %2$s attribute."
 msgstr "Усі %1$d cookies встановлюють атрибут %2$s."
 
-#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
 #: includes/class-segurium-self-check.php:671
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
@@ -1014,75 +1027,74 @@ msgstr "Жоден cookie не встановлює SameSite=Lax або Strict (
 
 #: includes/class-segurium-self-check.php:815 includes/class-segurium.php:2662
 msgid "Cloud-assisted malware detection"
-msgstr "Хмарно-асистоване виявлення шкідливого ПЗ"
+msgstr "Хмарно-асистоване виявлення"
 
 #: includes/class-segurium-self-check.php:819
 msgid "Cloud-assisted malware detection is active."
-msgstr "Хмарно-асистоване виявлення шкідливого ПЗ активне."
+msgstr "Хмарно-асистоване виявлення активне."
 
 #: includes/class-segurium-self-check.php:831
 msgid "Scheduled malware scans"
-msgstr "Планові сканування шкідливого ПЗ"
+msgstr "Заплановані сканування"
 
 #: includes/class-segurium-self-check.php:834
 msgid "A recurring malware scan is scheduled."
-msgstr "Заплановано періодичне сканування шкідливого ПЗ."
+msgstr "Заплановано періодичне сканування"
 
 #: includes/class-segurium-self-check.php:835
 msgid "No recurring malware scan is scheduled."
-msgstr "Періодичне сканування шкідливого ПЗ не заплановано."
+msgstr "Періодичне сканування не заплановано."
 
 #: includes/class-segurium-self-check.php:847
 msgid "Automatic malware cleanup"
-msgstr "Автоматичне очищення шкідливого ПЗ"
+msgstr "Автоматичне очищення"
 
 #: includes/class-segurium-self-check.php:850
 msgid "Detected malware is cleaned automatically after every scan."
-msgstr "Виявлене шкідливе ПЗ очищується автоматично після кожного сканування."
+msgstr "Виявлені загрози очищуються автоматично після кожного сканування."
 
 #: includes/class-segurium-self-check.php:851
 msgid ""
 "Automatic cleanup is disabled. Detected malware requires a manual click to "
 "clean."
 msgstr ""
-"Автоматичне очищення вимкнено. Виявлене шкідливе ПЗ потребує очищення вручну."
+"Автоматичне очищення вимкнено. Виявлені загрози потребують очищення вручну."
 
 #: includes/class-segurium-self-check.php:865
 msgid "Malware scan up to date"
-msgstr "Сканування шкідливого ПЗ актуальне"
+msgstr "Сканування актуальне"
 
 #. translators: %s: human time difference
 #: includes/class-segurium-self-check.php:870
 #, php-format
 msgid "Last malware scan completed %s ago."
-msgstr "Останнє сканування шкідливого ПЗ завершено %s тому."
+msgstr "Останнє сканування завершено %s тому."
 
 #: includes/class-segurium-self-check.php:874
 msgid "Malware scan is older than 7 days."
-msgstr "Сканування шкідливого ПЗ старше 7 днів."
+msgstr "Сканування старше 7 днів."
 
 #: includes/class-segurium-self-check.php:875
 msgid "No malware scan has been completed yet."
-msgstr "Жодне сканування шкідливого ПЗ ще не завершено."
+msgstr "Жодне сканування ще не завершено."
 
 #: includes/class-segurium-self-check.php:887
 msgid "No malware in the last 24 hours"
-msgstr "Шкідливе ПЗ не виявлено за останні 24 години"
+msgstr "Не виявлено за останні 24 години"
 
 #: includes/class-segurium-self-check.php:890
 msgid ""
 "The most recent malware scan ran in the last 24 hours and found nothing."
 msgstr ""
-"Останнє сканування шкідливого ПЗ виконано за останні 24 години та нічого не "
-"виявило."
+"Останнє сканування виконано за останні 24 години та нічого не виявило."
 
 #: includes/class-segurium-self-check.php:892
 msgid ""
 "No malware scan has run in the last 24 hours. Scans are quick — run one to "
 "refresh this verdict."
 msgstr ""
-"Жодного сканування шкідливого ПЗ не виконано за останні 24 години. "
-"Сканування швидке — запустіть його, щоб оновити цей вердикт."
+"Жодного сканування не виконано за останні 24 години. Сканування швидке — "
+"запустіть його, щоб оновити."
 
 #. translators: %d: number of threats
 #: includes/class-segurium-self-check.php:895
@@ -1090,10 +1102,11 @@ msgstr ""
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
 msgstr[0] ""
-"Останнє сканування шкідливого ПЗ виявило %d загрозу. Перегляньте її на "
-"вкладці «Сканер шкідливого ПЗ»."
+"Останнє сканування виявило %d загроз(у). Перегляньте її на вкладці «Сканер "
+"загроз»."
 msgstr[1] ""
 "Останнє сканування шкідливого ПЗ виявило %d загрози. Перегляньте їх на "
 "вкладці «Сканер шкідливого ПЗ»."
@@ -1115,8 +1128,8 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:924
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
 msgstr ""
 "Жодного сканування цілісності не виконано за останні 24 години. Сканування "
 "швидке — запустіть його, щоб оновити цей вердикт."
@@ -1144,7 +1157,7 @@ msgstr[2] ""
 #: includes/class-segurium-trusted-proxies.php:92
 #, php-format
 msgid "Trusted proxies endpoint returned HTTP %d."
-msgstr "Кінцева точка довірених проксі повернула HTTP %d."
+msgstr "Ендпоінт довірених проксі повернув HTTP %d."
 
 #: includes/class-segurium-trusted-proxies.php:113
 msgid "Trusted proxies response has invalid format."
@@ -1152,7 +1165,7 @@ msgstr "Відповідь довірених проксі має недійсн
 
 #: includes/class-segurium-upload-scan.php:90
 msgid "This file was identified as malware and has been blocked."
-msgstr "Цей файл ідентифіковано як шкідливе ПЗ та заблоковано."
+msgstr "Цей файл ідентифіковано як загрозу та заблоковано."
 
 #: includes/class-segurium.php:278 includes/segurium-admin-menu-shell.php:95
 msgid "Security score:"
@@ -1179,7 +1192,7 @@ msgstr "Відкрити Segurium"
 
 #: includes/class-segurium.php:802
 msgid "Malware"
-msgstr "Шкідливе ПЗ"
+msgstr "Загроза"
 
 #: includes/class-segurium.php:803
 msgid "Clean"
@@ -1203,7 +1216,7 @@ msgstr "Обробка..."
 
 #: includes/class-segurium.php:808
 msgid "Show malware"
-msgstr "Показати шкідливе ПЗ"
+msgstr "Показати загрози"
 
 #: includes/class-segurium.php:809
 msgid "Report false positive"
@@ -1288,7 +1301,8 @@ msgid ""
 "undone."
 msgstr ""
 "Файл за адресою %s було змінено з моменту останнього очищення. Відновлення "
-"перезапише наявний файл версією з резервної копії. Цю дію не можна скасувати."
+"перезапише наявний файл версією з резервної копії. Цю дію не можна "
+"скасувати."
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
@@ -1331,12 +1345,13 @@ msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
 msgstr ""
-"Сканування почалося, але не вдалося запустити фоновий обробник. Спробуйте ще "
-"раз."
+"Сканування почалося, але не вдалося запустити фоновий обробник. Спробуйте ще"
+" раз."
 
 #: includes/class-segurium.php:843
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
 msgstr ""
 "Не вдалося запустити сканування через помилку сервера. Перевірте журнал "
 "помилок PHP."
@@ -1387,8 +1402,8 @@ msgid ""
 "did not parse. This usually indicates a fatal PHP error inside the Segurium "
 "handler — check the PHP error log."
 msgstr ""
-"Segurium отримав відповідь у дійсних маркерах, але JSON усередині не вдалося "
-"розпарсити. Зазвичай це свідчить про фатальну помилку PHP всередині "
+"Segurium отримав відповідь у дійсних маркерах, але JSON усередині не вдалося"
+" розпарсити. Зазвичай це свідчить про фатальну помилку PHP всередині "
 "обробника Segurium — перевірте журнал помилок PHP."
 
 #: includes/class-segurium.php:851 includes/class-segurium.php:3126
@@ -1454,13 +1469,13 @@ msgstr "показано перші"
 
 #: includes/class-segurium.php:866
 msgid "Original file content (malware)"
-msgstr "Оригінальний вміст файлу (шкідливе ПЗ)"
+msgstr "Оригінальний вміст файлу (загрози)"
 
 #. translators: %s: relative file path
 #: includes/class-segurium.php:868
 #, php-format
 msgid "Current on-disk content (malware): %s"
-msgstr "Поточний вміст на диску (шкідливе ПЗ): %s"
+msgstr "Поточний вміст на диску (загроза): %s"
 
 #: includes/class-segurium.php:869 includes/class-segurium.php:1579
 #: includes/class-segurium.php:1593
@@ -1627,13 +1642,15 @@ msgstr "Виправлення файлів..."
 msgid "Older backups will be rotated out"
 msgstr "Старіші резервні копії буде ротовано"
 
-#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB")
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
 #: includes/class-segurium.php:909
 #, php-format
 msgid "You are about to fix %1$d files (~%2$s)."
 msgstr "Ви збираєтеся виправити %1$d файлів (~%2$s)."
 
-#. translators: 1: number of envelopes to evict, 2: human-readable size of those envelopes
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
 #: includes/class-segurium.php:911
 #, php-format
 msgid ""
@@ -1675,7 +1692,7 @@ msgstr "Скасування…"
 
 #: includes/class-segurium.php:920
 msgid "Clean all detected malware"
-msgstr "Очистити все виявлене шкідливе ПЗ"
+msgstr "Очистити всі виявлені загрози"
 
 #. translators: %d: number of malicious files queued for cleanup
 #: includes/class-segurium.php:922
@@ -1693,7 +1710,7 @@ msgstr "Очистити все"
 
 #: includes/class-segurium.php:924
 msgid "Cleaning malware..."
-msgstr "Очищення шкідливого ПЗ..."
+msgstr "Очищення загроз..."
 
 #: includes/class-segurium.php:929
 msgid "Maybe later"
@@ -1711,32 +1728,38 @@ msgstr ""
 msgid "Cleanup quota reached"
 msgstr "Квоту очищення вичерпано"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3); 2: rolling window length in days (e.g., 30)
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:933
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
 msgstr ""
 "За останні %2$d днів ви використали %1$d хмарних очищень. Оновіть до Pro, "
 "щоб отримати необмежену квоту хмарного очищення."
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
 msgstr "Наступний слот відкривається %s"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30)
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:937 includes/class-segurium.php:1313
 #, php-format
 msgid "%1$d of %2$d cleanups used in the last %3$d days"
 msgstr "Використано %1$d із %2$d очищень за останні %3$d днів"
 
-#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
 #: includes/class-segurium.php:939 includes/class-segurium.php:1304
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr ""
 "Використано %1$d із %2$d очищень за останні %3$d днів — наступний слот "
 "відкривається %4$s"
@@ -1780,7 +1803,7 @@ msgstr "нерозпізнаний файл"
 
 #: includes/class-segurium.php:950
 msgid "(!) malware"
-msgstr "(!) шкідливе ПЗ"
+msgstr "(!) загроза"
 
 #: includes/class-segurium.php:951
 msgid "View"
@@ -1934,11 +1957,11 @@ msgstr "Будь ласка, введіть ваше ім'я."
 
 #: includes/class-segurium.php:988
 msgid "Brute-Force Protection"
-msgstr "Захист від перебору"
+msgstr "Захист від брут-форсу"
 
 #: includes/class-segurium.php:989 includes/class-segurium.php:1748
 msgid "Enable brute-force protection"
-msgstr "Увімкнути захист від перебору"
+msgstr "Увімкнути захист від брут-форсу"
 
 #: includes/class-segurium.php:990 includes/class-segurium.php:1766
 msgid "Max failed attempts"
@@ -2243,7 +2266,8 @@ msgstr "%1$d пройдено, %2$d попереджень, %3$d невдало"
 msgid "%1$d/100"
 msgstr "%1$d/100"
 
-#. translators: 1: previous grade letter, 2: previous score, 3: new grade letter, 4: new score
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
 #: includes/class-segurium.php:1077
 #, php-format
 msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
@@ -2278,9 +2302,10 @@ msgid ""
 "When you enable it, Segurium exchanges data with our servers so it can "
 "detect malware, verify your files, and adapt protection to active threats."
 msgstr ""
-"Segurium захищає ваш сайт у співпраці з хмарою Segurium. Коли ви її "
-"вмикаєте, Segurium обмінюється даними з нашими серверами, щоб виявляти "
-"шкідливе ПЗ, перевіряти ваші файли та адаптувати захист до активних загроз."
+"Segurium захищає ваш сайт у співпраці з хмарним сервісом Segurium. Коли ви "
+"її вмикаєте, Segurium обмінюється даними з нашими серверами, щоб виявляти "
+"загрози, перевіряти ваші файли та адаптувати захист до активних нових "
+"загроз."
 
 #: includes/class-segurium.php:1210
 msgid "What is sent:"
@@ -2299,13 +2324,13 @@ msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
 msgstr ""
-"Вміст файлу — лише коли класифікація лише за хешем неоднозначна, або під час "
-"створення чистої заміни при очищенні."
+"Вміст файлу — лише коли класифікація лише за хешем неоднозначна, або під час"
+" створення чистої заміни при очищенні."
 
 #: includes/class-segurium.php:1214
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
 msgstr ""
 "Випадково згенерований ідентифікатор інсталяції та базова інформація про "
 "сайт (URL, назва, версія WordPress), що використовуються для зв'язування "
@@ -2313,8 +2338,8 @@ msgstr ""
 
 #: includes/class-segurium.php:1215
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
 msgstr ""
 "Події сканування, очищення та налаштувань безпеки, щоб хмара могла "
 "синхронізувати захист вашого сайту."
@@ -2334,8 +2359,8 @@ msgstr "Що НЕ надсилається:"
 #: includes/class-segurium.php:1221
 msgid "Visitor analytics or personal data of users who visit your site."
 msgstr ""
-"Аналітика відвідувачів або персональні дані користувачів, які відвідують ваш "
-"сайт."
+"Аналітика відвідувачів або персональні дані користувачів, які відвідують ваш"
+" сайт."
 
 #: includes/class-segurium.php:1222
 msgid "Database content, posts, comments, or media files."
@@ -2360,7 +2385,8 @@ msgstr "Сервери Segurium за адресою cti.segurium.com."
 msgid "Retention:"
 msgstr "Зберігання:"
 
-#. translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
 #: includes/class-segurium.php:1233
 #, php-format
 msgid ""
@@ -2380,7 +2406,7 @@ msgstr "Безпека WordPress"
 
 #: includes/class-segurium.php:1363
 msgid "Malware Scanner"
-msgstr "Сканер шкідливого ПЗ"
+msgstr "Сканер загроз"
 
 #: includes/class-segurium.php:1375
 msgid "Integrity"
@@ -2392,7 +2418,7 @@ msgstr "Геоблокування"
 
 #: includes/class-segurium.php:1387
 msgid "Brute-Force"
-msgstr "Перебір"
+msgstr "Брут-форс"
 
 #: includes/class-segurium.php:1391
 msgid "2FA"
@@ -2531,7 +2557,7 @@ msgstr "Пошук країн…"
 
 #: includes/class-segurium.php:1654
 msgid "Block Action"
-msgstr "Дія блокування"
+msgstr "Блокування"
 
 #: includes/class-segurium.php:1656
 msgid "Return 403 Forbidden"
@@ -2637,11 +2663,11 @@ msgstr ""
 
 #: includes/class-segurium.php:1812
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
-"За потреби показувати перевірку hCaptcha на формі входу після налаштовуваної "
-"кількості невдалих спроб. Безкоштовні ключі — на hcaptcha.com."
+"За потреби показувати перевірку hCaptcha на формі входу після налаштовуваної"
+" кількості невдалих спроб. Безкоштовні ключі — на hcaptcha.com."
 
 #: includes/class-segurium.php:1838
 msgid ""
@@ -2756,8 +2782,8 @@ msgid ""
 "We will reply to this address. Change it if you want the response to go "
 "elsewhere."
 msgstr ""
-"Ми відповімо на цю адресу. Змініть її, якщо хочете отримати відповідь в інше "
-"місце."
+"Ми відповімо на цю адресу. Змініть її, якщо хочете отримати відповідь в інше"
+" місце."
 
 #: includes/class-segurium.php:2038
 msgid "Website"
@@ -2789,7 +2815,7 @@ msgstr "Загальне питання"
 
 #: includes/class-segurium.php:2048
 msgid "Report missed malware"
-msgstr "Повідомити про пропущене шкідливе ПЗ"
+msgstr "Повідомити про новий тип загрози"
 
 #: includes/class-segurium.php:2049
 msgid "Other"
@@ -2924,7 +2950,8 @@ msgstr "Увімкнути HSTS"
 #: includes/class-segurium.php:2146
 msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
 msgstr ""
-"Примушує браузери використовувати HTTPS. Надсилається лише коли SSL активний."
+"Примушує браузери використовувати HTTPS. Надсилається лише коли SSL "
+"активний."
 
 #: includes/class-segurium.php:2150
 msgid "Max-Age (seconds)"
@@ -3091,8 +3118,8 @@ msgstr "Примусово застосовувати"
 #: includes/class-segurium.php:2248
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
 "Лише звіт надсилає Content-Security-Policy-Report-Only — браузер реєструє "
 "порушення, але все одно завантажує заблоковані ресурси. Примусове "
@@ -3108,8 +3135,8 @@ msgid ""
 "policy permits Gutenberg and most themes; tighten once your reports are "
 "clean."
 msgstr ""
-"Один рядок директив, розділених крапкою з комою. Початкова політика дозволяє "
-"Gutenberg та більшість тем; звузьте її, коли звіти стануть чистими."
+"Один рядок директив, розділених крапкою з комою. Початкова політика дозволяє"
+" Gutenberg та більшість тем; звузьте її, коли звіти стануть чистими."
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
@@ -3153,7 +3180,8 @@ msgid "Lax (recommended)"
 msgstr "Lax (рекомендовано)"
 
 #: includes/class-segurium.php:2280
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr ""
 "Strict може порушувати потоки входу OAuth/SSO, які перенаправляють назад на "
 "ваш сайт."
@@ -3257,8 +3285,8 @@ msgstr "Видалити посилання маніфесту WLW"
 
 #: includes/class-segurium.php:2371
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
 msgstr ""
 "Видаляє посилання маніфесту Windows Live Writer. Потрібне лише якщо ви "
 "використовуєте WLW для написання дописів."
@@ -3366,8 +3394,8 @@ msgid ""
 "are saved until the next run."
 msgstr ""
 "Segurium виконує ті самі перевірки, що й провідні зовнішні сканери безпеки, "
-"плюс перевірки зміцнення, специфічні для WordPress, і оцінює ваш сайт від A+ "
-"до F. Результати зберігаються до наступного запуску."
+"плюс перевірки зміцнення, специфічні для WordPress, і оцінює ваш сайт від A+"
+" до F. Результати зберігаються до наступного запуску."
 
 #: includes/class-segurium.php:2464
 msgid "Check results"
@@ -3415,8 +3443,8 @@ msgstr ""
 #: includes/class-segurium.php:2501
 msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
 msgstr ""
-"Геоблокування (вхід + контроль адміністратора з механізмом підтвердження або "
-"скасування)"
+"Геоблокування (вхід + контроль адміністратора з механізмом підтвердження або"
+" скасування)"
 
 #: includes/class-segurium.php:2506
 msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
@@ -3516,8 +3544,8 @@ msgstr "Тарифні рівні"
 #: includes/class-segurium.php:2599
 msgid ""
 "Every plugin feature ships on every install. The service tier governs the "
-"cloud cleanup quota Segurium will perform on your behalf — your current tier "
-"is highlighted."
+"cloud cleanup quota Segurium will perform on your behalf — your current tier"
+" is highlighted."
 msgstr ""
 "Кожна функція плагіна входить у кожну інсталяцію. Тарифний рівень визначає "
 "квоту хмарного очищення, яку Segurium виконуватиме від вашого імені — ваш "
@@ -3529,7 +3557,7 @@ msgstr "Можливість"
 
 #: includes/class-segurium.php:2606 includes/class-segurium.php:2801
 msgid "Free"
-msgstr "Безкоштовний"
+msgstr "Free"
 
 #: includes/class-segurium.php:2608 includes/class-segurium.php:2614
 msgid "Current plan"
@@ -3548,8 +3576,8 @@ msgstr ""
 
 #: includes/class-segurium.php:2656
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
 msgstr ""
 "Використовуйте * як підстановочний знак. Наприклад, *.log виключить усі лог-"
 "файли. vendor/* виключить каталог vendor і весь його вміст."
@@ -3578,8 +3606,8 @@ msgid ""
 "Send a daily digest of malware verdicts and successful cleanups, delivered "
 "from support@segurium.com. At most one email per site per 24 hours."
 msgstr ""
-"Надсилати щоденну добірку вердиктів про шкідливе ПЗ та успішні очищення з "
-"адреси support@segurium.com. Не більше одного листа на сайт за 24 години."
+"Надсилати щоденну добірку вердиктів про загрози та успішні очищення з адреси"
+" support@segurium.com. Не більше одного листа на сайт за 24 години."
 
 #: includes/class-segurium.php:2680
 msgid "Alert email address"
@@ -3592,7 +3620,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2698
 msgid "Automatically clean detected malware"
-msgstr "Автоматично очищувати виявлене шкідливе ПЗ"
+msgstr "Автоматично очищувати виявлені загрози"
 
 #: includes/class-segurium.php:2700
 msgid ""
@@ -3601,8 +3629,8 @@ msgid ""
 "ignored (by path or by hash) are skipped."
 msgstr ""
 "Після кожного планового або реального сканування файли з відомим вердиктом "
-"про шкідливе ПЗ або ін'єкцію очищуються без необхідності клацання. Файли, "
-"які ви проігнорували (за шляхом або хешем), пропускаються."
+"про шкідливе ПЗ або ін'єкцію очищуються без необхідності керувати кожним по "
+"одинці. Файли, які ви проігнорували (за шляхом або хешем), пропускаються."
 
 #: includes/class-segurium.php:2710
 msgid "Scheduled Scan"
@@ -3615,10 +3643,10 @@ msgid ""
 "your browser open. A scheduled tick that fires while a manual scan is "
 "already in progress is skipped, not queued."
 msgstr ""
-"Виконувати повне сканування шкідливого ПЗ автоматично за повторюваним "
-"розкладом. Планове сканування виконує ту саму роботу, що й ручне, але не "
-"потребує відкритого браузера. Планове спрацювання, що відбувається під час "
-"ручного сканування, пропускається, а не ставиться в чергу."
+"Виконувати повне сканування загроз автоматично за повторюваним розкладом. "
+"Планове сканування виконує ту саму роботу, що й ручне, але не потребує "
+"відкритого браузера. Планове спрацювання, що відбувається під час ручного "
+"сканування, пропускається, а не ставиться в чергу."
 
 #: includes/class-segurium.php:2739
 msgid "Save Schedule"
@@ -3626,8 +3654,8 @@ msgstr "Зберегти розклад"
 
 #: includes/class-segurium.php:2747
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
 msgstr ""
 "Імпортуйте налаштування з інших плагінів безпеки в Segurium. Наявні "
 "налаштування Segurium зберігаються; імпортовані дані об'єднуються."
@@ -3761,7 +3789,7 @@ msgstr "Не вдалося відновити файл"
 
 #: includes/class-segurium.php:3556 includes/class-segurium.php:3621
 msgid "Invalid restore path"
-msgstr "Недійсний шлях відновлення"
+msgstr "Недійсний шлях для відновлення"
 
 #: includes/class-segurium.php:3579 includes/class-segurium.php:6390
 msgid "File restored from backup"
@@ -3777,7 +3805,7 @@ msgstr "Не вдалося прочитати цільовий файл"
 
 #: includes/class-segurium.php:3731
 msgid "File is not an active malware entry."
-msgstr "Файл не є активним записом шкідливого ПЗ."
+msgstr "Файл не є активною загрозою."
 
 #: includes/class-segurium.php:3738
 msgid "File is outside the WordPress root."
@@ -3883,7 +3911,7 @@ msgstr "Файл не знайдено на диску."
 
 #: includes/class-segurium.php:5390
 msgid "File is too large to submit."
-msgstr "Файл завеликий для надсилання."
+msgstr "Файл завеликий для відправки."
 
 #: includes/class-segurium.php:5398
 msgid "File contents changed since the scan."
@@ -3950,8 +3978,8 @@ msgstr "Метадані резервної копії відсутні або �
 
 #: includes/class-segurium.php:6479
 msgid ""
-"Backup file is unreadable. Check filesystem permissions on wp-content/"
-"segurium-data."
+"Backup file is unreadable. Check filesystem permissions on wp-"
+"content/segurium-data."
 msgstr ""
 "Файл резервної копії не читається. Перевірте дозволи файлової системи на wp-"
 "content/segurium-data."
@@ -3984,7 +4012,7 @@ msgstr "Плагін не знайдено або немає даних для �
 
 #: includes/class-segurium.php:6942
 msgid "Missed malware report"
-msgstr "Звіт про пропущене шкідливе ПЗ"
+msgstr "Звіт про пропущені загрози"
 
 #: includes/class-segurium.php:6944
 msgid "Other request"
@@ -4045,20 +4073,20 @@ msgid ""
 "AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
 "firewall mode. Configure manually if needed."
 msgstr ""
-"Білий список IP AIOS (обхід) не має прямого еквівалента в режимі заборонного "
-"списку брандмауера Segurium. За потреби налаштуйте вручну."
+"Білий список IP AIOS (обхід) не має прямого еквівалента в режимі заборонного"
+" списку брандмауера Segurium. За потреби налаштуйте вручну."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
 #: includes/migrations/class-segurium-migration-wordfence.php:67
 msgid "Brute Force Protection"
-msgstr "Захист від перебору"
+msgstr "Захист від брут-форсу"
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
 #: includes/migrations/class-segurium-migration-wordfence.php:67
 msgid "Segurium brute force protection (planned)"
-msgstr "Захист Segurium від перебору (заплановано)"
+msgstr "Захист Segurium від брут-форсу (заплановано)"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 #: includes/migrations/class-segurium-migration-solid-security.php:61
@@ -4068,7 +4096,8 @@ msgstr "Блокування країн"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr ""
 "Блокування країн AIOS — платна хмарна функція і не може бути імпортована "
 "локально."
@@ -4112,8 +4141,8 @@ msgid ""
 "Solid Security stores country blocks in the cloud dashboard. Configure "
 "manually in the Geo Blocking tab."
 msgstr ""
-"Solid Security зберігає блокування країн у хмарній панелі. Налаштуйте вручну "
-"на вкладці «Геоблокування»."
+"Solid Security зберігає блокування країн у хмарній панелі. Налаштуйте вручну"
+" на вкладці «Геоблокування»."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 #: includes/migrations/class-segurium-migration-solid-security.php:127
@@ -4134,8 +4163,8 @@ msgid ""
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
 "Sucuri Security зберігає свої правила WAF, геоблокування та налаштування "
-"сканування шкідливого ПЗ у хмарній панелі Sucuri. Вони не можуть бути "
-"імпортовані локально."
+"сканування загроз у хмарній панелі Sucuri. Вони не можуть бути імпортовані "
+"локально."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
 #: includes/migrations/class-segurium-migration-wordfence.php:69
@@ -4184,7 +4213,8 @@ msgstr "Даних 2FA Wordfence не знайдено"
 #: includes/segurium-ajax-envelope.php:116
 msgid "Your session has expired. Please reload the page and try again."
 msgstr ""
-"Ваш сеанс завершився. Будь ласка, перезавантажте сторінку та спробуйте знову."
+"Ваш сеанс завершився. Будь ласка, перезавантажте сторінку та спробуйте "
+"знову."
 
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
@@ -4246,7 +4276,8 @@ msgstr ""
 msgid "Cleanup unavailable."
 msgstr "Очищення недоступне."
 
-#. translators: %d: number of seconds since the scan worker last reported progress
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
 #: includes/class-segurium.php:900
 #, php-format
 msgid "no progress for %ds — waiting for worker"
@@ -4258,7 +4289,7 @@ msgstr "Очищення: 3 файли / 30 днів"
 
 #: includes/class-segurium.php:2514
 msgid "Full malware detection — same findings as Pro"
-msgstr "Повне виявлення шкідливого ПЗ — ті самі результати, що й у Pro"
+msgstr "Повне виявлення загроз — так само як і у Pro"
 
 #: includes/class-segurium.php:2515
 msgid "Auto-fix and Bulk Fix All"
@@ -4266,7 +4297,9 @@ msgstr "Автовиправлення та масове виправлення 
 
 #: includes/class-segurium.php:2516
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
-msgstr "Зміцнення: 2FA, захист від перебору, геоблокування, файрвол, заголовки безпеки"
+msgstr ""
+"Зміцнення: 2FA, захист від перебору, геоблокування, файрвол, заголовки "
+"безпеки"
 
 #: includes/class-segurium.php:2517
 msgid "File-integrity monitoring (core / plugins / themes)"
@@ -4289,8 +4322,11 @@ msgid "Email support, priority queue"
 msgstr "Підтримка електронною поштою, пріоритетна черга"
 
 #: includes/class-segurium.php:2532
-msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap."
-msgstr "Усі функції доступні в кожній установці. Pro знімає місячне обмеження очищення."
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Усі функції доступні в кожній установці. Pro знімає місячне обмеження "
+"очищення."
 
 #: includes/class-segurium.php:2544
 msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
@@ -4302,7 +4338,8 @@ msgstr "назавжди"
 
 #: includes/class-segurium.php:2571
 msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
-msgstr "Необмежене очищення. Ті самі функції, що й у Free, без місячного обмеження."
+msgstr ""
+"Необмежене очищення. Ті самі функції, що й у Free, без місячного обмеження."
 
 #: includes/class-segurium.php:2576
 msgid "/year per site"
@@ -4315,8 +4352,12 @@ msgstr "14-денна гарантія повернення коштів."
 #. translators: 1: opening anchor tag, 2: closing anchor tag
 #: includes/class-segurium.php:2599
 #, php-format
-msgid "Bundles for 5 and 25 sites, plus 100+ quotes, on %1$ssegurium.com/pricing/%2$s."
-msgstr "Пакети для 5 і 25 сайтів, а також пропозиції для 100+ — на %1$ssegurium.com/pricing/%2$s."
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"Пакети для 5 і 25 сайтів, а також пропозиції для 100+ — на "
+"%1$ssegurium.com/pricing/%2$s."
 
 msgid "Every 60 seconds (Segurium scan rescue)"
 msgstr "Кожні 60 секунд (відновлення сканування Segurium)"
@@ -4366,8 +4407,12 @@ msgid "View failed"
 msgstr "Не вдалося переглянути"
 
 #: includes/class-segurium.php:905
-msgid "Cannot restore — no backup recorded for this file. The backup may have been rotated out."
-msgstr "Не можна відновити — для цього файлу не записано резервної копії. Можливо, її було ротовано."
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Не можна відновити — для цього файлу не записано резервної копії. Можливо, "
+"її було ротовано."
 
 #. translators: %s is the name of the missing form field.
 #: includes/segurium-ajax-envelope.php:109
@@ -4376,20 +4421,42 @@ msgid "Missing parameter: %s"
 msgstr "Відсутній параметр: %s"
 
 #: includes/class-segurium.php:2196
-msgid "This mode emits fixed preset values. Switch to Custom to override individual headers."
-msgstr "Цей режим надсилає фіксовані попередньо встановлені значення. Перейдіть до режиму «Користувацький», щоб перевизначити окремі заголовки."
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Цей режим надсилає фіксовані попередньо встановлені значення. Перейдіть до "
+"режиму «Користувацький», щоб перевизначити окремі заголовки."
 
 #: includes/class-segurium.php:2235
-msgid "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is the actual XSS defence."
-msgstr "Явно вимикає застарілий XSS-фільтр IE та старого Edge, який мав універсальні XSS-вразливості, придатні для експлуатації. Сучасні браузери ігнорують цей заголовок; справжнім захистом від XSS є CSP."
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Явно вимикає застарілий XSS-фільтр IE та старого Edge, який мав універсальні"
+" XSS-вразливості, придатні для експлуатації. Сучасні браузери ігнорують цей "
+"заголовок; справжнім захистом від XSS є CSP."
 
 #: includes/class-segurium.php:2236
-msgid "Tells legacy browsers to sanitise reflections. The filter has false positives that silently break valid pages and known UXSS bypasses. Not recommended."
-msgstr "Вказує застарілим браузерам очищати відображення. Фільтр дає хибнопозитивні спрацювання, які тихо ламають дійсні сторінки, і відомі обходи UXSS. Не рекомендовано."
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Вказує застарілим браузерам очищати відображення. Фільтр дає хибнопозитивні "
+"спрацювання, які тихо ламають дійсні сторінки, і відомі обходи UXSS. Не "
+"рекомендовано."
 
 #: includes/class-segurium.php:2237
-msgid "Same filter as above, but blocks the page entirely on suspected reflection. Same bugs, plus a timing side-channel that can leak cross-origin data. Not recommended."
-msgstr "Той самий фільтр, що й вище, але повністю блокує сторінку при підозрі на відображення. Ті самі вади плюс боковий канал часу, який може розкрити дані між джерелами. Не рекомендовано."
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Той самий фільтр, що й вище, але повністю блокує сторінку при підозрі на "
+"відображення. Ті самі вади плюс боковий канал часу, який може розкрити дані "
+"між джерелами. Не рекомендовано."
 
 #: includes/class-segurium-async-scan-poller.php:125
 msgid "Segurium async scan poll (1 min)"
@@ -4411,115 +4478,28 @@ msgstr "пропущено"
 msgid "scanned"
 msgstr "проскановано"
 
-#~ msgid "Segurium plugin for WordPress."
-#~ msgstr "Плагін Segurium для WordPress."
-
-#~ msgid "What data is sent:"
-#~ msgstr "Які дані надсилаються:"
-
-#~ msgid "SHA-256 hashes of files on your server"
-#~ msgstr "SHA-256 хеші файлів на вашому сервері"
-
-#~ msgid "File paths relative to your WordPress installation"
-#~ msgstr "Шляхи до файлів відносно встановлення WordPress"
-
-#~ msgid "File sizes"
-#~ msgstr "Розміри файлів"
-
-#~ msgid "Why:"
-#~ msgstr "Навіщо:"
-
-#~ msgid "To identify malicious, infected, or suspicious files on your site."
-#~ msgstr ""
-#~ "Для виявлення шкідливих, інфікованих або підозрілих файлів на вашому "
-#~ "сайті."
-
-#~ msgid "I understand, enable scanning"
-#~ msgstr "Я розумію, увімкнути сканування"
-
-#~ msgid "Segurium requires PHP %s or higher."
-#~ msgstr "Segurium вимагає PHP %s або вище."
-
-#~ msgid "Segurium requires WordPress %s or higher."
-#~ msgstr "Segurium вимагає WordPress %s або вище."
-
-#~ msgid ""
-#~ "Segurium runs without sharing any account information. Upgrade to Pro to "
-#~ "unlock unlimited cleanup, automatic fixes, and email support."
-#~ msgstr ""
-#~ "Segurium працює без передачі будь-якої інформації про обліковий запис. "
-#~ "Перейдіть на Pro, щоб отримати необмежене очищення, автоматичні "
-#~ "виправлення та підтримку електронною поштою."
-
-#~ msgid "Automatic cleanup is a Pro feature."
-#~ msgstr "Автоматичне очищення — функція Pro."
-
-#~ msgid "This is a Pro feature. Upgrade to enable bulk fixes."
-#~ msgstr "Це функція Pro. Перейдіть на Pro, щоб увімкнути масові виправлення."
-
-#~ msgid "Free cleanups exhausted"
-#~ msgstr "Безкоштовні очищення вичерпано"
-
-#~ msgid ""
-#~ "You’ve used your %1$d free cleanups in the last %2$d days. Upgrade to Pro "
-#~ "for unlimited cleanups + auto-fix."
-#~ msgstr ""
-#~ "Ви використали %1$d безкоштовних очищень за останні %2$d днів. Перейдіть "
-#~ "на Pro для необмежених очищень + автовиправлення."
-
-#~ msgid "Free vs Pro"
-#~ msgstr "Безкоштовний проти Pro"
-
-#~ msgid "Compare what each tier includes. Your current plan is highlighted."
-#~ msgstr "Порівняйте, що включає кожен тариф. Ваш поточний тариф виділено."
-
-#~ msgid ""
-#~ "Free-tier cleanup quota exceeded. Upgrade to Pro for unlimited cleanups."
-#~ msgstr ""
-#~ "Квоту очищення для безкоштовного тарифу вичерпано. Перейдіть на Pro для "
-#~ "необмежених очищень."
-
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in "
-#~ "one click."
-#~ msgstr ""
-#~ "«Виправити все» — функція Pro. Перейдіть, щоб очищувати все виявлене "
-#~ "шкідливе ПЗ одним клацанням."
-
-#~ msgid ""
-#~ "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
-#~ msgstr ""
-#~ "«Виправити все» — функція Pro. Перейдіть, щоб застосовувати всі "
-#~ "виправлення одним клацанням."
-
-#~ msgid ""
-#~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
-#~ msgstr ""
-#~ "Квоту усунення для безкоштовного тарифу вичерпано. Перейдіть на Pro для "
-#~ "необмежених виправлень."
-
 msgid ""
 "Segurium got an empty response from the server. The PHP handler likely "
 "crashed before producing any output — check the PHP error log for a fatal, "
 "OOM, or timeout."
 msgstr ""
 "Segurium отримав порожню відповідь від сервера. Імовірно, обробник PHP "
-"аварійно завершив роботу, не встигнувши створити жодного виводу — "
-"перевірте журнал помилок PHP щодо фатальної помилки, OOM або тайм-ауту."
+"аварійно завершив роботу, не встигнувши створити жодного виводу — перевірте "
+"журнал помилок PHP щодо фатальної помилки, OOM або тайм-ауту."
 
 msgid ""
 "Segurium's response markers are missing from the body. The Segurium AJAX "
 "handler did not run, or another plugin replaced the entire response. Check "
 "wp-content/mu-plugins, active plugins, and the PHP error log."
 msgstr ""
-"У тілі відповіді відсутні маркери відповіді Segurium. Обробник AJAX "
-"Segurium не запустився або інший плагін замінив усю відповідь. Перевірте "
-"wp-content/mu-plugins, активні плагіни та журнал помилок PHP."
+"У тілі відповіді відсутні маркери відповіді Segurium. Обробник AJAX Segurium"
+" не запустився або інший плагін замінив усю відповідь. Перевірте wp-"
+"content/mu-plugins, активні плагіни та журнал помилок PHP."
 
 msgid ""
 "Segurium's response was cut off mid-stream — the start marker arrived but "
-"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, "
-"or timeout). Check the PHP error log."
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
 msgstr ""
 "Відповідь Segurium була обірвана посередині передавання — маркер початку "
 "надійшов, а маркер завершення — ні. Обробник PHP аварійно завершив роботу "
@@ -4527,11 +4507,11 @@ msgstr ""
 "помилок PHP."
 
 msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for "
-"a fatal, OOM, or timeout in the Segurium handler."
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
 msgstr ""
-"Segurium не зміг розпакувати відповідь сервера. Перевірте журнал помилок "
-"PHP щодо фатальної помилки, OOM або тайм-ауту в обробнику Segurium."
+"Segurium не зміг розпакувати відповідь сервера. Перевірте журнал помилок PHP"
+" щодо фатальної помилки, OOM або тайм-ауту в обробнику Segurium."
 
 #: includes/class-segurium-2fa.php:1281
 msgid "Forbidden"
@@ -4554,8 +4534,8 @@ msgid ""
 "Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
 "data."
 msgstr ""
-"Файл резервної копії неможливо прочитати. Перевірте дозволи файлової "
-"системи для uploads/segurium-data."
+"Файл резервної копії неможливо прочитати. Перевірте дозволи файлової системи"
+" для uploads/segurium-data."
 
 #: includes/class-segurium.php:351
 msgid "Unknown or unsupported action."
@@ -4587,8 +4567,12 @@ msgid "Restore failed: %s"
 msgstr "Не вдалося відновити: %s"
 
 #. Description of the plugin
-msgid "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, Firewall, 2FA, Geo-blocking, and more for free."
-msgstr "Відновлення оригінальних файлів, антивірус, сканування шкідливого ПЗ, захист від атак перебором, файрвол, 2FA, геоблокування та інше — безкоштовно."
+msgid ""
+"Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
+"Firewall, 2FA, Geo-blocking, and more for free."
+msgstr ""
+"Відновлення оригінальних файлів, антивірус, сканування шкідливого ПЗ, захист"
+" від атак перебором, файрвол, 2FA, геоблокування та інше — безкоштовно."
 
 msgid "Scan trigger requires authentication."
 msgstr "Тригер сканування потребує автентифікації."
@@ -4597,16 +4581,24 @@ msgid "Scan trigger secret did not match."
 msgstr "Секрет тригера сканування не збігається."
 
 #. Plugin Name of the plugin
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
-msgstr "Segurium – Видалення та очищення шкідливого ПЗ, файрвол, двофакторна автентифікація"
+msgid ""
+"Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgstr ""
+"Segurium – видалення шкідливих програм і врусів, брандмауер, двофакторна "
+"аутентифікація"
 
 #. Description of the plugin
-msgid "Free malware cleanup, not just detection — scan, clean, and restore hacked sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
-msgstr "Безкоштовне очищення від шкідливого ПЗ, а не лише його виявлення — скануйте, очищуйте та відновлюйте зламані сайти. Крім того, файрвол, захист від атак перебором, 2FA та геоблокування."
+msgid ""
+"Free malware cleanup, not just detection — scan, clean, and restore hacked "
+"sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgstr ""
+"Безкоштовне очищення від шкідливого ПЗ, а не лише його виявлення — скануйте,"
+" очищуйте та відновлюйте зламані сайти. Крім того, файрвол, захист від атак "
+"перебором, 2FA та геоблокування."
 
 #: includes/class-segurium.php:2940
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "Імпортер міграції (Wordfence, AIOS, Solid Security)"
+msgstr "Імпортер міграції (Wordfence, AIOS, Sucuri, Solid Security)"
 
 msgid "Invalid billing response from Segurium Cloud."
 msgstr "Некоректна відповідь щодо оплати від Segurium Cloud."
@@ -4621,7 +4613,9 @@ msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
 msgstr "Segurium Cloud (%1$s): підписано ненадійним ключем «%2$s»."
 
 msgid "Signature trust list is corrupt — public key failed to decode."
-msgstr "Список довірених підписів пошкоджено — не вдалося декодувати відкритий ключ."
+msgstr ""
+"Список довірених підписів пошкоджено — не вдалося декодувати публічний "
+"ключ."
 
 msgid "Segurium Cloud (%s): signature header malformed."
 msgstr "Segurium Cloud (%s): заголовок підпису має неправильний формат."
@@ -4629,8 +4623,11 @@ msgstr "Segurium Cloud (%s): заголовок підпису має непра
 msgid "Segurium Cloud (%s): signature timestamp malformed."
 msgstr "Segurium Cloud (%s): позначка часу підпису має неправильний формат."
 
-msgid "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
-msgstr "Segurium Cloud (%1$s): позначка часу підпису виходить за межі діапазону на %2$d секунд."
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): позначка часу підпису виходить за межі діапазону на "
+"%2$d секунд."
 
 msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
 msgstr "Segurium Cloud (%1$s): libsodium відхилив підпис (%2$s)."
@@ -4638,17 +4635,42 @@ msgstr "Segurium Cloud (%1$s): libsodium відхилив підпис (%2$s)."
 msgid "Segurium Cloud (%s): signature did not verify."
 msgstr "Segurium Cloud (%s): підпис не пройшов перевірку."
 
-msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
-msgstr "Увімкнено локальний режим: вміст файлів залишається на цьому сервері, а будь-який файл, який хмара не може ідентифікувати за хешем, залишається нерозв’язаним. Увімкніть виявлення за допомогою хмари для повної точності."
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Увімкнено локальний режим: вміст файлів залишається на цьому сервері, а "
+"будь-який файл, який хмара не може ідентифікувати за хешем, залишається "
+"нерозв’язаним. Увімкніть виявлення за допомогою хмари для повної точності."
 
 msgid "Segurium Cloud consent is required before scanning."
 msgstr "Перед скануванням потрібна згода на використання Segurium Cloud."
 
-msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed."
-msgstr "Зразки файлів, завантажені для аналізу, зберігаються до 365 днів, а потім видаляються автоматичним нічним очищенням. Зразок може бути видалено раніше після його перевірки."
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Зразки файлів, завантажені для аналізу, зберігаються до 365 днів, а потім "
+"видаляються автоматичним нічним очищенням. Зразок може бути видалено раніше "
+"після його перевірки."
 
-msgid "When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself."
-msgstr "Коли увімкнено, вміст файлів може передаватися до Segurium Cloud для розширеного виявлення шкідливого ПЗ та очищення за допомогою хмари. Передаються лише підозрілі файли. Вимкніть для локального режиму: тоді сканування надсилає лише хеші SHA-256, шляхи до файлів і метадані, а файл, який хмара не може ідентифікувати за хешем, залишається нерозв’язаним. Повідомлення про хибне спрацювання або долучення файлу до звернення в підтримку все одно надсилає цей файл, оскільки ви обираєте його самостійно."
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Коли увімкнено, вміст файлів може передаватися до Segurium Cloud для "
+"розширеного виявлення шкідливого ПЗ та очищення за допомогою хмари. "
+"Передаються лише підозрілі файли. Вимкніть для локального режиму: тоді "
+"сканування надсилає лише хеші SHA-256, шляхи до файлів і метадані, а файл, "
+"який хмара не може ідентифікувати за хешем, залишається нерозв’язаним. "
+"Повідомлення про хибне спрацювання або долучення файлу до звернення в "
+"підтримку все одно надсилає цей файл, оскільки ви обираєте його самостійно."
 
 msgid "Segurium Cloud"
 msgstr "Segurium Cloud"
@@ -4663,7 +4685,8 @@ msgid "Cleanup response is missing the checksum of the cleaned file."
 msgstr "У відповіді щодо очищення відсутня контрольна сума очищеного файлу."
 
 msgid "Cleaned file does not match the checksum in the cleanup response."
-msgstr "Очищений файл не збігається з контрольною сумою у відповіді щодо очищення."
+msgstr ""
+"Очищений файл не збігається з контрольною сумою у відповіді щодо очищення."
 
 msgid "Invalid response from Segurium Cloud."
 msgstr "Некоректна відповідь від Segurium Cloud."
@@ -4682,3 +4705,134 @@ msgstr "У відповіді Segurium Cloud відсутня контрольн
 
 msgid "Downloaded file does not match the checksum in the response."
 msgstr "Завантажений файл не збігається з контрольною сумою у відповіді."
+
+msgid "Leave a review"
+msgstr "Залишити відгук"
+
+msgid "Don't ask again"
+msgstr "Більше не питати"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium щойно очистив ваш сайт."
+
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Раді, що змогли допомогти. Якщо Segurium сьогодні зекономив вам час або "
+"гроші, чесний відгук на WordPress.org допоможе іншим власникам сайтів знайти"
+" його та дозволить нам зберегти безкоштовний тариф очищення."
+
+msgid "Scan complete. Your site is clean."
+msgstr "Сканування завершено. Ваш сайт чистий."
+
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Якщо Segurium добре виконує свою роботу, чи залишите ви чесний відгук на "
+"WordPress.org? Це займе хвилину."
+
+msgid "Unknown review prompt action."
+msgstr "Невідома дія запиту відгуку."
+
+msgid "Could not save your choice. Please try again."
+msgstr "Не вдалося зберегти ваш вибір. Будь ласка, спробуйте ще раз."
+
+#~ msgid "Segurium plugin for WordPress."
+#~ msgstr "Плагін Segurium для WordPress."
+
+#~ msgid "What data is sent:"
+#~ msgstr "Які дані надсилаються:"
+
+#~ msgid "SHA-256 hashes of files on your server"
+#~ msgstr "SHA-256 хеші файлів на вашому сервері"
+
+#~ msgid "File paths relative to your WordPress installation"
+#~ msgstr "Шляхи до файлів відносно встановлення WordPress"
+
+#~ msgid "File sizes"
+#~ msgstr "Розміри файлів"
+
+#~ msgid "Why:"
+#~ msgstr "Навіщо:"
+
+#~ msgid "To identify malicious, infected, or suspicious files on your site."
+#~ msgstr ""
+#~ "Для виявлення шкідливих, інфікованих або підозрілих файлів на вашому сайті."
+
+#~ msgid "I understand, enable scanning"
+#~ msgstr "Я розумію, увімкнути сканування"
+
+#~ msgid "Segurium requires PHP %s or higher."
+#~ msgstr "Segurium вимагає PHP %s або вище."
+
+#~ msgid "Segurium requires WordPress %s or higher."
+#~ msgstr "Segurium вимагає WordPress %s або вище."
+
+#~ msgid ""
+#~ "Segurium runs without sharing any account information. Upgrade to Pro to "
+#~ "unlock unlimited cleanup, automatic fixes, and email support."
+#~ msgstr ""
+#~ "Segurium працює без передачі будь-якої інформації про обліковий запис. "
+#~ "Перейдіть на Pro, щоб отримати необмежене очищення, автоматичні виправлення "
+#~ "та підтримку електронною поштою."
+
+#~ msgid "Automatic cleanup is a Pro feature."
+#~ msgstr "Автоматичне очищення — функція Pro."
+
+#~ msgid "This is a Pro feature. Upgrade to enable bulk fixes."
+#~ msgstr "Це функція Pro. Перейдіть на Pro, щоб увімкнути масові виправлення."
+
+#~ msgid "Free cleanups exhausted"
+#~ msgstr "Безкоштовні очищення вичерпано"
+
+#~ msgid ""
+#~ "You’ve used your %1$d free cleanups in the last %2$d days. Upgrade to Pro "
+#~ "for unlimited cleanups + auto-fix."
+#~ msgstr ""
+#~ "Ви використали %1$d безкоштовних очищень за останні %2$d днів. Перейдіть на "
+#~ "Pro для необмежених очищень + автовиправлення."
+
+#~ msgid "Free vs Pro"
+#~ msgstr "Безкоштовний проти Pro"
+
+#~ msgid "Compare what each tier includes. Your current plan is highlighted."
+#~ msgstr "Порівняйте, що включає кожен тариф. Ваш поточний тариф виділено."
+
+#~ msgid ""
+#~ "Free-tier cleanup quota exceeded. Upgrade to Pro for unlimited cleanups."
+#~ msgstr ""
+#~ "Квоту очищення для безкоштовного тарифу вичерпано. Перейдіть на Pro для "
+#~ "необмежених очищень."
+
+#~ msgid ""
+#~ "\"Fix All\" is a Pro feature. Upgrade to clean every detected malware in one"
+#~ " click."
+#~ msgstr ""
+#~ "«Виправити все» — функція Pro. Перейдіть, щоб очищувати все виявлене "
+#~ "шкідливе ПЗ одним клацанням."
+
+#~ msgid "\"Fix All\" is a Pro feature. Upgrade to apply every fix in one click."
+#~ msgstr ""
+#~ "«Виправити все» — функція Pro. Перейдіть, щоб застосовувати всі виправлення "
+#~ "одним клацанням."
+
+#~ msgid ""
+#~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
+#~ msgstr ""
+#~ "Квоту усунення для безкоштовного тарифу вичерпано. Перейдіть на Pro для "
+#~ "необмежених виправлень."
+
+msgid "Scan in progress..."
+msgstr "Сканування триває..."
+
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"У відображенні прогресу сталася помилка сценарію, і воно перестало "
+"оновлюватися. Перезавантажте сторінку, щоб побачити поточний стан — саме "
+"сканування не постраждало. Подробиці — у консолі браузера."

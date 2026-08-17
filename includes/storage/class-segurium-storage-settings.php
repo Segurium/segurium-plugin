@@ -234,6 +234,10 @@ class Segurium_Storage_Settings {
 			'segurium_trusted_proxies_etag',
 			'segurium_trusted_proxies_updated_at',
 
+			// SEGURIUM-709: review-ask state + install date.
+			'segurium_review_prompt',
+			'segurium_first_activation_at',
+
 			// Danger zone: opt-in wipe of encrypted backups on uninstall.
 			'segurium_uninstall_wipe_data',
 		);
