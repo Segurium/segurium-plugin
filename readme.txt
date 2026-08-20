@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, two-factor-authentication, firew
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,20 +199,26 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Screenshots ==
 
-1. Security Self-Check — A+ to F grade across hardening, malware, info disclosure, cookies, and HTTP headers. The hero view.
-2. Malware scan — clean state. SHA-256 hash check across every file with the cloud verdict database, plus full scanned-file count.
-3. Integrity scan — per-component status (core, plugins, themes), file counts, and Fix / Restore actions for files that drifted from the official source.
-4. Geo-blocking — preset regions (EU / Americas / Asia-Pacific / Africa / Middle East / High-Risk) plus per-country control, configurable block action.
-5. Firewall — IPv4/IPv6/CIDR allow- and block-lists, with auto-detected CDN and reverse-proxy ranges so true visitor IPs are honoured.
-6. Brute-force protection — recommended-vs-custom presets, lockout windows, extended bans, XML-RPC protection, and live attack statistics.
-7. Two-Factor Authentication — TOTP authenticator app and email verification, per-role enforcement, grace period, and trusted-device duration.
-8. Security headers — HSTS, CSP, Permissions-Policy, Referrer-Policy, cookie hardening with a live preview of the headers Segurium will send.
-9. Information Shield — strips WordPress version, REST API discovery links, RSD/WLW pingback, generator tag, and other version-leaking metadata.
-10. Migration tool — detects existing security plugins (Wordfence / All-In-One Security / Sucuri / Solid Security) and previews their settings before import.
-11. Scheduled scans + alerts — cron-driven daily/weekly/monthly scans with email notifications and automatic clean of high-confidence detections.
-12. Free vs Pro plan comparison — every hardening feature ships in the free tier; Pro unlocks unlimited cleanup quota and reversible-backup recovery.
+1. Fix all finished — every infected file cleaned, the malicious code stripped out, each original kept in an encrypted backup you can restore in one click. Every feature ships in the free tier.
+2. The scan that found them — each file hashed and checked against the cloud verdict database, infected files listed with a Clean button on every row.
+3. Security Self-Check — A+ to F across hardening, malware, information disclosure, cookies, and HTTP headers, with each failing check listed and fixable.
+4. Integrity scan — per-component status (core, plugins, themes), file counts, and Fix / Restore actions for files that drifted from the official source.
+5. Geo-blocking — preset regions (EU / Americas / Asia-Pacific / Africa / Middle East / High-Risk) plus per-country control, configurable block action.
+6. Firewall — IPv4/IPv6/CIDR allow- and block-lists, with auto-detected CDN and reverse-proxy ranges so true visitor IPs are honoured.
+7. Brute-force protection — recommended-vs-custom presets, lockout windows, extended bans, XML-RPC protection, and live attack statistics.
+8. Two-Factor Authentication — TOTP authenticator app and email verification, per-role enforcement, grace period, and trusted-device duration.
+9. Security headers — HSTS, CSP, Permissions-Policy, Referrer-Policy, cookie hardening with a live preview of the headers Segurium will send.
+10. Information Shield — strips WordPress version, REST API discovery links, RSD/WLW pingback, generator tag, and other version-leaking metadata.
+11. Migration tool — detects existing security plugins (Wordfence / All-In-One Security / Sucuri / Solid Security) and previews their settings before import.
+12. Scheduled scans + alerts — cron-driven daily/weekly/monthly scans with email notifications and automatic clean of high-confidence detections.
+13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap. Every feature ships in both tiers.
 
 == Changelog ==
+
+= 1.1.1 - 2026-08-20 =
+* Fix for integrity scan that could crash a site.
+* Minor UI fixes.
+* Translations updated.
 
 = 1.1.0 - 2026-08-16 =
 * Adds review request.

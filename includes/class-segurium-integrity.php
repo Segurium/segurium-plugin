@@ -41,6 +41,7 @@ class Segurium_Integrity {
 		'.htpasswd',
 		'.user.ini',
 		'php.ini',
+		'web.config',
 		'.ftpquota',
 		'wp-includes/version.php',
 		'.DS_Store',
@@ -69,7 +70,8 @@ class Segurium_Integrity {
 	);
 
 	/**
-	 * Patterns for files that should never be auto-deleted from core dirs.
+	 * Regex patterns for protected files: skipped by the hash-collection
+	 * walker and refused as Fix All delete candidates.
 	 *
 	 * @var array
 	 */
@@ -87,6 +89,20 @@ class Segurium_Integrity {
 		// Guard against touching wp-content via the core component, but leave
 		// plugin/theme files (scanned as their own components) to normal rules.
 		'/^wp-content\/(?!plugins\/|themes\/)/',
+		// SEGURIUM-830: third-party root loaders and vendor artifacts
+		// (auto_prepend_file targets fatal the site when deleted).
+		// Root-anchored on purpose: the same basenames nested inside a
+		// component stay visible. Trade-offs are documented in
+		// docs/features/integrity-scan.md.
+		'/^aios-bootstrap\.php$/i',
+		'/^wordfence-waf\.php$/i',
+		'/^malcare-waf\.php$/i',
+		'/^bv_connector_[^\/]*\.php$/i',
+		'/^jetbackup\.restore\.[^\/]+\.php$/i',
+		'/^backuply-restore\.php$/i',
+		'/^installer\.php$/i',
+		'/^dup-installer\//i',
+		'/^[^\/]+\.conf$/i',
 	);
 
 	/**
@@ -213,7 +229,7 @@ class Segurium_Integrity {
 
 			$relative = $this->make_relative( $path );
 
-			if ( $this->is_builtin_excluded( $relative, $entry ) ) {
+			if ( self::is_excluded( $relative ) ) {
 				continue;
 			}
 
@@ -244,30 +260,6 @@ class Segurium_Integrity {
 	private function is_wp_content_dir( $path ) {
 		$relative = $this->make_relative( $path );
 		return 0 === strpos( $relative, 'wp-content' );
-	}
-
-	/**
-	 * Check if a file matches built-in exclusion rules.
-	 *
-	 * @param string $relative Relative file path.
-	 * @param string $basename File basename.
-	 * @return bool
-	 */
-	private function is_builtin_excluded( $relative, $basename ) {
-		if ( in_array( $relative, self::$builtin_excludes, true ) ) {
-			return true;
-		}
-
-		if ( in_array( $basename, self::$builtin_excludes, true ) ) {
-			return true;
-		}
-
-		$ext = pathinfo( $basename, PATHINFO_EXTENSION );
-		if ( ! empty( $ext ) && in_array( strtolower( $ext ), self::$builtin_exclude_extensions, true ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

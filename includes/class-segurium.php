@@ -5547,8 +5547,22 @@ class Segurium {
 
 			// File-level actions for known components.
 			$comp_version = $comp['version'] ?? '';
+			$vnf_count    = 0;
 			foreach ( $comp['files'] ?? array() as $f ) {
 				if ( 'open' !== ( $f['state'] ?? '' ) ) {
+					continue;
+				}
+				// SEGURIUM-832: defense-in-depth. The walker never submits
+				// excluded paths and CTI only echoes verdicts for submitted
+				// files, so an open row on a protected path can only be stale
+				// state or a future verdict source. Never queue one.
+				if ( Segurium_Integrity::is_excluded( $f['path'] ) ) {
+					$preview['skipped'][] = array(
+						'slug'   => $comp['slug'],
+						'type'   => $comp['type'],
+						'path'   => $f['path'],
+						'reason' => __( 'Protected file (exclusion list).', 'segurium' ),
+					);
 					continue;
 				}
 				$verdict = $f['verdict'] ?? '';
@@ -5563,24 +5577,51 @@ class Segurium {
 						'size'      => $this->safe_filesize_within_wp_root( $f['path'] ),
 					);
 				} elseif ( 'unknown' === $verdict ) {
-					if ( Segurium_Integrity::is_excluded( $f['path'] ) ) {
-						$preview['skipped'][] = array(
-							'slug'   => $comp['slug'],
-							'type'   => $comp['type'],
-							'path'   => $f['path'],
-							'reason' => __( 'Protected file (exclusion list).', 'segurium' ),
-						);
-					} else {
-						$preview['files_delete'][] = array(
-							'component' => $comp['slug'],
-							'type'      => $comp['type'],
-							'version'   => $comp_version,
-							'path'      => $f['path'],
-							'sha256'    => $f['sha256'] ?? '',
-							'size'      => $this->safe_filesize_within_wp_root( $f['path'] ),
-						);
-					}
+					$preview['files_delete'][] = array(
+						'component' => $comp['slug'],
+						'type'      => $comp['type'],
+						'version'   => $comp_version,
+						'path'      => $f['path'],
+						'sha256'    => $f['sha256'] ?? '',
+						'size'      => $this->safe_filesize_within_wp_root( $f['path'] ),
+					);
+				} elseif ( 'version_not_found' === $verdict ) {
+					// SEGURIUM-832: CTI stamps this verdict on every file of a
+					// component whose version it cannot resolve; there is
+					// nothing to restore from and bulk-deleting would wipe the
+					// component. Collapse to one skipped row after the loop.
+					++$vnf_count;
+				} else {
+					// SEGURIUM-832: fail closed on any verdict without a fix
+					// recipe (`unavailable`, future additions) instead of
+					// silently dropping the row from the preview.
+					$preview['skipped'][] = array(
+						'slug'   => $comp['slug'],
+						'type'   => $comp['type'],
+						'path'   => $f['path'],
+						'reason' => sprintf(
+							/* translators: %s: file verdict reported by the integrity check. */
+							__( 'No automatic fix for verdict "%s".', 'segurium' ),
+							$verdict
+						),
+					);
 				}
+			}
+			if ( $vnf_count > 0 ) {
+				$preview['skipped'][] = array(
+					'slug'   => $comp['slug'],
+					'type'   => $comp['type'],
+					'reason' => sprintf(
+						/* translators: %d: number of files. */
+						_n(
+							'Component version not recognized. %d file cannot be verified.',
+							'Component version not recognized. %d files cannot be verified.',
+							$vnf_count,
+							'segurium'
+						),
+						$vnf_count
+					),
+				);
 			}
 		}
 
@@ -6540,6 +6581,43 @@ class Segurium {
 		$abs_path     = $this->resolve_abs_within_wp_root( $file_path, $resolve_mode );
 		if ( null === $abs_path ) {
 			segurium_send_json_error( array( 'message' => __( 'Invalid path', 'segurium' ) ), 403 );
+		}
+
+		// SEGURIUM-830: derive the canonical relative form of the target for
+		// the guard only — a spelling like "./aios-bootstrap.php" resolves
+		// to the loader while matching none of the root-anchored patterns.
+		// $file_path itself must stay the logical (walker-issued) path:
+		// integrity_issues rows, status updates, and CTI paths are keyed on
+		// it, and on symlinked component layouts the two legitimately differ.
+		$guard_path   = $file_path;
+		$wp_root_real = Segurium_Fs::realpath( Segurium_Path_Helpers::wp_root() );
+		if ( false !== $wp_root_real ) {
+			$abs_norm  = wp_normalize_path( $abs_path );
+			$root_norm = rtrim( wp_normalize_path( $wp_root_real ), '/' ) . '/';
+			if ( 0 === strpos( $abs_norm, $root_norm ) ) {
+				$guard_path = substr( $abs_norm, strlen( $root_norm ) );
+			}
+		}
+
+		// SEGURIUM-830: refuse one-click deletion of protected paths, checked
+		// against both the logical and the canonical spelling. Also covers
+		// integrity_issues rows written before the SEGURIUM-831 walker
+		// exclusion and every verdict the UI maps to 'new'
+		// (unknown, version_not_found). See docs/features/integrity-scan.md.
+		if ( 'new' === $verdict
+			&& ( Segurium_Integrity::is_excluded( $file_path ) || Segurium_Integrity::is_excluded( $guard_path ) )
+		) {
+			segurium_send_json_error(
+				array(
+					'message' => sprintf(
+						/* translators: %s: file path relative to the WordPress root. */
+						__( 'Deletion refused: "%s" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe.', 'segurium' ),
+						$file_path
+					),
+					'code'    => 'integrity_protected_file',
+				),
+				403
+			);
 		}
 
 		// Strip the component prefix so CTI can build the correct SVN/Git URL.

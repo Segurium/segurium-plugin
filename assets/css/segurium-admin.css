@@ -1566,8 +1566,13 @@ button.button[hidden],
 	opacity: 0.6;
 }
 #segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row input:disabled {
-	background: #f0f0f1;
 	cursor: not-allowed;
+}
+/* Number fields only. WordPress draws a checkbox tick as a white SVG in
+   ::before, so a grey background under a checked box hides the tick and the
+   setting reads as switched off (SEGURIUM-813). */
+#segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row input:disabled:not([type="checkbox"]) {
+	background: #f0f0f1;
 }
 
 .segurium-bf-stats-section,

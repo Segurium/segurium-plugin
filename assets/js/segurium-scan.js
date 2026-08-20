@@ -2784,6 +2784,7 @@
             opts = opts || {};
             var total = queue.length;
             var i = 0;
+            var firstError = null;
             var modalShown = false;
             var showTimer = setTimeout(function () {
                 modalShown = true;
@@ -2800,6 +2801,12 @@
             function teardown() {
                 if (showTimer) { clearTimeout(showTimer); showTimer = null; }
                 if (modalShown) progressModal.close();
+                // SEGURIUM-830: every exit (completion, paywall, abort)
+                // surfaces the first refusal instead of dropping it.
+                if (firstError) {
+                    seguriumNoticeFromError(firstError, i18n.intFixFailed || 'Fix failed');
+                    firstError = null;
+                }
             }
 
             function next(resp) {
@@ -2812,6 +2819,11 @@
                     showPaywallModal(resp.data);
                     loadIntegrityState();
                     return;
+                }
+                // SEGURIUM-830: keep the first refusal so it is not lost
+                // when the queue finishes (e.g. integrity_protected_file).
+                if (resp && !resp.success && !firstError) {
+                    firstError = resp.data || {};
                 }
                 if (modalShown) {
                     progressModal.update(i, total, labelFor(queue[i]));
@@ -3578,6 +3590,7 @@
             var total = queue.length;
             var done = 0;
             var errors = [];
+            var firstError = null;
 
             isFixAll.disabled = true;
             isBtn.disabled = true;
@@ -3595,6 +3608,9 @@
                     isStatus.textContent = errors.length > 0
                         ? (i18n.completedWithErrors || 'Completed with') + ' ' + errors.length + ' ' + (i18n.errors || 'errors')
                         : (i18n.scanComplete || 'Done.');
+                    if (firstError) {
+                        seguriumNoticeFromError(firstError, i18n.intFixFailed || 'Fix failed');
+                    }
                     quotaCacheTs = 0;
                     fetchQuotaReadout();
                     loadIntegrityState();
@@ -3613,12 +3629,13 @@
                         renderQuotaReadout(resp.data.quota);
                     }
                     if (!resp.success) {
-                        errors.push((item.data.slug || item.data.path || '') + ': ' + (resp.data && resp.data.message || 'failed'));
+                        if (!firstError) firstError = resp.data || {};
+                        errors.push((item.data.slug || item.data.path || item.data.file_path || '') + ': ' + (resp.data && resp.data.message || 'failed'));
                     }
                     next(i + 1);
                 }).catch(function () {
                     done++;
-                    errors.push((item.data.slug || item.data.path || '') + ': connection error');
+                    errors.push((item.data.slug || item.data.path || item.data.file_path || '') + ': connection error');
                     next(i + 1);
                 });
             }
