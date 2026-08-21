@@ -4850,3 +4850,17 @@ msgstr ""
 "El indicador de progreso ha tenido un error de script y ha dejado de "
 "actualizarse. Recarga la página para ver el estado actual — la exploración "
 "en sí no se ve afectada. Los detalles están en la consola del navegador."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Sin corrección automática para el veredicto \"%s\"."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "Versión del componente no reconocida. No se puede verificar %d archivo."
+msgstr[1] "Versión del componente no reconocida. No se pueden verificar %d archivos."
+
+#, php-format
+msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
+msgstr "Eliminación rechazada: \"%s\" es un archivo protegido. El servidor web u otro plugin puede cargarlo, y eliminarlo puede tirar abajo todo el sitio. Elimínalo manualmente si estás seguro de que es seguro."

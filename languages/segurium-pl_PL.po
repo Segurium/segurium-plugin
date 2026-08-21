@@ -3139,7 +3139,7 @@ msgstr "Tylko własna witryna"
 
 #: includes/class-segurium.php:2226
 msgid "Allow all"
-msgstr "Zezwalaj wszystkim"
+msgstr "Zezwól na wszystkie"
 
 #: includes/class-segurium.php:2237
 msgid "Send Content-Security-Policy header"
@@ -4809,12 +4809,12 @@ msgid ""
 "review on WordPress.org helps other site owners find it, and helps us keep "
 "the cleanup tier free."
 msgstr ""
-"Cieszymy się, że mogliśmy pomóc. Jeśli Segurium zaoszczędził ci dziś czasu "
-"lub pieniędzy, uczciwa opinia na WordPress.org pomoże innym właścicielom "
-"witryn go znaleźć, a nam utrzymać bezpłatny plan czyszczenia."
+"Miło nam, że mogliśmy pomóc. Jeśli Segurium oszczędził ci dziś czas lub "
+"pieniądze, uczciwa opinia na WordPress.org pomoże innym właścicielom witryn "
+"go znaleźć, a nam utrzymać darmowy poziom czyszczenia."
 
 msgid "Scan complete. Your site is clean."
-msgstr "Skanowanie zakończone. Twoja witryna jest czysta."
+msgstr "Skanowanie zakończone. W twojej witrynie nie ma zagrożeń."
 
 msgid ""
 "If Segurium is doing its job, would you leave an honest review on "
@@ -4838,8 +4838,32 @@ msgid ""
 "in the browser console."
 msgstr ""
 "Wskaźnik postępu napotkał błąd skryptu i przestał się aktualizować. Odśwież "
-"stronę, aby zobaczyć aktualny stan — samo skanowanie nie jest zakłócone. "
-"Szczegóły znajdziesz w konsoli przeglądarki."
+"stronę, aby zobaczyć bieżący stan – samo skanowanie działa dalej bez "
+"zakłóceń. Szczegóły są w konsoli przeglądarki."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Brak automatycznej naprawy dla werdyktu „%s”."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] ""
+"Nie rozpoznano wersji komponentu. %d plik nie może zostać zweryfikowany."
+msgstr[1] ""
+"Nie rozpoznano wersji komponentu. %d pliki nie mogą zostać zweryfikowane."
+msgstr[2] ""
+"Nie rozpoznano wersji komponentu. %d plików nie może zostać zweryfikowanych."
+
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Odmowa usunięcia: „%s” to zabezpieczony plik. Serwer WWW lub inna wtyczka "
+"może go ładować, a jego usunięcie może wyłączyć całą witrynę. Usuń go "
+"ręcznie, jeśli masz pewność, że jest bezpieczny."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Wtyczka Segurium dla WordPressa."

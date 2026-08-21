@@ -1235,40 +1235,87 @@ class Segurium_Scan {
 	 */
 	private function cleanup_scan_state() {
 		$scan_id = (string) $this->state['scan_id'];
-		if ( '' !== (string) $this->workspace ) {
+		self::purge_runtime( $scan_id, (string) $this->workspace );
+		$this->workspace = null;
+		if ( '' !== $scan_id ) {
+			// purge_runtime() already deleted the queue rows; purge() here
+			// resets the queue's in-memory persisted snapshot so a later
+			// save_state() in this process cannot skip its write.
+			$this->verdict_queue->attach( $scan_id );
+			$this->verdict_queue->purge();
+		}
+	}
+
+	/**
+	 * SEGURIUM-871: scan-id-addressable runtime teardown, shared by the
+	 * engine's own cleanup and the runner's orphan sweep (which has no engine
+	 * instance: `load_state()` only finds the scan behind `scan_active`).
+	 *
+	 * Drops the tmp workspace (lifting `scanner-skips.jsonl` first,
+	 * SEGURIUM-486), every `scan:<id>:*` runtime_kv row (orchestrator,
+	 * listing, verdict-queue state and chunks), the async results cursor /
+	 * submit seal / first-poll ETA, the `async_pending` rows, and the
+	 * `scan_active` marker — the marker only when it still points at this
+	 * scan, so a cooperative-cancel cleanup from an old worker can never
+	 * blank the marker of the scan that replaced it.
+	 *
+	 * @param string $scan_id   Scan UUID.
+	 * @param string $workspace Workspace path when known; read from the
+	 *                          `scan:<id>:orch` row when empty.
+	 * @return void
+	 */
+	public static function purge_runtime( $scan_id, $workspace = '' ) {
+		$scan_id   = (string) $scan_id;
+		$workspace = (string) $workspace;
+		if ( '' === $workspace && '' !== $scan_id ) {
+			$orch_raw = Segurium_Storage::table_get_var(
+				'runtime_kv',
+				'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+				array( self::KV_ORCH_PREFIX . $scan_id . ':orch' )
+			);
+			$orch     = null !== $orch_raw ? json_decode( (string) $orch_raw, true ) : null;
+			if ( is_array( $orch ) && ! empty( $orch['workspace'] ) ) {
+				$workspace = (string) $orch['workspace'];
+			}
+		}
+		if ( '' !== $workspace ) {
 			// SEGURIUM-486: lift the per-scan skip log out of the workspace
-			// before `tmp_destroy()` wipes it, so support can answer
-			// "which files were skipped, and why" after the run is done.
-			// One file, overwritten per scan — only the most recent run
-			// is inspectable, mirroring the single-active-scan model.
-			$skips_src = $this->workspace . '/scanner-skips.jsonl';
+			// before `tmp_destroy()` wipes it. One file, overwritten per
+			// scan — only the most recent run is inspectable.
+			$skips_src = $workspace . '/scanner-skips.jsonl';
 			if ( is_file( $skips_src ) ) {
 				$skips_dst = Segurium_Storage_Fs::data_dir() . '/last-scan-skips.jsonl';
 				// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 				@copy( $skips_src, $skips_dst );
 			}
-			Segurium_Storage::tmp_destroy( (string) $this->workspace );
-			$this->workspace = null;
+			Segurium_Storage::tmp_destroy( $workspace );
 		}
 		if ( '' !== $scan_id ) {
-			$this->verdict_queue->attach( $scan_id );
-			$this->verdict_queue->purge();
-			Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => $this->orch_key_for( $scan_id ) ) );
-			// SEGURIUM-429: listing row is paired with the orch row.
-			Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => $this->listing_key_for( $scan_id ) ) );
-			// SEGURIUM-573: the results cursor lives in its own key (no
-			// longer inside the pending row), so drop it explicitly here.
+			global $wpdb;
+			$tbl = Segurium_Storage::table_name( 'runtime_kv' );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- bulk prefix delete; no cache layer for runtime_kv.
+			$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE kv_key LIKE %s', $tbl, $wpdb->esc_like( self::KV_ORCH_PREFIX . $scan_id . ':' ) . '%' ) );
 			if ( class_exists( 'Segurium_Async_Scan_Results_Loop' ) ) {
 				Segurium_Async_Scan_Results_Loop::clear_cursor( $scan_id );
+				Segurium_Async_Scan_Results_Loop::clear_submit_sealed( $scan_id );
 			}
-			// SEGURIUM-576: drop the scan's pending-verdict rows. Chunked so a
-			// large high-unknown scan (up to ~1M rows) never builds one
-			// oversized DELETE transaction.
+			if ( class_exists( 'Segurium_Async_Scan_First_Poll_Eta' ) ) {
+				Segurium_Async_Scan_First_Poll_Eta::clear( $scan_id );
+			}
 			if ( class_exists( 'Segurium_Async_Scan_Submitter' ) ) {
 				Segurium_Async_Scan_Submitter::delete_all_pending( $scan_id );
 			}
 		}
-		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_ACTIVE ) );
+		$active_raw = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+			array( self::KV_ACTIVE )
+		);
+		$active     = null !== $active_raw ? json_decode( (string) $active_raw, true ) : null;
+		$marker     = is_array( $active ) && isset( $active['scan_id'] ) ? (string) $active['scan_id'] : '';
+		if ( '' === $marker || $marker === $scan_id ) {
+			Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_ACTIVE ) );
+		}
 	}
 
 	/**

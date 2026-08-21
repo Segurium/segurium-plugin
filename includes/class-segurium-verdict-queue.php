@@ -797,6 +797,9 @@ class Segurium_Verdict_Queue {
 	 *                                                callers (realtime/upload).
 	 * @return array Stat block `{submitted, verdicted, threats, failed,
 	 *               neoray_errors, neoray_skipped}`.
+	 *
+	 * @throws RuntimeException When the tick lease was taken over by another
+	 *                          worker mid-chunk (SEGURIUM-870); the runner ends the tick.
 	 */
 	public static function resolve_and_record(
 		string $scan_id,
@@ -878,11 +881,11 @@ class Segurium_Verdict_Queue {
 		$track_heartbeat = ( 'malware' === $scan_type );
 		$async_submitter = null;
 		foreach ( $files as $f ) {
-			if ( $track_heartbeat ) {
-				Segurium_Scan_Lock::heartbeat( $scan_id );
-				if ( class_exists( 'Segurium_Scan_Runner' ) ) {
-					Segurium_Scan_Runner::renew_active_tick_mutex();
-				}
+			if ( $track_heartbeat && class_exists( 'Segurium_Scan_Runner' )
+				&& ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
+				// SEGURIUM-870: another driver owns the scan now; abandon the
+				// rest of this chunk so the cursor is not advanced twice.
+				throw new RuntimeException( 'scan tick lost its lease mid-chunk; another worker took the scan over' );
 			}
 			$sha256 = isset( $f['sha256'] ) ? (string) $f['sha256'] : '';
 			$path   = isset( $f['path'] ) ? (string) $f['path'] : '';
@@ -1597,9 +1600,10 @@ class Segurium_Verdict_Queue {
 			// unknown_queue one file at a time (file IO + sha re-check
 			// plus the occasional auto-flush HTTP POST), so stamping the
 			// heartbeat per iteration keeps the watchdog accurate.
-			Segurium_Scan_Lock::heartbeat( $scan_id );
-			if ( class_exists( 'Segurium_Scan_Runner' ) ) {
-				Segurium_Scan_Runner::renew_active_tick_mutex();
+			if ( class_exists( 'Segurium_Scan_Runner' ) && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
+				// SEGURIUM-870: lease gone — yield without flushing; the new
+				// owner resumes from the last persisted cursor.
+				return false;
 			}
 
 			$head    = array_shift( $cursor['unknown_queue'] );

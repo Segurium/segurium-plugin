@@ -219,6 +219,12 @@ class Segurium_Async_Scan_Results_Loop {
 				break;
 			}
 
+			// SEGURIUM-870: heartbeat + lease before each CTI call; a lost
+			// lease means another driver owns the scan now.
+			if ( class_exists( 'Segurium_Scan_Runner' ) && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
+				break;
+			}
+
 			$cursor_before = $since;
 			$resp          = $cti->scan_results( $since, $scan_id, self::POLL_LIMIT );
 			if ( is_wp_error( $resp ) ) {

@@ -212,7 +212,12 @@
         if (!data || data.running !== true) return;
         var hb = data.heartbeat || 0;
         if (hb <= 0) return;
-        var ageS = Math.max(0, Math.floor(Date.now() / 1000) - hb);
+        // SEGURIUM-870: the server now ships heartbeat_age (its own clock);
+        // prefer it so browser/server clock skew cannot hide or fake the
+        // hint. Older servers omit it — fall back to the local estimate.
+        var ageS = (typeof data.heartbeat_age === 'number')
+            ? data.heartbeat_age
+            : Math.max(0, Math.floor(Date.now() / 1000) - hb);
         if (ageS < 60) return;
         var msg = (i18n.scanWorkerStalled || 'no progress for %ds — waiting for worker')
             .replace('%d', ageS);

@@ -49,13 +49,22 @@ final class Segurium_Scan_Lock {
 	/**
 	 * Try to acquire the lock for the given scan.
 	 *
+	 * SEGURIUM-871: refuses while any lock within `LOCK_MAX_AGE` exists,
+	 * heartbeat ignored. A stale heartbeat is a resume signal for the next
+	 * driver tick (SEGURIUM-563), not a free slot; overwriting such a lock
+	 * left the previous scan's history row at RUNNING forever. Callers that
+	 * want the slot of an ancient lock close it through
+	 * `Segurium_Scan_Runner::terminate()` first. The return value reflects
+	 * the re-read row, so a write that did not land (row deleted by another
+	 * process mid-request) reports false.
+	 *
 	 * @param string $scan_id   Scan UUID.
 	 * @param string $scan_type Scan type label (e.g. 'manual', 'scheduled').
-	 * @return bool True on success, false if a fresh lock is held.
+	 * @return bool True when this scan now holds the lock, false otherwise.
 	 */
 	public static function acquire( $scan_id, $scan_type ) {
 		$existing = self::get();
-		if ( self::is_fresh( $existing ) ) {
+		if ( self::is_held( $existing ) ) {
 			return false;
 		}
 
@@ -72,7 +81,8 @@ final class Segurium_Scan_Lock {
 		);
 
 		Segurium_Storage::setting_set( self::OPTION, $payload );
-		return true;
+		$written = self::get();
+		return null !== $written && $written['scan_id'] === (string) $scan_id;
 	}
 
 	/**
@@ -131,12 +141,50 @@ final class Segurium_Scan_Lock {
 	}
 
 	/**
-	 * Returns true if a scan is currently considered running.
+	 * Whether a scan currently holds the lock: a lock row exists and its
+	 * `started_at` is within `LOCK_MAX_AGE`.
 	 *
+	 * SEGURIUM-870: this no longer reads the heartbeat. A stale heartbeat
+	 * means the worker died and the next driver tick takes the scan over
+	 * (SEGURIUM-563); the scan itself is still in progress, so status
+	 * consumers (`get_status()`, `ajax_tick()`, REST `/scan-tick`) must keep
+	 * reporting it as running. Use {@see is_worker_alive()} to ask whether a
+	 * worker is actively advancing it.
+	 *
+	 * @param array|null $lock Lock snapshot from {@see get()}; re-read when null.
 	 * @return bool
 	 */
-	public static function is_running() {
-		return self::is_fresh( self::get() );
+	public static function is_running( $lock = null ) {
+		return self::is_held( null === $lock ? self::get() : $lock );
+	}
+
+	/**
+	 * Whether the lock is held AND its worker heartbeat is within
+	 * `HEARTBEAT_MAX_AGE`. False for a stalled (dead-worker) lock that
+	 * {@see is_running()} still reports as running.
+	 *
+	 * @param array|null $lock Lock snapshot from {@see get()}; re-read when null.
+	 * @return bool
+	 */
+	public static function is_worker_alive( $lock = null ) {
+		return self::is_fresh( null === $lock ? self::get() : $lock );
+	}
+
+	/**
+	 * Seconds since the lock heartbeat was last stamped, or 0 when no lock
+	 * is held. Clamped at zero so clock drift never yields a negative age.
+	 *
+	 * @param array|null $lock Lock payload; defaults to the stored lock.
+	 * @return int
+	 */
+	public static function heartbeat_age( $lock = null ) {
+		if ( null === $lock ) {
+			$lock = self::get();
+		}
+		if ( null === $lock || (int) $lock['heartbeat'] <= 0 ) {
+			return 0;
+		}
+		return max( 0, time() - (int) $lock['heartbeat'] );
 	}
 
 	/**
@@ -161,22 +209,30 @@ final class Segurium_Scan_Lock {
 	}
 
 	/**
-	 * Internal freshness check.
+	 * Internal "lock held" check: a lock exists and is within the
+	 * `LOCK_MAX_AGE` ceiling, heartbeat ignored.
 	 *
 	 * @param array|null $lock Lock payload.
-	 * @return bool True if the lock is still considered held.
+	 * @return bool
 	 */
-	private static function is_fresh( $lock ) {
+	private static function is_held( $lock ) {
 		if ( null === $lock ) {
 			return false;
 		}
-		$now = time();
-		if ( $now - $lock['started_at'] > self::LOCK_MAX_AGE ) {
+		return ( time() - (int) $lock['started_at'] ) <= self::LOCK_MAX_AGE;
+	}
+
+	/**
+	 * Internal freshness check: lock held AND heartbeat within
+	 * `HEARTBEAT_MAX_AGE`.
+	 *
+	 * @param array|null $lock Lock payload.
+	 * @return bool True if a live worker is considered to hold the lock.
+	 */
+	private static function is_fresh( $lock ) {
+		if ( ! self::is_held( $lock ) ) {
 			return false;
 		}
-		if ( $now - $lock['heartbeat'] > self::HEARTBEAT_MAX_AGE ) {
-			return false;
-		}
-		return true;
+		return ( time() - (int) $lock['heartbeat'] ) <= self::HEARTBEAT_MAX_AGE;
 	}
 }

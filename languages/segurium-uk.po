@@ -4836,3 +4836,18 @@ msgstr ""
 "У відображенні прогресу сталася помилка сценарію, і воно перестало "
 "оновлюватися. Перезавантажте сторінку, щоб побачити поточний стан — саме "
 "сканування не постраждало. Подробиці — у консолі браузера."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Немає автоматичного виправлення для вердикту \"%s\"."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "Не вдалося розпізнати версію компонента. %d файл неможливо перевірити."
+msgstr[1] "Не вдалося розпізнати версію компонента. %d файли неможливо перевірити."
+msgstr[2] "Не вдалося розпізнати версію компонента. %d файлів неможливо перевірити."
+
+#, php-format
+msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
+msgstr "Видалення відхилено: \"%s\" — захищений файл. Веб-сервер або інший плагін може його завантажувати, і його видалення може вивести з ладу весь сайт. Видали його вручну, якщо ти впевнений, що це безпечно."

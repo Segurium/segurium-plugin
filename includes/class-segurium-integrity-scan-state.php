@@ -242,6 +242,10 @@ class Segurium_Integrity_Scan_State {
 	 * Process up to CHUNK_SIZE components from the queue, calling CTI once
 	 * per chunk. On the chunk that drains the queue, persist results to
 	 * the integrity_issues table and clean up the workspace.
+	 *
+	 * @throws RuntimeException When the tick lease was taken over by another
+	 *                          worker before the chunk's CTI call (SEGURIUM-870);
+	 *                          life_support_system() catches it and ends the tick.
 	 */
 	public function process_chunk() {
 		if ( $this->state['cursor'] >= $this->state['total'] ) {
@@ -259,6 +263,15 @@ class Segurium_Integrity_Scan_State {
 				. ' '
 				. ( $first_in_chunk['version'] ?? '' )
 			);
+		}
+
+		// SEGURIUM-870: heartbeat + lease before the integrity_check POST
+		// (up to INTEGRITY_TICK_TIMEOUT_SEC inside a tick). A lost lease
+		// means another driver already owns this scan: stop here instead
+		// of posting the same chunk twice.
+		if ( class_exists( 'Segurium_Scan_Runner' )
+			&& ! Segurium_Scan_Runner::renew_liveness( (string) $this->state['scan_id'] ) ) {
+			throw new RuntimeException( 'integrity scan tick lost its lease; another worker took the scan over' );
 		}
 
 		$trigger    = (string) ( $this->state['trigger'] ?? 'unspecified' );

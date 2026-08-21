@@ -4425,6 +4425,22 @@ msgid ""
 "in the browser console."
 msgstr "进度显示遇到脚本错误，已停止更新。请重新加载页面以查看当前状态——扫描本身不受影响。详细信息请查看浏览器控制台。"
 
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "判定 “%s” 无自动修复方案。"
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "无法识别组件版本。%d 个文件无法验证。"
+
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr "拒绝删除：“%s” 是受保护的文件。Web 服务器或其他插件可能会加载它，删除可能导致整个站点宕机。如果您确定该文件安全，请手动删除。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"
 

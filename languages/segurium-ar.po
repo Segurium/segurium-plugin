@@ -4763,3 +4763,21 @@ msgid ""
 msgstr ""
 "واجه عرض التقدم خطأً في السكربت وتوقف عن التحديث. أعد تحميل الصفحة لعرض "
 "الحالة الحالية — الفحص نفسه لم يتأثر. التفاصيل متوفرة في وحدة تحكم المتصفح."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "لا يوجد إصلاح تلقائي للحكم \"%s\"."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملف."
+msgstr[1] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملف."
+msgstr[2] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملفين."
+msgstr[3] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملفات."
+msgstr[4] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملفًا."
+msgstr[5] "تعذر التعرف على إصدار المكوّن. لا يمكن التحقق من %d ملف."
+
+#, php-format
+msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
+msgstr "تم رفض الحذف: \"%s\" ملف محمي. قد يقوم خادم الويب أو مكوّن إضافي آخر بتحميله، وإزالته قد تُوقف الموقع بأكمله. احذفه يدويًا إذا كنت متأكدًا من أنه آمن."

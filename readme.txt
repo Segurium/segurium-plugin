@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, two-factor-authentication, firew
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,10 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap. Every feature ships in both tiers.
 
 == Changelog ==
+
+= 1.1.2 - 2026-08-21 =
+* Improves management of scan threads.
+* Better integrity checks.
 
 = 1.1.1 - 2026-08-20 =
 * Fix for integrity scan that could crash a site.

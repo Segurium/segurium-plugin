@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication
  * Plugin URI:  https://segurium.com
  * Description: Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking.
- * Version:     1.1.1
+ * Version:     1.1.2
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.1.1' );
+define( 'SEGURIUM_VERSION', '1.1.2' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -530,11 +530,38 @@ if ( in_array( segurium_request_tier(), $segurium_self_heal_tiers, true ) ) {
 			segurium_migrate_scan_tick_cron_rescue();
 			segurium_migrate_async_scan_retry_after_kv();
 			segurium_migrate_drop_async_submit_deprecated_options();
+			segurium_migrate_close_orphaned_scan_history();
 		},
 		0
 	);
 }
 unset( $segurium_self_heal_tiers );
+
+/**
+ * SEGURIUM-871: one-shot close of scan_history rows orphaned at
+ * status=running by a lock overwrite before this release. Runs
+ * `Segurium_Scan_Runner::sweep_orphaned_history()` once per install and
+ * stamps `segurium_migrated_871_orphan_sweep`; the hourly watchdog keeps
+ * sweeping afterwards. Skipped on light tiers where the runner class is
+ * not loaded — the next heavy request performs it.
+ */
+function segurium_migrate_close_orphaned_scan_history() {
+	if ( ! class_exists( 'Segurium_Storage' ) || ! class_exists( 'Segurium_Scan_Runner' ) ) {
+		return;
+	}
+	if ( Segurium_Storage::setting_get( 'segurium_migrated_871_orphan_sweep' ) ) {
+		return;
+	}
+	try {
+		if ( false !== Segurium_Scan_Runner::sweep_orphaned_history() ) {
+			Segurium_Storage::setting_set( 'segurium_migrated_871_orphan_sweep', 1, false );
+		}
+	} catch ( Throwable $e ) {
+		Segurium_Debug::log(
+			'[segurium] orphaned scan_history sweep failed: ' . $e->getMessage()
+		);
+	}
+}
 
 /**
  * One-shot rename of `segurium_on_premise` to

@@ -111,12 +111,22 @@ class Segurium_CTI_Client {
 	 * the longest legitimate gap at one in-flight RTT and sizes the 60 s
 	 * around that; a longer POST makes `is_stale()` true and invites
 	 * `run_watchdog()` to reclaim a scan that is uploading fine. The same
-	 * ceiling keeps a POST under `compute_mutex_ttl()`, which caps at 300 s,
-	 * so the tick mutex cannot lapse mid-upload and let a second worker into
-	 * the same scan (the corruption SEGURIUM-426 closed). Without this a host
-	 * with `max_execution_time = 600` would derive a 588 s timeout.
+	 * ceiling keeps a POST under `compute_mutex_ttl()`, which equals
+	 * `HEARTBEAT_MAX_AGE` (60 s, SEGURIUM-870), so the tick mutex cannot
+	 * lapse mid-upload and let a second worker into the same scan (the
+	 * corruption SEGURIUM-426 closed). Without this a host with
+	 * `max_execution_time = 600` would derive a 588 s timeout.
 	 */
 	const SUBMIT_TIMEOUT_MAX_SEC = 50;
+
+	/**
+	 * SEGURIUM-870: `/v1/integrity` timeout while a runner tick is driving
+	 * the request. Same reasoning as {@see SUBMIT_TIMEOUT_MAX_SEC}: the
+	 * lease is renewed right before the POST, so the POST itself must end
+	 * inside the 60 s lease with margin. Outside a tick (synchronous
+	 * integrity checks) the historical 60 s stays.
+	 */
+	const INTEGRITY_TICK_TIMEOUT_SEC = 50;
 
 	/**
 	 * SEGURIUM-477: classification buckets returned by
@@ -923,6 +933,22 @@ class Segurium_CTI_Client {
 				);
 				break;
 			}
+			// SEGURIUM-870: a retry starts a new POST of up to
+			// SUBMIT_TIMEOUT_MAX_SEC with no heartbeat in between; renew
+			// the lease + heartbeat first, and stop when the lease is gone
+			// (another driver owns the scan; a second upload of the same
+			// batch from here would race it).
+			if ( $attempt > 0 && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
+				Segurium_Scan_Runner::debug(
+					'scan_submit_retry_lease_lost',
+					array(
+						'endpoint' => '/v1/scan/submit',
+						'scan_id'  => $scan_id,
+						'attempts' => $attempt,
+					)
+				);
+				break;
+			}
 			// Recompute per attempt so three of them cannot outlive the tick
 			// that started them. One value computed once is what let 3 x 30s
 			// run inside a 50s budget.
@@ -1379,9 +1405,10 @@ class Segurium_CTI_Client {
 	 * @return array|WP_Error Array of component integrity results or error.
 	 */
 	public function integrity_check( $components, $trigger = '' ) {
-		$opts = array(
+		$in_tick = class_exists( 'Segurium_Scan_Runner' ) && Segurium_Scan_Runner::in_tick();
+		$opts    = array(
 			'body'    => array( 'components' => $components ),
-			'timeout' => 60,
+			'timeout' => $in_tick ? self::INTEGRITY_TICK_TIMEOUT_SEC : 60,
 		);
 		if ( is_string( $trigger ) && '' !== $trigger ) {
 			$opts['headers'] = array( 'X-Segurium-Integrity-Trigger' => $trigger );

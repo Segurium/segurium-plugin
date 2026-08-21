@@ -290,7 +290,14 @@ final class Segurium_Scan_Runner {
 	const REASON_ABORTED_HEARTBEAT_STALE    = 'ABORTED_HEARTBEAT_STALE';
 	const REASON_ABORTED_WATCHDOG_SWEEP     = 'ABORTED_WATCHDOG_SWEEP';
 	const REASON_ABORTED_ENGINE_LOAD_FAILED = 'ABORTED_ENGINE_LOAD_FAILED';
-	const REASON_RUNTIME_ERROR              = 'RUNTIME_ERROR';
+	const REASON_ABORTED_ORPHANED           = 'ABORTED_ORPHANED';
+
+	/**
+	 * The scan_history.status values that end a scan. One list for the terminal
+	 * gate, the REST answer and the newest-terminal lookup.
+	 */
+	const TERMINAL_STATUSES    = array( 'completed', 'cancelled', 'aborted' );
+	const REASON_RUNTIME_ERROR = 'RUNTIME_ERROR';
 
 	/*
 	 * SEGURIUM-414: cooperative cancel handshake.
@@ -409,12 +416,26 @@ final class Segurium_Scan_Runner {
 				);
 			}
 
-			if ( Segurium_Scan_Lock::is_running() ) {
-				return new WP_Error(
-					'scan_already_running',
-					__( 'A scan is already in progress.', 'segurium' ),
-					array( 'lock' => Segurium_Scan_Lock::get() )
+			$existing = Segurium_Scan_Lock::get();
+			if ( null !== $existing ) {
+				if ( Segurium_Scan_Lock::is_running() ) {
+					return new WP_Error(
+						'scan_already_running',
+						__( 'A scan is already in progress.', 'segurium' ),
+						array( 'lock' => $existing )
+					);
+				}
+				// SEGURIUM-871: the lock is past LOCK_MAX_AGE. Close the
+				// abandoned scan before taking its slot; overwriting the lock
+				// left the old row at RUNNING forever.
+				self::debug(
+					'start_closes_ancient_lock',
+					array(
+						'scan_id'  => $existing['scan_id'],
+						'lock_age' => time() - (int) $existing['started_at'],
+					)
 				);
+				self::close_ancient_lock( $existing );
 			}
 
 			$engine = self::create_engine( $scan_type );
@@ -422,10 +443,21 @@ final class Segurium_Scan_Runner {
 			$scan_id = wp_generate_uuid4();
 
 			if ( ! Segurium_Scan_Lock::acquire( $scan_id, $scan_type ) ) {
+				$holder = Segurium_Scan_Lock::get();
+				if ( null === $holder ) {
+					return new WP_Error(
+						'lock_write_failed',
+						sprintf(
+							/* translators: %s: underlying exception message */
+							__( 'Unexpected error starting scan: %s', 'segurium' ),
+							'scan lock write did not land'
+						)
+					);
+				}
 				return new WP_Error(
 					'scan_already_running',
 					__( 'A scan is already in progress.', 'segurium' ),
-					array( 'lock' => Segurium_Scan_Lock::get() )
+					array( 'lock' => $holder )
 				);
 			}
 			$lock_acquired = true;
@@ -595,7 +627,8 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Whether a scan is currently running.
+	 * Whether a scan currently holds the lock (SEGURIUM-870: true through a
+	 * dead-worker stall; see {@see Segurium_Scan_Lock::is_running()}).
 	 *
 	 * @return bool
 	 */
@@ -820,7 +853,18 @@ final class Segurium_Scan_Runner {
 				$token
 			)
 		);
-		return ( (int) $rows ) > 0;
+		if ( ( (int) $rows ) > 0 ) {
+			return true;
+		}
+		// MySQL reports 0 affected rows when the UPDATE changed nothing —
+		// a renewal inside the same second as the previous one. Tell that
+		// apart from "the row is no longer ours" with one re-read.
+		$current = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s AND expires_at >= %d',
+			array( self::MUTEX_KV_KEY, time() )
+		);
+		return (string) $current === $token;
 	}
 
 	/**
@@ -840,6 +884,31 @@ final class Segurium_Scan_Runner {
 			return false;
 		}
 		return self::renew_tick_mutex( self::$active_mutex_token, self::$active_mutex_ttl );
+	}
+
+	/**
+	 * SEGURIUM-870: refresh both liveness signals from inside a long loop
+	 * (async results drain, integrity chunk, submit retry). Renews the
+	 * tick-mutex lease first; when this process held the mutex and the row
+	 * no longer carries its token, the lease lapsed and another driver has
+	 * taken the scan over — the caller must stop touching the scan, and
+	 * the heartbeat is NOT stamped (that would refresh the lock on behalf
+	 * of the new owner and hide the takeover). A process that never held
+	 * the mutex (realtime / upload / tests) only stamps the heartbeat.
+	 *
+	 * @param string $scan_id     Scan UUID to heartbeat; '' skips the heartbeat.
+	 * @param bool   $is_observer Forwarded to {@see Segurium_Scan_Lock::heartbeat()}.
+	 * @return bool True to continue, false when the lease is lost.
+	 */
+	public static function renew_liveness( $scan_id, $is_observer = false ) {
+		if ( null !== self::$active_mutex_token && ! self::renew_active_tick_mutex() ) {
+			self::debug( 'lease_lost', array( 'scan_id' => (string) $scan_id ) );
+			return false;
+		}
+		if ( '' !== (string) $scan_id ) {
+			Segurium_Scan_Lock::heartbeat( (string) $scan_id, (bool) $is_observer );
+		}
+		return true;
 	}
 
 	/**
@@ -946,27 +1015,24 @@ final class Segurium_Scan_Runner {
 			return null;
 		}
 
+		// running = lock held (true through a dead-worker stall);
+		// worker_alive / heartbeat_age carry the heartbeat state.
+		$liveness = array(
+			'running'       => Segurium_Scan_Lock::is_running( $lock ),
+			'worker_alive'  => Segurium_Scan_Lock::is_worker_alive( $lock ),
+			'heartbeat_age' => Segurium_Scan_Lock::heartbeat_age( $lock ),
+			'scan_id'       => $lock['scan_id'],
+			'scan_type'     => $lock['scan_type'],
+			'started_at'    => $lock['started_at'],
+			'heartbeat'     => $lock['heartbeat'],
+		);
+
 		$engine = self::create_engine( $lock['scan_type'] );
 		if ( ! $engine->load_state() ) {
-			return array(
-				'running'    => Segurium_Scan_Lock::is_running(),
-				'scan_id'    => $lock['scan_id'],
-				'scan_type'  => $lock['scan_type'],
-				'started_at' => $lock['started_at'],
-				'heartbeat'  => $lock['heartbeat'],
-			);
+			return $liveness;
 		}
 
-		$payload = $engine->get_progress_snapshot();
-		$running = Segurium_Scan_Lock::is_running();
-
-		$payload['running']    = $running;
-		$payload['scan_id']    = $lock['scan_id'];
-		$payload['scan_type']  = $lock['scan_type'];
-		$payload['started_at'] = $lock['started_at'];
-		$payload['heartbeat']  = $lock['heartbeat'];
-
-		return $payload;
+		return array_merge( $engine->get_progress_snapshot(), $liveness );
 	}
 
 	/**
@@ -997,12 +1063,27 @@ final class Segurium_Scan_Runner {
 	 * cleanup) keep firing in their established order. The success path now
 	 * writes `error_code = 'COMPLETED'` directly from `Segurium_Scan::build_progress()`.
 	 *
-	 * @param string $reason_code One of the `REASON_*` constants.
-	 * @return bool True when a scan was terminated, false when no lock was held.
+	 * @param string      $reason_code      One of the `REASON_*` constants.
+	 * @param string|null $expected_scan_id SEGURIUM-871: when given, terminate
+	 *                                      only if the lock still belongs to
+	 *                                      this scan; a lock replaced in the
+	 *                                      meantime is left alone.
+	 * @return bool True when a scan was terminated, false when no lock was held
+	 *              (or it belongs to another scan than expected).
 	 */
-	public static function terminate( $reason_code ) {
+	public static function terminate( $reason_code, $expected_scan_id = null ) {
 		$lock = Segurium_Scan_Lock::get();
 		if ( null === $lock ) {
+			return false;
+		}
+		if ( null !== $expected_scan_id && (string) $lock['scan_id'] !== (string) $expected_scan_id ) {
+			self::debug(
+				'terminate_skipped_lock_replaced',
+				array(
+					'expected' => (string) $expected_scan_id,
+					'current'  => (string) $lock['scan_id'],
+				)
+			);
 			return false;
 		}
 
@@ -1052,7 +1133,10 @@ final class Segurium_Scan_Runner {
 						'finished_at' => time(),
 						'error_code'  => $reason_code,
 					),
-					array( 'scan_uuid' => $scan_id )
+					array(
+						'scan_uuid' => $scan_id,
+						'status'    => 'running',
+					)
 				);
 			} catch ( Throwable $e ) {
 				self::log_exception( 'terminate.history_fallback', $e );
@@ -1158,6 +1242,7 @@ final class Segurium_Scan_Runner {
 			case self::REASON_ABORTED_HEARTBEAT_STALE:
 			case self::REASON_ABORTED_WATCHDOG_SWEEP:
 			case self::REASON_ABORTED_ENGINE_LOAD_FAILED:
+			case self::REASON_ABORTED_ORPHANED:
 			case self::REASON_RUNTIME_ERROR:
 				return 'aborted';
 			default:
@@ -1356,19 +1441,158 @@ final class Segurium_Scan_Runner {
 	 * @return void
 	 */
 	public static function run_watchdog() {
+		self::sweep_orphaned_history();
 		$lock = Segurium_Scan_Lock::get();
 		if ( null === $lock ) {
 			return;
 		}
 		$started_at = (int) $lock['started_at'];
 		if ( $started_at > 0 && time() - $started_at > Segurium_Scan_Lock::LOCK_MAX_AGE ) {
-			self::terminate( self::REASON_ABORTED_WATCHDOG_SWEEP );
+			self::close_ancient_lock( $lock );
 			return;
 		}
 		if ( Segurium_Scan_Lock::is_stale( $lock ) ) {
 			// Stale heartbeat, within the age ceiling → resume, don't kill.
 			self::life_support_system( 'watchdog' );
 		}
+	}
+
+	/**
+	 * SEGURIUM-871: close scan_history rows left at status=running by a scan
+	 * that no longer holds the lock.
+	 *
+	 * Before SEGURIUM-871, start() could overwrite the lock of a scan whose
+	 * worker had died; the previous scan's history row then stayed RUNNING
+	 * forever, CTI never received a terminal message, and its workspace and
+	 * runtime_kv rows were never freed. Every such row is closed here with
+	 * status=aborted / error_code=ABORTED_ORPHANED, one scan_aborted message,
+	 * and the same runtime teardown the engine's cleanup path performs.
+	 * The scan that currently holds the lock (if any) is never touched.
+	 * Idempotent: a second run finds no running row and does nothing.
+	 *
+	 * Called from run_watchdog() (hourly) and once from the plugin upgrade
+	 * routine so pre-existing orphans close as soon as sites update.
+	 *
+	 * @return int|false Number of rows closed, or false when the history
+	 *                   query itself failed (nothing was swept).
+	 */
+	public static function sweep_orphaned_history() {
+		// Rows first, lock second, and only rows older than one heartbeat
+		// window: a start() that lands between the two reads inserts a
+		// younger row, and the per-row lock re-check below covers the rest.
+		try {
+			$rows = Segurium_Storage::table_get_results(
+				'scan_history',
+				"SELECT scan_uuid, scan_type, started_at FROM {{table}} WHERE status = 'running' AND started_at < %d",
+				array( time() - Segurium_Scan_Lock::HEARTBEAT_MAX_AGE ),
+				ARRAY_A
+			);
+		} catch ( Throwable $e ) {
+			self::log_exception( 'sweep_orphaned_history', $e );
+			return false;
+		}
+
+		$closed = 0;
+		foreach ( $rows as $row ) {
+			$scan_id = isset( $row['scan_uuid'] ) ? (string) $row['scan_uuid'] : '';
+			if ( '' === $scan_id ) {
+				continue;
+			}
+			$lock = Segurium_Scan_Lock::get();
+			if ( null !== $lock && (string) $lock['scan_id'] === $scan_id ) {
+				continue;
+			}
+			try {
+				self::close_orphaned_scan( $scan_id, (string) $row['scan_type'], (int) $row['started_at'] );
+				++$closed;
+			} catch ( Throwable $e ) {
+				self::log_exception( 'close_orphaned_scan:' . $scan_id, $e );
+			}
+		}
+
+		if ( $closed > 0 ) {
+			self::debug( 'orphan_sweep', array( 'closed' => $closed ) );
+		}
+		return $closed;
+	}
+
+	/**
+	 * Close one orphaned scan: terminal history row, scan_aborted message
+	 * (same payload shape as terminate()'s fallback branch), runtime teardown.
+	 *
+	 * @param string $scan_id    Orphaned scan UUID.
+	 * @param string $scan_type  Its scan_history.scan_type.
+	 * @param int    $started_at Its scan_history.started_at.
+	 * @return void
+	 */
+	private static function close_orphaned_scan( $scan_id, $scan_type, $started_at ) {
+		// Teardown first: if it throws, the row stays `running` and the next
+		// sweep retries; a row flipped first would hide a half-cleaned scan.
+		self::purge_scan_runtime( $scan_id );
+
+		$now = time();
+		Segurium_Storage::table_update(
+			'scan_history',
+			array(
+				'status'      => 'aborted',
+				'finished_at' => $now,
+				'error_code'  => self::REASON_ABORTED_ORPHANED,
+			),
+			array(
+				'scan_uuid' => $scan_id,
+				'status'    => 'running',
+			)
+		);
+
+		Segurium_Storage::cti_send_message(
+			'scan_aborted',
+			array(
+				'scan_id'          => $scan_id,
+				'scan_type'        => $scan_type,
+				'error_code'       => self::REASON_ABORTED_ORPHANED,
+				'duration_seconds' => $started_at > 0 ? max( 0, $now - $started_at ) : 0,
+			)
+		);
+	}
+
+	/**
+	 * Drop everything a scan left behind outside scan_history: the engine
+	 * runtime ({@see Segurium_Scan::purge_runtime()}) plus the runner's own
+	 * stuck counter and cancel flag.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return void
+	 */
+	private static function purge_scan_runtime( $scan_id ) {
+		Segurium_Scan::purge_runtime( $scan_id );
+		self::clear_stuck_state( $scan_id );
+		self::clear_cancel_flag( $scan_id );
+	}
+
+	/**
+	 * SEGURIUM-871: close a lock held past LOCK_MAX_AGE. A lock whose
+	 * history row is already terminal (worker died between the terminal
+	 * write and the release) is only dropped — the SEGURIUM-572 gate in
+	 * life_support_system() — so a completed scan is never relabelled
+	 * aborted and no duplicate terminal message goes out. Anything else is
+	 * terminated with ABORTED_WATCHDOG_SWEEP, scoped to this lock's scan_id
+	 * so a lock replaced in the meantime is left alone.
+	 *
+	 * @param array $lock Lock snapshot from Segurium_Scan_Lock::get().
+	 * @return void
+	 */
+	private static function close_ancient_lock( array $lock ) {
+		$scan_id = (string) $lock['scan_id'];
+		if ( self::scan_history_is_terminal( $scan_id ) ) {
+			$current = Segurium_Scan_Lock::get();
+			if ( null !== $current && (string) $current['scan_id'] === $scan_id ) {
+				Segurium_Scan_Lock::release();
+				wp_clear_scheduled_hook( self::TICK_HOOK );
+				self::clear_stuck_state( $scan_id );
+			}
+			return;
+		}
+		self::terminate( self::REASON_ABORTED_WATCHDOG_SWEEP, $scan_id );
 	}
 
 	/**
@@ -1406,12 +1630,11 @@ final class Segurium_Scan_Runner {
 		/*
 		 * Step 1 — acquire tick mutex. Held for the duration of this call so
 		 * two concurrent triggers cannot run two workers against the same
-		 * scan. TTL is large enough to survive a process kill *plus* a small
-		 * grace window — kept tight so a fatal that escapes the try/finally
-		 * can't park scans for the full transient lifetime. We additionally
-		 * stamp the acquisition time inside the transient and force-release
-		 * any mutex older than the same ceiling, so a botched cleanup is
-		 * self-healing on the next trigger.
+		 * scan. The row is a lease (SEGURIUM-430): renewed per file, per
+		 * chunk and per async-results iteration, with a TTL equal to
+		 * HEARTBEAT_MAX_AGE (SEGURIUM-870) so a killed worker's row expires
+		 * at the same moment its heartbeat reads as dead and the next driver
+		 * tick can take the scan over in Step 3.
 		 */
 		$max_exec  = self::max_execution_time();
 		$mutex_ttl = self::compute_mutex_ttl( $max_exec );
@@ -1743,8 +1966,14 @@ final class Segurium_Scan_Runner {
 
 					++$chunks_returned;
 
-					Segurium_Scan_Lock::heartbeat( $scan_id, $is_observer );
-					self::renew_active_tick_mutex();
+					if ( ! self::renew_liveness( $scan_id, $is_observer ) ) {
+						// SEGURIUM-870: the lease lapsed during the chunk and
+						// another driver owns the scan now. Leave without
+						// finalize / release; the token guard in the outer
+						// finally keeps the new owner's row intact.
+						$tick_outcome = 'lease_lost';
+						return;
+					}
 					self::reset_stuck_counter( $scan_id );
 
 					self::debug(
@@ -1802,6 +2031,7 @@ final class Segurium_Scan_Runner {
 							'chunks'  => $chunks_returned,
 						)
 					);
+					self::renew_liveness( $scan_id, $is_observer );
 					self::finalize_scan( $engine, $scan_type );
 					Segurium_Scan_Lock::release();
 					self::clear_stuck_state( $scan_id );
@@ -2279,11 +2509,7 @@ final class Segurium_Scan_Runner {
 	 * @return bool
 	 */
 	private static function scan_history_is_terminal( $scan_id ) {
-		return in_array(
-			self::scan_history_status( $scan_id ),
-			array( 'completed', 'cancelled', 'aborted' ),
-			true
-		);
+		return in_array( self::scan_history_status( $scan_id ), self::TERMINAL_STATUSES, true );
 	}
 
 	/**
@@ -2410,25 +2636,18 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-420: compute the scan-tick mutex TTL from
-	 * `max_execution_time`. The mutex is held only while a single tick is
-	 * in-flight, so its expiry should track how long PHP can keep the
-	 * worker alive — plus a 5-second buffer for shutdown handlers. Clamped
-	 * to [30, 300] so a host with no limit, an absurdly tight limit, or a
-	 * runaway value can't park scans forever or trip on a too-short
-	 * window.
+	 * Scan-tick mutex lease TTL: always `HEARTBEAT_MAX_AGE`, so a dead
+	 * worker's row expires the moment its heartbeat reads as dead
+	 * (SEGURIUM-870). The lease is renewed per file / chunk / results
+	 * iteration, so it only has to outlive one gap between renewals.
+	 * `$max_exec` stays for signature stability and is ignored; see
+	 * docs/features/scan-runner-recurring-tick.md for the history.
 	 *
-	 * Pure function, public for direct unit-test access — `set_transient`
-	 * stores `_transient_timeout_<name>` on its own schedule so reading
-	 * the option back to verify TTL is brittle.
-	 *
-	 * @param mixed $max_exec Raw `ini_get('max_execution_time')` value.
-	 * @return int Mutex TTL in seconds, in [30, 300].
+	 * @param mixed $max_exec Raw `ini_get('max_execution_time')` value (ignored).
+	 * @return int Mutex TTL in seconds.
 	 */
-	public static function compute_mutex_ttl( $max_exec ) {
-		$max_exec = (int) $max_exec;
-		$ttl      = ( $max_exec > 0 ) ? $max_exec + 5 : 35;
-		return max( 30, min( 300, $ttl ) );
+	public static function compute_mutex_ttl( $max_exec ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- kept for signature stability.
+		return Segurium_Scan_Lock::HEARTBEAT_MAX_AGE;
 	}
 
 	/**

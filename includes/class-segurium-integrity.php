@@ -48,6 +48,7 @@ class Segurium_Integrity {
 		'Thumbs.db',
 		'error_log',
 		'robots.txt',
+		'llms.txt',
 		'sitemap.xml',
 		'sitemap.xml.gz',
 		'favicon.ico',

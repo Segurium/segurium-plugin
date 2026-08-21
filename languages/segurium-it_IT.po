@@ -4917,3 +4917,17 @@ msgstr ""
 " si aggiorna più. Ricarica la pagina per vedere lo stato attuale — la "
 "scansione in sé non è compromessa. I dettagli sono nella console del "
 "browser."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Nessuna correzione automatica per il verdetto \"%s\"."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "Versione del componente non riconosciuta. %d file non può essere verificato."
+msgstr[1] "Versione del componente non riconosciuta. %d file non possono essere verificati."
+
+#, php-format
+msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
+msgstr "Eliminazione rifiutata: \"%s\" è un file protetto. Il server web o un altro plugin potrebbe caricarlo e rimuoverlo può mandare offline l'intero sito. Eliminalo manualmente se sei certo che sia sicuro."

@@ -4525,6 +4525,33 @@ msgstr "不明なレビュープロンプト操作です。"
 msgid "Could not save your choice. Please try again."
 msgstr "選択内容を保存できませんでした。もう一度お試しください。"
 
+msgid "Scan in progress..."
+msgstr "スキャン実行中..."
+
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"進捗表示でスクリプトエラーが発生し、更新が停止しました。現在の状態を確認するにはページを再読み込みしてください。スキャン自体には影響ありません。詳細はブラウザーのコンソールをご確認ください。"
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "判定「%s」に対する自動修正はありません。"
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "コンポーネントのバージョンを識別できません。%d個のファイルを検証できません。"
+
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"削除は拒否されました:「%s」は保護されたファイルです。ウェブサーバーや他のプラグインが読み込む可能性があり、削除するとサイト全体が停止する恐れがあります。安全であることが確実な場合は手動で削除してください。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress 用 Segurium プラグイン。"
 
@@ -4599,13 +4626,3 @@ msgstr "選択内容を保存できませんでした。もう一度お試しく
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "無料ティアの修復枠を超過しました。無制限の修正には Pro にアップグレードしてください。"
-
-msgid "Scan in progress..."
-msgstr "スキャン実行中..."
-
-msgid ""
-"The progress display hit a script error and stopped updating. Reload the "
-"page to see the current state — the scan itself is unaffected. Details are "
-"in the browser console."
-msgstr ""
-"進捗表示でスクリプトエラーが発生し、更新が停止しました。現在の状態を確認するにはページを再読み込みしてください。スキャン自体には影響ありません。詳細はブラウザーのコンソールをご確認ください。"

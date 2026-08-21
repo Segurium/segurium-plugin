@@ -4485,6 +4485,24 @@ msgstr ""
 "진행 상황 표시에서 스크립트 오류가 발생하여 업데이트가 중지되었습니다. 현재 상태를 확인하려면 페이지를 새로고침하세요. 검사 자체에는 "
 "영향이 없습니다. 자세한 내용은 브라우저 콘솔에서 확인할 수 있습니다."
 
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "\"%s\" 판정에 대한 자동 복구가 없습니다."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "구성 요소 버전을 인식할 수 없습니다. %d개의 파일을 검증할 수 없습니다."
+
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"삭제가 거부되었습니다. \"%s\"은(는) 보호된 파일입니다. 웹 서버나 다른 플러그인이 로드할 수 있으며, 삭제하면 사이트 전체가 "
+"중단될 수 있습니다. 안전하다고 확신하는 경우에만 수동으로 삭제하세요."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 

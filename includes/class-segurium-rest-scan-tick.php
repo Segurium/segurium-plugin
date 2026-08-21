@@ -60,15 +60,17 @@ final class Segurium_Rest_Scan_Tick {
 	}
 
 	/**
-	 * REST handler. Returns the documented JSON shape. The optional
-	 * site_id / scan_id body fields are accepted and ignored; CTI tracks
-	 * its own scan_id bookkeeping (see SEGURIUM-422 mechanism VI).
+	 * REST handler. Returns the documented JSON shape. `site_id` is accepted
+	 * and ignored. SEGURIUM-872: `scan_id`, when present, scopes the answer
+	 * to that scan (see {@see build_payload()}) so CTI never receives
+	 * another scan's terminal status for the row it is ticking.
 	 *
-	 * @param WP_REST_Request $request Incoming request (unused).
+	 * @param WP_REST_Request $request Incoming request.
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $request ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- REST contract.
-		$payload = self::build_payload();
+	public static function handle( $request ) {
+		$scan_id = $request instanceof WP_REST_Request ? (string) $request->get_param( 'scan_id' ) : '';
+		$payload = self::build_payload( $scan_id );
 
 		// Mark this request as the runner observer so the existing
 		// shutdown handler runs life_support_system('ajax') AFTER
@@ -88,11 +90,25 @@ final class Segurium_Rest_Scan_Tick {
 	 * Compute the documented response payload from current runner state.
 	 * Pure — does not advance the scan; safe to call from tests.
 	 *
+	 * `running` = lock held, heartbeat ignored (a stalled lock still answers
+	 * running so mechanism VI keeps driving; see Segurium_Scan_Lock::is_running()).
+	 *
+	 * Per scan_id (SEGURIUM-872):
+	 *   - scan_id equals the lock's scan_id → `running`;
+	 *   - scan_id given and differs → that scan's `scan_history` row status
+	 *     (running | completed | cancelled | aborted), or `not_found` when
+	 *     no row exists; never another scan's terminal row. A failed lookup
+	 *     answers `running` so CTI retries instead of dropping the row;
+	 *   - no scan_id → lock status, else newest terminal row, else not_found.
+	 *
+	 * @param string $scan_id Optional scan UUID from the request body.
 	 * @return array{status:string,scan_id:?string,chunks_done:int,chunks_total:int}
 	 */
-	public static function build_payload() {
-		$lock = Segurium_Scan_Lock::get();
-		if ( null !== $lock && Segurium_Scan_Lock::is_running() ) {
+	public static function build_payload( $scan_id = '' ) {
+		$scan_id = (string) $scan_id;
+		$lock    = Segurium_Scan_Lock::get();
+		if ( null !== $lock && Segurium_Scan_Lock::is_running( $lock )
+			&& ( '' === $scan_id || (string) $lock['scan_id'] === $scan_id ) ) {
 			$status   = self::status_from_runner( $lock );
 			$progress = self::progress_from_runner( $lock );
 			return array(
@@ -103,14 +119,17 @@ final class Segurium_Rest_Scan_Tick {
 			);
 		}
 
+		if ( '' !== $scan_id ) {
+			return self::payload_for_scan( $scan_id );
+		}
+
 		$terminal = null;
 		if ( class_exists( 'Segurium' ) ) {
 			$terminal = Segurium::get_instance()->get_last_terminal_scan();
 		}
 		if ( is_array( $terminal ) ) {
 			$terminal_status = isset( $terminal['status'] ) ? (string) $terminal['status'] : '';
-			$allowed         = array( 'completed', 'cancelled', 'aborted' );
-			if ( in_array( $terminal_status, $allowed, true ) ) {
+			if ( in_array( $terminal_status, Segurium_Scan_Runner::TERMINAL_STATUSES, true ) ) {
 				return array(
 					'status'       => $terminal_status,
 					'scan_id'      => isset( $terminal['scan_id'] ) ? (string) $terminal['scan_id'] : null,
@@ -125,6 +144,41 @@ final class Segurium_Rest_Scan_Tick {
 			'scan_id'      => null,
 			'chunks_done'  => 0,
 			'chunks_total' => 0,
+		);
+	}
+
+	/**
+	 * SEGURIUM-872: per-scan answer from `scan_history` for a scan_id that
+	 * does not hold the lock.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return array{status:string,scan_id:?string,chunks_done:int,chunks_total:int}
+	 */
+	private static function payload_for_scan( $scan_id ) {
+		global $wpdb;
+		$wpdb->last_error = '';
+		$row              = Segurium_Storage::table_get_row(
+			'scan_history',
+			'SELECT status, files_found, files_scanned FROM {{table}} WHERE scan_uuid = %s',
+			array( $scan_id ),
+			ARRAY_A
+		);
+		if ( '' !== (string) $wpdb->last_error ) {
+			Segurium_Debug::log( '[segurium-rest-scan-tick] scan_history lookup failed: ' . $wpdb->last_error );
+			return array(
+				'status'       => 'running',
+				'scan_id'      => $scan_id,
+				'chunks_done'  => 0,
+				'chunks_total' => 0,
+			);
+		}
+		$status = is_array( $row ) && isset( $row['status'] ) ? (string) $row['status'] : '';
+		$known  = 'running' === $status || in_array( $status, Segurium_Scan_Runner::TERMINAL_STATUSES, true );
+		return array(
+			'status'       => $known ? $status : 'not_found',
+			'scan_id'      => $known ? $scan_id : null,
+			'chunks_done'  => $known && isset( $row['files_scanned'] ) ? (int) $row['files_scanned'] : 0,
+			'chunks_total' => $known && isset( $row['files_found'] ) ? (int) $row['files_found'] : 0,
 		);
 	}
 
