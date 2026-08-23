@@ -2,22 +2,21 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication 1.1.1\n"
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-21T03:34:48+00:00
-"
+"POT-Creation-Date: 2026-08-22T03:33:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
 
 #. Plugin Name of the plugin
 #: segurium.php
-msgid "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
+msgid "Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -27,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: segurium.php
-msgid "Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
+msgid "Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included."
 msgstr ""
 
 #. Author of the plugin
@@ -265,7 +264,7 @@ msgstr ""
 #: includes/class-segurium-2fa.php:1638
 #: includes/class-segurium-2fa.php:1762
 #: includes/class-segurium.php:374
-#: includes/class-segurium.php:4837
+#: includes/class-segurium.php:4829
 #: includes/segurium-ajax-envelope.php:125
 msgid "You do not have permission to perform this action."
 msgstr ""
@@ -353,7 +352,7 @@ msgid "File not found."
 msgstr ""
 
 #: includes/class-segurium-cleanup.php:98
-#: includes/class-segurium.php:6692
+#: includes/class-segurium.php:6684
 msgid "File has been modified since scan. Re-scan first."
 msgstr ""
 
@@ -370,7 +369,7 @@ msgid "Failed to clean file."
 msgstr ""
 
 #: includes/class-segurium-component-backup.php:50
-#: includes/class-segurium.php:5278
+#: includes/class-segurium.php:5270
 msgid "Component directory not found."
 msgstr ""
 
@@ -426,7 +425,7 @@ msgid "Failed to stage backup for extraction."
 msgstr ""
 
 #: includes/class-segurium-component-backup.php:193
-#: includes/class-segurium.php:5072
+#: includes/class-segurium.php:5064
 msgid "Restore target directory is not writable."
 msgstr ""
 
@@ -609,36 +608,36 @@ msgid "If Segurium is doing its job, would you leave an honest review on WordPre
 msgstr ""
 
 #: includes/class-segurium-review-prompt.php:434
-#: includes/class-segurium.php:3771
-#: includes/class-segurium.php:3849
-#: includes/class-segurium.php:3943
-#: includes/class-segurium.php:3979
-#: includes/class-segurium.php:4052
-#: includes/class-segurium.php:4137
-#: includes/class-segurium.php:4172
-#: includes/class-segurium.php:4241
-#: includes/class-segurium.php:4305
-#: includes/class-segurium.php:4382
-#: includes/class-segurium.php:4484
-#: includes/class-segurium.php:4602
-#: includes/class-segurium.php:4660
-#: includes/class-segurium.php:4710
-#: includes/class-segurium.php:4945
-#: includes/class-segurium.php:4985
-#: includes/class-segurium.php:5012
-#: includes/class-segurium.php:5040
-#: includes/class-segurium.php:5098
-#: includes/class-segurium.php:5138
-#: includes/class-segurium.php:5180
-#: includes/class-segurium.php:5222
-#: includes/class-segurium.php:5347
-#: includes/class-segurium.php:5451
-#: includes/class-segurium.php:5810
-#: includes/class-segurium.php:5867
-#: includes/class-segurium.php:5962
-#: includes/class-segurium.php:6556
-#: includes/class-segurium.php:6874
-#: includes/class-segurium.php:6951
+#: includes/class-segurium.php:3763
+#: includes/class-segurium.php:3841
+#: includes/class-segurium.php:3935
+#: includes/class-segurium.php:3971
+#: includes/class-segurium.php:4044
+#: includes/class-segurium.php:4129
+#: includes/class-segurium.php:4164
+#: includes/class-segurium.php:4233
+#: includes/class-segurium.php:4297
+#: includes/class-segurium.php:4374
+#: includes/class-segurium.php:4476
+#: includes/class-segurium.php:4594
+#: includes/class-segurium.php:4652
+#: includes/class-segurium.php:4702
+#: includes/class-segurium.php:4937
+#: includes/class-segurium.php:4977
+#: includes/class-segurium.php:5004
+#: includes/class-segurium.php:5032
+#: includes/class-segurium.php:5090
+#: includes/class-segurium.php:5130
+#: includes/class-segurium.php:5172
+#: includes/class-segurium.php:5214
+#: includes/class-segurium.php:5339
+#: includes/class-segurium.php:5443
+#: includes/class-segurium.php:5802
+#: includes/class-segurium.php:5859
+#: includes/class-segurium.php:5954
+#: includes/class-segurium.php:6548
+#: includes/class-segurium.php:6866
+#: includes/class-segurium.php:6943
 msgid "Unauthorized"
 msgstr ""
 
@@ -660,7 +659,7 @@ msgstr ""
 
 #: includes/class-segurium-scan-runner.php:414
 #: includes/class-segurium.php:1073
-#: includes/class-segurium.php:4778
+#: includes/class-segurium.php:4770
 msgid "Scan storage is not ready. Please deactivate and reactivate the Segurium plugin, then try again."
 msgstr ""
 
@@ -687,31 +686,31 @@ msgstr ""
 msgid "Failed to initialize scan: %s"
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:1305
+#: includes/class-segurium-scan-runner.php:1331
 #: includes/class-segurium.php:1056
 #: includes/class-segurium.php:3487
 #: includes/class-segurium.php:3552
 #: includes/class-segurium.php:3579
-#: includes/class-segurium.php:4422
+#: includes/class-segurium.php:4414
 msgid "You do not have permission to manage scans."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:1335
-#: includes/class-segurium.php:4451
+#: includes/class-segurium-scan-runner.php:1361
+#: includes/class-segurium.php:4443
 msgid "Could not fetch scan status due to a server error."
 msgstr ""
 
 #. translators: %d: max_execution_time in seconds
-#: includes/class-segurium-scan-runner.php:2196
+#: includes/class-segurium-scan-runner.php:2222
 #, php-format
 msgid "PHP max_execution_time is %ds — too short for reliable scanning. Ask your host to raise it to at least 30s."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:2207
+#: includes/class-segurium-scan-runner.php:2233
 msgid "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way to detach long tasks from page requests. Background scans will only progress while a Segurium admin tab stays open. Ask your host to either enable a real system cron job hitting wp-cron.php every minute, or to switch from mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:2209
+#: includes/class-segurium-scan-runner.php:2235
 msgid "WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a real system cron job hitting wp-cron.php every minute. Ask your host to set one up."
 msgstr ""
 
@@ -1727,8 +1726,8 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: includes/class-segurium.php:1166
-#: includes/class-segurium.php:3896
-#: includes/class-segurium.php:6722
+#: includes/class-segurium.php:3888
+#: includes/class-segurium.php:6714
 msgid "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
 msgstr ""
 
@@ -1777,7 +1776,7 @@ msgid "Delisted from official WordPress.org"
 msgstr ""
 
 #: includes/class-segurium.php:1180
-#: includes/class-segurium.php:5533
+#: includes/class-segurium.php:5525
 msgid "Abandoned (no updates >2 years)"
 msgstr ""
 
@@ -2802,17 +2801,17 @@ msgid "Type"
 msgstr ""
 
 #: includes/class-segurium.php:2507
-#: includes/class-segurium.php:7459
+#: includes/class-segurium.php:7451
 msgid "Bug report"
 msgstr ""
 
 #: includes/class-segurium.php:2508
-#: includes/class-segurium.php:7461
+#: includes/class-segurium.php:7453
 msgid "Feature request"
 msgstr ""
 
 #: includes/class-segurium.php:2509
-#: includes/class-segurium.php:7463
+#: includes/class-segurium.php:7455
 msgid "General question"
 msgstr ""
 
@@ -3563,373 +3562,373 @@ msgstr ""
 msgid "Check the PHP error log for details."
 msgstr ""
 
-#: includes/class-segurium.php:3787
+#: includes/class-segurium.php:3779
 msgid "No scan results available"
 msgstr ""
 
-#: includes/class-segurium.php:3858
-#: includes/class-segurium.php:5818
-#: includes/class-segurium.php:5822
-#: includes/class-segurium.php:5878
-#: includes/class-segurium.php:5967
-#: includes/class-segurium.php:6571
-#: includes/class-segurium.php:6963
+#: includes/class-segurium.php:3850
+#: includes/class-segurium.php:5810
+#: includes/class-segurium.php:5814
+#: includes/class-segurium.php:5870
+#: includes/class-segurium.php:5959
+#: includes/class-segurium.php:6563
+#: includes/class-segurium.php:6955
 msgid "Invalid parameters"
 msgstr ""
 
-#: includes/class-segurium.php:3868
-#: includes/class-segurium.php:4177
-#: includes/class-segurium.php:5055
-#: includes/class-segurium.php:5103
-#: includes/class-segurium.php:5108
-#: includes/class-segurium.php:6583
-#: includes/class-segurium.php:6908
-#: includes/class-segurium.php:6970
+#: includes/class-segurium.php:3860
+#: includes/class-segurium.php:4169
+#: includes/class-segurium.php:5047
+#: includes/class-segurium.php:5095
+#: includes/class-segurium.php:5100
+#: includes/class-segurium.php:6575
+#: includes/class-segurium.php:6900
+#: includes/class-segurium.php:6962
 msgid "Invalid path"
 msgstr ""
 
-#: includes/class-segurium.php:3872
-#: includes/class-segurium.php:5112
-#: includes/class-segurium.php:6679
-#: includes/class-segurium.php:6985
+#: includes/class-segurium.php:3864
+#: includes/class-segurium.php:5104
+#: includes/class-segurium.php:6671
+#: includes/class-segurium.php:6977
 msgid "File not found"
 msgstr ""
 
-#: includes/class-segurium.php:3923
-#: includes/class-segurium.php:6778
+#: includes/class-segurium.php:3915
+#: includes/class-segurium.php:6770
 msgid "File cleaned"
 msgstr ""
 
-#: includes/class-segurium.php:3984
-#: includes/class-segurium.php:4057
-#: includes/class-segurium.php:4142
+#: includes/class-segurium.php:3976
+#: includes/class-segurium.php:4049
+#: includes/class-segurium.php:4134
 msgid "Missing backup ID"
 msgstr ""
 
-#: includes/class-segurium.php:3995
-#: includes/class-segurium.php:4068
-#: includes/class-segurium.php:4147
+#: includes/class-segurium.php:3987
+#: includes/class-segurium.php:4060
+#: includes/class-segurium.php:4139
 msgid "Backup not found"
 msgstr ""
 
-#: includes/class-segurium.php:4011
-#: includes/class-segurium.php:4022
-#: includes/class-segurium.php:7036
+#: includes/class-segurium.php:4003
+#: includes/class-segurium.php:4014
+#: includes/class-segurium.php:7028
 msgid "Failed to restore file"
 msgstr ""
 
-#: includes/class-segurium.php:4015
-#: includes/class-segurium.php:4078
+#: includes/class-segurium.php:4007
+#: includes/class-segurium.php:4070
 msgid "Invalid restore path"
 msgstr ""
 
-#: includes/class-segurium.php:4037
-#: includes/class-segurium.php:6940
+#: includes/class-segurium.php:4029
+#: includes/class-segurium.php:6932
 msgid "File restored from backup"
 msgstr ""
 
-#: includes/class-segurium.php:4073
+#: includes/class-segurium.php:4065
 msgid "Backup has no target path"
 msgstr ""
 
-#: includes/class-segurium.php:4095
+#: includes/class-segurium.php:4087
 msgid "Failed to read target file"
 msgstr ""
 
-#: includes/class-segurium.php:4185
+#: includes/class-segurium.php:4177
 msgid "File is not an active malware entry."
 msgstr ""
 
-#: includes/class-segurium.php:4192
+#: includes/class-segurium.php:4184
 msgid "File is outside the WordPress root."
 msgstr ""
 
-#: includes/class-segurium.php:4195
+#: includes/class-segurium.php:4187
 msgid "File not found or not readable."
 msgstr ""
 
-#: includes/class-segurium.php:4203
+#: includes/class-segurium.php:4195
 msgid "File is too large to preview."
 msgstr ""
 
-#: includes/class-segurium.php:4212
-#: includes/class-segurium.php:5894
+#: includes/class-segurium.php:4204
+#: includes/class-segurium.php:5886
 msgid "Failed to read file."
 msgstr ""
 
-#: includes/class-segurium.php:4679
+#: includes/class-segurium.php:4671
 msgid "No integrity scan is currently running."
 msgstr ""
 
 #. translators: %s: underlying exception message
-#: includes/class-segurium.php:4797
+#: includes/class-segurium.php:4789
 #, php-format
 msgid "Unexpected error: %s"
 msgstr ""
 
-#: includes/class-segurium.php:4817
+#: includes/class-segurium.php:4809
 msgid "Unexpected error."
 msgstr ""
 
-#: includes/class-segurium.php:4845
+#: includes/class-segurium.php:4837
 msgid "This endpoint has been removed. Please reload the page."
 msgstr ""
 
-#: includes/class-segurium.php:4993
-#: includes/class-segurium.php:5020
-#: includes/class-segurium.php:5049
-#: includes/class-segurium.php:5145
-#: includes/class-segurium.php:5187
-#: includes/class-segurium.php:5355
+#: includes/class-segurium.php:4985
+#: includes/class-segurium.php:5012
+#: includes/class-segurium.php:5041
+#: includes/class-segurium.php:5137
+#: includes/class-segurium.php:5179
+#: includes/class-segurium.php:5347
 msgid "Missing parameters."
 msgstr ""
 
-#: includes/class-segurium.php:5075
-#: includes/class-segurium.php:6915
+#: includes/class-segurium.php:5067
+#: includes/class-segurium.php:6907
 msgid "Failed to write restored file"
 msgstr ""
 
-#: includes/class-segurium.php:5117
+#: includes/class-segurium.php:5109
 msgid "File too large to view (>2 MB)"
 msgstr ""
 
-#: includes/class-segurium.php:5229
-#: includes/class-segurium.php:5233
-#: includes/class-segurium.php:5260
-#: includes/class-segurium.php:5359
-#: includes/class-segurium.php:5363
-#: includes/class-segurium.php:5376
+#: includes/class-segurium.php:5221
+#: includes/class-segurium.php:5225
+#: includes/class-segurium.php:5252
+#: includes/class-segurium.php:5351
+#: includes/class-segurium.php:5355
+#: includes/class-segurium.php:5368
 msgid "Invalid parameters."
 msgstr ""
 
-#: includes/class-segurium.php:5253
+#: includes/class-segurium.php:5245
 msgid "Cannot delete the currently active theme. Switch to a different theme first."
 msgstr ""
 
 #. translators: 1: component type, 2: component slug.
-#: includes/class-segurium.php:5330
+#: includes/class-segurium.php:5322
 #, php-format
 msgid "%1$s \"%2$s\" has been deleted. A backup was created."
 msgstr ""
 
 #. translators: 1: component type, 2: component slug.
-#: includes/class-segurium.php:5435
+#: includes/class-segurium.php:5427
 #, php-format
 msgid "%1$s \"%2$s\" has been restored from backup."
 msgstr ""
 
-#: includes/class-segurium.php:5494
+#: includes/class-segurium.php:5486
 msgid "Cannot delete active theme. Switch first."
 msgstr ""
 
-#: includes/class-segurium.php:5501
+#: includes/class-segurium.php:5493
 msgid "Delisted from WordPress.org"
 msgstr ""
 
 #. translators: %s: theme slug.
-#: includes/class-segurium.php:5511
+#: includes/class-segurium.php:5503
 #, php-format
 msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
 msgstr ""
 
-#: includes/class-segurium.php:5517
+#: includes/class-segurium.php:5509
 msgid "Active abandoned theme — switch manually."
 msgstr ""
 
-#: includes/class-segurium.php:5543
+#: includes/class-segurium.php:5535
 msgid "Not from WordPress.org — integrity cannot be verified."
 msgstr ""
 
-#: includes/class-segurium.php:5564
+#: includes/class-segurium.php:5556
 msgid "Protected file (exclusion list)."
 msgstr ""
 
 #. translators: %s: file verdict reported by the integrity check.
-#: includes/class-segurium.php:5604
+#: includes/class-segurium.php:5596
 #, php-format
 msgid "No automatic fix for verdict \"%s\"."
 msgstr ""
 
 #. translators: %d: number of files.
-#: includes/class-segurium.php:5616
+#: includes/class-segurium.php:5608
 #, php-format
 msgid "Component version not recognized. %d file cannot be verified."
 msgid_plural "Component version not recognized. %d files cannot be verified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-segurium.php:5886
+#: includes/class-segurium.php:5878
 msgid "File not found on disk."
 msgstr ""
 
-#: includes/class-segurium.php:5890
+#: includes/class-segurium.php:5882
 msgid "File is too large to submit."
 msgstr ""
 
-#: includes/class-segurium.php:5897
+#: includes/class-segurium.php:5889
 msgid "File contents changed since the scan."
 msgstr ""
 
-#: includes/class-segurium.php:5901
-#: includes/class-segurium.php:7553
+#: includes/class-segurium.php:5893
+#: includes/class-segurium.php:7545
 msgid "Failed to compress file."
 msgstr ""
 
-#: includes/class-segurium.php:6268
-#: includes/class-segurium.php:6284
-#: includes/class-segurium.php:6319
-#: includes/class-segurium.php:6340
-#: includes/class-segurium.php:6354
-#: includes/class-segurium.php:6376
-#: includes/class-segurium.php:6399
-#: includes/class-segurium.php:6466
-#: includes/class-segurium.php:6526
-#: includes/class-segurium.php:6539
-#: includes/class-segurium.php:7105
-#: includes/class-segurium.php:7127
-#: includes/class-segurium.php:7142
-#: includes/class-segurium.php:7164
-#: includes/class-segurium.php:7180
-#: includes/class-segurium.php:7202
-#: includes/class-segurium.php:7219
-#: includes/class-segurium.php:7234
-#: includes/class-segurium.php:7249
-#: includes/class-segurium.php:7267
-#: includes/class-segurium.php:7280
-#: includes/class-segurium.php:7299
-#: includes/class-segurium.php:7312
-#: includes/class-segurium.php:7336
-#: includes/class-segurium.php:7605
-#: includes/class-segurium.php:7624
-#: includes/class-segurium.php:7639
-#: includes/class-segurium.php:7673
+#: includes/class-segurium.php:6260
+#: includes/class-segurium.php:6276
+#: includes/class-segurium.php:6311
+#: includes/class-segurium.php:6332
+#: includes/class-segurium.php:6346
+#: includes/class-segurium.php:6368
+#: includes/class-segurium.php:6391
+#: includes/class-segurium.php:6458
+#: includes/class-segurium.php:6518
+#: includes/class-segurium.php:6531
+#: includes/class-segurium.php:7097
+#: includes/class-segurium.php:7119
+#: includes/class-segurium.php:7134
+#: includes/class-segurium.php:7156
+#: includes/class-segurium.php:7172
+#: includes/class-segurium.php:7194
+#: includes/class-segurium.php:7211
+#: includes/class-segurium.php:7226
+#: includes/class-segurium.php:7241
+#: includes/class-segurium.php:7259
+#: includes/class-segurium.php:7272
+#: includes/class-segurium.php:7291
+#: includes/class-segurium.php:7304
+#: includes/class-segurium.php:7328
+#: includes/class-segurium.php:7597
+#: includes/class-segurium.php:7616
+#: includes/class-segurium.php:7631
+#: includes/class-segurium.php:7665
 msgid "Unauthorized."
 msgstr ""
 
-#: includes/class-segurium.php:6361
-#: includes/class-segurium.php:6383
+#: includes/class-segurium.php:6353
+#: includes/class-segurium.php:6375
 msgid "Pending change not found or already expired."
 msgstr ""
 
 #. translators: %s: file path relative to the WordPress root.
-#: includes/class-segurium.php:6614
+#: includes/class-segurium.php:6606
 #, php-format
 msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
 msgstr ""
 
-#: includes/class-segurium.php:6666
+#: includes/class-segurium.php:6658
 msgid "Failed to create directory"
 msgstr ""
 
-#: includes/class-segurium.php:6669
-#: includes/class-segurium.php:6817
+#: includes/class-segurium.php:6661
+#: includes/class-segurium.php:6809
 msgid "Failed to write file"
 msgstr ""
 
-#: includes/class-segurium.php:6684
-#: includes/class-segurium.php:6788
+#: includes/class-segurium.php:6676
+#: includes/class-segurium.php:6780
 msgid "Failed to read file for backup"
 msgstr ""
 
-#: includes/class-segurium.php:6803
+#: includes/class-segurium.php:6795
 msgid "Failed to create backup"
 msgstr ""
 
-#: includes/class-segurium.php:6826
+#: includes/class-segurium.php:6818
 msgid "Failed to delete file"
 msgstr ""
 
-#: includes/class-segurium.php:6990
+#: includes/class-segurium.php:6982
 msgid "Failed to read file"
 msgstr ""
 
-#: includes/class-segurium.php:7022
+#: includes/class-segurium.php:7014
 msgid "Backup is no longer available — it was rotated out by newer backups."
 msgstr ""
 
-#: includes/class-segurium.php:7024
+#: includes/class-segurium.php:7016
 msgid "Backup metadata is missing or unreadable."
 msgstr ""
 
-#: includes/class-segurium.php:7026
+#: includes/class-segurium.php:7018
 msgid "Backup file is unreadable. Check filesystem permissions on uploads/segurium-data."
 msgstr ""
 
-#: includes/class-segurium.php:7028
+#: includes/class-segurium.php:7020
 msgid "Backup file is corrupt — decryption failed."
 msgstr ""
 
-#: includes/class-segurium.php:7030
+#: includes/class-segurium.php:7022
 msgid "Backup file is corrupt — decompression failed."
 msgstr ""
 
-#: includes/class-segurium.php:7032
+#: includes/class-segurium.php:7024
 msgid "Backup integrity check failed — content hash does not match metadata."
 msgstr ""
 
-#: includes/class-segurium.php:7034
+#: includes/class-segurium.php:7026
 msgid "Invalid backup reference."
 msgstr ""
 
-#: includes/class-segurium.php:7253
+#: includes/class-segurium.php:7245
 msgid "Invalid IP address."
 msgstr ""
 
-#: includes/class-segurium.php:7317
-#: includes/class-segurium.php:7341
+#: includes/class-segurium.php:7309
+#: includes/class-segurium.php:7333
 msgid "Plugin not found or no data to migrate."
 msgstr ""
 
-#: includes/class-segurium.php:7465
+#: includes/class-segurium.php:7457
 msgid "Missed malware report"
 msgstr ""
 
-#: includes/class-segurium.php:7467
+#: includes/class-segurium.php:7459
 msgid "Other request"
 msgstr ""
 
-#: includes/class-segurium.php:7496
+#: includes/class-segurium.php:7488
 msgid "Permission denied."
 msgstr ""
 
-#: includes/class-segurium.php:7506
+#: includes/class-segurium.php:7498
 msgid "Message is required."
 msgstr ""
 
-#: includes/class-segurium.php:7513
+#: includes/class-segurium.php:7505
 msgid "A valid reply-to email is required."
 msgstr ""
 
-#: includes/class-segurium.php:7531
+#: includes/class-segurium.php:7523
 msgid "You have submitted too many tickets today. Please try again tomorrow."
 msgstr ""
 
-#: includes/class-segurium.php:7537
+#: includes/class-segurium.php:7529
 msgid "Failed to upload the file. Try again."
 msgstr ""
 
-#: includes/class-segurium.php:7541
+#: includes/class-segurium.php:7533
 msgid "File is empty or too large (max 100 MB)."
 msgstr ""
 
-#: includes/class-segurium.php:7545
+#: includes/class-segurium.php:7537
 msgid "Invalid upload."
 msgstr ""
 
-#: includes/class-segurium.php:7549
+#: includes/class-segurium.php:7541
 msgid "Failed to read uploaded file."
 msgstr ""
 
-#: includes/class-segurium.php:7678
+#: includes/class-segurium.php:7670
 msgid "Please enter a username or user ID."
 msgstr ""
 
-#: includes/class-segurium.php:7683
+#: includes/class-segurium.php:7675
 msgid "User not found."
 msgstr ""
 
 #. translators: %s: username
-#: includes/class-segurium.php:7691
+#: includes/class-segurium.php:7683
 #, php-format
 msgid "2FA reset for user %s."
 msgstr ""
@@ -4112,22 +4111,22 @@ msgid "Downloaded file does not match the checksum in the response."
 msgstr ""
 
 #: segurium.php:49
-#: segurium.php:930
+#: segurium.php:1069
 msgid "Plugin Activation Error"
 msgstr ""
 
 #. translators: 1: required PHP version, 2: detected PHP version
-#: segurium.php:875
+#: segurium.php:1014
 #, php-format
 msgid "Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
-#: segurium.php:883
+#: segurium.php:1022
 #, php-format
 msgid "Segurium requires WordPress %1$s or higher. This site is running WordPress %2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
 
-#: segurium.php:885
+#: segurium.php:1024
 msgid "unknown"
 msgstr ""

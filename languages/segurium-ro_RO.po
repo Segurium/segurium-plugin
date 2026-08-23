@@ -33,9 +33,9 @@ msgid ""
 "Site hacked? Free WordPress malware removal: scan, clean infected files, "
 "restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
 msgstr ""
-"Site spart? Înlăturare gratuită de malware pentru WordPress: scanează, "
-"curăță fișierele infectate, restaurează-le. Plus firewall, protecție "
-"împotriva atacurilor cu forță-brută, 2FA, blocare geografică."
+"Site atacat? Înlăturare malware gratuită pentru WordPress: scanează, curăță "
+"fișierele infectate, le restaurează. Plus firewall, protecție împotriva "
+"atacurilor cu forță-brută, 2FA, blocare geografică."
 
 #. Author of the plugin
 #: segurium.php includes/class-segurium.php:442
@@ -51,39 +51,39 @@ msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
 "login."
 msgstr ""
-"Autentificarea pe două niveluri este obligatorie. Te rog activează "
-"JavaScript ca să finalizezi autentificarea."
+"Autentificarea pe două niveluri este obligatorie. Te rog să activezi "
+"JavaScript pentru a finaliza autentificarea."
 
 #: includes/class-segurium-2fa.php:617
 msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
 msgstr ""
-"Configurarea autentificării pe două niveluri este obligatorie pentru rolul "
-"tău. Te rog contactează administratorul."
+"Inițializarea autentificării pe două niveluri este obligatorie pentru rolul "
+"tău. Te rog să contactezi administratorul."
 
 #: includes/class-segurium-2fa.php:658
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
 msgstr ""
-"Autentificare pe două niveluri obligatorie. Adaugă codul 2FA la sfârșitul "
-"parolei."
+"Autentificarea pe două niveluri este obligatorie. Adaugă codul 2FA la "
+"parolă."
 
 #: includes/class-segurium-2fa.php:1000
 msgid "Verifying..."
-msgstr "Se verifică..."
+msgstr "Verific…"
 
 #: includes/class-segurium-2fa.php:1001
 msgid "Logging in..."
-msgstr "Se face autentificarea..."
+msgstr "Autentificare..."
 
 #: includes/class-segurium-2fa.php:1002
 msgid "Enter the code from your authenticator app:"
-msgstr "Introdu codul din aplicația ta de autentificare:"
+msgstr "Introdu codul din aplicația ta Authenticator:"
 
 #: includes/class-segurium-2fa.php:1003
 msgid "Enter the code sent to your email:"
-msgstr "Introdu codul trimis pe emailul tău:"
+msgstr "Introdu codul trimis la adresa ta de email:"
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Verify"
@@ -95,7 +95,7 @@ msgstr "Retrimite codul"
 
 #: includes/class-segurium-2fa.php:1006
 msgid "A new code has been sent to your email."
-msgstr "Un cod nou a fost trimis pe emailul tău."
+msgstr "A fost trimis un cod nou la adresa ta de email."
 
 #: includes/class-segurium-2fa.php:1007
 msgid "Lost your device? Enter a backup code instead."
@@ -104,17 +104,17 @@ msgstr "Ți-ai pierdut dispozitivul? Introdu în schimb un cod de siguranță."
 #. translators: %d: number of days
 #: includes/class-segurium-2fa.php:1009
 msgid "Trust this device for %d days"
-msgstr "Ai încredere în acest dispozitiv %d zile"
+msgstr "Ai încredere în acest dispozitiv timp de %d zile"
 
 #: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1598
 #: includes/class-segurium-2fa.php:1677 includes/class-segurium-2fa.php:1735
 msgid "Too many failed attempts. Please try again later."
-msgstr "Prea multe încercări eșuate. Te rog încearcă din nou mai târziu."
+msgstr "Prea multe încercări eșuate. Te rog să încerci din nou mai târziu."
 
 #: includes/class-segurium-2fa.php:1011
 msgid "Two-factor authentication setup is required for your role."
 msgstr ""
-"Configurarea autentificării pe două niveluri este obligatorie pentru rolul "
+"Inițializarea autentificării pe două niveluri este obligatorie pentru rolul "
 "tău."
 
 #: includes/class-segurium-2fa.php:1035
@@ -131,19 +131,19 @@ msgstr "Stare"
 
 #: includes/class-segurium-2fa.php:1041
 msgid "JavaScript is required for 2FA setup."
-msgstr "JavaScript este necesar pentru configurarea 2FA."
+msgstr "JavaScript este obligatoriu pentru inițializarea 2FA."
 
 #: includes/class-segurium-2fa.php:1079
 msgid "Not configured"
-msgstr "Neconfigurat"
+msgstr "Neconfigurată"
 
 #: includes/class-segurium-2fa.php:1080
 msgid "Set up Authenticator App"
-msgstr "Configurează aplicația de autentificare"
+msgstr "Inițializează aplicația Authenticator"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Set up Email Verification"
-msgstr "Configurează verificarea prin email"
+msgstr "Inițializează confirmarea prin email"
 
 #: includes/class-segurium-2fa.php:1082
 msgid "Current method:"
@@ -151,11 +151,11 @@ msgstr "Metoda actuală:"
 
 #: includes/class-segurium-2fa.php:1083 includes/class-segurium.php:2443
 msgid "Authenticator App (TOTP)"
-msgstr "Aplicație de autentificare (TOTP)"
+msgstr "Aplicație Authenticator (TOTP)"
 
 #: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:2444
 msgid "Email Verification"
-msgstr "Verificare prin email"
+msgstr "Confirmare email"
 
 #: includes/class-segurium-2fa.php:1085
 msgid "Backup codes remaining:"
@@ -171,7 +171,7 @@ msgstr "Dezactivează 2FA"
 
 #: includes/class-segurium-2fa.php:1088
 msgid "Scan this QR code with your authenticator app:"
-msgstr "Scanează acest cod QR cu aplicația ta de autentificare:"
+msgstr "Scanează acest cod QR cu aplicația Authenticator:"
 
 #: includes/class-segurium-2fa.php:1089
 msgid "Or enter this key manually:"
@@ -179,7 +179,7 @@ msgstr "Sau introdu manual această cheie:"
 
 #: includes/class-segurium-2fa.php:1090
 msgid "Enter the 6-digit code from your app to confirm:"
-msgstr "Introdu codul de 6 cifre din aplicație ca să confirmi:"
+msgstr "Pentru a confirma, introdu codul din 6 cifre din aplicație:"
 
 #: includes/class-segurium-2fa.php:1091 includes/class-segurium.php:2068
 #: includes/class-segurium.php:2156
@@ -200,11 +200,11 @@ msgstr ""
 
 #: includes/class-segurium-2fa.php:1094
 msgid "2FA has been set up successfully."
-msgstr "2FA a fost configurat cu succes."
+msgstr "2FA a fost inițializată cu succes."
 
 #: includes/class-segurium-2fa.php:1095 includes/class-segurium-2fa.php:1430
 msgid "2FA has been disabled."
-msgstr "2FA a fost dezactivat."
+msgstr "2FA a fost dezactivată."
 
 #: includes/class-segurium-2fa.php:1096
 msgid "New backup codes generated."
@@ -216,7 +216,7 @@ msgstr "Introdu codul tău 2FA actual ca să confirmi:"
 
 #: includes/class-segurium-2fa.php:1098
 msgid "A verification code has been sent to your email."
-msgstr "Un cod de verificare a fost trimis pe emailul tău."
+msgstr "A fost trimis un cod de verificare la adresa ta de email."
 
 #: includes/class-segurium-2fa.php:1099
 msgid "Your administrator requires 2FA for your role."
@@ -229,19 +229,19 @@ msgid ""
 "remaining to set it up."
 msgstr ""
 "Administratorul tău cere autentificare pe două niveluri. Îți mai rămân %d "
-"zile ca să o configurezi."
+"zile ca să o inițializezi."
 
 #: includes/class-segurium-2fa.php:1138 includes/class-segurium-2fa.php:1145
 msgid "Set up now"
-msgstr "Configurează acum"
+msgstr "Inițializează acum"
 
 #: includes/class-segurium-2fa.php:1143
 msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
 msgstr ""
-"Autentificarea pe două niveluri este obligatorie pentru rolul tău. Te rog "
-"configurează-o imediat."
+"Autentificarea pe două niveluri este obligatorie pentru rolul tău. Te rog să"
+" o inițializezi imediat."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1180
@@ -259,7 +259,7 @@ msgid ""
 msgstr ""
 "Codul tău de verificare este: %1$s\n"
 "\n"
-"Acest cod expiră în %2$d minute.\n"
+"Acest cod expiră peste %2$d minute.\n"
 "\n"
 "Dacă nu l-ai cerut tu, ignoră acest email."
 
@@ -280,31 +280,31 @@ msgstr "Nu ai permisiunea să efectuezi această acțiune."
 
 #: includes/class-segurium-2fa.php:1282
 msgid "Setup session expired. Please start again."
-msgstr "Sesiunea de configurare a expirat. Te rog începe din nou."
+msgstr "Sesiunea pentru inițializare a expirat. Te rog să începi din nou."
 
 #: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
 msgid "Invalid code. Please try again."
-msgstr "Cod nevalid. Te rog încearcă din nou."
+msgstr "Codul nu este valid. Te rog să încerci din nou."
 
 #: includes/class-segurium-2fa.php:1292
 msgid "Encryption error."
-msgstr "Eroare de criptare."
+msgstr "Eroare la criptare."
 
 #: includes/class-segurium-2fa.php:1335
 msgid "Verification code sent to your email."
-msgstr "Cod de verificare trimis pe emailul tău."
+msgstr "Am trimis codul de verificare la adresa ta de email."
 
 #: includes/class-segurium-2fa.php:1403
 msgid "2FA is required for your role and cannot be disabled."
-msgstr "2FA este obligatoriu pentru rolul tău și nu poate fi dezactivat."
+msgstr "2FA este obligatorie pentru rolul tău și nu poate fi dezactivată."
 
 #: includes/class-segurium-2fa.php:1425 includes/class-segurium-2fa.php:1473
 msgid "Invalid verification code."
-msgstr "Cod de verificare nevalid."
+msgstr "Codul de verificare nu este valid."
 
 #: includes/class-segurium-2fa.php:1520
 msgid "Please enter your username and password."
-msgstr "Te rog introdu numele de utilizator și parola."
+msgstr "Te rog să introduci numele de utilizator și parola."
 
 #: includes/class-segurium-2fa.php:1657
 msgid "Session expired. Please log in again."
@@ -312,11 +312,11 @@ msgstr "Sesiunea a expirat. Te rog autentifică-te din nou."
 
 #: includes/class-segurium-2fa.php:1663 includes/class-segurium-2fa.php:1777
 msgid "Invalid session."
-msgstr "Sesiune nevalidă."
+msgstr "Sesiunea nu este validă."
 
 #: includes/class-segurium-2fa.php:1744
 msgid "Invalid verification code. Please try again."
-msgstr "Cod de verificare nevalid. Te rog încearcă din nou."
+msgstr "Codul de verificare nu este valid. Te rog să încerci din nou."
 
 #: includes/class-segurium-2fa.php:1772
 msgid "Session expired."
@@ -324,15 +324,15 @@ msgstr "Sesiunea a expirat."
 
 #: includes/class-segurium-2fa.php:1782
 msgid "Code sent."
-msgstr "Cod trimis."
+msgstr "Am trimis codul."
 
 #: includes/class-segurium-brute-force.php:503
 msgid "Login blocked."
-msgstr "Autentificarea a fost blocată."
+msgstr "Autentificarea este blocată."
 
 #: includes/class-segurium-brute-force.php:517
 msgid "Please complete the CAPTCHA challenge."
-msgstr "Te rog finalizează provocarea CAPTCHA."
+msgstr "Te rog să finalizezi testul de securitate CAPTCHA."
 
 #: includes/class-segurium-brute-force.php:1336
 msgid "Leave this field empty"
@@ -342,11 +342,12 @@ msgstr "Lasă acest câmp gol"
 #: includes/class-segurium-brute-force.php:1484
 #: includes/class-segurium-brute-force.php:1507
 msgid "Too many failed login attempts. Try again in %s."
-msgstr "Prea multe încercări de autentificare eșuate. Încearcă din nou în %s."
+msgstr ""
+"Prea multe încercări de autentificare eșuate. Încearcă din nou peste %s."
 
 #: includes/class-segurium-brute-force.php:1488
 msgid "Login Locked"
-msgstr "Autentificare blocată"
+msgstr "Autentificarea este blocată"
 
 #: includes/class-segurium-cleanup.php:89
 msgid "Verdict has no defined cleanup recipe."
@@ -354,7 +355,7 @@ msgstr "Verdictul nu are o rețetă de curățare definită."
 
 #: includes/class-segurium-cleanup.php:93
 msgid "File not found."
-msgstr "Fișierul nu a fost găsit."
+msgstr "Nu am găsit fișierul."
 
 #: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:6614
 msgid "File has been modified since scan. Re-scan first."
@@ -375,22 +376,22 @@ msgstr "Curățarea fișierului a eșuat."
 #: includes/class-segurium-component-backup.php:50
 #: includes/class-segurium.php:5278
 msgid "Component directory not found."
-msgstr "Dosarul componentei nu a fost găsit."
+msgstr "Nu am găsit directorul componentei."
 
 #: includes/class-segurium-component-backup.php:53
 msgid "Invalid component type."
-msgstr "Tip de componentă nevalid."
+msgstr "Tipul de componentă nu este valid."
 
 #: includes/class-segurium-component-backup.php:56
 msgid "Invalid component slug."
-msgstr "Descriptor de componentă nevalid."
+msgstr "Descriptorul componentei nu este valid."
 
 #: includes/class-segurium-component-backup.php:59
 #: includes/class-segurium-component-backup.php:168
 msgid "The PHP Phar extension is required for component backups."
 msgstr ""
-"Extensia PHP Phar este necesară pentru copiile de siguranță ale "
-"componentelor."
+"Extensia PHP Phar este obligatorie pentru copiile de siguranță ale "
+"componentei."
 
 #. translators: %s: underlying error message.
 #: includes/class-segurium-component-backup.php:80
@@ -399,7 +400,7 @@ msgstr "Copia de siguranță a eșuat: %s"
 
 #: includes/class-segurium-component-backup.php:92
 msgid "Backup archive was not created."
-msgstr "Arhiva copiei de siguranță nu a fost creată."
+msgstr "Arhiva Copii de siguranță nu a fost creată."
 
 #. translators: 1: component size in MB, 2: cap in MB.
 #: includes/class-segurium-component-backup.php:104
@@ -407,9 +408,9 @@ msgid ""
 "Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
 "Delete skipped so your site does not lose uncovered data."
 msgstr ""
-"Componenta are %1$.1f MB, ceea ce depășește limita de %2$d MB pentru copia "
-"de siguranță criptată. Ștergerea a fost sărită, ca site-ul tău să nu piardă "
-"date neacoperite."
+"Componenta are %1$.1f Mo și depășește limita de %2$d Mo pentru copia de "
+"siguranță criptată. Am omis ștergerea ca site-ul tău să nu piardă date "
+"neacoperite."
 
 #: includes/class-segurium-component-backup.php:119
 msgid "Failed to read packed component archive."
@@ -422,13 +423,12 @@ msgstr "Criptarea copiei de siguranță a componentei a eșuat: %s"
 
 #: includes/class-segurium-component-backup.php:165
 msgid "Invalid backup identifier."
-msgstr "Identificator de copie de siguranță nevalid."
+msgstr "Identificatorul pentru copia de siguranță nu este valid."
 
 #: includes/class-segurium-component-backup.php:175
 msgid "Backup archive not found or failed integrity check."
 msgstr ""
-"Arhiva copiei de siguranță nu a fost găsită sau verificarea integrității a "
-"eșuat."
+"Nu am găsit arhiva Copii de siguranță sau verificarea integrității a eșuat."
 
 #: includes/class-segurium-component-backup.php:188
 msgid "Failed to stage backup for extraction."
@@ -437,7 +437,7 @@ msgstr "Pregătirea copiei de siguranță pentru extragere a eșuat."
 #: includes/class-segurium-component-backup.php:193
 #: includes/class-segurium.php:5072
 msgid "Restore target directory is not writable."
-msgstr "Dosarul țintă pentru restaurare nu poate fi scris."
+msgstr "Directorul vizat nu poate fi scris."
 
 #. translators: %s: underlying error message.
 #: includes/class-segurium-component-backup.php:209
@@ -446,8 +446,7 @@ msgstr "Restaurarea a eșuat: %s"
 
 #: includes/class-segurium-component-backup.php:243
 msgid "Secure randomness is unavailable on this host."
-msgstr ""
-"Generarea sigură de numere aleatorii nu este disponibilă pe acest server."
+msgstr "Generarea aleatorie în siguranță nu este disponibilă pe acest server."
 
 #: includes/class-segurium-cti-client.php:170
 msgid ""
@@ -458,16 +457,16 @@ msgstr ""
 
 #: includes/class-segurium-cti-client.php:545
 msgid "Too many requests. Please try again later."
-msgstr "Prea multe cereri. Te rog încearcă din nou mai târziu."
+msgstr "Prea multe cereri. Te rog să încerci din nou mai târziu."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:551
 msgid "Support service error (HTTP %d)."
-msgstr "Eroare a serviciului de suport (HTTP %d)."
+msgstr "Eroare la serviciul pentru suport (HTTP %d)."
 
 #: includes/class-segurium-cti-client.php:1343
 msgid "Cleanup quota reached."
-msgstr "Cota de curățare a fost atinsă."
+msgstr "Ai ajuns la cota maximă de curățare."
 
 #: includes/class-segurium-cti-client.php:1350
 msgid "Clean version not available for this file"
@@ -475,7 +474,7 @@ msgstr "Versiunea curată nu este disponibilă pentru acest fișier"
 
 #: includes/class-segurium-cti-client.php:1641
 msgid "Invalid billing response from Segurium Cloud."
-msgstr "Răspuns de facturare nevalid de la Segurium Cloud."
+msgstr "Răspunsul pentru facturare de la Segurium Cloud nu este valid."
 
 #. translators: %s: endpoint label
 #: includes/class-segurium-cti-signature.php:89
@@ -490,31 +489,32 @@ msgstr "Segurium Cloud (%s): lipsesc anteturile semnăturii."
 #. translators: 1: endpoint label, 2: key id from the signature header
 #: includes/class-segurium-cti-signature.php:131
 msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
-msgstr "Segurium Cloud (%1$s): semnat cu o cheie neîncrezută „%2$s”."
+msgstr ""
+"Segurium Cloud (%1$s): semnat cu o cheie care nu este de încredere, „%2$s”."
 
 #: includes/class-segurium-cti-signature.php:142
 msgid "Signature trust list is corrupt — public key failed to decode."
 msgstr ""
-"Lista de încredere pentru semnături este deteriorată - decodarea cheii "
-"publice a eșuat."
+"Lista cu semnături de încredere este deteriorată - decodarea cheii publice a"
+" eșuat."
 
 #. translators: %s: endpoint label
 #: includes/class-segurium-cti-signature.php:152
 msgid "Segurium Cloud (%s): signature header malformed."
-msgstr "Segurium Cloud (%s): antetul semnăturii este malformat."
+msgstr "Segurium Cloud (%s): antetul semnăturii are un format greșit."
 
 #. translators: %s: endpoint label
 #: includes/class-segurium-cti-signature.php:163
 msgid "Segurium Cloud (%s): signature timestamp malformed."
-msgstr "Segurium Cloud (%s): marcajul de timp al semnăturii este malformat."
+msgstr "Segurium Cloud (%s): datarea semnăturii are un format greșit."
 
 #. translators: 1: endpoint label, 2: skew in seconds
 #: includes/class-segurium-cti-signature.php:176
 msgid ""
 "Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
 msgstr ""
-"Segurium Cloud (%1$s): marcajul de timp al semnăturii este cu %2$d secunde "
-"în afara intervalului."
+"Segurium Cloud (%1$s): datarea semnăturii este cu %2$d secunde în afara "
+"intervalului."
 
 #. translators: 1: endpoint label, 2: error message
 #: includes/class-segurium-cti-signature.php:193
@@ -524,19 +524,21 @@ msgstr "Segurium Cloud (%1$s): libsodium a respins semnătura (%2$s)."
 #. translators: %s: endpoint label
 #: includes/class-segurium-cti-signature.php:205
 msgid "Segurium Cloud (%s): signature did not verify."
-msgstr "Segurium Cloud (%s): semnătura nu s-a verificat."
+msgstr "Segurium Cloud (%s): semnătura nu a putut fi verificată."
 
 #: includes/class-segurium-geo-updater.php:144
 msgid "Downloaded geo DB has invalid format."
-msgstr "Baza de date de geo-localizare descărcată are un format nevalid."
+msgstr ""
+"Baza de date descărcată pentru localizarea geografică nu are un format "
+"valid."
 
 #: includes/class-segurium-geo-updater.php:148
 msgid "Failed to write geo DB to disk."
-msgstr "Scrierea pe disc a bazei de date de geo-localizare a eșuat."
+msgstr "Scrierea pe disc a bazei de date cu localizarea geografică a eșuat."
 
 #: includes/class-segurium-geo-updater.php:153
 msgid "Failed to install geo DB."
-msgstr "Instalarea bazei de date de geo-localizare a eșuat."
+msgstr "Instalarea bazei de date cu localizarea geografică a eșuat."
 
 #: includes/class-segurium-iid.php:256
 msgid ""
@@ -593,33 +595,33 @@ msgid ""
 "Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
 "removal by inspecting response headers."
 msgstr ""
-"Serverul tău folosește FastCGI, care poate re-adăuga antetul X-Powered-By. "
-"Verifică înlăturarea inspectând anteturile răspunsului."
+"Serverul tău folosește FastCGI care poate să adauge din nou antetul "
+"X-Powered-By. Verifică înlăturarea inspectând anteturile pentru răspunsuri."
 
 #: includes/class-segurium-info-shield.php:365
 msgid ""
 "Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
 "Jetpack connection."
 msgstr ""
-"Jetpack este activ și necesită XML-RPC. Dezactivarea XML-RPC va rupe "
-"conexiunea Jetpack."
+"Jetpack este activ și are nevoie de XML-RPC. Dezactivarea XML-RPC va rupe "
+"conexiunea la Jetpack."
 
 #: includes/class-segurium-integrity-chain.php:149
 #: includes/class-segurium.php:1162
 msgid "Running a quick malware scan first…"
-msgstr "Se rulează mai întâi o scanare rapidă pentru malware…"
+msgstr "Rulez mai întâi o scanare malware rapidă…"
 
 #: includes/class-segurium-integrity-chain.php:200
 msgid ""
 "The chained malware scan was cancelled — integrity scan was not started."
 msgstr ""
-"Scanarea înlănțuită pentru malware a fost anulată - scanarea de integritate "
-"nu a fost pornită."
+"Scanarea malware în lanț a fost anulată - scanarea pentru integritate nu a "
+"început."
 
 #. translators: %s: underlying error message
 #: includes/class-segurium-integrity-chain.php:223
 msgid "Could not start the chained integrity scan: %s"
-msgstr "Nu s-a putut porni scanarea înlănțuită de integritate: %s"
+msgstr "Nu am putut să încep scanarea în lanț pentru integritate: %s"
 
 #. translators: %d: interval in seconds.
 #: includes/class-segurium-realtime-scan.php:173
@@ -630,7 +632,7 @@ msgstr ""
 
 #: includes/class-segurium-review-prompt.php:345
 msgid "Leave a review"
-msgstr "Lasă o recenzie"
+msgstr "Scrie o recenzie"
 
 #: includes/class-segurium-review-prompt.php:347
 #: includes/class-segurium.php:1165
@@ -639,11 +641,11 @@ msgstr "Poate mai târziu"
 
 #: includes/class-segurium-review-prompt.php:349
 msgid "Don't ask again"
-msgstr "Nu mai întreba"
+msgstr "Nu întreba din nou"
 
 #: includes/class-segurium-review-prompt.php:365
 msgid "Segurium just cleaned your site."
-msgstr "Segurium ți-a curățat site-ul chiar acum."
+msgstr "Segurium tocmai ți-a curățat site-ul."
 
 #: includes/class-segurium-review-prompt.php:366
 msgid ""
@@ -651,13 +653,14 @@ msgid ""
 "review on WordPress.org helps other site owners find it, and helps us keep "
 "the cleanup tier free."
 msgstr ""
-"Ne bucurăm că am putut ajuta. Dacă Segurium ți-a salvat timp sau bani "
-"astăzi, o recenzie sinceră pe WordPress.org ajută alți proprietari de site-"
-"uri să îl găsească și ne ajută să păstrăm gratuit nivelul de curățare."
+"Ne bucurăm că am putut să te ajutăm. Dacă Segurium ți-a economisit timp sau "
+"bani astăzi, o recenzie sinceră pe WordPress.org îi ajută pe alți "
+"proprietari de site-uri să îl găsească și ne ajută să păstrăm gratuit "
+"nivelul de curățare."
 
 #: includes/class-segurium-review-prompt.php:371
 msgid "Scan complete. Your site is clean."
-msgstr "Scanare încheiată. Site-ul tău este curat."
+msgstr "Scanarea este finalizată. Site-ul tău este curat."
 
 #: includes/class-segurium-review-prompt.php:372
 msgid ""
@@ -688,7 +691,7 @@ msgstr "Neautorizat"
 
 #: includes/class-segurium-review-prompt.php:442
 msgid "Unknown review prompt action."
-msgstr "Acțiune necunoscută pentru solicitarea de recenzie."
+msgstr "Acțiune necunoscută pentru îndemnul la recenzie."
 
 #: includes/class-segurium-scan-runner.php:349
 msgid "Every 60 seconds (Segurium scan rescue)"
@@ -696,15 +699,15 @@ msgstr "La fiecare 60 de secunde (salvare scanare Segurium)"
 
 #: includes/class-segurium-scan-runner.php:380
 msgid "A scan type is required."
-msgstr "Este necesar un tip de scanare."
+msgstr "Un tip de scanare este obligatoriu."
 
 #: includes/class-segurium-scan-runner.php:393
 msgid ""
 "Activation with the Segurium cloud service is still pending. Please try "
 "again in a moment."
 msgstr ""
-"Activarea la serviciul cloud Segurium este încă în așteptare. Te rog să "
-"încerci din nou peste câteva momente."
+"Activarea cu serviciul Segurium cloud este încă în așteptare. Te rog să "
+"încerci din nou peste puțin timp."
 
 #: includes/class-segurium-scan-runner.php:407
 #: includes/class-segurium.php:1073 includes/class-segurium.php:4778
@@ -712,14 +715,14 @@ msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
 msgstr ""
-"Stocarea pentru scanări nu este pregătită. Te rog dezactivează și "
-"reactivează modulul Segurium, apoi încearcă din nou."
+"Stocarea pentru scanări nu este pregătită. Te rog să dezactivezi și să "
+"reactivezi modulul Segurium și apoi încearcă din nou."
 
 #: includes/class-segurium-scan-runner.php:415
 #: includes/class-segurium-scan-runner.php:427
 #: includes/class-segurium.php:1052
 msgid "A scan is already in progress."
-msgstr "O scanare este deja în curs."
+msgstr "O scanare este în desfășurare."
 
 #: includes/class-segurium-scan-runner.php:448
 msgid ""
@@ -727,7 +730,7 @@ msgid ""
 "click \"Start scan\" again."
 msgstr ""
 "Stocarea pentru scanări nu era pregătită. A fost reparată automat - te rog "
-"dă clic din nou pe „Pornește scanarea”."
+"dă clic din nou pe „Începe scanarea”."
 
 #. translators: %s: underlying exception message
 #: includes/class-segurium-scan-runner.php:457
@@ -737,19 +740,19 @@ msgstr "Inițializarea scanării a eșuat: %s"
 #. translators: %s: underlying exception message
 #: includes/class-segurium-scan-runner.php:496
 msgid "Unexpected error starting scan: %s"
-msgstr "Eroare neașteptată la pornirea scanării: %s"
+msgstr "Eroare neașteptată la începerea scanării: %s"
 
 #: includes/class-segurium-scan-runner.php:1220
 #: includes/class-segurium.php:1056 includes/class-segurium.php:3487
 #: includes/class-segurium.php:3552 includes/class-segurium.php:3579
 #: includes/class-segurium.php:4422
 msgid "You do not have permission to manage scans."
-msgstr "Nu ai permisiunea să gestionezi scanările."
+msgstr "Nu ai permisiunea să administrezi scanările."
 
 #: includes/class-segurium-scan-runner.php:1250
 #: includes/class-segurium.php:4451
 msgid "Could not fetch scan status due to a server error."
-msgstr "Nu s-a putut obține starea scanării din cauza unei erori de server."
+msgstr "Nu am putut să preiau starea scanării din cauza unei erori la server."
 
 #. translators: %d: max_execution_time in seconds
 #: includes/class-segurium-scan-runner.php:1966
@@ -757,8 +760,9 @@ msgid ""
 "PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
 "host to raise it to at least 30s."
 msgstr ""
-"PHP max_execution_time este %ds - prea scurt pentru scanare fiabilă. Cere-i "
-"furnizorului tău de găzduire să îl ridice la cel puțin 30 de secunde."
+"max_execution_time pentru PHP este %ds - prea mic pentru o scanare fiabilă. "
+"Cere-i serviciului tău de găzduire să îl mărească la cel puțin 30 de "
+"secunde."
 
 #: includes/class-segurium-scan-runner.php:1977
 msgid ""
@@ -768,12 +772,12 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute, or to switch from "
 "mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
-"Cronul WordPress este dezactivat (DISABLE_WP_CRON) și configurația ta PHP nu"
-" poate detașa sarcinile lungi de cererile de pagină. Scanările în fundal vor"
-" avansa doar cât timp o filă de administrare Segurium rămâne deschisă. "
-"Cere-i furnizorului tău de găzduire fie să activeze o sarcină cron reală, de"
-" sistem, care accesează wp-cron.php în fiecare minut, fie să comute de la "
-"mod_php la PHP-FPM/LiteSpeed."
+"Sarcina WordPress este dezactivată (DISABLE_WP_CRON) și configurația ta PHP "
+"nu poate să detașeze sarcinile lungi de cererile de pagină. Scanările în "
+"fundal vor avansa numai cât timp o filă de administrare Segurium rămâne "
+"deschisă. Cere-i serviciului tău de găzduire fie să activeze o sarcină "
+"planificată reală în sistem care accesează wp-cron.php în fiecare minut, fie"
+" să comute de la mod_php la PHP-FPM/LiteSpeed."
 
 #: includes/class-segurium-scan-runner.php:1979
 msgid ""
@@ -781,27 +785,28 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute. Ask your host to set "
 "one up."
 msgstr ""
-"Cronul WordPress este dezactivat (DISABLE_WP_CRON). Scanările programate "
-"depind de o sarcină cron reală, de sistem, care accesează wp-cron.php în "
-"fiecare minut. Cere-i furnizorului tău de găzduire să configureze una."
+"Sarcina WordPress este dezactivată (DISABLE_WP_CRON). Scanările programate "
+"depind de o sarcină planificată reală în sistem care accesează wp-cron.php "
+"în fiecare minut. Cere-i serviciului tău de găzduire să configureze una."
 
 #: includes/class-segurium-scan-trigger-auth.php:93
 #: includes/class-segurium-scan-trigger-auth.php:135
 #: includes/class-segurium-scan-trigger-auth.php:143
 msgid "Scan trigger requires authentication."
-msgstr "Declanșarea scanării necesită autentificare."
+msgstr "Declanșatorul scanării necesită autentificare."
 
 #: includes/class-segurium-scan-trigger-auth.php:122
 msgid "Scan trigger secret did not match."
-msgstr "Secretul pentru declanșarea scanării nu s-a potrivit."
+msgstr "Secretul declanșatorului scanării nu s-a potrivit."
 
 #: includes/class-segurium-scheduled-scan-settings.php:108
 msgid "Invalid settings payload."
-msgstr "Conținutul setărilor este nevalid."
+msgstr "Sarcina pentru încărcarea setărilor nu este validă."
 
 #: includes/class-segurium-scheduled-scan-settings.php:127
 msgid "Frequency must be one of: off, daily, weekly."
-msgstr "Frecvența trebuie să fie una dintre: oprit, zilnic, săptămânal."
+msgstr ""
+"Frecvența trebuie să fie una dintre: dezactivată, zilnică, săptămânală."
 
 #: includes/class-segurium-scheduled-scan-settings.php:138
 msgid "Hour must be between 0 and 23."
@@ -813,7 +818,7 @@ msgstr "Minutul trebuie să fie între 0 și 59."
 
 #: includes/class-segurium-scheduled-scan-settings.php:160
 msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
-msgstr "Ziua din săptămână trebuie să fie între 0 (duminică) și 6 (sâmbătă)."
+msgstr "Ziua săptămânii trebuie să fie între 0 (duminică) și 6 (sâmbătă)."
 
 #: includes/class-segurium-self-check.php:401 includes/class-segurium.php:2701
 msgid "Content-Security-Policy"
@@ -826,7 +831,8 @@ msgstr "CSP este aplicată."
 #: includes/class-segurium-self-check.php:406
 msgid "CSP is report-only. Switch to enforce for full protection."
 msgstr ""
-"CSP este doar de raportare. Comută pe aplicare pentru protecție completă."
+"CSP este numai pentru raportare. Comută la aplicare pentru protecție "
+"completă."
 
 #: includes/class-segurium-self-check.php:407
 msgid "No Content-Security-Policy header. Protects against XSS and injection."
@@ -840,11 +846,11 @@ msgstr "Strict-Transport-Security"
 
 #: includes/class-segurium-self-check.php:425
 msgid "HSTS active with at least a one-year max-age."
-msgstr "HSTS activ cu un max-age de cel puțin un an."
+msgstr "HSTS este activ, cu max-age cel puțin un an."
 
 #: includes/class-segurium-self-check.php:427
 msgid "HSTS present but max-age is below one year."
-msgstr "HSTS prezent, dar max-age este sub un an."
+msgstr "HSTS este prezent, dar max-age este sub un an."
 
 #: includes/class-segurium-self-check.php:428
 msgid "No HSTS header. Browsers may connect over plain HTTP."
@@ -856,11 +862,12 @@ msgstr "X-Content-Type-Options"
 
 #: includes/class-segurium-self-check.php:443
 msgid "MIME sniffing prevented."
-msgstr "Ghicirea tipului MIME este împiedicată."
+msgstr "Detectarea tipului de MIME este împiedicată."
 
 #: includes/class-segurium-self-check.php:444
 msgid "Missing. Browsers may misinterpret file types."
-msgstr "Lipsește. Navigatoarele pot interpreta greșit tipurile de fișiere."
+msgstr ""
+"Lipsește. Navigatoarele pot să interpreteze greșit tipurile de fișier."
 
 #: includes/class-segurium-self-check.php:456 includes/class-segurium.php:2570
 msgid "X-Frame-Options"
@@ -873,8 +880,7 @@ msgstr "Protecție împotriva clickjacking prin X-Frame-Options."
 #: includes/class-segurium-self-check.php:460
 msgid "Missing X-Frame-Options. Site may be framed by attackers."
 msgstr ""
-"Lipsește X-Frame-Options. Site-ul poate fi înglobat într-un cadru de către "
-"atacatori."
+"Lipsește X-Frame-Options. Site-ul poate fi o victimă pentru atacatori."
 
 #: includes/class-segurium-self-check.php:472 includes/class-segurium.php:2578
 msgid "Referrer-Policy"
@@ -882,13 +888,13 @@ msgstr "Referrer-Policy"
 
 #: includes/class-segurium-self-check.php:475
 msgid "Referrer-Policy restricts information leakage on navigation."
-msgstr "Referrer-Policy limitează scurgerea de informații la navigare."
+msgstr "Referrer-Policy restricționează scurgerea de informații la navigare."
 
 #: includes/class-segurium-self-check.php:476
 msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
 msgstr ""
-"Referrer-Policy lipsește sau este nesigură. URL-urile complete pot fi "
-"scurse."
+"Referrer-Policy lipsește sau este nesigură. Pot fi divulgate URL-uri "
+"întregi."
 
 #: includes/class-segurium-self-check.php:487 includes/class-segurium.php:2666
 msgid "Permissions-Policy"
@@ -897,13 +903,14 @@ msgstr "Permissions-Policy"
 #: includes/class-segurium-self-check.php:490
 msgid "Permissions-Policy restricts access to browser features."
 msgstr ""
-"Permissions-Policy limitează accesul la funcționalitățile navigatorului."
+"Permissions-Policy restricționează accesul la funcționalitățile "
+"navigatorului."
 
 #: includes/class-segurium-self-check.php:491
 msgid "Missing Permissions-Policy. Browser features are not restricted."
 msgstr ""
-"Permissions-Policy lipsește. Funcționalitățile navigatorului nu sunt "
-"limitate."
+"Lipsește Permissions-Policy. Funcționalitățile navigatorului nu sunt "
+"restricționate."
 
 #: includes/class-segurium-self-check.php:503 includes/class-segurium.php:2598
 msgid "X-XSS-Protection"
@@ -918,12 +925,12 @@ msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
 msgstr ""
-"Lipsește X-XSS-Protection. Setează pe 0 ca să dezactivezi în siguranță "
-"filtrele XSS din navigatoarele vechi."
+"Lipsește X-XSS-Protection. Setează la 0 ca să dezactivezi în siguranță "
+"filtrele XSS în navigatoarele vechi."
 
 #: includes/class-segurium-self-check.php:532
 msgid "X-Powered-By hidden"
-msgstr "X-Powered-By ascuns"
+msgstr "X-Powered-By este ascuns"
 
 #. translators: %s: header value
 #: includes/class-segurium-self-check.php:537
@@ -936,7 +943,7 @@ msgstr "Antetul X-Powered-By nu este expus."
 
 #: includes/class-segurium-self-check.php:551
 msgid "WordPress version hidden"
-msgstr "Versiune WordPress ascunsă"
+msgstr "Versiunea WordPress este ascunsă"
 
 #: includes/class-segurium-self-check.php:554
 msgid "WordPress version exposed in HTML source."
@@ -948,7 +955,7 @@ msgstr "Versiunea WordPress nu este vizibilă în HTML."
 
 #: includes/class-segurium-self-check.php:566
 msgid "Asset version query hidden"
-msgstr "Interogare de versiune pentru resurse ascunsă"
+msgstr "Interogarea versiunii resursei este ascunsă"
 
 #: includes/class-segurium-self-check.php:569
 msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
@@ -958,11 +965,11 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:570
 msgid "Asset URLs do not expose version numbers."
-msgstr "URL-urile resurselor nu expun numere de versiune."
+msgstr "URL-urile resurselor nu expun numerele versiunilor."
 
 #: includes/class-segurium-self-check.php:597
 msgid "XML-RPC disabled"
-msgstr "XML-RPC dezactivat"
+msgstr "XML-RPC este dezactivat"
 
 #: includes/class-segurium-self-check.php:600
 msgid "XML-RPC endpoint is disabled."
@@ -974,36 +981,37 @@ msgid ""
 "target."
 msgstr ""
 "XML-RPC este accesibil. Este o țintă frecventă pentru atacuri cu forță-brută"
-" și pentru amplificarea prin pingback."
+" și amplificare prin pingback-uri."
 
 #: includes/class-segurium-self-check.php:612
 msgid "REST API discovery disabled"
-msgstr "Descoperirea REST API dezactivată"
+msgstr "Descoperirea REST API este dezactivată"
 
 #: includes/class-segurium-self-check.php:615
 msgid "REST API discovery link removed from <head>."
-msgstr "Legătura de descoperire REST API a fost înlăturată din <head>."
+msgstr "Legătura la descoperirea REST API a fost înlăturată din <head>."
 
 #: includes/class-segurium-self-check.php:616
 msgid "REST API discovery link exposed — simplifies reconnaissance."
 msgstr ""
-"Legătura de descoperire REST API este expusă - simplifică recunoașterea."
+"Legătura la descoperirea REST API este expusă - simplifică recunoașterea."
 
 #: includes/class-segurium-self-check.php:627
 msgid "Brute-force protection"
-msgstr "Protecție împotriva forței-brute"
+msgstr "Protecție împotriva atacurilor cu forță-brută"
 
 #: includes/class-segurium-self-check.php:630
 msgid "Login brute-force protection is active."
-msgstr "Protecția împotriva forței-brute la autentificare este activă."
+msgstr ""
+"Protecția împotriva atacurilor cu forță-brută la autentificare este activă."
 
 #: includes/class-segurium-self-check.php:631
 msgid "Brute-force protection is disabled."
-msgstr "Protecția împotriva forței-brute este dezactivată."
+msgstr "Protecția împotriva atacurilor cu forță-brută este dezactivată."
 
 #: includes/class-segurium-self-check.php:646
 msgid "Two-factor enforced for administrators"
-msgstr "Autentificare pe două niveluri impusă administratorilor"
+msgstr "Autentificare pe două niveluri este impusă administratorilor"
 
 #: includes/class-segurium-self-check.php:649
 msgid "Two-factor authentication is enforced for the administrator role."
@@ -1012,7 +1020,7 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:650
 msgid "Administrators can log in with a password alone."
-msgstr "Administratorii se pot autentifica doar cu o parolă."
+msgstr "Administratorii se pot autentifica numai cu o parolă."
 
 #: includes/class-segurium-self-check.php:662 includes/class-segurium.php:1841
 msgid "Firewall"
@@ -1024,11 +1032,11 @@ msgstr "Regulile firewall sunt active."
 
 #: includes/class-segurium-self-check.php:666
 msgid "No firewall rules are active."
-msgstr "Nicio regulă firewall nu este activă."
+msgstr "Nu este activă nicio regulă pentru firewall."
 
 #: includes/class-segurium-self-check.php:678
 msgid "HTTPS / SSL active"
-msgstr "HTTPS/SSL activ"
+msgstr "HTTPS/SSL este activ"
 
 #: includes/class-segurium-self-check.php:681
 msgid "Site is served over HTTPS."
@@ -1043,8 +1051,8 @@ msgid ""
 "No Set-Cookie headers on the homepage; cannot assess cookie flags from "
 "outside."
 msgstr ""
-"Fără anteturi Set-Cookie pe prima pagină; atributele de securitate ale "
-"cookie-urilor nu pot fi evaluate din exterior."
+"Fără anteturi Set-Cookie pe prima pagină; nu pot să evaluez atributele "
+"cookie-urilor din exterior."
 
 #: includes/class-segurium-self-check.php:728
 #: includes/class-segurium-self-check.php:761
@@ -1077,7 +1085,7 @@ msgstr "%1$d din %2$d cookie-uri setează %3$s."
 #. translators: 1: total cookie count, 2: cookie attribute name
 #: includes/class-segurium-self-check.php:821
 msgid "None of the %1$d cookies set the %2$s attribute."
-msgstr "Niciunul dintre cele %1$d cookie-uri nu setează atributul %2$s."
+msgstr "Niciunul din %1$d cookie-uri nu setează atributul %2$s."
 
 #. translators: %d: total cookie count
 #: includes/class-segurium-self-check.php:861
@@ -1109,9 +1117,9 @@ msgid ""
 "the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
 "detection for full accuracy."
 msgstr ""
-"Modul local este activat: conținutul fișierelor rămâne pe acest server, iar "
-"orice fișier pe care cloudul nu îl poate identifica după hash rămâne "
-"nerezolvat. Pornește detectarea asistată din cloud pentru acuratețe "
+"Modul local este activat: conținutul fișierelor rămâne pe acest server și "
+"orice fișier pe care cloud-ul nu îl poate identifica prin hash rămâne "
+"nerezolvat. Activează detectarea asistată din cloud pentru acuratețe "
 "completă."
 
 #: includes/class-segurium-self-check.php:956
@@ -1120,19 +1128,19 @@ msgstr "Detectarea malware asistată din cloud este activă."
 
 #: includes/class-segurium-self-check.php:968
 msgid "Scheduled malware scans"
-msgstr "Scanări programate pentru malware"
+msgstr "Scanări malware programate"
 
 #: includes/class-segurium-self-check.php:971
 msgid "A recurring malware scan is scheduled."
-msgstr "O scanare recurentă pentru malware este programată."
+msgstr "Este programată o scanare periodică pentru malware."
 
 #: includes/class-segurium-self-check.php:972
 msgid "No recurring malware scan is scheduled."
-msgstr "Nicio scanare recurentă pentru malware nu este programată."
+msgstr "Nu este programată nicio scanare periodică pentru malware."
 
 #: includes/class-segurium-self-check.php:984
 msgid "Automatic malware cleanup"
-msgstr "Curățare automată de malware"
+msgstr "Curățare automată malware"
 
 #: includes/class-segurium-self-check.php:987
 msgid "Detected malware is cleaned automatically after every scan."
@@ -1148,12 +1156,12 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:1002
 msgid "Malware scan up to date"
-msgstr "Scanare pentru malware la zi"
+msgstr "Scanare pentru malware este la zi"
 
 #. translators: %s: human time difference
 #: includes/class-segurium-self-check.php:1007
 msgid "Last malware scan completed %s ago."
-msgstr "Ultima scanare pentru malware s-a încheiat acum %s."
+msgstr "Ultima scanare pentru malware s-a finalizat acum %s."
 
 #: includes/class-segurium-self-check.php:1011
 msgid "Malware scan is older than 7 days."
@@ -1161,7 +1169,7 @@ msgstr "Scanarea pentru malware este mai veche de 7 zile."
 
 #: includes/class-segurium-self-check.php:1012
 msgid "No malware scan has been completed yet."
-msgstr "Nicio scanare pentru malware nu a fost încheiată încă."
+msgstr "Nicio scanare pentru malware nu a fost finalizată până acum."
 
 #: includes/class-segurium-self-check.php:1024
 msgid "No malware in the last 24 hours"
@@ -1190,8 +1198,8 @@ msgid_plural ""
 "Last malware scan flagged %d threats. Review them on the Malware scanner "
 "tab."
 msgstr[0] ""
-"Ultima scanare pentru malware a găsit %d amenințare. Verific-o în fila "
-"Scaner malware."
+"Ultima scanare pentru malware a găsit o amenințare. Verific-o în fila Scaner"
+" malware."
 msgstr[1] ""
 "Ultima scanare pentru malware a găsit %d amenințări. Verifică-le în fila "
 "Scaner malware."
@@ -1201,23 +1209,23 @@ msgstr[2] ""
 
 #: includes/class-segurium-self-check.php:1056
 msgid "No integrity issues in the last 24 hours"
-msgstr "Fără probleme de integritate în ultimele 24 de ore"
+msgstr "Fără probleme la integritate în ultimele 24 de ore"
 
 #: includes/class-segurium-self-check.php:1059
 msgid ""
 "The most recent integrity scan ran in the last 24 hours and reported no "
 "issues."
 msgstr ""
-"Cea mai recentă scanare de integritate a rulat în ultimele 24 de ore și nu a"
-" raportat probleme."
+"Cea mai recentă scanare pentru integritate a rulat în ultimele 24 de ore și "
+"nu a raportat probleme."
 
 #: includes/class-segurium-self-check.php:1061
 msgid ""
 "No integrity scan has run in the last 24 hours. Scans are quick — run one to"
 " refresh this verdict."
 msgstr ""
-"Nicio scanare de integritate nu a rulat în ultimele 24 de ore. Scanările "
-"sunt rapide - rulează una ca să reîmprospătezi acest verdict."
+"Nicio scanare pentru integritate nu a rulat în ultimele 24 de ore. Scanările"
+" sunt rapide - rulează una ca să reîmprospătezi acest verdict."
 
 #. translators: %d: number of open integrity issues
 #: includes/class-segurium-self-check.php:1064
@@ -1228,7 +1236,7 @@ msgid_plural ""
 "%d open integrity issues are unresolved. Review them on the Integrity "
 "scanner tab."
 msgstr[0] ""
-"%d problemă la integritate a rămas nerezolvată. Verific-o în fila "
+"O problemă la integritate a rămas nerezolvată. Verific-o în fila "
 "Integritate."
 msgstr[1] ""
 "%d probleme la integritate au rămas nerezolvate. Verifică-le în fila "
@@ -1240,15 +1248,15 @@ msgstr[2] ""
 #. translators: %d: HTTP status code
 #: includes/class-segurium-trusted-proxies.php:92
 msgid "Trusted proxies endpoint returned HTTP %d."
-msgstr "Punctul-final pentru proxyuri de încredere a returnat HTTP %d."
+msgstr "Punctul-final pentru proxy-uri de încredere a returnat HTTP %d."
 
 #: includes/class-segurium-trusted-proxies.php:113
 msgid "Trusted proxies response has invalid format."
-msgstr "Răspunsul pentru proxyuri de încredere are format nevalid."
+msgstr "Răspunsul pentru proxy-uri de încredere nu are un format valid."
 
 #: includes/class-segurium-upload-scan.php:93
 msgid "This file was identified as malware and has been blocked."
-msgstr "Acest fișier a fost identificat ca malware și a fost blocat."
+msgstr "Acest fișier a fost identificat ca fiind malware și a fost blocat."
 
 #: includes/class-segurium.php:359
 msgid "Unknown or unsupported action."
@@ -1260,7 +1268,7 @@ msgstr "Această acțiune este temporar indisponibilă."
 
 #: includes/class-segurium.php:460 includes/segurium-admin-menu-shell.php:125
 msgid "Security score:"
-msgstr "Scor de securitate:"
+msgstr "Punctaj pentru securitate:"
 
 #. translators: %s: human-readable time difference
 #. translators: %s: human-readable time difference such as "5 mins"
@@ -1274,7 +1282,7 @@ msgid ""
 "Run a Self-Check from the Segurium admin page to see your security score."
 msgstr ""
 "Rulează o autoverificare din pagina de administrare Segurium ca să vezi "
-"scorul tău de securitate."
+"punctajul tău pentru securitate."
 
 #: includes/class-segurium.php:483 includes/segurium-admin-menu-shell.php:148
 msgid "Open Segurium"
@@ -1286,7 +1294,7 @@ msgstr "Malware"
 
 #: includes/class-segurium.php:1017
 msgid "Clean"
-msgstr "Curat"
+msgstr "Curăță"
 
 #: includes/class-segurium.php:1018 includes/class-segurium.php:1924
 msgid "Cleaned"
@@ -1298,11 +1306,11 @@ msgstr "Restaurat"
 
 #: includes/class-segurium.php:1020
 msgid "Failed"
-msgstr "Eșuat"
+msgstr "A eșuat"
 
 #: includes/class-segurium.php:1021
 msgid "Processing..."
-msgstr "Se procesează..."
+msgstr "Procesez..."
 
 #: includes/class-segurium.php:1022
 msgid "Show malware"
@@ -1335,11 +1343,11 @@ msgstr "Verdict actual"
 
 #: includes/class-segurium.php:1029 includes/class-segurium.php:3186
 msgid "Note (optional, max 2000 chars)"
-msgstr "Notă (opțional, maximum 2000 de caractere)"
+msgstr "Notă (opțional, maxim 2000 de caractere)"
 
 #: includes/class-segurium.php:1030 includes/class-segurium.php:3190
 msgid "Also ignore this file on this site"
-msgstr "Ignoră acest fișier și pe acest site"
+msgstr "Ignoră și acest fișier pe acest site"
 
 #: includes/class-segurium.php:1031 includes/class-segurium.php:3194
 msgid "Submit report"
@@ -1347,15 +1355,15 @@ msgstr "Trimite raportul"
 
 #: includes/class-segurium.php:1033
 msgid "Submitting…"
-msgstr "Se trimite…"
+msgstr "Trimit..."
 
 #: includes/class-segurium.php:1034
 msgid "Report submitted. Thank you."
-msgstr "Raport trimis. Îți mulțumim."
+msgstr "Am trimis raportul. Mulțumesc."
 
 #: includes/class-segurium.php:1035
 msgid "Could not submit the report."
-msgstr "Raportul nu a putut fi trimis."
+msgstr "Nu am putut să trimit raportul."
 
 #: includes/class-segurium.php:1036 includes/class-segurium.php:1135
 msgid "Restore"
@@ -1364,8 +1372,7 @@ msgstr "Restaurează"
 #: includes/class-segurium.php:1037
 msgid "This will restore the original infected file from backup. Continue?"
 msgstr ""
-"Aceasta va restaura fișierul infectat original din copia de siguranță. "
-"Continui?"
+"Va restaura fișierul original infectat din copia de siguranță. Continui?"
 
 #: includes/class-segurium.php:1038
 msgid "Restore file"
@@ -1373,7 +1380,7 @@ msgstr "Restaurează fișierul"
 
 #: includes/class-segurium.php:1039
 msgid "Checking…"
-msgstr "Se verifică…"
+msgstr "Verific..."
 
 #: includes/class-segurium.php:1040
 msgid ""
@@ -1381,7 +1388,7 @@ msgid ""
 "database records?"
 msgstr ""
 "Fișierul de pe disc este deja versiunea din copia de siguranță. Restaurezi "
-"oricum, ca să actualizezi înregistrările din baza de date?"
+"oricum pentru actualiza înregistrările din baza de date?"
 
 #. translators: %s: relative file path
 #: includes/class-segurium.php:1042
@@ -1390,7 +1397,7 @@ msgid ""
 "overwrite the existing file with the backed-up version. This cannot be "
 "undone."
 msgstr ""
-"Fișierul de la %s a fost modificat după ultima curățare. Restaurarea va "
+"Fișierul la %s a fost modificat după ultima curățare. Restaurarea va "
 "suprascrie fișierul existent cu versiunea din copia de siguranță. Această "
 "acțiune nu poate fi anulată."
 
@@ -1400,11 +1407,11 @@ msgstr "Suprascrie și restaurează"
 
 #: includes/class-segurium.php:1044
 msgid "No threats found."
-msgstr "Nicio amenințare găsită."
+msgstr "Nu am găsit nicio amenințare."
 
 #: includes/class-segurium.php:1045
 msgid "Scan complete."
-msgstr "Scanare încheiată."
+msgstr "Scanarea este finalizată."
 
 #: includes/class-segurium.php:1046
 msgid "files"
@@ -1424,7 +1431,7 @@ msgstr "scanate"
 
 #: includes/class-segurium.php:1050
 msgid "Starting scan..."
-msgstr "Se pornește scanarea..."
+msgstr "Încep scanarea..."
 
 #: includes/class-segurium.php:1051
 msgid "Error"
@@ -1432,7 +1439,7 @@ msgstr "Eroare"
 
 #: includes/class-segurium.php:1053
 msgid "Scan in progress..."
-msgstr "Scanare în curs..."
+msgstr "Scanarea este în desfășurare..."
 
 #: includes/class-segurium.php:1054
 msgid "Request failed"
@@ -1444,7 +1451,8 @@ msgstr "Sesiunea ta a expirat. Reîncarcă pagina și încearcă din nou."
 
 #: includes/class-segurium.php:1057 includes/class-segurium.php:3497
 msgid "Segurium Cloud consent is required before scanning."
-msgstr "Consimțământul pentru Segurium Cloud este necesar înainte de scanare."
+msgstr ""
+"Consimțământul pentru Segurium Cloud este obligatoriu înainte de scanare."
 
 #: includes/class-segurium.php:1058
 msgid "The scan could not be initialized. Check the PHP error log."
@@ -1455,7 +1463,7 @@ msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
 msgstr ""
-"Scanarea a pornit, dar procesul de lucru din fundal nu a putut fi lansat. "
+"Scanarea a început dar procesul de lucru din fundal nu a putut fi lansat. "
 "Încearcă din nou."
 
 #: includes/class-segurium.php:1060
@@ -1463,14 +1471,14 @@ msgid ""
 "The scan could not be started due to a server error. Check the PHP error "
 "log."
 msgstr ""
-"Scanarea nu a putut fi pornită din cauza unei erori de server. Verifică "
+"Scanarea nu a putut fi începută din cauza unei erori la server. Verifică "
 "jurnalul de erori PHP."
 
 #: includes/class-segurium.php:1061
 msgid ""
 "Could not fetch scan status due to a server error. Check the PHP error log."
 msgstr ""
-"Starea scanării nu a putut fi obținută din cauza unei erori de server. "
+"Nu am putut să preiau starea scanării din cauza unei erori la server. "
 "Verifică jurnalul de erori PHP."
 
 #: includes/class-segurium.php:1062
@@ -1478,16 +1486,16 @@ msgid ""
 "Could not stop the running scan due to a server error. Check the PHP error "
 "log."
 msgstr ""
-"Scanarea în curs nu a putut fi oprită din cauza unei erori de server. "
+"Nu am putut să opresc scanarea care rulează din cauza unei erori la server. "
 "Verifică jurnalul de erori PHP."
 
 #: includes/class-segurium.php:1063
 msgid "The server returned an error while processing the request."
-msgstr "Serverul a returnat o eroare în timp ce procesa cererea."
+msgstr "Serverul a returnat o eroare în timpul procesării cererii."
 
 #: includes/class-segurium.php:1064
 msgid "Network error — the request could not reach the server."
-msgstr "Eroare de rețea - cererea nu a putut ajunge la server."
+msgstr "Eroare la rețea - cererea nu a putut ajunge la server."
 
 #: includes/class-segurium.php:1065
 msgid ""
@@ -1495,8 +1503,8 @@ msgid ""
 "page to see the current state — the scan itself is unaffected. Details are "
 "in the browser console."
 msgstr ""
-"Afișarea progresului a întâlnit o eroare de script și nu se mai "
-"actualizează. Reîncarcă pagina ca să vezi starea curentă - scanarea în sine "
+"Afișarea progresului a întâmpinat o eroare la script și am oprit "
+"actualizarea. Reîncarcă pagina ca să vezi starea curentă - scanarea în sine "
 "nu este afectată. Detaliile sunt în consola navigatorului."
 
 #: includes/class-segurium.php:1066
@@ -1512,9 +1520,9 @@ msgid ""
 "crashed before producing any output — check the PHP error log for a fatal, "
 "OOM, or timeout."
 msgstr ""
-"Segurium a primit un răspuns gol de la server. Probabil că gestionarul PHP "
-"s-a prăbușit înainte să producă vreo ieșire - verifică jurnalul de erori PHP"
-" pentru o eroare fatală, OOM sau expirare."
+"Segurium a primit un răspuns gol de la server. Probabil gestionarul PHP nu a"
+" mai funcționat înainte să genereze o ieșire - verifică jurnalul de erori "
+"PHP pentru o eroare fatală, OOM sau o expirare."
 
 #: includes/class-segurium.php:1068
 msgid ""
@@ -1532,18 +1540,19 @@ msgid ""
 "the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
 " timeout). Check the PHP error log."
 msgstr ""
-"Răspunsul Segurium a fost întrerupt la mijloc - marcajul de început a sosit,"
-" dar cel de final nu. Gestionarul PHP nu a mai funcționat în timpul "
-"răspunsului (eroare fatală, OOM sau expirare). Verifică jurnalul de erori "
-"PHP."
+"Răspunsul Segurium a fost întrerupt la mijloc - marcajul pentru începere a "
+"sosit, dar cel pentru încheiere nu. Gestionarul PHP nu a mai funcționat în "
+"timpul răspunsului (eroare fatală, OOM sau expirare). Verifică jurnalul de "
+"erori PHP."
 
 #: includes/class-segurium.php:1070
 msgid ""
 "Segurium could not unwrap the server response. Check the PHP error log for a"
 " fatal, OOM, or timeout in the Segurium handler."
 msgstr ""
-"Segurium nu a putut despacheta răspunsul serverului. Verifică jurnalul de "
-"erori PHP pentru o eroare fatală, OOM sau expirare în gestionarul Segurium."
+"Segurium nu a putut să despacheteze răspunsul de la server. Verifică "
+"jurnalul de erori PHP pentru o eroare fatală, OOM sau o expirare în "
+"gestionarul Segurium."
 
 #: includes/class-segurium.php:1071
 msgid ""
@@ -1552,8 +1561,8 @@ msgid ""
 "handler — check the PHP error log."
 msgstr ""
 "Segurium a primit un răspuns împachetat în marcaje valide, dar JSON-ul din "
-"interior nu a putut fi interpretat. De obicei, acest lucru indică o eroare "
-"fatală PHP în gestionarul Segurium - verifică jurnalul de erori PHP."
+"interior nu a putut fi interpretat. De obicei, asta indică o eroare fatală "
+"PHP în gestionarul Segurium - verifică jurnalul de erori PHP."
 
 #: includes/class-segurium.php:1072 includes/class-segurium.php:3561
 msgid "This version of the admin page is stale. Reload the page to continue."
@@ -1565,7 +1574,7 @@ msgstr ""
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
 msgstr ""
-"A apărut o eroare neașteptată de server. Verifică jurnalul de erori PHP și "
+"A apărut o eroare neașteptată la server. Verifică jurnalul de erori PHP și "
 "încearcă din nou."
 
 #: includes/class-segurium.php:1075 includes/class-segurium.php:3123
@@ -1587,11 +1596,11 @@ msgstr "Săptămânal"
 
 #: includes/class-segurium.php:1079 includes/class-segurium.php:3133
 msgid "Time of day"
-msgstr "Ora din zi"
+msgstr "Ora zilei"
 
 #: includes/class-segurium.php:1080 includes/class-segurium.php:3140
 msgid "Day of week"
-msgstr "Ziua din săptămână"
+msgstr "Ziua săptămânii"
 
 #: includes/class-segurium.php:1081
 msgid "Next run:"
@@ -1599,15 +1608,15 @@ msgstr "Următoarea rulare:"
 
 #: includes/class-segurium.php:1082
 msgid "Schedule saved."
-msgstr "Programare salvată."
+msgstr "Am salvat programarea."
 
 #: includes/class-segurium.php:1083
 msgid "Could not save schedule."
-msgstr "Programarea nu a putut fi salvată."
+msgstr "Nu am putut să salvez programarea."
 
 #: includes/class-segurium.php:1084
 msgid "Stored in UTC. Displayed in your browser locale."
-msgstr "Stocat în UTC. Afișat în locala navigatorului tău."
+msgstr "Stocată în UTC. Afișată în locala navigatorului tău."
 
 #: includes/class-segurium.php:1085
 msgid "Scanned files"
@@ -1615,16 +1624,16 @@ msgstr "Fișiere scanate"
 
 #: includes/class-segurium.php:1086
 msgid "showing first"
-msgstr "se arată primele"
+msgstr "arăt prima dată"
 
 #: includes/class-segurium.php:1087
 msgid "Original file content (malware)"
-msgstr "Conținutul original al fișierului (malware)"
+msgstr "Conținut fișier original (malware)"
 
 #. translators: %s: relative file path
 #: includes/class-segurium.php:1089
 msgid "Current on-disk content (malware): %s"
-msgstr "Conținutul actual de pe disc (malware): %s"
+msgstr "Conținut curent pe disc (malware): %s"
 
 #: includes/class-segurium.php:1090 includes/class-segurium.php:2041
 #: includes/class-segurium.php:2055
@@ -1646,7 +1655,7 @@ msgstr "Restaurarea a eșuat"
 
 #: includes/class-segurium.php:1095
 msgid "Fix failed"
-msgstr "Repararea a eșuat"
+msgstr "Înlăturarea a eșuat"
 
 #: includes/class-segurium.php:1096
 msgid "Diff failed"
@@ -1665,29 +1674,29 @@ msgid ""
 "Cannot restore — no backup recorded for this file. The backup may have been "
 "rotated out."
 msgstr ""
-"Nu se poate restaura - nicio copie de siguranță înregistrată pentru acest "
-"fișier. Copia de siguranță poate să fi fost rotită."
+"Nu pot să restaurez - nu este înregistrată nicio copie de siguranță pentru "
+"acest fișier. Probabil copia de siguranță a fost rotită."
 
 #: includes/class-segurium.php:1100 includes/class-segurium.php:1136
 #: includes/class-segurium.php:1928
 msgid "Fixed"
-msgstr "Reparat"
+msgstr "Înlăturate"
 
 #: includes/class-segurium.php:1101 includes/class-segurium.php:1932
 msgid "Ignored"
-msgstr "Ignorat"
+msgstr "Ignorate"
 
 #: includes/class-segurium.php:1102
 msgid "Ignore until file is the same"
-msgstr "Ignoră până când fișierul este același"
+msgstr "Ignoră până când fișierul este identic"
 
 #: includes/class-segurium.php:1103
 msgid "Always ignore"
-msgstr "Ignoră întotdeauna"
+msgstr "Ignoră mereu"
 
 #: includes/class-segurium.php:1104
 msgid "Remove from ignore"
-msgstr "Înlătură din ignorate"
+msgstr "Înlătură din ignoră"
 
 #: includes/class-segurium.php:1105
 msgid "Connected"
@@ -1699,7 +1708,7 @@ msgstr "Deconectat"
 
 #: includes/class-segurium.php:1107
 msgid "No files found."
-msgstr "Niciun fișier găsit."
+msgstr "Nu am găsit niciun fișier."
 
 #. translators: %d: number of malicious files still needing attention
 #: includes/class-segurium.php:1109
@@ -1708,11 +1717,11 @@ msgstr "%d amenințări au încă nevoie de atenția ta"
 
 #: includes/class-segurium.php:1110
 msgid "No threats — you are clear."
-msgstr "Nicio amenințare - ești în regulă."
+msgstr "Nicio amenințare - este în regulă."
 
 #: includes/class-segurium.php:1111
 msgid "No scans yet — run your first scan."
-msgstr "Nicio scanare încă - rulează prima ta scanare."
+msgstr "Nicio scanare până acum - rulează prima scanare."
 
 #: includes/class-segurium.php:1112 includes/class-segurium.php:1897
 #: includes/class-segurium.php:1986
@@ -1721,44 +1730,46 @@ msgstr "Oprește scanarea"
 
 #: includes/class-segurium.php:1113
 msgid "Stop the running scan? Progress so far will be discarded."
-msgstr "Oprești scanarea în curs? Progresul de până acum va fi aruncat."
+msgstr ""
+"Oprești scanarea care rulează? Progresul făcut de până acum va fi eliminat."
 
 #: includes/class-segurium.php:1114
 msgid "Could not stop the scan."
-msgstr "Scanarea nu a putut fi oprită."
+msgstr "Nu am putut să opresc scanarea."
 
 #: includes/class-segurium.php:1115
 msgid "Scan stopped."
-msgstr "Scanare oprită."
+msgstr "Scanare este oprită."
 
 #. translators: %1$d: files scanned before stop, %2$d: files discovered
 #: includes/class-segurium.php:1117
 msgid "Scan stopped — %1$d of %2$d files scanned."
-msgstr "Scanare oprită - %1$d din %2$d fișiere scanate."
+msgstr "Scanare este oprită - am scanat %1$d din %2$d fișiere."
 
 #. translators: %1$d: files scanned before abort, %2$d: files discovered
 #: includes/class-segurium.php:1119
 msgid "Scan aborted — %1$d of %2$d files scanned."
-msgstr "Scanare abandonată - %1$d din %2$d fișiere scanate."
+msgstr "Scanare este anulată - am scanat %1$d din %2$d fișiere."
 
 #. translators: %d: number of seconds since the scan worker last reported
 #. progress
 #: includes/class-segurium.php:1121
 msgid "no progress for %ds — waiting for worker"
-msgstr "niciun progres de %ds - se așteaptă procesul de lucru"
+msgstr "niciun progres pentru %ds - aștept procesul de lucru"
 
 #: includes/class-segurium.php:1122
 msgid "Hosting environment warnings"
-msgstr "Avertizări despre mediul de găzduire"
+msgstr "Avertizări pentru mediul de găzduire"
 
 #: includes/class-segurium.php:1123
 msgid "No malicious files. All known threats have been handled."
 msgstr ""
-"Niciun fișier periculos. Toate amenințările cunoscute au fost tratate."
+"Niciun fișier rău intenționat. Toate amenințările cunoscute au fost "
+"gestionate."
 
 #: includes/class-segurium.php:1124
 msgid "No cleaned files yet."
-msgstr "Niciun fișier curățat încă."
+msgstr "Niciun fișier curățat până acum."
 
 #: includes/class-segurium.php:1125
 msgid "No files marked fixed."
@@ -1774,7 +1785,7 @@ msgstr "Procesate recent în această sesiune"
 
 #: includes/class-segurium.php:1128 includes/class-segurium.php:1277
 msgid "Page"
-msgstr "Pagină"
+msgstr "Pagina"
 
 #: includes/class-segurium.php:1129 includes/class-segurium.php:1278
 msgid "of"
@@ -1804,11 +1815,11 @@ msgstr "Ignoră"
 
 #: includes/class-segurium.php:1137
 msgid "Deleted"
-msgstr "Șters"
+msgstr "Șterse"
 
 #: includes/class-segurium.php:1138
 msgid "Not found"
-msgstr "Negăsit"
+msgstr "Nu am găsit"
 
 #: includes/class-segurium.php:1139
 msgid ""
@@ -1824,12 +1835,12 @@ msgid ""
 "originals (modified files). Backups will be created for all. Continue?"
 msgstr ""
 "Unele fișiere vor fi șterse (fișiere necunoscute) și unele vor fi înlocuite "
-"cu originalele (fișiere modificate). Vor fi create copii de siguranță pentru"
-" toate. Continui?"
+"cu cele originale (fișiere modificate). Vor fi create copii de siguranță "
+"pentru toate. Continui?"
 
 #: includes/class-segurium.php:1141
 msgid "Fixing files..."
-msgstr "Se repară fișierele..."
+msgstr "Repar fișierele..."
 
 #: includes/class-segurium.php:1143
 msgid "Older backups will be rotated out"
@@ -1855,7 +1866,8 @@ msgstr ""
 #: includes/class-segurium.php:1149
 msgid "%d pinned backups will be kept (still referenced by Restore)."
 msgstr ""
-"%d copii de siguranță fixate vor fi păstrate (încă folosite de Restaurare)."
+"%d copii de siguranță fixate vor fi păstrate (încă folosite pentru "
+"Restaurare)."
 
 #: includes/class-segurium.php:1150
 msgid "Continue"
@@ -1863,11 +1875,11 @@ msgstr "Continuă"
 
 #: includes/class-segurium.php:1151
 msgid "Restoring files…"
-msgstr "Se restaurează fișierele…"
+msgstr "Restaurez fișierele..."
 
 #: includes/class-segurium.php:1152
 msgid "Updating files…"
-msgstr "Se actualizează fișierele…"
+msgstr "Actualizez fișierele…"
 
 #. translators: 1: number of items completed; 2: total number of items
 #: includes/class-segurium.php:1154
@@ -1876,7 +1888,7 @@ msgstr "%1$d din %2$d"
 
 #: includes/class-segurium.php:1155
 msgid "Cancelling…"
-msgstr "Se anulează…"
+msgstr "Anulez..."
 
 #: includes/class-segurium.php:1156
 msgid "Clean all detected malware"
@@ -1888,8 +1900,8 @@ msgid ""
 "This will attempt to clean %d detected malicious file(s). Each file is "
 "backed up before cleanup."
 msgstr ""
-"Aceasta va încerca să curețe %d fișiere periculoase detectate. Fiecare "
-"fișier primește o copie de siguranță înainte de curățare."
+"Va încerca să curețe %d fișiere rău intenționate detectate. Se va face o "
+"copie de siguranță pentru fiecare fișier înainte de curățare."
 
 #: includes/class-segurium.php:1159
 msgid "Clean all"
@@ -1897,7 +1909,7 @@ msgstr "Curăță tot"
 
 #: includes/class-segurium.php:1160
 msgid "Cleaning malware..."
-msgstr "Se curăță malware-ul..."
+msgstr "Curăț malware-ul..."
 
 #: includes/class-segurium.php:1163 includes/class-segurium.php:1164
 #: includes/class-segurium.php:1176 includes/class-segurium.php:1740
@@ -1910,12 +1922,12 @@ msgstr "Actualizează la Pro"
 msgid ""
 "Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
 msgstr ""
-"Cota de curățare a fost atinsă. Actualizează la Pro pentru o cotă nelimitată"
-" de curățare în cloud."
+"Ai ajuns la cota maximă de curățare. Actualizează la Pro pentru o cotă "
+"nelimitată de curățare în cloud."
 
 #: includes/class-segurium.php:1167
 msgid "Cleanup quota reached"
-msgstr "Cota de curățare a fost atinsă"
+msgstr "Ai ajuns la cota maximă de curățare"
 
 #. translators: 1: number of cleanups consumed in the rolling window (e.g.,
 #. 3);
@@ -1961,19 +1973,19 @@ msgstr "Diferențe"
 
 #: includes/class-segurium.php:1179
 msgid "Delisted from official WordPress.org"
-msgstr "Delistat de pe WordPress.org oficial"
+msgstr "Neafișate din WordPress.org oficial"
 
 #: includes/class-segurium.php:1180 includes/class-segurium.php:5533
 msgid "Abandoned (no updates >2 years)"
-msgstr "Abandonat (fără actualizări >2 ani)"
+msgstr "Abandonate (fără actualizări în ultimii 2 ani)"
 
 #: includes/class-segurium.php:1181
 msgid "Not from official WordPress.org"
-msgstr "Nu provine de pe WordPress.org oficial"
+msgstr "Nu este din WordPress.org oficial"
 
 #: includes/class-segurium.php:1182
 msgid "ignored"
-msgstr "ignorat"
+msgstr "ignorate"
 
 #: includes/class-segurium.php:1183
 msgid "Issues"
@@ -1993,7 +2005,7 @@ msgstr "(!) malware"
 
 #: includes/class-segurium.php:1187
 msgid "View"
-msgstr "Vizualizează"
+msgstr "Vezi"
 
 #: includes/class-segurium.php:1188
 msgid "issues"
@@ -2001,19 +2013,19 @@ msgstr "probleme"
 
 #: includes/class-segurium.php:1189
 msgid "Checking"
-msgstr "Se verifică"
+msgstr "Verific"
 
 #: includes/class-segurium.php:1190
 msgid "Discovering components…"
-msgstr "Se descoperă componentele…"
+msgstr "Descopăr componentele…"
 
 #: includes/class-segurium.php:1191
 msgid "Saved permanently."
-msgstr "Salvat permanent."
+msgstr "Salvate definitiv."
 
 #: includes/class-segurium.php:1192
 msgid "Changes reverted."
-msgstr "Modificările au fost anulate."
+msgstr "Am anulat modificările."
 
 #: includes/class-segurium.php:1193 includes/class-segurium.php:2096
 #: includes/migrations/class-segurium-migration-wordfence.php:165
@@ -2028,12 +2040,12 @@ msgstr "Țări permise"
 #: includes/class-segurium.php:1195 includes/class-segurium.php:2105
 msgid "Type a country name or ISO code to add it to the block list."
 msgstr ""
-"Scrie numele unei țări sau codul ISO ca să o adaugi în lista de blocare."
+"Scrie numele unei țări sau codul ei ISO ca să o adaugi în lista cu blocări."
 
 #: includes/class-segurium.php:1196
 msgid "Type a country name or ISO code to add it to the allow list."
 msgstr ""
-"Scrie numele unei țări sau codul ISO ca să o adaugi în lista de permise."
+"Scrie numele unei țări sau codul ei ISO ca să o adaugi în lista cu permise."
 
 #: includes/class-segurium.php:1197 includes/class-segurium.php:2184
 msgid "Blocked IPs / CIDRs"
@@ -2044,8 +2056,8 @@ msgid ""
 "These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
 "CIDR ranges."
 msgstr ""
-"Aceste IP-uri sunt blocate întotdeauna. O intrare pe linie. Acceptă IPv4, "
-"IPv6 și intervale CIDR."
+"Aceste IP-uri sunt mereu blocate. O intrare pe un rând. Acceptă IPv4, IPv6 "
+"și intervale CIDR."
 
 #: includes/class-segurium.php:1199
 msgid "Allowed IPs / CIDRs"
@@ -2056,16 +2068,16 @@ msgid ""
 "Only these IPs can access the site. All others are blocked. One entry per "
 "line."
 msgstr ""
-"Doar aceste IP-uri pot accesa site-ul. Toate celelalte sunt blocate. O "
-"intrare pe linie."
+"Numai aceste IP-uri pot să acceseze site-ul. Toate celelalte sunt blocate. O"
+" intrare pe un rând."
 
 #: includes/class-segurium.php:1201
 msgid "No supported security plugins detected."
-msgstr "Nu a fost detectat niciun modul de securitate acceptat."
+msgstr "Nu am detectat niciun modul pentru securitate acceptat."
 
 #: includes/class-segurium.php:1202
 msgid "Preview"
-msgstr "Previzualizare"
+msgstr "Previzualizează"
 
 #: includes/class-segurium.php:1203
 msgid "Apply Migration"
@@ -2073,7 +2085,7 @@ msgstr "Aplică migrarea"
 
 #: includes/class-segurium.php:1205
 msgid "Migration complete."
-msgstr "Migrare încheiată."
+msgstr "Am finalizat migrarea."
 
 #: includes/class-segurium.php:1206
 #: includes/migrations/class-segurium-migration-wordfence.php:167
@@ -2114,47 +2126,47 @@ msgstr "funcționalități planificate"
 
 #: includes/class-segurium.php:1215
 msgid "Submitting\\u2026"
-msgstr "Se trimite\\u2026"
+msgstr "Trimit\\u2026"
 
 #: includes/class-segurium.php:1216
 msgid "Ticket submitted successfully."
-msgstr "Tichetul a fost trimis cu succes."
+msgstr "Am trimis cu succes tichetul."
 
 #: includes/class-segurium.php:1217
 msgid "Your ticket reference:"
-msgstr "Referința tichetului tău:"
+msgstr "Referință pentru tichetul tău:"
 
 #: includes/class-segurium.php:1218
 msgid "Failed to submit ticket. Please try again."
-msgstr "Trimiterea tichetului a eșuat. Te rog încearcă din nou."
+msgstr "Trimiterea tichetului a eșuat. Te rog să încerci din nou."
 
 #: includes/class-segurium.php:1219
 msgid "Please attach a file before submitting."
-msgstr "Te rog atașează un fișier înainte de trimitere."
+msgstr "Te rog să atașezi un fișier înainte de a trimite."
 
 #: includes/class-segurium.php:1220
 msgid "Selected file exceeds the 100 MB limit."
-msgstr "Fișierul selectat depășește limita de 100 MB."
+msgstr "Fișierul selectat depășește limita de 100 Mo."
 
 #: includes/class-segurium.php:1221
 msgid "Please enter a valid reply-to email."
-msgstr "Te rog introdu un email valid pentru răspuns."
+msgstr "Te rog să introduci o adresă de email validă pentru Răspunde."
 
 #: includes/class-segurium.php:1222
 msgid "Please enter your name."
-msgstr "Te rog introdu numele tău."
+msgstr "Te rog să introduci numele tău."
 
 #: includes/class-segurium.php:1223
 msgid "Could not save your choice. Please try again."
-msgstr "Alegerea ta nu a putut fi salvată. Te rog încearcă din nou."
+msgstr "Nu am putut să salvez alegerea ta. Te rog să încerci din nou."
 
 #: includes/class-segurium.php:1224
 msgid "Brute-Force Protection"
-msgstr "Protecție împotriva forței-brute"
+msgstr "Protecție împotriva atacurilor cu forță-brută"
 
 #: includes/class-segurium.php:1225 includes/class-segurium.php:2210
 msgid "Enable brute-force protection"
-msgstr "Activează protecția împotriva forței-brute"
+msgstr "Activează protecția împotriva atacurilor cu forță-brută"
 
 #: includes/class-segurium.php:1226 includes/class-segurium.php:2228
 msgid "Max failed attempts"
@@ -2163,8 +2175,8 @@ msgstr "Număr maxim de încercări eșuate"
 #: includes/class-segurium.php:1227 includes/class-segurium.php:2230
 msgid "Number of failed login attempts allowed before the IP is locked out."
 msgstr ""
-"Numărul de încercări de autentificare eșuate permise înainte ca IP-ul să fie"
-" blocat."
+"Număr de încercări de autentificare eșuate permise înainte ca IP-ul să fie "
+"blocat."
 
 #: includes/class-segurium.php:1228 includes/class-segurium.php:2233
 msgid "Attempt window (seconds)"
@@ -2173,11 +2185,12 @@ msgstr "Interval de timp pentru încercări (secunde)"
 #: includes/class-segurium.php:1229 includes/class-segurium.php:2235
 msgid "Time window in which failed attempts are counted toward the threshold."
 msgstr ""
-"Intervalul de timp în care încercările eșuate sunt numărate pentru prag."
+"Interval de timp în care încercările eșuate sunt luate în considerare pentru"
+" atingerea pragului."
 
 #: includes/class-segurium.php:1230 includes/class-segurium.php:2238
 msgid "Initial lockout duration (seconds)"
-msgstr "Durata blocării inițiale (secunde)"
+msgstr "Durată inițială pentru blocare (secunde)"
 
 #: includes/class-segurium.php:1231 includes/class-segurium.php:2242
 msgid "Lockouts before extended ban"
@@ -2185,7 +2198,7 @@ msgstr "Blocări înainte de interdicția extinsă"
 
 #: includes/class-segurium.php:1232 includes/class-segurium.php:2247
 msgid "Extended lockout duration (seconds)"
-msgstr "Durata blocării extinse (secunde)"
+msgstr "Durată extinsă pentru blocare (secunde)"
 
 #: includes/class-segurium.php:1233 includes/class-segurium.php:2251
 msgid "History window (seconds)"
@@ -2205,7 +2218,7 @@ msgstr "Blocări active"
 
 #: includes/class-segurium.php:1237 includes/class-segurium.php:2324
 msgid "No IPs are currently locked out."
-msgstr "Niciun IP nu este blocat momentan."
+msgstr "În prezent, nu este blocat niciun IP."
 
 #: includes/class-segurium.php:1238 includes/class-segurium.php:1282
 #: includes/class-segurium.php:2391
@@ -2233,7 +2246,7 @@ msgstr "Expiră"
 
 #: includes/class-segurium.php:1243 includes/class-segurium.php:1288
 msgid "Settings saved."
-msgstr "Setări salvate."
+msgstr "Am salvat setările."
 
 #: includes/class-segurium.php:1244
 msgid "Unlock this IP?"
@@ -2241,7 +2254,7 @@ msgstr "Deblochezi acest IP?"
 
 #: includes/class-segurium.php:1245 includes/class-segurium.php:2268
 msgid "Log retention (days)"
-msgstr "Păstrarea jurnalului (zile)"
+msgstr "Păstrare jurnale (zile)"
 
 #: includes/class-segurium.php:1246 includes/class-segurium.php:2273
 msgid "hCaptcha"
@@ -2249,15 +2262,15 @@ msgstr "hCaptcha"
 
 #: includes/class-segurium.php:1247 includes/class-segurium.php:2278
 msgid "Require hCaptcha after repeated failures"
-msgstr "Cere hCaptcha după eșecuri repetate"
+msgstr "Cere hCaptcha după eșuări repetate"
 
 #: includes/class-segurium.php:1248 includes/class-segurium.php:2286
 msgid "hCaptcha site key"
-msgstr "hCaptcha, cheia site-ului"
+msgstr "Cheie site hCaptcha"
 
 #: includes/class-segurium.php:1249 includes/class-segurium.php:2292
 msgid "hCaptcha secret key"
-msgstr "hCaptcha, cheia secretă"
+msgstr "Cheie secretă hCaptcha"
 
 #: includes/class-segurium.php:1250 includes/class-segurium.php:2298
 msgid "Show CAPTCHA after N failed attempts"
@@ -2265,7 +2278,7 @@ msgstr "Arată CAPTCHA după N încercări eșuate"
 
 #: includes/class-segurium.php:1251
 msgid "Presets:"
-msgstr "Presetări:"
+msgstr "Pre-setări:"
 
 #: includes/class-segurium.php:1252
 msgid "Light"
@@ -2295,27 +2308,27 @@ msgstr "Blocări active"
 
 #: includes/class-segurium.php:1258 includes/class-segurium.php:2336
 msgid "Attempts (24h)"
-msgstr "Încercări (24h)"
+msgstr "Încercări (24 de ore)"
 
 #: includes/class-segurium.php:1259 includes/class-segurium.php:2340
 msgid "Lockouts (24h)"
-msgstr "Blocări (24h)"
+msgstr "Blocări (24 de ore)"
 
 #: includes/class-segurium.php:1260 includes/class-segurium.php:2344
 msgid "Honeypot hits (24h)"
-msgstr "Declanșări honeypot (24 de ore)"
+msgstr "Accesări honeypot (24 de ore)"
 
 #: includes/class-segurium.php:1261 includes/class-segurium.php:2348
 msgid "CAPTCHA failures (24h)"
-msgstr "Eșecuri CAPTCHA (24h)"
+msgstr "Eșuări CAPTCHA (24 de ore)"
 
 #: includes/class-segurium.php:1262 includes/class-segurium.php:2354
 msgid "Top attacking IPs (24h)"
-msgstr "Cele mai active IP-uri atacatoare (24h)"
+msgstr "Cele mai active IP-uri atacatoare (24 de ore)"
 
 #: includes/class-segurium.php:1263 includes/class-segurium.php:2367
 msgid "Top targeted usernames (24h)"
-msgstr "Cele mai vizate nume de utilizator (24h)"
+msgstr "Cele mai vizate nume de utilizator (24 de ore)"
 
 #: includes/class-segurium.php:1264 includes/class-segurium.php:2364
 msgid "No attacking IPs in the last 24 hours."
@@ -2352,7 +2365,7 @@ msgstr "Toate evenimentele"
 
 #: includes/class-segurium.php:1274 includes/class-segurium.php:2421
 msgid "No events recorded yet."
-msgstr "Niciun eveniment înregistrat încă."
+msgstr "Niciun eveniment înregistrat deocamdată."
 
 #: includes/class-segurium.php:1279 includes/class-segurium.php:2388
 msgid "Attempt"
@@ -2380,11 +2393,11 @@ msgstr "XML-RPC"
 
 #: includes/class-segurium.php:1286
 msgid "Loading settings..."
-msgstr "Se încarcă setările..."
+msgstr "Încarc setările..."
 
 #: includes/class-segurium.php:1287
 msgid "Saving..."
-msgstr "Se salvează..."
+msgstr "Salvez..."
 
 #: includes/class-segurium.php:1289
 msgid "Failed to save settings."
@@ -2408,7 +2421,7 @@ msgstr "Rulează autoverificarea"
 
 #: includes/class-segurium.php:1294
 msgid "Running..."
-msgstr "Se rulează..."
+msgstr "Rulez..."
 
 #: includes/class-segurium.php:1295
 msgid "Click Run Self-Check to grade your site."
@@ -2417,23 +2430,23 @@ msgstr ""
 
 #: includes/class-segurium.php:1299
 msgid "How to fix"
-msgstr "Cum repari"
+msgstr "Cum să repari"
 
 #: includes/class-segurium.php:1300
 msgid "Hide details"
-msgstr "Ascunde detaliile"
+msgstr "Ascunde detalii"
 
 #: includes/class-segurium.php:1301
 msgid "fail"
-msgstr "eșuat"
+msgstr "eșec"
 
 #: includes/class-segurium.php:1302
 msgid "warn"
-msgstr "avertisment"
+msgstr "avertizare"
 
 #: includes/class-segurium.php:1303
 msgid "HTTP Security Headers"
-msgstr "Anteturi HTTP de securitate"
+msgstr "Anteturi HTTP pentru securitate"
 
 #: includes/class-segurium.php:1304
 msgid "Information Disclosure"
@@ -2445,16 +2458,16 @@ msgstr "Întărire WordPress"
 
 #: includes/class-segurium.php:1306
 msgid "Cookie Security"
-msgstr "Securitatea cookie-urilor"
+msgstr "Securitate cookie-uri"
 
 #: includes/class-segurium.php:1307
 msgid "Malware Protection"
-msgstr "Protecție împotriva malware"
+msgstr "Protecție malware"
 
 #. translators: 1: pass count, 2: warn count, 3: fail count
 #: includes/class-segurium.php:1309
 msgid "%1$d pass, %2$d warn, %3$d fail"
-msgstr "%1$d trecute, %2$d avertismente, %3$d eșuate"
+msgstr "%1$d trecute, %2$d avertizări, %3$d eșuate"
 
 #. translators: %d: numeric score, always out of 100
 #: includes/class-segurium.php:1311
@@ -2475,7 +2488,7 @@ msgstr "Nicio modificare de la ultima rulare."
 #: includes/class-segurium.php:1316
 msgid "Self-check could not reach your site: %s. Results are incomplete."
 msgstr ""
-"Autoverificarea nu a putut ajunge la site-ul tău: %s. Rezultatele sunt "
+"Autoverificarea nu a putut să ajungă la site-ul tău: %s. Rezultatele sunt "
 "incomplete."
 
 #: includes/class-segurium.php:1317
@@ -2488,7 +2501,7 @@ msgstr "Verifică cu Mozilla Observatory"
 
 #: includes/class-segurium.php:1609
 msgid "External Service Disclosure"
-msgstr "Dezvăluirea serviciilor externe"
+msgstr "Relevare servicii externe"
 
 #: includes/class-segurium.php:1610
 msgid ""
@@ -2497,9 +2510,9 @@ msgid ""
 "detect malware, verify your files, and adapt protection to active threats."
 msgstr ""
 "Segurium îți protejează site-ul lucrând împreună cu cloudul Segurium. Când "
-"îl activezi, Segurium schimbă date cu serverele noastre ca să poată detecta "
-"malware, să îți verifice fișierele și să adapteze protecția la amenințările "
-"active."
+"îl activezi, Segurium schimbă date cu serverele noastre ca să poată să "
+"detecteze malware, să îți verifice fișierele și să adapteze protecția la "
+"amenințările active."
 
 #: includes/class-segurium.php:1612
 msgid "What is sent:"
@@ -2510,45 +2523,45 @@ msgid ""
 "File metadata: SHA-256 hash, path relative to your WordPress installation, "
 "size, modification time."
 msgstr ""
-"Metadate despre fișier: hash SHA-256, cale relativă la instalarea ta "
-"WordPress, dimensiune, oră de modificare."
+"Metadate fișier: hash SHA-256, cale relativă la instalarea ta WordPress, "
+"dimensiune, ora modificării."
 
 #: includes/class-segurium.php:1615
 msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
 msgstr ""
-"Conținutul fișierului - doar când clasificarea numai după hash nu este "
-"concludentă sau când se generează un înlocuitor curat în timpul curățării."
+"Conținut fișier - numai când clasificarea după hash nu este concludentă sau "
+"când se generează un înlocuitor curat în timpul curățării."
 
 #: includes/class-segurium.php:1616
 msgid ""
 "A randomly-generated installation identifier and basic site info (URL, name,"
 " WordPress version) used to associate requests with this install."
 msgstr ""
-"Un identificator de instalare generat aleatoriu și informații de bază despre"
-" site (URL, nume, versiune WordPress) folosite ca să asocieze cererile cu "
-"această instalare."
+"Un identificator pentru instalare generat aleatoriu și informații de bază "
+"despre site (URL, nume, versiune WordPress) folosite ca să asocieze cererile"
+" cu această instalare."
 
 #: includes/class-segurium.php:1617
 msgid ""
 "Scan, cleanup, and security-settings events, so the cloud can keep your site"
 " protection in sync."
 msgstr ""
-"Evenimente de scanare, de curățare și de setări de securitate, ca cloudul să"
-" poată păstra sincronizată protecția site-ului tău."
+"Evenimente scanare, curățare și setări pentru securitate, astfel cloud-ul "
+"poată să păstreze sincronizată protecția site-ului tău."
 
 #: includes/class-segurium.php:1618
 msgid ""
 "Firewall events (blocked IPs, attack patterns) used to adapt protection "
 "across all Segurium-protected sites."
 msgstr ""
-"Evenimente de firewall (IP-uri blocate, tipare de atac) folosite ca să "
-"adapteze protecția pe toate site-urile protejate de Segurium."
+"Evenimente firewall (IP-uri blocate, modele de atac) folosite ca să adapteze"
+" protecția pe toate site-urile protejate de Segurium."
 
 #: includes/class-segurium.php:1621
 msgid "What is NOT sent:"
-msgstr "Ce NU se trimite:"
+msgstr "Ce NU trimite:"
 
 #: includes/class-segurium.php:1623
 msgid "Visitor analytics or personal data of users who visit your site."
@@ -2558,14 +2571,14 @@ msgstr ""
 
 #: includes/class-segurium.php:1624
 msgid "Database content, posts, comments, or media files."
-msgstr "Conținutul bazei de date, articole, comentarii sau fișiere media."
+msgstr "Conținut bază de date, articole, comentarii sau fișiere media."
 
 #: includes/class-segurium.php:1625
 msgid ""
 "Files whose hash is already known to the cloud — only the hash leaves your "
 "server."
 msgstr ""
-"Fișierele al căror hash este deja cunoscut în cloud - doar hashul îți "
+"Fișierele al căror hash este deja cunoscut în cloud - numai hashul îți "
 "părăsește serverul."
 
 #: includes/class-segurium.php:1628
@@ -2586,9 +2599,9 @@ msgid ""
 "removed by an automated nightly purge. A sample may be removed sooner once "
 "it has been reviewed."
 msgstr ""
-"Mostrele de fișiere încărcate pentru analiză sunt păstrate până la 365 de "
-"zile, apoi sunt înlăturate de o curățare automată de noapte. O mostră poate "
-"fi înlăturată mai devreme, după ce a fost verificată."
+"Exemplele de fișiere încărcate pentru analiză sunt păstrate cel mult 365 de "
+"zile și apoi sunt înlăturate printr-o curățare automată în timpul nopții. Un"
+" exemplu poate fi înlăturat mai devreme, după ce a fost verificat."
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
 #. 3: opening link tag for Privacy Policy, 4: closing link tag
@@ -2597,8 +2610,8 @@ msgid ""
 "By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
 "%3$sPrivacy Policy%4$s."
 msgstr ""
-"Prin activarea scanării, ești de acord cu %1$sTermenii de utilizare a "
-"serviciului%2$s și cu %3$sPolitica de confidențialitate%4$s."
+"Prin activarea scanării, ești de acord cu %1$sTermenii de utilizare ai "
+"serviciului%2$s și %3$sPolitica de confidențialitate%4$s."
 
 #: includes/class-segurium.php:1644
 msgid "I agree"
@@ -2614,7 +2627,7 @@ msgstr "Învechit - ultima reîmprospătare a depășit intervalul zilnic"
 
 #: includes/class-segurium.php:1767
 msgid "Never updated on this site yet"
-msgstr "Încă neactualizat pe acest site"
+msgstr "Nu a fost niciodată actualizată pe acest site"
 
 #: includes/class-segurium.php:1806
 msgid "WordPress Security"
@@ -2646,7 +2659,7 @@ msgstr "Anteturi"
 
 #: includes/class-segurium.php:1857
 msgid "Info Shield"
-msgstr "Scut de informații"
+msgstr "Scut pentru informații"
 
 #: includes/class-segurium.php:1861
 msgid "Settings"
@@ -2674,11 +2687,11 @@ msgstr "Repară tot"
 
 #: includes/class-segurium.php:1916
 msgid "Malicious"
-msgstr "Periculoase"
+msgstr "Rău intenționate"
 
 #: includes/class-segurium.php:1920
 msgid "All"
-msgstr "Toate"
+msgstr "Tot"
 
 #: includes/class-segurium.php:1940
 msgid "File"
@@ -2698,11 +2711,11 @@ msgstr "Acțiuni"
 
 #: includes/class-segurium.php:1961
 msgid "Show recent only (14 days)"
-msgstr "Arată doar recente (14 zile)"
+msgstr "Arată numai recente (14 zile)"
 
 #: includes/class-segurium.php:1971 includes/class-segurium.php:2032
 msgid "per page"
-msgstr "pe pagină"
+msgstr "per pagină"
 
 #: includes/class-segurium.php:2004
 msgid "Files"
@@ -2715,7 +2728,8 @@ msgstr "Ultima scanare"
 #: includes/class-segurium.php:2064 includes/class-segurium.php:2152
 msgid "Settings applied. Confirm to keep, or changes revert in"
 msgstr ""
-"Setări aplicate. Confirmă ca să le păstrezi, altfel modificările revin în"
+"Am aplicat setările. Confirmă ca să le păstrezi, altfel modificările revin "
+"peste"
 
 #: includes/class-segurium.php:2065 includes/class-segurium.php:2153
 msgid "s."
@@ -2723,7 +2737,7 @@ msgstr "s."
 
 #: includes/class-segurium.php:2069 includes/class-segurium.php:2157
 msgid "Revert"
-msgstr "Revino"
+msgstr "Revenire"
 
 #: includes/class-segurium.php:2078
 msgid "Enable Geo-Blocking"
@@ -2731,7 +2745,7 @@ msgstr "Activează blocarea geografică"
 
 #: includes/class-segurium.php:2083
 msgid "Blocking Mode"
-msgstr "Mod de blocare"
+msgstr "Mod blocare"
 
 #: includes/class-segurium.php:2087
 msgid "Block specific countries"
@@ -2739,7 +2753,7 @@ msgstr "Blochează anumite țări"
 
 #: includes/class-segurium.php:2091
 msgid "Allow only specific countries"
-msgstr "Permite doar anumite țări"
+msgstr "Permite numai anumite țări"
 
 #: includes/class-segurium.php:2098
 msgid "EU"
@@ -2747,7 +2761,7 @@ msgstr "UE"
 
 #: includes/class-segurium.php:2099
 msgid "Americas"
-msgstr "Americile"
+msgstr "America de Nord și Sud"
 
 #: includes/class-segurium.php:2100
 msgid "Asia-Pacific"
@@ -2763,7 +2777,7 @@ msgstr "Orientul Mijlociu"
 
 #: includes/class-segurium.php:2103
 msgid "High-Risk"
-msgstr "Risc ridicat"
+msgstr "Risc mare"
 
 #: includes/class-segurium.php:2110
 msgid "Search countries…"
@@ -2775,11 +2789,11 @@ msgstr "Acțiune la blocare"
 
 #: includes/class-segurium.php:2118
 msgid "Return 403 Forbidden"
-msgstr "Returnează 403 Forbidden"
+msgstr "Returnează 403 Interzis"
 
 #: includes/class-segurium.php:2119
 msgid "Redirect to URL"
-msgstr "Redirecționează către un URL"
+msgstr "Redirecționează la URL"
 
 #: includes/class-segurium.php:2120
 msgid "Silent drop (no response)"
@@ -2805,7 +2819,7 @@ msgstr "Cereri"
 
 #: includes/class-segurium.php:2166
 msgid "Enable Firewall"
-msgstr "Activează firewallul"
+msgstr "Activează firewall-ul"
 
 #: includes/class-segurium.php:2171 includes/class-segurium.php:2711
 msgid "Mode"
@@ -2813,27 +2827,27 @@ msgstr "Mod"
 
 #: includes/class-segurium.php:2175
 msgid "Allow everything except…"
-msgstr "Permite tot, cu excepția…"
+msgstr "Permite tot, în afară de…"
 
 #: includes/class-segurium.php:2179
 msgid "Deny everything except…"
-msgstr "Refuză tot, cu excepția…"
+msgstr "Refuză tot, în afară de…"
 
 #: includes/class-segurium.php:2189
 msgid "Custom Trusted Proxy IPs / CIDRs"
-msgstr "IP-uri/CIDR-uri personalizate pentru proxyuri de încredere"
+msgstr "IP-uri/CIDR-uri personalizate proxy de încredere"
 
 #: includes/class-segurium.php:2191
 msgid "Loading auto-detected proxy status..."
-msgstr "Se încarcă starea proxyurilor detectate automat..."
+msgstr "Încarc starea proxy detectată automat..."
 
 #: includes/class-segurium.php:2193
 msgid ""
 "Additional proxy IPs beyond the auto-detected list, one per line. Leave "
 "empty if all your proxies are covered above."
 msgstr ""
-"IP-uri suplimentare de proxy peste lista detectată automat, unul pe linie. "
-"Lasă gol dacă toate proxyurile tale sunt acoperite mai sus."
+"IP-uri proxy suplimentare în afara listei cu detectate automat, unul pe un "
+"rând. Lasă gol dacă toate proxy-urile tale sunt acoperite mai sus."
 
 #: includes/class-segurium.php:2212
 msgid ""
@@ -2841,7 +2855,7 @@ msgid ""
 "threshold. Reuses the firewall allow-list for trusted IPs."
 msgstr ""
 "Urmărește încercările de autentificare eșuate și blochează IP-urile după un "
-"prag configurabil. Refolosește lista de permise a firewallului pentru IP-"
+"prag configurabil. Refolosește lista cu permise a firewall-ului pentru IP-"
 "urile de încredere."
 
 #: includes/class-segurium.php:2216
@@ -2873,25 +2887,25 @@ msgid ""
 "Adds an off-screen input that legitimate users never see. Filling it "
 "triggers an immediate lockout."
 msgstr ""
-"Adaugă un câmp de introducere în afara ecranului, pe care utilizatorii "
-"legitimi nu îl văd niciodată. Completarea lui declanșează o blocare "
-"imediată."
+"Adaugă o intrare în afara ecranului pe care utilizatorii legitimi nu o văd "
+"niciodată. Completarea ei declanșează imediat o blocare."
 
 #: includes/class-segurium.php:2274
 msgid ""
 "Optionally show an hCaptcha challenge on the login form after a configurable"
 " number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
-"Opțional, arată o provocare hCaptcha în formularul de autentificare după un "
-"număr configurabil de încercări eșuate. Obții chei gratuite la hcaptcha.com."
+"Opțional, arată un test de securitate hCaptcha în formularul de "
+"autentificare după un număr configurabil de încercări eșuate. Ai chei "
+"gratuite la hcaptcha.com."
 
 #: includes/class-segurium.php:2300
 msgid ""
 "Must be less than the maximum failed attempts so the challenge fires before "
 "the lockout."
 msgstr ""
-"Trebuie să fie mai mic decât numărul maxim de încercări eșuate, ca "
-"provocarea să pornească înainte de blocare."
+"Trebuie să fie mai mic decât numărul maxim de încercări eșuate, astfel "
+"testul de securitate pornește înainte de blocare."
 
 #: includes/class-segurium.php:2359 includes/class-segurium.php:2372
 msgid "Attempts"
@@ -2905,8 +2919,8 @@ msgstr "Activează autentificarea pe două niveluri"
 msgid ""
 "Require users to verify their identity with a second factor during login."
 msgstr ""
-"Cere utilizatorilor să își verifice identitatea cu un al doilea factor la "
-"autentificare."
+"Cere utilizatorilor să își verifice identitatea cu un al doilea nivel pentru"
+" autentificare."
 
 #: includes/class-segurium.php:2441
 msgid "Available Methods"
@@ -2914,7 +2928,7 @@ msgstr "Metode disponibile"
 
 #: includes/class-segurium.php:2442
 msgid "Select which 2FA methods users can choose from."
-msgstr "Selectează dintre ce metode 2FA pot alege utilizatorii."
+msgstr "Selectează metodele 2FA pe care pot să le aleagă utilizatorii."
 
 #: includes/class-segurium.php:2447
 msgid "Enforced Roles"
@@ -2922,7 +2936,7 @@ msgstr "Roluri impuse"
 
 #: includes/class-segurium.php:2448
 msgid "Users in these roles will be required to set up 2FA."
-msgstr "Utilizatorilor din aceste roluri li se va cere să configureze 2FA."
+msgstr "Utilizatorilor cu aceste roluri li se va cere să inițializeze 2FA."
 
 #: includes/class-segurium.php:2452
 msgid "Grace Period (days)"
@@ -2933,19 +2947,19 @@ msgid ""
 "Days before enforcement blocks login for users who have not set up 2FA. Set "
 "to 0 to enforce immediately."
 msgstr ""
-"Zile înainte ca impunerea să blocheze autentificarea pentru utilizatorii "
-"care nu au configurat 2FA. Setează pe 0 ca să impui imediat."
+"Zile până când impunerea blochează autentificarea pentru utilizatorii care "
+"nu au inițializat 2FA. Setează la 0 ca să impui imediat."
 
 #: includes/class-segurium.php:2457
 msgid "Trusted Device Duration (days)"
-msgstr "Durata dispozitivului de încredere (zile)"
+msgstr "Durată dispozitiv de încredere (zile)"
 
 #: includes/class-segurium.php:2458
 msgid ""
 "How many days a device stays trusted after the user checks the trust option."
 msgstr ""
-"Câte zile rămâne un dispozitiv de încredere după ce utilizatorul bifează "
-"opțiunea de încredere."
+"Câte zile rămâne de încredere un dispozitiv după ce utilizatorul bifează "
+"opțiunea încredere."
 
 #: includes/class-segurium.php:2463 includes/class-segurium.php:3111
 msgid "Save Settings"
@@ -2953,7 +2967,7 @@ msgstr "Salvează setările"
 
 #: includes/class-segurium.php:2468
 msgid "User Statistics"
-msgstr "Statistici despre utilizatori"
+msgstr "Statistici utilizatori"
 
 #: includes/class-segurium.php:2472
 msgid "Method"
@@ -2970,8 +2984,8 @@ msgstr "Resetează 2FA pentru utilizator"
 #: includes/class-segurium.php:2479
 msgid "Enter a username or user ID to reset their 2FA configuration."
 msgstr ""
-"Introdu un nume de utilizator sau un ID de utilizator ca să resetezi "
-"configurarea lui 2FA."
+"Introdu un nume utilizator sau un ID utilizator ca să îi resetezi "
+"configurarea 2FA."
 
 #: includes/class-segurium.php:2480
 msgid "Username or ID"
@@ -2984,7 +2998,8 @@ msgstr "Resetează 2FA"
 #: includes/class-segurium.php:2488
 msgid "Submit a support ticket below. Our team will respond via email."
 msgstr ""
-"Trimite un tichet de suport mai jos. Echipa noastră va răspunde prin email."
+"Trimite un tichet pentru suport mai jos. Echipa noastră va răspunde prin "
+"email."
 
 #: includes/class-segurium.php:2491
 msgid "Your name"
@@ -2992,14 +3007,14 @@ msgstr "Numele tău"
 
 #: includes/class-segurium.php:2495
 msgid "Reply-to email"
-msgstr "Email pentru răspuns"
+msgstr "Email destinatar"
 
 #: includes/class-segurium.php:2497
 msgid ""
 "We will reply to this address. Change it if you want the response to go "
 "elsewhere."
 msgstr ""
-"Vom răspunde la această adresă. Schimb-o dacă vrei ca răspunsul să meargă în"
+"Vom răspunde la această adresă. Schimb-o dacă vrei ca răspunsul să ajungă în"
 " altă parte."
 
 #: includes/class-segurium.php:2500
@@ -3011,8 +3026,8 @@ msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
 msgstr ""
-"Inclus automat, ca suportul să îți poată identifica site-ul. Schimbă acest "
-"lucru din Setări → General."
+"Este inclus automat, astfel suportul poată să-ți identifice site-ul. Schimbă"
+" asta în Setări → Generale."
 
 #: includes/class-segurium.php:2505
 msgid "Type"
@@ -3020,11 +3035,11 @@ msgstr "Tip"
 
 #: includes/class-segurium.php:2507 includes/class-segurium.php:7381
 msgid "Bug report"
-msgstr "Raport de eroare"
+msgstr "Raport de erori"
 
 #: includes/class-segurium.php:2508 includes/class-segurium.php:7383
 msgid "Feature request"
-msgstr "Cerere de funcționalitate"
+msgstr "Cerere funcționalitate"
 
 #: includes/class-segurium.php:2509 includes/class-segurium.php:7385
 msgid "General question"
@@ -3036,7 +3051,7 @@ msgstr "Raportează malware nedetectat"
 
 #: includes/class-segurium.php:2511
 msgid "Other"
-msgstr "Altele"
+msgstr "Altul"
 
 #: includes/class-segurium.php:2515
 msgid "Suspicious file"
@@ -3044,7 +3059,7 @@ msgstr "Fișier suspect"
 
 #: includes/class-segurium.php:2517
 msgid "Attach the file you believe is malware. Max 100 MB."
-msgstr "Atașează fișierul pe care îl crezi malware. Maximum 100 MB."
+msgstr "Atașează fișierul pe care îl crezi malware. Maxim 100 Mo."
 
 #: includes/class-segurium.php:2520
 msgid "Message"
@@ -3064,15 +3079,15 @@ msgstr "Trimite tichetul"
 
 #: includes/class-segurium.php:2541
 msgid "Enable Security Headers"
-msgstr "Activează anteturile de securitate"
+msgstr "Activează anteturile pentru securitate"
 
 #: includes/class-segurium.php:2543
 msgid ""
 "Adds HTTP security response headers to all responses. Protects against "
 "clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
 msgstr ""
-"Adaugă anteturi HTTP de securitate în toate răspunsurile. Protejează "
-"împotriva clickjacking, a ghicirii tipului MIME, a XSS și a atacurilor de "
+"Adaugă anteturi HTTP pentru securitate în toate răspunsurile. Protejează "
+"împotriva clickjacking, a detectării tipului MIME, a XSS și a atacurilor de "
 "retrogradare a protocolului."
 
 #: includes/class-segurium.php:2547
@@ -3104,12 +3119,12 @@ msgid ""
 "This mode emits fixed preset values. Switch to Custom to override individual"
 " headers."
 msgstr ""
-"Acest mod emite valori fixe de presetare. Comută pe Personalizat ca să "
+"Acest mod emite valori presetate fixe. Comută la Personalizat ca să "
 "contramandezi anteturi individuale."
 
 #: includes/class-segurium.php:2568
 msgid "Header Values"
-msgstr "Valori pentru anteturi"
+msgstr "Valori antet"
 
 #: includes/class-segurium.php:2572 includes/class-segurium.php:2586
 #: includes/class-segurium.php:2643 includes/class-segurium.php:2652
@@ -3128,19 +3143,19 @@ msgstr ""
 
 #: includes/class-segurium.php:2582
 msgid "No referrer"
-msgstr "Fără referent"
+msgstr "Niciun referent"
 
 #: includes/class-segurium.php:2583
 msgid "No referrer when downgrade"
-msgstr "Fără referent la retrogradare"
+msgstr "Niciun referent la retrogradare"
 
 #: includes/class-segurium.php:2584
 msgid "Origin only"
-msgstr "Doar originea"
+msgstr "Numai origine"
 
 #: includes/class-segurium.php:2585
 msgid "Origin when cross-origin"
-msgstr "Originea când este cross-origin"
+msgstr "Origine când este cross-origin"
 
 #: includes/class-segurium.php:2587
 msgid "Strict origin"
@@ -3164,7 +3179,7 @@ msgstr "Activat"
 
 #: includes/class-segurium.php:2602 includes/class-segurium.php:2606
 msgid "Enabled with block mode"
-msgstr "Activat cu mod de blocare"
+msgstr "Activat cu mod blocare"
 
 #: includes/class-segurium.php:2604
 msgid ""
@@ -3172,9 +3187,9 @@ msgid ""
 "XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
 "is the actual XSS defence."
 msgstr ""
-"Oprește explicit filtrul XSS învechit din IE și din Edge vechi, care avea "
-"erori universal-XSS ce puteau fi folosite ca armă. Navigatoarele moderne "
-"ignoră acest antet; CSP este apărarea reală împotriva XSS."
+"Dezactivează explicit filtrul XSS învechit din IE și din Edge vechi, care "
+"avea erori universal-XSS ce puteau fi folosite ca armă. Navigatoarele "
+"moderne ignoră acest antet; CSP este apărarea reală împotriva XSS."
 
 #: includes/class-segurium.php:2605
 msgid ""
@@ -3192,9 +3207,9 @@ msgid ""
 "Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
 "recommended."
 msgstr ""
-"Același filtru ca mai sus, dar blochează pagina complet la o reflexie "
+"Același filtru ca mai sus, dar blochează pagina în întregime la o reflexie "
 "suspectată. Aceleași erori, plus un canal lateral de sincronizare care poate"
-" scurge date cross-origin. Nerecomandat."
+" să divulge date cross-origin. Nerecomandat."
 
 #: includes/class-segurium.php:2608
 msgid "HSTS (Strict-Transport-Security)"
@@ -3207,7 +3222,8 @@ msgstr "Activează HSTS"
 #: includes/class-segurium.php:2614
 msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
 msgstr ""
-"Forțează navigatoarele să folosească HTTPS. Trimis doar când SSL este activ."
+"Forțează navigatoarele să folosească HTTPS. Este trimis numai când SSL este "
+"activ."
 
 #: includes/class-segurium.php:2618
 msgid "Max-Age (seconds)"
@@ -3219,15 +3235,15 @@ msgstr "Include subdomeniile"
 
 #: includes/class-segurium.php:2630
 msgid "Preload"
-msgstr "Preîncărcare"
+msgstr "Pre-încarcă"
 
 #: includes/class-segurium.php:2632
 msgid ""
 "Warning: preload is difficult to undo. Requires max-age at least 1 year and "
 "subdomains included."
 msgstr ""
-"Avertizare: preîncărcarea este greu de anulat. Cere un max-age de cel puțin "
-"1 an și subdomeniile incluse."
+"Avertizare: preîncărcarea este greu de anulat. Necesită max-age de cel puțin"
+" 1 an și subdomeniile incluse."
 
 #: includes/class-segurium.php:2636
 msgid ""
@@ -3253,7 +3269,7 @@ msgstr "Nesetat"
 
 #: includes/class-segurium.php:2644
 msgid "Same origin, allow popups"
-msgstr "Aceeași origine, permite ferestrele pop-up"
+msgstr "Aceeași origine, permite popup-uri"
 
 #: includes/class-segurium.php:2645 includes/class-segurium.php:2663
 msgid "Unsafe none"
@@ -3269,7 +3285,7 @@ msgstr "Același site"
 
 #: includes/class-segurium.php:2654
 msgid "Cross origin"
-msgstr "Origine încrucișată"
+msgstr "Cross-Origin"
 
 #: includes/class-segurium.php:2658
 msgid "Cross-Origin-Embedder-Policy"
@@ -3281,11 +3297,13 @@ msgstr "Nesetat (recomandat)"
 
 #: includes/class-segurium.php:2661
 msgid "Require CORP"
-msgstr "Cere CORP"
+msgstr "Necesită CORP"
 
 #: includes/class-segurium.php:2667
 msgid "Control which browser features your site may use."
-msgstr "Controlează ce funcționalități de navigator poate folosi site-ul tău."
+msgstr ""
+"Controlează funcționalitățile navigatorului pe care poate să le folosească "
+"site-ul tău."
 
 #: includes/class-segurium.php:2671
 msgid "Accelerometer"
@@ -3297,7 +3315,7 @@ msgstr "Redare automată"
 
 #: includes/class-segurium.php:2673
 msgid "Camera"
-msgstr "Cameră"
+msgstr "Cameră foto"
 
 #: includes/class-segurium.php:2674
 msgid "Encrypted media"
@@ -3305,11 +3323,11 @@ msgstr "Media criptată"
 
 #: includes/class-segurium.php:2675
 msgid "Fullscreen"
-msgstr "Ecran complet"
+msgstr "Ecran întreg"
 
 #: includes/class-segurium.php:2676
 msgid "Geolocation"
-msgstr "Geolocalizare"
+msgstr "Localizare geografică"
 
 #: includes/class-segurium.php:2677
 msgid "Gyroscope"
@@ -3341,7 +3359,7 @@ msgstr "Refuză"
 
 #: includes/class-segurium.php:2693
 msgid "Self only"
-msgstr "Doar propria origine"
+msgstr "Permite acestui site"
 
 #: includes/class-segurium.php:2694
 msgid "Allow all"
@@ -3358,18 +3376,18 @@ msgid ""
 "page builders — start in report-only mode to surface violations before "
 "enforcing."
 msgstr ""
-"CSP limitează de unde se pot încărca scripturile, stilurile și alte resurse,"
-" reducând XSS și injecțiile. CSP este specifică fiecărui site și poate "
-"strica teme sau constructori de pagini - pornește în modul doar-raportare ca"
-" să vezi încălcările înainte de aplicare."
+"CSP restricționează de unde pot să se încarce scripturile, stilurile și alte"
+" resurse, reducând XSS și injecțiile. CSP este specifică fiecărui site și "
+"poate să strice teme sau constructori de pagini - începe în modul numai "
+"raportare ca să vezi încălcările înainte de aplicare."
 
 #: includes/class-segurium.php:2713
 msgid "Report-only (recommended for first deploy)"
-msgstr "Doar-raportare (recomandat la prima instalare)"
+msgstr "Numai raportare (recomandat la prima implementare)"
 
 #: includes/class-segurium.php:2714
 msgid "Enforce"
-msgstr "Aplică"
+msgstr "Impune"
 
 #: includes/class-segurium.php:2716
 msgid ""
@@ -3377,13 +3395,13 @@ msgid ""
 "violations but still loads blocked resources. Enforce sends Content-"
 "Security-Policy and blocks them."
 msgstr ""
-"Doar-raportare trimite Content-Security-Policy-Report-Only - navigatorul "
-"înregistrează încălcările, dar tot încarcă resursele blocate. Aplică trimite"
-" Content-Security-Policy și le blochează."
+"Numai raportare trimite Content-Security-Policy-Report-Only - navigatorul "
+"înregistrează încălcările, dar încarcă în continuare resursele blocate. "
+"Aplică trimite Content-Security-Policy și le blochează."
 
 #: includes/class-segurium.php:2719
 msgid "Policy directives"
-msgstr "Directivele politicii"
+msgstr "Directive politică"
 
 #: includes/class-segurium.php:2722
 msgid ""
@@ -3391,8 +3409,8 @@ msgid ""
 "policy permits Gutenberg and most themes; tighten once your reports are "
 "clean."
 msgstr ""
-"O singură linie de directive separate prin punct și virgulă. Politica "
-"implicită de pornire permite Gutenberg și majoritatea temelor; strânge-o "
+"Un singur rând de directive separate prin punct și virgulă. Politica "
+"implicită de pornire permite Gutenberg și majoritatea temelor; restrânge-o "
 "după ce rapoartele tale sunt curate."
 
 #: includes/class-segurium.php:2723
@@ -3401,7 +3419,7 @@ msgstr "Referință CSP (MDN)"
 
 #: includes/class-segurium.php:2727
 msgid "Report URI (optional)"
-msgstr "URI de raportare (opțional)"
+msgstr "URI raportare (opțional)"
 
 #: includes/class-segurium.php:2729
 msgid ""
@@ -3409,12 +3427,12 @@ msgid ""
 "automatically as report-uri unless your directives already contain one."
 msgstr ""
 "Când este setat, navigatoarele vor trimite prin POST rapoarte de încălcare "
-"către acest URL. Adăugat automat ca report-uri, dacă directivele tale nu "
+"la acest URL. Este adăugat automat ca report-uri, dacă directivele tale nu "
 "conțin deja unul."
 
 #: includes/class-segurium.php:2733
 msgid "Cookie Hardening"
-msgstr "Întărirea cookie-urilor"
+msgstr "Întărire cookie-uri"
 
 #: includes/class-segurium.php:2737
 msgid "Add SameSite attribute to auth cookies"
@@ -3425,8 +3443,8 @@ msgid ""
 "Adds SameSite flag to WordPress session cookies. Protects against CSRF "
 "attacks. Mozilla Observatory penalizes missing SameSite."
 msgstr ""
-"Adaugă indicatorul SameSite la cookie-urile de sesiune WordPress. Protejează"
-" împotriva atacurilor CSRF. Mozilla Observatory penalizează lipsa SameSite."
+"Adaugă atributul SameSite la cookie-urile de sesiune WordPress. Protejează "
+"împotriva atacurilor CSRF. Mozilla Observatory penalizează lipsa SameSite."
 
 #: includes/class-segurium.php:2743
 msgid "SameSite value"
@@ -3440,8 +3458,8 @@ msgstr "Lax (recomandat)"
 msgid ""
 "Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr ""
-"Strict poate strica fluxurile de autentificare OAuth/SSO care "
-"redirecționează înapoi către site-ul tău."
+"Strict poate să strice fluxurile de autentificare OAuth/SSO care "
+"redirecționează înapoi la site-ul tău."
 
 #: includes/class-segurium.php:2759
 msgid "Headers Preview"
@@ -3449,7 +3467,7 @@ msgstr "Previzualizare anteturi"
 
 #: includes/class-segurium.php:2771
 msgid "Enable Information Shield"
-msgstr "Activează scutul de informații"
+msgstr "Activează scutul pentru informații"
 
 #: includes/class-segurium.php:2773
 msgid ""
@@ -3457,9 +3475,9 @@ msgid ""
 "discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
 "output."
 msgstr ""
-"Reduce divulgarea de informații WordPress prin înlăturarea amprentelor de "
-"versiune, a punctelor-finale de descoperire și a metadatelor inutile din "
-"anteturile HTTP și din ieșirea HTML."
+"Reduce divulgarea informațiilor WordPress prin înlăturarea amprentelor "
+"pentru versiune, a punctelor-finale de descoperire și a metadatelor inutile "
+"din anteturile HTTP și din ieșirea HTML."
 
 #: includes/class-segurium.php:2776
 msgid "Enable All Recommended"
@@ -3499,7 +3517,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2807
 msgid "Remove REST API Link: header"
-msgstr "Înlătură antetul Link: pentru REST API"
+msgstr "Înlătură antetul REST API Link:"
 
 #: includes/class-segurium.php:2809
 msgid "Removes the HTTP Link header that advertises the REST API endpoint."
@@ -3507,15 +3525,15 @@ msgstr "Înlătură antetul HTTP Link care anunță punctul-final REST API."
 
 #: includes/class-segurium.php:2814
 msgid "Remove Shortlink Link: header"
-msgstr "Înlătură antetul Link: pentru legătura scurtă"
+msgstr "Înlătură antetul Shortlink Link:"
 
 #: includes/class-segurium.php:2816
 msgid "Removes the rel=shortlink HTTP header."
-msgstr "Înlătură antetul HTTP rel=shortlink pentru legătura scurtă."
+msgstr "Înlătură antetul HTTP rel=shortlink."
 
 #: includes/class-segurium.php:2819
 msgid "HTML Meta and Links"
-msgstr "Meta și legături HTML"
+msgstr "Metadate și legături HTML"
 
 #: includes/class-segurium.php:2823
 msgid "Remove WordPress generator tag"
@@ -3536,32 +3554,32 @@ msgstr "Înlătură legătura RSD"
 #: includes/class-segurium.php:2832
 msgid "Removes the Really Simple Discovery endpoint link from HTML head."
 msgstr ""
-"Înlătură legătura către punctul-final Really Simple Discovery din head-ul "
-"HTML."
+"Înlătură legătura la punctul-final Really Simple Discovery din elementul "
+"<head> în HTML."
 
 #: includes/class-segurium.php:2837
 msgid "Remove WLW manifest link"
-msgstr "Înlătură legătura către manifestul WLW"
+msgstr "Înlătură legătura la manifestul WLW"
 
 #: includes/class-segurium.php:2839
 msgid ""
 "Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
 " write posts."
 msgstr ""
-"Înlătură legătura către manifestul Windows Live Writer. Necesară doar dacă "
-"folosești WLW ca să scrii articole."
+"Înlătură legătura la manifestul Windows Live Writer. Este necesară numai "
+"dacă folosești WLW ca să scrii articole."
 
 #: includes/class-segurium.php:2844
 msgid "Remove REST API discovery link"
-msgstr "Înlătură legătura de descoperire REST API"
+msgstr "Înlătură legătura REST API discovery"
 
 #: includes/class-segurium.php:2846
 msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
 msgstr ""
-"Înlătură tagul de legătură pentru descoperire din head-ul HTML. REST API "
-"rămâne funcțional la /wp-json/."
+"Înlătură tagul discovery link din elementul <head> în HTML. REST API rămâne "
+"funcțional la /wp-json/."
 
 #: includes/class-segurium.php:2851
 msgid "Remove oEmbed discovery links"
@@ -3572,16 +3590,16 @@ msgid ""
 "Prevents other sites from showing rich embed previews when linking to your "
 "content."
 msgstr ""
-"Împiedică alte site-uri să arate previzualizări înglobate bogate când "
-"creează legături către conținutul tău."
+"Împiedică alte site-uri să arate previzualizări înglobate îmbogățite când se"
+" leagă la conținutul tău."
 
 #: includes/class-segurium.php:2858
 msgid "Remove shortlink meta tag"
-msgstr "Înlătură tagul meta pentru legătura scurtă"
+msgstr "Înlătură tagul meta shortlink"
 
 #: includes/class-segurium.php:2860
 msgid "Removes the shortlink link tag from HTML head."
-msgstr "Înlătură tagul de legătură scurtă din head-ul HTML."
+msgstr "Înlătură tagul shortlink link din elementul <head> în HTML."
 
 #: includes/class-segurium.php:2865
 msgid "Remove emoji scripts and styles"
@@ -3592,32 +3610,33 @@ msgid ""
 "Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
 "have native emoji support."
 msgstr ""
-"Înlătură JavaScript-ul și CSS-ul de compatibilitate pentru emoticoane din "
-"WordPress. Navigatoarele moderne au suport nativ pentru emoticoane."
+"Înlătură JavaScript-ul și CSS-ul WordPress pentru compatibilitatea cu "
+"emoticoanele. Navigatoarele moderne acceptă nativ emoticoanele."
 
 #: includes/class-segurium.php:2872
 msgid "Remove RSS/Atom feed links"
-msgstr "Înlătură legăturile către fluxurile RSS/Atom"
+msgstr "Înlătură legăturile la fluxurile RSS/Atom"
 
 #: includes/class-segurium.php:2874
 msgid ""
 "May break RSS readers and WordPress.com Reader. Only enable if your site "
 "does not use RSS feeds."
 msgstr ""
-"Poate strica cititoarele RSS și WordPress.com Reader. Activează doar dacă "
-"site-ul tău nu folosește fluxuri RSS."
+"Poate să strice cititoarele RSS și Cititorul WordPress.com. Activează numai "
+"dacă site-ul tău nu folosește fluxuri RSS."
 
 #: includes/class-segurium.php:2879
 msgid "Remove adjacent post links"
-msgstr "Înlătură legăturile către articolele alăturate"
+msgstr "Înlătură legăturile la articole adiacente"
 
 #: includes/class-segurium.php:2881
 msgid "Removes prev/next post rel links from HTML head."
-msgstr "Înlătură legăturile rel prev/next către articole din head-ul HTML."
+msgstr ""
+"Înlătură legăturile rel prev/next la articole din elementul <head> în HTML."
 
 #: includes/class-segurium.php:2884
 msgid "Asset Fingerprinting"
-msgstr "Amprentarea resurselor"
+msgstr "Amprentare resurse"
 
 #: includes/class-segurium.php:2888
 msgid "Remove version query strings"
@@ -3629,7 +3648,7 @@ msgid ""
 "stale after plugin or theme updates."
 msgstr ""
 "Elimină ?ver= din URL-urile CSS și JavaScript. Resursele din cache-ul "
-"navigatorului pot deveni învechite după actualizări de module sau de teme."
+"navigatorului pot să devină învechite după actualizări de module sau teme."
 
 #: includes/class-segurium.php:2897
 msgid "Disable XML-RPC entirely"
@@ -3640,8 +3659,8 @@ msgid ""
 "Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
 "if you do not use them."
 msgstr ""
-"Unele module (Jetpack, aplicația mobilă WordPress) necesită XML-RPC. "
-"Dezactivează-l doar dacă nu le folosești."
+"Unele module (Jetpack, aplicația WordPress pentru mobil) au nevoie de XML-"
+"RPC. Dezactivează numai dacă nu le folosești."
 
 #: includes/class-segurium.php:2911
 msgid "Security Self-Check"
@@ -3653,9 +3672,10 @@ msgid ""
 "WordPress-specific hardening checks, and grades your site A+ to F. Results "
 "are saved until the next run."
 msgstr ""
-"Segurium rulează aceleași verificări ca scanerele externe de securitate de "
-"top, plus verificări de întărire specifice WordPress, și îți notează site-ul"
-" de la A+ la F. Rezultatele sunt salvate până la următoarea rulare."
+"Segurium rulează aceleași verificări ca principalele scanere externe pentru "
+"securitate, plus verificări de întărire specifice pentru WordPress și îi dă "
+"site-ului tău o notă de la A+ la F. Rezultatele sunt salvate până la "
+"următoarea rulare."
 
 #: includes/class-segurium.php:2932
 msgid "Check results"
@@ -3683,7 +3703,7 @@ msgstr "Curățare: 3 fișiere/30 de zile"
 
 #: includes/class-segurium.php:2955
 msgid "Full malware detection — same findings as Pro"
-msgstr "Detectare completă de malware - aceleași descoperiri ca la Pro"
+msgstr "Detectare malware completă - aceleași constatări ca în Pro"
 
 #: includes/class-segurium.php:2956
 msgid "Auto-fix and Bulk Fix All"
@@ -3692,12 +3712,12 @@ msgstr "Reparare automată și reparare în masă"
 #: includes/class-segurium.php:2957
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
 msgstr ""
-"Întărire: 2FA, forță-brută, blocare geografică, firewall, anteturi de "
+"Întărire: 2FA, forță-brută, blocare geografică, firewall, anteturi pentru "
 "securitate"
 
 #: includes/class-segurium.php:2958
 msgid "File-integrity monitoring (core / plugins / themes)"
-msgstr "Monitorizarea integrității fișierelor (nucleu/module/teme)"
+msgstr "Monitorizare integritate fișiere (nucleu/module/teme)"
 
 #: includes/class-segurium.php:2959
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
@@ -3705,7 +3725,7 @@ msgstr "Importator pentru migrare (Wordfence, AIOS, Solid Security)"
 
 #: includes/class-segurium.php:2960
 msgid "Community support"
-msgstr "Suport din comunitate"
+msgstr "Suport din partea comunității"
 
 #: includes/class-segurium.php:2963
 msgid "Unlimited cleanup"
@@ -3713,7 +3733,7 @@ msgstr "Curățare nelimitată"
 
 #: includes/class-segurium.php:2964
 msgid "Everything in Free"
-msgstr "Tot ce este în Gratuit"
+msgstr "Toate în Gratuit"
 
 #: includes/class-segurium.php:2965
 msgid "Email support, priority queue"
@@ -3728,7 +3748,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2980 includes/class-segurium.php:3003
 msgid "Current plan"
-msgstr "Planul actual"
+msgstr "Plan actual"
 
 #: includes/class-segurium.php:2983 includes/class-segurium.php:3208
 msgid "Free"
@@ -3747,16 +3767,16 @@ msgstr "pentru totdeauna"
 #: includes/class-segurium.php:3012
 msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
 msgstr ""
-"Curățare nelimitată. Aceleași funcționalități ca la Gratuit, fără plafon "
-"lunar."
+"Curățare nelimitată. Aceleași funcționalități ca pentru Gratuit, fără plafon"
+" lunar."
 
 #: includes/class-segurium.php:3017
 msgid "/year per site"
-msgstr "/an pentru fiecare site"
+msgstr "/an pe site"
 
 #: includes/class-segurium.php:3029
 msgid "14-day money-back guarantee."
-msgstr "Garanție de returnare a banilor în 14 zile."
+msgstr "Garantăm restituirea banilor în 14 zile (de la cumpărare)."
 
 #. translators: 1: opening anchor tag, 2: closing anchor tag
 #: includes/class-segurium.php:3040
@@ -3769,14 +3789,14 @@ msgstr ""
 
 #: includes/class-segurium.php:3058
 msgid "Scan Settings"
-msgstr "Setări de scanare"
+msgstr "Setări scanare"
 
 #: includes/class-segurium.php:3061
 msgid ""
 "Exclude files from scan that match these wildcard patterns (one per line)"
 msgstr ""
-"Exclude din scanare fișierele care se potrivesc cu aceste tipare cu "
-"metacaracter (unul pe linie)"
+"Exclude la scanare fișierele care se potrivesc cu aceste modele de "
+"metacaractere (unul pe un rând)"
 
 #: includes/class-segurium.php:3063
 msgid ""
@@ -3784,7 +3804,7 @@ msgid ""
 " will exclude the vendor directory and everything inside it."
 msgstr ""
 "Folosește * ca metacaracter. De exemplu, *.log va exclude toate fișierele "
-"jurnal. vendor/* va exclude dosarul vendor și tot ce este în el."
+"jurnal. vendor/* va exclude directorul vendor și tot ce este în el."
 
 #: includes/class-segurium.php:3071
 msgid ""
@@ -3795,13 +3815,14 @@ msgid ""
 "by hash stays unresolved. Reporting a false positive or attaching a file to "
 "a support ticket still sends that file, because you pick it yourself."
 msgstr ""
-"Când este activat, conținutul fișierelor poate fi partajat cu Segurium Cloud"
-" pentru detectare avansată de malware și curățare cu ajutorul cloudului. "
-"Sunt transmise doar fișierele suspecte. Oprește-l pentru modul local: atunci"
-" scanările trimit doar hashuri SHA-256, căi de fișiere și metadate, iar un "
-"fișier pe care cloudul nu îl poate identifica după hash rămâne nerezolvat. "
-"Raportarea unui fals pozitiv sau atașarea unui fișier la un tichet de suport"
-" tot trimite acel fișier, pentru că îl alegi tu."
+"Când opțiunea este activată, conținutul fișierelor poate fi partajat cu "
+"Segurium Cloud pentru detectare avansată de malware și curățare în cloud. "
+"Transmit numai fișierele suspecte. Dezactiveaz-o pentru modul local: "
+"scanările trimit atunci numai hashuri SHA-256, căi de fișiere și metadate, "
+"iar un fișier pe care cloud-ul nu îl poate identifica prin hash rămâne "
+"nerezolvat. Raportarea unui fals pozitiv sau atașarea unui fișier la un "
+"tichet pentru suport trimite în continuare acel fișier, pentru că îl alegi "
+"tu."
 
 #: includes/class-segurium.php:3076
 msgid "Wipe encrypted backups when the plugin is uninstalled"
@@ -3814,32 +3835,33 @@ msgid ""
 "can still restore them. Turn on only if you want a hard deletion on "
 "uninstall."
 msgstr ""
-"Oprit (implicit): copiile de siguranță criptate ale componentelor șterse și "
-"ale fișierelor vindecate sunt păstrate în dosarul uploads/segurium-data după"
-" dezinstalare, ca o reinstalare să le poată restaura. Pornește doar dacă "
-"vrei o ștergere definitivă la dezinstalare."
+"Dezactivat (implicit): copiile de siguranță criptate ale componentelor "
+"șterse și ale fișierelor vindecate sunt păstrate în directorul "
+"uploads/segurium-data după dezinstalare, ca o reinstalare să poată să le "
+"restaureze. Activează numai dacă vrei o ștergere definitivă la dezinstalare."
 
 #: includes/class-segurium.php:3084
 msgid "Email me about findings"
-msgstr "Trimite-mi email despre descoperiri"
+msgstr "Trimite-mi un email cu constatări"
 
 #: includes/class-segurium.php:3086
 msgid ""
 "Send a daily digest of malware verdicts and successful cleanups, delivered "
 "from support@segurium.com. At most one email per site per 24 hours."
 msgstr ""
-"Trimite un rezumat zilnic al verdictelor de malware și al curățărilor "
-"reușite, livrat de la support@segurium.com. Cel mult un email pe site la 24 "
-"de ore."
+"Trimite un rezumat zilnic al verdictelor malware și al curățărilor făcute cu"
+" succes, livrat de la support@segurium.com. Cel mult un email per site la 24"
+" de ore."
 
 #: includes/class-segurium.php:3087
 msgid "Alert email address"
-msgstr "Adresă de email pentru alerte"
+msgstr "Adresă email pentru alerte"
 
 #: includes/class-segurium.php:3095
 msgid "Leave blank to use the WordPress site admin email."
 msgstr ""
-"Lasă gol ca să folosești emailul administratorului site-ului WordPress."
+"Lasă gol ca să folosești adresa de email a administratorului site-ului "
+"WordPress."
 
 #: includes/class-segurium.php:3105
 msgid "Automatically clean detected malware"
@@ -3853,7 +3875,7 @@ msgid ""
 msgstr ""
 "După fiecare scanare programată sau în timp real, fișierele cu un verdict "
 "cunoscut de malware sau de injecție sunt curățate fără să fie nevoie de un "
-"clic. Fișierele pe care le-ai ignorat (după cale sau după hash) sunt sărite."
+"clic. Fișierele pe care le-ai ignorat (după cale sau după hash) sunt omise."
 
 #: includes/class-segurium.php:3117
 msgid "Scheduled Scan"
@@ -3866,10 +3888,11 @@ msgid ""
 "your browser open. A scheduled tick that fires while a manual scan is "
 "already in progress is skipped, not queued."
 msgstr ""
-"Rulează automat o scanare completă pentru malware, după un program recurent."
-" O scanare programată face aceeași muncă precum una manuală, dar nu îți cere"
-" să ții navigatorul deschis. Un declanșator programat care pornește în timp "
-"ce o scanare manuală este deja în curs este sărit, nu pus la coadă."
+"Rulează automat o scanare completă pentru malware după un program periodic. "
+"O scanare programată face același lucru ca o scanare manuală, dar nu îți "
+"cere să ții navigatorul deschis. O bifare programată care se declanșează în "
+"timp ce o scanare manuală este deja în desfășurare este omisă, nu pusă în "
+"coada de așteptare."
 
 #: includes/class-segurium.php:3146
 msgid "Save Schedule"
@@ -3880,8 +3903,8 @@ msgid ""
 "Import settings from other security plugins into Segurium. Existing Segurium"
 " settings are preserved; imported data is merged."
 msgstr ""
-"Importă setări din alte module de securitate în Segurium. Setările Segurium "
-"existente sunt păstrate; datele importate sunt îmbinate."
+"Importă setări din alte module pentru securitate în Segurium. Setările "
+"Segurium existente sunt păstrate; datele importate sunt îmbinate."
 
 #: includes/class-segurium.php:3205
 msgid "Version"
@@ -3898,11 +3921,11 @@ msgstr "Segurium Cloud"
 
 #: includes/class-segurium.php:3212
 msgid "Geo DB updated"
-msgstr "Baza de date de geo-localizare actualizată"
+msgstr "Am actualizat baza de date pentru localizarea geografică"
 
 #: includes/class-segurium.php:3219
 msgid "Proxies DB updated"
-msgstr "Baza de date proxy actualizată"
+msgstr "Baza de date a proxy-urilor este actualizată"
 
 #: includes/class-segurium.php:3229
 msgid "IID"
@@ -3918,8 +3941,7 @@ msgstr "IP-ul tău"
 
 #: includes/class-segurium.php:3312
 msgid "A bare * pattern was removed because it would exclude all files."
-msgstr ""
-"Un tipar * simplu a fost înlăturat pentru că ar exclude toate fișierele."
+msgstr "Am înlăturat un model * simplu pentru că ar exclude toate fișierele."
 
 #. translators: %d: number of rewritten lines
 #: includes/class-segurium.php:3329
@@ -3930,38 +3952,39 @@ msgid_plural ""
 "%d absolute paths were rewritten to paths relative to the WordPress install "
 "root."
 msgstr[0] ""
-"%d cale absolută a fost rescrisă ca o cale relativă la rădăcina instalării "
+"A fost rescrisă o cale absolută ca o cale relativă în rădăcina instalării "
 "WordPress."
 msgstr[1] ""
-"%d căi absolute au fost rescrise ca fiind căi relative la rădăcina "
+"Au fost rescrise %d căi absolute ca fiind căi relative în rădăcina "
 "instalării WordPress."
 msgstr[2] ""
-"%d de căi absolute au fost rescrise ca fiind căi relative la rădăcina "
+"Au fost rescrise %d de căi absolute ca fiind căi relative în rădăcina "
 "instalării WordPress."
 
 #: includes/class-segurium.php:3342
 msgid "Scan exclusion list is limited to 500 entries."
-msgstr "Lista de excluderi de la scanare este limitată la 500 de intrări."
+msgstr "Lista cu excluderi la scanare este limitată la 500 de intrări."
 
 #. translators: %d: number of rejected lines
 #: includes/class-segurium.php:3349
 msgid "%d entry longer than 191 characters was removed."
 msgid_plural "%d entries longer than 191 characters were removed."
-msgstr[0] "%d intrare mai lungă de 191 de caractere a fost înlăturată."
-msgstr[1] "%d intrări mai lungi de 191 de caractere au fost înlăturate."
-msgstr[2] "%d de intrări mai lungi de 191 de caractere au fost înlăturate."
+msgstr[0] "A fost înlăturată o intrare mai lungă de 191 de caractere."
+msgstr[1] "Au fost înlăturate %d intrări mai lungi de 191 de caractere."
+msgstr[2] "Au fost înlăturate %d de intrări mai lungi de 191 de caractere."
 
 #: includes/class-segurium.php:3398 includes/class-segurium.php:3431
 msgid "You do not have permission to manage scan settings."
-msgstr "Nu ai permisiunea să gestionezi setările de scanare."
+msgstr "Nu ai permisiunea să administrezi setările pentru scanare."
 
 #: includes/class-segurium.php:3510
 msgid "The scan could not be started due to a server error."
-msgstr "Scanarea nu a putut fi pornită din cauza unei erori de server."
+msgstr "Scanarea nu a putut fi începută din cauza unei erori la server."
 
 #: includes/class-segurium.php:3599
 msgid "Could not stop the running scan due to a server error."
-msgstr "Scanarea în curs nu a putut fi oprită din cauza unei erori de server."
+msgstr ""
+"Nu am putut să opresc scanarea care rulează din cauza unei erori la server."
 
 #: includes/class-segurium.php:3647
 msgid "Check the PHP error log for details."
@@ -3969,30 +3992,30 @@ msgstr "Verifică jurnalul de erori PHP pentru detalii."
 
 #: includes/class-segurium.php:3787
 msgid "No scan results available"
-msgstr "Niciun rezultat de scanare disponibil"
+msgstr "Rezultatele scanării nu sunt disponibile"
 
 #: includes/class-segurium.php:3858 includes/class-segurium.php:5777
 #: includes/class-segurium.php:5781 includes/class-segurium.php:5837
 #: includes/class-segurium.php:5926 includes/class-segurium.php:6530
 #: includes/class-segurium.php:6885
 msgid "Invalid parameters"
-msgstr "Parametri nevalizi"
+msgstr "Parametrii nu sunt valizi"
 
 #: includes/class-segurium.php:3868 includes/class-segurium.php:4177
 #: includes/class-segurium.php:5055 includes/class-segurium.php:5103
 #: includes/class-segurium.php:5108 includes/class-segurium.php:6542
 #: includes/class-segurium.php:6830 includes/class-segurium.php:6892
 msgid "Invalid path"
-msgstr "Cale nevalidă"
+msgstr "Calea nu este validă"
 
 #: includes/class-segurium.php:3872 includes/class-segurium.php:5112
 #: includes/class-segurium.php:6601 includes/class-segurium.php:6907
 msgid "File not found"
-msgstr "Fișierul nu a fost găsit"
+msgstr "Nu am găsit fișierul"
 
 #: includes/class-segurium.php:3923 includes/class-segurium.php:6700
 msgid "File cleaned"
-msgstr "Fișier curățat"
+msgstr "Am curățat fișierul"
 
 #: includes/class-segurium.php:3984 includes/class-segurium.php:4057
 #: includes/class-segurium.php:4142
@@ -4002,7 +4025,7 @@ msgstr "Lipsește ID-ul copiei de siguranță"
 #: includes/class-segurium.php:3995 includes/class-segurium.php:4068
 #: includes/class-segurium.php:4147
 msgid "Backup not found"
-msgstr "Copia de siguranță nu a fost găsită"
+msgstr "Nu am găsit copia de siguranță"
 
 #: includes/class-segurium.php:4011 includes/class-segurium.php:4022
 #: includes/class-segurium.php:6958
@@ -4011,7 +4034,7 @@ msgstr "Restaurarea fișierului a eșuat"
 
 #: includes/class-segurium.php:4015 includes/class-segurium.php:4078
 msgid "Invalid restore path"
-msgstr "Cale de restaurare nevalidă"
+msgstr "Calea de restaurare nu este validă"
 
 #: includes/class-segurium.php:4037 includes/class-segurium.php:6862
 msgid "File restored from backup"
@@ -4023,11 +4046,11 @@ msgstr "Copia de siguranță nu are o cale țintă"
 
 #: includes/class-segurium.php:4095
 msgid "Failed to read target file"
-msgstr "Citirea fișierului țintă a eșuat"
+msgstr "Citirea fișierului vizat a eșuat"
 
 #: includes/class-segurium.php:4185
 msgid "File is not an active malware entry."
-msgstr "Fișierul nu este o intrare activă de malware."
+msgstr "Fișierul nu este o intrare malware activă."
 
 #: includes/class-segurium.php:4192
 msgid "File is outside the WordPress root."
@@ -4035,7 +4058,7 @@ msgstr "Fișierul este în afara rădăcinii WordPress."
 
 #: includes/class-segurium.php:4195
 msgid "File not found or not readable."
-msgstr "Fișierul nu a fost găsit sau nu poate fi citit."
+msgstr "Nu am găsit fișierul sau nu poate fi citit."
 
 #: includes/class-segurium.php:4203
 msgid "File is too large to preview."
@@ -4047,7 +4070,7 @@ msgstr "Citirea fișierului a eșuat."
 
 #: includes/class-segurium.php:4679
 msgid "No integrity scan is currently running."
-msgstr "Nicio scanare de integritate nu rulează momentan."
+msgstr "În prezent nu rulează nicio scanare pentru integritate."
 
 #. translators: %s: underlying exception message
 #: includes/class-segurium.php:4797
@@ -4060,13 +4083,13 @@ msgstr "Eroare neașteptată."
 
 #: includes/class-segurium.php:4845
 msgid "This endpoint has been removed. Please reload the page."
-msgstr "Acest punct-final a fost înlăturat. Te rog reîncarcă pagina."
+msgstr "Acest punct-final a fost înlăturat. Te rog să reîncarci pagina."
 
 #: includes/class-segurium.php:4993 includes/class-segurium.php:5020
 #: includes/class-segurium.php:5049 includes/class-segurium.php:5145
 #: includes/class-segurium.php:5187 includes/class-segurium.php:5355
 msgid "Missing parameters."
-msgstr "Lipsesc parametri."
+msgstr "Lipsesc parametrii."
 
 #: includes/class-segurium.php:5075 includes/class-segurium.php:6837
 msgid "Failed to write restored file"
@@ -4074,24 +4097,24 @@ msgstr "Scrierea fișierului restaurat a eșuat"
 
 #: includes/class-segurium.php:5117
 msgid "File too large to view (>2 MB)"
-msgstr "Fișier prea mare pentru vizualizare (>2 MB)"
+msgstr "Fișier prea mare pentru a fi văzut (>2 Mo)"
 
 #: includes/class-segurium.php:5229 includes/class-segurium.php:5233
 #: includes/class-segurium.php:5260 includes/class-segurium.php:5359
 #: includes/class-segurium.php:5363 includes/class-segurium.php:5376
 msgid "Invalid parameters."
-msgstr "Parametri nevalizi."
+msgstr "Parametrii nu sunt valizi."
 
 #: includes/class-segurium.php:5253
 msgid ""
 "Cannot delete the currently active theme. Switch to a different theme first."
 msgstr ""
-"Tema activă momentan nu poate fi ștearsă. Comută mai întâi pe altă temă."
+"Tema activă în prezent nu poate fi ștearsă. Comută mai întâi la altă temă."
 
 #. translators: 1: component type, 2: component slug.
 #: includes/class-segurium.php:5330
 msgid "%1$s \"%2$s\" has been deleted. A backup was created."
-msgstr "%1$s „%2$s” a fost șters. A fost creată o copie de siguranță."
+msgstr "%1$s „%2$s” a fost șters. Am creat o copie de siguranță."
 
 #. translators: 1: component type, 2: component slug.
 #: includes/class-segurium.php:5435
@@ -4104,12 +4127,12 @@ msgstr "Tema activă nu poate fi ștearsă. Comută mai întâi."
 
 #: includes/class-segurium.php:5501
 msgid "Delisted from WordPress.org"
-msgstr "Delistat de pe WordPress.org"
+msgstr "Neafișate din WordPress.org"
 
 #. translators: %s: theme slug.
 #: includes/class-segurium.php:5511
 msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
-msgstr "Tema „%s” este abandonată, dar activă momentan. Va fi sărită."
+msgstr "Tema „%s” este abandonată, dar în prezent este activă. Va fi omisă."
 
 #: includes/class-segurium.php:5517
 msgid "Active abandoned theme — switch manually."
@@ -4117,23 +4140,23 @@ msgstr "Temă abandonată activă - comută manual."
 
 #: includes/class-segurium.php:5543
 msgid "Not from WordPress.org — integrity cannot be verified."
-msgstr "Nu provine de pe WordPress.org - integritatea nu poate fi verificată."
+msgstr "Nu este din WordPress.org - integritatea nu poate fi verificată."
 
 #: includes/class-segurium.php:5571
 msgid "Protected file (exclusion list)."
-msgstr "Fișier protejat (listă de excluderi)."
+msgstr "Fișier protejat (listă cu excluderi)."
 
 #: includes/class-segurium.php:5845
 msgid "File not found on disk."
-msgstr "Fișierul nu a fost găsit pe disc."
+msgstr "Nu am găsit fișierul pe disc."
 
 #: includes/class-segurium.php:5849
 msgid "File is too large to submit."
-msgstr "Fișierul este prea mare ca să fie trimis."
+msgstr "Fișierul este prea mare pentru a fi trimis."
 
 #: includes/class-segurium.php:5856
 msgid "File contents changed since the scan."
-msgstr "Conținutul fișierului s-a schimbat după scanare."
+msgstr "Conținutul fișierului s-a modificat după scanare."
 
 #: includes/class-segurium.php:5860 includes/class-segurium.php:7475
 msgid "Failed to compress file."
@@ -4158,11 +4181,11 @@ msgstr "Neautorizat."
 
 #: includes/class-segurium.php:6320 includes/class-segurium.php:6342
 msgid "Pending change not found or already expired."
-msgstr "Modificarea în așteptare nu a fost găsită sau a expirat deja."
+msgstr "Nu am găsit modificarea în așteptare sau a expirat deja."
 
 #: includes/class-segurium.php:6588
 msgid "Failed to create directory"
-msgstr "Crearea dosarului a eșuat"
+msgstr "Crearea directorului a eșuat"
 
 #: includes/class-segurium.php:6591 includes/class-segurium.php:6739
 msgid "Failed to write file"
@@ -4187,7 +4210,8 @@ msgstr "Citirea fișierului a eșuat"
 #: includes/class-segurium.php:6944
 msgid "Backup is no longer available — it was rotated out by newer backups."
 msgstr ""
-"Copia de siguranță nu mai este disponibilă - a fost rotită de copii mai noi."
+"Copia de siguranță nu mai este disponibilă - a fost rotită de copii de "
+"siguranță mai noi."
 
 #: includes/class-segurium.php:6946
 msgid "Backup metadata is missing or unreadable."
@@ -4217,19 +4241,19 @@ msgstr ""
 
 #: includes/class-segurium.php:6956
 msgid "Invalid backup reference."
-msgstr "Referință nevalidă către copia de siguranță."
+msgstr "Referința la copia de siguranță nu este validă."
 
 #: includes/class-segurium.php:7175
 msgid "Invalid IP address."
-msgstr "Adresă IP nevalidă."
+msgstr "Adresa IP nu este validă."
 
 #: includes/class-segurium.php:7239 includes/class-segurium.php:7263
 msgid "Plugin not found or no data to migrate."
-msgstr "Modulul nu a fost găsit sau nu are date de migrat."
+msgstr "Nu am găsit modulul sau nu are date de migrat."
 
 #: includes/class-segurium.php:7387
 msgid "Missed malware report"
-msgstr "Raport de malware nedetectat"
+msgstr "Raport malware nedetectat"
 
 #: includes/class-segurium.php:7389
 msgid "Other request"
@@ -4237,7 +4261,7 @@ msgstr "Altă cerere"
 
 #: includes/class-segurium.php:7418
 msgid "Permission denied."
-msgstr "Permisiune refuzată."
+msgstr "Permisiunea a fost refuzată."
 
 #: includes/class-segurium.php:7428
 msgid "Message is required."
@@ -4245,11 +4269,11 @@ msgstr "Mesajul este obligatoriu."
 
 #: includes/class-segurium.php:7435
 msgid "A valid reply-to email is required."
-msgstr "Este necesar un email valid pentru răspuns."
+msgstr "O adresă de email validă pentru Răspunde este obligatorie."
 
 #: includes/class-segurium.php:7453
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "Ai trimis prea multe tichete astăzi. Te rog încearcă din nou mâine."
+msgstr "Ai trimis prea multe tichete astăzi. Te rog să încerci din nou mâine."
 
 #: includes/class-segurium.php:7459
 msgid "Failed to upload the file. Try again."
@@ -4257,11 +4281,11 @@ msgstr "Încărcarea fișierului a eșuat. Încearcă din nou."
 
 #: includes/class-segurium.php:7463
 msgid "File is empty or too large (max 100 MB)."
-msgstr "Fișierul este gol sau prea mare (maximum 100 MB)."
+msgstr "Fișierul este gol sau prea mare (maxim 100 Mo)."
 
 #: includes/class-segurium.php:7467
 msgid "Invalid upload."
-msgstr "Încărcare nevalidă."
+msgstr "Încărcarea nu este validă."
 
 #: includes/class-segurium.php:7471
 msgid "Failed to read uploaded file."
@@ -4269,41 +4293,41 @@ msgstr "Citirea fișierului încărcat a eșuat."
 
 #: includes/class-segurium.php:7600
 msgid "Please enter a username or user ID."
-msgstr "Te rog introdu un nume de utilizator sau un ID de utilizator."
+msgstr "Te rog să introduci un nume de utilizator sau un ID utilizator."
 
 #: includes/class-segurium.php:7605
 msgid "User not found."
-msgstr "Utilizatorul nu a fost găsit."
+msgstr "Nu am găsit utilizatorul."
 
 #. translators: %s: username
 #: includes/class-segurium.php:7613
 msgid "2FA reset for user %s."
-msgstr "2FA a fost resetat pentru utilizatorul %s."
+msgstr "Am resetat 2FA pentru utilizatorul %s."
 
 #: includes/migrations/class-segurium-migration-aios.php:55
 msgid "IP Whitelist"
-msgstr "Listă albă de IP-uri"
+msgstr "Listă albă cu IP-uri"
 
 #: includes/migrations/class-segurium-migration-aios.php:55
 msgid ""
 "AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
 "firewall mode. Configure manually if needed."
 msgstr ""
-"Lista albă (de ocolire) de IP-uri din AIOS nu are un echivalent direct în "
-"modul firewall cu listă de refuz al Segurium. Configureaz-o manual dacă este"
-" nevoie."
+"Lista albă de IP-uri (ocolire) din AIOS nu are un echivalent direct în modul"
+" firewall cu listă de refuz din Segurium. Configurează manual dacă este "
+"nevoie."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
 #: includes/migrations/class-segurium-migration-wordfence.php:67
 msgid "Brute Force Protection"
-msgstr "Protecție împotriva forței-brute"
+msgstr "Protecție împotriva atacurilor cu forță-brută"
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
 #: includes/migrations/class-segurium-migration-wordfence.php:67
 msgid "Segurium brute force protection (planned)"
-msgstr "Protecție Segurium împotriva forței-brute (planificată)"
+msgstr "Protecție Segurium împotriva atacurilor cu forță-brută (planificată)"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 #: includes/migrations/class-segurium-migration-solid-security.php:61
@@ -4316,7 +4340,7 @@ msgid ""
 "AIOS country blocking is a paid cloud feature and cannot be imported "
 "locally."
 msgstr ""
-"Blocarea pe țări din AIOS este o funcționalitate plătită în cloud și nu "
+"Blocarea pe țări din AIOS este o funcționalitate în cloud cu plată și nu "
 "poate fi importată local."
 
 #: includes/migrations/class-segurium-migration-aios.php:128
@@ -4328,7 +4352,7 @@ msgstr "IP-uri blocate"
 
 #: includes/migrations/class-segurium-migration-aios.php:128
 msgid "No banned IPs configured in AIOS."
-msgstr "Niciun IP interzis configurat în AIOS."
+msgstr "Nu este configurat niciun IP interzis în AIOS."
 
 #: includes/migrations/class-segurium-migration-aios.php:130
 #: includes/migrations/class-segurium-migration-aios.php:143
@@ -4347,7 +4371,7 @@ msgstr "Excluderi de la scanare"
 
 #: includes/migrations/class-segurium-migration-aios.php:141
 msgid "No file exclusions configured in AIOS."
-msgstr "Nicio excludere de fișiere configurată în AIOS."
+msgstr "Nu este configurată nicio excludere de fișiere în AIOS."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:60
 msgid "Segurium 2FA (planned)"
@@ -4358,8 +4382,8 @@ msgid ""
 "Solid Security stores country blocks in the cloud dashboard. Configure "
 "manually in the Geo Blocking tab."
 msgstr ""
-"Solid Security păstrează blocările pe țări în panoul de control din cloud. "
-"Configurează-le manual în fila Blocare GEO."
+"Solid Security stochează blocările pe țări în panoul de control Cloud. "
+"Configurează manual în fila Blocare GEO."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 #: includes/migrations/class-segurium-migration-solid-security.php:127
@@ -4368,20 +4392,20 @@ msgstr "IP-uri interzise"
 
 #: includes/migrations/class-segurium-migration-solid-security.php:125
 msgid "No banned IPs found in Solid Security."
-msgstr "Niciun IP interzis găsit în Solid Security."
+msgstr "Nu am găsit niciun IP interzis în Solid Security."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:55
 msgid "Cloud-Managed Settings"
-msgstr "Setări gestionate din cloud"
+msgstr "Setări administrate din cloud"
 
 #: includes/migrations/class-segurium-migration-sucuri.php:59
 msgid ""
 "Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
-"Sucuri Security păstrează regulile WAF, blocarea geografică și setările de "
-"scanare pentru malware în panoul de control din cloudul Sucuri. Acestea nu "
-"pot fi importate local."
+"Sucuri Security stochează regulile WAF, blocarea geografică și setările "
+"pentru scanarea malware în panoul de control Sucuri cloud. Acestea nu pot fi"
+" importate local."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
 #: includes/migrations/class-segurium-migration-wordfence.php:69
@@ -4398,20 +4422,20 @@ msgid ""
 "Segurium geo-blocking (available) — configure manually in the Geo Blocking "
 "tab."
 msgstr ""
-"Blocare geografică Segurium (disponibilă) - configureaz-o manual în fila "
+"Blocare geografică Segurium (disponibilă) - configurează manual în fila "
 "Blocare GEO."
 
 #: includes/migrations/class-segurium-migration-wordfence.php:152
 msgid "No exclusion patterns configured in Wordfence."
-msgstr "Niciun tipar de excludere configurat în Wordfence."
+msgstr "Nu este configurat niciun model de excludere în Wordfence."
 
 #: includes/migrations/class-segurium-migration-wordfence.php:165
 msgid "No country blocks configured in Wordfence."
-msgstr "Nicio blocare pe țări configurată în Wordfence."
+msgstr "Nu este configurată nicio blocare pe țări în Wordfence."
 
 #: includes/migrations/class-segurium-migration-wordfence.php:178
 msgid "No manual IP blocks found in Wordfence."
-msgstr "Nicio blocare manuală de IP găsită în Wordfence."
+msgstr "Nu am găsit nicio blocare manuală de IP în Wordfence."
 
 #. translators: %d: number of users with 2FA
 #: includes/migrations/class-segurium-migration-wordfence.php:279
@@ -4424,7 +4448,7 @@ msgstr "Importă în 2FA Segurium"
 
 #: includes/migrations/class-segurium-migration-wordfence.php:292
 msgid "No Wordfence 2FA data found"
-msgstr "Nu au fost găsite date 2FA din Wordfence"
+msgstr "Nu am găsit date 2FA din Wordfence"
 
 #. translators: %s is the name of the missing form field.
 #: includes/segurium-ajax-envelope.php:109
@@ -4433,31 +4457,31 @@ msgstr "Lipsește parametrul: %s"
 
 #: includes/storage/class-segurium-storage.php:789
 msgid "Invalid cleanup response from Segurium Cloud."
-msgstr "Răspuns de curățare nevalid de la Segurium Cloud."
+msgstr "Răspunsul pentru curățare de la Segurium Cloud nu este valid."
 
 #: includes/storage/class-segurium-storage.php:801
 msgid "Cleanup unavailable."
-msgstr "Curățare indisponibilă."
+msgstr "Curățarea nu este disponibilă."
 
 #: includes/storage/class-segurium-storage.php:809
 msgid "Segurium Cloud returned cleanup content that is not valid base64."
 msgstr ""
-"Segurium Cloud a returnat conținut de curățare care nu este base64 valid."
+"Segurium Cloud a returnat un conținut de curățare care nu este base64 valid."
 
 #: includes/storage/class-segurium-storage.php:822
 msgid "Cleanup response is missing the checksum of the cleaned file."
 msgstr ""
-"Răspunsul de curățare nu conține suma de control a fișierului curățat."
+"Răspunsul pentru curățare nu are suma de control a fișierului curățat."
 
 #: includes/storage/class-segurium-storage.php:826
 msgid "Cleaned file does not match the checksum in the cleanup response."
 msgstr ""
-"Fișierul curățat nu se potrivește cu suma de control din răspunsul de "
+"Fișierul curățat nu se potrivește cu suma de control din răspunsul pentru "
 "curățare."
 
 #: includes/storage/class-segurium-storage.php:1056
 msgid "Invalid response from Segurium Cloud."
-msgstr "Răspuns nevalid de la Segurium Cloud."
+msgstr "Răspunsul de la Segurium Cloud nu este valid."
 
 #. translators: %d: numeric error code returned by the service
 #: includes/storage/class-segurium-storage.php:1064
@@ -4466,16 +4490,16 @@ msgstr "Segurium Cloud a returnat eroarea %d."
 
 #: includes/storage/class-segurium-storage.php:1072
 msgid "Segurium Cloud response is missing the file content."
-msgstr "Răspunsul Segurium Cloud nu conține conținutul fișierului."
+msgstr "Răspunsul de la Segurium Cloud nu are conținutul fișierului."
 
 #: includes/storage/class-segurium-storage.php:1080
 msgid "Segurium Cloud returned file content that is not valid base64."
 msgstr ""
-"Segurium Cloud a returnat conținut de fișier care nu este base64 valid."
+"Segurium Cloud a returnat un conținut de fișier care nu este base64 valid."
 
 #: includes/storage/class-segurium-storage.php:1087
 msgid "Segurium Cloud response is missing the file checksum."
-msgstr "Răspunsul Segurium Cloud nu conține suma de control a fișierului."
+msgstr "Răspunsul de la Segurium Cloud nu are suma de control pentru fișier."
 
 #: includes/storage/class-segurium-storage.php:1094
 msgid "Downloaded file does not match the checksum in the response."
@@ -4491,9 +4515,9 @@ msgid ""
 "Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
-"Segurium necesită PHP %1$s sau mai nou. Acest site rulează PHP %2$s. Te rog "
-"cere-i furnizorului tău de găzduire să actualizeze PHP, apoi încearcă din "
-"nou să activezi Segurium."
+"Segurium are nevoie de PHP %1$s sau de o versiune ulterioară. Acest site "
+"rulează cu PHP %2$s. Te rog să îi ceri serviciului tău de găzduire să "
+"actualizeze PHP și apoi să reîncerci activarea Segurium."
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:856
@@ -4501,9 +4525,9 @@ msgid ""
 "Segurium requires WordPress %1$s or higher. This site is running WordPress "
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
-"Segurium necesită WordPress %1$s sau mai nou. Acest site rulează WordPress "
-"%2$s. Te rog actualizează WordPress, apoi încearcă din nou să activezi "
-"Segurium."
+"Segurium are nevoie de WordPress %1$s sau de o versiune ulterioară. Acest "
+"site rulează cu WordPress %2$s. Te rog să actualizezi WordPress și apoi să "
+"reîncerci activarea Segurium."
 
 #: segurium.php:858
 msgid "unknown"
@@ -4511,19 +4535,17 @@ msgstr "necunoscut"
 
 #, php-format
 msgid "No automatic fix for verdict \"%s\"."
-msgstr "Nu există remediere automată pentru verdictul „%s”."
+msgstr "Nu există o reparare automată pentru verdictul „%s”."
 
 #, php-format
 msgid "Component version not recognized. %d file cannot be verified."
 msgid_plural "Component version not recognized. %d files cannot be verified."
 msgstr[0] ""
-"Versiunea componentei nu a fost recunoscută. %d fișier nu poate fi "
-"verificat."
+"Versiunea componentei nu este recunoscută. %d fișier nu poate fi verificat."
 msgstr[1] ""
-"Versiunea componentei nu a fost recunoscută. %d fișiere nu pot fi "
-"verificate."
+"Versiunea componentei nu este recunoscută. %d fișiere nu pot fi verificate."
 msgstr[2] ""
-"Versiunea componentei nu a fost recunoscută. %d de fișiere nu pot fi "
+"Versiunea componentei nu este recunoscută. %d de fișiere nu pot fi "
 "verificate."
 
 #, php-format
@@ -4533,5 +4555,24 @@ msgid ""
 "manually if you are certain it is safe."
 msgstr ""
 "Ștergere refuzată: „%s” este un fișier protejat. Serverul web sau un alt "
-"modul îl poate încărca, iar înlăturarea lui poate scoate întregul site din "
-"funcțiune. Șterge-l manual dacă ești sigur că nu prezintă niciun risc."
+"modul poate să îl încarce și înlăturarea lui poate să ducă la nefuncționarea"
+" întregului site. Șterge-l manual dacă ești sigur."
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Site atacat? Înlăturare malware gratuită și scanare antivirus pentru "
+"WordPress: curăță fișierele infectate și le restaurează. Include firewall, "
+"forță brută și 2FA."

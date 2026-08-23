@@ -32,13 +32,13 @@ msgid ""
 "Site hacked? Free WordPress malware removal: scan, clean infected files, "
 "restore them. Plus firewall, brute-force protection, 2FA, geo-blocking."
 msgstr ""
-"Trang web bị hack? Diệt mã độc WordPress miễn phí: quét, làm sạch tệp nhiễm, "
-"khôi phục. Kèm tường lửa, chống brute force, 2FA, chặn theo quốc gia."
+"Trang web bị hack? Diệt mã độc WordPress miễn phí: quét, làm sạch tệp nhiễm,"
+" khôi phục. Kèm tường lửa, chống brute force, 2FA, chặn theo quốc gia."
 
 #. Author of the plugin
-#: segurium.php includes/class-segurium.php:442 includes/class-segurium.php:494
-#: includes/class-segurium.php:495 includes/class-segurium.php:1805
-#: includes/segurium-admin-menu-shell.php:38
+#: segurium.php includes/class-segurium.php:442
+#: includes/class-segurium.php:494 includes/class-segurium.php:495
+#: includes/class-segurium.php:1805 includes/segurium-admin-menu-shell.php:38
 #: includes/segurium-admin-menu-shell.php:39
 #: includes/segurium-admin-menu-shell.php:102
 msgid "Segurium"
@@ -56,8 +56,8 @@ msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
 msgstr ""
-"Vai trò của bạn bắt buộc thiết lập xác thực hai yếu tố. Vui lòng liên hệ quản"
-" trị viên."
+"Vai trò của bạn bắt buộc thiết lập xác thực hai yếu tố. Vui lòng liên hệ "
+"quản trị viên."
 
 #: includes/class-segurium-2fa.php:658
 msgid ""
@@ -232,7 +232,8 @@ msgstr "Thiết lập ngay"
 msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
-msgstr "Vai trò của bạn bắt buộc xác thực hai yếu tố. Vui lòng thiết lập ngay."
+msgstr ""
+"Vai trò của bạn bắt buộc xác thực hai yếu tố. Vui lòng thiết lập ngay."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1180
@@ -556,18 +557,18 @@ msgid ""
 "binding will be released and Pro features will re-activate here on the next "
 "license check."
 msgstr ""
-"Segurium không kích hoạt được giấy phép Pro trên trang web này vì nó đang gắn"
-" với một bản cài đặt khác. Hãy mở cổng tài khoản Segurium trên bản cài đặt "
-"gốc và huỷ kích hoạt giấy phép ở đó; ràng buộc sẽ được giải phóng và các tính"
-" năng Pro sẽ kích hoạt lại tại đây ở lần kiểm tra giấy phép kế tiếp."
+"Segurium không kích hoạt được giấy phép Pro trên trang web này vì nó đang "
+"gắn với một bản cài đặt khác. Hãy mở cổng tài khoản Segurium trên bản cài "
+"đặt gốc và huỷ kích hoạt giấy phép ở đó; ràng buộc sẽ được giải phóng và các"
+" tính năng Pro sẽ kích hoạt lại tại đây ở lần kiểm tra giấy phép kế tiếp."
 
 #: includes/class-segurium-info-shield.php:331
 msgid ""
 "On Nginx, the Server header must be removed at the server level "
 "(server_tokens off;). This toggle has no effect."
 msgstr ""
-"Trên Nginx, header Server phải được gỡ bỏ ở cấp máy chủ (server_tokens off;)."
-" Công tắc này không có tác dụng."
+"Trên Nginx, header Server phải được gỡ bỏ ở cấp máy chủ (server_tokens "
+"off;). Công tắc này không có tác dụng."
 
 #: includes/class-segurium-info-shield.php:334
 msgid ""
@@ -647,8 +648,9 @@ msgid ""
 "the cleanup tier free."
 msgstr ""
 "Rất vui vì đã giúp được bạn. Nếu hôm nay Segurium giúp bạn tiết kiệm thời "
-"gian hay tiền bạc, một đánh giá trung thực trên WordPress.org sẽ giúp các chủ"
-" trang web khác tìm ra nó, và giúp chúng tôi lưu giữ gói dọn dẹp miễn phí."
+"gian hay tiền bạc, một đánh giá trung thực trên WordPress.org sẽ giúp các "
+"chủ trang web khác tìm ra nó, và giúp chúng tôi lưu giữ gói dọn dẹp miễn "
+"phí."
 
 #: includes/class-segurium-review-prompt.php:371
 msgid "Scan complete. Your site is clean."
@@ -695,14 +697,14 @@ msgstr "Cần có loại quét."
 
 #: includes/class-segurium-scan-runner.php:393
 msgid ""
-"Activation with the Segurium cloud service is still pending. Please try again"
-" in a moment."
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
 msgstr ""
 "Việc kích hoạt với dịch vụ đám mây Segurium vẫn đang chờ. Vui lòng thử lại "
 "sau giây lát."
 
-#: includes/class-segurium-scan-runner.php:407 includes/class-segurium.php:1073
-#: includes/class-segurium.php:4778
+#: includes/class-segurium-scan-runner.php:407
+#: includes/class-segurium.php:1073 includes/class-segurium.php:4778
 msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
@@ -711,14 +713,15 @@ msgstr ""
 "plugin Segurium, sau đó thử lại."
 
 #: includes/class-segurium-scan-runner.php:415
-#: includes/class-segurium-scan-runner.php:427 includes/class-segurium.php:1052
+#: includes/class-segurium-scan-runner.php:427
+#: includes/class-segurium.php:1052
 msgid "A scan is already in progress."
 msgstr "Một lượt quét đang chạy."
 
 #: includes/class-segurium-scan-runner.php:448
 msgid ""
-"Scan storage was not ready. It has been repaired automatically — please click"
-" \"Start scan\" again."
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
 msgstr ""
 "Kho lưu trữ lượt quét chưa sẵn sàng. Nó đã được sửa tự động — vui lòng nhấp "
 "\"Bắt đầu quét\" lần nữa."
@@ -759,11 +762,11 @@ msgstr ""
 
 #: includes/class-segurium-scan-runner.php:1977
 msgid ""
-"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way to"
-" detach long tasks from page requests. Background scans will only progress "
-"while a Segurium admin tab stays open. Ask your host to either enable a real "
-"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
-"to PHP-FPM / LiteSpeed."
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
 "Cron của WordPress đang tắt (DISABLE_WP_CRON) và cấu hình PHP của bạn không "
 "có cách nào tách tác vụ dài khỏi các yêu cầu trang. Lượt quét trong nền chỉ "
@@ -944,7 +947,8 @@ msgstr "Đã ẩn truy vấn phiên bản của tài nguyên"
 
 #: includes/class-segurium-self-check.php:569
 msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
-msgstr "Phiên bản lõi/giao diện/plugin bị phơi ra ở ?ver= trên URL tài nguyên."
+msgstr ""
+"Phiên bản lõi/giao diện/plugin bị phơi ra ở ?ver= trên URL tài nguyên."
 
 #: includes/class-segurium-self-check.php:570
 msgid "Asset URLs do not expose version numbers."
@@ -963,8 +967,8 @@ msgid ""
 "XML-RPC is reachable. A frequent brute-force and pingback-amplification "
 "target."
 msgstr ""
-"XML-RPC vẫn truy cập được. Đây là đích thường xuyên của brute force và khuếch"
-" đại pingback."
+"XML-RPC vẫn truy cập được. Đây là đích thường xuyên của brute force và "
+"khuếch đại pingback."
 
 #: includes/class-segurium-self-check.php:612
 msgid "REST API discovery disabled"
@@ -1105,8 +1109,8 @@ msgid ""
 "detection for full accuracy."
 msgstr ""
 "Chế độ On-premise đang bật: nội dung tệp ở lại máy chủ này, và tệp nào đám "
-"mây không nhận ra qua mã băm sẽ ở trạng thái chưa xác định. Hãy bật phát hiện"
-" có hỗ trợ đám mây để chính xác hoàn toàn."
+"mây không nhận ra qua mã băm sẽ ở trạng thái chưa xác định. Hãy bật phát "
+"hiện có hỗ trợ đám mây để chính xác hoàn toàn."
 
 #: includes/class-segurium-self-check.php:956
 msgid "Cloud-assisted malware detection is active."
@@ -1172,8 +1176,8 @@ msgid ""
 "No malware scan has run in the last 24 hours. Scans are quick — run one to "
 "refresh this verdict."
 msgstr ""
-"Chưa có lượt quét mã độc nào chạy trong 24 giờ qua. Quét rất nhanh — hãy chạy"
-" một lượt để làm mới phán quyết này."
+"Chưa có lượt quét mã độc nào chạy trong 24 giờ qua. Quét rất nhanh — hãy "
+"chạy một lượt để làm mới phán quyết này."
 
 #. translators: %d: number of threats
 #: includes/class-segurium-self-check.php:1032
@@ -1181,10 +1185,11 @@ msgstr ""
 msgid ""
 "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural ""
-"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
 msgstr[0] ""
-"Lượt quét mã độc gần nhất gắn cờ %d mối đe doạ. Hãy xem lại ở tab Trình quét "
-"mã độc."
+"Lượt quét mã độc gần nhất gắn cờ %d mối đe doạ. Hãy xem lại ở tab Trình quét"
+" mã độc."
 
 #: includes/class-segurium-self-check.php:1056
 msgid "No integrity issues in the last 24 hours"
@@ -1199,8 +1204,8 @@ msgstr ""
 
 #: includes/class-segurium-self-check.php:1061
 msgid ""
-"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
-"refresh this verdict."
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
 msgstr ""
 "Chưa có lượt quét toàn vẹn nào chạy trong 24 giờ qua. Quét rất nhanh — hãy "
 "chạy một lượt để làm mới phán quyết này."
@@ -1212,8 +1217,8 @@ msgid ""
 "%d open integrity issue is unresolved. Review it on the Integrity scanner "
 "tab."
 msgid_plural ""
-"%d open integrity issues are unresolved. Review them on the Integrity scanner"
-" tab."
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
 msgstr[0] ""
 "Còn %d vấn đề toàn vẹn chưa xử lý. Hãy xem lại ở tab Trình quét toàn vẹn."
 
@@ -1438,7 +1443,8 @@ msgstr ""
 
 #: includes/class-segurium.php:1060
 msgid ""
-"The scan could not be started due to a server error. Check the PHP error log."
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
 msgstr ""
 "Không khởi động được lượt quét do lỗi máy chủ. Hãy xem nhật ký lỗi PHP."
 
@@ -1465,13 +1471,13 @@ msgstr "Lỗi mạng — yêu cầu không tới được máy chủ."
 
 #: includes/class-segurium.php:1065
 msgid ""
-"The progress display hit a script error and stopped updating. Reload the page"
-" to see the current state — the scan itself is unaffected. Details are in the"
-" browser console."
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
 msgstr ""
-"Phần hiển thị tiến trình gặp lỗi script và ngừng cập nhật. Hãy tải lại trang "
-"để thấy trạng thái hiện tại — bản thân lượt quét không bị ảnh hưởng. Chi tiết"
-" nằm trong console của trình duyệt."
+"Phần hiển thị tiến trình gặp lỗi script và ngừng cập nhật. Hãy tải lại trang"
+" để thấy trạng thái hiện tại — bản thân lượt quét không bị ảnh hưởng. Chi "
+"tiết nằm trong console của trình duyệt."
 
 #: includes/class-segurium.php:1066
 msgid ""
@@ -1500,32 +1506,32 @@ msgstr ""
 
 #: includes/class-segurium.php:1069
 msgid ""
-"Segurium's response was cut off mid-stream — the start marker arrived but the"
-" end marker did not. The PHP handler crashed mid-response (fatal, OOM, or "
-"timeout). Check the PHP error log."
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
 msgstr ""
 "Phản hồi của Segurium bị cắt giữa chừng — dấu bắt đầu đã tới nhưng dấu kết "
-"thúc thì không. Trình xử lý PHP đã sập giữa chừng (lỗi nghiêm trọng, tràn bộ "
-"nhớ hoặc hết thời gian chờ). Hãy xem nhật ký lỗi PHP."
+"thúc thì không. Trình xử lý PHP đã sập giữa chừng (lỗi nghiêm trọng, tràn bộ"
+" nhớ hoặc hết thời gian chờ). Hãy xem nhật ký lỗi PHP."
 
 #: includes/class-segurium.php:1070
 msgid ""
-"Segurium could not unwrap the server response. Check the PHP error log for a "
-"fatal, OOM, or timeout in the Segurium handler."
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
 msgstr ""
-"Segurium không bóc được phản hồi của máy chủ. Hãy xem nhật ký lỗi PHP để tìm "
-"lỗi nghiêm trọng, tràn bộ nhớ hoặc hết thời gian chờ trong trình xử lý của "
+"Segurium không bóc được phản hồi của máy chủ. Hãy xem nhật ký lỗi PHP để tìm"
+" lỗi nghiêm trọng, tràn bộ nhớ hoặc hết thời gian chờ trong trình xử lý của "
 "Segurium."
 
 #: includes/class-segurium.php:1071
 msgid ""
-"Segurium received a response wrapped in valid markers but the JSON inside did"
-" not parse. This usually indicates a fatal PHP error inside the Segurium "
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
 "handler — check the PHP error log."
 msgstr ""
 "Segurium nhận được phản hồi bọc trong dấu hiệu hợp lệ nhưng phần JSON bên "
-"trong không phân tích được. Điều này thường cho thấy một lỗi PHP nghiêm trọng"
-" bên trong trình xử lý của Segurium — hãy xem nhật ký lỗi PHP."
+"trong không phân tích được. Điều này thường cho thấy một lỗi PHP nghiêm "
+"trọng bên trong trình xử lý của Segurium — hãy xem nhật ký lỗi PHP."
 
 #: includes/class-segurium.php:1072 includes/class-segurium.php:3561
 msgid "This version of the admin page is stale. Reload the page to continue."
@@ -1534,7 +1540,8 @@ msgstr "Phiên bản trang quản trị này đã cũ. Hãy tải lại trang đ
 #: includes/class-segurium.php:1074
 msgid ""
 "An unexpected server error occurred. Check the PHP error log and try again."
-msgstr "Đã xảy ra một lỗi máy chủ bất ngờ. Hãy xem nhật ký lỗi PHP và thử lại."
+msgstr ""
+"Đã xảy ra một lỗi máy chủ bất ngờ. Hãy xem nhật ký lỗi PHP và thử lại."
 
 #: includes/class-segurium.php:1075 includes/class-segurium.php:3123
 msgid "Frequency"
@@ -1634,8 +1641,8 @@ msgid ""
 "Cannot restore — no backup recorded for this file. The backup may have been "
 "rotated out."
 msgstr ""
-"Không khôi phục được — không có bản sao lưu nào được ghi cho tệp này. Bản sao"
-" lưu có thể đã bị xoay vòng ra ngoài."
+"Không khôi phục được — không có bản sao lưu nào được ghi cho tệp này. Bản "
+"sao lưu có thể đã bị xoay vòng ra ngoài."
 
 #: includes/class-segurium.php:1100 includes/class-segurium.php:1136
 #: includes/class-segurium.php:1928
@@ -1726,7 +1733,8 @@ msgstr "Cảnh báo về môi trường hosting"
 
 #: includes/class-segurium.php:1123
 msgid "No malicious files. All known threats have been handled."
-msgstr "Không có tệp độc hại nào. Tất cả mối đe doạ đã biết đều đã được xử lý."
+msgstr ""
+"Không có tệp độc hại nào. Tất cả mối đe doạ đã biết đều đã được xử lý."
 
 #: includes/class-segurium.php:1124
 msgid "No cleaned files yet."
@@ -1795,8 +1803,8 @@ msgid ""
 "Some files will be deleted (unknown files) and some will be replaced with "
 "originals (modified files). Backups will be created for all. Continue?"
 msgstr ""
-"Một số tệp sẽ bị xoá (tệp lạ) và một số sẽ được thay bằng bản gốc (tệp đã sửa"
-" đổi). Bản sao lưu sẽ được tạo cho tất cả. Tiếp tục?"
+"Một số tệp sẽ bị xoá (tệp lạ) và một số sẽ được thay bằng bản gốc (tệp đã "
+"sửa đổi). Bản sao lưu sẽ được tạo cho tất cả. Tiếp tục?"
 
 #: includes/class-segurium.php:1141
 msgid "Fixing files..."
@@ -1818,18 +1826,19 @@ msgstr "Bạn sắp sửa %1$d tệp (~%2$s)."
 #: includes/class-segurium.php:1147
 #, php-format
 msgid ""
-"%1$d older backups (~%2$s) will be rotated out — these are restore points for"
-" previously-fixed files."
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
 msgstr ""
-"%1$d bản sao lưu cũ hơn (~%2$s) sẽ bị dọn bớt — đó là các điểm khôi phục cho "
-"những tệp đã sửa trước đây."
+"%1$d bản sao lưu cũ hơn (~%2$s) sẽ bị dọn bớt — đó là các điểm khôi phục cho"
+" những tệp đã sửa trước đây."
 
 #. translators: %d: number of pinned backups that are protected from rotation
 #: includes/class-segurium.php:1149
 #, php-format
 msgid "%d pinned backups will be kept (still referenced by Restore)."
 msgstr ""
-"%d bản sao lưu được ghim sẽ được giữ lại (vẫn được Khôi phục tham chiếu tới)."
+"%d bản sao lưu được ghim sẽ được giữ lại (vẫn được Khôi phục tham chiếu "
+"tới)."
 
 #: includes/class-segurium.php:1150
 msgid "Continue"
@@ -1861,8 +1870,8 @@ msgstr "Làm sạch tất cả mã độc đã phát hiện"
 #: includes/class-segurium.php:1158
 #, php-format
 msgid ""
-"This will attempt to clean %d detected malicious file(s). Each file is backed"
-" up before cleanup."
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
 msgstr ""
 "Việc này sẽ thử làm sạch %d tệp độc hại đã phát hiện. Mỗi tệp đều được sao "
 "lưu trước khi dọn dẹp."
@@ -1893,18 +1902,20 @@ msgstr ""
 msgid "Cleanup quota reached"
 msgstr "Đã chạm hạn mức dọn dẹp"
 
-#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3);
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3);
 #. 2: rolling window length in days (e.g., 30)
 #: includes/class-segurium.php:1169
 #, php-format
 msgid ""
-"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
-"unbounded cloud cleanup quota."
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
 msgstr ""
 "Bạn đã dùng %1$d lần dọn dẹp qua đám mây trong %2$d ngày qua. Hãy nâng cấp "
 "lên Pro để có hạn mức dọn dẹp qua đám mây không giới hạn."
 
-#. translators: %s: localized date when the next cleanup slot becomes available
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
 #: includes/class-segurium.php:1171
 #, php-format
 msgid "Next slot opens %s"
@@ -1922,10 +1933,11 @@ msgstr "Đã dùng %1$d trong %2$d lần dọn dẹp trong %3$d ngày qua"
 #. slot opens
 #: includes/class-segurium.php:1175 includes/class-segurium.php:1712
 #, php-format
-msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr ""
-"Đã dùng %1$d trong %2$d lần dọn dẹp trong %3$d ngày qua — suất kế tiếp mở vào"
-" %4$s"
+"Đã dùng %1$d trong %2$d lần dọn dẹp trong %3$d ngày qua — suất kế tiếp mở "
+"vào %4$s"
 
 #: includes/class-segurium.php:1177 includes/class-segurium.php:3010
 #: includes/class-segurium.php:3208
@@ -2030,8 +2042,8 @@ msgid ""
 "Only these IPs can access the site. All others are blocked. One entry per "
 "line."
 msgstr ""
-"Chỉ các IP này truy cập được trang web. Tất cả IP khác đều bị chặn. Mỗi dòng "
-"một mục."
+"Chỉ các IP này truy cập được trang web. Tất cả IP khác đều bị chặn. Mỗi dòng"
+" một mục."
 
 #: includes/class-segurium.php:1201
 msgid "No supported security plugins detected."
@@ -2448,7 +2460,8 @@ msgstr "Không thay đổi kể từ lần chạy trước."
 #: includes/class-segurium.php:1316
 #, php-format
 msgid "Self-check could not reach your site: %s. Results are incomplete."
-msgstr "Tự kiểm tra không tới được trang web của bạn: %s. Kết quả chưa đầy đủ."
+msgstr ""
+"Tự kiểm tra không tới được trang web của bạn: %s. Kết quả chưa đầy đủ."
 
 #: includes/class-segurium.php:1317
 msgid "Verify with securityheaders.com"
@@ -2464,9 +2477,9 @@ msgstr "Công bố dịch vụ bên ngoài"
 
 #: includes/class-segurium.php:1610
 msgid ""
-"Segurium protects your site by working together with the Segurium cloud. When"
-" you enable it, Segurium exchanges data with our servers so it can detect "
-"malware, verify your files, and adapt protection to active threats."
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
 msgstr ""
 "Segurium bảo vệ trang web của bạn bằng cách làm việc cùng đám mây Segurium. "
 "Khi bạn bật nó, Segurium trao đổi dữ liệu với máy chủ của chúng tôi để phát "
@@ -2490,13 +2503,13 @@ msgid ""
 "File content — only when classification by hash alone is not conclusive, or "
 "when generating a clean replacement during cleanup."
 msgstr ""
-"Nội dung tệp — chỉ khi việc phân loại bằng mã băm không đủ kết luận, hoặc khi"
-" tạo bản thay thế sạch trong lúc dọn dẹp."
+"Nội dung tệp — chỉ khi việc phân loại bằng mã băm không đủ kết luận, hoặc "
+"khi tạo bản thay thế sạch trong lúc dọn dẹp."
 
 #: includes/class-segurium.php:1616
 msgid ""
-"A randomly-generated installation identifier and basic site info (URL, name, "
-"WordPress version) used to associate requests with this install."
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
 msgstr ""
 "Một mã định danh bản cài đặt sinh ngẫu nhiên và thông tin cơ bản của trang "
 "web (URL, tên, phiên bản WordPress) dùng để gắn các yêu cầu với bản cài đặt "
@@ -2504,11 +2517,11 @@ msgstr ""
 
 #: includes/class-segurium.php:1617
 msgid ""
-"Scan, cleanup, and security-settings events, so the cloud can keep your site "
-"protection in sync."
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
 msgstr ""
-"Sự kiện quét, dọn dẹp và cài đặt bảo mật, để đám mây giữ mức bảo vệ trang web"
-" của bạn luôn đồng bộ."
+"Sự kiện quét, dọn dẹp và cài đặt bảo mật, để đám mây giữ mức bảo vệ trang "
+"web của bạn luôn đồng bộ."
 
 #: includes/class-segurium.php:1618
 msgid ""
@@ -2525,8 +2538,8 @@ msgstr "Những gì KHÔNG được gửi đi:"
 #: includes/class-segurium.php:1623
 msgid "Visitor analytics or personal data of users who visit your site."
 msgstr ""
-"Số liệu phân tích khách truy cập hoặc dữ liệu cá nhân của người dùng ghé thăm"
-" trang web của bạn."
+"Số liệu phân tích khách truy cập hoặc dữ liệu cá nhân của người dùng ghé "
+"thăm trang web của bạn."
 
 #: includes/class-segurium.php:1624
 msgid "Database content, posts, comments, or media files."
@@ -2554,12 +2567,12 @@ msgstr "Thời gian lưu giữ:"
 #: includes/class-segurium.php:1629
 msgid ""
 "File samples uploaded for analysis are kept for up to 365 days and then "
-"removed by an automated nightly purge. A sample may be removed sooner once it"
-" has been reviewed."
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
 msgstr ""
-"Mẫu tệp được tải lên để phân tích sẽ được giữ tối đa 365 ngày rồi bị xoá bằng"
-" một tác vụ dọn dẹp tự động chạy hằng đêm. Một mẫu có thể bị xoá sớm hơn khi "
-"đã được xem xét."
+"Mẫu tệp được tải lên để phân tích sẽ được giữ tối đa 365 ngày rồi bị xoá "
+"bằng một tác vụ dọn dẹp tự động chạy hằng đêm. Một mẫu có thể bị xoá sớm hơn"
+" khi đã được xem xét."
 
 #. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
 #. 3: opening link tag for Privacy Policy, 4: closing link tag
@@ -2801,19 +2814,19 @@ msgstr "Đang tải trạng thái proxy tự phát hiện..."
 
 #: includes/class-segurium.php:2193
 msgid ""
-"Additional proxy IPs beyond the auto-detected list, one per line. Leave empty"
-" if all your proxies are covered above."
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
 msgstr ""
-"IP proxy bổ sung ngoài danh sách tự phát hiện, mỗi dòng một mục. Để trống nếu"
-" tất cả proxy của bạn đã nằm trong danh sách trên."
+"IP proxy bổ sung ngoài danh sách tự phát hiện, mỗi dòng một mục. Để trống "
+"nếu tất cả proxy của bạn đã nằm trong danh sách trên."
 
 #: includes/class-segurium.php:2212
 msgid ""
 "Tracks failed login attempts and locks out IPs after a configurable "
 "threshold. Reuses the firewall allow-list for trusted IPs."
 msgstr ""
-"Theo dõi các lần đăng nhập thất bại và khoá IP sau một ngưỡng cấu hình được. "
-"Dùng lại danh sách cho phép của tường lửa cho các IP tin cậy."
+"Theo dõi các lần đăng nhập thất bại và khoá IP sau một ngưỡng cấu hình được."
+" Dùng lại danh sách cho phép của tường lửa cho các IP tin cậy."
 
 #: includes/class-segurium.php:2216
 msgid "Settings:"
@@ -2833,24 +2846,24 @@ msgstr "tự sửa từng cài đặt."
 
 #: includes/class-segurium.php:2244
 msgid ""
-"After this many lockouts within the history window, the next lockout will use"
-" the extended duration."
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
 msgstr ""
 "Sau chừng này lần khoá trong cửa sổ lịch sử, lần khoá kế tiếp sẽ dùng thời "
 "lượng kéo dài."
 
 #: includes/class-segurium.php:2265
 msgid ""
-"Adds an off-screen input that legitimate users never see. Filling it triggers"
-" an immediate lockout."
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
 msgstr ""
 "Thêm một ô nhập nằm ngoài màn hình mà người dùng thật không bao giờ thấy. "
 "Điền vào ô đó sẽ kích hoạt khoá ngay lập tức."
 
 #: includes/class-segurium.php:2274
 msgid ""
-"Optionally show an hCaptcha challenge on the login form after a configurable "
-"number of failed attempts. Get free keys at hcaptcha.com."
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
 msgstr ""
 "Tuỳ chọn hiện một thử thách hCaptcha trên biểu mẫu đăng nhập sau một số lần "
 "thất bại cấu hình được. Lấy khoá miễn phí tại hcaptcha.com."
@@ -2901,8 +2914,8 @@ msgid ""
 "Days before enforcement blocks login for users who have not set up 2FA. Set "
 "to 0 to enforce immediately."
 msgstr ""
-"Số ngày trước khi việc bắt buộc chặn đăng nhập với người dùng chưa thiết lập "
-"2FA. Đặt 0 để bắt buộc ngay lập tức."
+"Số ngày trước khi việc bắt buộc chặn đăng nhập với người dùng chưa thiết lập"
+" 2FA. Đặt 0 để bắt buộc ngay lập tức."
 
 #: includes/class-segurium.php:2457
 msgid "Trusted Device Duration (days)"
@@ -2937,7 +2950,8 @@ msgstr "Đặt lại 2FA của người dùng"
 
 #: includes/class-segurium.php:2479
 msgid "Enter a username or user ID to reset their 2FA configuration."
-msgstr "Nhập tên người dùng hoặc ID người dùng để đặt lại cấu hình 2FA của họ."
+msgstr ""
+"Nhập tên người dùng hoặc ID người dùng để đặt lại cấu hình 2FA của họ."
 
 #: includes/class-segurium.php:2480
 msgid "Username or ID"
@@ -2978,8 +2992,8 @@ msgid ""
 "Included automatically so support can identify your site. Change this under "
 "Settings → General."
 msgstr ""
-"Được đưa vào tự động để bộ phận hỗ trợ nhận ra trang web của bạn. Đổi mục này"
-" ở Cài đặt → Tổng quan."
+"Được đưa vào tự động để bộ phận hỗ trợ nhận ra trang web của bạn. Đổi mục "
+"này ở Cài đặt → Tổng quan."
 
 #: includes/class-segurium.php:2505
 msgid "Type"
@@ -3067,8 +3081,8 @@ msgstr "cấu hình từng header riêng"
 
 #: includes/class-segurium.php:2565
 msgid ""
-"This mode emits fixed preset values. Switch to Custom to override individual "
-"headers."
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
 msgstr ""
 "Chế độ này phát ra các giá trị cài sẵn cố định. Hãy chuyển sang Tự chọn để "
 "ghi đè từng header."
@@ -3134,21 +3148,22 @@ msgstr "Bật kèm chế độ chặn"
 #: includes/class-segurium.php:2604
 msgid ""
 "Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
-"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is"
-" the actual XSS defence."
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
 msgstr ""
-"Tắt hẳn bộ lọc XSS đời cũ của IE/Edge cũ, vốn có lỗi universal-XSS có thể bị "
-"lợi dụng. Trình duyệt hiện đại bỏ qua header này; CSP mới là lớp phòng thủ "
+"Tắt hẳn bộ lọc XSS đời cũ của IE/Edge cũ, vốn có lỗi universal-XSS có thể bị"
+" lợi dụng. Trình duyệt hiện đại bỏ qua header này; CSP mới là lớp phòng thủ "
 "XSS thật sự."
 
 #: includes/class-segurium.php:2605
 msgid ""
-"Tells legacy browsers to sanitise reflections. The filter has false positives"
-" that silently break valid pages and known UXSS bypasses. Not recommended."
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
 msgstr ""
 "Bảo trình duyệt đời cũ khử phần phản chiếu. Bộ lọc này có kết quả nhận nhầm "
-"âm thầm làm hỏng trang hợp lệ và có các cách vượt UXSS đã biết. Không khuyến "
-"nghị."
+"âm thầm làm hỏng trang hợp lệ và có các cách vượt UXSS đã biết. Không khuyến"
+" nghị."
 
 #: includes/class-segurium.php:2606
 msgid ""
@@ -3199,8 +3214,8 @@ msgid ""
 "control."
 msgstr ""
 "Trang web của bạn có vẻ nằm trên một tên miền phụ. Bật includeSubDomains "
-"trong HSTS sẽ ảnh hưởng tới tất cả tên miền phụ của tên miền cha, kể cả những"
-" tên miền bạn có thể không kiểm soát."
+"trong HSTS sẽ ảnh hưởng tới tất cả tên miền phụ của tên miền cha, kể cả "
+"những tên miền bạn có thể không kiểm soát."
 
 #: includes/class-segurium.php:2638
 msgid "Cross-Origin Policies"
@@ -3324,8 +3339,8 @@ msgid ""
 msgstr ""
 "CSP giới hạn nơi mà script, style và các tài nguyên khác được nạp về, giúp "
 "giảm XSS và chèn mã. CSP đặc thù cho từng trang web và có thể làm hỏng giao "
-"diện hay trình dựng trang — hãy bắt đầu ở chế độ chỉ báo cáo để lộ ra các vi "
-"phạm trước khi áp dụng."
+"diện hay trình dựng trang — hãy bắt đầu ở chế độ chỉ báo cáo để lộ ra các vi"
+" phạm trước khi áp dụng."
 
 #: includes/class-segurium.php:2713
 msgid "Report-only (recommended for first deploy)"
@@ -3338,12 +3353,12 @@ msgstr "Áp dụng"
 #: includes/class-segurium.php:2716
 msgid ""
 "Report-only sends Content-Security-Policy-Report-Only — the browser logs "
-"violations but still loads blocked resources. Enforce sends Content-Security-"
-"Policy and blocks them."
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
 msgstr ""
-"Chế độ chỉ báo cáo gửi Content-Security-Policy-Report-Only — trình duyệt ghi "
-"nhật ký vi phạm nhưng vẫn nạp tài nguyên bị chặn. Chế độ áp dụng gửi Content-"
-"Security-Policy và chặn hẳn."
+"Chế độ chỉ báo cáo gửi Content-Security-Policy-Report-Only — trình duyệt ghi"
+" nhật ký vi phạm nhưng vẫn nạp tài nguyên bị chặn. Chế độ áp dụng gửi "
+"Content-Security-Policy và chặn hẳn."
 
 #: includes/class-segurium.php:2719
 msgid "Policy directives"
@@ -3351,12 +3366,13 @@ msgstr "Chỉ thị chính sách"
 
 #: includes/class-segurium.php:2722
 msgid ""
-"Single line of directives separated by semicolons. The default starter policy"
-" permits Gutenberg and most themes; tighten once your reports are clean."
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
 msgstr ""
-"Một dòng chỉ thị duy nhất, ngăn cách bằng dấu chấm phẩy. Chính sách khởi đầu "
-"mặc định cho phép Gutenberg và phần lớn giao diện; hãy siết chặt khi báo cáo "
-"của bạn đã sạch."
+"Một dòng chỉ thị duy nhất, ngăn cách bằng dấu chấm phẩy. Chính sách khởi đầu"
+" mặc định cho phép Gutenberg và phần lớn giao diện; hãy siết chặt khi báo "
+"cáo của bạn đã sạch."
 
 #: includes/class-segurium.php:2723
 msgid "CSP reference (MDN)"
@@ -3371,8 +3387,8 @@ msgid ""
 "When set, browsers will POST violation reports to this URL. Appended "
 "automatically as report-uri unless your directives already contain one."
 msgstr ""
-"Khi được đặt, trình duyệt sẽ POST báo cáo vi phạm tới URL này. Nó được nối tự"
-" động dưới dạng report-uri trừ khi chỉ thị của bạn đã có sẵn một cái."
+"Khi được đặt, trình duyệt sẽ POST báo cáo vi phạm tới URL này. Nó được nối "
+"tự động dưới dạng report-uri trừ khi chỉ thị của bạn đã có sẵn một cái."
 
 #: includes/class-segurium.php:2733
 msgid "Cookie Hardening"
@@ -3387,8 +3403,8 @@ msgid ""
 "Adds SameSite flag to WordPress session cookies. Protects against CSRF "
 "attacks. Mozilla Observatory penalizes missing SameSite."
 msgstr ""
-"Thêm cờ SameSite vào cookie phiên của WordPress. Chống tấn công CSRF. Mozilla"
-" Observatory trừ điểm khi thiếu SameSite."
+"Thêm cờ SameSite vào cookie phiên của WordPress. Chống tấn công CSRF. "
+"Mozilla Observatory trừ điểm khi thiếu SameSite."
 
 #: includes/class-segurium.php:2743
 msgid "SameSite value"
@@ -3399,7 +3415,8 @@ msgid "Lax (recommended)"
 msgstr "Lax (khuyến nghị)"
 
 #: includes/class-segurium.php:2748
-msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
 msgstr ""
 "Strict có thể làm hỏng luồng đăng nhập OAuth/SSO có chuyển hướng trở lại "
 "trang web của bạn."
@@ -3418,8 +3435,9 @@ msgid ""
 "discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
 "output."
 msgstr ""
-"Giảm việc WordPress lộ thông tin bằng cách gỡ bỏ dấu vết phiên bản, điểm cuối"
-" dò tìm và siêu dữ liệu không cần thiết khỏi header HTTP và kết quả HTML."
+"Giảm việc WordPress lộ thông tin bằng cách gỡ bỏ dấu vết phiên bản, điểm "
+"cuối dò tìm và siêu dữ liệu không cần thiết khỏi header HTTP và kết quả "
+"HTML."
 
 #: includes/class-segurium.php:2776
 msgid "Enable All Recommended"
@@ -3494,7 +3512,8 @@ msgstr "Gỡ bỏ liên kết RSD"
 #: includes/class-segurium.php:2832
 msgid "Removes the Really Simple Discovery endpoint link from HTML head."
 msgstr ""
-"Gỡ bỏ liên kết tới điểm cuối Really Simple Discovery khỏi phần head của HTML."
+"Gỡ bỏ liên kết tới điểm cuối Really Simple Discovery khỏi phần head của "
+"HTML."
 
 #: includes/class-segurium.php:2837
 msgid "Remove WLW manifest link"
@@ -3502,11 +3521,11 @@ msgstr "Gỡ bỏ liên kết manifest WLW"
 
 #: includes/class-segurium.php:2839
 msgid ""
-"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
-"write posts."
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
 msgstr ""
-"Gỡ bỏ liên kết manifest của Windows Live Writer. Chỉ cần khi bạn dùng WLW để "
-"viết bài."
+"Gỡ bỏ liên kết manifest của Windows Live Writer. Chỉ cần khi bạn dùng WLW để"
+" viết bài."
 
 #: includes/class-segurium.php:2844
 msgid "Remove REST API discovery link"
@@ -3517,8 +3536,8 @@ msgid ""
 "Removes the discovery link tag from HTML head. The REST API itself remains "
 "functional at /wp-json/."
 msgstr ""
-"Gỡ bỏ thẻ liên kết dò tìm khỏi phần head của HTML. Bản thân REST API vẫn hoạt"
-" động tại /wp-json/."
+"Gỡ bỏ thẻ liên kết dò tìm khỏi phần head của HTML. Bản thân REST API vẫn "
+"hoạt động tại /wp-json/."
 
 #: includes/class-segurium.php:2851
 msgid "Remove oEmbed discovery links"
@@ -3546,11 +3565,11 @@ msgstr "Gỡ bỏ script và style của emoji"
 
 #: includes/class-segurium.php:2867
 msgid ""
-"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers have"
-" native emoji support."
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
 msgstr ""
-"Gỡ bỏ JavaScript và CSS polyfill emoji của WordPress. Trình duyệt hiện đại đã"
-" hỗ trợ emoji sẵn."
+"Gỡ bỏ JavaScript và CSS polyfill emoji của WordPress. Trình duyệt hiện đại "
+"đã hỗ trợ emoji sẵn."
 
 #: includes/class-segurium.php:2872
 msgid "Remove RSS/Atom feed links"
@@ -3558,11 +3577,11 @@ msgstr "Gỡ bỏ liên kết feed RSS/Atom"
 
 #: includes/class-segurium.php:2874
 msgid ""
-"May break RSS readers and WordPress.com Reader. Only enable if your site does"
-" not use RSS feeds."
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
 msgstr ""
-"Có thể làm hỏng trình đọc RSS và WordPress.com Reader. Chỉ bật nếu trang web "
-"của bạn không dùng feed RSS."
+"Có thể làm hỏng trình đọc RSS và WordPress.com Reader. Chỉ bật nếu trang web"
+" của bạn không dùng feed RSS."
 
 #: includes/class-segurium.php:2879
 msgid "Remove adjacent post links"
@@ -3570,7 +3589,8 @@ msgstr "Gỡ bỏ liên kết bài viết liền kề"
 
 #: includes/class-segurium.php:2881
 msgid "Removes prev/next post rel links from HTML head."
-msgstr "Gỡ bỏ các liên kết rel prev/next của bài viết khỏi phần head của HTML."
+msgstr ""
+"Gỡ bỏ các liên kết rel prev/next của bài viết khỏi phần head của HTML."
 
 #: includes/class-segurium.php:2884
 msgid "Asset Fingerprinting"
@@ -3585,8 +3605,8 @@ msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
 msgstr ""
-"Bóc ?ver= khỏi URL của CSS và JavaScript. Tài nguyên được trình duyệt lưu đệm"
-" có thể bị cũ sau khi cập nhật plugin hay giao diện."
+"Bóc ?ver= khỏi URL của CSS và JavaScript. Tài nguyên được trình duyệt lưu "
+"đệm có thể bị cũ sau khi cập nhật plugin hay giao diện."
 
 #: includes/class-segurium.php:2897
 msgid "Disable XML-RPC entirely"
@@ -3594,11 +3614,11 @@ msgstr "Tắt hẳn XML-RPC"
 
 #: includes/class-segurium.php:2899
 msgid ""
-"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only if"
-" you do not use them."
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
 msgstr ""
-"Một số plugin (Jetpack, ứng dụng di động WordPress) cần XML-RPC. Chỉ tắt nếu "
-"bạn không dùng chúng."
+"Một số plugin (Jetpack, ứng dụng di động WordPress) cần XML-RPC. Chỉ tắt nếu"
+" bạn không dùng chúng."
 
 #: includes/class-segurium.php:2911
 msgid "Security Self-Check"
@@ -3611,9 +3631,9 @@ msgid ""
 "are saved until the next run."
 msgstr ""
 "Segurium chạy đúng những mục kiểm tra mà các trình quét bảo mật bên ngoài "
-"hàng đầu chạy, cộng thêm các mục tăng cường bảo mật riêng cho WordPress, rồi "
-"chấm điểm trang web của bạn từ A+ đến F. Kết quả được lưu cho tới lần chạy kế"
-" tiếp."
+"hàng đầu chạy, cộng thêm các mục tăng cường bảo mật riêng cho WordPress, rồi"
+" chấm điểm trang web của bạn từ A+ đến F. Kết quả được lưu cho tới lần chạy "
+"kế tiếp."
 
 #: includes/class-segurium.php:2932
 msgid "Check results"
@@ -3693,7 +3713,8 @@ msgstr "Miễn phí"
 
 #: includes/class-segurium.php:2985
 msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
-msgstr "Mọi tính năng, trên mọi trang web. Dọn dẹp giới hạn 3 lần mỗi 30 ngày."
+msgstr ""
+"Mọi tính năng, trên mọi trang web. Dọn dẹp giới hạn 3 lần mỗi 30 ngày."
 
 #: includes/class-segurium.php:2990
 msgid "forever"
@@ -3736,8 +3757,8 @@ msgstr ""
 
 #: includes/class-segurium.php:3063
 msgid ""
-"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
-"will exclude the vendor directory and everything inside it."
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
 msgstr ""
 "Dùng * làm ký tự đại diện. Ví dụ, *.log sẽ loại trừ tất cả tệp nhật ký. "
 "vendor/* sẽ loại trừ thư mục vendor và mọi thứ bên trong nó."
@@ -3746,16 +3767,16 @@ msgstr ""
 msgid ""
 "When enabled, file contents may be shared with Segurium Cloud for advanced "
 "malware detection and cloud-powered cleanup. Only suspicious files are "
-"transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes,"
-" file paths, and metadata only, and a file the cloud cannot identify by hash "
-"stays unresolved. Reporting a false positive or attaching a file to a support"
-" ticket still sends that file, because you pick it yourself."
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
 msgstr ""
-"Khi bật, nội dung tệp có thể được chia sẻ với Segurium Cloud để phát hiện mã "
-"độc nâng cao và dọn dẹp qua đám mây. Chỉ những tệp khả nghi mới được truyền "
-"đi. Hãy tắt để dùng chế độ On-premise: khi đó lượt quét chỉ gửi mã băm "
-"SHA-256, đường dẫn tệp và siêu dữ liệu, và tệp nào đám mây không nhận ra qua "
-"mã băm sẽ ở trạng thái chưa xác định. Việc báo nhận nhầm hoặc đính kèm một "
+"Khi bật, nội dung tệp có thể được chia sẻ với Segurium Cloud để phát hiện mã"
+" độc nâng cao và dọn dẹp qua đám mây. Chỉ những tệp khả nghi mới được truyền"
+" đi. Hãy tắt để dùng chế độ On-premise: khi đó lượt quét chỉ gửi mã băm "
+"SHA-256, đường dẫn tệp và siêu dữ liệu, và tệp nào đám mây không nhận ra qua"
+" mã băm sẽ ở trạng thái chưa xác định. Việc báo nhận nhầm hoặc đính kèm một "
 "tệp vào phiếu hỗ trợ vẫn gửi tệp đó đi, vì chính bạn tự chọn nó."
 
 #: includes/class-segurium.php:3076
@@ -3770,8 +3791,8 @@ msgid ""
 "uninstall."
 msgstr ""
 "Tắt (mặc định): bản sao lưu mã hoá của các thành phần đã xoá và các tệp đã "
-"chữa được giữ trong thư mục uploads/segurium-data sau khi gỡ cài đặt, để lần "
-"cài lại vẫn khôi phục được. Chỉ bật nếu bạn muốn xoá hẳn khi gỡ cài đặt."
+"chữa được giữ trong thư mục uploads/segurium-data sau khi gỡ cài đặt, để lần"
+" cài lại vẫn khôi phục được. Chỉ bật nếu bạn muốn xoá hẳn khi gỡ cài đặt."
 
 #: includes/class-segurium.php:3084
 msgid "Email me about findings"
@@ -3805,8 +3826,8 @@ msgid ""
 "ignored (by path or by hash) are skipped."
 msgstr ""
 "Sau mỗi lượt quét theo lịch hoặc thời gian thực, những tệp có phán quyết mã "
-"độc hay chèn mã đã biết sẽ được làm sạch mà không cần nhấp. Các tệp bạn đã bỏ"
-" qua (theo đường dẫn hoặc mã băm) sẽ được bỏ qua."
+"độc hay chèn mã đã biết sẽ được làm sạch mà không cần nhấp. Các tệp bạn đã "
+"bỏ qua (theo đường dẫn hoặc mã băm) sẽ được bỏ qua."
 
 #: includes/class-segurium.php:3117
 msgid "Scheduled Scan"
@@ -3816,13 +3837,13 @@ msgstr "Quét theo lịch"
 msgid ""
 "Run a full malware scan automatically on a recurring schedule. A scheduled "
 "scan does the same work as a manual scan, but does not require you to keep "
-"your browser open. A scheduled tick that fires while a manual scan is already"
-" in progress is skipped, not queued."
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
 msgstr ""
 "Tự động chạy một lượt quét mã độc đầy đủ theo lịch định kỳ. Lượt quét theo "
-"lịch làm đúng công việc của lượt quét thủ công, nhưng không cần bạn giữ trình"
-" duyệt mở. Một nhịp theo lịch rơi vào lúc đã có lượt quét thủ công đang chạy "
-"sẽ bị bỏ qua, không xếp hàng."
+"lịch làm đúng công việc của lượt quét thủ công, nhưng không cần bạn giữ "
+"trình duyệt mở. Một nhịp theo lịch rơi vào lúc đã có lượt quét thủ công đang"
+" chạy sẽ bị bỏ qua, không xếp hàng."
 
 #: includes/class-segurium.php:3146
 msgid "Save Schedule"
@@ -3830,8 +3851,8 @@ msgstr "Lưu lịch"
 
 #: includes/class-segurium.php:3154
 msgid ""
-"Import settings from other security plugins into Segurium. Existing Segurium "
-"settings are preserved; imported data is merged."
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
 msgstr ""
 "Nhập cài đặt từ các plugin bảo mật khác vào Segurium. Cài đặt Segurium hiện "
 "có được giữ nguyên; dữ liệu nhập vào được hợp nhất."
@@ -4084,7 +4105,8 @@ msgstr "Không có cách sửa tự động cho phán quyết \"%s\"."
 #, php-format
 msgid "Component version not recognized. %d file cannot be verified."
 msgid_plural "Component version not recognized. %d files cannot be verified."
-msgstr[0] "Không nhận ra phiên bản của thành phần. Không xác minh được %d tệp."
+msgstr[0] ""
+"Không nhận ra phiên bản của thành phần. Không xác minh được %d tệp."
 
 #: includes/class-segurium.php:5886
 msgid "File not found on disk."
@@ -4132,8 +4154,8 @@ msgid ""
 "manually if you are certain it is safe."
 msgstr ""
 "Từ chối xoá: \"%s\" là tệp được bảo vệ. Máy chủ web hoặc một plugin khác có "
-"thể nạp nó, và gỡ bỏ nó có thể làm sập cả trang web. Hãy xoá thủ công nếu bạn"
-" chắc chắn là an toàn."
+"thể nạp nó, và gỡ bỏ nó có thể làm sập cả trang web. Hãy xoá thủ công nếu "
+"bạn chắc chắn là an toàn."
 
 #: includes/class-segurium.php:6666
 msgid "Failed to create directory"
@@ -4161,7 +4183,8 @@ msgstr "Không đọc được tệp"
 
 #: includes/class-segurium.php:7022
 msgid "Backup is no longer available — it was rotated out by newer backups."
-msgstr "Bản sao lưu không còn nữa — nó đã bị các bản sao lưu mới hơn thay chỗ."
+msgstr ""
+"Bản sao lưu không còn nữa — nó đã bị các bản sao lưu mới hơn thay chỗ."
 
 #: includes/class-segurium.php:7024
 msgid "Backup metadata is missing or unreadable."
@@ -4264,8 +4287,9 @@ msgid ""
 "AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
 "firewall mode. Configure manually if needed."
 msgstr ""
-"Danh sách IP trắng (bỏ qua) của AIOS không có thứ tương đương trực tiếp trong"
-" chế độ tường lửa danh sách chặn của Segurium. Hãy cấu hình thủ công nếu cần."
+"Danh sách IP trắng (bỏ qua) của AIOS không có thứ tương đương trực tiếp "
+"trong chế độ tường lửa danh sách chặn của Segurium. Hãy cấu hình thủ công "
+"nếu cần."
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
@@ -4287,7 +4311,8 @@ msgstr "Chặn theo quốc gia"
 
 #: includes/migrations/class-segurium-migration-aios.php:57
 msgid ""
-"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
 msgstr ""
 "Chặn theo quốc gia của AIOS là tính năng đám mây trả phí và không nhập được "
 "về máy."
@@ -4353,8 +4378,8 @@ msgid ""
 "settings in the Sucuri cloud dashboard. These cannot be imported locally."
 msgstr ""
 "Sucuri Security lưu các quy tắc WAF, chặn theo quốc gia và cài đặt quét mã "
-"độc trên bảng điều khiển đám mây của Sucuri. Những mục này không nhập được về"
-" máy."
+"độc trên bảng điều khiển đám mây của Sucuri. Những mục này không nhập được "
+"về máy."
 
 #: includes/migrations/class-segurium-migration-sucuri.php:61
 #: includes/migrations/class-segurium-migration-wordfence.php:69
@@ -4463,8 +4488,8 @@ msgid ""
 "Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
-"Segurium cần PHP %1$s trở lên. Trang web này đang chạy PHP %2$s. Hãy đề nghị "
-"nhà cung cấp hosting nâng cấp PHP, rồi thử kích hoạt Segurium lại."
+"Segurium cần PHP %1$s trở lên. Trang web này đang chạy PHP %2$s. Hãy đề nghị"
+" nhà cung cấp hosting nâng cấp PHP, rồi thử kích hoạt Segurium lại."
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:856
@@ -4473,9 +4498,27 @@ msgid ""
 "Segurium requires WordPress %1$s or higher. This site is running WordPress "
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
-"Segurium cần WordPress %1$s trở lên. Trang web này đang chạy WordPress %2$s. "
-"Hãy cập nhật WordPress, rồi thử kích hoạt Segurium lại."
+"Segurium cần WordPress %1$s trở lên. Trang web này đang chạy WordPress %2$s."
+" Hãy cập nhật WordPress, rồi thử kích hoạt Segurium lại."
 
 #: segurium.php:858
 msgid "unknown"
 msgstr "không xác định"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Gỡ mã độc và quét virus miễn phí, dọn dẹp trang web bị hack, "
+"tường lửa, 2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Trang web bị hack? Diệt mã độc và quét virus WordPress miễn phí: làm sạch "
+"tệp nhiễm và khôi phục. Kèm tường lửa, chống brute force và 2FA."

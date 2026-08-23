@@ -1080,32 +1080,14 @@ class Segurium_Self_Check {
 	 * whose state isn't on the inactive list (mirroring the integrity
 	 * tab's bucket_for() — the user has already acted on those).
 	 *
+	 * SEGURIUM-877: the query lives on Segurium_Integrity_Server_State so
+	 * the posture score and the MainWP fleet table read one number.
+	 *
 	 * @param int $scan_ts Timestamp of the most recent integrity scan.
 	 * @return int
 	 */
 	private function count_open_integrity_issues( $scan_ts ) {
-		$rows = Segurium_Storage::table_get_results(
-			'integrity_issues',
-			'SELECT comp_type, comp_slug FROM {{table}} WHERE status = %s AND created_at >= %d',
-			array( 'open', (int) $scan_ts ),
-			ARRAY_A
-		);
-		if ( empty( $rows ) ) {
-			return 0;
-		}
-
-		$state = new Segurium_Integrity_Server_State();
-		$state->load();
-		$inactive = $state->get_inactive_component_key_set();
-
-		$count = 0;
-		foreach ( $rows as $row ) {
-			if ( isset( $inactive[ $row['comp_type'] . ':' . $row['comp_slug'] ] ) ) {
-				continue;
-			}
-			++$count;
-		}
-		return $count;
+		return Segurium_Integrity_Server_State::count_open_issues( $scan_ts );
 	}
 
 	/**

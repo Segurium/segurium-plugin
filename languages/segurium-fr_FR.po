@@ -4865,6 +4865,25 @@ msgstr ""
 "site hors service. Supprimez-le manuellement si vous êtes certain qu’il ne "
 "présente aucun risque."
 
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Suppression gratuite des logiciels malveillants et analyse "
+"antivirus, nettoyage de site piraté, pare-feu, 2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Site piraté ? Suppression gratuite des logiciels malveillants et analyse "
+"antivirus pour WordPress : nettoyez les fichiers infectés et restaurez-les. "
+"Pare-feu, force brute et 2FA inclus."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Extension Segurium pour WordPress."
 

@@ -4784,6 +4784,59 @@ msgstr "Ação de solicitação de avaliação desconhecida."
 msgid "Could not save your choice. Please try again."
 msgstr "Não foi possível salvar sua escolha. Tente novamente."
 
+msgid "Scan in progress..."
+msgstr "Varredura em andamento..."
+
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"A exibição de progresso teve um erro de script e parou de ser atualizada. "
+"Recarregue a página para ver o estado atual — a varredura em si não é "
+"afetada. Os detalhes estão no console do navegador."
+
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Sem correção automática para o veredito \"%s\"."
+
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] ""
+"Versão do componente não reconhecida. %d arquivo não pode ser verificado."
+msgstr[1] ""
+"Versão do componente não reconhecida. %d arquivos não podem ser verificados."
+
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Exclusão recusada: \"%s\" é um arquivo protegido. O servidor web ou outro "
+"plugin pode carregá-lo, e removê-lo pode tirar o site inteiro do ar. "
+"Exclua-o manualmente se tiver certeza de que é seguro."
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Remoção gratuita de malware e varredura antivírus, limpeza de "
+"sites hackeados, firewall, 2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Site hackeado? Remoção gratuita de malware e varredura antivírus no "
+"WordPress: limpe e restaure os arquivos infectados. Inclui firewall, força "
+"bruta e 2FA."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
 
@@ -4868,29 +4921,3 @@ msgstr "Não foi possível salvar sua escolha. Tente novamente."
 #~ msgstr ""
 #~ "Cota de remediação do nível gratuito excedida. Atualize para o Pro para "
 #~ "obter correções ilimitadas."
-
-msgid "Scan in progress..."
-msgstr "Varredura em andamento..."
-
-msgid ""
-"The progress display hit a script error and stopped updating. Reload the "
-"page to see the current state — the scan itself is unaffected. Details are "
-"in the browser console."
-msgstr ""
-"A exibição de progresso teve um erro de script e parou de ser atualizada. "
-"Recarregue a página para ver o estado atual — a varredura em si não é "
-"afetada. Os detalhes estão no console do navegador."
-
-#, php-format
-msgid "No automatic fix for verdict \"%s\"."
-msgstr "Sem correção automática para o veredito \"%s\"."
-
-#, php-format
-msgid "Component version not recognized. %d file cannot be verified."
-msgid_plural "Component version not recognized. %d files cannot be verified."
-msgstr[0] "Versão do componente não reconhecida. %d arquivo não pode ser verificado."
-msgstr[1] "Versão do componente não reconhecida. %d arquivos não podem ser verificados."
-
-#, php-format
-msgid "Deletion refused: \"%s\" is a protected file. The web server or another plugin may load it, and removing it can take the whole site down. Delete it manually if you are certain it is safe."
-msgstr "Exclusão recusada: \"%s\" é um arquivo protegido. O servidor web ou outro plugin pode carregá-lo, e removê-lo pode tirar o site inteiro do ar. Exclua-o manualmente se tiver certeza de que é seguro."

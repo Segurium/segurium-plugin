@@ -995,6 +995,32 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
+	 * Last terminal (completed | cancelled | aborted) malware scan.
+	 *
+	 * SEGURIUM-882 review: lives here rather than only on `Segurium` so a
+	 * caller can read it without instantiating that class.
+	 * `Segurium::__construct()` registers hooks and schedules cron events,
+	 * so `get_instance()` is a write — which quietly made "the MainWP
+	 * bridge's read-only actions write nothing" false as soon as the
+	 * bridge used it.
+	 *
+	 * @return array|null Raw row, or null when no terminal scan exists.
+	 */
+	public static function last_terminal_scan() {
+		$row = Segurium_Storage::table_get_row(
+			'scan_history',
+			"SELECT scan_uuid, scan_type, status, started_at, finished_at, files_found, files_scanned, files_failed, files_skipped, threats_found, threats_cleaned
+			 FROM {{table}} WHERE status IN ('completed','cancelled','aborted')
+			   AND scan_type IN ('manual','scheduled')
+			 ORDER BY started_at DESC LIMIT 1",
+			array(),
+			ARRAY_A
+		);
+
+		return is_array( $row ) ? $row : null;
+	}
+
+	/**
 	 * Return a combined status payload for the active scan, or null when
 	 * no scan is in progress.
 	 *

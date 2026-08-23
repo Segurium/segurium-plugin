@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication
+ * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
  * Plugin URI:  https://segurium.com
- * Description: Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking.
- * Version:     1.1.2
+ * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
+ * Version:     1.2.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.1.2' );
+define( 'SEGURIUM_VERSION', '1.2.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -229,6 +229,130 @@ function segurium_admin_other_needs_fs( $script_name ) {
 }
 
 /**
+ * Whether this request is the MainWP dashboard call the child bridge
+ * answers (SEGURIUM-877).
+ *
+ * Cheap shape check, run on every light-tier request: the signature must
+ * be present, the operation must be the one MainWP call we serve, and the
+ * request must name a Segurium action. That last condition keeps every
+ * other MainWP extension's `extra_execution` traffic clear of us.
+ *
+ * Nothing here is authenticated — it cannot be, because MainWP verifies
+ * the signature later on `init`. It only decides whether to require one
+ * class; see {@see segurium_maybe_register_mainwp_bridge()}. The caller
+ * pairs it with {@see segurium_mainwp_child_active()}, kept separate so
+ * that option read is short-circuited away on every request failing the
+ * shape check here.
+ *
+ * Pure helper so the rule is unit-testable without forging $_POST inside
+ * PHPUnit.
+ *
+ * @param string $signature  `$_POST['mainwpsignature']` for the request.
+ * @param string $operation  `$_POST['function']` for the request.
+ * @param bool   $has_action Whether `$_POST['segurium_action']` is present.
+ * @return bool True when this has the shape of a bridge call.
+ */
+function segurium_is_mainwp_bridge_request( $signature, $operation, $has_action ) {
+	if ( '' === (string) $signature ) {
+		return false;
+	}
+	if ( 'extra_execution' !== (string) $operation ) {
+		return false;
+	}
+	return (bool) $has_action;
+}
+
+/**
+ * Register the MainWP child bridge on a light tier (SEGURIUM-877).
+ *
+ * MainWP posts to the child's `admin-ajax.php` with `function=` and no
+ * `action=`, so a fleet request classifies as `ajax_other` — the firewall
+ * slice, which loads none of the scan runner, quota gate or integrity
+ * state the bridge reads. Verified on the DDEV MainWP rig: without this
+ * the child answers normally with no `segurium` key, and the dashboard
+ * reports `bridge_absent` — indistinguishable from Segurium being too old
+ * to answer. PHPUnit cannot catch it, because the harness runs in the
+ * `testing` tier, which loads everything.
+ *
+ * The fix is deliberately not a new heavy tier. The classifier runs
+ * before MainWP Child verifies the request signature on `init`, and
+ * before the firewall runs on `plugins_loaded`, so promoting on the
+ * request's shape alone would let an unauthenticated
+ * `curl -d 'mainwpsignature=x&function=extra_execution'` buy the whole
+ * include graph on every MainWP-managed site. Instead we require only
+ * this one small class and attach the filter. MainWP fires that filter
+ * only after it has verified the signature and set an administrator, and
+ * `Segurium_MainWP_Bridge::handle()` loads the rest of the plugin at that
+ * point. A forged POST is rejected by MainWP before the filter ever runs,
+ * so it pays for one `require_once` and nothing else.
+ *
+ * @return void
+ */
+function segurium_maybe_register_mainwp_bridge() {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Bootstrap-time shape check that decides only whether to require one class; MainWP Child verifies this request's own signature before the filter it registers can fire, and the values are never trusted, written or echoed.
+	$signature = isset( $_POST['mainwpsignature'] ) ? sanitize_text_field( wp_unslash( $_POST['mainwpsignature'] ) ) : '';
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Bootstrap-time shape check that decides only whether to require one class; MainWP Child verifies this request's own signature before the filter it registers can fire, and the values are never trusted, written or echoed.
+	$operation = isset( $_POST['function'] ) ? sanitize_text_field( wp_unslash( $_POST['function'] ) ) : '';
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Bootstrap-time shape check that decides only whether to require one class; MainWP Child verifies this request's own signature before the filter it registers can fire, and the values are never trusted, written or echoed.
+	$has_action = isset( $_POST['segurium_action'] );
+
+	if ( ! segurium_is_mainwp_bridge_request( $signature, $operation, $has_action ) ) {
+		return;
+	}
+	if ( ! segurium_mainwp_child_active() ) {
+		return;
+	}
+
+	// The marker is deliberately not required here. `handle()` loads the
+	// full include graph before it dispatches, so the marker arrives with
+	// it — after MainWP has authenticated the caller, which is the whole
+	// point of the lazy path.
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-mainwp-bridge.php';
+	Segurium_MainWP_Bridge::register();
+}
+
+/**
+ * Whether MainWP Child is active on this site (SEGURIUM-877).
+ *
+ * `MAINWP_CHILD_PLUGIN_DIR` is not enough on its own: plugins load in
+ * activation order, so on a site where Segurium activated first the
+ * constant does not exist yet when the tier classifier runs. Falling
+ * back to the active-plugin list settles it either way, and
+ * `active_plugins` is autoloaded so the lookup costs nothing. Matching
+ * on the file's basename rather than the full path survives a renamed
+ * plugin folder.
+ *
+ * @return bool
+ */
+function segurium_mainwp_child_active() {
+	if ( defined( 'MAINWP_CHILD_PLUGIN_DIR' ) ) {
+		return true;
+	}
+
+	$active = get_option( 'active_plugins', array() ); // phpcs:ignore Generic.PHP.ForbiddenFunctions.Found -- WordPress core option read during bootstrap, before the storage facade is available.
+	if ( is_array( $active ) ) {
+		foreach ( $active as $segurium_plugin_file ) {
+			if ( 'mainwp-child.php' === basename( (string) $segurium_plugin_file ) ) {
+				return true;
+			}
+		}
+	}
+
+	if ( is_multisite() ) {
+		$network = get_site_option( 'active_sitewide_plugins', array() );
+		if ( is_array( $network ) ) {
+			foreach ( array_keys( $network ) as $segurium_plugin_file ) {
+				if ( 'mainwp-child.php' === basename( (string) $segurium_plugin_file ) ) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
  * Tier → include group composition. Each group is an ordered list of
  * include files relative to SEGURIUM_PLUGIN_DIR. Storage is implicit and
  * loaded before any tier-specific group.
@@ -367,6 +491,8 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/segurium-admin-menu-shell.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-pricing.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-checkout-prefill.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-mainwp-bridge.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-mainwp-fleet-marker.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium.php';
 
 	$segurium_dev_bootstrap = SEGURIUM_PLUGIN_DIR . 'dev/bootstrap.php';
@@ -774,6 +900,18 @@ if ( null === $segurium_groups ) {
 	if ( class_exists( 'Segurium_Checkout_Prefill' ) ) {
 		Segurium_Checkout_Prefill::register_hooks();
 	}
+
+	// SEGURIUM-877: attaching this is inert on its own — the filter only
+	// exists inside MainWP Child, so a site without it never fires.
+	if ( class_exists( 'Segurium_MainWP_Bridge' ) ) {
+		Segurium_MainWP_Bridge::register();
+	}
+
+	// SEGURIUM-880: the cron listener has to exist on every heavy tier, or
+	// the queued fleet report fires into nothing.
+	if ( class_exists( 'Segurium_MainWP_Fleet_Marker' ) ) {
+		Segurium_MainWP_Fleet_Marker::register();
+	}
 } else {
 	// Lightweight tier: load only the requested groups and register
 	// only the hooks that tier needs.
@@ -782,6 +920,7 @@ if ( null === $segurium_groups ) {
 	}
 	unset( $segurium_rel );
 	segurium_lightweight_bootstrap( $segurium_tier );
+	segurium_maybe_register_mainwp_bridge();
 }
 
 /**
@@ -980,6 +1119,7 @@ function segurium_deactivate() {
 	Segurium_Platform_Snapshot::unschedule();
 	Segurium_Memory_Recorder::unschedule();
 	Segurium_Self_Check::unschedule();
+	Segurium_MainWP_Fleet_Marker::unschedule();
 }
 register_deactivation_hook( __FILE__, 'segurium_deactivate' );
 

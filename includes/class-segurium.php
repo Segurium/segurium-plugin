@@ -3710,15 +3710,7 @@ class Segurium {
 	 * @return array|null
 	 */
 	public function get_last_terminal_scan() {
-		$row = Segurium_Storage::table_get_row(
-			'scan_history',
-			"SELECT scan_uuid, scan_type, status, started_at, finished_at, files_found, files_scanned, files_failed, files_skipped, threats_found, threats_cleaned
-			 FROM {{table}} WHERE status IN ('completed','cancelled','aborted')
-			   AND scan_type IN ('manual','scheduled')
-			 ORDER BY started_at DESC LIMIT 1",
-			array(),
-			ARRAY_A
-		);
+		$row = Segurium_Scan_Runner::last_terminal_scan();
 		if ( ! is_array( $row ) ) {
 			return null;
 		}

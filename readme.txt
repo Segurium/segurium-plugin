@@ -1,14 +1,14 @@
-=== Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication ===
+=== Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA ===
 Contributors: segurium
-Tags: malware-removal, hacked, malware-scanner, two-factor-authentication, firewall
+Tags: malware-removal, hacked-website, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Site hacked? Free WordPress malware removal: scan, clean infected files, restore them. Plus firewall, brute-force protection, 2FA, geo-blocking.
+Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
 
 == Description ==
 
@@ -79,6 +79,22 @@ Segurium ships as a PHP plugin with no bundled binaries, no vendored third-party
 
 == Frequently Asked Questions ==
 
+= Which security features are free in Segurium that other plugins sell as premium? =
+
+All of them. Two-factor authentication with an authenticator app (TOTP), email codes, backup codes, trusted devices and per-role enforcement. Brute force protection with login attempt limits, lockouts, a honeypot and xmlrpc coverage. A firewall with IP, CIDR and country rules, so you can block a country from your login page. Security headers with HSTS, CSP, Referrer-Policy and Permissions-Policy, plus cookie hardening. Geoblocking from a local database. None of it is a trial and none of it is gated behind a pro plan. Only the number of cloud cleanups is capped on the free tier: three every 30 days.
+
+= Is Segurium an antivirus for a WordPress website? =
+
+In practice, yes. People call the same problem a website virus, a WordPress virus or malware, and it is one thing: files on your server that should not be there, plus code an attacker added to files that should. Segurium hashes the files on your server and asks the cloud verdict database what each one is, so an anti-malware scan of a whole website is a hash lookup rather than a file-by-file inspection. A desktop antivirus protects your laptop. Segurium does that job for your WordPress files, and it removes what it finds.
+
+= Can Segurium replace a paid security plugin? =
+
+For malware removal, two-factor authentication, a firewall, geoblocking and security headers, yes. Those are the parts most plugins sell as a premium subscription, and Segurium ships them free on every install. The paid tier only raises the cloud cleanup quota. If you are moving from another security plugin, the Migration tab imports your settings from Wordfence, All-In-One Security and Solid Security so the switch does not cost you your hardening.
+
+= What does a Segurium scan look for? =
+
+Files the cloud verdict database has already classified as malicious. In a normal break-in that means an uploaded web shell or backdoor, a redirect injected into a theme file, spam pages, hidden links, a phishing page dropped in an upload folder, the Japanese keyword hack, and leftovers from a crypto miner. Segurium does not care what the family is called, whether someone labels it a trojan or a virus. It checks whether a file is malicious and whether it can put the clean version back.
+
 = My WordPress site is hacked. What do I do first? =
 
 Install Segurium, open it from the admin sidebar, accept the service disclosure, and run a malware scan. Segurium lists the infected files and cleans them on one click, keeping an encrypted backup of every original. Then run an integrity scan, so any WordPress core, plugin or theme file the attack rewrote is restored to its official content. Finish by turning on the firewall, brute-force protection and two-factor authentication.
@@ -99,9 +115,9 @@ Yes, wherever the infection lives in a file. These hacks inject spam pages, hidd
 
 A WordPress redirect hack is usually a small block of injected code sitting in a theme file, a plugin file or index.php. Run a malware scan and Segurium points at the files carrying the redirect, then cleans them. Follow with an integrity scan to catch a core file that was rewritten.
 
-= Google flagged my site or my host suspended it. Can Segurium help? =
+= Google blacklisted my website or my host suspended it. What now? =
 
-Segurium removes the malware that triggered the flag. After the cleanup, run a fresh scan to confirm the site is clean, then ask Google Search Console or your host for a review. Segurium does not file that review request for you; it removes the reason for it.
+A blacklist entry and a suspension both follow the malicious content, so remove the content first. Run a malware scan, clean the flagged files, then run an integrity scan so any core, plugin or theme file the attack rewrote goes back to its official content. Once the website is clean, request a review in Google Search Console or ask your host to lift the suspension. Segurium does not file those requests for you. It removes the reason for them.
 
 = Will Segurium slow my site down? =
 
@@ -214,6 +230,9 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap. Every feature ships in both tiers.
 
 == Changelog ==
+
+= 1.2.0 - 2026-08-24 =
+* MainWP integration.
 
 = 1.1.2 - 2026-08-21 =
 * Improves management of scan threads.

@@ -397,6 +397,125 @@ class Segurium_Integrity_Server_State {
 	}
 
 	/**
+	 * Count the open integrity findings the Integrity tab would still show.
+	 *
+	 * Scoped to rows touched by the latest scan, so an `open` row left by an
+	 * earlier scan whose component is no longer flagged cannot keep a clean
+	 * site red forever. Components the user has already acted on (deleted /
+	 * not_found / ignored) drop out, mirroring `bucket_for()`.
+	 *
+	 * Aggregates in SQL: a core-compromised site can carry thousands of open
+	 * rows, and the count only needs one row per component.
+	 *
+	 * SEGURIUM-877: shared with the MainWP bridge so a fleet dashboard and
+	 * the site's own posture score never disagree about the same number.
+	 *
+	 * @param int        $scan_ts  Timestamp of the most recent integrity scan.
+	 * @param array|null $inactive Pre-loaded inactive component key set;
+	 *                             loaded here when null.
+	 * @return int
+	 */
+	public static function count_open_issues( $scan_ts, $inactive = null ) {
+		$scan_ts = (int) $scan_ts;
+		if ( $scan_ts <= 0 ) {
+			return 0;
+		}
+
+		$rows = Segurium_Storage::table_get_results(
+			'integrity_issues',
+			'SELECT comp_type, comp_slug, COUNT(*) AS n FROM {{table}}
+			 WHERE status = %s AND created_at >= %d
+			 GROUP BY comp_type, comp_slug',
+			array( 'open', $scan_ts ),
+			ARRAY_A
+		);
+		if ( empty( $rows ) ) {
+			return 0;
+		}
+
+		if ( null === $inactive ) {
+			$inactive = self::inactive_key_set();
+		}
+
+		$count = 0;
+		foreach ( $rows as $row ) {
+			if ( isset( $inactive[ $row['comp_type'] . ':' . $row['comp_slug'] ] ) ) {
+				continue;
+			}
+			$count += (int) $row['n'];
+		}
+		return $count;
+	}
+
+	/**
+	 * The same finding set as {@see self::count_open_issues()}, capped and
+	 * ordered newest first. Callers render these; the honest total comes
+	 * from the counter above.
+	 *
+	 * The inactive-component exclusion goes into the WHERE clause, not into
+	 * a PHP filter after the LIMIT. Filtering afterwards silently produced
+	 * an empty list whenever the newest rows all belonged to a component the
+	 * user had ignored, so the dashboard rendered a non-zero total with no
+	 * items under it. The exclusion list is bounded by the number of
+	 * installed components, not by the number of findings.
+	 *
+	 * @param int        $scan_ts  Timestamp of the most recent integrity scan.
+	 * @param int        $limit    Maximum rows to return.
+	 * @param array|null $inactive Pre-loaded inactive component key set;
+	 *                             loaded here when null.
+	 * @return array<int, array<string, mixed>>
+	 */
+	public static function list_open_issues( $scan_ts, $limit, $inactive = null ) {
+		$scan_ts = (int) $scan_ts;
+		$limit   = max( 1, min( 500, (int) $limit ) );
+		if ( $scan_ts <= 0 ) {
+			return array();
+		}
+
+		if ( null === $inactive ) {
+			$inactive = self::inactive_key_set();
+		}
+
+		$where = 'status = %s AND created_at >= %d';
+		$args  = array( 'open', $scan_ts );
+		foreach ( array_keys( $inactive ) as $key ) {
+			$parts = explode( ':', (string) $key, 2 );
+			if ( 2 !== count( $parts ) ) {
+				continue;
+			}
+			$where .= ' AND NOT ( comp_type = %s AND comp_slug = %s )';
+			$args[] = $parts[0];
+			$args[] = $parts[1];
+		}
+		$args[] = $limit;
+
+		$rows = Segurium_Storage::table_get_results(
+			'integrity_issues',
+			'SELECT comp_type, comp_slug, file_path, created_at FROM {{table}}
+			 WHERE ' . $where . '
+			 ORDER BY created_at DESC, id DESC LIMIT %d',
+			$args,
+			ARRAY_A
+		);
+
+		return empty( $rows ) ? array() : $rows;
+	}
+
+	/**
+	 * Component keys the user has already acted on, loaded once.
+	 *
+	 * Public so a caller needing both the count and the list pays a single
+	 * `integrity:comp_meta` decode instead of one per query.
+	 *
+	 * @return array<string,bool>
+	 */
+	public static function inactive_key_set() {
+		$state = new self();
+		$state->load();
+		return $state->get_inactive_component_key_set();
+	}
+
+	/**
 	 * Return all active components with their file issues. Components in
 	 * `deleted` or `ignored` state are excluded — callers driving bulk actions
 	 * (Fix All) must not touch items the user has explicitly opted out of.

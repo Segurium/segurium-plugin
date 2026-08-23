@@ -2826,7 +2826,7 @@ msgstr "同源，允许弹窗"
 
 #: includes/class-segurium.php:2177 includes/class-segurium.php:2195
 msgid "Unsafe none"
-msgstr "Unsafe none"
+msgstr "无（不安全）"
 
 #: includes/class-segurium.php:2181
 msgid "Cross-Origin-Resource-Policy"
@@ -4440,6 +4440,20 @@ msgid ""
 "plugin may load it, and removing it can take the whole site down. Delete it "
 "manually if you are certain it is safe."
 msgstr "拒绝删除：“%s” 是受保护的文件。Web 服务器或其他插件可能会加载它，删除可能导致整个站点宕机。如果您确定该文件安全，请手动删除。"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr "Segurium – 免费恶意软件清除与病毒扫描、被黑网站清理、防火墙、2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr "网站被黑？WordPress 免费恶意软件清除与病毒扫描：清理受感染文件并进行还原。包含防火墙、暴力破解防护和 2FA。"
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"

@@ -4503,6 +4503,22 @@ msgstr ""
 "삭제가 거부되었습니다. \"%s\"은(는) 보호된 파일입니다. 웹 서버나 다른 플러그인이 로드할 수 있으며, 삭제하면 사이트 전체가 "
 "중단될 수 있습니다. 안전하다고 확신하는 경우에만 수동으로 삭제하세요."
 
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr "Segurium – 무료 멀웨어 제거 및 바이러스 검사, 해킹된 웹사이트 정리, 방화벽, 2FA"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"웹사이트가 해킹당했나요? 워드프레스용 무료 멀웨어 제거 및 바이러스 검사: 감염된 파일을 정리하고 복원하세요. 방화벽, 무차별 대입 공격"
+" 차단, 2FA 포함"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 
