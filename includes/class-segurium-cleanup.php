@@ -57,7 +57,8 @@ final class Segurium_Cleanup {
 	 *   - cured bytes (Injection) — written back over the file;
 	 *   - an empty body (Malware) — truncates the file;
 	 *   - HTTP 402 with a paywall envelope — surfaced here as
-	 *     `error_code = 'paywall_quota_exceeded'` with the envelope on
+	 *     `error_code = 'paywall_quota_exceeded'`, fires
+	 *     `segurium_cleanup_paywalled`, with the envelope on
 	 *     the result's `paywall` field so the AJAX handler can render
 	 *     the modal without a second hop;
 	 *   - an `error_code` >= 4 from CTI (verdict not cached / not
@@ -138,6 +139,20 @@ final class Segurium_Cleanup {
 			$code    = (string) $fetched->get_error_code();
 			$data    = $fetched->get_error_data();
 			$paywall = ( 'paywall_quota_exceeded' === $code && is_array( $data ) ) ? $data : null;
+
+			if ( 'paywall_quota_exceeded' === $code ) {
+				/**
+				 * SEGURIUM-914: fires once per cleanup the cloud refused
+				 * for quota, whatever the actor. Emitted here rather than
+				 * in the AJAX handlers so manual, fix-all, integrity-fix
+				 * and auto-fix denials all reach listeners identically.
+				 *
+				 * @param string $path  Path relative to the WordPress root.
+				 * @param string $actor ACTOR_MANUAL | ACTOR_AUTO.
+				 */
+				do_action( 'segurium_cleanup_paywalled', (string) $path, $actor );
+			}
+
 			return self::fail(
 				$code,
 				$fetched->get_error_message(),

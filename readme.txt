@@ -4,7 +4,7 @@ Tags: malware-removal, hacked-website, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,7 +38,7 @@ Every feature below ships in the plugin and runs on every install — Free and P
 
 * **Malware removal and cleanup** — A full filesystem scan finds the infected files; one click strips the malicious code out and keeps an encrypted, reversible backup, so a wrong call is never permanent. A unified "Threats" view collects every finding.
 * **Bulk "Fix All" remediation** — Queue every detected threat for cleanup in one click on both malware and integrity panels.
-* **Auto-cleanup on detection** — When real-time scanning flags a file, Segurium can clean it without waiting for an admin to open the dashboard.
+* **Auto-cleanup on detection** — Switch it on and a file that real-time scanning flags is cleaned without waiting for an admin to open the dashboard. Off by default.
 * **Real-time and upload scanning** — New and modified files are checked automatically; infected uploads are blocked before they land on disk.
 * **Integrity scan** — Verify WordPress core, plugins and themes against upstream manifests, and restore a rewritten file to its official content. That is how you undo a hack that edited legitimate files. Tampered, delisted and abandoned components show up here too.
 * **Cleanup with encrypted, reversible backups** — Before anything is cleaned, the original file is encrypted (AES-256-GCM) and stored locally. Backups are retained for up to 30 days, subject to per-bucket count and size caps. "Show original" and "Restore" are one click away.
@@ -50,24 +50,20 @@ Every feature below ships in the plugin and runs on every install — Free and P
 * **Security headers** — Security HTTP response headers, cookie hardening (SameSite/Secure/HttpOnly), and five one-click preset modes.
 * **Information Shield** — Toggles that hide WordPress version fingerprints, discovery endpoints, asset `?ver=` strings, and XML-RPC when you don't use them.
 * **Self-Check security grade** — Checks roll up into an A+ to F grade, each with one-click Fix buttons and cross-referenced with third-party services.
-* **Migration importer** — Import your existing settings from Wordfence, All-In-One Security and Solid Security so you don't lose your hardening when you switch. Sucuri Security is detected too, but its settings live in Sucuri's cloud dashboard and cannot be read locally, so there is nothing to import.
+* **Migration importer** — Import your settings from Wordfence, All-In-One Security and Solid Security so you don't lose your hardening when you switch. Sucuri Security is detected too, but its settings live in Sucuri's cloud dashboard and cannot be read locally, so there is nothing to import.
 * **Disaster recovery** — Local encrypted backups can be extracted with a tiny PHP one-liner, even if Segurium is uninstalled.
 * **Embedded support**.
 
 = How the Pro service tier differs =
 
-Cleanups are performed by Segurium's cloud service and counted against a per-installation quota. The Free service tier covers up to **3 cleanups per rolling 30 days** — enough for an occasional incident on a typical site. The Pro service tier raises that quota for sites that need higher volume (recurring infections, hosts under sustained attack, sites with high reliability requirements). The plugin code, the detection engines, and every feature listed above are identical on both tiers; the only difference is the quota ceiling enforced server-side.
+Our cloud service performs the cleanups and counts each against a per-installation quota. The Free service tier covers up to **3 cleanups per rolling 30 days** — enough for an occasional incident on a typical site. The Pro service tier raises that quota for sites that need higher volume (recurring infections, hosts under sustained attack, sites with high reliability requirements). The plugin code, the detection engines, and every feature listed above are identical on both tiers; the only difference is the quota ceiling enforced server-side.
 
 = Privacy by default =
 
-* **Scanning is opt-in.** Until you explicitly accept the service disclosure on the plugin's admin page, Segurium doesn't contact the cloud and stays idle.
+* **Scanning is opt-in.** Until you accept the service disclosure on the plugin's admin page, nothing contacts the cloud and the plugin stays idle.
 * **Hash-first, body-on-miss.** During a scan, files are checked by SHA-256 first. Only files whose hash is unknown to the cloud have their bytes uploaded for classification, so the volume of content actually leaving your server is small and bounded by what's new on disk.
-* **No telemetry on your visitors.** Segurium looks at files and security incidents, not at the people who visit your site.
+* **No telemetry on your visitors.** We look at files and security incidents, not at the people who visit your site.
 * **On-premise mode.** Switch off cloud-assisted malware detection and scans send hashes, paths and metadata only.
-
-= Designed to stay lean =
-
-Segurium ships as a PHP plugin with no bundled binaries, no vendored third-party scanners, and no hidden background daemons. The heavy lifting — classification, signature curation, integrity manifests — lives in our cloud service, so your WordPress install stays fast and your hosting bill stays flat.
 
 == Installation ==
 
@@ -81,7 +77,7 @@ Segurium ships as a PHP plugin with no bundled binaries, no vendored third-party
 
 = Which security features are free in Segurium that other plugins sell as premium? =
 
-All of them. Two-factor authentication with an authenticator app (TOTP), email codes, backup codes, trusted devices and per-role enforcement. Brute force protection with login attempt limits, lockouts, a honeypot and xmlrpc coverage. A firewall with IP, CIDR and country rules, so you can block a country from your login page. Security headers with HSTS, CSP, Referrer-Policy and Permissions-Policy, plus cookie hardening. Geoblocking from a local database. None of it is a trial and none of it is gated behind a pro plan. Only the number of cloud cleanups is capped on the free tier: three every 30 days.
+All of them. Two-factor authentication with an authenticator app (TOTP), email codes, backup codes, trusted devices and per-role enforcement. Brute force protection with login attempt limits, lockouts, a honeypot and xmlrpc coverage. A firewall with IP, CIDR and country rules, so you can block a country from your login page. Security headers with HSTS, CSP, Referrer-Policy and Permissions-Policy, plus cookie hardening. Geoblocking from a local database, by country or by preset region (EU, Americas, Asia-Pacific, Africa, Middle East, High-Risk). None of it is a trial and none of it is gated behind a pro plan. Only the number of cloud cleanups is capped on the free tier: three every 30 days.
 
 = Is Segurium an antivirus for a WordPress website? =
 
@@ -127,6 +123,10 @@ It shouldn't. Scans run in chunked background jobs, behind a lock so a single ru
 
 Every cleanup is reversible. Originals are encrypted (AES-256-GCM) and stored locally — retained for up to 30 days, subject to per-bucket count and size caps — and you can restore from backup in one click. You can also submit a **false-positive report** directly from the threats list, and our team uses those to improve classification.
 
+= Does Segurium quarantine suspicious files, and does it check for vulnerabilities? =
+
+There is no separate quarantine folder. Segurium handles a suspicious file in place: it encrypts the original (AES-256-GCM), stores that copy locally, then strips the malicious code out, so the file is neutralised and you can put the original back for up to 30 days. Segurium is not a vulnerability scanner and reads no CVE feed. Its integrity check compares WordPress core, plugins and themes against upstream manifests and flags tampered, delisted and abandoned components, which is where an unpatched or unmaintained component shows up.
+
 = Can I use Segurium alongside my existing security plugin? =
 
 You can, but we recommend migrating. The **Migration** tab imports settings from Wordfence, All-In-One Security and Solid Security so you can switch without losing your hardening. It also detects Sucuri Security, but Sucuri keeps its rules in its own cloud dashboard, so those settings have to be re-entered by hand. Running two security plugins in parallel usually means double the cron overhead for no extra protection.
@@ -153,42 +153,29 @@ Segurium connects to external services to keep your WordPress install protected.
 
 = Cloud Threat Inspection =
 
-Cloud Threat Inspection, our own service at `cti.segurium.com`, provides malware verdicts, integrity manifests, geo-location data, trusted-proxy IP ranges, support intake, cleanup files, and a per-installation cleanup quota that gates how many files the cloud will clean in a rolling 30-day window. The service is contacted when:
+Cloud Threat Inspection, our own service at `cti.segurium.com`, provides malware verdicts, integrity manifests, geo-location data, trusted-proxy IP ranges, support intake, cleanup files, and a per-installation quota on how many files it will clean in a rolling 30-day window. The service is contacted when:
 
-* You accept the service disclosure on the plugin's admin page (a one-time **installation registration** request is sent: a random commitment hash, your site name, your site URL, your WordPress version, and — if you enabled email alerts — the alert email address you entered).
 * A malware, integrity, real-time or upload scan is running.
-* You request cleanup of a specific infected file (the cleaned bytes are fetched from the cloud by hash; only the SHA-256 of the file you selected is sent in that request).
-* The scheduled GeoIP database update runs (daily).
-* The scheduled trusted-proxies update runs (daily).
-* The scheduled component-inventory ping runs (daily; sends the list of installed plugin/theme slugs and versions and your WordPress version, so we can spot tampered, delisted or abandoned components).
-* You submit a support request, false-positive report or missed-malware report from the plugin's admin pages (the data you typed, plus the file bytes you attached, are sent).
-* You change a settings group (a settings snapshot of that area is sent so the cloud side stays in sync).
-* A brute-force lockout, geo-block or other security event fires (a small JSON payload with the event type, your site URL, your domain, your WordPress / PHP / plugin versions, and a SHA-256 hash of the username — never the username itself or the password — is sent).
-* You activate or deactivate the plugin (a one-line `plugin_activated` / `plugin_deactivated` ping is sent so the cloud side knows the install is no longer reachable; the deactivation ping is skipped entirely if you never accepted the service disclosure).
+* You act on a plugin page. **Accepting the service disclosure** sends four things at once: a one-time installation registration (a random commitment hash, your site name, your site URL, your WordPress version, and, if you enabled email alerts, the alert email address you entered), a one-line `plugin_activated` ping, a `consent` record, and a first platform snapshot of the kind described below. **Requesting cleanup** of an infected file sends only that file's SHA-256; the cleaned bytes come back by hash. **A support request, false-positive report or missed-malware report** sends the data you typed plus the file bytes you attached. **A settings change** sends a snapshot of that settings group. **Deactivating the plugin** sends a one-line `plugin_deactivated` ping, skipped entirely if you never accepted the disclosure. Activating it sends nothing on its own.
+* A daily scheduled job runs. Four of them exist. The GeoIP database update and the trusted-proxies update only fetch data. The component-inventory ping sends your installed plugin/theme slugs and versions and your WordPress version, so we can spot tampered, delisted or abandoned components. The platform snapshot sends how your site is built: your WordPress version, locale, multisite and debug flags, whether WP-Cron is disabled and whether the site is served over HTTPS; your PHP version, SAPI, memory limit, maximum execution time and maximum input vars; your web server and its version; your database engine and version; your operating system family and architecture; the plugin version; and your active theme's slug and version. It carries no file contents, no paths and nothing about your visitors.
+* A brute-force lockout, geo-block or other security event fires. That sends a small JSON payload with the event type, your site URL, your domain, your WordPress / PHP / plugin versions, and a SHA-256 hash of the username, never the username itself or the password.
 
-**Data sent during scans:** SHA-256 hashes of files on your server, file paths relative to your WordPress installation, file sizes, file modification times, plugin and theme version strings, and your WordPress version. **For files whose SHA-256 is not yet known to the cloud verdict database, the file's bytes are also uploaded so the file can be classified.** This applies to malware scans and to real-time / upload scanning.
+**Data sent during scans** (malware, real-time and upload alike): SHA-256 hashes of files on your server, file paths relative to your WordPress installation, file sizes, file modification times, plugin and theme version strings, and your WordPress version. **For files whose SHA-256 is not yet known to the cloud verdict database, we also upload the file's bytes so the file can be classified.**
 
-**Turning the upload off:** the "Cloud-assisted malware detection" setting on the Settings tab controls it. Switch it off for On-premise mode and scans send hashes, paths and metadata only. A file whose hash the cloud does not recognise then stays unresolved, because the plugin will not upload it to find out what it is. Two uploads stay available in that mode, since you pick the file yourself each time: a false-positive report and a support-ticket attachment.
+**Turning the upload off:** the "Cloud-assisted malware detection" setting on the Settings tab controls it. Switch it off for On-premise mode and scans send hashes, paths and metadata only, so a file whose hash the cloud does not recognise stays unresolved. Two uploads survive that mode, because you pick the file yourself: a false-positive report and a support-ticket attachment.
 
-**Retention:** file samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. The full schedule is in the privacy policy linked below.
+**Retention:** we keep file samples uploaded for analysis for up to 365 days, then an automated nightly purge removes them. The full schedule is in the privacy policy linked below.
 
-Each request from your installation is identified by a random installation identifier (IID) issued at registration time; we do not store or send any WordPress user data, content, or visitor information. The privacy policy linked below names the data controller and how to reach them.
+A random installation identifier (IID), issued at registration time, identifies each request. We do not store or send any WordPress user data, content, or visitor information. The privacy policy linked below names the data controller and how to reach them.
 
 * Terms of Service: [https://segurium.com/terms](https://segurium.com/terms)
 * Privacy Policy: [https://segurium.com/privacy](https://segurium.com/privacy)
 
 = Freemius (api.freemius.com, checkout.freemius.com, wp.freemius.com) =
 
-Segurium uses the Freemius WordPress SDK (bundled in `freemius/`) to handle license activation, paid-plan checkout, and account management for the Pro plan. The SDK ships in **anonymous mode**: on activation Segurium tells the SDK to skip the connect prompt, so no request is sent to Freemius and no telemetry is collected from your install.
+Segurium uses the Freemius WordPress SDK (bundled in `freemius/`) for license activation, paid-plan checkout and account management on the Pro plan. The SDK ships in **anonymous mode**: on activation Segurium tells it to skip the connect prompt, so it sends no request to Freemius and collects no telemetry from your install. Freemius, Inc. operates the service.
 
-Freemius servers are contacted only when:
-
-* You explicitly click an upgrade or "Manage billing" button in the Segurium account page and complete the checkout on `checkout.freemius.com`.
-* You activate, sync or deactivate a Pro license through the account page (the SDK posts the licence key, your site URL, your WordPress / PHP versions, and the plugin version to `api.freemius.com`).
-
-If you never visit the account page or never enter a licence, no request is ever made to Freemius from your site.
-
-Freemius is operated by Freemius, Inc.
+Freemius servers hear from your site only when you click an upgrade or "Manage billing" button on the account page and complete the checkout on `checkout.freemius.com`, or when you activate, sync or deactivate a Pro license there. In that second case the SDK posts the licence key, your site URL, your WordPress / PHP versions and the plugin version to `api.freemius.com`. Never open the account page and never enter a licence, and your site never calls Freemius at all.
 
 * Freemius Terms of Service: [https://freemius.com/terms/](https://freemius.com/terms/)
 * Freemius Privacy Policy: [https://freemius.com/privacy/](https://freemius.com/privacy/)
@@ -215,21 +202,24 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Screenshots ==
 
-1. Fix all finished — every infected file cleaned, the malicious code stripped out, each original kept in an encrypted backup you can restore in one click. Every feature ships in the free tier.
-2. The scan that found them — each file hashed and checked against the cloud verdict database, infected files listed with a Clean button on every row.
-3. Security Self-Check — A+ to F across hardening, malware, information disclosure, cookies, and HTTP headers, with each failing check listed and fixable.
-4. Integrity scan — per-component status (core, plugins, themes), file counts, and Fix / Restore actions for files that drifted from the official source.
-5. Geo-blocking — preset regions (EU / Americas / Asia-Pacific / Africa / Middle East / High-Risk) plus per-country control, configurable block action.
-6. Firewall — IPv4/IPv6/CIDR allow- and block-lists, with auto-detected CDN and reverse-proxy ranges so true visitor IPs are honoured.
-7. Brute-force protection — recommended-vs-custom presets, lockout windows, extended bans, XML-RPC protection, and live attack statistics.
-8. Two-Factor Authentication — TOTP authenticator app and email verification, per-role enforcement, grace period, and trusted-device duration.
-9. Security headers — HSTS, CSP, Permissions-Policy, Referrer-Policy, cookie hardening with a live preview of the headers Segurium will send.
-10. Information Shield — strips WordPress version, REST API discovery links, RSD/WLW pingback, generator tag, and other version-leaking metadata.
-11. Migration tool — detects existing security plugins (Wordfence / All-In-One Security / Sucuri / Solid Security) and previews their settings before import.
-12. Scheduled scans + alerts — cron-driven daily/weekly/monthly scans with email notifications and automatic clean of high-confidence detections.
-13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap. Every feature ships in both tiers.
+1. Fix all finished — files cleaned, every original restorable from an encrypted backup. Free tier.
+2. The scan that found them — every infected file listed with a Clean button.
+3. Security Self-Check — an A+ to F grade with one-click fixes.
+4. Integrity scan — per-component status, with Fix and Restore for drifted files.
+5. Geo-blocking — preset regions and per-country control.
+6. Firewall — IPv4, IPv6 and CIDR lists, proxy ranges auto-detected.
+7. Brute-force protection — lockout windows, extended bans, live attack statistics.
+8. Two-Factor Authentication — TOTP and email, per-role enforcement, trusted devices.
+9. Security headers — presets and cookie hardening, with a live preview.
+10. Information Shield — hides the version and discovery metadata WordPress exposes.
+11. Migration tool — previews another security plugin's settings before import.
+12. Scheduled scans — off, daily or weekly, with email alerts.
+13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap.
 
 == Changelog ==
+
+= 1.2.1 - 2026-08-25 =
+* Minor UI fixes.
 
 = 1.2.0 - 2026-08-24 =
 * MainWP integration.
@@ -260,72 +250,4 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 * Brute-force lockout covers 2FA login step.
 * Translations updated.
 
-= 1.0.0 - 2026-07-19 =
-* Fixes integrity scans stalling on large sites
-* Major version bump
-
-= 0.1.8 - 2026-07-07 =
-* Fixes anonymous access to scan endpoints.
-* Improves compatibility with hosts that disable shell access.
-
-= 0.1.7 - 2026-06-24 =
-* Maintenance release.
-
-= 0.1.6 - 2026-06-16 =
-* minor fixes
-
-= 0.1.5 - 2026-06-04 =
-* Scans now handle sites with millions of files.
-* Real-time file monitoring works reliably on large sites.
-* Temporary network errors no longer ruin a scan batch.
-* Scan progress no longer stalls on long scans.
-* Completed scans show the correct duration.
-* Hardened protection against unauthorized admin actions.
-* Translations updated for 13 languages.
-
-= 0.1.4 - 2026-05-30 =
-* Large scans now resume after timeouts instead of aborting.
-* Scans complete reliably without hanging on pending results.
-* Cleanup limit notice now shows the next available date.
-* Scans no longer start before the plugin is fully activated.
-* Firewall no longer disables itself unexpectedly.
-
-= 0.1.3 - 2026-05-24 =
-* Faster malware scans.
-* Progress bar shows percentage label.
-* Scan summary lists failed and skipped files.
-* Cleanup quota counter shows correct numbers.
-* Checkout pre-fills name and email.
-* Works again on WordPress 6.0.
-* Security Headers presets no longer fight custom toggles.
-* X-XSS-Protection options include inline guidance.
-* Self-Check runs automatically on first open.
-* Self-Check runs once a day.
-* Integrity Restore shows clearer errors.
-* Admin tabs use shareable URLs.
-* Stop button hides the scan progress bar.
-* Scan counters no longer jump backwards.
-* Duplicate files no longer break scan totals.
-* Geo block page renders without admin notice noise.
-* Geo database freshness updates on every check.
-
-= 0.1.2 - 2026-05-08 =
-* Minor UI improvements
-* Cleaned files clear from malware list after rescan.
-* Fixes admin lockout from geo settings revert.
-* Two-factor settings appear on user profile page.
-* Scans no longer hang behind web firewalls.
-* Scans recover faster from stalled workers.
-* Stop scan no longer crashes the worker.
-
-= 0.1.1 - 2026-05-06 =
-* Add 13 new translations.
-* Admin pages follow the WordPress admin color scheme.
-* Lower background traffic on idle admin tabs.
-* Faster admin page loads.
-* Warn before rotating older backups.
-* Keep 2FA Save button visible when disabled.
-* Recovery banner for moved or cloned sites.
-
-= 0.1.0 =
-* Initial release.
+Older entries, from 1.0.0 back to 0.1.0, are in `changelog.txt`, which ships with the plugin and is published at [https://plugins.svn.wordpress.org/segurium/trunk/changelog.txt](https://plugins.svn.wordpress.org/segurium/trunk/changelog.txt).

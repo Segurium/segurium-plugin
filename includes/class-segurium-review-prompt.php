@@ -18,6 +18,13 @@
  * that found threats, and a scan that could not read every file all leave
  * it disarmed.
  *
+ * SEGURIUM-914: a cleanup the cloud refused for quota is the opposite of
+ * a positive event. Fix All can clean the last free slot — arming the ask
+ * — and hit the paywall on the very next file, so the user meets "Upgrade
+ * to Pro" and the review ask back to back. Every refusal therefore clears
+ * the armed trigger and mutes the ask for PAYWALL_COOLOFF while the plan
+ * is still Free. Upgrading lifts the mute on the next envelope refresh.
+ *
  * @package Segurium
  * @since   SEGURIUM-709
  */
@@ -33,6 +40,7 @@ final class Segurium_Review_Prompt {
 
 	const OPTION_STATE               = 'segurium_review_prompt';
 	const OPTION_FIRST_ACTIVATION_AT = 'segurium_first_activation_at';
+	const OPTION_PAYWALL_AT          = 'segurium_review_paywall_at';
 
 	const NONCE_ACTION     = 'segurium_review_prompt';
 	const AJAX_ACTION      = 'segurium_review_prompt_action';
@@ -66,6 +74,14 @@ final class Segurium_Review_Prompt {
 	const SNOOZE_SECONDS = 30 * DAY_IN_SECONDS;
 
 	/**
+	 * SEGURIUM-914: how long a quota refusal mutes the ask on a Free
+	 * install. Long enough that the paywall modal is no longer what the
+	 * user remembers, short enough that a Free install which cleans up
+	 * fine the following week can still be asked.
+	 */
+	const PAYWALL_COOLOFF = 7 * DAY_IN_SECONDS;
+
+	/**
 	 * Hard ceiling on impressions over the life of an install.
 	 */
 	const MAX_IMPRESSIONS = 2;
@@ -85,6 +101,7 @@ final class Segurium_Review_Prompt {
 	public static function register_hooks() {
 		add_action( 'segurium_scan_completed', array( __CLASS__, 'on_scan_completed' ), 20, 1 );
 		add_action( 'segurium_cleanup_succeeded', array( __CLASS__, 'on_cleanup_succeeded' ), 10, 0 );
+		add_action( 'segurium_cleanup_paywalled', array( __CLASS__, 'on_cleanup_paywalled' ), 10, 0 );
 		add_action( 'admin_notices', array( __CLASS__, 'render_notice' ) );
 	}
 
@@ -218,6 +235,94 @@ final class Segurium_Review_Prompt {
 	}
 
 	/**
+	 * `segurium_cleanup_paywalled` listener. Fires whenever the cloud
+	 * refused a cleanup for quota, whatever the actor — a background
+	 * auto-fix denial means the user is out of slots just as much as a
+	 * click on Fix All does.
+	 *
+	 * Two effects: stamp the install so the cooling-off window starts,
+	 * and drop any trigger a previous slot armed in the same batch.
+	 *
+	 * @return void
+	 */
+	public static function on_cleanup_paywalled() {
+		$state = self::get_state();
+
+		// Cheapest gate first, as in evaluate_scan(). An install that
+		// answered "Don't ask again" or spent both impressions can never
+		// be asked, so muting it is pure waste — and auto-fix calls this
+		// once per remaining finding, so the waste arrives in batches.
+		if ( ! self::is_askable( $state ) ) {
+			return;
+		}
+
+		$now = time();
+
+		// `update_option()` reports false for a no-op write, and a Fix
+		// All batch can take two refusals inside the same second. Read
+		// the stamp back rather than logging a failure that never was.
+		if ( ! Segurium_Storage::setting_set( self::OPTION_PAYWALL_AT, $now ) && self::paywalled_at() !== $now ) {
+			Segurium_Debug::log( '[segurium-review-prompt] review_prompt_paywall_stamp_write_failed' );
+		}
+
+		if ( '' === $state['trigger'] ) {
+			return;
+		}
+
+		$state['trigger'] = '';
+
+		if ( ! self::save_state( $state ) ) {
+			Segurium_Debug::log( '[segurium-review-prompt] review_prompt_paywall_disarm_write_failed' );
+		}
+	}
+
+	/**
+	 * When the last quota refusal landed, 0 when this install has never
+	 * hit one.
+	 *
+	 * @return int Unix timestamp.
+	 */
+	public static function paywalled_at() {
+		return max( 0, Segurium_Storage::setting_get_int( self::OPTION_PAYWALL_AT, 0 ) );
+	}
+
+	/**
+	 * Whether a recent quota refusal still mutes the ask.
+	 *
+	 * A stamp in the future (clock moved backwards, a restored database)
+	 * reads as inside the window, which is the safe direction: at worst
+	 * the ask is delayed, never asked at the wrong moment.
+	 *
+	 * @return bool
+	 */
+	private static function in_paywall_cooloff() {
+		$at = self::paywalled_at();
+		if ( $at <= 0 ) {
+			return false;
+		}
+		if ( ( time() - $at ) >= self::PAYWALL_COOLOFF ) {
+			return false;
+		}
+
+		return ! self::is_pro();
+	}
+
+	/**
+	 * Plan tier per the last CTI envelope. A paid install cannot be
+	 * sitting behind the cleanup paywall any more, so the mute lifts as
+	 * soon as the envelope reports Pro.
+	 *
+	 * @return bool
+	 */
+	private static function is_pro() {
+		if ( ! class_exists( 'Segurium_Quota' ) ) {
+			return false;
+		}
+
+		return Segurium_Quota::PLAN_TIER_PRO === Segurium_Quota::plan_tier();
+	}
+
+	/**
 	 * Arm the ask for the next Segurium admin page load.
 	 *
 	 * @param string $trigger One of the TRIGGER_* constants.
@@ -227,6 +332,9 @@ final class Segurium_Review_Prompt {
 		$state = self::get_state();
 
 		if ( ! self::is_askable( $state ) ) {
+			return false;
+		}
+		if ( self::in_paywall_cooloff() ) {
 			return false;
 		}
 		if ( $state['snooze_until'] > time() ) {
@@ -281,6 +389,13 @@ final class Segurium_Review_Prompt {
 			return false;
 		}
 		if ( ! self::is_askable( $state ) ) {
+			return false;
+		}
+		// A trigger armed moments before the refusal, or by a scan that
+		// finished in a parallel request, must not paint either. Staying
+		// silent here leaves it armed, so the ask survives the window
+		// rather than being spent on it.
+		if ( self::in_paywall_cooloff() ) {
 			return false;
 		}
 
@@ -563,5 +678,6 @@ final class Segurium_Review_Prompt {
 	public static function reset_for_testing() {
 		Segurium_Storage::setting_delete( self::OPTION_STATE );
 		Segurium_Storage::setting_delete( self::OPTION_FIRST_ACTIVATION_AT );
+		Segurium_Storage::setting_delete( self::OPTION_PAYWALL_AT );
 	}
 }

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.1.2\n"
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-22T03:33:10+00:00\n"
+"POT-Creation-Date: 2026-08-25T03:34:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
@@ -343,28 +343,28 @@ msgstr ""
 msgid "Login Locked"
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:89
+#: includes/class-segurium-cleanup.php:90
 msgid "Verdict has no defined cleanup recipe."
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:93
+#: includes/class-segurium-cleanup.php:94
 msgid "File not found."
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:98
+#: includes/class-segurium-cleanup.php:99
 #: includes/class-segurium.php:6684
 msgid "File has been modified since scan. Re-scan first."
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:103
+#: includes/class-segurium-cleanup.php:104
 msgid "Failed to read file for backup."
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:121
+#: includes/class-segurium-cleanup.php:122
 msgid "Failed to create backup."
 msgstr ""
 
-#: includes/class-segurium-cleanup.php:161
+#: includes/class-segurium-cleanup.php:176
 msgid "Failed to clean file."
 msgstr ""
 
@@ -578,36 +578,36 @@ msgstr ""
 msgid "Segurium realtime scan (every %d seconds, dev override)"
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:345
+#: includes/class-segurium-review-prompt.php:460
 msgid "Leave a review"
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:347
+#: includes/class-segurium-review-prompt.php:462
 #: includes/class-segurium.php:1165
 msgid "Maybe later"
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:349
+#: includes/class-segurium-review-prompt.php:464
 msgid "Don't ask again"
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:365
+#: includes/class-segurium-review-prompt.php:480
 msgid "Segurium just cleaned your site."
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:366
+#: includes/class-segurium-review-prompt.php:481
 msgid "Glad we could help. If Segurium saved you time or money today, an honest review on WordPress.org helps other site owners find it, and helps us keep the cleanup tier free."
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:371
+#: includes/class-segurium-review-prompt.php:486
 msgid "Scan complete. Your site is clean."
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:372
+#: includes/class-segurium-review-prompt.php:487
 msgid "If Segurium is doing its job, would you leave an honest review on WordPress.org? It takes a minute."
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:434
+#: includes/class-segurium-review-prompt.php:549
 #: includes/class-segurium.php:3763
 #: includes/class-segurium.php:3841
 #: includes/class-segurium.php:3935
@@ -641,7 +641,7 @@ msgstr ""
 msgid "Unauthorized"
 msgstr ""
 
-#: includes/class-segurium-review-prompt.php:442
+#: includes/class-segurium-review-prompt.php:557
 msgid "Unknown review prompt action."
 msgstr ""
 

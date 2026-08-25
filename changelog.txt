@@ -1,0 +1,73 @@
+== Changelog ==
+
+Entries for 1.0.1 and later are in readme.txt.
+
+= 1.0.0 - 2026-07-19 =
+* Fixes integrity scans stalling on large sites
+* Major version bump
+
+= 0.1.8 - 2026-07-07 =
+* Fixes anonymous access to scan endpoints.
+* Improves compatibility with hosts that disable shell access.
+
+= 0.1.7 - 2026-06-24 =
+* Maintenance release.
+
+= 0.1.6 - 2026-06-16 =
+* minor fixes
+
+= 0.1.5 - 2026-06-04 =
+* Scans now handle sites with millions of files.
+* Real-time file monitoring works reliably on large sites.
+* Temporary network errors no longer ruin a scan batch.
+* Scan progress no longer stalls on long scans.
+* Completed scans show the correct duration.
+* Hardened protection against unauthorized admin actions.
+* Translations updated for 13 languages.
+
+= 0.1.4 - 2026-05-30 =
+* Large scans now resume after timeouts instead of aborting.
+* Scans complete reliably without hanging on pending results.
+* Cleanup limit notice now shows the next available date.
+* Scans no longer start before the plugin is fully activated.
+* Firewall no longer disables itself unexpectedly.
+
+= 0.1.3 - 2026-05-24 =
+* Faster malware scans.
+* Progress bar shows percentage label.
+* Scan summary lists failed and skipped files.
+* Cleanup quota counter shows correct numbers.
+* Checkout pre-fills name and email.
+* Works again on WordPress 6.0.
+* Security Headers presets no longer fight custom toggles.
+* X-XSS-Protection options include inline guidance.
+* Self-Check runs automatically on first open.
+* Self-Check runs once a day.
+* Integrity Restore shows clearer errors.
+* Admin tabs use shareable URLs.
+* Stop button hides the scan progress bar.
+* Scan counters no longer jump backwards.
+* Duplicate files no longer break scan totals.
+* Geo block page renders without admin notice noise.
+* Geo database freshness updates on every check.
+
+= 0.1.2 - 2026-05-08 =
+* Minor UI improvements
+* Cleaned files clear from malware list after rescan.
+* Fixes admin lockout from geo settings revert.
+* Two-factor settings appear on user profile page.
+* Scans no longer hang behind web firewalls.
+* Scans recover faster from stalled workers.
+* Stop scan no longer crashes the worker.
+
+= 0.1.1 - 2026-05-06 =
+* Add 13 new translations.
+* Admin pages follow the WordPress admin color scheme.
+* Lower background traffic on idle admin tabs.
+* Faster admin page loads.
+* Warn before rotating older backups.
+* Keep 2FA Save button visible when disabled.
+* Recovery banner for moved or cloned sites.
+
+= 0.1.0 =
+* Initial release.

@@ -1,0 +1,4558 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-08-22T03:33:10+00:00\n"
+"PO-Revision-Date: 2026-08-24 12:00+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Danish <da@li.org>\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Domain: segurium\n"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Hacket websted? Gratis fjernelse af malware og antivirusscanning til "
+"WordPress: rens inficerede filer, og gendan dem. Firewall, brute force og "
+"2FA følger med."
+
+#. Author of the plugin
+#: segurium.php includes/class-segurium.php:442
+#: includes/class-segurium.php:494 includes/class-segurium.php:495
+#: includes/class-segurium.php:1805 includes/segurium-admin-menu-shell.php:38
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:102
+msgid "Segurium"
+msgstr "Segurium"
+
+#: includes/class-segurium-2fa.php:597
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr ""
+"Tofaktorgodkendelse er påkrævet. Slå JavaScript til for at fuldføre login."
+
+#: includes/class-segurium-2fa.php:617
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr ""
+"Din rolle kræver, at du opsætter tofaktorgodkendelse. Kontakt din "
+"administrator."
+
+#: includes/class-segurium-2fa.php:658
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr ""
+"Tofaktorgodkendelse er påkrævet. Sæt din 2FA-kode efter din adgangskode."
+
+#: includes/class-segurium-2fa.php:1000
+msgid "Verifying..."
+msgstr "Verificerer…"
+
+#: includes/class-segurium-2fa.php:1001
+msgid "Logging in..."
+msgstr "Logger ind…"
+
+#: includes/class-segurium-2fa.php:1002
+msgid "Enter the code from your authenticator app:"
+msgstr "Indtast koden fra din godkendelsesapp:"
+
+#: includes/class-segurium-2fa.php:1003
+msgid "Enter the code sent to your email:"
+msgstr "Indtast koden, der blev sendt til din e-mail:"
+
+#: includes/class-segurium-2fa.php:1004
+msgid "Verify"
+msgstr "Verificer"
+
+#: includes/class-segurium-2fa.php:1005
+msgid "Resend code"
+msgstr "Send koden igen"
+
+#: includes/class-segurium-2fa.php:1006
+msgid "A new code has been sent to your email."
+msgstr "En ny kode er sendt til din e-mail."
+
+#: includes/class-segurium-2fa.php:1007
+msgid "Lost your device? Enter a backup code instead."
+msgstr "Har du mistet din enhed? Indtast en reservekode i stedet."
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:1009
+#, php-format
+msgid "Trust this device for %d days"
+msgstr "Stol på denne enhed i %d dage"
+
+#: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1598
+#: includes/class-segurium-2fa.php:1677 includes/class-segurium-2fa.php:1735
+msgid "Too many failed attempts. Please try again later."
+msgstr "For mange mislykkede forsøg. Prøv igen senere."
+
+#: includes/class-segurium-2fa.php:1011
+msgid "Two-factor authentication setup is required for your role."
+msgstr "Din rolle kræver, at du opsætter tofaktorgodkendelse."
+
+#: includes/class-segurium-2fa.php:1035
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:274
+#: includes/migrations/class-segurium-migration-wordfence.php:288
+msgid "Two-Factor Authentication"
+msgstr "Tofaktorgodkendelse"
+
+#: includes/class-segurium-2fa.php:1038 includes/class-segurium.php:2003
+#: includes/class-segurium.php:3203
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-segurium-2fa.php:1041
+msgid "JavaScript is required for 2FA setup."
+msgstr "JavaScript er påkrævet for at opsætte 2FA."
+
+#: includes/class-segurium-2fa.php:1079
+msgid "Not configured"
+msgstr "Ikke opsat"
+
+#: includes/class-segurium-2fa.php:1080
+msgid "Set up Authenticator App"
+msgstr "Opsæt godkendelsesapp"
+
+#: includes/class-segurium-2fa.php:1081
+msgid "Set up Email Verification"
+msgstr "Opsæt bekræftelse via e-mail"
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Current method:"
+msgstr "Nuværende metode:"
+
+#: includes/class-segurium-2fa.php:1083 includes/class-segurium.php:2443
+msgid "Authenticator App (TOTP)"
+msgstr "Godkendelsesapp (TOTP)"
+
+#: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:2444
+msgid "Email Verification"
+msgstr "Bekræftelse via e-mail"
+
+#: includes/class-segurium-2fa.php:1085
+msgid "Backup codes remaining:"
+msgstr "Reservekoder tilbage:"
+
+#: includes/class-segurium-2fa.php:1086
+msgid "Regenerate Backup Codes"
+msgstr "Dan nye reservekoder"
+
+#: includes/class-segurium-2fa.php:1087
+msgid "Disable 2FA"
+msgstr "Slå 2FA fra"
+
+#: includes/class-segurium-2fa.php:1088
+msgid "Scan this QR code with your authenticator app:"
+msgstr "Scan denne QR-kode med din godkendelsesapp:"
+
+#: includes/class-segurium-2fa.php:1089
+msgid "Or enter this key manually:"
+msgstr "Eller indtast denne nøgle manuelt:"
+
+#: includes/class-segurium-2fa.php:1090
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "Indtast den 6-cifrede kode fra din app for at bekræfte:"
+
+#: includes/class-segurium-2fa.php:1091 includes/class-segurium.php:2068
+#: includes/class-segurium.php:2156
+msgid "Confirm"
+msgstr "Bekræft"
+
+#: includes/class-segurium-2fa.php:1092 includes/class-segurium.php:1032
+#: includes/class-segurium.php:1161 includes/class-segurium.php:1204
+#: includes/class-segurium.php:2045 includes/class-segurium.php:3193
+msgid "Cancel"
+msgstr "Annuller"
+
+#: includes/class-segurium-2fa.php:1093
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr "Gem disse reservekoder et sikkert sted. De bliver ikke vist igen."
+
+#: includes/class-segurium-2fa.php:1094
+msgid "2FA has been set up successfully."
+msgstr "2FA er nu opsat."
+
+#: includes/class-segurium-2fa.php:1095 includes/class-segurium-2fa.php:1430
+msgid "2FA has been disabled."
+msgstr "2FA er slået fra."
+
+#: includes/class-segurium-2fa.php:1096
+msgid "New backup codes generated."
+msgstr "Der er dannet nye reservekoder."
+
+#: includes/class-segurium-2fa.php:1097
+msgid "Enter your current 2FA code to confirm:"
+msgstr "Indtast din nuværende 2FA-kode for at bekræfte:"
+
+#: includes/class-segurium-2fa.php:1098
+msgid "A verification code has been sent to your email."
+msgstr "En bekræftelseskode er sendt til din e-mail."
+
+#: includes/class-segurium-2fa.php:1099
+msgid "Your administrator requires 2FA for your role."
+msgstr "Din administrator kræver 2FA for din rolle."
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1133
+#, php-format
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"Din administrator kræver tofaktorgodkendelse. Du har %d dag(e) tilbage til "
+"at opsætte det."
+
+#: includes/class-segurium-2fa.php:1138 includes/class-segurium-2fa.php:1145
+msgid "Set up now"
+msgstr "Opsæt nu"
+
+#: includes/class-segurium-2fa.php:1143
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr ""
+"Tofaktorgodkendelse er påkrævet for din rolle. Opsæt det med det samme."
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1180
+#, php-format
+msgid "[%s] Your login verification code"
+msgstr "[%s] Din bekræftelseskode til login"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1186
+#, php-format
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"Din bekræftelseskode er: %1$s\n"
+"\n"
+"Koden udløber om %2$d minutter.\n"
+"\n"
+"Hvis du ikke har bedt om den, kan du se bort fra denne e-mail."
+
+#: includes/class-segurium-2fa.php:1229 includes/class-segurium-2fa.php:1265
+#: includes/class-segurium-2fa.php:1320 includes/class-segurium-2fa.php:1346
+#: includes/class-segurium-2fa.php:1387 includes/class-segurium-2fa.php:1441
+msgid "Not authenticated."
+msgstr "Ikke godkendt."
+
+#: includes/class-segurium-2fa.php:1235 includes/class-segurium-2fa.php:1271
+#: includes/class-segurium-2fa.php:1326 includes/class-segurium-2fa.php:1352
+#: includes/class-segurium-2fa.php:1393 includes/class-segurium-2fa.php:1447
+#: includes/class-segurium-2fa.php:1503 includes/class-segurium-2fa.php:1638
+#: includes/class-segurium-2fa.php:1762 includes/class-segurium.php:374
+#: includes/class-segurium.php:4829 includes/segurium-ajax-envelope.php:125
+msgid "You do not have permission to perform this action."
+msgstr "Du har ikke rettigheder til at udføre denne handling."
+
+#: includes/class-segurium-2fa.php:1282
+msgid "Setup session expired. Please start again."
+msgstr "Opsætningssessionen er udløbet. Start forfra."
+
+#: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
+msgid "Invalid code. Please try again."
+msgstr "Ugyldig kode. Prøv igen."
+
+#: includes/class-segurium-2fa.php:1292
+msgid "Encryption error."
+msgstr "Krypteringsfejl."
+
+#: includes/class-segurium-2fa.php:1335
+msgid "Verification code sent to your email."
+msgstr "Bekræftelseskoden er sendt til din e-mail."
+
+#: includes/class-segurium-2fa.php:1403
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "2FA er påkrævet for din rolle og kan ikke slås fra."
+
+#: includes/class-segurium-2fa.php:1425 includes/class-segurium-2fa.php:1473
+msgid "Invalid verification code."
+msgstr "Ugyldig bekræftelseskode."
+
+#: includes/class-segurium-2fa.php:1520
+msgid "Please enter your username and password."
+msgstr "Indtast dit brugernavn og din adgangskode."
+
+#: includes/class-segurium-2fa.php:1657
+msgid "Session expired. Please log in again."
+msgstr "Sessionen er udløbet. Log ind igen."
+
+#: includes/class-segurium-2fa.php:1663 includes/class-segurium-2fa.php:1777
+msgid "Invalid session."
+msgstr "Ugyldig session."
+
+#: includes/class-segurium-2fa.php:1744
+msgid "Invalid verification code. Please try again."
+msgstr "Ugyldig bekræftelseskode. Prøv igen."
+
+#: includes/class-segurium-2fa.php:1772
+msgid "Session expired."
+msgstr "Sessionen er udløbet."
+
+#: includes/class-segurium-2fa.php:1782
+msgid "Code sent."
+msgstr "Koden er sendt."
+
+#: includes/class-segurium-brute-force.php:503
+msgid "Login blocked."
+msgstr "Login er blokeret."
+
+#: includes/class-segurium-brute-force.php:517
+msgid "Please complete the CAPTCHA challenge."
+msgstr "Gennemfør CAPTCHA-udfordringen."
+
+#: includes/class-segurium-brute-force.php:1336
+msgid "Leave this field empty"
+msgstr "Lad dette felt stå tomt"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1484
+#: includes/class-segurium-brute-force.php:1507
+#, php-format
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "For mange mislykkede loginforsøg. Prøv igen om %s."
+
+#: includes/class-segurium-brute-force.php:1488
+msgid "Login Locked"
+msgstr "Login er låst"
+
+#: includes/class-segurium-cleanup.php:89
+msgid "Verdict has no defined cleanup recipe."
+msgstr "Vurderingen har ingen defineret opskrift på rensning."
+
+#: includes/class-segurium-cleanup.php:93
+msgid "File not found."
+msgstr "Filen blev ikke fundet."
+
+#: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:6684
+msgid "File has been modified since scan. Re-scan first."
+msgstr "Filen er ændret siden scanningen. Scan igen først."
+
+#: includes/class-segurium-cleanup.php:103
+msgid "Failed to read file for backup."
+msgstr "Filen kunne ikke læses til sikkerhedskopiering."
+
+#: includes/class-segurium-cleanup.php:121
+msgid "Failed to create backup."
+msgstr "Sikkerhedskopien kunne ikke oprettes."
+
+#: includes/class-segurium-cleanup.php:161
+msgid "Failed to clean file."
+msgstr "Filen kunne ikke renses."
+
+#: includes/class-segurium-component-backup.php:50
+#: includes/class-segurium.php:5270
+msgid "Component directory not found."
+msgstr "Komponentmappen blev ikke fundet."
+
+#: includes/class-segurium-component-backup.php:53
+msgid "Invalid component type."
+msgstr "Ugyldig komponenttype."
+
+#: includes/class-segurium-component-backup.php:56
+msgid "Invalid component slug."
+msgstr "Ugyldig komponentkorttitel."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "PHP-udvidelsen Phar er påkrævet for at sikkerhedskopiere komponenter."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Sikkerhedskopieringen mislykkedes: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "Sikkerhedskopiarkivet blev ikke oprettet."
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:104
+#, php-format
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"Komponenten fylder %1$.1f MB, hvilket overskrider grænsen på %2$d MB for "
+"krypterede sikkerhedskopier. Sletningen blev sprunget over, så dit websted "
+"ikke mister data uden dækning."
+
+#: includes/class-segurium-component-backup.php:119
+msgid "Failed to read packed component archive."
+msgstr "Det pakkede komponentarkiv kunne ikke læses."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:141
+#, php-format
+msgid "Failed to encrypt component backup: %s"
+msgstr "Sikkerhedskopien af komponenten kunne ikke krypteres: %s"
+
+#: includes/class-segurium-component-backup.php:165
+msgid "Invalid backup identifier."
+msgstr "Ugyldig identifikator for sikkerhedskopien."
+
+#: includes/class-segurium-component-backup.php:175
+msgid "Backup archive not found or failed integrity check."
+msgstr ""
+"Sikkerhedskopiarkivet blev ikke fundet eller bestod ikke integritetstjekket."
+
+#: includes/class-segurium-component-backup.php:188
+msgid "Failed to stage backup for extraction."
+msgstr "Sikkerhedskopien kunne ikke gøres klar til udpakning."
+
+#: includes/class-segurium-component-backup.php:193
+#: includes/class-segurium.php:5064
+msgid "Restore target directory is not writable."
+msgstr "Målmappen for gendannelsen kan ikke skrives til."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Gendannelsen mislykkedes: %s"
+
+#: includes/class-segurium-component-backup.php:243
+msgid "Secure randomness is unavailable on this host."
+msgstr "Sikker tilfældighed er ikke tilgængelig på denne server."
+
+#: includes/class-segurium-cti-client.php:180
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr ""
+"Installations-id er ikke tilgængeligt. Kontroller, at pluginnet er aktiveret"
+" korrekt."
+
+#: includes/class-segurium-cti-client.php:555
+msgid "Too many requests. Please try again later."
+msgstr "For mange forespørgsler. Prøv igen senere."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:561
+#, php-format
+msgid "Support service error (HTTP %d)."
+msgstr "Fejl i supporttjenesten (HTTP %d)."
+
+#: includes/class-segurium-cti-client.php:1369
+msgid "Cleanup quota reached."
+msgstr "Rensekvoten er opbrugt."
+
+#: includes/class-segurium-cti-client.php:1376
+msgid "Clean version not available for this file"
+msgstr "Der findes ingen ren version af denne fil"
+
+#: includes/class-segurium-cti-client.php:1668
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Ugyldigt betalingssvar fra Segurium Cloud."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:89
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): intet svar at verificere."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:121
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): signaturheadere mangler."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:131
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr ""
+"Segurium Cloud (%1$s): signeret med en nøgle, der ikke er betroet, ”%2$s”."
+
+#: includes/class-segurium-cti-signature.php:142
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr ""
+"Listen over betroede signaturer er ødelagt – den offentlige nøgle kunne ikke"
+" afkodes."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:152
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): signaturheaderen er forkert udformet."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:163
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): signaturens tidsstempel er forkert udformet."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:176
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): signaturens tidsstempel ligger %2$d sekunder uden for"
+" intervallet."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:193
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium afviste signaturen (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:205
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): signaturen kunne ikke verificeres."
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Downloaded geo DB has invalid format."
+msgstr "Den hentede geodatabase har et ugyldigt format."
+
+#: includes/class-segurium-geo-updater.php:148
+msgid "Failed to write geo DB to disk."
+msgstr "Geodatabasen kunne ikke skrives til disken."
+
+#: includes/class-segurium-geo-updater.php:153
+msgid "Failed to install geo DB."
+msgstr "Geodatabasen kunne ikke installeres."
+
+#: includes/class-segurium-iid.php:256
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium har opdaget, at dette websted er flyttet eller klonet, og genskaber"
+" sin sikre forbindelse i baggrunden. Hvis du har en Pro-licens, skal du "
+"aktivere den igen på Segurium-kontoskærmen, så Pro-funktionerne bliver "
+"gendannet på den nye identitet."
+
+#: includes/class-segurium-iid.php:298
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium kunne ikke aktivere Pro-licensen på dette websted, fordi den lige "
+"nu er bundet til en anden installation. Åbn Segurium-kontoportalen på den "
+"oprindelige installation, og deaktiver licensen der. Bindingen bliver "
+"frigivet, og Pro-funktionerne aktiveres her ved næste licenstjek."
+
+#: includes/class-segurium-info-shield.php:331
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"På Nginx skal Server-headeren fjernes på serverniveau (server_tokens off;). "
+"Det gør ingen forskel at slå den til eller fra her."
+
+#: includes/class-segurium-info-shield.php:334
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"På Apache med FastCGI bliver Server-headeren tilføjet, efter at PHP har "
+"kørt. Brug ServerTokens Prod i Apaches konfiguration."
+
+#: includes/class-segurium-info-shield.php:338
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"På IIS skal du bruge attributten removeServerHeader i web.config. Det gør "
+"kun begrænset forskel at slå den til eller fra her."
+
+#: includes/class-segurium-info-shield.php:352
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"Din server bruger FastCGI, som kan tilføje X-Powered-By-headeren igen. "
+"Kontroller, at den er fjernet, ved at se på svarheaderne."
+
+#: includes/class-segurium-info-shield.php:365
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr ""
+"Jetpack er aktivt og kræver XML-RPC. Slår du XML-RPC fra, holder Jetpack-"
+"forbindelsen op med at virke."
+
+#: includes/class-segurium-integrity-chain.php:149
+#: includes/class-segurium.php:1162
+msgid "Running a quick malware scan first…"
+msgstr "Kører først en hurtig malwarescanning…"
+
+#: includes/class-segurium-integrity-chain.php:200
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr ""
+"Den sammenkædede malwarescanning blev annulleret – integritetsscanningen "
+"blev ikke startet."
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:223
+#, php-format
+msgid "Could not start the chained integrity scan: %s"
+msgstr "Den sammenkædede integritetsscanning kunne ikke startes: %s"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:173
+#, php-format
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr "Segurium-realtidsscanning (hvert %d. sekund, tilsidesat i udvikling)"
+
+#: includes/class-segurium-review-prompt.php:345
+msgid "Leave a review"
+msgstr "Skriv en anmeldelse"
+
+#: includes/class-segurium-review-prompt.php:347
+#: includes/class-segurium.php:1165
+msgid "Maybe later"
+msgstr "Måske senere"
+
+#: includes/class-segurium-review-prompt.php:349
+msgid "Don't ask again"
+msgstr "Spørg ikke igen"
+
+#: includes/class-segurium-review-prompt.php:365
+msgid "Segurium just cleaned your site."
+msgstr "Segurium har lige renset dit websted."
+
+#: includes/class-segurium-review-prompt.php:366
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Vi er glade for, at vi kunne hjælpe. Hvis Segurium sparede dig tid eller "
+"penge i dag, hjælper en ærlig anmeldelse på WordPress.org andre "
+"webstedsejere med at finde det, og os med at holde renseniveauet gratis."
+
+#: includes/class-segurium-review-prompt.php:371
+msgid "Scan complete. Your site is clean."
+msgstr "Scanningen er færdig. Dit websted er rent."
+
+#: includes/class-segurium-review-prompt.php:372
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Hvis Segurium gør sit arbejde, vil du så skrive en ærlig anmeldelse på "
+"WordPress.org? Det tager et minut."
+
+#: includes/class-segurium-review-prompt.php:434
+#: includes/class-segurium.php:3763 includes/class-segurium.php:3841
+#: includes/class-segurium.php:3935 includes/class-segurium.php:3971
+#: includes/class-segurium.php:4044 includes/class-segurium.php:4129
+#: includes/class-segurium.php:4164 includes/class-segurium.php:4233
+#: includes/class-segurium.php:4297 includes/class-segurium.php:4374
+#: includes/class-segurium.php:4476 includes/class-segurium.php:4594
+#: includes/class-segurium.php:4652 includes/class-segurium.php:4702
+#: includes/class-segurium.php:4937 includes/class-segurium.php:4977
+#: includes/class-segurium.php:5004 includes/class-segurium.php:5032
+#: includes/class-segurium.php:5090 includes/class-segurium.php:5130
+#: includes/class-segurium.php:5172 includes/class-segurium.php:5214
+#: includes/class-segurium.php:5339 includes/class-segurium.php:5443
+#: includes/class-segurium.php:5802 includes/class-segurium.php:5859
+#: includes/class-segurium.php:5954 includes/class-segurium.php:6548
+#: includes/class-segurium.php:6866 includes/class-segurium.php:6943
+msgid "Unauthorized"
+msgstr "Ikke godkendt"
+
+#: includes/class-segurium-review-prompt.php:442
+msgid "Unknown review prompt action."
+msgstr "Ukendt handling for anmeldelsesprompten."
+
+#: includes/class-segurium-scan-runner.php:356
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "Hvert 60. sekund (redning af Segurium-scanning)"
+
+#: includes/class-segurium-scan-runner.php:387
+msgid "A scan type is required."
+msgstr "En scanningstype er påkrævet."
+
+#: includes/class-segurium-scan-runner.php:400
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"Aktiveringen hos Segurium-skytjenesten er stadig undervejs. Prøv igen om et "
+"øjeblik."
+
+#: includes/class-segurium-scan-runner.php:414
+#: includes/class-segurium.php:1073 includes/class-segurium.php:4770
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"Lageret til scanninger er ikke klar. Deaktiver og aktiver Segurium-pluginnet"
+" igen, og prøv så igen."
+
+#: includes/class-segurium-scan-runner.php:424
+#: includes/class-segurium-scan-runner.php:459
+#: includes/class-segurium.php:1052
+msgid "A scan is already in progress."
+msgstr "En scanning er allerede i gang."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:452
+#: includes/class-segurium-scan-runner.php:528
+#, php-format
+msgid "Unexpected error starting scan: %s"
+msgstr "Uventet fejl ved start af scanningen: %s"
+
+#: includes/class-segurium-scan-runner.php:480
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr ""
+"Lageret til scanninger var ikke klar. Det er repareret automatisk – klik på "
+"”Start scanning” igen."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:489
+#, php-format
+msgid "Failed to initialize scan: %s"
+msgstr "Scanningen kunne ikke klargøres: %s"
+
+#: includes/class-segurium-scan-runner.php:1331
+#: includes/class-segurium.php:1056 includes/class-segurium.php:3487
+#: includes/class-segurium.php:3552 includes/class-segurium.php:3579
+#: includes/class-segurium.php:4414
+msgid "You do not have permission to manage scans."
+msgstr "Du har ikke rettigheder til at styre scanninger."
+
+#: includes/class-segurium-scan-runner.php:1361
+#: includes/class-segurium.php:4443
+msgid "Could not fetch scan status due to a server error."
+msgstr "Scanningens status kunne ikke hentes på grund af en serverfejl."
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:2222
+#, php-format
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"PHP max_execution_time er %d sekunder – for kort til pålidelig scanning. Bed"
+" din udbyder om at hæve den til mindst 30 sekunder."
+
+#: includes/class-segurium-scan-runner.php:2233
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
+msgstr ""
+"WordPress-cron er slået fra (DISABLE_WP_CRON), og din PHP-opsætning har "
+"ingen måde at koble lange opgaver fra sideforespørgsler på. Scanninger i "
+"baggrunden kommer kun videre, mens en Segurium-adminfane står åben. Bed din "
+"udbyder om enten at slå et rigtigt cron-job til på systemet, der rammer wp-"
+"cron.php hvert minut, eller om at skifte fra mod_php til PHP-FPM eller "
+"LiteSpeed."
+
+#: includes/class-segurium-scan-runner.php:2235
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"WordPress-cron er slået fra (DISABLE_WP_CRON). Planlagte scanninger afhænger"
+" af et rigtigt cron-job på systemet, der rammer wp-cron.php hvert minut. Bed"
+" din udbyder om at sætte et op."
+
+#: includes/class-segurium-scan-trigger-auth.php:93
+#: includes/class-segurium-scan-trigger-auth.php:135
+#: includes/class-segurium-scan-trigger-auth.php:143
+msgid "Scan trigger requires authentication."
+msgstr "Udløseren til scanning kræver godkendelse."
+
+#: includes/class-segurium-scan-trigger-auth.php:122
+msgid "Scan trigger secret did not match."
+msgstr "Hemmeligheden for udløseren til scanning passede ikke."
+
+#: includes/class-segurium-scheduled-scan-settings.php:108
+msgid "Invalid settings payload."
+msgstr "Ugyldig nyttelast med indstillinger."
+
+#: includes/class-segurium-scheduled-scan-settings.php:127
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "Hyppigheden skal være en af: fra, dagligt, ugentligt."
+
+#: includes/class-segurium-scheduled-scan-settings.php:138
+msgid "Hour must be between 0 and 23."
+msgstr "Timetallet skal være mellem 0 og 23."
+
+#: includes/class-segurium-scheduled-scan-settings.php:149
+msgid "Minute must be between 0 and 59."
+msgstr "Minuttallet skal være mellem 0 og 59."
+
+#: includes/class-segurium-scheduled-scan-settings.php:160
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "Ugedagen skal være mellem 0 (søndag) og 6 (lørdag)."
+
+#: includes/class-segurium-self-check.php:401 includes/class-segurium.php:2701
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:404
+msgid "CSP is enforced."
+msgstr "CSP håndhæves."
+
+#: includes/class-segurium-self-check.php:406
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr "CSP rapporterer kun. Skift til håndhævelse for fuld beskyttelse."
+
+#: includes/class-segurium-self-check.php:407
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr ""
+"Ingen Content-Security-Policy-header. Den beskytter mod XSS og "
+"indsprøjtning."
+
+#: includes/class-segurium-self-check.php:422
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:425
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS er aktiv med en max-age på mindst et år."
+
+#: includes/class-segurium-self-check.php:427
+msgid "HSTS present but max-age is below one year."
+msgstr "HSTS findes, men max-age er under et år."
+
+#: includes/class-segurium-self-check.php:428
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr "Ingen HSTS-header. Browsere kan forbinde over almindelig HTTP."
+
+#: includes/class-segurium-self-check.php:440
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:443
+msgid "MIME sniffing prevented."
+msgstr "MIME-snusning er forhindret."
+
+#: includes/class-segurium-self-check.php:444
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "Mangler. Browsere kan misforstå filtyper."
+
+#: includes/class-segurium-self-check.php:456 includes/class-segurium.php:2570
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:459
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "Beskyttelse mod clickjacking via X-Frame-Options."
+
+#: includes/class-segurium-self-check.php:460
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr "X-Frame-Options mangler. Angribere kan lægge webstedet i en ramme."
+
+#: includes/class-segurium-self-check.php:472 includes/class-segurium.php:2578
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:475
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "Referrer-Policy begrænser lækage af oplysninger ved navigation."
+
+#: includes/class-segurium-self-check.php:476
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr ""
+"Referrer-Policy mangler eller er usikker. Fulde URL-adresser kan blive "
+"lækket."
+
+#: includes/class-segurium-self-check.php:487 includes/class-segurium.php:2666
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:490
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "Permissions-Policy begrænser adgangen til browserfunktioner."
+
+#: includes/class-segurium-self-check.php:491
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "Permissions-Policy mangler. Browserfunktioner er ikke begrænsede."
+
+#: includes/class-segurium-self-check.php:503 includes/class-segurium.php:2598
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:506
+msgid "Legacy XSS filter directive present."
+msgstr "Det gamle direktiv til XSS-filteret findes."
+
+#: includes/class-segurium-self-check.php:507
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"X-XSS-Protection mangler. Sæt den til 0 for at slå gamle browseres XSS-"
+"filtre trygt fra."
+
+#: includes/class-segurium-self-check.php:532
+msgid "X-Powered-By hidden"
+msgstr "X-Powered-By er skjult"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:537
+#, php-format
+msgid "X-Powered-By reveals: %s"
+msgstr "X-Powered-By afslører: %s"
+
+#: includes/class-segurium-self-check.php:540
+msgid "X-Powered-By header is not exposed."
+msgstr "X-Powered-By-headeren bliver ikke afsløret."
+
+#: includes/class-segurium-self-check.php:551
+msgid "WordPress version hidden"
+msgstr "WordPress-versionen er skjult"
+
+#: includes/class-segurium-self-check.php:554
+msgid "WordPress version exposed in HTML source."
+msgstr "WordPress-versionen er afsløret i HTML-kilden."
+
+#: includes/class-segurium-self-check.php:555
+msgid "WordPress version not visible in HTML."
+msgstr "WordPress-versionen er ikke synlig i HTML."
+
+#: includes/class-segurium-self-check.php:566
+msgid "Asset version query hidden"
+msgstr "Versionsforespørgslen på filer er skjult"
+
+#: includes/class-segurium-self-check.php:569
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr ""
+"Versionen af kernen, temaet eller pluginnet er afsløret i ?ver= på fil-URL-"
+"adresser."
+
+#: includes/class-segurium-self-check.php:570
+msgid "Asset URLs do not expose version numbers."
+msgstr "Fil-URL-adresser afslører ikke versionsnumre."
+
+#: includes/class-segurium-self-check.php:597
+msgid "XML-RPC disabled"
+msgstr "XML-RPC er slået fra"
+
+#: includes/class-segurium-self-check.php:600
+msgid "XML-RPC endpoint is disabled."
+msgstr "XML-RPC-endepunktet er slået fra."
+
+#: includes/class-segurium-self-check.php:601
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr ""
+"XML-RPC kan nås. Det er et hyppigt mål for brute force og forstærkning via "
+"pingback."
+
+#: includes/class-segurium-self-check.php:612
+msgid "REST API discovery disabled"
+msgstr "Opdagelse af REST-API'et er slået fra"
+
+#: includes/class-segurium-self-check.php:615
+msgid "REST API discovery link removed from <head>."
+msgstr "Opdagelseslinket til REST-API'et er fjernet fra <head>."
+
+#: includes/class-segurium-self-check.php:616
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr ""
+"Opdagelseslinket til REST-API'et er afsløret – det gør rekognoscering "
+"nemmere."
+
+#: includes/class-segurium-self-check.php:627
+msgid "Brute-force protection"
+msgstr "Brute force-beskyttelse"
+
+#: includes/class-segurium-self-check.php:630
+msgid "Login brute-force protection is active."
+msgstr "Brute force-beskyttelse af login er aktiv."
+
+#: includes/class-segurium-self-check.php:631
+msgid "Brute-force protection is disabled."
+msgstr "Brute force-beskyttelse er slået fra."
+
+#: includes/class-segurium-self-check.php:646
+msgid "Two-factor enforced for administrators"
+msgstr "Tofaktor er håndhævet for administratorer"
+
+#: includes/class-segurium-self-check.php:649
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "Tofaktorgodkendelse er håndhævet for administratorrollen."
+
+#: includes/class-segurium-self-check.php:650
+msgid "Administrators can log in with a password alone."
+msgstr "Administratorer kan logge ind med en adgangskode alene."
+
+#: includes/class-segurium-self-check.php:662 includes/class-segurium.php:1841
+msgid "Firewall"
+msgstr "Firewall"
+
+#: includes/class-segurium-self-check.php:665
+msgid "Firewall rules are active."
+msgstr "Firewallreglerne er aktive."
+
+#: includes/class-segurium-self-check.php:666
+msgid "No firewall rules are active."
+msgstr "Ingen firewallregler er aktive."
+
+#: includes/class-segurium-self-check.php:678
+msgid "HTTPS / SSL active"
+msgstr "HTTPS og SSL er aktivt"
+
+#: includes/class-segurium-self-check.php:681
+msgid "Site is served over HTTPS."
+msgstr "Webstedet leveres over HTTPS."
+
+#: includes/class-segurium-self-check.php:682
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "Webstedet leveres ikke over HTTPS. Trafikken er ukrypteret."
+
+#: includes/class-segurium-self-check.php:722
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"Ingen Set-Cookie-headere på forsiden. Cookieflagene kan ikke vurderes "
+"udefra."
+
+#: includes/class-segurium-self-check.php:728
+#: includes/class-segurium-self-check.php:761
+msgid "Cookies — Secure"
+msgstr "Cookies – Secure"
+
+#: includes/class-segurium-self-check.php:739
+#: includes/class-segurium-self-check.php:762
+msgid "Cookies — HttpOnly"
+msgstr "Cookies – HttpOnly"
+
+#: includes/class-segurium-self-check.php:750
+#: includes/class-segurium-self-check.php:858
+#: includes/class-segurium-self-check.php:872
+#: includes/class-segurium-self-check.php:890
+msgid "Cookies — SameSite"
+msgstr "Cookies – SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:794
+#, php-format
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "Alle %1$d cookies sætter attributten %2$s."
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
+#: includes/class-segurium-self-check.php:808
+#, php-format
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%1$d af %2$d cookies sætter %3$s."
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:821
+#, php-format
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "Ingen af de %1$d cookies sætter attributten %2$s."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:861
+#, php-format
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "Alle %d cookies sætter SameSite=Lax eller Strict."
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:875
+#, php-format
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "%1$d af %2$d cookies sætter SameSite=Lax eller Strict."
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:883
+#, php-format
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "%1$d af %2$d cookies bruger SameSite=None."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:885
+#, php-format
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "Ingen cookies sætter SameSite=Lax eller Strict (ud af %d)."
+
+#: includes/class-segurium-self-check.php:952 includes/class-segurium.php:3069
+msgid "Cloud-assisted malware detection"
+msgstr "Skybaseret malwareopdagelse"
+
+#: includes/class-segurium-self-check.php:955
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Lokal tilstand er slået til: filindhold bliver på denne server, og hver fil,"
+" som skyen ikke kan genkende på hashen, forbliver uafklaret. Slå skybaseret "
+"opdagelse til for fuld nøjagtighed."
+
+#: includes/class-segurium-self-check.php:956
+msgid "Cloud-assisted malware detection is active."
+msgstr "Skybaseret malwareopdagelse er aktiv."
+
+#: includes/class-segurium-self-check.php:968
+msgid "Scheduled malware scans"
+msgstr "Planlagte malwarescanninger"
+
+#: includes/class-segurium-self-check.php:971
+msgid "A recurring malware scan is scheduled."
+msgstr "En tilbagevendende malwarescanning er planlagt."
+
+#: includes/class-segurium-self-check.php:972
+msgid "No recurring malware scan is scheduled."
+msgstr "Ingen tilbagevendende malwarescanning er planlagt."
+
+#: includes/class-segurium-self-check.php:984
+msgid "Automatic malware cleanup"
+msgstr "Automatisk rensning af malware"
+
+#: includes/class-segurium-self-check.php:987
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "Fundet malware bliver renset automatisk efter hver scanning."
+
+#: includes/class-segurium-self-check.php:988
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr ""
+"Automatisk rensning er slået fra. Fundet malware kræver et manuelt klik for "
+"at blive renset."
+
+#: includes/class-segurium-self-check.php:1002
+msgid "Malware scan up to date"
+msgstr "Malwarescanningen er opdateret"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:1007
+#, php-format
+msgid "Last malware scan completed %s ago."
+msgstr "Den seneste malwarescanning blev færdig for %s siden."
+
+#: includes/class-segurium-self-check.php:1011
+msgid "Malware scan is older than 7 days."
+msgstr "Malwarescanningen er ældre end 7 dage."
+
+#: includes/class-segurium-self-check.php:1012
+msgid "No malware scan has been completed yet."
+msgstr "Ingen malwarescanning er blevet færdig endnu."
+
+#: includes/class-segurium-self-check.php:1024
+msgid "No malware in the last 24 hours"
+msgstr "Ingen malware de seneste 24 timer"
+
+#: includes/class-segurium-self-check.php:1027
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr ""
+"Den seneste malwarescanning kørte inden for de seneste 24 timer og fandt "
+"ingenting."
+
+#: includes/class-segurium-self-check.php:1029
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"Ingen malwarescanning har kørt inden for de seneste 24 timer. Scanninger går"
+" hurtigt – kør en for at opdatere denne vurdering."
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:1032
+#, php-format
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] ""
+"Den seneste malwarescanning markerede %d trussel. Gennemgå den under fanen "
+"Malwarescanner."
+msgstr[1] ""
+"Den seneste malwarescanning markerede %d trusler. Gennemgå dem under fanen "
+"Malwarescanner."
+
+#: includes/class-segurium-self-check.php:1056
+msgid "No integrity issues in the last 24 hours"
+msgstr "Ingen integritetsproblemer de seneste 24 timer"
+
+#: includes/class-segurium-self-check.php:1059
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr ""
+"Den seneste integritetsscanning kørte inden for de seneste 24 timer og "
+"meldte ingen problemer."
+
+#: includes/class-segurium-self-check.php:1061
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr ""
+"Ingen integritetsscanning har kørt inden for de seneste 24 timer. Scanninger"
+" går hurtigt – kør en for at opdatere denne vurdering."
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:1064
+#, php-format
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] ""
+"%d åbent integritetsproblem er uløst. Gennemgå det under fanen "
+"Integritetsscanner."
+msgstr[1] ""
+"%d åbne integritetsproblemer er uløste. Gennemgå dem under fanen "
+"Integritetsscanner."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+#, php-format
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "Endepunktet for betroede proxyer svarede HTTP %d."
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "Svaret om betroede proxyer har et ugyldigt format."
+
+#: includes/class-segurium-upload-scan.php:93
+msgid "This file was identified as malware and has been blocked."
+msgstr "Denne fil er identificeret som malware og er blevet blokeret."
+
+#: includes/class-segurium.php:359
+msgid "Unknown or unsupported action."
+msgstr "Ukendt handling, eller handlingen understøttes ikke."
+
+#: includes/class-segurium.php:385
+msgid "This action is temporarily unavailable."
+msgstr "Denne handling er midlertidigt utilgængelig."
+
+#: includes/class-segurium.php:460 includes/segurium-admin-menu-shell.php:125
+msgid "Security score:"
+msgstr "Sikkerhedsscore:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:470 includes/class-segurium.php:1297
+#: includes/segurium-admin-menu-shell.php:135
+#, php-format
+msgid "Last checked %s ago."
+msgstr "Sidst tjekket for %s siden."
+
+#: includes/class-segurium.php:477 includes/segurium-admin-menu-shell.php:142
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"Kør et sikkerhedstjek fra Segurium-adminsiden for at se din sikkerhedsscore."
+
+#: includes/class-segurium.php:483 includes/segurium-admin-menu-shell.php:148
+msgid "Open Segurium"
+msgstr "Åbn Segurium"
+
+#: includes/class-segurium.php:1016
+msgid "Malware"
+msgstr "Malware"
+
+#: includes/class-segurium.php:1017
+msgid "Clean"
+msgstr "Rens"
+
+#: includes/class-segurium.php:1018 includes/class-segurium.php:1924
+msgid "Cleaned"
+msgstr "Renset"
+
+#: includes/class-segurium.php:1019
+msgid "Restored"
+msgstr "Gendannet"
+
+#: includes/class-segurium.php:1020
+msgid "Failed"
+msgstr "Mislykkedes"
+
+#: includes/class-segurium.php:1021
+msgid "Processing..."
+msgstr "Behandler…"
+
+#: includes/class-segurium.php:1022
+msgid "Show malware"
+msgstr "Vis malware"
+
+#: includes/class-segurium.php:1023
+msgid "Report false positive"
+msgstr "Rapporter en falsk positiv"
+
+#: includes/class-segurium.php:1024 includes/class-segurium.php:3172
+msgid "Report False Positive"
+msgstr "Rapporter en falsk positiv"
+
+#: includes/class-segurium.php:1025 includes/class-segurium.php:3177
+msgid "File path"
+msgstr "Filsti"
+
+#: includes/class-segurium.php:1026 includes/class-segurium.php:3179
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:1027 includes/class-segurium.php:2002
+#: includes/class-segurium.php:3181
+msgid "Component"
+msgstr "Komponent"
+
+#: includes/class-segurium.php:1028 includes/class-segurium.php:3183
+msgid "Current verdict"
+msgstr "Nuværende vurdering"
+
+#: includes/class-segurium.php:1029 includes/class-segurium.php:3186
+msgid "Note (optional, max 2000 chars)"
+msgstr "Note (valgfri, højst 2000 tegn)"
+
+#: includes/class-segurium.php:1030 includes/class-segurium.php:3190
+msgid "Also ignore this file on this site"
+msgstr "Se også bort fra denne fil på dette websted"
+
+#: includes/class-segurium.php:1031 includes/class-segurium.php:3194
+msgid "Submit report"
+msgstr "Indsend rapport"
+
+#: includes/class-segurium.php:1033
+msgid "Submitting…"
+msgstr "Indsender…"
+
+#: includes/class-segurium.php:1034
+msgid "Report submitted. Thank you."
+msgstr "Rapporten er indsendt. Tak."
+
+#: includes/class-segurium.php:1035
+msgid "Could not submit the report."
+msgstr "Rapporten kunne ikke indsendes."
+
+#: includes/class-segurium.php:1036 includes/class-segurium.php:1135
+msgid "Restore"
+msgstr "Gendan"
+
+#: includes/class-segurium.php:1037
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr ""
+"Dette gendanner den oprindelige inficerede fil fra sikkerhedskopien. Vil du "
+"fortsætte?"
+
+#: includes/class-segurium.php:1038
+msgid "Restore file"
+msgstr "Gendan fil"
+
+#: includes/class-segurium.php:1039
+msgid "Checking…"
+msgstr "Tjekker…"
+
+#: includes/class-segurium.php:1040
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"Filen på disken er allerede den version, der er sikkerhedskopieret. Vil du "
+"gendanne alligevel for at opdatere databasens poster?"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1042
+#, php-format
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"Filen på %s er ændret siden den seneste rensning. En gendannelse overskriver"
+" den nuværende fil med versionen fra sikkerhedskopien. Det kan ikke "
+"fortrydes."
+
+#: includes/class-segurium.php:1043
+msgid "Overwrite & Restore"
+msgstr "Overskriv og gendan"
+
+#: includes/class-segurium.php:1044
+msgid "No threats found."
+msgstr "Ingen trusler fundet."
+
+#: includes/class-segurium.php:1045
+msgid "Scan complete."
+msgstr "Scanningen er færdig."
+
+#: includes/class-segurium.php:1046
+msgid "files"
+msgstr "filer"
+
+#: includes/class-segurium.php:1047
+msgid "failed"
+msgstr "mislykkedes"
+
+#: includes/class-segurium.php:1048
+msgid "skipped"
+msgstr "sprunget over"
+
+#: includes/class-segurium.php:1049
+msgid "scanned"
+msgstr "scannet"
+
+#: includes/class-segurium.php:1050
+msgid "Starting scan..."
+msgstr "Starter scanningen…"
+
+#: includes/class-segurium.php:1051
+msgid "Error"
+msgstr "Fejl"
+
+#: includes/class-segurium.php:1053
+msgid "Scan in progress..."
+msgstr "Scanning i gang…"
+
+#: includes/class-segurium.php:1054
+msgid "Request failed"
+msgstr "Forespørgslen mislykkedes"
+
+#: includes/class-segurium.php:1055
+msgid "Your session has expired. Reload the page and try again."
+msgstr "Din session er udløbet. Genindlæs siden, og prøv igen."
+
+#: includes/class-segurium.php:1057 includes/class-segurium.php:3497
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Samtykke til Segurium Cloud er påkrævet, før der kan scannes."
+
+#: includes/class-segurium.php:1058
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr "Scanningen kunne ikke klargøres. Se PHP-fejlloggen."
+
+#: includes/class-segurium.php:1059
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr ""
+"Scanningen startede, men arbejderen i baggrunden kunne ikke sættes i gang. "
+"Prøv igen."
+
+#: includes/class-segurium.php:1060
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Scanningen kunne ikke startes på grund af en serverfejl. Se PHP-fejlloggen."
+
+#: includes/class-segurium.php:1061
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr ""
+"Scanningens status kunne ikke hentes på grund af en serverfejl. Se PHP-"
+"fejlloggen."
+
+#: includes/class-segurium.php:1062
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Den kørende scanning kunne ikke stoppes på grund af en serverfejl. Se PHP-"
+"fejlloggen."
+
+#: includes/class-segurium.php:1063
+msgid "The server returned an error while processing the request."
+msgstr "Serveren svarede med en fejl, mens forespørgslen blev behandlet."
+
+#: includes/class-segurium.php:1064
+msgid "Network error — the request could not reach the server."
+msgstr "Netværksfejl – forespørgslen nåede ikke frem til serveren."
+
+#: includes/class-segurium.php:1065
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"Visningen af forløbet ramte en scriptfejl og holdt op med at opdatere. "
+"Genindlæs siden for at se den aktuelle tilstand – selve scanningen er "
+"upåvirket. Detaljerne står i browserkonsollen."
+
+#: includes/class-segurium.php:1066
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr "Serveren svarede uventet. Genindlæs siden, og prøv igen."
+
+#: includes/class-segurium.php:1067
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium fik et tomt svar fra serveren. PHP-håndteringen gik sandsynligvis "
+"ned, før den nåede at skrive noget – se efter en fatal fejl, "
+"hukommelsesmangel eller timeout i PHP-fejlloggen."
+
+#: includes/class-segurium.php:1068
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"Seguriums svarmarkører mangler i indholdet. Seguriums AJAX-håndtering kørte "
+"ikke, eller et andet plugin erstattede hele svaret. Se i wp-content/mu-"
+"plugins, blandt de aktive plugins og i PHP-fejlloggen."
+
+#: includes/class-segurium.php:1069
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Seguriums svar blev afbrudt undervejs – startmarkøren kom frem, men "
+"slutmarkøren gjorde ikke. PHP-håndteringen gik ned midt i svaret (fatal "
+"fejl, hukommelsesmangel eller timeout). Se PHP-fejlloggen."
+
+#: includes/class-segurium.php:1070
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium kunne ikke pakke serverens svar ud. Se efter en fatal fejl, "
+"hukommelsesmangel eller timeout i Segurium-håndteringen i PHP-fejlloggen."
+
+#: includes/class-segurium.php:1071
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Segurium modtog et svar med gyldige markører, men JSON-indholdet kunne ikke "
+"fortolkes. Det peger som regel på en fatal PHP-fejl inde i Segurium-"
+"håndteringen – se PHP-fejlloggen."
+
+#: includes/class-segurium.php:1072 includes/class-segurium.php:3561
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr ""
+"Denne udgave af adminsiden er forældet. Genindlæs siden for at fortsætte."
+
+#: includes/class-segurium.php:1074
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr "Der opstod en uventet serverfejl. Se PHP-fejlloggen, og prøv igen."
+
+#: includes/class-segurium.php:1075 includes/class-segurium.php:3123
+msgid "Frequency"
+msgstr "Hyppighed"
+
+#: includes/class-segurium.php:1076 includes/class-segurium.php:2550
+#: includes/class-segurium.php:3126
+msgid "Off"
+msgstr "Fra"
+
+#: includes/class-segurium.php:1077 includes/class-segurium.php:3127
+msgid "Daily"
+msgstr "Dagligt"
+
+#: includes/class-segurium.php:1078 includes/class-segurium.php:3128
+msgid "Weekly"
+msgstr "Ugentligt"
+
+#: includes/class-segurium.php:1079 includes/class-segurium.php:3133
+msgid "Time of day"
+msgstr "Tidspunkt på dagen"
+
+#: includes/class-segurium.php:1080 includes/class-segurium.php:3140
+msgid "Day of week"
+msgstr "Ugedag"
+
+#: includes/class-segurium.php:1081
+msgid "Next run:"
+msgstr "Næste kørsel:"
+
+#: includes/class-segurium.php:1082
+msgid "Schedule saved."
+msgstr "Planen er gemt."
+
+#: includes/class-segurium.php:1083
+msgid "Could not save schedule."
+msgstr "Planen kunne ikke gemmes."
+
+#: includes/class-segurium.php:1084
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "Gemt i UTC. Vist i din browsers sprogområde."
+
+#: includes/class-segurium.php:1085
+msgid "Scanned files"
+msgstr "Scannede filer"
+
+#: includes/class-segurium.php:1086
+msgid "showing first"
+msgstr "viser de første"
+
+#: includes/class-segurium.php:1087
+msgid "Original file content (malware)"
+msgstr "Filens oprindelige indhold (malware)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1089
+#, php-format
+msgid "Current on-disk content (malware): %s"
+msgstr "Nuværende indhold på disken (malware): %s"
+
+#: includes/class-segurium.php:1090 includes/class-segurium.php:2041
+#: includes/class-segurium.php:2055
+msgid "Close"
+msgstr "Luk"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:1092
+msgid "OK"
+msgstr "OK"
+
+#: includes/class-segurium.php:1093
+msgid "Delete failed"
+msgstr "Sletningen mislykkedes"
+
+#: includes/class-segurium.php:1094
+msgid "Restore failed"
+msgstr "Gendannelsen mislykkedes"
+
+#: includes/class-segurium.php:1095
+msgid "Fix failed"
+msgstr "Rettelsen mislykkedes"
+
+#: includes/class-segurium.php:1096
+msgid "Diff failed"
+msgstr "Sammenligningen mislykkedes"
+
+#: includes/class-segurium.php:1097
+msgid "Diff decode error"
+msgstr "Fejl ved afkodning af sammenligningen"
+
+#: includes/class-segurium.php:1098
+msgid "View failed"
+msgstr "Visningen mislykkedes"
+
+#: includes/class-segurium.php:1099
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Kan ikke gendanne – der er ikke registreret nogen sikkerhedskopi af denne "
+"fil. Sikkerhedskopien kan være blevet roteret ud."
+
+#: includes/class-segurium.php:1100 includes/class-segurium.php:1136
+#: includes/class-segurium.php:1928
+msgid "Fixed"
+msgstr "Rettet"
+
+#: includes/class-segurium.php:1101 includes/class-segurium.php:1932
+msgid "Ignored"
+msgstr "Ignoreret"
+
+#: includes/class-segurium.php:1102
+msgid "Ignore until file is the same"
+msgstr "Ignorer, indtil filen ændrer sig"
+
+#: includes/class-segurium.php:1103
+msgid "Always ignore"
+msgstr "Ignorer altid"
+
+#: includes/class-segurium.php:1104
+msgid "Remove from ignore"
+msgstr "Fjern fra ignorerede"
+
+#: includes/class-segurium.php:1105
+msgid "Connected"
+msgstr "Forbundet"
+
+#: includes/class-segurium.php:1106
+msgid "Disconnected"
+msgstr "Ikke forbundet"
+
+#: includes/class-segurium.php:1107
+msgid "No files found."
+msgstr "Ingen filer fundet."
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:1109
+#, php-format
+msgid "%d threats still need your attention"
+msgstr "%d trusler kræver stadig din opmærksomhed"
+
+#: includes/class-segurium.php:1110
+msgid "No threats — you are clear."
+msgstr "Ingen trusler – du er fri."
+
+#: includes/class-segurium.php:1111
+msgid "No scans yet — run your first scan."
+msgstr "Ingen scanninger endnu – kør din første scanning."
+
+#: includes/class-segurium.php:1112 includes/class-segurium.php:1897
+#: includes/class-segurium.php:1986
+msgid "Stop scan"
+msgstr "Stop scanningen"
+
+#: includes/class-segurium.php:1113
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr ""
+"Vil du stoppe den kørende scanning? Forløbet indtil nu bliver kasseret."
+
+#: includes/class-segurium.php:1114
+msgid "Could not stop the scan."
+msgstr "Scanningen kunne ikke stoppes."
+
+#: includes/class-segurium.php:1115
+msgid "Scan stopped."
+msgstr "Scanningen er stoppet."
+
+#. translators: %1$d: files scanned before stop, %2$d: files discovered
+#: includes/class-segurium.php:1117
+#, php-format
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "Scanningen er stoppet – %1$d af %2$d filer scannet."
+
+#. translators: %1$d: files scanned before abort, %2$d: files discovered
+#: includes/class-segurium.php:1119
+#, php-format
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "Scanningen blev afbrudt – %1$d af %2$d filer scannet."
+
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
+#: includes/class-segurium.php:1121
+#, php-format
+msgid "no progress for %ds — waiting for worker"
+msgstr "intet forløb i %d sekunder – venter på arbejderen"
+
+#: includes/class-segurium.php:1122
+msgid "Hosting environment warnings"
+msgstr "Advarsler om hostingmiljøet"
+
+#: includes/class-segurium.php:1123
+msgid "No malicious files. All known threats have been handled."
+msgstr "Ingen skadelige filer. Alle kendte trusler er håndteret."
+
+#: includes/class-segurium.php:1124
+msgid "No cleaned files yet."
+msgstr "Ingen rensede filer endnu."
+
+#: includes/class-segurium.php:1125
+msgid "No files marked fixed."
+msgstr "Ingen filer er markeret som rettede."
+
+#: includes/class-segurium.php:1126
+msgid "No ignored files."
+msgstr "Ingen ignorerede filer."
+
+#: includes/class-segurium.php:1127
+msgid "Recently processed in this session"
+msgstr "Behandlet for nylig i denne session"
+
+#: includes/class-segurium.php:1128 includes/class-segurium.php:1277
+msgid "Page"
+msgstr "Side"
+
+#: includes/class-segurium.php:1129 includes/class-segurium.php:1278
+msgid "of"
+msgstr "af"
+
+#: includes/class-segurium.php:1130
+msgid "items"
+msgstr "emner"
+
+#: includes/class-segurium.php:1131 includes/class-segurium.php:1275
+#: includes/class-segurium.php:2423
+msgid "Previous"
+msgstr "Forrige"
+
+#: includes/class-segurium.php:1132 includes/class-segurium.php:1276
+#: includes/class-segurium.php:2425
+msgid "Next"
+msgstr "Næste"
+
+#: includes/class-segurium.php:1133 includes/class-segurium.php:1298
+msgid "Fix"
+msgstr "Ret"
+
+#: includes/class-segurium.php:1134
+msgid "Ignore"
+msgstr "Ignorer"
+
+#: includes/class-segurium.php:1137
+msgid "Deleted"
+msgstr "Slettet"
+
+#: includes/class-segurium.php:1138
+msgid "Not found"
+msgstr "Ikke fundet"
+
+#: includes/class-segurium.php:1139
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"Denne fil er ikke en del af den oprindelige installation og bliver slettet. "
+"Der bliver oprettet en sikkerhedskopi. Vil du fortsætte?"
+
+#: includes/class-segurium.php:1140
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"Nogle filer bliver slettet (ukendte filer), og andre bliver erstattet med "
+"originalerne (ændrede filer). Der bliver oprettet sikkerhedskopier af dem "
+"alle. Vil du fortsætte?"
+
+#: includes/class-segurium.php:1141
+msgid "Fixing files..."
+msgstr "Retter filer…"
+
+#: includes/class-segurium.php:1143
+msgid "Older backups will be rotated out"
+msgstr "Ældre sikkerhedskopier bliver roteret ud"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
+#: includes/class-segurium.php:1145
+#, php-format
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "Du er ved at rette %1$d filer (~%2$s)."
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
+#: includes/class-segurium.php:1147
+#, php-format
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr ""
+"%1$d ældre sikkerhedskopier (~%2$s) bliver roteret ud – de er "
+"gendannelsespunkter for filer, der er rettet tidligere."
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:1149
+#, php-format
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr ""
+"%d fastgjorte sikkerhedskopier bliver bevaret (de er stadig i brug af "
+"Gendan)."
+
+#: includes/class-segurium.php:1150
+msgid "Continue"
+msgstr "Fortsæt"
+
+#: includes/class-segurium.php:1151
+msgid "Restoring files…"
+msgstr "Gendanner filer…"
+
+#: includes/class-segurium.php:1152
+msgid "Updating files…"
+msgstr "Opdaterer filer…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:1154
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d af %2$d"
+
+#: includes/class-segurium.php:1155
+msgid "Cancelling…"
+msgstr "Annullerer…"
+
+#: includes/class-segurium.php:1156
+msgid "Clean all detected malware"
+msgstr "Rens al fundet malware"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:1158
+#, php-format
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr ""
+"Dette forsøger at rense %d fundne skadelige filer. Hver fil bliver "
+"sikkerhedskopieret før rensningen."
+
+#: includes/class-segurium.php:1159
+msgid "Clean all"
+msgstr "Rens alle"
+
+#: includes/class-segurium.php:1160
+msgid "Cleaning malware..."
+msgstr "Renser malware…"
+
+#: includes/class-segurium.php:1163 includes/class-segurium.php:1164
+#: includes/class-segurium.php:1176 includes/class-segurium.php:1740
+#: includes/class-segurium.php:3026
+msgid "Upgrade to Pro"
+msgstr "Opgrader til Pro"
+
+#: includes/class-segurium.php:1166 includes/class-segurium.php:3888
+#: includes/class-segurium.php:6714
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"Rensekvoten er opbrugt. Opgrader til Pro for en ubegrænset kvote til "
+"rensning i skyen."
+
+#: includes/class-segurium.php:1167
+msgid "Cleanup quota reached"
+msgstr "Rensekvoten er opbrugt"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1169
+#, php-format
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr ""
+"Du har brugt %1$d skyrensninger de seneste %2$d dage. Opgrader til Pro for "
+"en ubegrænset kvote til rensning i skyen."
+
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
+#: includes/class-segurium.php:1171
+#, php-format
+msgid "Next slot opens %s"
+msgstr "Næste plads åbner %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1173 includes/class-segurium.php:1721
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "%1$d af %2$d rensninger brugt de seneste %3$d dage"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
+#: includes/class-segurium.php:1175 includes/class-segurium.php:1712
+#, php-format
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"%1$d af %2$d rensninger brugt de seneste %3$d dage – næste plads åbner %4$s"
+
+#: includes/class-segurium.php:1177 includes/class-segurium.php:3010
+#: includes/class-segurium.php:3208
+msgid "Pro"
+msgstr "Pro"
+
+#: includes/class-segurium.php:1178
+msgid "Diff"
+msgstr "Sammenlign"
+
+#: includes/class-segurium.php:1179
+msgid "Delisted from official WordPress.org"
+msgstr "Fjernet fra det officielle WordPress.org"
+
+#: includes/class-segurium.php:1180 includes/class-segurium.php:5525
+msgid "Abandoned (no updates >2 years)"
+msgstr "Forladt (ingen opdateringer i over 2 år)"
+
+#: includes/class-segurium.php:1181
+msgid "Not from official WordPress.org"
+msgstr "Ikke fra det officielle WordPress.org"
+
+#: includes/class-segurium.php:1182
+msgid "ignored"
+msgstr "ignoreret"
+
+#: includes/class-segurium.php:1183
+msgid "Issues"
+msgstr "Problemer"
+
+#: includes/class-segurium.php:1184
+msgid "issue"
+msgstr "problem"
+
+#: includes/class-segurium.php:1185
+msgid "unrecognized file"
+msgstr "ukendt fil"
+
+#: includes/class-segurium.php:1186
+msgid "(!) malware"
+msgstr "(!) malware"
+
+#: includes/class-segurium.php:1187
+msgid "View"
+msgstr "Vis"
+
+#: includes/class-segurium.php:1188
+msgid "issues"
+msgstr "problemer"
+
+#: includes/class-segurium.php:1189
+msgid "Checking"
+msgstr "Tjekker"
+
+#: includes/class-segurium.php:1190
+msgid "Discovering components…"
+msgstr "Finder komponenter…"
+
+#: includes/class-segurium.php:1191
+msgid "Saved permanently."
+msgstr "Gemt permanent."
+
+#: includes/class-segurium.php:1192
+msgid "Changes reverted."
+msgstr "Ændringerne er rullet tilbage."
+
+#: includes/class-segurium.php:1193 includes/class-segurium.php:2096
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Blocked Countries"
+msgstr "Blokerede lande"
+
+#: includes/class-segurium.php:1194
+msgid "Allowed Countries"
+msgstr "Tilladte lande"
+
+#: includes/class-segurium.php:1195 includes/class-segurium.php:2105
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr ""
+"Skriv et landenavn eller en ISO-kode for at føje det til blokeringslisten."
+
+#: includes/class-segurium.php:1196
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr ""
+"Skriv et landenavn eller en ISO-kode for at føje det til tilladelseslisten."
+
+#: includes/class-segurium.php:1197 includes/class-segurium.php:2184
+msgid "Blocked IPs / CIDRs"
+msgstr "Blokerede IP-adresser og CIDR-intervaller"
+
+#: includes/class-segurium.php:1198 includes/class-segurium.php:2185
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"Disse IP-adresser bliver altid blokeret. En pr. linje. Accepterer IPv4, IPv6"
+" og CIDR-intervaller."
+
+#: includes/class-segurium.php:1199
+msgid "Allowed IPs / CIDRs"
+msgstr "Tilladte IP-adresser og CIDR-intervaller"
+
+#: includes/class-segurium.php:1200
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"Kun disse IP-adresser kan tilgå webstedet. Alle andre bliver blokeret. En "
+"pr. linje."
+
+#: includes/class-segurium.php:1201
+msgid "No supported security plugins detected."
+msgstr "Der blev ikke fundet nogen understøttede sikkerhedsplugins."
+
+#: includes/class-segurium.php:1202
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: includes/class-segurium.php:1203
+msgid "Apply Migration"
+msgstr "Anvend migreringen"
+
+#: includes/class-segurium.php:1205
+msgid "Migration complete."
+msgstr "Migreringen er færdig."
+
+#: includes/class-segurium.php:1206
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Import"
+msgstr "Importer"
+
+#: includes/class-segurium.php:1207
+msgid "Skip"
+msgstr "Spring over"
+
+#: includes/class-segurium.php:1208
+msgid "Planned feature"
+msgstr "Planlagt funktion"
+
+#: includes/class-segurium.php:1209
+msgid "Feature"
+msgstr "Funktion"
+
+#: includes/class-segurium.php:1210
+msgid "Value"
+msgstr "Værdi"
+
+#: includes/class-segurium.php:1211
+msgid "Action"
+msgstr "Handling"
+
+#: includes/class-segurium.php:1212
+msgid "Note"
+msgstr "Note"
+
+#: includes/class-segurium.php:1213
+msgid "items imported"
+msgstr "emner importeret"
+
+#: includes/class-segurium.php:1214
+msgid "features planned"
+msgstr "funktioner planlagt"
+
+#: includes/class-segurium.php:1215
+msgid "Submitting\\u2026"
+msgstr "Indsender…"
+
+#: includes/class-segurium.php:1216
+msgid "Ticket submitted successfully."
+msgstr "Sagen er indsendt."
+
+#: includes/class-segurium.php:1217
+msgid "Your ticket reference:"
+msgstr "Din sagsreference:"
+
+#: includes/class-segurium.php:1218
+msgid "Failed to submit ticket. Please try again."
+msgstr "Sagen kunne ikke indsendes. Prøv igen."
+
+#: includes/class-segurium.php:1219
+msgid "Please attach a file before submitting."
+msgstr "Vedhæft en fil, før du indsender."
+
+#: includes/class-segurium.php:1220
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "Den valgte fil overskrider grænsen på 100 MB."
+
+#: includes/class-segurium.php:1221
+msgid "Please enter a valid reply-to email."
+msgstr "Indtast en gyldig svaradresse."
+
+#: includes/class-segurium.php:1222
+msgid "Please enter your name."
+msgstr "Indtast dit navn."
+
+#: includes/class-segurium.php:1223
+msgid "Could not save your choice. Please try again."
+msgstr "Dit valg kunne ikke gemmes. Prøv igen."
+
+#: includes/class-segurium.php:1224
+msgid "Brute-Force Protection"
+msgstr "Brute force-beskyttelse"
+
+#: includes/class-segurium.php:1225 includes/class-segurium.php:2210
+msgid "Enable brute-force protection"
+msgstr "Slå brute force-beskyttelse til"
+
+#: includes/class-segurium.php:1226 includes/class-segurium.php:2228
+msgid "Max failed attempts"
+msgstr "Højeste antal mislykkede forsøg"
+
+#: includes/class-segurium.php:1227 includes/class-segurium.php:2230
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr ""
+"Antallet af mislykkede loginforsøg, der er tilladt, før IP-adressen bliver "
+"udelukket."
+
+#: includes/class-segurium.php:1228 includes/class-segurium.php:2233
+msgid "Attempt window (seconds)"
+msgstr "Forsøgsvindue (sekunder)"
+
+#: includes/class-segurium.php:1229 includes/class-segurium.php:2235
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "Tidsvinduet, hvor mislykkede forsøg tæller med mod grænsen."
+
+#: includes/class-segurium.php:1230 includes/class-segurium.php:2238
+msgid "Initial lockout duration (seconds)"
+msgstr "Første udelukkelses varighed (sekunder)"
+
+#: includes/class-segurium.php:1231 includes/class-segurium.php:2242
+msgid "Lockouts before extended ban"
+msgstr "Udelukkelser før udvidet bandlysning"
+
+#: includes/class-segurium.php:1232 includes/class-segurium.php:2247
+msgid "Extended lockout duration (seconds)"
+msgstr "Udvidet udelukkelses varighed (sekunder)"
+
+#: includes/class-segurium.php:1233 includes/class-segurium.php:2251
+msgid "History window (seconds)"
+msgstr "Historikvindue (sekunder)"
+
+#: includes/class-segurium.php:1234 includes/class-segurium.php:2257
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "Beskyt også XML-RPC (xmlrpc.php)"
+
+#: includes/class-segurium.php:1235 includes/class-segurium.php:2263
+msgid "Add honeypot field to login form"
+msgstr "Føj et honningkrukkefelt til loginformularen"
+
+#: includes/class-segurium.php:1236 includes/class-segurium.php:2311
+msgid "Active Lockouts"
+msgstr "Aktive udelukkelser"
+
+#: includes/class-segurium.php:1237 includes/class-segurium.php:2324
+msgid "No IPs are currently locked out."
+msgstr "Ingen IP-adresser er udelukket lige nu."
+
+#: includes/class-segurium.php:1238 includes/class-segurium.php:1282
+#: includes/class-segurium.php:2391
+msgid "Unlock"
+msgstr "Lås op"
+
+#: includes/class-segurium.php:1239 includes/class-segurium.php:1272
+#: includes/class-segurium.php:2316 includes/class-segurium.php:2416
+msgid "Tier"
+msgstr "Niveau"
+
+#: includes/class-segurium.php:1240 includes/class-segurium.php:1269
+#: includes/class-segurium.php:2315 includes/class-segurium.php:2358
+#: includes/class-segurium.php:2412
+msgid "IP"
+msgstr "IP"
+
+#: includes/class-segurium.php:1241 includes/class-segurium.php:2317
+msgid "Locked at"
+msgstr "Låst kl."
+
+#: includes/class-segurium.php:1242 includes/class-segurium.php:2318
+msgid "Expires"
+msgstr "Udløber"
+
+#: includes/class-segurium.php:1243 includes/class-segurium.php:1288
+msgid "Settings saved."
+msgstr "Indstillingerne er gemt."
+
+#: includes/class-segurium.php:1244
+msgid "Unlock this IP?"
+msgstr "Vil du låse denne IP-adresse op?"
+
+#: includes/class-segurium.php:1245 includes/class-segurium.php:2268
+msgid "Log retention (days)"
+msgstr "Opbevaring af logger (dage)"
+
+#: includes/class-segurium.php:1246 includes/class-segurium.php:2273
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1247 includes/class-segurium.php:2278
+msgid "Require hCaptcha after repeated failures"
+msgstr "Kræv hCaptcha efter gentagne mislykkede forsøg"
+
+#: includes/class-segurium.php:1248 includes/class-segurium.php:2286
+msgid "hCaptcha site key"
+msgstr "hCaptcha-webstedsnøgle"
+
+#: includes/class-segurium.php:1249 includes/class-segurium.php:2292
+msgid "hCaptcha secret key"
+msgstr "hCaptcha-hemmelighed"
+
+#: includes/class-segurium.php:1250 includes/class-segurium.php:2298
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "Vis CAPTCHA efter N mislykkede forsøg"
+
+#: includes/class-segurium.php:1251
+msgid "Presets:"
+msgstr "Forudindstillinger:"
+
+#: includes/class-segurium.php:1252
+msgid "Light"
+msgstr "Let"
+
+#: includes/class-segurium.php:1253 includes/class-segurium.php:2219
+#: includes/class-segurium.php:2552 includes/class-segurium.php:3005
+msgid "Recommended"
+msgstr "Anbefalet"
+
+#: includes/class-segurium.php:1254 includes/class-segurium.php:2553
+#: includes/class-segurium.php:2746
+msgid "Strict"
+msgstr "Streng"
+
+#: includes/class-segurium.php:1255
+msgid "Click a preset to fill the form, then Save."
+msgstr "Klik på en forudindstilling for at udfylde formularen, og gem så."
+
+#: includes/class-segurium.php:1256 includes/class-segurium.php:2329
+msgid "Statistics"
+msgstr "Statistik"
+
+#: includes/class-segurium.php:1257 includes/class-segurium.php:2332
+msgid "Active lockouts"
+msgstr "Aktive udelukkelser"
+
+#: includes/class-segurium.php:1258 includes/class-segurium.php:2336
+msgid "Attempts (24h)"
+msgstr "Forsøg (24 t)"
+
+#: includes/class-segurium.php:1259 includes/class-segurium.php:2340
+msgid "Lockouts (24h)"
+msgstr "Udelukkelser (24 t)"
+
+#: includes/class-segurium.php:1260 includes/class-segurium.php:2344
+msgid "Honeypot hits (24h)"
+msgstr "Træffere i honningkrukken (24 t)"
+
+#: includes/class-segurium.php:1261 includes/class-segurium.php:2348
+msgid "CAPTCHA failures (24h)"
+msgstr "Mislykkede CAPTCHA (24 t)"
+
+#: includes/class-segurium.php:1262 includes/class-segurium.php:2354
+msgid "Top attacking IPs (24h)"
+msgstr "Mest angribende IP-adresser (24 t)"
+
+#: includes/class-segurium.php:1263 includes/class-segurium.php:2367
+msgid "Top targeted usernames (24h)"
+msgstr "Mest ramte brugernavne (24 t)"
+
+#: includes/class-segurium.php:1264 includes/class-segurium.php:2364
+msgid "No attacking IPs in the last 24 hours."
+msgstr "Ingen angribende IP-adresser de seneste 24 timer."
+
+#: includes/class-segurium.php:1265 includes/class-segurium.php:2377
+msgid "No targeted usernames in the last 24 hours."
+msgstr "Ingen ramte brugernavne de seneste 24 timer."
+
+#: includes/class-segurium.php:1266 includes/class-segurium.php:2383
+msgid "Event log"
+msgstr "Hændelseslog"
+
+#: includes/class-segurium.php:1267 includes/class-segurium.php:2410
+msgid "When"
+msgstr "Hvornår"
+
+#: includes/class-segurium.php:1268 includes/class-segurium.php:2411
+msgid "Event"
+msgstr "Hændelse"
+
+#: includes/class-segurium.php:1270 includes/class-segurium.php:2371
+#: includes/class-segurium.php:2414
+msgid "Username"
+msgstr "Brugernavn"
+
+#: includes/class-segurium.php:1271 includes/class-segurium.php:2415
+msgid "Surface"
+msgstr "Flade"
+
+#: includes/class-segurium.php:1273 includes/class-segurium.php:2385
+msgid "All events"
+msgstr "Alle hændelser"
+
+#: includes/class-segurium.php:1274 includes/class-segurium.php:2421
+msgid "No events recorded yet."
+msgstr "Der er ikke registreret nogen hændelser endnu."
+
+#: includes/class-segurium.php:1279 includes/class-segurium.php:2388
+msgid "Attempt"
+msgstr "Forsøg"
+
+#: includes/class-segurium.php:1280 includes/class-segurium.php:2389
+msgid "Lockout"
+msgstr "Udelukkelse"
+
+#: includes/class-segurium.php:1281 includes/class-segurium.php:2390
+msgid "Honeypot"
+msgstr "Honningkrukke"
+
+#: includes/class-segurium.php:1283 includes/class-segurium.php:2392
+msgid "CAPTCHA failed"
+msgstr "CAPTCHA mislykkedes"
+
+#: includes/class-segurium.php:1284
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1285 includes/class-segurium.php:2893
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1286
+msgid "Loading settings..."
+msgstr "Indlæser indstillinger…"
+
+#: includes/class-segurium.php:1287
+msgid "Saving..."
+msgstr "Gemmer…"
+
+#: includes/class-segurium.php:1289
+msgid "Failed to save settings."
+msgstr "Indstillingerne kunne ikke gemmes."
+
+#: includes/class-segurium.php:1290
+msgid "Failed to load settings."
+msgstr "Indstillingerne kunne ikke indlæses."
+
+#: includes/class-segurium.php:1291
+msgid "All recommended settings enabled."
+msgstr "Alle anbefalede indstillinger er slået til."
+
+#: includes/class-segurium.php:1292 includes/class-segurium.php:1815
+msgid "Self-Check"
+msgstr "Sikkerhedstjek"
+
+#: includes/class-segurium.php:1293 includes/class-segurium.php:2926
+msgid "Run Self-Check"
+msgstr "Kør sikkerhedstjek"
+
+#: includes/class-segurium.php:1294
+msgid "Running..."
+msgstr "Kører…"
+
+#: includes/class-segurium.php:1295
+msgid "Click Run Self-Check to grade your site."
+msgstr "Klik på Kør sikkerhedstjek for at give dit websted en karakter."
+
+#: includes/class-segurium.php:1299
+msgid "How to fix"
+msgstr "Sådan retter du det"
+
+#: includes/class-segurium.php:1300
+msgid "Hide details"
+msgstr "Skjul detaljer"
+
+#: includes/class-segurium.php:1301
+msgid "fail"
+msgstr "underkendt"
+
+#: includes/class-segurium.php:1302
+msgid "warn"
+msgstr "advarsel"
+
+#: includes/class-segurium.php:1303
+msgid "HTTP Security Headers"
+msgstr "HTTP-sikkerhedsheadere"
+
+#: includes/class-segurium.php:1304
+msgid "Information Disclosure"
+msgstr "Informationslækage"
+
+#: includes/class-segurium.php:1305
+msgid "WordPress Hardening"
+msgstr "Hærdning af WordPress"
+
+#: includes/class-segurium.php:1306
+msgid "Cookie Security"
+msgstr "Cookiesikkerhed"
+
+#: includes/class-segurium.php:1307
+msgid "Malware Protection"
+msgstr "Beskyttelse mod malware"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1309
+#, php-format
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "%1$d bestået, %2$d advarsler, %3$d underkendt"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1311
+#, php-format
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
+#: includes/class-segurium.php:1313
+#, php-format
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "Ændret fra %1$s (%2$d) til %3$s (%4$d)."
+
+#: includes/class-segurium.php:1314
+msgid "No change since last run."
+msgstr "Ingen ændring siden sidste kørsel."
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1316
+#, php-format
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr ""
+"Sikkerhedstjekket kunne ikke nå dit websted: %s. Resultaterne er "
+"ufuldstændige."
+
+#: includes/class-segurium.php:1317
+msgid "Verify with securityheaders.com"
+msgstr "Verificer med securityheaders.com"
+
+#: includes/class-segurium.php:1318
+msgid "Verify with Mozilla Observatory"
+msgstr "Verificer med Mozilla Observatory"
+
+#: includes/class-segurium.php:1609
+msgid "External Service Disclosure"
+msgstr "Oplysninger om eksterne tjenester"
+
+#: includes/class-segurium.php:1610
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Segurium beskytter dit websted ved at arbejde sammen med Segurium-skyen. Når"
+" du slår det til, udveksler Segurium data med vores servere, så det kan "
+"opdage malware, verificere dine filer og tilpasse beskyttelsen til aktive "
+"trusler."
+
+#: includes/class-segurium.php:1612
+msgid "What is sent:"
+msgstr "Det, der bliver sendt:"
+
+#: includes/class-segurium.php:1614
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"Metadata om filer: SHA-256-hash, sti i forhold til din WordPress-"
+"installation, størrelse og tidspunkt for ændring."
+
+#: includes/class-segurium.php:1615
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"Filindhold – kun når klassificering ud fra hashen alene ikke er entydig, "
+"eller når der bliver dannet en ren erstatning under rensningen."
+
+#: includes/class-segurium.php:1616
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr ""
+"En tilfældigt dannet installationsidentifikator og grundlæggende oplysninger"
+" om webstedet (URL, navn, WordPress-version), der bruges til at knytte "
+"forespørgsler til denne installation."
+
+#: includes/class-segurium.php:1617
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr ""
+"Hændelser om scanning, rensning og sikkerhedsindstillinger, så skyen kan "
+"holde beskyttelsen af dit websted opdateret."
+
+#: includes/class-segurium.php:1618
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"Firewallhændelser (blokerede IP-adresser, angrebsmønstre), der bruges til at"
+" tilpasse beskyttelsen på tværs af alle websteder, Segurium beskytter."
+
+#: includes/class-segurium.php:1621
+msgid "What is NOT sent:"
+msgstr "Det, der IKKE bliver sendt:"
+
+#: includes/class-segurium.php:1623
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr ""
+"Analysedata om besøgende eller persondata om de brugere, der besøger dit "
+"websted."
+
+#: includes/class-segurium.php:1624
+msgid "Database content, posts, comments, or media files."
+msgstr "Databaseindhold, indlæg, kommentarer eller mediefiler."
+
+#: includes/class-segurium.php:1625
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr ""
+"Filer, hvis hash skyen allerede kender – kun hashen forlader din server."
+
+#: includes/class-segurium.php:1628
+msgid "Where it is sent:"
+msgstr "Hvor det bliver sendt hen:"
+
+#: includes/class-segurium.php:1628
+msgid "Segurium servers at cti.segurium.com."
+msgstr "Segurium-servere på cti.segurium.com."
+
+#: includes/class-segurium.php:1629
+msgid "Retention:"
+msgstr "Opbevaring:"
+
+#: includes/class-segurium.php:1629
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Filprøver, der uploades til analyse, gemmes i op til 365 dage og fjernes "
+"derefter af en automatisk natlig oprydning. En prøve kan blive fjernet "
+"tidligere, når den er gennemgået."
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium.php:1635
+#, php-format
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"Når du slår scanning til, accepterer du %1$sservicevilkårene%2$s og "
+"%3$sprivatlivspolitikken%4$s."
+
+#: includes/class-segurium.php:1644
+msgid "I agree"
+msgstr "Jeg accepterer"
+
+#: includes/class-segurium.php:1761
+msgid "Up to date"
+msgstr "Opdateret"
+
+#: includes/class-segurium.php:1766
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "Forældet – seneste opdatering overskred det daglige vindue"
+
+#: includes/class-segurium.php:1767
+msgid "Never updated on this site yet"
+msgstr "Aldrig opdateret på dette websted endnu"
+
+#: includes/class-segurium.php:1806
+msgid "WordPress Security"
+msgstr "WordPress-sikkerhed"
+
+#: includes/class-segurium.php:1819
+msgid "Malware Scanner"
+msgstr "Malwarescanner"
+
+#: includes/class-segurium.php:1833
+msgid "Integrity"
+msgstr "Integritet"
+
+#: includes/class-segurium.php:1837
+msgid "GEO Blocking"
+msgstr "Geoblokering"
+
+#: includes/class-segurium.php:1845
+msgid "Brute-Force"
+msgstr "Brute force"
+
+#: includes/class-segurium.php:1849
+msgid "2FA"
+msgstr "2FA"
+
+#: includes/class-segurium.php:1853
+msgid "Headers"
+msgstr "Headere"
+
+#: includes/class-segurium.php:1857
+msgid "Info Shield"
+msgstr "Informationsskjold"
+
+#: includes/class-segurium.php:1861
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: includes/class-segurium.php:1865
+msgid "Migration"
+msgstr "Migrering"
+
+#: includes/class-segurium.php:1869 includes/class-segurium.php:2487
+msgid "Support"
+msgstr "Support"
+
+#: includes/class-segurium.php:1873 includes/class-segurium.php:2971
+msgid "Plans"
+msgstr "Pakker"
+
+#: includes/class-segurium.php:1893 includes/class-segurium.php:1982
+msgid "Scan"
+msgstr "Scan"
+
+#: includes/class-segurium.php:1906 includes/class-segurium.php:1990
+msgid "Fix all"
+msgstr "Ret alt"
+
+#: includes/class-segurium.php:1916
+msgid "Malicious"
+msgstr "Skadelig"
+
+#: includes/class-segurium.php:1920
+msgid "All"
+msgstr "Alle"
+
+#: includes/class-segurium.php:1940
+msgid "File"
+msgstr "Fil"
+
+#: includes/class-segurium.php:1941
+msgid "State"
+msgstr "Tilstand"
+
+#: includes/class-segurium.php:1942
+msgid "Date"
+msgstr "Dato"
+
+#: includes/class-segurium.php:1943 includes/class-segurium.php:2006
+msgid "Actions"
+msgstr "Handlinger"
+
+#: includes/class-segurium.php:1961
+msgid "Show recent only (14 days)"
+msgstr "Vis kun de seneste (14 dage)"
+
+#: includes/class-segurium.php:1971 includes/class-segurium.php:2032
+msgid "per page"
+msgstr "pr. side"
+
+#: includes/class-segurium.php:2004
+msgid "Files"
+msgstr "Filer"
+
+#: includes/class-segurium.php:2005
+msgid "Last Scanned"
+msgstr "Sidst scannet"
+
+#: includes/class-segurium.php:2064 includes/class-segurium.php:2152
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr ""
+"Indstillingerne er anvendt. Bekræft for at beholde dem, ellers rulles "
+"ændringerne tilbage om"
+
+#: includes/class-segurium.php:2065 includes/class-segurium.php:2153
+msgid "s."
+msgstr "s."
+
+#: includes/class-segurium.php:2069 includes/class-segurium.php:2157
+msgid "Revert"
+msgstr "Rul tilbage"
+
+#: includes/class-segurium.php:2078
+msgid "Enable Geo-Blocking"
+msgstr "Slå geoblokering til"
+
+#: includes/class-segurium.php:2083
+msgid "Blocking Mode"
+msgstr "Blokeringstilstand"
+
+#: includes/class-segurium.php:2087
+msgid "Block specific countries"
+msgstr "Bloker bestemte lande"
+
+#: includes/class-segurium.php:2091
+msgid "Allow only specific countries"
+msgstr "Tillad kun bestemte lande"
+
+#: includes/class-segurium.php:2098
+msgid "EU"
+msgstr "EU"
+
+#: includes/class-segurium.php:2099
+msgid "Americas"
+msgstr "Amerika"
+
+#: includes/class-segurium.php:2100
+msgid "Asia-Pacific"
+msgstr "Asien-Stillehavet"
+
+#: includes/class-segurium.php:2101
+msgid "Africa"
+msgstr "Afrika"
+
+#: includes/class-segurium.php:2102
+msgid "Middle East"
+msgstr "Mellemøsten"
+
+#: includes/class-segurium.php:2103
+msgid "High-Risk"
+msgstr "Høj risiko"
+
+#: includes/class-segurium.php:2110
+msgid "Search countries…"
+msgstr "Søg efter lande…"
+
+#: includes/class-segurium.php:2116
+msgid "Block Action"
+msgstr "Blokeringshandling"
+
+#: includes/class-segurium.php:2118
+msgid "Return 403 Forbidden"
+msgstr "Returner 403 Forbidden"
+
+#: includes/class-segurium.php:2119
+msgid "Redirect to URL"
+msgstr "Omdiriger til URL"
+
+#: includes/class-segurium.php:2120
+msgid "Silent drop (no response)"
+msgstr "Stille afvisning (intet svar)"
+
+#: includes/class-segurium.php:2128 includes/class-segurium.php:2198
+#: includes/class-segurium.php:2305 includes/class-segurium.php:2753
+#: includes/class-segurium.php:2904
+msgid "Save"
+msgstr "Gem"
+
+#: includes/class-segurium.php:2134
+msgid "Blocked Requests"
+msgstr "Blokerede forespørgsler"
+
+#: includes/class-segurium.php:2138 includes/class-segurium.php:2413
+msgid "Country"
+msgstr "Land"
+
+#: includes/class-segurium.php:2139
+msgid "Requests"
+msgstr "Forespørgsler"
+
+#: includes/class-segurium.php:2166
+msgid "Enable Firewall"
+msgstr "Slå firewallen til"
+
+#: includes/class-segurium.php:2171 includes/class-segurium.php:2711
+msgid "Mode"
+msgstr "Tilstand"
+
+#: includes/class-segurium.php:2175
+msgid "Allow everything except…"
+msgstr "Tillad alt undtagen…"
+
+#: includes/class-segurium.php:2179
+msgid "Deny everything except…"
+msgstr "Nægt alt undtagen…"
+
+#: includes/class-segurium.php:2189
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "Brugerdefinerede betroede proxy-IP-adresser og CIDR-intervaller"
+
+#: includes/class-segurium.php:2191
+msgid "Loading auto-detected proxy status..."
+msgstr "Indlæser status for automatisk fundne proxyer…"
+
+#: includes/class-segurium.php:2193
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr ""
+"Yderligere proxy-IP-adresser ud over den automatisk fundne liste, en pr. "
+"linje. Lad feltet stå tomt, hvis alle dine proxyer er dækket ovenfor."
+
+#: includes/class-segurium.php:2212
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"Holder øje med mislykkede loginforsøg og udelukker IP-adresser, når en "
+"grænse, du selv sætter, er nået. Genbruger firewallens liste over tilladte "
+"IP-adresser til betroede adresser."
+
+#: includes/class-segurium.php:2216
+msgid "Settings:"
+msgstr "Indstillinger:"
+
+#: includes/class-segurium.php:2219
+msgid "safe defaults; settings are locked."
+msgstr "sikre standarder. Indstillingerne er låst."
+
+#: includes/class-segurium.php:2223 includes/class-segurium.php:2554
+msgid "Custom"
+msgstr "Brugerdefineret"
+
+#: includes/class-segurium.php:2223
+msgid "edit every setting yourself."
+msgstr "rediger hver indstilling selv."
+
+#: includes/class-segurium.php:2244
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr ""
+"Efter så mange udelukkelser inden for historikvinduet bruger den næste "
+"udelukkelse den udvidede varighed."
+
+#: includes/class-segurium.php:2265
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr ""
+"Tilføjer et felt uden for skærmen, som rigtige brugere aldrig ser. Udfyldes "
+"det, udløser det en udelukkelse med det samme."
+
+#: includes/class-segurium.php:2274
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"Vis eventuelt en hCaptcha-udfordring på loginformularen efter et antal "
+"mislykkede forsøg, du selv vælger. Hent gratis nøgler på hcaptcha.com."
+
+#: includes/class-segurium.php:2300
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"Skal være lavere end det højeste antal mislykkede forsøg, så udfordringen "
+"kommer før udelukkelsen."
+
+#: includes/class-segurium.php:2359 includes/class-segurium.php:2372
+msgid "Attempts"
+msgstr "Forsøg"
+
+#: includes/class-segurium.php:2435
+msgid "Enable Two-Factor Authentication"
+msgstr "Slå tofaktorgodkendelse til"
+
+#: includes/class-segurium.php:2437
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr ""
+"Kræv, at brugerne bekræfter deres identitet med endnu en faktor, når de "
+"logger ind."
+
+#: includes/class-segurium.php:2441
+msgid "Available Methods"
+msgstr "Tilgængelige metoder"
+
+#: includes/class-segurium.php:2442
+msgid "Select which 2FA methods users can choose from."
+msgstr "Vælg, hvilke 2FA-metoder brugerne kan vælge imellem."
+
+#: includes/class-segurium.php:2447
+msgid "Enforced Roles"
+msgstr "Roller med håndhævelse"
+
+#: includes/class-segurium.php:2448
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "Brugere i disse roller skal opsætte 2FA."
+
+#: includes/class-segurium.php:2452
+msgid "Grace Period (days)"
+msgstr "Henstandsperiode (dage)"
+
+#: includes/class-segurium.php:2453
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"Antal dage, før håndhævelsen blokerer login for brugere, der ikke har opsat "
+"2FA. Sæt den til 0 for at håndhæve med det samme."
+
+#: includes/class-segurium.php:2457
+msgid "Trusted Device Duration (days)"
+msgstr "Varighed for betroede enheder (dage)"
+
+#: includes/class-segurium.php:2458
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr ""
+"Hvor mange dage en enhed forbliver betroet, efter at brugeren har sat "
+"flueben i feltet om tillid."
+
+#: includes/class-segurium.php:2463 includes/class-segurium.php:3111
+msgid "Save Settings"
+msgstr "Gem indstillinger"
+
+#: includes/class-segurium.php:2468
+msgid "User Statistics"
+msgstr "Brugerstatistik"
+
+#: includes/class-segurium.php:2472
+msgid "Method"
+msgstr "Metode"
+
+#: includes/class-segurium.php:2473
+msgid "Users"
+msgstr "Brugere"
+
+#: includes/class-segurium.php:2478
+msgid "Reset User 2FA"
+msgstr "Nulstil en brugers 2FA"
+
+#: includes/class-segurium.php:2479
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr ""
+"Indtast et brugernavn eller et bruger-id for at nulstille den pågældendes "
+"2FA-opsætning."
+
+#: includes/class-segurium.php:2480
+msgid "Username or ID"
+msgstr "Brugernavn eller id"
+
+#: includes/class-segurium.php:2481
+msgid "Reset 2FA"
+msgstr "Nulstil 2FA"
+
+#: includes/class-segurium.php:2488
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "Indsend en supportsag nedenfor. Vores team svarer via e-mail."
+
+#: includes/class-segurium.php:2491
+msgid "Your name"
+msgstr "Dit navn"
+
+#: includes/class-segurium.php:2495
+msgid "Reply-to email"
+msgstr "Svaradresse"
+
+#: includes/class-segurium.php:2497
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr ""
+"Vi svarer til denne adresse. Ret den, hvis svaret skal et andet sted hen."
+
+#: includes/class-segurium.php:2500
+msgid "Website"
+msgstr "Websted"
+
+#: includes/class-segurium.php:2502
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr ""
+"Følger automatisk med, så support kan finde dit websted. Du ændrer det under"
+" Indstillinger → Generelt."
+
+#: includes/class-segurium.php:2505
+msgid "Type"
+msgstr "Type"
+
+#: includes/class-segurium.php:2507 includes/class-segurium.php:7451
+msgid "Bug report"
+msgstr "Fejlrapport"
+
+#: includes/class-segurium.php:2508 includes/class-segurium.php:7453
+msgid "Feature request"
+msgstr "Ønske om en funktion"
+
+#: includes/class-segurium.php:2509 includes/class-segurium.php:7455
+msgid "General question"
+msgstr "Generelt spørgsmål"
+
+#: includes/class-segurium.php:2510
+msgid "Report missed malware"
+msgstr "Rapporter overset malware"
+
+#: includes/class-segurium.php:2511
+msgid "Other"
+msgstr "Andet"
+
+#: includes/class-segurium.php:2515
+msgid "Suspicious file"
+msgstr "Mistænkelig fil"
+
+#: includes/class-segurium.php:2517
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "Vedhæft den fil, du mener er malware. Højst 100 MB."
+
+#: includes/class-segurium.php:2520
+msgid "Message"
+msgstr "Besked"
+
+#: includes/class-segurium.php:2526
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"Vedhæft systemoplysninger (WP-version, PHP-version, pluginversion, aktive "
+"plugins, dato for seneste scanning)"
+
+#: includes/class-segurium.php:2530
+msgid "Submit Ticket"
+msgstr "Indsend sag"
+
+#: includes/class-segurium.php:2541
+msgid "Enable Security Headers"
+msgstr "Slå sikkerhedsheadere til"
+
+#: includes/class-segurium.php:2543
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"Føjer HTTP-svarheadere om sikkerhed til alle svar. Beskytter mod "
+"clickjacking, MIME-snusning, XSS og angreb, der nedgraderer protokollen."
+
+#: includes/class-segurium.php:2547
+msgid "Mode:"
+msgstr "Tilstand:"
+
+#: includes/class-segurium.php:2551
+msgid "Basic"
+msgstr "Grundlæggende"
+
+#: includes/class-segurium.php:2551
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+
+#: includes/class-segurium.php:2552
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "Grundlæggende plus Referrer-Policy, Permissions-Policy, HSTS"
+
+#: includes/class-segurium.php:2553
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr ""
+"Anbefalet plus cross-origin-politikker, DNS-forhentning, Cache-Control"
+
+#: includes/class-segurium.php:2554
+msgid "configure each header individually"
+msgstr "opsæt hver header for sig"
+
+#: includes/class-segurium.php:2565
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Denne tilstand sender faste forudindstillede værdier. Skift til "
+"Brugerdefineret for at tilsidesætte enkelte headere."
+
+#: includes/class-segurium.php:2568
+msgid "Header Values"
+msgstr "Headerværdier"
+
+#: includes/class-segurium.php:2572 includes/class-segurium.php:2586
+#: includes/class-segurium.php:2643 includes/class-segurium.php:2652
+#: includes/class-segurium.php:2662
+msgid "Same origin"
+msgstr "Samme oprindelse"
+
+#: includes/class-segurium.php:2573
+msgid "Deny all"
+msgstr "Nægt alle"
+
+#: includes/class-segurium.php:2575
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr ""
+"Forhindrer, at dit websted bliver indlejret i iframes på andre domæner."
+
+#: includes/class-segurium.php:2582
+msgid "No referrer"
+msgstr "Ingen henvisning"
+
+#: includes/class-segurium.php:2583
+msgid "No referrer when downgrade"
+msgstr "Ingen henvisning ved nedgradering"
+
+#: includes/class-segurium.php:2584
+msgid "Origin only"
+msgstr "Kun oprindelse"
+
+#: includes/class-segurium.php:2585
+msgid "Origin when cross-origin"
+msgstr "Oprindelse på tværs af oprindelser"
+
+#: includes/class-segurium.php:2587
+msgid "Strict origin"
+msgstr "Streng oprindelse"
+
+#: includes/class-segurium.php:2588
+msgid "Strict origin when cross-origin"
+msgstr "Streng oprindelse på tværs af oprindelser"
+
+#: includes/class-segurium.php:2589
+msgid "Unsafe URL"
+msgstr "Usikker URL"
+
+#: includes/class-segurium.php:2600 includes/class-segurium.php:2604
+msgid "Disabled (recommended)"
+msgstr "Slået fra (anbefalet)"
+
+#: includes/class-segurium.php:2601 includes/class-segurium.php:2605
+msgid "Enabled"
+msgstr "Slået til"
+
+#: includes/class-segurium.php:2602 includes/class-segurium.php:2606
+msgid "Enabled with block mode"
+msgstr "Slået til med blokeringstilstand"
+
+#: includes/class-segurium.php:2604
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Slår udtrykkeligt det gamle XSS-filter i IE og gammel Edge fra. Filteret "
+"havde universelle XSS-fejl, som kunne udnyttes. Moderne browsere ser bort "
+"fra denne header, og CSP er det egentlige værn mod XSS."
+
+#: includes/class-segurium.php:2605
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Beder gamle browsere om at rense reflekterede data. Filteret giver falske "
+"positive, der uden varsel ødelægger gyldige sider, og det har kendte veje "
+"udenom for universel XSS. Ikke anbefalet."
+
+#: includes/class-segurium.php:2606
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Samme filter som ovenfor, men det blokerer hele siden ved mistanke om "
+"refleksion. Samme fejl plus en sidekanal i tid, der kan lække data på tværs "
+"af oprindelser. Ikke anbefalet."
+
+#: includes/class-segurium.php:2608
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2612
+msgid "Enable HSTS"
+msgstr "Slå HSTS til"
+
+#: includes/class-segurium.php:2614
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "Tvinger browsere til at bruge HTTPS. Sendes kun, når SSL er aktivt."
+
+#: includes/class-segurium.php:2618
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (sekunder)"
+
+#: includes/class-segurium.php:2624
+msgid "Include subdomains"
+msgstr "Medtag underdomæner"
+
+#: includes/class-segurium.php:2630
+msgid "Preload"
+msgstr "Preload"
+
+#: includes/class-segurium.php:2632
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"Advarsel: preload er svær at fortryde. Den kræver en max-age på mindst 1 år "
+"og medtagne underdomæner."
+
+#: includes/class-segurium.php:2636
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"Dit websted ser ud til at ligge på et underdomæne. Slår du includeSubDomains"
+" til i HSTS, påvirker det alle underdomæner under det overordnede domæne, "
+"også nogle du måske ikke råder over."
+
+#: includes/class-segurium.php:2638
+msgid "Cross-Origin Policies"
+msgstr "Cross-origin-politikker"
+
+#: includes/class-segurium.php:2640
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2642 includes/class-segurium.php:2651
+msgid "Not set"
+msgstr "Ikke sat"
+
+#: includes/class-segurium.php:2644
+msgid "Same origin, allow popups"
+msgstr "Samme oprindelse, tillad pop op-vinduer"
+
+#: includes/class-segurium.php:2645 includes/class-segurium.php:2663
+msgid "Unsafe none"
+msgstr "Usikker ingen"
+
+#: includes/class-segurium.php:2649
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2653
+msgid "Same site"
+msgstr "Samme websted"
+
+#: includes/class-segurium.php:2654
+msgid "Cross origin"
+msgstr "På tværs af oprindelser"
+
+#: includes/class-segurium.php:2658
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2660
+msgid "Not set (recommended)"
+msgstr "Ikke sat (anbefalet)"
+
+#: includes/class-segurium.php:2661
+msgid "Require CORP"
+msgstr "Kræv CORP"
+
+#: includes/class-segurium.php:2667
+msgid "Control which browser features your site may use."
+msgstr "Styr, hvilke browserfunktioner dit websted må bruge."
+
+#: includes/class-segurium.php:2671
+msgid "Accelerometer"
+msgstr "Accelerometer"
+
+#: includes/class-segurium.php:2672
+msgid "Autoplay"
+msgstr "Automatisk afspilning"
+
+#: includes/class-segurium.php:2673
+msgid "Camera"
+msgstr "Kamera"
+
+#: includes/class-segurium.php:2674
+msgid "Encrypted media"
+msgstr "Krypterede medier"
+
+#: includes/class-segurium.php:2675
+msgid "Fullscreen"
+msgstr "Fuld skærm"
+
+#: includes/class-segurium.php:2676
+msgid "Geolocation"
+msgstr "Geolokation"
+
+#: includes/class-segurium.php:2677
+msgid "Gyroscope"
+msgstr "Gyroskop"
+
+#: includes/class-segurium.php:2678
+msgid "Magnetometer"
+msgstr "Magnetometer"
+
+#: includes/class-segurium.php:2679
+msgid "Microphone"
+msgstr "Mikrofon"
+
+#: includes/class-segurium.php:2680
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2681
+msgid "Payment"
+msgstr "Betaling"
+
+#: includes/class-segurium.php:2682
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2692
+msgid "Deny"
+msgstr "Nægt"
+
+#: includes/class-segurium.php:2693
+msgid "Self only"
+msgstr "Kun eget websted"
+
+#: includes/class-segurium.php:2694
+msgid "Allow all"
+msgstr "Tillad alle"
+
+#: includes/class-segurium.php:2705
+msgid "Send Content-Security-Policy header"
+msgstr "Send Content-Security-Policy-headeren"
+
+#: includes/class-segurium.php:2707
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"CSP begrænser, hvor scripts, typografier og andre ressourcer må hentes fra, "
+"og dæmper XSS og indsprøjtning. CSP er specifik for hvert websted og kan "
+"ødelægge temaer eller sidebyggere – start i rapporteringstilstand for at få "
+"øje på overtrædelser, før du håndhæver."
+
+#: includes/class-segurium.php:2713
+msgid "Report-only (recommended for first deploy)"
+msgstr "Kun rapportering (anbefalet ved første udrulning)"
+
+#: includes/class-segurium.php:2714
+msgid "Enforce"
+msgstr "Håndhæv"
+
+#: includes/class-segurium.php:2716
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
+msgstr ""
+"Kun rapportering sender Content-Security-Policy-Report-Only – browseren "
+"logger overtrædelser, men henter stadig de blokerede ressourcer. Håndhæv "
+"sender Content-Security-Policy og blokerer dem."
+
+#: includes/class-segurium.php:2719
+msgid "Policy directives"
+msgstr "Politikdirektiver"
+
+#: includes/class-segurium.php:2722
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr ""
+"En enkelt linje med direktiver adskilt af semikolon. Standardpolitikken til "
+"at begynde med tillader Gutenberg og de fleste temaer. Stram den, når dine "
+"rapporter er rene."
+
+#: includes/class-segurium.php:2723
+msgid "CSP reference (MDN)"
+msgstr "CSP-opslag (MDN)"
+
+#: includes/class-segurium.php:2727
+msgid "Report URI (optional)"
+msgstr "Rapport-URI (valgfri)"
+
+#: includes/class-segurium.php:2729
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"Når den er sat, sender browsere rapporter om overtrædelser til denne URL med"
+" POST. Den føjes automatisk til som report-uri, medmindre dine direktiver "
+"allerede indeholder en."
+
+#: includes/class-segurium.php:2733
+msgid "Cookie Hardening"
+msgstr "Hærdning af cookies"
+
+#: includes/class-segurium.php:2737
+msgid "Add SameSite attribute to auth cookies"
+msgstr "Føj SameSite-attributten til godkendelsescookies"
+
+#: includes/class-segurium.php:2739
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"Føjer SameSite-flaget til WordPress' sessionscookies. Beskytter mod CSRF-"
+"angreb. Mozilla Observatory trækker fra, når SameSite mangler."
+
+#: includes/class-segurium.php:2743
+msgid "SameSite value"
+msgstr "SameSite-værdi"
+
+#: includes/class-segurium.php:2745
+msgid "Lax (recommended)"
+msgstr "Lax (anbefalet)"
+
+#: includes/class-segurium.php:2748
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"Strict kan ødelægge login via OAuth eller SSO, der sender brugeren tilbage "
+"til dit websted."
+
+#: includes/class-segurium.php:2759
+msgid "Headers Preview"
+msgstr "Forhåndsvisning af headere"
+
+#: includes/class-segurium.php:2771
+msgid "Enable Information Shield"
+msgstr "Slå informationsskjoldet til"
+
+#: includes/class-segurium.php:2773
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"Mindsker WordPress' afsløring af oplysninger ved at fjerne "
+"versionsfingeraftryk, opdagelsesendepunkter og unødvendige metadata fra "
+"HTTP-headere og HTML-output."
+
+#: includes/class-segurium.php:2776
+msgid "Enable All Recommended"
+msgstr "Slå alle anbefalede til"
+
+#: includes/class-segurium.php:2780
+msgid "HTTP Header Disclosure"
+msgstr "Afsløring via HTTP-headere"
+
+#: includes/class-segurium.php:2784
+msgid "Remove X-Powered-By header"
+msgstr "Fjern X-Powered-By-headeren"
+
+#: includes/class-segurium.php:2786
+msgid "Removes the header that reveals your PHP version."
+msgstr "Fjerner den header, der afslører din PHP-version."
+
+#: includes/class-segurium.php:2792
+msgid "Remove Server header"
+msgstr "Fjern Server-headeren"
+
+#: includes/class-segurium.php:2794
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr ""
+"Fjerner den header, der identificerer din webserversoftware. Så vidt det er "
+"muligt."
+
+#: includes/class-segurium.php:2800
+msgid "Remove X-Pingback header"
+msgstr "Fjern X-Pingback-headeren"
+
+#: includes/class-segurium.php:2802
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr ""
+"Skjuler URL-adressen på endepunktet for pingback og XML-RPC i svarheaderne."
+
+#: includes/class-segurium.php:2807
+msgid "Remove REST API Link: header"
+msgstr "Fjern Link:-headeren til REST-API'et"
+
+#: includes/class-segurium.php:2809
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr ""
+"Fjerner den HTTP-Link-header, der reklamerer for endepunktet til REST-"
+"API'et."
+
+#: includes/class-segurium.php:2814
+msgid "Remove Shortlink Link: header"
+msgstr "Fjern Link:-headeren til kortlinket"
+
+#: includes/class-segurium.php:2816
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "Fjerner HTTP-headeren med rel=shortlink."
+
+#: includes/class-segurium.php:2819
+msgid "HTML Meta and Links"
+msgstr "HTML-metadata og links"
+
+#: includes/class-segurium.php:2823
+msgid "Remove WordPress generator tag"
+msgstr "Fjern WordPress' generator-tag"
+
+#: includes/class-segurium.php:2825
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"Fjerner meta-generator-tagget og RSS-generatoren, der afslører din "
+"WordPress-version."
+
+#: includes/class-segurium.php:2830
+msgid "Remove RSD link"
+msgstr "Fjern RSD-linket"
+
+#: includes/class-segurium.php:2832
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr ""
+"Fjerner linket til Really Simple Discovery-endepunktet fra HTML-hovedet."
+
+#: includes/class-segurium.php:2837
+msgid "Remove WLW manifest link"
+msgstr "Fjern linket til WLW-manifestet"
+
+#: includes/class-segurium.php:2839
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr ""
+"Fjerner linket til Windows Live Writer-manifestet. Det er kun nødvendigt, "
+"hvis du skriver indlæg med WLW."
+
+#: includes/class-segurium.php:2844
+msgid "Remove REST API discovery link"
+msgstr "Fjern opdagelseslinket til REST-API'et"
+
+#: includes/class-segurium.php:2846
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"Fjerner opdagelseslinkets tag fra HTML-hovedet. Selve REST-API'et virker "
+"stadig på /wp-json/."
+
+#: includes/class-segurium.php:2851
+msgid "Remove oEmbed discovery links"
+msgstr "Fjern opdagelseslinks til oEmbed"
+
+#: includes/class-segurium.php:2853
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr ""
+"Forhindrer andre websteder i at vise indholdsrige forhåndsvisninger, når de "
+"linker til dit indhold."
+
+#: includes/class-segurium.php:2858
+msgid "Remove shortlink meta tag"
+msgstr "Fjern meta-tagget med kortlinket"
+
+#: includes/class-segurium.php:2860
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "Fjerner kortlinkets tag fra HTML-hovedet."
+
+#: includes/class-segurium.php:2865
+msgid "Remove emoji scripts and styles"
+msgstr "Fjern scripts og typografier til emoji"
+
+#: includes/class-segurium.php:2867
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr ""
+"Fjerner WordPress' JavaScript og CSS til emoji-polyfill. Moderne browsere "
+"understøtter emoji indbygget."
+
+#: includes/class-segurium.php:2872
+msgid "Remove RSS/Atom feed links"
+msgstr "Fjern links til RSS- og Atom-feeds"
+
+#: includes/class-segurium.php:2874
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr ""
+"Det kan ødelægge RSS-læsere og WordPress.com Reader. Slå det kun til, hvis "
+"dit websted ikke bruger RSS-feeds."
+
+#: includes/class-segurium.php:2879
+msgid "Remove adjacent post links"
+msgstr "Fjern links til nabo-indlæg"
+
+#: includes/class-segurium.php:2881
+msgid "Removes prev/next post rel links from HTML head."
+msgstr "Fjerner rel-links til forrige og næste indlæg fra HTML-hovedet."
+
+#: includes/class-segurium.php:2884
+msgid "Asset Fingerprinting"
+msgstr "Fingeraftryk på filer"
+
+#: includes/class-segurium.php:2888
+msgid "Remove version query strings"
+msgstr "Fjern versionsforespørgsler"
+
+#: includes/class-segurium.php:2890
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"Skræller ?ver= af URL-adresser til CSS og JavaScript. Filer, browseren har "
+"gemt i cachen, kan blive forældede efter opdateringer af plugins eller "
+"temaer."
+
+#: includes/class-segurium.php:2897
+msgid "Disable XML-RPC entirely"
+msgstr "Slå XML-RPC helt fra"
+
+#: includes/class-segurium.php:2899
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr ""
+"Nogle plugins (Jetpack, WordPress' mobilapp) kræver XML-RPC. Slå det kun "
+"fra, hvis du ikke bruger dem."
+
+#: includes/class-segurium.php:2911
+msgid "Security Self-Check"
+msgstr "Sikkerhedstjek"
+
+#: includes/class-segurium.php:2913
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Segurium kører de samme tjek som førende eksterne sikkerhedsscannere plus "
+"tjek af hærdning, der er særlige for WordPress, og giver dit websted en "
+"karakter fra A+ til F. Resultaterne bliver gemt til næste kørsel."
+
+#: includes/class-segurium.php:2932
+msgid "Check results"
+msgstr "Resultater af tjekket"
+
+#: includes/class-segurium.php:2934
+msgid "Independent verification"
+msgstr "Uafhængig verifikation"
+
+#: includes/class-segurium.php:2936
+msgid "Cross-check results with these public scanners:"
+msgstr "Kryds resultaterne af med disse offentlige scannere:"
+
+#: includes/class-segurium.php:2939
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:2940
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:2954
+msgid "Cleanup: 3 files / 30 days"
+msgstr "Rensning: 3 filer for hver 30 dage"
+
+#: includes/class-segurium.php:2955
+msgid "Full malware detection — same findings as Pro"
+msgstr "Fuld opdagelse af malware – samme fund som i Pro"
+
+#: includes/class-segurium.php:2956
+msgid "Auto-fix and Bulk Fix All"
+msgstr "Automatisk rettelse og Ret alt i én omgang"
+
+#: includes/class-segurium.php:2957
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr "Hærdning: 2FA, brute force, geoblokering, firewall, sikkerhedsheadere"
+
+#: includes/class-segurium.php:2958
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "Overvågning af filintegritet (kerne, plugins, temaer)"
+
+#: includes/class-segurium.php:2959
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Importværktøj til migrering (Wordfence, AIOS, Solid Security)"
+
+#: includes/class-segurium.php:2960
+msgid "Community support"
+msgstr "Support fra fællesskabet"
+
+#: includes/class-segurium.php:2963
+msgid "Unlimited cleanup"
+msgstr "Ubegrænset rensning"
+
+#: includes/class-segurium.php:2964
+msgid "Everything in Free"
+msgstr "Alt i Free"
+
+#: includes/class-segurium.php:2965
+msgid "Email support, priority queue"
+msgstr "Support på e-mail, prioriteret kø"
+
+#: includes/class-segurium.php:2973
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Hver funktion følger med på hver installation. Pro hæver den månedlige "
+"grænse for rensning."
+
+#: includes/class-segurium.php:2980 includes/class-segurium.php:3003
+msgid "Current plan"
+msgstr "Nuværende pakke"
+
+#: includes/class-segurium.php:2983 includes/class-segurium.php:3208
+msgid "Free"
+msgstr "Free"
+
+#: includes/class-segurium.php:2985
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr ""
+"Hver funktion, på hvert websted. Rensninger er begrænset til 3 for hver 30 "
+"dage."
+
+#: includes/class-segurium.php:2990
+msgid "forever"
+msgstr "for altid"
+
+#: includes/class-segurium.php:3012
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr ""
+"Ubegrænset rensning. Samme funktioner som Free, uden en månedlig grænse."
+
+#: includes/class-segurium.php:3017
+msgid "/year per site"
+msgstr "/år pr. websted"
+
+#: includes/class-segurium.php:3029
+msgid "14-day money-back guarantee."
+msgstr "14 dages returret."
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+#: includes/class-segurium.php:3040
+#, php-format
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"Pakker til 5 og 25 websteder samt tilbud på over 100 findes på "
+"%1$ssegurium.com/pricing/%2$s."
+
+#: includes/class-segurium.php:3058
+msgid "Scan Settings"
+msgstr "Indstillinger for scanning"
+
+#: includes/class-segurium.php:3061
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"Udelad filer fra scanningen, som passer til disse jokermønstre (et pr. "
+"linje)"
+
+#: includes/class-segurium.php:3063
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr ""
+"Brug * som joker. For eksempel udelader *.log alle logfiler. vendor/* "
+"udelader mappen vendor og alt inde i den."
+
+#: includes/class-segurium.php:3071
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Når den er slået til, kan filindhold blive delt med Segurium Cloud til "
+"avanceret opdagelse af malware og rensning drevet af skyen. Kun mistænkelige"
+" filer bliver sendt. Slå den fra for lokal tilstand: scanninger sender så "
+"kun SHA-256-hashes, filstier og metadata, og en fil, som skyen ikke kan "
+"genkende på hashen, forbliver uafklaret. Rapporterer du en falsk positiv "
+"eller vedhæfter en fil til en supportsag, bliver den fil stadig sendt, fordi"
+" du selv vælger den."
+
+#: includes/class-segurium.php:3076
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "Slet krypterede sikkerhedskopier, når pluginnet bliver afinstalleret"
+
+#: includes/class-segurium.php:3078
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Fra (standard): krypterede sikkerhedskopier af slettede komponenter og "
+"helbredte filer bliver liggende i mappen uploads/segurium-data efter "
+"afinstallationen, så en geninstallation stadig kan gendanne dem. Slå den kun"
+" til, hvis du vil have en hård sletning ved afinstallation."
+
+#: includes/class-segurium.php:3084
+msgid "Email me about findings"
+msgstr "Send mig e-mail om fund"
+
+#: includes/class-segurium.php:3086
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"Send et dagligt sammendrag af malwarevurderinger og gennemførte rensninger "
+"fra support@segurium.com. Højst én e-mail pr. websted for hver 24 timer."
+
+#: includes/class-segurium.php:3087
+msgid "Alert email address"
+msgstr "E-mailadresse til advarsler"
+
+#: includes/class-segurium.php:3095
+msgid "Leave blank to use the WordPress site admin email."
+msgstr ""
+"Lad feltet stå tomt for at bruge WordPress-webstedets administratoradresse."
+
+#: includes/class-segurium.php:3105
+msgid "Automatically clean detected malware"
+msgstr "Rens fundet malware automatisk"
+
+#: includes/class-segurium.php:3107
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"Efter hver planlagt scanning og hver scanning i realtid bliver filer med en "
+"kendt vurdering som malware eller indsprøjtning renset uden et klik. Filer, "
+"du har valgt at ignorere (efter sti eller hash), bliver sprunget over."
+
+#: includes/class-segurium.php:3117
+msgid "Scheduled Scan"
+msgstr "Planlagt scanning"
+
+#: includes/class-segurium.php:3119
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"Kør en fuld malwarescanning automatisk efter en tilbagevendende plan. En "
+"planlagt scanning gør det samme som en manuel, men kræver ikke, at du holder"
+" browseren åben. Et planlagt tik, der falder, mens en manuel scanning "
+"allerede er i gang, bliver sprunget over og ikke sat i kø."
+
+#: includes/class-segurium.php:3146
+msgid "Save Schedule"
+msgstr "Gem planen"
+
+#: includes/class-segurium.php:3154
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr ""
+"Importer indstillinger fra andre sikkerhedsplugins til Segurium. "
+"Eksisterende Segurium-indstillinger bliver bevaret, og de importerede data "
+"bliver flettet ind."
+
+#: includes/class-segurium.php:3205
+msgid "Version"
+msgstr "Version"
+
+#: includes/class-segurium.php:3207
+msgid "Plan"
+msgstr "Pakke"
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3210
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/class-segurium.php:3212
+msgid "Geo DB updated"
+msgstr "Geodatabase opdateret"
+
+#: includes/class-segurium.php:3219
+msgid "Proxies DB updated"
+msgstr "Proxydatabase opdateret"
+
+#: includes/class-segurium.php:3229
+msgid "IID"
+msgstr "IID"
+
+#: includes/class-segurium.php:3235
+msgid "Copy IID to clipboard"
+msgstr "Kopier IID til udklipsholderen"
+
+#: includes/class-segurium.php:3239
+msgid "Your IP"
+msgstr "Din IP-adresse"
+
+#: includes/class-segurium.php:3312
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "Et bart *-mønster blev fjernet, fordi det ville udelade alle filer."
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium.php:3329
+#, php-format
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"%d absolut sti blev skrevet om til en sti i forhold til WordPress-"
+"installationens rod."
+msgstr[1] ""
+"%d absolutte stier blev skrevet om til stier i forhold til WordPress-"
+"installationens rod."
+
+#: includes/class-segurium.php:3342
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "Listen over udeladelser fra scanningen er begrænset til 500 poster."
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium.php:3349
+#, php-format
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "%d post længere end 191 tegn blev fjernet."
+msgstr[1] "%d poster længere end 191 tegn blev fjernet."
+
+#: includes/class-segurium.php:3398 includes/class-segurium.php:3431
+msgid "You do not have permission to manage scan settings."
+msgstr "Du har ikke rettigheder til at styre indstillinger for scanning."
+
+#: includes/class-segurium.php:3510
+msgid "The scan could not be started due to a server error."
+msgstr "Scanningen kunne ikke startes på grund af en serverfejl."
+
+#: includes/class-segurium.php:3599
+msgid "Could not stop the running scan due to a server error."
+msgstr "Den kørende scanning kunne ikke stoppes på grund af en serverfejl."
+
+#: includes/class-segurium.php:3647
+msgid "Check the PHP error log for details."
+msgstr "Se PHP-fejlloggen for detaljer."
+
+#: includes/class-segurium.php:3779
+msgid "No scan results available"
+msgstr "Der findes ingen resultater af scanningen"
+
+#: includes/class-segurium.php:3850 includes/class-segurium.php:5810
+#: includes/class-segurium.php:5814 includes/class-segurium.php:5870
+#: includes/class-segurium.php:5959 includes/class-segurium.php:6563
+#: includes/class-segurium.php:6955
+msgid "Invalid parameters"
+msgstr "Ugyldige parametre"
+
+#: includes/class-segurium.php:3860 includes/class-segurium.php:4169
+#: includes/class-segurium.php:5047 includes/class-segurium.php:5095
+#: includes/class-segurium.php:5100 includes/class-segurium.php:6575
+#: includes/class-segurium.php:6900 includes/class-segurium.php:6962
+msgid "Invalid path"
+msgstr "Ugyldig sti"
+
+#: includes/class-segurium.php:3864 includes/class-segurium.php:5104
+#: includes/class-segurium.php:6671 includes/class-segurium.php:6977
+msgid "File not found"
+msgstr "Filen blev ikke fundet"
+
+#: includes/class-segurium.php:3915 includes/class-segurium.php:6770
+msgid "File cleaned"
+msgstr "Filen er renset"
+
+#: includes/class-segurium.php:3976 includes/class-segurium.php:4049
+#: includes/class-segurium.php:4134
+msgid "Missing backup ID"
+msgstr "Sikkerhedskopiens id mangler"
+
+#: includes/class-segurium.php:3987 includes/class-segurium.php:4060
+#: includes/class-segurium.php:4139
+msgid "Backup not found"
+msgstr "Sikkerhedskopien blev ikke fundet"
+
+#: includes/class-segurium.php:4003 includes/class-segurium.php:4014
+#: includes/class-segurium.php:7028
+msgid "Failed to restore file"
+msgstr "Filen kunne ikke gendannes"
+
+#: includes/class-segurium.php:4007 includes/class-segurium.php:4070
+msgid "Invalid restore path"
+msgstr "Ugyldig sti til gendannelsen"
+
+#: includes/class-segurium.php:4029 includes/class-segurium.php:6932
+msgid "File restored from backup"
+msgstr "Filen er gendannet fra sikkerhedskopien"
+
+#: includes/class-segurium.php:4065
+msgid "Backup has no target path"
+msgstr "Sikkerhedskopien har ingen målsti"
+
+#: includes/class-segurium.php:4087
+msgid "Failed to read target file"
+msgstr "Målfilen kunne ikke læses"
+
+#: includes/class-segurium.php:4177
+msgid "File is not an active malware entry."
+msgstr "Filen er ikke en aktiv malwarepost."
+
+#: includes/class-segurium.php:4184
+msgid "File is outside the WordPress root."
+msgstr "Filen ligger uden for WordPress-roden."
+
+#: includes/class-segurium.php:4187
+msgid "File not found or not readable."
+msgstr "Filen blev ikke fundet eller kan ikke læses."
+
+#: includes/class-segurium.php:4195
+msgid "File is too large to preview."
+msgstr "Filen er for stor til en forhåndsvisning."
+
+#: includes/class-segurium.php:4204 includes/class-segurium.php:5886
+msgid "Failed to read file."
+msgstr "Filen kunne ikke læses."
+
+#: includes/class-segurium.php:4671
+msgid "No integrity scan is currently running."
+msgstr "Der kører ingen integritetsscanning lige nu."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:4789
+#, php-format
+msgid "Unexpected error: %s"
+msgstr "Uventet fejl: %s"
+
+#: includes/class-segurium.php:4809
+msgid "Unexpected error."
+msgstr "Uventet fejl."
+
+#: includes/class-segurium.php:4837
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "Dette endepunkt er fjernet. Genindlæs siden."
+
+#: includes/class-segurium.php:4985 includes/class-segurium.php:5012
+#: includes/class-segurium.php:5041 includes/class-segurium.php:5137
+#: includes/class-segurium.php:5179 includes/class-segurium.php:5347
+msgid "Missing parameters."
+msgstr "Parametre mangler."
+
+#: includes/class-segurium.php:5067 includes/class-segurium.php:6907
+msgid "Failed to write restored file"
+msgstr "Den gendannede fil kunne ikke skrives"
+
+#: includes/class-segurium.php:5109
+msgid "File too large to view (>2 MB)"
+msgstr "Filen er for stor til at blive vist (over 2 MB)"
+
+#: includes/class-segurium.php:5221 includes/class-segurium.php:5225
+#: includes/class-segurium.php:5252 includes/class-segurium.php:5351
+#: includes/class-segurium.php:5355 includes/class-segurium.php:5368
+msgid "Invalid parameters."
+msgstr "Ugyldige parametre."
+
+#: includes/class-segurium.php:5245
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr "Det aktive tema kan ikke slettes. Skift til et andet tema først."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5322
+#, php-format
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "%1$s ”%2$s” er slettet. Der blev oprettet en sikkerhedskopi."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5427
+#, php-format
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "%1$s ”%2$s” er gendannet fra sikkerhedskopien."
+
+#: includes/class-segurium.php:5486
+msgid "Cannot delete active theme. Switch first."
+msgstr "Det aktive tema kan ikke slettes. Skift først."
+
+#: includes/class-segurium.php:5493
+msgid "Delisted from WordPress.org"
+msgstr "Fjernet fra WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:5503
+#, php-format
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr ""
+"Temaet ”%s” er forladt, men er aktivt lige nu. Det bliver sprunget over."
+
+#: includes/class-segurium.php:5509
+msgid "Active abandoned theme — switch manually."
+msgstr "Aktivt forladt tema – skift manuelt."
+
+#: includes/class-segurium.php:5535
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "Ikke fra WordPress.org – integriteten kan ikke verificeres."
+
+#: includes/class-segurium.php:5556
+msgid "Protected file (exclusion list)."
+msgstr "Beskyttet fil (listen over udeladelser)."
+
+#. translators: %s: file verdict reported by the integrity check.
+#: includes/class-segurium.php:5596
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Der findes ingen automatisk rettelse til vurderingen ”%s”."
+
+#. translators: %d: number of files.
+#: includes/class-segurium.php:5608
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] ""
+"Komponentens version blev ikke genkendt. %d fil kan ikke verificeres."
+msgstr[1] ""
+"Komponentens version blev ikke genkendt. %d filer kan ikke verificeres."
+
+#: includes/class-segurium.php:5878
+msgid "File not found on disk."
+msgstr "Filen blev ikke fundet på disken."
+
+#: includes/class-segurium.php:5882
+msgid "File is too large to submit."
+msgstr "Filen er for stor til at blive indsendt."
+
+#: includes/class-segurium.php:5889
+msgid "File contents changed since the scan."
+msgstr "Filens indhold har ændret sig siden scanningen."
+
+#: includes/class-segurium.php:5893 includes/class-segurium.php:7545
+msgid "Failed to compress file."
+msgstr "Filen kunne ikke komprimeres."
+
+#: includes/class-segurium.php:6260 includes/class-segurium.php:6276
+#: includes/class-segurium.php:6311 includes/class-segurium.php:6332
+#: includes/class-segurium.php:6346 includes/class-segurium.php:6368
+#: includes/class-segurium.php:6391 includes/class-segurium.php:6458
+#: includes/class-segurium.php:6518 includes/class-segurium.php:6531
+#: includes/class-segurium.php:7097 includes/class-segurium.php:7119
+#: includes/class-segurium.php:7134 includes/class-segurium.php:7156
+#: includes/class-segurium.php:7172 includes/class-segurium.php:7194
+#: includes/class-segurium.php:7211 includes/class-segurium.php:7226
+#: includes/class-segurium.php:7241 includes/class-segurium.php:7259
+#: includes/class-segurium.php:7272 includes/class-segurium.php:7291
+#: includes/class-segurium.php:7304 includes/class-segurium.php:7328
+#: includes/class-segurium.php:7597 includes/class-segurium.php:7616
+#: includes/class-segurium.php:7631 includes/class-segurium.php:7665
+msgid "Unauthorized."
+msgstr "Ikke godkendt."
+
+#: includes/class-segurium.php:6353 includes/class-segurium.php:6375
+msgid "Pending change not found or already expired."
+msgstr "Den ventende ændring blev ikke fundet eller er allerede udløbet."
+
+#. translators: %s: file path relative to the WordPress root.
+#: includes/class-segurium.php:6606
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Sletningen blev nægtet: ”%s” er en beskyttet fil. Webserveren eller et andet"
+" plugin indlæser den måske, og fjerner du den, kan hele webstedet gå ned. "
+"Slet den manuelt, hvis du er sikker på, at det er trygt."
+
+#: includes/class-segurium.php:6658
+msgid "Failed to create directory"
+msgstr "Mappen kunne ikke oprettes"
+
+#: includes/class-segurium.php:6661 includes/class-segurium.php:6809
+msgid "Failed to write file"
+msgstr "Filen kunne ikke skrives"
+
+#: includes/class-segurium.php:6676 includes/class-segurium.php:6780
+msgid "Failed to read file for backup"
+msgstr "Filen kunne ikke læses til sikkerhedskopiering"
+
+#: includes/class-segurium.php:6795
+msgid "Failed to create backup"
+msgstr "Sikkerhedskopien kunne ikke oprettes"
+
+#: includes/class-segurium.php:6818
+msgid "Failed to delete file"
+msgstr "Filen kunne ikke slettes"
+
+#: includes/class-segurium.php:6982
+msgid "Failed to read file"
+msgstr "Filen kunne ikke læses"
+
+#: includes/class-segurium.php:7014
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr ""
+"Sikkerhedskopien findes ikke længere – den blev roteret ud af nyere "
+"sikkerhedskopier."
+
+#: includes/class-segurium.php:7016
+msgid "Backup metadata is missing or unreadable."
+msgstr "Sikkerhedskopiens metadata mangler eller kan ikke læses."
+
+#: includes/class-segurium.php:7018
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Sikkerhedskopifilen kan ikke læses. Tjek rettighederne i filsystemet på "
+"uploads/segurium-data."
+
+#: includes/class-segurium.php:7020
+msgid "Backup file is corrupt — decryption failed."
+msgstr "Sikkerhedskopifilen er ødelagt – dekrypteringen mislykkedes."
+
+#: includes/class-segurium.php:7022
+msgid "Backup file is corrupt — decompression failed."
+msgstr "Sikkerhedskopifilen er ødelagt – udpakningen mislykkedes."
+
+#: includes/class-segurium.php:7024
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"Integritetstjekket af sikkerhedskopien mislykkedes – indholdets hash passer "
+"ikke til metadataene."
+
+#: includes/class-segurium.php:7026
+msgid "Invalid backup reference."
+msgstr "Ugyldig henvisning til sikkerhedskopien."
+
+#: includes/class-segurium.php:7245
+msgid "Invalid IP address."
+msgstr "Ugyldig IP-adresse."
+
+#: includes/class-segurium.php:7309 includes/class-segurium.php:7333
+msgid "Plugin not found or no data to migrate."
+msgstr "Pluginnet blev ikke fundet, eller der er ingen data at migrere."
+
+#: includes/class-segurium.php:7457
+msgid "Missed malware report"
+msgstr "Rapport om overset malware"
+
+#: includes/class-segurium.php:7459
+msgid "Other request"
+msgstr "Anden forespørgsel"
+
+#: includes/class-segurium.php:7488
+msgid "Permission denied."
+msgstr "Adgang nægtet."
+
+#: includes/class-segurium.php:7498
+msgid "Message is required."
+msgstr "Beskeden er påkrævet."
+
+#: includes/class-segurium.php:7505
+msgid "A valid reply-to email is required."
+msgstr "En gyldig svaradresse er påkrævet."
+
+#: includes/class-segurium.php:7523
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "Du har indsendt for mange sager i dag. Prøv igen i morgen."
+
+#: includes/class-segurium.php:7529
+msgid "Failed to upload the file. Try again."
+msgstr "Filen kunne ikke uploades. Prøv igen."
+
+#: includes/class-segurium.php:7533
+msgid "File is empty or too large (max 100 MB)."
+msgstr "Filen er tom eller for stor (højst 100 MB)."
+
+#: includes/class-segurium.php:7537
+msgid "Invalid upload."
+msgstr "Ugyldig upload."
+
+#: includes/class-segurium.php:7541
+msgid "Failed to read uploaded file."
+msgstr "Den uploadede fil kunne ikke læses."
+
+#: includes/class-segurium.php:7670
+msgid "Please enter a username or user ID."
+msgstr "Indtast et brugernavn eller et bruger-id."
+
+#: includes/class-segurium.php:7675
+msgid "User not found."
+msgstr "Brugeren blev ikke fundet."
+
+#. translators: %s: username
+#: includes/class-segurium.php:7683
+#, php-format
+msgid "2FA reset for user %s."
+msgstr "2FA er nulstillet for brugeren %s."
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "Liste over tilladte IP-adresser"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"AIOS' liste over tilladte IP-adresser (der springer beskyttelsen over) har "
+"ingen direkte modsvarighed i Seguriums firewalltilstand med nægtelsesliste. "
+"Opsæt den manuelt, hvis du har brug for den."
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "Brute force-beskyttelse"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "Seguriums brute force-beskyttelse (planlagt)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "Blokering af lande"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
+msgstr ""
+"AIOS' blokering af lande er en betalt skyfunktion og kan ikke importeres "
+"lokalt."
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Blocked IPs"
+msgstr "Blokerede IP-adresser"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+msgid "No banned IPs configured in AIOS."
+msgstr "Der er ikke opsat nogen bandlyste IP-adresser i AIOS."
+
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Merge"
+msgstr "Flet"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+msgid "Scan Exclusions"
+msgstr "Udeladelser fra scanningen"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+msgid "No file exclusions configured in AIOS."
+msgstr "Der er ikke opsat nogen udeladelser af filer i AIOS."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "Seguriums 2FA (planlagt)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"Solid Security gemmer blokering af lande i sit skykontrolpanel. Opsæt den "
+"manuelt under fanen Geoblokering."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+msgid "Banned IPs"
+msgstr "Bandlyste IP-adresser"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+msgid "No banned IPs found in Solid Security."
+msgstr "Der blev ikke fundet nogen bandlyste IP-adresser i Solid Security."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "Indstillinger, der styres fra skyen"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"Sucuri Security gemmer sine WAF-regler og sine indstillinger til "
+"geoblokering og malwarescanning i Sucuris skykontrolpanel. De kan ikke "
+"importeres lokalt."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "WAF-regler"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "Seguriums WAF-regler (planlagt)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"Seguriums geoblokering (tilgængelig) – opsæt den manuelt under fanen "
+"Geoblokering."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "Der er ikke opsat nogen mønstre for udeladelser i Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+msgid "No country blocks configured in Wordfence."
+msgstr "Der er ikke opsat nogen blokering af lande i Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+msgid "No manual IP blocks found in Wordfence."
+msgstr ""
+"Der blev ikke fundet nogen manuelle blokeringer af IP-adresser i Wordfence."
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:279
+#, php-format
+msgid "Import %d user(s) with TOTP"
+msgstr "Importer %d bruger(e) med TOTP"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:282
+msgid "Import into Segurium 2FA"
+msgstr "Importer til Seguriums 2FA"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:292
+msgid "No Wordfence 2FA data found"
+msgstr "Der blev ikke fundet nogen 2FA-data fra Wordfence"
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+#, php-format
+msgid "Missing parameter: %s"
+msgstr "Parameteren mangler: %s"
+
+#: includes/storage/class-segurium-storage.php:789
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Ugyldigt rensesvar fra Segurium Cloud."
+
+#: includes/storage/class-segurium-storage.php:801
+msgid "Cleanup unavailable."
+msgstr "Rensning er ikke tilgængelig."
+
+#: includes/storage/class-segurium-storage.php:809
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud returnerede renseindhold, der ikke er gyldig base64."
+
+#: includes/storage/class-segurium-storage.php:822
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "Rensesvaret mangler kontrolsummen for den rensede fil."
+
+#: includes/storage/class-segurium-storage.php:826
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "Den rensede fil passer ikke til kontrolsummen i rensesvaret."
+
+#: includes/storage/class-segurium-storage.php:1056
+msgid "Invalid response from Segurium Cloud."
+msgstr "Ugyldigt svar fra Segurium Cloud."
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1064
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud returnerede fejlen %d."
+
+#: includes/storage/class-segurium-storage.php:1072
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Svaret fra Segurium Cloud mangler filindholdet."
+
+#: includes/storage/class-segurium-storage.php:1080
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud returnerede filindhold, der ikke er gyldig base64."
+
+#: includes/storage/class-segurium-storage.php:1087
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Svaret fra Segurium Cloud mangler filens kontrolsum."
+
+#: includes/storage/class-segurium-storage.php:1094
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "Den hentede fil passer ikke til kontrolsummen i svaret."
+
+#: segurium.php:49 segurium.php:1069
+msgid "Plugin Activation Error"
+msgstr "Fejl ved aktivering af pluginnet"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:1014
+#, php-format
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Segurium kræver PHP %1$s eller nyere. Dette websted kører PHP %2$s. Bed din "
+"udbyder om at opgradere PHP, og prøv så at aktivere Segurium igen."
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:1022
+#, php-format
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Segurium kræver WordPress %1$s eller nyere. Dette websted kører WordPress "
+"%2$s. Opdater WordPress, og prøv så at aktivere Segurium igen."
+
+#: segurium.php:1024
+msgid "unknown"
+msgstr "ukendt"
