@@ -27,6 +27,49 @@ class Segurium_Async_Scan_Submitter {
 	const MAX_SINGLE_FILE_SIZE = 104857600;
 
 	/**
+	 * SEGURIUM-917: lowest batch byte ceiling the halving walks down to. A
+	 * link that cannot carry 100 KiB inside a tick is broken; a failure at
+	 * this ceiling terminates the scan instead of shrinking further.
+	 */
+	const BATCH_CEILING_FLOOR_BYTES = 102400;
+
+	/**
+	 * SEGURIUM-917: consecutive clean submits after which a lowered ceiling
+	 * doubles back toward {@see MAX_BATCH_BYTES}.
+	 */
+	const CEILING_RECOVERY_CLEAN_SUBMITS = 20;
+
+	/**
+	 * SEGURIUM-917: runtime_kv key prefix for the per-scan ceiling row.
+	 */
+	const CEILING_KV_PREFIX = 'async_scan:ceiling:';
+
+	/**
+	 * SEGURIUM-917: `scan_submit()` error codes that mean "this link could
+	 * not carry this batch". Mirrors
+	 * {@see Segurium_Verdict_Queue::UPLOAD_CAPACITY_ERROR_CODES}; kept here
+	 * so the submitter can react without depending on the queue class.
+	 *
+	 * @var string[]
+	 */
+	const UPLOAD_CAPACITY_ERROR_CODES = array(
+		'cti_transport_error',
+		'cti_scan_submit_body_incomplete',
+		'cti_scan_submit_payload_too_large',
+	);
+
+	/**
+	 * SEGURIUM-917: add() error codes that mean "the link, not the
+	 * content": the file is a skip for the caller's accounting.
+	 *
+	 * @var string[]
+	 */
+	const CEILING_SKIP_ERROR_CODES = array(
+		'cti_file_exceeds_batch_ceiling',
+		'cti_upload_ceiling_floor',
+	);
+
+	/**
 	 * Legacy runtime_kv key prefix under which the per-scan pending-verdicts
 	 * map used to be stored as one JSON blob (pre-SEGURIUM-576). Retained only
 	 * so the one-shot purge migration
@@ -79,6 +122,39 @@ class Segurium_Async_Scan_Submitter {
 	private $buffer_bytes = 0;
 
 	/**
+	 * SEGURIUM-917: current batch byte ceiling. Starts at MAX_BATCH_BYTES,
+	 * halves on each upload-capacity failure, recovers after a run of
+	 * clean submits. Scan-scoped: persisted in runtime_kv so every
+	 * submitter instance within one scan shares it.
+	 *
+	 * @var int
+	 */
+	private $ceiling_bytes = self::MAX_BATCH_BYTES;
+
+	/**
+	 * Consecutive successful submits since the last halving.
+	 *
+	 * @var int
+	 */
+	private $clean_submits = 0;
+
+	/**
+	 * Whether a batch failed at the floor ceiling. Once set, add() refuses
+	 * every file with `cti_upload_ceiling_floor`.
+	 *
+	 * @var bool
+	 */
+	private $floor_reached = false;
+
+	/**
+	 * Files dropped from batches the link refused, not yet folded into a
+	 * stat block by the caller. Drained by {@see take_skipped()}.
+	 *
+	 * @var int
+	 */
+	private $skipped_tally = 0;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string                   $scan_id  Plugin-side scan-run UUID.
@@ -91,6 +167,248 @@ class Segurium_Async_Scan_Submitter {
 		$this->scan_id  = (string) $scan_id;
 		$this->detector = (string) $detector;
 		$this->cti      = $cti instanceof Segurium_CTI_Client ? $cti : new Segurium_CTI_Client();
+		$this->load_ceiling();
+	}
+
+	/**
+	 * SEGURIUM-917: current batch byte ceiling.
+	 *
+	 * @return int
+	 */
+	public function batch_ceiling() {
+		return $this->ceiling_bytes;
+	}
+
+	/**
+	 * SEGURIUM-917: file-count cap scaled with the byte ceiling.
+	 *
+	 * @return int
+	 */
+	public function batch_file_cap() {
+		return max( 1, (int) floor( self::MAX_FILES_PER_BATCH * $this->ceiling_bytes / self::MAX_BATCH_BYTES ) );
+	}
+
+	/**
+	 * SEGURIUM-917: whether a batch failed at the floor ceiling.
+	 *
+	 * @return bool
+	 */
+	public function floor_reached() {
+		return $this->floor_reached;
+	}
+
+	/**
+	 * SEGURIUM-917: whether the persisted ceiling row for a scan records a
+	 * failure at the floor. The runner reads this after every chunk and
+	 * terminates the scan with `ABORTED_UPLOAD_CAPACITY` from its own tick,
+	 * so the termination never races the chunk's completion branch.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return bool
+	 */
+	public static function floor_reached_for( $scan_id ) {
+		$row = self::read_ceiling_row( (string) $scan_id );
+		return is_array( $row ) && ! empty( $row['floor'] );
+	}
+
+	/**
+	 * SEGURIUM-917: read the persisted ceiling row for a scan.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return array|null Decoded row or null.
+	 */
+	private static function read_ceiling_row( $scan_id ) {
+		if ( '' === $scan_id ) {
+			return null;
+		}
+		try {
+			$raw = Segurium_Storage::table_get_var(
+				'runtime_kv',
+				'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+				array( self::CEILING_KV_PREFIX . $scan_id )
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			Segurium_Debug::log( '[segurium-async-submit] ceiling read failed for ' . $scan_id . ': ' . $e->getMessage() );
+			return null;
+		}
+		$row = null !== $raw ? json_decode( (string) $raw, true ) : null;
+		return is_array( $row ) ? $row : null;
+	}
+
+	/**
+	 * SEGURIUM-917: return and reset the count of files the submitter
+	 * dropped from batches the link refused. Callers fold the number into
+	 * `neoray_skipped`.
+	 *
+	 * @return int
+	 */
+	public function take_skipped() {
+		$n                   = $this->skipped_tally;
+		$this->skipped_tally = 0;
+		return $n;
+	}
+
+	/**
+	 * SEGURIUM-917: drop the per-scan ceiling row. Called on scan teardown.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return void
+	 */
+	public static function clear_ceiling( $scan_id ) {
+		$scan_id = (string) $scan_id;
+		if ( '' === $scan_id ) {
+			return;
+		}
+		try {
+			Segurium_Storage::table_delete(
+				'runtime_kv',
+				array( 'kv_key' => self::CEILING_KV_PREFIX . $scan_id )
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			Segurium_Debug::log( '[segurium-async-submit] ceiling delete failed for ' . $scan_id . ': ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * SEGURIUM-917: read the persisted per-scan ceiling row, if any.
+	 *
+	 * @return void
+	 */
+	private function load_ceiling() {
+		$row = self::read_ceiling_row( $this->scan_id );
+		if ( null === $row ) {
+			return;
+		}
+		$ceiling = isset( $row['ceiling'] ) ? (int) $row['ceiling'] : 0;
+		if ( $ceiling >= self::BATCH_CEILING_FLOOR_BYTES && $ceiling <= self::MAX_BATCH_BYTES ) {
+			$this->ceiling_bytes = $ceiling;
+		}
+		$this->clean_submits = isset( $row['clean'] ) ? max( 0, (int) $row['clean'] ) : 0;
+		$this->floor_reached = ! empty( $row['floor'] );
+	}
+
+	/**
+	 * SEGURIUM-917: persist the ceiling row for this scan.
+	 *
+	 * @return void
+	 */
+	private function save_ceiling() {
+		if ( '' === $this->scan_id ) {
+			return;
+		}
+		$now = time();
+		try {
+			Segurium_Storage::table_upsert(
+				'runtime_kv',
+				array(
+					'kv_key'     => self::CEILING_KV_PREFIX . $this->scan_id,
+					'kv_value'   => wp_json_encode(
+						array(
+							'ceiling' => $this->ceiling_bytes,
+							'clean'   => $this->clean_submits,
+							'floor'   => $this->floor_reached,
+						)
+					),
+					'expires_at' => $now + DAY_IN_SECONDS,
+					'updated_at' => $now,
+				),
+				array( 'kv_key' )
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			Segurium_Debug::log( '[segurium-async-submit] ceiling save failed for ' . $this->scan_id . ': ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * SEGURIUM-917: a batch the link refused. The ceiling halves so the
+	 * caller can re-cut and resend; a failure at the floor drops the files
+	 * and flags the scan for termination.
+	 *
+	 * @param array    $batch Files that were in the failed batch.
+	 * @param WP_Error $error The scan_submit() error.
+	 * @return void
+	 */
+	private function on_capacity_failure( array $batch, WP_Error $error ) {
+		$dropped             = count( $batch );
+		$this->clean_submits = 0;
+		$old                 = $this->ceiling_bytes;
+
+		if ( $old <= self::BATCH_CEILING_FLOOR_BYTES ) {
+			$this->floor_reached  = true;
+			$this->skipped_tally += $dropped;
+			$this->save_ceiling();
+			Segurium_Scan_Runner::debug(
+				'async_submit_ceiling_floor',
+				array(
+					'scan_id'       => $this->scan_id,
+					'ceiling'       => $old,
+					'files_dropped' => $dropped,
+					'error_code'    => $error->get_error_code(),
+				)
+			);
+			Segurium_Debug::log(
+				sprintf(
+					'[segurium-async-submit] scan %s: a %d-byte batch failed at the %d-byte floor (%s); the runner terminates the scan after this chunk',
+					$this->scan_id,
+					array_sum( array_column( $batch, 'size' ) ),
+					$old,
+					$error->get_error_code()
+				)
+			);
+			return;
+		}
+
+		$this->ceiling_bytes = max( self::BATCH_CEILING_FLOOR_BYTES, (int) floor( $old / 2 ) );
+		$this->save_ceiling();
+		Segurium_Scan_Runner::debug(
+			'async_submit_ceiling_halved',
+			array(
+				'scan_id'     => $this->scan_id,
+				'old_ceiling' => $old,
+				'new_ceiling' => $this->ceiling_bytes,
+				'files'       => $dropped,
+				'error_code'  => $error->get_error_code(),
+			)
+		);
+		Segurium_Debug::log(
+			sprintf(
+				'[segurium-async-submit] scan %s: batch of %d file(s) refused by the link (%s); ceiling %d -> %d bytes, resending',
+				$this->scan_id,
+				$dropped,
+				$error->get_error_code(),
+				$old,
+				$this->ceiling_bytes
+			)
+		);
+	}
+
+	/**
+	 * SEGURIUM-917: count a clean submit; double a lowered ceiling back
+	 * after a full run of them.
+	 *
+	 * @return void
+	 */
+	private function on_clean_submit() {
+		if ( $this->ceiling_bytes >= self::MAX_BATCH_BYTES ) {
+			return;
+		}
+		++$this->clean_submits;
+		if ( $this->clean_submits < self::CEILING_RECOVERY_CLEAN_SUBMITS ) {
+			$this->save_ceiling();
+			return;
+		}
+		$old                 = $this->ceiling_bytes;
+		$this->ceiling_bytes = min( self::MAX_BATCH_BYTES, $old * 2 );
+		$this->clean_submits = 0;
+		$this->save_ceiling();
+		Segurium_Scan_Runner::debug(
+			'async_submit_ceiling_restored',
+			array(
+				'scan_id'     => $this->scan_id,
+				'old_ceiling' => $old,
+				'new_ceiling' => $this->ceiling_bytes,
+			)
+		);
 	}
 
 	/**
@@ -116,6 +434,10 @@ class Segurium_Async_Scan_Submitter {
 		if ( $size > self::MAX_SINGLE_FILE_SIZE ) {
 			return new WP_Error( 'cti_file_too_large', 'async submit single-file cap is 100 MiB' );
 		}
+		$refused = $this->refuse_for_ceiling( $size, (string) $relative_path );
+		if ( null !== $refused ) {
+			return $refused;
+		}
 
 		// Would the new file push us past a wire limit? Flush what we
 		// have first, then queue this one. Net effect: the new file
@@ -126,12 +448,17 @@ class Segurium_Async_Scan_Submitter {
 		// first. End-of-chunk flushes go through the soft path
 		// (flush() honours the IID-scoped pause).
 		if ( ! empty( $this->buffer )
-			&& ( $this->buffer_bytes + $size > self::MAX_BATCH_BYTES
-				|| count( $this->buffer ) >= self::MAX_FILES_PER_BATCH )
+			&& ( $this->buffer_bytes + $size > $this->ceiling_bytes
+				|| count( $this->buffer ) >= $this->batch_file_cap() )
 		) {
 			$flushed = $this->flush( true );
 			if ( is_wp_error( $flushed ) ) {
 				return $flushed;
+			}
+			// The flush may have lowered the ceiling under this file.
+			$refused = $this->refuse_for_ceiling( $size, (string) $relative_path );
+			if ( null !== $refused ) {
+				return $refused;
 			}
 		}
 
@@ -143,6 +470,52 @@ class Segurium_Async_Scan_Submitter {
 		);
 		$this->buffer_bytes += $size;
 		return true;
+	}
+
+	/**
+	 * SEGURIUM-917: the ceiling gate a file passes before it may enter the
+	 * buffer. Once the link has refused a default-sized batch, a file
+	 * larger than the learned ceiling can never ship. At the default
+	 * ceiling a lone file above 10 MiB still goes out as a one-file batch
+	 * (SEGURIUM-474).
+	 *
+	 * @param int    $size Body size in bytes.
+	 * @param string $path Site-relative path, for the log line.
+	 * @return WP_Error|null Error to hand back from add(), or null to accept.
+	 */
+	private function refuse_for_ceiling( $size, $path ) {
+		if ( $this->floor_reached ) {
+			return new WP_Error( 'cti_upload_ceiling_floor', 'async submit ceiling hit the floor; the scan is terminating' );
+		}
+		if ( $this->ceiling_bytes >= self::MAX_BATCH_BYTES || $size <= $this->ceiling_bytes ) {
+			return null;
+		}
+		Segurium_Scan_Runner::debug(
+			'async_submit_ceiling_skip',
+			array(
+				'scan_id' => $this->scan_id,
+				'path'    => $path,
+				'size'    => $size,
+				'ceiling' => $this->ceiling_bytes,
+			)
+		);
+		Segurium_Debug::log(
+			sprintf(
+				'[segurium-async-submit] scan %s: skipping %s (%d bytes) above the %d-byte ceiling',
+				$this->scan_id,
+				$path,
+				$size,
+				$this->ceiling_bytes
+			)
+		);
+		return new WP_Error(
+			'cti_file_exceeds_batch_ceiling',
+			'file is larger than the current submit batch ceiling',
+			array(
+				'size'    => $size,
+				'ceiling' => $this->ceiling_bytes,
+			)
+		);
 	}
 
 	/**
@@ -176,12 +549,164 @@ class Segurium_Async_Scan_Submitter {
 			);
 		}
 
-		$client_batch_id    = wp_generate_uuid4();
 		$batch              = $this->buffer;
 		$this->buffer       = array();
 		$this->buffer_bytes = 0;
 
-		$result = $this->cti->scan_submit(
+		// SEGURIUM-917: a batch the link refuses is split under the halved
+		// ceiling and sent again; files above the new ceiling drop out as
+		// skips. Each halving happens at most once per scan level, so the
+		// number of resends is bounded by the walk from MAX_BATCH_BYTES to
+		// the floor, and by the runner's tick budget. A batch that fails
+		// at the floor flags the scan for termination.
+		$queue    = array( $batch );
+		$accepted = 0;
+		$rejected = array();
+		$next_seq = 0;
+		while ( ! empty( $queue ) ) {
+			$current = array_shift( $queue );
+			$result  = $this->send_batch( $current );
+			if ( is_wp_error( $result ) ) {
+				if ( ! in_array( $result->get_error_code(), self::UPLOAD_CAPACITY_ERROR_CODES, true ) ) {
+					// A content rejection: restore what has not shipped so
+					// the caller's WP_Error path can count it. Rejections
+					// from sub-batches that did ship travel in the error
+					// data so they are not lost.
+					array_unshift( $queue, $current );
+					$this->buffer       = array_merge( ...$queue );
+					$this->buffer_bytes = array_sum( array_column( $this->buffer, 'size' ) );
+					$data               = $result->get_error_data();
+					$data               = is_array( $data ) ? $data : array();
+					$data['rejected']   = $rejected;
+					return new WP_Error( $result->get_error_code(), $result->get_error_message(), $data );
+				}
+				$current_bytes = array_sum( array_column( $current, 'size' ) );
+				if ( $current_bytes > $this->ceiling_bytes ) {
+					// A lone file above the ceiling (SEGURIUM-474) says
+					// nothing about the link's capacity for a regular
+					// batch. The re-cut below drops it as a skip.
+					Segurium_Scan_Runner::debug(
+						'async_submit_oversize_batch_refused',
+						array(
+							'scan_id'    => $this->scan_id,
+							'bytes'      => $current_bytes,
+							'ceiling'    => $this->ceiling_bytes,
+							'error_code' => $result->get_error_code(),
+						)
+					);
+				} else {
+					$this->on_capacity_failure( $current, $result );
+				}
+				if ( $this->floor_reached ) {
+					foreach ( $queue as $rest ) {
+						$this->skipped_tally += count( $rest );
+					}
+					break;
+				}
+				// Re-cut everything still unsent: batches cut for the old
+				// ceiling would fail again under the new one.
+				$queue = $this->split_under_ceiling( array_merge( $current, ...$queue ) );
+				if ( ! empty( $queue ) && ! $this->tick_allows_resend() ) {
+					foreach ( $queue as $rest ) {
+						$this->skipped_tally += count( $rest );
+					}
+					Segurium_Scan_Runner::debug(
+						'async_submit_resend_deferred',
+						array(
+							'scan_id' => $this->scan_id,
+							'ceiling' => $this->ceiling_bytes,
+							'files'   => $this->skipped_tally,
+						)
+					);
+					break;
+				}
+				continue;
+			}
+			$accepted += (int) $result['accepted_count'];
+			$rejected  = array_merge( $rejected, $result['rejected'] );
+			$next_seq  = (int) $result['next_seq'];
+		}
+
+		return array(
+			'accepted_count' => $accepted,
+			'rejected'       => $rejected,
+			'next_seq'       => $next_seq,
+		);
+	}
+
+	/**
+	 * SEGURIUM-917: whether the runner tick can afford another upload.
+	 * Outside a tick (realtime, upload, tests) always true. Inside one,
+	 * the heartbeat is renewed first so the watchdog does not reclaim a
+	 * scan that is resending, and the remaining budget must still hold
+	 * the client's minimum upload window; the ceiling is persisted, so
+	 * the next tick starts small without re-learning anything.
+	 *
+	 * @return bool
+	 */
+	private function tick_allows_resend() {
+		if ( ! class_exists( 'Segurium_Scan_Runner' ) || ! Segurium_Scan_Runner::in_tick() ) {
+			return true;
+		}
+		if ( '' !== $this->scan_id && ! Segurium_Scan_Runner::renew_liveness( $this->scan_id ) ) {
+			return false;
+		}
+		$usable = (float) Segurium_Scan_Runner::time_left_in_tick()
+			- (float) Segurium_Scan_Runner::TICK_GRACEFUL_EXIT_SAFETY_SEC;
+		return $usable >= (float) Segurium_CTI_Client::SUBMIT_TIMEOUT_MIN_SEC;
+	}
+
+	/**
+	 * SEGURIUM-917: re-cut a refused batch into batches that fit the
+	 * current ceiling. Files larger than the ceiling can never ship and
+	 * are counted as skips here.
+	 *
+	 * @param array $batch Files of the refused batch.
+	 * @return array[] Batches, each within the byte and file caps.
+	 */
+	private function split_under_ceiling( array $batch ) {
+		$out   = array();
+		$cur   = array();
+		$bytes = 0;
+		foreach ( $batch as $f ) {
+			if ( $f['size'] > $this->ceiling_bytes ) {
+				++$this->skipped_tally;
+				Segurium_Scan_Runner::debug(
+					'async_submit_ceiling_skip',
+					array(
+						'scan_id' => $this->scan_id,
+						'path'    => $f['path'],
+						'size'    => $f['size'],
+						'ceiling' => $this->ceiling_bytes,
+					)
+				);
+				continue;
+			}
+			if ( ! empty( $cur ) && ( $bytes + $f['size'] > $this->ceiling_bytes || count( $cur ) >= $this->batch_file_cap() ) ) {
+				$out[] = $cur;
+				$cur   = array();
+				$bytes = 0;
+			}
+			$cur[]  = $f;
+			$bytes += $f['size'];
+		}
+		if ( ! empty( $cur ) ) {
+			$out[] = $cur;
+		}
+		return $out;
+	}
+
+	/**
+	 * One `/v1/scan/submit` POST. Records accepted files as pending and
+	 * maintains the IID-scoped pause. The buffer is not touched here.
+	 *
+	 * @param array $batch Files to send.
+	 * @return array|WP_Error `{accepted_count, rejected, next_seq}` or the
+	 *                        client's error.
+	 */
+	private function send_batch( array $batch ) {
+		$client_batch_id = wp_generate_uuid4();
+		$result          = $this->cti->scan_submit(
 			$this->scan_id,
 			$client_batch_id,
 			array_map(
@@ -196,12 +721,6 @@ class Segurium_Async_Scan_Submitter {
 			)
 		);
 		if ( is_wp_error( $result ) ) {
-			// Restore the buffer so a follow-up flush or the next add()
-			// can retry. The caller's WP_Error path decides whether to
-			// surface or to swallow as `neoray_errors`.
-			$this->buffer       = $batch;
-			$this->buffer_bytes = array_sum( array_column( $batch, 'size' ) );
-
 			// SEGURIUM-478: a `cti_paused` WP_Error carries the
 			// Retry-After value parsed off a 429 / 503 response. Stamp
 			// the IID-scoped submit pause so the next tick (and any
@@ -258,6 +777,7 @@ class Segurium_Async_Scan_Submitter {
 			}
 			Segurium_Async_Scan_Pause::clear( Segurium_Async_Scan_Pause::ENDPOINT_SUBMIT );
 		}
+		$this->on_clean_submit();
 
 		// Bucket per sha — identical-content files (vendored stubs,
 		// duplicate cached assets) each need their own pending entry so

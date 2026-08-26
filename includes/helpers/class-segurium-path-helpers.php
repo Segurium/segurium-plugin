@@ -42,6 +42,19 @@ class Segurium_Path_Helpers {
 	}
 
 	/**
+	 * Return the plugins directory root. WordPress exposes no accessor
+	 * for it, and a caller that needs another plugin's directory (the
+	 * SEGURIUM-918 pre-update snapshot, the filesystem-method probe)
+	 * cannot use `plugin_dir_path( SEGURIUM_PLUGIN_FILE )`, which points
+	 * at ours.
+	 *
+	 * @return string Path without a trailing slash.
+	 */
+	public static function plugins_root() {
+		return WP_PLUGIN_DIR; // phpcs:ignore -- segurium-wporg-abspath: single audited accessor; WordPress exposes no API for the plugins directory root.
+	}
+
+	/**
 	 * Require a file from wp-admin/includes/. Wrapper for the
 	 * Plugin-Handbook-documented `require_once ABSPATH . 'wp-admin/includes/X.php'`
 	 * pattern. Callers gate on function_exists()/class_exists() to

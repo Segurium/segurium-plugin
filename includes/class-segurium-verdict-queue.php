@@ -67,32 +67,29 @@ class Segurium_Verdict_Queue {
 	const VERDICT_UNKNOWN = 4;
 
 	/**
+	 * SEGURIUM-936: the file is clean, but its bytes belong to a component
+	 * release with a known vulnerability. Handled exactly like a clean
+	 * verdict here — no threat count, no file_state row, no UI change. The
+	 * append-only `scan_findings` row is persistence for a later feature.
+	 */
+	const VERDICT_VULNERABLE = 5;
+
+	/**
+	 * `scan_findings.status` used for a vulnerable observation. Deliberately
+	 * outside the status vocabulary every read path selects on ('open',
+	 * 'ignored', 'cured', 'fixed', 'restored'), so the row stays invisible
+	 * until something is built to read it.
+	 */
+	const STATUS_VULNERABLE = 'vulnerable';
+
+
+	/**
 	 * Upper bound on a file body sent to `/v1/neo-ray`. Must match the
 	 * scanner's own MAX_FILE_SIZE so the two tiers agree on what can be
 	 * escalated; anything above is counted as a skip at the scanner stage
 	 * and so never reaches this queue.
 	 */
 	const NEO_RAY_MAX_BODY = 104857600;
-
-	/**
-	 * SEGURIUM-745: `scan_submit()` error codes that mean "this link could not
-	 * carry this batch", as opposed to a rejection CTI made on the content.
-	 * Files in such a batch are counted `neoray_skipped` so the scan settles
-	 * and completes; how many skip is a function of the site's bandwidth and
-	 * its tick budget, which the plugin cannot control and must not assume.
-	 *
-	 * `cti_transport_error` covers cURL 28 (the upload outran the timeout) and
-	 * the DNS/TLS family. `body_incomplete` is CTI's SEGURIUM-745 status for a
-	 * client that hung up mid-upload; `payload_too_large` is what older CTI
-	 * builds returned for that same truncation before the split landed.
-	 *
-	 * @var string[]
-	 */
-	const UPLOAD_CAPACITY_ERROR_CODES = array(
-		'cti_transport_error',
-		'cti_scan_submit_body_incomplete',
-		'cti_scan_submit_payload_too_large',
-	);
 
 	/**
 	 * Mapping from the `/v1/neo-ray` verdict string to the numeric verdict
@@ -1066,6 +1063,66 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
+	 * SEGURIUM-936: persist a vulnerable observation without surfacing it.
+	 *
+	 * `scan_findings` is an append-only event log; `file_state` is the only
+	 * source the UI reads for current status per file (SEGURIUM-135). A row
+	 * here with a status outside the read vocabulary is therefore invisible
+	 * to every list, counter and tab, while still recording which file on
+	 * which scan CTI reported as belonging to a vulnerable component.
+	 *
+	 * @param string $scan_id  Scan UUID.
+	 * @param string $detector Detector label for the scan type.
+	 * @param string $sha256   File hash.
+	 * @param string $path     Relative file path.
+	 * @param int    $now      Timestamp.
+	 * @return void
+	 */
+	private static function record_vulnerable( $scan_id, $detector, $sha256, $path, $now ) {
+		if ( '' === $path || '' === $sha256 ) {
+			return;
+		}
+		$path_hash = hash( 'sha256', $path );
+		try {
+			// scan_findings is never pruned and the upsert key carries
+			// scan_uuid, so without this a daily scan would add one row per
+			// vulnerable file per scan forever. Only the newest observation
+			// per file is useful, so drop every earlier one first. Growth is
+			// then bounded by the number of vulnerable files, not by scan
+			// count. Scoped to STATUS_VULNERABLE, so a real finding for the
+			// same path is never touched.
+			Segurium_Storage::table_delete(
+				'scan_findings',
+				array(
+					'file_path_hash' => $path_hash,
+					'status'         => self::STATUS_VULNERABLE,
+				)
+			);
+			Segurium_Storage::table_upsert(
+				'scan_findings',
+				array(
+					'scan_uuid'      => (string) $scan_id,
+					'file_path'      => $path,
+					'file_path_hash' => $path_hash,
+					'sha256'         => $sha256,
+					'verdict'        => (string) self::VERDICT_VULNERABLE,
+					'severity'       => 0,
+					'status'         => self::STATUS_VULNERABLE,
+					'backup_id'      => null,
+					'detector'       => $detector,
+					'created_at'     => (int) $now,
+					'resolved_at'    => null,
+				),
+				array( 'scan_uuid', 'file_path_hash' )
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			Segurium_Debug::log(
+				'[segurium-verdict-queue] vulnerable upsert failed: ' . $e->getMessage()
+			);
+		}
+	}
+
+	/**
 	 * Route a normal (non-unknown) verdict into the stat block and, when
 	 * malicious, into `scan_findings`.
 	 *
@@ -1079,7 +1136,17 @@ class Segurium_Verdict_Queue {
 	 */
 	private static function apply_verdict( $scan_id, $detector, $sha256, $path, $verdict, array &$stats, $now ) {
 		++$stats['verdicted'];
-		if ( $verdict <= 0 ) {
+
+		// SEGURIUM-936: a vulnerable file is a CLEAN file that happens to
+		// belong to an outdated component. It takes the clean path below —
+		// same reconciliation, no threat counter, no file_state row — and
+		// only leaves an append-only trace in scan_findings.
+		$is_vulnerable = ( self::VERDICT_VULNERABLE === (int) $verdict );
+		if ( $is_vulnerable ) {
+			self::record_vulnerable( $scan_id, $detector, $sha256, $path, $now );
+		}
+
+		if ( $is_vulnerable || $verdict <= 0 ) {
 			// SEGURIUM-427: when CTI flips a previously-detected file to
 			// Safe (scanner fix, false-positive correction, etc.),
 			// reconcile the projection here so the row disappears from
@@ -1241,8 +1308,16 @@ class Segurium_Verdict_Queue {
 		if ( null === $body ) {
 			return;
 		}
-		$added = $submitter->add( $sha256, $path, $body );
+		$added                    = $submitter->add( $sha256, $path, $body );
+		$stats['neoray_skipped'] += $submitter->take_skipped();
 		if ( is_wp_error( $added ) ) {
+			// SEGURIUM-917: a file the learned ceiling cannot carry, or one
+			// arriving after the ceiling hit its floor, is a skip: the link
+			// refused it, CTI never saw the content.
+			if ( in_array( $added->get_error_code(), Segurium_Async_Scan_Submitter::CEILING_SKIP_ERROR_CODES, true ) ) {
+				++$stats['neoray_skipped'];
+				return;
+			}
 			++$stats['failed'];
 			++$stats['neoray_errors'];
 			Segurium_Debug::log(
@@ -1271,52 +1346,40 @@ class Segurium_Verdict_Queue {
 			return;
 		}
 		$result = $submitter->flush();
+		// SEGURIUM-917: the submitter drops a batch the link refused and
+		// halves its ceiling; the dropped files come back through the
+		// tally, never through the buffer.
+		$stats['neoray_skipped'] += $submitter->take_skipped();
+		$rejected                 = array();
 		if ( is_wp_error( $result ) ) {
-			// flush() restores the buffer on transport failure, but the
+			// flush() restores the buffer on a content rejection, but the
 			// submitter is call-local so that buffer dies with it; the files
-			// were already shifted off `unknown_queue`. Either way the chunk's
-			// completion accounting has to stay whole.
-			//
-			// SEGURIUM-745: a batch the link could not carry is a skip, not an
-			// error. Counting it as `neoray_skipped` — the same bucket the
-			// cancel path uses, for the same reason — keeps the
-			// `verdicted+failed+neoray_skipped == submitted` invariant while
-			// telling an operator the difference between "this site's uplink
-			// could not ship a 34 MB file inside the tick" and "CTI rejected
-			// the batch". The scan finishes either way, which is the point:
-			// on a slow enough link every large file skips and the scan still
-			// completes instead of aborting.
-			$is_upload_capacity = in_array(
-				$result->get_error_code(),
-				self::UPLOAD_CAPACITY_ERROR_CODES,
-				true
-			);
-			$leftover           = $submitter->buffer_count();
-			for ( $i = 0; $i < $leftover; $i++ ) {
-				if ( $is_upload_capacity ) {
-					++$stats['neoray_skipped'];
-					continue;
-				}
-				++$stats['failed'];
-				++$stats['neoray_errors'];
-			}
+			// were already shifted off `unknown_queue`. Count them so the
+			// chunk's completion accounting stays whole. Link failures never
+			// reach this branch: the submitter drops those batches itself
+			// (SEGURIUM-745 / SEGURIUM-917). Sub-batches that shipped before
+			// the rejection report their own rejected files in the error
+			// data.
+			$leftover                = $submitter->buffer_count();
+			$stats['failed']        += $leftover;
+			$stats['neoray_errors'] += $leftover;
 			Segurium_Debug::log(
 				sprintf(
-					'[segurium-verdict-queue] async submit flush failed: %s (%s) — %d file(s) %s',
+					'[segurium-verdict-queue] async submit flush failed: %s (%s) — %d file(s) failed',
 					$result->get_error_message(),
 					$result->get_error_code(),
-					$leftover,
-					$is_upload_capacity ? 'skipped' : 'failed'
+					$leftover
 				)
 			);
-			return;
+			$data = $result->get_error_data();
+			if ( is_array( $data ) && isset( $data['rejected'] ) && is_array( $data['rejected'] ) ) {
+				$rejected = $data['rejected'];
+			}
+		} elseif ( is_array( $result ) && isset( $result['rejected'] ) && is_array( $result['rejected'] ) ) {
+			// Server-side rejected files (hash mismatch at CTI, etc.) will
+			// never get a verdict via the async path. Count them locally.
+			$rejected = $result['rejected'];
 		}
-		if ( ! is_array( $result ) ) {
-			return;
-		}
-		// Server-side rejected files (hash mismatch at CTI, etc.) will
-		// never get a verdict via the async path. Count them locally.
-		$rejected = isset( $result['rejected'] ) && is_array( $result['rejected'] ) ? $result['rejected'] : array();
 		foreach ( $rejected as $r ) {
 			++$stats['failed'];
 			++$stats['neoray_errors'];

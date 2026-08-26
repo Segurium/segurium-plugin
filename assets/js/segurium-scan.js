@@ -975,6 +975,8 @@
             var alertsEmail = el('segurium_alerts_email_address');
             // SEGURIUM-64: auto-fix opt-in.
             var autoFixEnabled = el('segurium_auto_fix_enabled');
+            // SEGURIUM-918: cloud-requested component updates.
+            var remoteActions = el('segurium_remote_actions_enabled');
             post({
                 action: 'segurium_save_settings',
                 nonce: seguriumScan.settingsNonce,
@@ -983,7 +985,8 @@
                 uninstall_wipe_data: wipeOnUninstall && wipeOnUninstall.checked ? '1' : '',
                 alerts_email_enabled: alertsEnabled && alertsEnabled.checked ? '1' : '',
                 alerts_email_address: alertsEmail ? alertsEmail.value : '',
-                auto_fix_enabled: autoFixEnabled && autoFixEnabled.checked ? '1' : ''
+                auto_fix_enabled: autoFixEnabled && autoFixEnabled.checked ? '1' : '',
+                remote_actions_enabled: remoteActions && remoteActions.checked ? '1' : ''
             }).then(function (response) {
                 saveBtn.disabled = false;
                 if (!response.success) {

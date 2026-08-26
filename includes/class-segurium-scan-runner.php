@@ -291,6 +291,7 @@ final class Segurium_Scan_Runner {
 	const REASON_ABORTED_WATCHDOG_SWEEP     = 'ABORTED_WATCHDOG_SWEEP';
 	const REASON_ABORTED_ENGINE_LOAD_FAILED = 'ABORTED_ENGINE_LOAD_FAILED';
 	const REASON_ABORTED_ORPHANED           = 'ABORTED_ORPHANED';
+	const REASON_ABORTED_UPLOAD_CAPACITY    = 'ABORTED_UPLOAD_CAPACITY';
 
 	/**
 	 * The scan_history.status values that end a scan. One list for the terminal
@@ -1269,6 +1270,7 @@ final class Segurium_Scan_Runner {
 			case self::REASON_ABORTED_WATCHDOG_SWEEP:
 			case self::REASON_ABORTED_ENGINE_LOAD_FAILED:
 			case self::REASON_ABORTED_ORPHANED:
+			case self::REASON_ABORTED_UPLOAD_CAPACITY:
 			case self::REASON_RUNTIME_ERROR:
 				return 'aborted';
 			default:
@@ -2019,6 +2021,25 @@ final class Segurium_Scan_Runner {
 					// scan type stays out of this branch entirely.
 					if ( $is_malware && class_exists( 'Segurium_Async_Scan_Results_Loop' ) ) {
 						Segurium_Async_Scan_Results_Loop::run( $scan_id );
+					}
+
+					// SEGURIUM-917: the submitter flags a scan whose link
+					// refused a batch at the floor ceiling. Terminate from
+					// here, ahead of the completion branch, so an aborted
+					// scan never fires `segurium_scan_completed`.
+					if ( $is_malware && class_exists( 'Segurium_Async_Scan_Submitter' )
+						&& Segurium_Async_Scan_Submitter::floor_reached_for( $scan_id ) ) {
+						self::debug(
+							'upload_capacity_abort',
+							array(
+								'scan_id' => $scan_id,
+								'chunks'  => $chunks_returned,
+								'code'    => self::REASON_ABORTED_UPLOAD_CAPACITY,
+							)
+						);
+						self::terminate( self::REASON_ABORTED_UPLOAD_CAPACITY, $scan_id );
+						$tick_outcome = 'upload_capacity_abort';
+						return;
 					}
 
 					if ( ! empty( $result['completed'] ) ) {

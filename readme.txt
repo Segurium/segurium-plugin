@@ -4,7 +4,7 @@ Tags: malware-removal, hacked-website, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,12 +159,15 @@ Cloud Threat Inspection, our own service at `cti.segurium.com`, provides malware
 * You act on a plugin page. **Accepting the service disclosure** sends four things at once: a one-time installation registration (a random commitment hash, your site name, your site URL, your WordPress version, and, if you enabled email alerts, the alert email address you entered), a one-line `plugin_activated` ping, a `consent` record, and a first platform snapshot of the kind described below. **Requesting cleanup** of an infected file sends only that file's SHA-256; the cleaned bytes come back by hash. **A support request, false-positive report or missed-malware report** sends the data you typed plus the file bytes you attached. **A settings change** sends a snapshot of that settings group. **Deactivating the plugin** sends a one-line `plugin_deactivated` ping, skipped entirely if you never accepted the disclosure. Activating it sends nothing on its own.
 * A daily scheduled job runs. Four of them exist. The GeoIP database update and the trusted-proxies update only fetch data. The component-inventory ping sends your installed plugin/theme slugs and versions and your WordPress version, so we can spot tampered, delisted or abandoned components. The platform snapshot sends how your site is built: your WordPress version, locale, multisite and debug flags, whether WP-Cron is disabled and whether the site is served over HTTPS; your PHP version, SAPI, memory limit, maximum execution time and maximum input vars; your web server and its version; your database engine and version; your operating system family and architecture; the plugin version; and your active theme's slug and version. It carries no file contents, no paths and nothing about your visitors.
 * A brute-force lockout, geo-block or other security event fires. That sends a small JSON payload with the event type, your site URL, your domain, your WordPress / PHP / plugin versions, and a SHA-256 hash of the username, never the username itself or the password.
+* An hourly job asks whether the cloud has anything for this site to do. That request sends only your installation identifier, a counter of the last instruction you received, and the result of any instruction already carried out. The cloud may also ask your site to run that check sooner, by calling `/wp-json/segurium/v1/actions-poke` on your site with a request signed by our key; the call carries no instruction of its own. The only instruction the cloud can give is to update a plugin, theme or WordPress core that you already have installed and that WordPress.org already offers an update for. WordPress downloads that update from WordPress.org, never from us. The "Let Segurium Cloud request component updates" setting on the Settings tab turns the whole exchange off, and then neither the hourly request nor the incoming call happens.
 
 **Data sent during scans** (malware, real-time and upload alike): SHA-256 hashes of files on your server, file paths relative to your WordPress installation, file sizes, file modification times, plugin and theme version strings, and your WordPress version. **For files whose SHA-256 is not yet known to the cloud verdict database, we also upload the file's bytes so the file can be classified.**
 
 **Turning the upload off:** the "Cloud-assisted malware detection" setting on the Settings tab controls it. Switch it off for On-premise mode and scans send hashes, paths and metadata only, so a file whose hash the cloud does not recognise stays unresolved. Two uploads survive that mode, because you pick the file yourself: a false-positive report and a support-ticket attachment.
 
 **Retention:** we keep file samples uploaded for analysis for up to 365 days, then an automated nightly purge removes them. The full schedule is in the privacy policy linked below.
+
+The Settings tab keeps a log of every instruction the cloud sent and what your site did with it, including the ones it refused.
 
 A random installation identifier (IID), issued at registration time, identifies each request. We do not store or send any WordPress user data, content, or visitor information. The privacy policy linked below names the data controller and how to reach them.
 
@@ -217,6 +220,9 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap.
 
 == Changelog ==
+
+= 1.2.2 - 2026-08-26 =
+* Dynamic batch size for slow network.
 
 = 1.2.1 - 2026-08-25 =
 * Minor UI fixes.

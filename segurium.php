@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
- * Version:     1.2.1
+ * Version:     1.2.2
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.2.1' );
+define( 'SEGURIUM_VERSION', '1.2.2' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -450,6 +450,8 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-trigger-auth.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-tick.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-spawn.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-actions.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-actions-poke.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan-settings.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-backup.php';
@@ -1047,6 +1049,7 @@ function segurium_ensure_all_crons_scheduled() {
 	Segurium_Storage_GC::schedule();
 	Segurium_Brute_Force::schedule_prune();
 	Segurium_Integrity_Inventory_Cron::schedule();
+	Segurium_Remote_Actions::schedule();
 	Segurium_Platform_Snapshot::schedule();
 	Segurium_Memory_Recorder::schedule();
 	Segurium_Self_Check::schedule();
@@ -1116,6 +1119,7 @@ function segurium_deactivate() {
 	Segurium_Brute_Force::unschedule_prune();
 	Segurium_Storage_GC::unschedule();
 	Segurium_Integrity_Inventory_Cron::unschedule();
+	Segurium_Remote_Actions::unschedule();
 	Segurium_Platform_Snapshot::unschedule();
 	Segurium_Memory_Recorder::unschedule();
 	Segurium_Self_Check::unschedule();

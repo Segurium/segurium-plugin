@@ -166,6 +166,8 @@ class Segurium {
 		Segurium_Scan_Runner::register_hooks();
 		Segurium_Rest_Scan_Tick::register_hooks();
 		Segurium_Rest_Scan_Spawn::register_hooks();
+		Segurium_Rest_Actions_Poke::register_hooks();
+		Segurium_Remote_Actions::register_hooks();
 		Segurium_Integrity_Inventory_Cron::register_hooks();
 		Segurium_Platform_Snapshot::register_hooks();
 		Segurium_Memory_Recorder::register_hooks();
@@ -3106,6 +3108,48 @@ class Segurium {
 							</label>
 							<p class="description"><?php esc_html_e( 'After every scheduled or real-time scan, files with a known malware or injection verdict are cleaned without requiring a click. Files you have ignored (by path or by hash) are skipped.', 'segurium' ); ?></p>
 						</div>
+						<?php // SEGURIUM-918: consent for CTI-addressed component updates. ?>
+						<div class="segurium-setting-row">
+							<label>
+								<input type="checkbox" id="segurium_remote_actions_enabled" <?php checked( Segurium_Remote_Actions::enabled() ); ?><?php disabled( Segurium_Remote_Actions::killed() ); ?>>
+								<strong><?php esc_html_e( 'Let Segurium Cloud request component updates', 'segurium' ); ?></strong>
+							</label>
+							<p class="description"><?php esc_html_e( 'Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests.', 'segurium' ); ?></p>
+							<?php if ( Segurium_Remote_Actions::killed() ) : ?>
+								<p class="segurium-is-warning"><?php esc_html_e( 'Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS.', 'segurium' ); ?></p>
+							<?php endif; ?>
+							<?php $segurium_action_log = array_slice( array_reverse( Segurium_Remote_Actions::log_entries() ), 0, 10 ); ?>
+							<?php if ( ! empty( $segurium_action_log ) ) : ?>
+								<p><strong><?php esc_html_e( 'Recent cloud requests', 'segurium' ); ?></strong></p>
+								<table class="widefat striped segurium-remote-actions-log">
+									<thead>
+										<tr>
+											<th scope="col"><?php esc_html_e( 'When', 'segurium' ); ?></th>
+											<th scope="col"><?php esc_html_e( 'Component', 'segurium' ); ?></th>
+											<th scope="col"><?php esc_html_e( 'Outcome', 'segurium' ); ?></th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php foreach ( $segurium_action_log as $segurium_action_entry ) : ?>
+										<tr>
+											<td><?php echo esc_html( wp_date( 'Y-m-d H:i', (int) ( $segurium_action_entry['at'] ?? 0 ) ) ); ?></td>
+											<td>
+												<?php
+												$segurium_action_slug = (string) ( $segurium_action_entry['slug'] ?? '' );
+												echo esc_html(
+													'' === $segurium_action_slug
+														? (string) ( $segurium_action_entry['ctype'] ?? '' )
+														: ( $segurium_action_entry['ctype'] ?? '' ) . ': ' . $segurium_action_slug
+												);
+												?>
+											</td>
+											<td><code><?php echo esc_html( (string) ( $segurium_action_entry['code'] ?? '' ) ); ?></code></td>
+										</tr>
+									<?php endforeach; ?>
+									</tbody>
+								</table>
+							<?php endif; ?>
+						</div>
 						<p>
 							<button id="segurium-save-settings" class="button button-primary">
 								<?php esc_html_e( 'Save Settings', 'segurium' ); ?>
@@ -3374,6 +3418,13 @@ class Segurium {
 		// on every install; CTI applies plan-tier limits per cleanup.
 		if ( self::request_has( INPUT_POST, 'auto_fix_enabled' ) ) {
 			Segurium_Auto_Fix_Settings::set( self::request_bool( INPUT_POST, 'auto_fix_enabled' ) );
+		}
+
+		// SEGURIUM-918: consent for CTI-addressed component updates. The
+		// wp-config kill switch outranks the checkbox, so a site pinned off
+		// there cannot be re-opened from the admin screen.
+		if ( self::request_has( INPUT_POST, 'remote_actions_enabled' ) && ! Segurium_Remote_Actions::killed() ) {
+			Segurium_Remote_Actions::set_consent( self::request_bool( INPUT_POST, 'remote_actions_enabled' ) );
 		}
 
 		segurium_send_json_success( array( 'warnings' => $warnings ) );

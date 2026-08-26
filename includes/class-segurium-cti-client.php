@@ -40,6 +40,7 @@ class Segurium_CTI_Client {
 	const SCAN_RESULTS_ENDPOINT         = 'https://cti.segurium.com:8901/v1/scan/results';
 	const CLEAN_ENDPOINT                = 'https://cti.segurium.com:8901/v1/cleanup';
 	const MESSAGES_ENDPOINT             = 'https://cti.segurium.com:8901/v1/messages';
+	const ACTIONS_ENDPOINT              = 'https://cti.segurium.com:8901/v1/actions';
 	const INTEGRITY_ENDPOINT            = 'https://cti.segurium.com:8901/v1/integrity/check';
 	const ORIGINAL_ENDPOINT             = 'https://cti.segurium.com:8901/v1/integrity/original-content';
 	const LOG_ACTION_ENDPOINT           = 'https://cti.segurium.com:8901/v1/integrity/log-action';
@@ -86,6 +87,26 @@ class Segurium_CTI_Client {
 	 * of burning the files' verdict on one transient stall.
 	 */
 	const INSPECT_TIMEOUT_SEC = 8;
+
+	/**
+	 * SEGURIUM-936: capability token telling CTI this build can read verdict
+	 * 5 ({@see Segurium_Verdict_Queue::VERDICT_VULNERABLE}). Without it CTI
+	 * answers 0 (Safe) for those hashes, because every build released before
+	 * SEGURIUM-936 turns any verdict above 0 into a severity-2 finding with
+	 * no cleanup recipe.
+	 */
+	const CAP_VULNERABLE = 'vuln';
+
+	/**
+	 * Verdict capabilities this build declares on `/v1/inspect`. Lives on
+	 * the client, not the verdict queue: the client is loaded in the
+	 * lightweight tier on every request, the queue only on full load.
+	 *
+	 * @return array<string> Capability tokens.
+	 */
+	public static function inspect_capabilities() {
+		return array( self::CAP_VULNERABLE );
+	}
 
 	/**
 	 * SEGURIUM-745: `/v1/scan/submit` timeout used outside a runner tick —
@@ -664,7 +685,10 @@ class Segurium_CTI_Client {
 				'scan_id'  => $scan_id,
 			)
 		);
-		$body = array( 'files' => $files );
+		$body = array(
+			'files' => $files,
+			'caps'  => self::inspect_capabilities(),
+		);
 		if ( '' !== $scan_id ) {
 			$body['scan_id'] = $scan_id;
 		}
@@ -1573,6 +1597,64 @@ class Segurium_CTI_Client {
 		);
 
 		return ! is_wp_error( $response );
+	}
+
+	/**
+	 * SEGURIUM-918: pull the CTI-addressed action queue.
+	 *
+	 * Carries the highest envelope sequence this install has accepted plus
+	 * any outcomes still waiting to be reported. The response body must
+	 * verify against the bundled CTI public key before a single field of
+	 * it is read — an unsigned or tampered body is an error here, never an
+	 * empty queue.
+	 *
+	 * @param int                   $last_seq Highest accepted envelope sequence.
+	 * @param array<string, string> $acks     Action id => outcome code.
+	 * @return array|WP_Error Decoded envelope, or error.
+	 */
+	public function get_actions( $last_seq = 0, $acks = array() ) {
+		$ack_list = array();
+		foreach ( (array) $acks as $id => $code ) {
+			$ack_list[] = array(
+				'id'   => (string) $id,
+				'code' => (string) $code,
+			);
+		}
+
+		$response = $this->request(
+			self::ACTIONS_ENDPOINT,
+			array(
+				'body'    => array(
+					'last_seq' => (int) $last_seq,
+					'acks'     => $ack_list,
+				),
+				'timeout' => 15,
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $code ) {
+			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code, array( 'status' => (int) $code ) );
+		}
+
+		$verified = Segurium_CTI_Signature::verify_response( $response, 'actions' );
+		if ( is_wp_error( $verified ) ) {
+			return $verified;
+		}
+
+		$data = json_decode( wp_remote_retrieve_body( $response ), true );
+		if ( ! is_array( $data ) ) {
+			return new WP_Error( 'cti_invalid_response', 'Invalid CTI actions response' );
+		}
+
+		// `acked` is acted on by Segurium_Remote_Actions::consume_envelope()
+		// once the envelope is proven to be addressed to this install. A
+		// body meant for someone else must not be able to drop our
+		// outstanding outcomes.
+		return $data;
 	}
 
 	/**

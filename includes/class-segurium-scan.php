@@ -504,10 +504,14 @@ class Segurium_Scan {
 			// rows reflects the findings actually persisted, never the
 			// race-emptied 0.
 			if ( 0 === $threats ) {
+				// SEGURIUM-936: vulnerable rows are not threats. They live in
+				// the same append-only log under a status no read path selects
+				// on, so this COUNT must exclude them or a clean site with 40
+				// outdated files reports "40 threats" on any cancelled scan.
 				$fallback = (int) Segurium_Storage::table_get_var(
 					'scan_findings',
-					'SELECT COUNT(*) FROM {{table}} WHERE scan_uuid = %s',
-					array( $scan_id )
+					'SELECT COUNT(*) FROM {{table}} WHERE scan_uuid = %s AND status <> %s',
+					array( $scan_id, Segurium_Verdict_Queue::STATUS_VULNERABLE )
 				);
 				if ( $fallback > 0 ) {
 					$threats = $fallback;
@@ -727,10 +731,14 @@ class Segurium_Scan {
 		if ( '' === $scan_id ) {
 			return array();
 		}
+		// SEGURIUM-936: exclude vulnerable rows. This list is the cleanup
+		// API's threat set and is also consumed by Segurium_Auto_Fix and
+		// update_server_state_from_scan(); an unrecognised status falls
+		// through to state='malware' in ajax_get_threats().
 		$rows = Segurium_Storage::table_get_results(
 			'scan_findings',
-			'SELECT file_path AS path, sha256, verdict, status, backup_id, created_at AS detected_at FROM {{table}} WHERE scan_uuid = %s ORDER BY id ASC',
-			array( $scan_id ),
+			'SELECT file_path AS path, sha256, verdict, status, backup_id, created_at AS detected_at FROM {{table}} WHERE scan_uuid = %s AND status <> %s ORDER BY id ASC',
+			array( $scan_id, Segurium_Verdict_Queue::STATUS_VULNERABLE ),
 			ARRAY_A
 		);
 		foreach ( $rows as &$row ) {
@@ -1304,6 +1312,7 @@ class Segurium_Scan {
 			}
 			if ( class_exists( 'Segurium_Async_Scan_Submitter' ) ) {
 				Segurium_Async_Scan_Submitter::delete_all_pending( $scan_id );
+				Segurium_Async_Scan_Submitter::clear_ceiling( $scan_id );
 			}
 		}
 		$active_raw = Segurium_Storage::table_get_var(
