@@ -167,7 +167,7 @@
 	animation: segurium-progress 1.5s ease-in-out infinite;
 }
 
-/* SEGURIUM-470: percentage label centered over the bar.
+/* Percentage label centered over the bar.
  * mix-blend-mode: difference + white text auto-inverts against
  * whatever pixel sits behind it, so the label stays readable over
  * both the unfilled gray track and the filled accent. JS leaves
@@ -631,7 +631,7 @@ input.segurium-text::placeholder,
 	color: #50575e;
 }
 
-/* ── Malware Scanner tabs (SEGURIUM-151) ──────────────── */
+/* ── Malware Scanner tabs ──────────────── */
 
 .segurium-ss-tabs {
 	display: flex;
@@ -707,13 +707,13 @@ input.segurium-text::placeholder,
 	color: #00a32a;
 }
 
-/* SEGURIUM-248: empty / no-scans-yet variant — neutral grey,
+/* Empty / no-scans-yet variant — neutral grey,
  * visually distinct from a "scanned and clear" pass. */
 .segurium-ss-threat-banner.is-empty {
 	color: #50575e;
 }
 
-/* SEGURIUM-248: host-environment warning banner — populated on page
+/* Host-environment warning banner — populated on page
  * load when max_execution_time is too short or WP-Cron is disabled.
  * Hidden when seguriumScan.envWarnings is empty. Avoid the WP `.notice`
  * class because core admin JS auto-moves any element carrying it to the
@@ -882,8 +882,8 @@ button.button[hidden],
 	color: #50575e;
 }
 
-/* SEGURIUM-207: Free-tier cleanup quota readout above the malware   */
-/* scanner. JS toggles [hidden] on/off and fills the inner copy.     */
+/* Free-tier cleanup quota readout above the malware scanner.        */
+/* JS toggles [hidden] on/off and fills the inner copy.              */
 .segurium-quota-readout {
 	display: flex;
 	flex-wrap: wrap;
@@ -916,7 +916,7 @@ button.button[hidden],
 	background: #e5b71e;
 }
 
-/* SEGURIUM-394: Plans tab — two-card plan picker mirroring
+/* Plans tab — two-card plan picker mirroring
  * segurium.com/pricing/, in the default WP-admin palette so it blends
  * with the surrounding screen. */
 .segurium-tier-section {
@@ -1169,7 +1169,7 @@ button.button[hidden],
 
 /* ── Geo Blocking ─────────────────────────────────────────── */
 
-/* SEGURIUM-397: Feature panels whose inner `*-body` wrapper owns the
+/* Feature panels whose inner `*-body` wrapper owns the
    20px content padding must zero out the outer .segurium-feature padding,
    otherwise content sits at 40px from the edge while panels without an
    inner wrapper sit at 20px — the original tab-spacing drift. */
@@ -1206,7 +1206,7 @@ button.button[hidden],
 	flex-shrink: 0;
 }
 
-/* SEGURIUM-397: shared spacing for two-column feature bodies. The four
+/* Shared spacing for two-column feature bodies. The four
    wrappers below used to repeat the same flex/padding/gap declaration
    (and 2FA drifted to gap:30px). One source of truth keeps them aligned. */
 .segurium-geo-body,
@@ -1490,7 +1490,7 @@ button.button[hidden],
 /* ── Brute-Force tab ─────────────────────────────────────────────────── */
 
 /* .segurium-bf-body shares its flex/padding/gap rule with .segurium-geo-body
-   (see SEGURIUM-397 consolidation above). */
+   (consolidation above). */
 
 .segurium-bf-config {
 	flex: 1;
@@ -1570,7 +1570,7 @@ button.button[hidden],
 }
 /* Number fields only. WordPress draws a checkbox tick as a white SVG in
    ::before, so a grey background under a checked box hides the tick and the
-   setting reads as switched off (SEGURIUM-813). */
+   setting reads as switched off. */
 #segurium-bf-locked-section.segurium-bf-mode-locked .segurium-setting-row input:disabled:not([type="checkbox"]) {
 	background: #f0f0f1;
 }
@@ -1895,7 +1895,7 @@ button.button[hidden],
 
 /* Security Headers */
 /* .segurium-sh-body shares its flex/padding/gap rule with .segurium-geo-body
-   (see SEGURIUM-397 consolidation above). */
+   (consolidation above). */
 .segurium-sh-config {
 	flex: 2;
 	min-width: 0;
@@ -1943,7 +1943,7 @@ button.button[hidden],
 
 /* ── Two-Factor Authentication ── */
 /* .segurium-2fa-body shares its flex/padding/gap rule with .segurium-geo-body
-   (see SEGURIUM-397 consolidation above). */
+   (consolidation above). */
 .segurium-2fa-config {
 	flex: 1;
 	min-width: 0;
@@ -1990,7 +1990,7 @@ button.button[hidden],
 	color: #00a32a;
 	font-style: italic;
 }
-/* SEGURIUM-397: Info Shield rows reuse `.segurium-setting-row` and plain
+/* Info Shield rows reuse `.segurium-setting-row` and plain
    `<h3>` so titles, label layout, and per-row spacing match every other
    feature tab. The bespoke `.segurium-is-toggle-row`, `.segurium-is-master`,
    and `.segurium-is-section-title` classes were removed. */
@@ -2305,7 +2305,7 @@ button.button[hidden],
 	}
 }
 
-/* SEGURIUM-157: FP report modal */
+/* FP report modal */
 .segurium-fp-form {
 	padding: 16px;
 	overflow-y: auto;
@@ -2365,7 +2365,7 @@ button.button[hidden],
 	color: #b32d2e;
 }
 
-/* ── Account page (SEGURIUM-242) ─────────────────────────── */
+/* ── Account page ─────────────────────────── */
 
 .segurium-account {
 	background: #fff;
@@ -2439,7 +2439,7 @@ button.button[hidden],
 	margin: 0;
 }
 
-/* SEGURIUM-709: review ask. */
+/* Review ask. */
 .segurium-review-prompt p:last-child {
 	display: flex;
 	flex-wrap: wrap;

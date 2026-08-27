@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin-side reaction to Freemius license transitions (SEGURIUM-208).
+ * Plugin-side reaction to Freemius license transitions.
  *
  * The Freemius SDK polls the vendor API in the background (and on certain
  * admin requests) and fires `after_license_change` whenever the local
@@ -22,7 +22,6 @@
  * SDK firings (and the safety-net hourly polling) to a single effect.
  *
  * @package Segurium
- * @since SEGURIUM-208
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -173,7 +172,7 @@ final class Segurium_Pro_Transition {
 	}
 
 	/**
-	 * SEGURIUM-361: deterministic post-checkout reconciliation.
+	 * Deterministic post-checkout reconciliation.
 	 *
 	 * The Freemius `after_license_change` hook fires when the SDK
 	 * detects a license change in-flight, but on the checkout-iframe →
@@ -219,7 +218,7 @@ final class Segurium_Pro_Transition {
 		if ( is_object( $plan ) && isset( $plan->name ) ) {
 			$plan_slug = (string) $plan->name;
 		}
-		// SEGURIUM-343: read Pro state directly from the Freemius SDK on
+		// Read Pro state directly from the Freemius SDK on
 		// the license-change hook. The cached CTI quota envelope is the
 		// production source of truth for the rest of the plugin, but it
 		// has not flipped yet — this handler is what *causes* the flip
@@ -241,7 +240,7 @@ final class Segurium_Pro_Transition {
 		}
 
 		if ( $is_pro_now ) {
-			// SEGURIUM-378: race-resolver sync. On success the response
+			// Race-resolver sync. On success the response
 			// body carries the fresh quota envelope so we skip the
 			// follow-up `/v1/quota/state` round-trip; on any other
 			// outcome (missing tuple, transport failure, server reject)
@@ -254,7 +253,7 @@ final class Segurium_Pro_Transition {
 			$this->safe_send_cti( self::EVENT_PRO_ACTIVATED, (string) $plan_change, $plan_slug );
 		} else {
 			// Pro→Free transitions originate at Freemius and reach CTI via
-			// the vendor webhook (SEGURIUM-374's pending-events drain
+			// the vendor webhook (its pending-events drain
 			// re-applies them on the next sync). The plugin no longer
 			// has a license tuple to send, so we just refresh the local
 			// cache against whatever CTI currently reports.
@@ -316,7 +315,7 @@ final class Segurium_Pro_Transition {
 	}
 
 	/**
-	 * SEGURIUM-378: race-resolver sync. Forwards the Freemius
+	 * Race-resolver sync. Forwards the Freemius
 	 * `(install_id, install_secret_key, license_id, license_key)` tuple
 	 * to `/v1/billing/sync`; CTI cross-checks every field against the
 	 * Freemius developer API before binding. On success we cache the
@@ -326,8 +325,8 @@ final class Segurium_Pro_Transition {
 	 * Returns true only on a cached envelope. Tuple-missing, transport
 	 * failure, malformed response, or any HTTP non-2xx all return false
 	 * so the caller can fall back to a plain refresh — the next webhook
-	 * arrival drains pending events at the next sync (SEGURIUM-374 ADR
-	 * §2.3 step 5), so a missed bind is recoverable.
+	 * arrival drains pending events at the next sync (ADR §2.3 step 5),
+	 * so a missed bind is recoverable.
 	 *
 	 * @return bool
 	 */
@@ -370,7 +369,7 @@ final class Segurium_Pro_Transition {
 	}
 
 	/**
-	 * SEGURIUM-347: refresh the cached quota envelope so the plugin UI
+	 * Refresh the cached quota envelope so the plugin UI
 	 * reflects the new plan tier within one round-trip rather than
 	 * waiting for the next dashboard load. Soft failure — `Quota::refresh()`
 	 * already swallows its own errors, this just bridges through the
@@ -388,7 +387,7 @@ final class Segurium_Pro_Transition {
 	}
 
 	/**
-	 * SEGURIUM-378: pull the Freemius identity tuple needed for
+	 * Pull the Freemius identity tuple needed for
 	 * `/v1/billing/sync` out of the SDK. The install secret_key
 	 * (`$site->secret_key`) is the proof-of-ownership field that
 	 * replaced the old plugin-supplied `fs_user_id` claim — it lives in

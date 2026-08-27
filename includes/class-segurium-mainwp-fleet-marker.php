@@ -1,8 +1,8 @@
 <?php
 /**
- * MainWP fleet marker (SEGURIUM-880).
+ * MainWP fleet marker.
  *
- * The MainWP epic (SEGURIUM-876) is judged on one number: Segurium
+ * The MainWP epic is judged on one number: Segurium
  * child-site installs attributable to MainWP, as opposed to installs of the
  * dashboard extension itself. A few hundred extension installs is the
  * realistic ceiling; a few hundred agency dashboards times ~35 client sites
@@ -179,7 +179,7 @@ final class Segurium_MainWP_Fleet_Marker {
 	/**
 	 * Counts only. Every value is an integer, by design — this is the one
 	 * place where adding a field would need re-reading against the
-	 * "no new personal data" constraint on SEGURIUM-880.
+	 * "no new personal data" constraint.
 	 *
 	 * @return array<string, int>
 	 */

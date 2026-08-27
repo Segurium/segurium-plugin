@@ -1,12 +1,11 @@
 <?php
 /**
- * WP-CLI `wp segurium iid ...` commands (SEGURIUM-380).
+ * WP-CLI `wp segurium iid ...` commands.
  *
  * Split out of class-segurium-cli.php so each file holds a single class
  * (Generic.Files.OneObjectStructurePerFile).
  *
  * @package Segurium
- * @since SEGURIUM-380
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,8 +17,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 }
 
 /**
- * `wp segurium iid ...` — installation-identity recovery commands
- * (SEGURIUM-380).
+ * `wp segurium iid ...` — installation-identity recovery commands.
  */
 class Segurium_CLI_Iid {
 
@@ -29,8 +27,8 @@ class Segurium_CLI_Iid {
 	 * Drops the IID token, the cached quota envelope (so any local Pro
 	 * tier collapses to Free until a Freemius webhook re-binds against
 	 * the new IID, or the user re-activates the license and the
-	 * SEGURIUM-378 sync runs), and any pending billing-conflict banner.
-	 * Sets the SEGURIUM-376 re-register pending flag so the next
+	 * sync runs), and any pending billing-conflict banner.
+	 * Sets the re-register pending flag so the next
 	 * `admin_init` (subject to the External Service Disclosure consent
 	 * gate) re-registers a fresh IID with CTI.
 	 *

@@ -4930,3 +4930,38 @@ msgstr ""
 #~ msgstr ""
 #~ "Hersteldquotum van het gratis niveau overschreden. Upgrade naar Pro voor "
 #~ "onbeperkte reparaties."
+
+msgid "Remote actions are switched off for this site."
+msgstr "Externe acties zijn uitgeschakeld voor deze site."
+
+msgid "Remote actions require authentication."
+msgstr "Externe acties vereisen authenticatie."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Sta Segurium Cloud toe om component-updates aan te vragen"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself "
+"this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud kan deze site vragen om een plugin, thema of WordPress zelf "
+"bij te werken. Alleen een component die je al hebt geïnstalleerd kan worden "
+"genoemd, en alleen wanneer WordPress.org die update al aanbiedt; de update "
+"wordt door WordPress bij WordPress.org opgehaald, nooit bij Segurium. "
+"WordPress core is beperkt tot beveiligings- en onderhoudsreleases. Segurium "
+"werkt zichzelf nooit op deze manier bij. Schakel dit uit en de site vraagt "
+"deze verzoeken niet meer aan en accepteert ze niet meer."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Uitgeschakeld in wp-config.php door SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Recente cloud-verzoeken"
+
+msgid "Outcome"
+msgstr "Resultaat"

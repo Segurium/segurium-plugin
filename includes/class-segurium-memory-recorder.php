@@ -1,13 +1,13 @@
 <?php
 /**
- * Production memory telemetry recorder (SEGURIUM-326).
+ * Production memory telemetry recorder.
  *
  * Companion to the offline bench probe in tests/perf/memory/. The bench
  * measures synthetic peaks; this class samples real-world peaks from
  * active installs and ships them to CTI, so the system-requirements
  * numbers can be validated against (or corrected by) production data.
  *
- * Sampling strategy (intentional, see SEGURIUM-326):
+ * Sampling strategy (intentional):
  *   - Every scan run produces one sample on `segurium_scan_completed`,
  *     scope_id `scan_run`. Peak is reset at `segurium_scan_started`
  *     when the PHP runtime supports it (8.2+), so the recorded peak
@@ -179,7 +179,7 @@ final class Segurium_Memory_Recorder {
 		// Hard consent gate — defence in depth on top of the IID
 		// gate inside the CTI client. No telemetry leaves the site
 		// before the user has accepted the External Service
-		// Disclosure (SEGURIUM-245 / 295).
+		// Disclosure.
 		if ( ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
 			return false;
 		}

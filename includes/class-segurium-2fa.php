@@ -86,7 +86,7 @@ class Segurium_2FA {
 	 * gated by check_ajax_referer() and the appropriate capability check
 	 * inline in each handler. Centralising the type guard here
 	 * just keeps "treat array values as missing" consistent across
-	 * endpoints (SEGURIUM-526).
+	 * endpoints.
 	 *
 	 * @param array  $source   Caller-owned, already-unslashed input array.
 	 * @param string $key      Key to read.
@@ -830,7 +830,7 @@ class Segurium_2FA {
 	 * Record a freshly minted pending token in the user's active-token
 	 * index. On lockout we can then wipe every outstanding token for
 	 * that user, closing the farm-tokens-in-advance variant of the
-	 * brute-force amplification (SEGURIUM-189).
+	 * brute-force amplification.
 	 *
 	 * @param int    $user_id WordPress user ID.
 	 * @param string $token   Pending token value.
@@ -1520,7 +1520,7 @@ class Segurium_2FA {
 			segurium_send_json_error( array( 'message' => __( 'Please enter your username and password.', 'segurium' ) ) );
 		}
 
-		// SEGURIUM-635: this endpoint validates credentials outside
+		// This endpoint validates credentials outside
 		// wp-login.php, so brute-force protection cannot see it through the
 		// `authenticate` filter or `wp_login_failed` — both bail on
 		// `is_login_surface()`. Gate and count here instead, otherwise the
@@ -1590,8 +1590,7 @@ class Segurium_2FA {
 
 		// 2FA required — refuse to mint a token if the user is already
 		// in the 2FA lockout window, otherwise an attacker can keep
-		// farming tokens to burn guesses beyond the per-user budget
-		// (SEGURIUM-189).
+		// farming tokens to burn guesses beyond the per-user budget.
 		if ( (int) get_transient( self::USER_ATTEMPT_TRANSIENT . $user->ID ) >= self::MAX_2FA_ATTEMPTS ) {
 			segurium_send_json_error(
 				array(
@@ -1664,8 +1663,7 @@ class Segurium_2FA {
 		}
 
 		// Attempt counter is keyed on the user, not the token, so an
-		// attacker cannot farm fresh tokens to reset the budget
-		// (SEGURIUM-189).
+		// attacker cannot farm fresh tokens to reset the budget.
 		$attempt_key = self::USER_ATTEMPT_TRANSIENT . $user_id;
 		$attempts    = (int) get_transient( $attempt_key );
 
@@ -1719,7 +1717,7 @@ class Segurium_2FA {
 		}
 
 		// Invalid code — increment the per-user counter and feed one
-		// brute-force event per failed code (SEGURIUM-189) so the IP
+		// brute-force event per failed code so the IP
 		// lockout isn't amplified 5× by the per-token batch.
 		++$attempts;
 		set_transient( $attempt_key, $attempts, self::EMAIL_CODE_TTL );

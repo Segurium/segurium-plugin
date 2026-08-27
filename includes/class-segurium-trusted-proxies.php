@@ -95,7 +95,7 @@ class Segurium_Trusted_Proxies {
 			);
 		}
 
-		// SEGURIUM-194: refuse an Ed25519-invalid feed outright. Before
+		// Refuse an Ed25519-invalid feed outright. Before
 		// this gate, a MITM who injected `0.0.0.0/0` into the feed would
 		// make `ip_is_trusted()` return true for every peer, defeating
 		// the whole get_real_ip() trust chain.
@@ -129,7 +129,7 @@ class Segurium_Trusted_Proxies {
 	 * Minimum prefix length a CIDR must carry to be accepted into the
 	 * trusted-proxy feed. Anything broader would mark huge swathes of
 	 * the public internet as "trust XFF/CF headers from this IP",
-	 * which is exactly the primitive SEGURIUM-194 closes.
+	 * which is exactly the primitive this bound closes off.
 	 */
 	const MIN_IPV4_PREFIX_BITS = 8;
 	const MIN_IPV6_PREFIX_BITS = 16;
@@ -188,7 +188,7 @@ class Segurium_Trusted_Proxies {
 	 * Lives in the firewall include group (loaded by every light tier),
 	 * so the pending-revert path that fires from `Segurium_Geo_Blocker`
 	 * does not depend on the heavy `Segurium` class being bootstrapped.
-	 * SEGURIUM-392: a visitor-tier expiry of a staged geo-blocking
+	 * A visitor-tier expiry of a staged geo-blocking
 	 * change used to fatal because it called `Segurium::` from light
 	 * tier where that class is not loaded.
 	 *
@@ -219,7 +219,7 @@ class Segurium_Trusted_Proxies {
 	 * Replace user-managed trusted proxy entries in ip_list.
 	 *
 	 * Companion to {@see self::manual_read()} — both must live together
-	 * in the firewall include group; see SEGURIUM-392.
+	 * in the firewall include group.
 	 *
 	 * @param string[] $cidrs Array of CIDR strings.
 	 */

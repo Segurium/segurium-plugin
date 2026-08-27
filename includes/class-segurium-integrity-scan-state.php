@@ -31,9 +31,9 @@ class Segurium_Integrity_Scan_State {
 
 	/**
 	 * Upper bound on the serialized request body per CTI integrity_check call.
-	 * Kept below CTI's `integrity_max_body_bytes` (10 MiB, SEGURIUM-622) so a
+	 * Kept below CTI's `integrity_max_body_bytes` (10 MiB) so a
 	 * large component's file list can never overflow the server limit and get
-	 * rejected. See SEGURIUM-621.
+	 * rejected.
 	 */
 	const MAX_CHUNK_BYTES = 8388608; // 8 MiB.
 
@@ -244,7 +244,7 @@ class Segurium_Integrity_Scan_State {
 	 * the integrity_issues table and clean up the workspace.
 	 *
 	 * @throws RuntimeException When the tick lease was taken over by another
-	 *                          worker before the chunk's CTI call (SEGURIUM-870);
+	 *                          worker before the chunk's CTI call;
 	 *                          life_support_system() catches it and ends the tick.
 	 */
 	public function process_chunk() {
@@ -265,7 +265,7 @@ class Segurium_Integrity_Scan_State {
 			);
 		}
 
-		// SEGURIUM-870: heartbeat + lease before the integrity_check POST
+		// Heartbeat + lease before the integrity_check POST
 		// (up to INTEGRITY_TICK_TIMEOUT_SEC inside a tick). A lost lease
 		// means another driver already owns this scan: stop here instead
 		// of posting the same chunk twice.
@@ -752,13 +752,13 @@ class Segurium_Integrity_Scan_State {
 
 	/**
 	 * Mark this scan as cancelled (user-initiated stop). Removes the
-	 * workspace so no stale progress lingers. SEGURIUM-405: accepts a reason
+	 * workspace so no stale progress lingers. Accepts a reason
 	 * code for signature parity with `Segurium_Scan::mark_cancelled()`;
 	 * integrity scans don't write a `scan_history` row today, so the code is
 	 * accepted but not persisted by this engine.
 	 *
 	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
-	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 * @param bool   $cleanup     When false, skip
 	 *                            `cleanup_workspace()` so a parallel worker
 	 *                            mid-tick can run cleanup itself via the
 	 *                            cooperative cancel handshake.
@@ -781,10 +781,10 @@ class Segurium_Integrity_Scan_State {
 
 	/**
 	 * Mark this scan as aborted. Same cleanup as cancellation for integrity
-	 * scans. SEGURIUM-405: accepts a reason code for signature parity.
+	 * scans. Accepts a reason code for signature parity.
 	 *
 	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
-	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 * @param bool   $cleanup     When false, skip
 	 *                            `cleanup_workspace()` so a parallel worker
 	 *                            mid-tick can run cleanup itself via the
 	 *                            cooperative cancel handshake.
@@ -801,7 +801,7 @@ class Segurium_Integrity_Scan_State {
 	}
 
 	/**
-	 * SEGURIUM-415: build the integrity-scan terminal message payload.
+	 * Build the integrity-scan terminal message payload.
 	 *
 	 * @param string $reason_code REASON_* constant for `error_code`.
 	 * @param array  $extra       Per-message_type additions.
@@ -822,7 +822,7 @@ class Segurium_Integrity_Scan_State {
 	}
 
 	/**
-	 * SEGURIUM-414: idempotent workspace teardown for the cooperative-cancel
+	 * Idempotent workspace teardown for the cooperative-cancel
 	 * handshake. The runner's chunk-loop cancel observer calls this from the
 	 * worker-side so cleanup never races a live tick reading the workspace.
 	 *

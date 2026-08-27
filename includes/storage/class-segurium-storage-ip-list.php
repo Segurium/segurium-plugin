@@ -233,7 +233,7 @@ class Segurium_Storage_IP_List {
 		$wpdb->query( 'START TRANSACTION' );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE list_type = %s AND source = %s', $table, self::sanitize_list_type( $list_type ), self::sanitize_source( $source ) ) );
-		// SEGURIUM-272: feed imports can upsert thousands of rows.
+		// Feed imports can upsert thousands of rows.
 		// Defer the cache version bump until the loop finishes so we
 		// write the autoloaded option once instead of once per row.
 		Segurium_Storage_IP_List_Cache::suspend_bumps();

@@ -2,8 +2,8 @@
 /**
  * Dynamic first-poll ETA for the async scan pipeline.
  *
- * SEGURIUM-480: stamps a per-`scan_id` unix-ts in `runtime_kv` on the
- * first successful `/v1/scan/submit` response. SEGURIUM-481's Phase B
+ * Stamps a per-`scan_id` unix-ts in `runtime_kv` on the
+ * first successful `/v1/scan/submit` response. The Phase B
  * poll loop uses the stamp to skip a wasted first poll before NRS has
  * had time to produce any verdict.
  *
@@ -61,7 +61,7 @@ class Segurium_Async_Scan_First_Poll_Eta {
 	const KV_PREFIX = 'async_scan:first_poll_eta:';
 
 	/**
-	 * SEGURIUM-483: sibling key that records the first-batch file count
+	 * Sibling key that records the first-batch file count
 	 * used to compute the deadline. Phase B emits this in
 	 * `scan_poll_first_wait` so operators can correlate the wait with
 	 * how big the first submit was.
@@ -119,7 +119,7 @@ class Segurium_Async_Scan_First_Poll_Eta {
 		}
 		$deadline = $submit_unix + (int) ceil( $batch_files * self::avg_ms_per_file() / 1000 );
 		self::set( $scan_id, $deadline );
-		// SEGURIUM-483: record the first-batch file count alongside the
+		// Record the first-batch file count alongside the
 		// deadline so `scan_poll_first_wait` can report it. Best-effort —
 		// a missing sibling row degrades the event field to 0.
 		$now = time();
@@ -247,7 +247,7 @@ class Segurium_Async_Scan_First_Poll_Eta {
 
 	/**
 	 * True when the deadline has not yet elapsed. Used by Phase B's
-	 * first-poll gate (SEGURIUM-481).
+	 * first-poll gate.
 	 *
 	 * @param string $scan_id Plugin-side scan UUID.
 	 * @return bool

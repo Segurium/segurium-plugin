@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-918: public REST endpoint /wp-json/segurium/v1/actions-poke.
+ * Public REST endpoint /wp-json/segurium/v1/actions-poke.
  *
  * CTI calls this to wake the hourly action pull early. The request carries
  * no instructions of its own — the handler only schedules the pull, which

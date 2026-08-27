@@ -1,6 +1,6 @@
 <?php
 /**
- * Canonical current-state-per-file projection (SEGURIUM-135).
+ * Canonical current-state-per-file projection.
  *
  * The `scan_findings` table is an append-only event log — every finding
  * that ever appeared in a scan is preserved there. `file_state` is the
@@ -265,7 +265,7 @@ class Segurium_File_State {
 	/**
 	 * Return a paginated list of projection rows.
 	 *
-	 * Sort order (SEGURIUM-151): items that still need attention first
+	 * Sort order: items that still need attention first
 	 * (`open`, then `restored`), then `cured`, `fixed`, `ignored`. Within
 	 * each bucket rows are stably ordered by `file_path` ASC so acting on
 	 * one row never shuffles its neighbours under the cursor.

@@ -7,7 +7,7 @@
  * host actually supports:
  *
  *   1. WP-cron — a recurring 60-second rescue event armed at scan start
- *      (SEGURIUM-419 + SEGURIUM-425, schedule key
+ *      (schedule key
  *      `segurium_every_60_seconds`); cleared on every termination path. The
  *      cron handler is also defensive: if it fires with no scan lock it
  *      self-heals by clearing the recurring entry. The chain advances via
@@ -24,7 +24,7 @@
  *      tick — the browser never blocks on chunk processing.
  *
  * Replaces the loopback + shutdown-handler + nudge_if_stale architecture
- * (SEGURIUM-249/-248) which proved unreliable on shared LiteSpeed hosts:
+ * which proved unreliable on shared LiteSpeed hosts:
  * PHP shutdown handlers are suppressed when max_execution_time kills a
  * worker, non-blocking wp_remote_get to admin-ajax does not actually
  * deliver until the previous lsphp worker is reaped, and DISABLE_WP_CRON
@@ -57,7 +57,7 @@ final class Segurium_Scan_Runner {
 	const TICK_HOOK = 'segurium_scan_tick';
 
 	/**
-	 * SEGURIUM-419 + SEGURIUM-425: recurring rescue schedule registered via
+	 * Recurring rescue schedule registered via
 	 * the `cron_schedules` filter. Drives `TICK_HOOK` every 60 seconds while
 	 * a scan is active so progress survives a dropped self-trigger without
 	 * adding a parallel beat to the chain (5s on the test site made cron a
@@ -66,8 +66,7 @@ final class Segurium_Scan_Runner {
 	const TICK_RECURRING_SCHEDULE = 'segurium_every_60_seconds';
 
 	/**
-	 * SEGURIUM-425: legacy schedule key superseded by
-	 * {@see TICK_RECURRING_SCHEDULE}. Kept as a constant so the upgrade
+	 * Legacy schedule key superseded by {@see TICK_RECURRING_SCHEDULE}. Kept as a constant so the upgrade
 	 * migration in `segurium.php` can clear orphaned events without typo
 	 * risk. Do NOT register a `cron_schedules` entry for this key — we want
 	 * any surviving event to drop on the next reschedule attempt.
@@ -84,7 +83,7 @@ final class Segurium_Scan_Runner {
 	 * constant only so existing test cleanup paths that call
 	 * delete_transient( TICK_MUTEX_TRANSIENT ) remain harmless. The active
 	 * mutex is now an atomic runtime_kv row keyed by MUTEX_KV_KEY — see
-	 * acquire_tick_mutex() / release_tick_mutex() (SEGURIUM-426). The
+	 * acquire_tick_mutex() / release_tick_mutex(). The
 	 * previous get_transient + set_transient pair was a TOCTOU race that
 	 * let multiple PHP-FPM workers run the chunk loop concurrently against
 	 * the same scan, corrupting the verdict-queue counter blob.
@@ -92,7 +91,7 @@ final class Segurium_Scan_Runner {
 	const TICK_MUTEX_TRANSIENT = 'segurium_scan_tick_mutex';
 
 	/**
-	 * Runtime_kv row name for the atomic tick mutex (SEGURIUM-426). The
+	 * The runtime_kv row name for the atomic tick mutex. The
 	 * row's kv_value is the holder's unique acquisition token; expires_at
 	 * carries the TTL self-heal stamp. Acquisition is one INSERT ... ON
 	 * DUPLICATE KEY UPDATE statement gated by the existing row's
@@ -107,7 +106,7 @@ final class Segurium_Scan_Runner {
 	 * starts. Incremented at tick entry; reset as soon as a process_chunk()
 	 * call returns successfully. Killed-mid-chunk ticks therefore count
 	 * toward the abort threshold, which the prior post-loop counter design
-	 * could not detect (SEGURIUM-252).
+	 * could not detect.
 	 */
 	const STUCK_COUNTER_KV_PREFIX = 'scan_stuck:';
 
@@ -143,7 +142,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Delay (seconds) between chained wp-cron ticks while a scan lock is
 	 * held. Kept short so the chained event picks up promptly when the
-	 * mechanism V self-trigger (SEGURIUM-421) is dropped by the network.
+	 * mechanism V self-trigger is dropped by the network.
 	 */
 	const NEXT_TICK_DELAY_SEC = 5;
 
@@ -151,22 +150,22 @@ final class Segurium_Scan_Runner {
 	 * Wall-time safety margin (seconds) the chunk loop reserves at the end
 	 * of each tick. Used by `time_left_in_tick()` so the engine can decide
 	 * whether to start the next outbound CTI / neo-ray call or break early
-	 * and let the next tick pick it up. SEGURIUM-252.
+	 * and let the next tick pick it up.
 	 */
 	const TICK_GRACEFUL_EXIT_SAFETY_SEC = 2;
 
 	/**
-	 * SEGURIUM-511: duty-cycle floor on tick wall time (seconds). Before
+	 * Duty-cycle floor on tick wall time (seconds). Before
 	 * firing the mechanism V self-trigger the runner sleeps the tick out
 	 * to this value, capping dispatch rate to <= 1 / MIN_TICK_WALL_SEC.
-	 * Replaces the SEGURIUM-426 counter-progress gate as the spin guard.
+	 * Replaces the counter-progress gate as the spin guard.
 	 * Override via the `segurium_scan_min_tick_wall_sec` filter (tests only).
 	 */
 	const MIN_TICK_WALL_SEC = 5.0;
 
 	/**
 	 * Hard timeout (seconds) for the primary `wp_remote_post()` self-trigger.
-	 * SEGURIUM-425: blocking call; if cURL connect/handshake/response can
+	 * Blocking call; if cURL connect/handshake/response can
 	 * complete within this window the request is considered delivered (any
 	 * 2xx/4xx/5xx — the response code does not matter to a fire-and-forget
 	 * spawn). Only on `WP_Error` whose message is NOT a timeout do we fall
@@ -179,7 +178,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Connect timeout (seconds) for the fsockopen fallback. Kept short so a
 	 * misconfigured loopback (firewall / mod_security) cannot park the
-	 * graceful-exit caller. SEGURIUM-421.
+	 * graceful-exit caller.
 	 */
 	const SELF_TRIGGER_SOCKET_CONNECT_TIMEOUT_SEC = 0.5;
 
@@ -194,7 +193,7 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Window (seconds) within which a recent observer-driven tick suppresses
-	 * the cron and pageload entry hooks. SEGURIUM-271: when an admin observer
+	 * the cron and pageload entry hooks. When an admin observer
 	 * is actively driving the runner via `ajax_tick → shutdown → LSS('ajax')`,
 	 * cron firings and visitor pageloads are redundant and pay full request
 	 * cost for nothing. Setting this slightly above the JS slow-poll cadence
@@ -210,15 +209,14 @@ final class Segurium_Scan_Runner {
 	 * observer's own AJAX request — which IS the privileged driver — from an
 	 * unrelated visitor pageload that just happened to coincide with an
 	 * active scan. Without this, the observer's own shutdown would be
-	 * suppressed by the observer-fresh gate and the runner would stall
-	 * (SEGURIUM-271).
+	 * suppressed by the observer-fresh gate and the runner would stall.
 	 *
 	 * @var bool
 	 */
 	private static $is_observer_request = false;
 
 	/**
-	 * SEGURIUM-430: per-process record of the tick-mutex token this PHP
+	 * Per-process record of the tick-mutex token this PHP
 	 * process is currently holding plus the TTL it was acquired with. The
 	 * runtime_kv mutex is a *lease* — the holder must renew it periodically
 	 * for the duration of the chunk so a slow chunk can't be reclaimed by a
@@ -245,7 +243,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Mark the current request as a runner-observer request so the
 	 * shutdown handler treats it as the privileged driver — same flag
-	 * `ajax_tick()` flips. Public for the REST controller in SEGURIUM-424
+	 * `ajax_tick()` flips. Public for the REST controller in
 	 * (mechanisms III + VI) which has the same semantics: the request
 	 * itself is observing/driving the runner.
 	 *
@@ -276,7 +274,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/*
-	 * SEGURIUM-405: scan termination reason codes.
+	 * Scan termination reason codes.
 	 *
 	 * Every row in `wp_segurium_scan_history.error_code` is populated with one
 	 * of these strings (no NULL after start). The `status` column stays binary
@@ -301,7 +299,7 @@ final class Segurium_Scan_Runner {
 	const REASON_RUNTIME_ERROR = 'RUNTIME_ERROR';
 
 	/*
-	 * SEGURIUM-414: cooperative cancel handshake.
+	 * Cooperative cancel handshake.
 	 *
 	 * `terminate()` writes a `scan_cancel:<scan_id>` runtime_kv row whenever a
 	 * tick mutex is held (i.e. a worker is mid-tick) and skips the synchronous
@@ -320,7 +318,7 @@ final class Segurium_Scan_Runner {
 	public static function register_hooks() {
 		add_filter( 'cron_schedules', array( __CLASS__, 'register_cron_schedule' ) ); // phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval
 		add_action( self::TICK_HOOK, array( __CLASS__, 'cron_tick' ) );
-		// SEGURIUM-584: the browser-driven scan tick (wp_ajax_segurium_scan_tick)
+		// The browser-driven scan tick (wp_ajax_segurium_scan_tick)
 		// is registered through the central AJAX dispatcher in Segurium::__construct()
 		// (route table entry 'segurium_scan_tick' -> Segurium_Scan_Runner::ajax_tick),
 		// so the dispatcher verifies the segurium_scan nonce + manage_options before
@@ -335,7 +333,8 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Register the recurring 60-second rescue schedule used by the scan tick.
-	 * SEGURIUM-419 + SEGURIUM-425. The chain advances via the mechanism V
+	 *
+	 * The chain advances via the mechanism V
 	 * self-trigger; this cron entry is the rescue path when the self-trigger
 	 * is dropped (network error, fastcgi kill mid-call, etc.) — not a
 	 * parallel beat.
@@ -389,7 +388,7 @@ final class Segurium_Scan_Runner {
 			);
 		}
 
-		// SEGURIUM-546: pre-flight IID gate. Without a stored installation ID
+		// Pre-flight IID gate. Without a stored installation ID
 		// every outbound CTI call would be unauthenticated and every progress
 		// row would be a fake-failure. Refuse before touching schema, lock,
 		// engine, filesystem, or network so a not-yet-activated install does
@@ -426,7 +425,7 @@ final class Segurium_Scan_Runner {
 						array( 'lock' => $existing )
 					);
 				}
-				// SEGURIUM-871: the lock is past LOCK_MAX_AGE. Close the
+				// The lock is past LOCK_MAX_AGE. Close the
 				// abandoned scan before taking its slot; overwriting the lock
 				// left the old row at RUNNING forever.
 				self::debug(
@@ -560,7 +559,7 @@ final class Segurium_Scan_Runner {
 	 * default — the operator opts in only while diagnosing a stuck scan.
 	 *
 	 * Public so the CTI client and verdict queue can gate their own
-	 * instrumentation on the same switch (SEGURIUM-256), without having to
+	 * instrumentation on the same switch, without having to
 	 * duplicate the constant check or call debug() unconditionally.
 	 *
 	 * @return bool
@@ -584,7 +583,7 @@ final class Segurium_Scan_Runner {
 	 *     | grep 'event=chunk_threw'
 	 *
 	 * Public so the CTI client and verdict queue can emit on the same prefix
-	 * line (SEGURIUM-256) — one switch covers runner + transport + queue.
+	 * line — one switch covers runner + transport + queue.
 	 *
 	 * @param string $event Event identifier (e.g. `tick_enter`, `inspect_send`).
 	 * @param array  $ctx   Key → scalar/bool/float context.
@@ -592,7 +591,7 @@ final class Segurium_Scan_Runner {
 	 */
 	public static function debug( $event, array $ctx = array() ) {
 		/**
-		 * SEGURIUM-483: fire a side-channel action so tests and external
+		 * Fire a side-channel action so tests and external
 		 * observers can subscribe without enabling the error_log gate.
 		 * No-op in production when no listener is registered — WP's
 		 * `do_action` is O(1) on an empty hook.
@@ -628,7 +627,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Whether a scan currently holds the lock (SEGURIUM-870: true through a
+	 * Whether a scan currently holds the lock (true through a
 	 * dead-worker stall; see {@see Segurium_Scan_Lock::is_running()}).
 	 *
 	 * @return bool
@@ -640,7 +639,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Whether the scan-runner lock currently holds the given scan id.
 	 *
-	 * SEGURIUM-262: cooperative cancellation signal for the verdict queue.
+	 * Cooperative cancellation signal for the verdict queue.
 	 * When `Segurium_Scan_Runner::stop()` releases the lock, an in-flight
 	 * tick (executing on `shutdown` after the response was detached) can
 	 * read this and bail out of its current batch instead of running every
@@ -664,7 +663,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-414: write the cooperative cancel flag for the given scan.
+	 * Write the cooperative cancel flag for the given scan.
 	 *
 	 * @param string $scan_id Scan UUID being cancelled.
 	 * @param string $reason  Reason code being recorded — kept as the row
@@ -693,7 +692,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-414: whether the cooperative cancel flag is set for a scan.
+	 * Whether the cooperative cancel flag is set for a scan.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return bool
@@ -717,7 +716,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-414: clear the cooperative cancel flag for a scan.
+	 * Clear the cooperative cancel flag for a scan.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return void
@@ -738,11 +737,11 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-414: whether a tick mutex is currently held. When true, a
+	 * Whether a tick mutex is currently held. When true, a
 	 * worker is mid-tick and `terminate()` must defer the workspace cleanup
 	 * to the cooperative cancel handshake — running `tmp_destroy()` /
 	 * `verdict_queue->purge()` while a worker is reading the workspace caused
-	 * SIGSEGV crashes (see SEGURIUM-414 evidence).
+	 * SIGSEGV crashes (evidence).
 	 *
 	 * @return bool
 	 */
@@ -756,7 +755,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-426: atomic tick-mutex acquire backed by runtime_kv.
+	 * Atomic tick-mutex acquire backed by runtime_kv.
 	 *
 	 * Issues one INSERT ... ON DUPLICATE KEY UPDATE that overwrites the row
 	 * only when the existing expires_at is in the past (TTL self-heal).
@@ -766,7 +765,7 @@ final class Segurium_Scan_Runner {
 	 *
 	 * Replaces the get_transient + set_transient pair, which had a TOCTOU
 	 * window wide enough for ~10 PHP-FPM workers to race past it on
-	 * the test site under the SEGURIUM-421 self-trigger handoff load.
+	 * the test site under the self-trigger handoff load.
 	 *
 	 * @param int $ttl_seconds TTL for the lock; clamped to >=1 so the row
 	 *                         is never written immediately expired.
@@ -804,7 +803,7 @@ final class Segurium_Scan_Runner {
 			return null;
 		}
 
-		// SEGURIUM-430: remember our holder slot so renew_active_tick_mutex()
+		// Remember our holder slot so renew_active_tick_mutex()
 		// can extend the lease later without callers having to thread the
 		// token through. Cleared on release_tick_mutex().
 		self::$active_mutex_token = $token;
@@ -814,13 +813,13 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-430: extend the tick-mutex lease while we still own it.
+	 * Extend the tick-mutex lease while we still own it.
 	 *
 	 * The mutex is a lease: the holder must keep renewing it for the
 	 * duration of the chunk. Without renewal, the row's `expires_at` drifts
 	 * past `now` and a concurrent worker can `acquire_tick_mutex()` past
 	 * the TTL self-heal even though the original holder is still alive,
-	 * producing two-workers-on-one-scan races (SEGURIUM-430 evidence).
+	 * producing two-workers-on-one-scan races (evidence).
 	 *
 	 * The token guard is critical: a worker whose lease was already
 	 * reclaimed during a stall (its row deleted, a new acquirer in place)
@@ -869,7 +868,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-430: renew the lease using whichever token this PHP process
+	 * Renew the lease using whichever token this PHP process
 	 * acquired earlier. Called from per-file and per-chunk heartbeat sites
 	 * inside the chunk loop / verdict_queue so the lease doesn't expire
 	 * while we're still doing real work.
@@ -888,7 +887,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-870: refresh both liveness signals from inside a long loop
+	 * Refresh both liveness signals from inside a long loop
 	 * (async results drain, integrity chunk, submit retry). Renews the
 	 * tick-mutex lease first; when this process held the mutex and the row
 	 * no longer carries its token, the lease lapsed and another driver has
@@ -913,7 +912,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-426: release the tick mutex iff we still own it.
+	 * Release the tick mutex iff we still own it.
 	 *
 	 * The token guard keeps a late release call from a worker whose lock
 	 * was already TTL-stolen from deleting the new holder's row. Failing
@@ -932,7 +931,7 @@ final class Segurium_Scan_Runner {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- atomic mutex release; cache layer would defeat correctness.
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE kv_key = %s AND kv_value = %s', $tbl, self::MUTEX_KV_KEY, $token ) );
 
-		// SEGURIUM-430: only clear the active-token slot when WE were the
+		// Only clear the active-token slot when WE were the
 		// holder. A late release call from a worker whose lease was already
 		// reclaimed must not wipe the new holder's slot in this process.
 		if ( self::$active_mutex_token === $token ) {
@@ -956,7 +955,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-430 test helper: clear the per-process active-token slot
+	 * Test helper: clear the per-process active-token slot
 	 * without touching the runtime_kv row. Tests use this to simulate a
 	 * second PHP worker (one whose acquire failed) — after clearing,
 	 * `renew_active_tick_mutex()` becomes a no-op as it would in that
@@ -970,7 +969,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-430 test helper: read the per-process active-token slot.
+	 * Test helper: read the per-process active-token slot.
 	 * Tests assert this matches the token returned by acquire_tick_mutex.
 	 *
 	 * @return string|null
@@ -998,7 +997,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Last terminal (completed | cancelled | aborted) malware scan.
 	 *
-	 * SEGURIUM-882 review: lives here rather than only on `Segurium` so a
+	 * Lives here rather than only on `Segurium` so a
 	 * caller can read it without instantiating that class.
 	 * `Segurium::__construct()` registers hooks and schedules cron events,
 	 * so `get_instance()` is a write — which quietly made "the MainWP
@@ -1073,8 +1072,8 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Single termination entry point for every non-success terminal transition
-	 * (SEGURIUM-405). Cancellation, watchdog/heartbeat/stuck/engine aborts, and
+	 * Single termination entry point for every non-success terminal transition.
+	 * Cancellation, watchdog/heartbeat/stuck/engine aborts, and
 	 * unexpected runtime errors all funnel through here so that:
 	 *   - `wp_segurium_scan_history.error_code` is populated on every reason,
 	 *   - the integrity-chain pending marker (`integrity:chain_pending`) is
@@ -1091,7 +1090,7 @@ final class Segurium_Scan_Runner {
 	 * writes `error_code = 'COMPLETED'` directly from `Segurium_Scan::build_progress()`.
 	 *
 	 * @param string      $reason_code      One of the `REASON_*` constants.
-	 * @param string|null $expected_scan_id SEGURIUM-871: when given, terminate
+	 * @param string|null $expected_scan_id When given, terminate
 	 *                                      only if the lock still belongs to
 	 *                                      this scan; a lock replaced in the
 	 *                                      meantime is left alone.
@@ -1118,7 +1117,7 @@ final class Segurium_Scan_Runner {
 		$scan_id   = (string) $lock['scan_id'];
 		$scan_type = (string) $lock['scan_type'];
 
-		// SEGURIUM-414: when a worker is mid-tick, skip the synchronous
+		// When a worker is mid-tick, skip the synchronous
 		// workspace cleanup the engine's mark_*() helpers would run and let
 		// the cooperative cancel handshake do it from the worker's chunk
 		// loop. The history row still reaches its terminal state immediately
@@ -1148,7 +1147,7 @@ final class Segurium_Scan_Runner {
 		// `scan_history` row directly so the row never sits at
 		// `error_code = 'RUNNING'` after a terminal transition. Best-effort:
 		// if the row doesn't exist (integrity scans don't write history),
-		// `table_update` is a silent no-op. SEGURIUM-415: also emit the
+		// `table_update` is a silent no-op. Also emit the
 		// terminal CTI message in this branch so analytics never sees a
 		// scan_started without a matching terminal row.
 		if ( ! $engine_finalized && '' !== $scan_id ) {
@@ -1228,7 +1227,7 @@ final class Segurium_Scan_Runner {
 		self::clear_stuck_state( $scan_id );
 		wp_clear_scheduled_hook( self::TICK_HOOK );
 
-		// SEGURIUM-405: clear the chain-pending marker on EVERY termination
+		// Clear the chain-pending marker on EVERY termination
 		// path. Without this, an aborted chained malware scan left the
 		// `integrity:chain_pending` runtime_kv key pointing at the dead UUID,
 		// so any UI surface that read `is_chain_pending()` kept reporting
@@ -1281,13 +1280,13 @@ final class Segurium_Scan_Runner {
 	/**
 	 * WP-cron entry point — drives life_support_system() under the
 	 * `cron` caller label, unless a browser observer is actively driving the
-	 * runner (SEGURIUM-271). When skipped, the cron chain is re-armed at the
+	 * runner. When skipped, the cron chain is re-armed at the
 	 * standard +5s delay so the next firing picks up if the observer dies.
 	 *
 	 * @return void
 	 */
 	public static function cron_tick() {
-		// SEGURIUM-419: the recurring schedule is supposed to be torn down on
+		// The recurring schedule is supposed to be torn down on
 		// every termination path. If a tick fires anyway with no active scan,
 		// short-circuit and self-heal by clearing the recurring entry — a
 		// terminate() that raced a wp-cron worker, or a manual cleanup that
@@ -1318,7 +1317,7 @@ final class Segurium_Scan_Runner {
 	 * @return void
 	 */
 	public static function ajax_tick() {
-		// SEGURIUM-271: this request IS the observer. Mark it so the
+		// This request IS the observer. Mark it so the
 		// `shutdown` handler runs LSS instead of being suppressed by the
 		// observer-fresh gate, and so LSS can stamp `observer_last_seen` for
 		// the next round of cron / visitor pageloads to read.
@@ -1350,7 +1349,7 @@ final class Segurium_Scan_Runner {
 					// Malware tab never shows integrity scan progress.
 					$status = null;
 				}
-				// SEGURIUM-406 reverts the SEGURIUM-303 chain-driven
+				// Reverts the chain-driven
 				// suppression: the malware tab is the canonical driver
 				// for any non-integrity scan, regardless of whether a
 				// chain marker is queued behind it.
@@ -1369,7 +1368,7 @@ final class Segurium_Scan_Runner {
 			$payload  = array( 'running' => false );
 			$terminal = Segurium::get_instance()->get_last_terminal_scan();
 			if ( null !== $terminal ) {
-				// SEGURIUM-413: hand the client whatever terminated last —
+				// Hand the client whatever terminated last —
 				// completed, cancelled, or aborted — so the JS can paint
 				// honest copy. The legacy `last_completed` key is preserved
 				// only when the run actually completed; older clients keep
@@ -1409,7 +1408,7 @@ final class Segurium_Scan_Runner {
 	 * neither fastcgi_finish_request() nor litespeed_finish_request() we
 	 * skip entirely so visitor pageloads never block on the chunk loop.
 	 *
-	 * SEGURIUM-271: when a browser observer is actively driving the runner
+	 * When a browser observer is actively driving the runner
 	 * (its own AJAX → shutdown → LSS('ajax') is the privileged path),
 	 * unrelated visitor / admin pageloads should bail before detach_response
 	 * to keep cost as close to zero as possible. The pageload remains the
@@ -1429,7 +1428,7 @@ final class Segurium_Scan_Runner {
 			return;
 		}
 
-		// SEGURIUM-271: observer-fresh fast-path. The observer's own
+		// Observer-fresh fast-path. The observer's own
 		// request (`$is_observer_request === true`) IS the driver and must
 		// fall through to LSS — otherwise the runner stalls. Every other
 		// request that lands inside the observer-fresh window bails: the
@@ -1449,7 +1448,7 @@ final class Segurium_Scan_Runner {
 
 		// Observer's own shutdown drives under the 'ajax' label so LSS
 		// stamps `observer_last_seen` in the same heartbeat write the chunk
-		// loop already does — zero extra DB writes vs. the pre-271 baseline.
+		// loop already does — zero extra DB writes vs. the old baseline.
 		$caller = self::$is_observer_request ? 'ajax' : 'pageload';
 		self::life_support_system( $caller );
 	}
@@ -1458,7 +1457,7 @@ final class Segurium_Scan_Runner {
 	 * Watchdog cron callback — last-resort sweep for sites with no traffic
 	 * for hours.
 	 *
-	 * SEGURIUM-563: a merely-stale heartbeat is no longer treated as
+	 * A merely-stale heartbeat is no longer treated as
 	 * "abort". A killed worker on an execution-capped host leaves a stale
 	 * heartbeat behind, but the scan resumes cleanly from persisted state.
 	 * So the watchdog now *drives a tick* for a stale-but-not-ancient lock
@@ -1486,10 +1485,10 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-871: close scan_history rows left at status=running by a scan
+	 * Close scan_history rows left at status=running by a scan
 	 * that no longer holds the lock.
 	 *
-	 * Before SEGURIUM-871, start() could overwrite the lock of a scan whose
+	 * Before, start() could overwrite the lock of a scan whose
 	 * worker had died; the previous scan's history row then stayed RUNNING
 	 * forever, CTI never received a terminal message, and its workspace and
 	 * runtime_kv rows were never freed. Every such row is closed here with
@@ -1598,9 +1597,9 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-871: close a lock held past LOCK_MAX_AGE. A lock whose
+	 * Close a lock held past LOCK_MAX_AGE. A lock whose
 	 * history row is already terminal (worker died between the terminal
-	 * write and the release) is only dropped — the SEGURIUM-572 gate in
+	 * write and the release) is only dropped — the gate in
 	 * life_support_system() — so a completed scan is never relabelled
 	 * aborted and no duplicate terminal message goes out. Anything else is
 	 * terminated with ABORTED_WATCHDOG_SWEEP, scoped to this lock's scan_id
@@ -1658,16 +1657,16 @@ final class Segurium_Scan_Runner {
 		/*
 		 * Step 1 — acquire tick mutex. Held for the duration of this call so
 		 * two concurrent triggers cannot run two workers against the same
-		 * scan. The row is a lease (SEGURIUM-430): renewed per file, per
+		 * scan. The row is a lease: renewed per file, per
 		 * chunk and per async-results iteration, with a TTL equal to
-		 * HEARTBEAT_MAX_AGE (SEGURIUM-870) so a killed worker's row expires
+		 * HEARTBEAT_MAX_AGE so a killed worker's row expires
 		 * at the same moment its heartbeat reads as dead and the next driver
 		 * tick can take the scan over in Step 3.
 		 */
 		$max_exec  = self::max_execution_time();
 		$mutex_ttl = self::compute_mutex_ttl( $max_exec );
 
-		// SEGURIUM-426: atomic acquire-or-skip via runtime_kv. Self-heals on
+		// Atomic acquire-or-skip via runtime_kv. Self-heals on
 		// TTL expiry inside the same SQL statement, so no separate "stale
 		// detect + delete + set" path is needed.
 		$mutex_token = self::acquire_tick_mutex( $mutex_ttl );
@@ -1727,7 +1726,7 @@ final class Segurium_Scan_Runner {
 			$scan_id_for_exit = $lock['scan_id'];
 
 			/*
-			 * SEGURIUM-572 — durable terminal gate. A lock whose scan_history
+			 * — Durable terminal gate. A lock whose scan_history
 			 * row is already terminal (completed / cancelled / aborted) is a
 			 * leftover: the finalize/release tail never ran, so each later driver
 			 * tick (browser poll / wp-cron / CTI tick) used to rebuild the engine
@@ -1749,7 +1748,7 @@ final class Segurium_Scan_Runner {
 			 *
 			 * Exception: a pending `scan_cancel:<id>` flag means terminate()
 			 * wrote the terminal (cancelled) row but DEFERRED the workspace
-			 * teardown to this very tick (SEGURIUM-414 cooperative cancel).
+			 * teardown to this very tick (cooperative cancel).
 			 * Gating it out would strand the workspace, so fall through and let
 			 * the chunk loop observe the flag and clean up; the next tick (flag
 			 * cleared) takes the gate.
@@ -1779,7 +1778,7 @@ final class Segurium_Scan_Runner {
 			}
 
 			/*
-			 * Step 3 — stale-lock handling (SEGURIUM-563).
+			 * Step 3 — stale-lock handling.
 			 *
 			 * A stale heartbeat means the *previous worker* was killed
 			 * mid-batch — typically PHP `max_execution_time` on an
@@ -1800,7 +1799,7 @@ final class Segurium_Scan_Runner {
 			 * is treated as genuinely abandoned and aborted, matching what the
 			 * hourly watchdog would do.
 			 *
-			 * Before SEGURIUM-563 this path aborted any stale-heartbeat lock
+			 * Previously this path aborted any stale-heartbeat lock
 			 * with ABORTED_HEARTBEAT_STALE, which killed large (>25k-file)
 			 * scans on 30–60s execution-capped hosts before they could finish.
 			 */
@@ -1867,10 +1866,10 @@ final class Segurium_Scan_Runner {
 			$is_observer = ( 'ajax' === $caller );
 
 			/*
-			 * Step 5 — entry-time bookkeeping (SEGURIUM-252). Observer-driven
+			 * Step 5 — entry-time bookkeeping. Observer-driven
 			 * ticks also stamp `observer_last_seen` in the same write so the
 			 * cron / visitor-pageload entry hooks can detect a live observer
-			 * and bail (SEGURIUM-271). Zero extra DB writes vs. the pre-271
+			 * and bail. Zero extra DB writes vs. the pre-271
 			 * baseline.
 			 */
 			Segurium_Scan_Lock::heartbeat( $scan_id, $is_observer );
@@ -1944,7 +1943,7 @@ final class Segurium_Scan_Runner {
 						break;
 					}
 
-					// SEGURIUM-414: cooperative cancel poll. `terminate()`
+					// Cooperative cancel poll. `terminate()`
 					// writes `scan_cancel:<scan_id>` to runtime_kv when a
 					// worker is mid-tick instead of running the workspace
 					// teardown itself (the SIGSEGV race). Observing the flag
@@ -1995,7 +1994,7 @@ final class Segurium_Scan_Runner {
 					++$chunks_returned;
 
 					if ( ! self::renew_liveness( $scan_id, $is_observer ) ) {
-						// SEGURIUM-870: the lease lapsed during the chunk and
+						// The lease lapsed during the chunk and
 						// another driver owns the scan now. Leave without
 						// finalize / release; the token guard in the outer
 						// finally keeps the new owner's row intact.
@@ -2015,7 +2014,7 @@ final class Segurium_Scan_Runner {
 						)
 					);
 
-					// SEGURIUM-481: Phase B — drain `/v1/scan/results`
+					// Phase B — drain `/v1/scan/results`
 					// in the same tick. Only the malware-scan path
 					// submits to CTI's async pipeline, so the integrity
 					// scan type stays out of this branch entirely.
@@ -2023,7 +2022,7 @@ final class Segurium_Scan_Runner {
 						Segurium_Async_Scan_Results_Loop::run( $scan_id );
 					}
 
-					// SEGURIUM-917: the submitter flags a scan whose link
+					// The submitter flags a scan whose link
 					// refused a batch at the floor ceiling. Terminate from
 					// here, ahead of the completion branch, so an aborted
 					// scan never fires `segurium_scan_completed`.
@@ -2047,7 +2046,7 @@ final class Segurium_Scan_Runner {
 						break;
 					}
 
-					// SEGURIUM-578: the head verdict batch is parked in a
+					// The head verdict batch is parked in a
 					// transient-inspect backoff window (a 5xx/timeout that
 					// will be retried on a later tick). There is nothing to
 					// drain until it is due, so end the tick gracefully
@@ -2087,7 +2086,7 @@ final class Segurium_Scan_Runner {
 					return;
 				}
 
-				// SEGURIUM-414: worker-side cooperative cancel. Lock + tick
+				// Worker-side cooperative cancel. Lock + tick
 				// hook were already released by the parallel `terminate()`;
 				// our job here is the workspace + runtime_kv teardown that
 				// `terminate()` deferred to avoid the SIGSEGV race. The
@@ -2107,7 +2106,7 @@ final class Segurium_Scan_Runner {
 					return;
 				}
 
-				// SEGURIUM-511: fire on every non-terminal tick exit;
+				// Fire on every non-terminal tick exit;
 				// MIN_TICK_WALL_SEC floor caps dispatch rate. The mutex
 				// is released BEFORE firing so the receiving worker can
 				// acquire it (outer finally is idempotent).
@@ -2191,7 +2190,7 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * SEGURIUM-745: whether a tick is currently driving the chunk loop.
+	 * Whether a tick is currently driving the chunk loop.
 	 *
 	 * `time_left_in_tick()` clamps to 0.0, so on its own it cannot separate
 	 * "no tick is running" from "the tick already overran its budget" — and
@@ -2208,7 +2207,7 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Effective wall-clock budget per worker invocation, in seconds.
 	 *
-	 * SEGURIUM-250: removed the previous 60s ceiling so hosts with generous
+	 * There is no 60s ceiling any more, so hosts with generous
 	 * `max_execution_time` (300s+) can drive long chunk loops in a single
 	 * tick. The plugin still must not call `set_time_limit()` (forbidden
 	 * by wp.org plugin-check, ignored on LiteSpeed lsphp / mod_security
@@ -2262,10 +2261,10 @@ final class Segurium_Scan_Runner {
 	/**
 	 * Ensure the recurring scan tick is armed.
 	 *
-	 * SEGURIUM-419 replaced the per-tick lookahead schedule with a recurring
+	 * Replaces the per-tick lookahead schedule with a recurring
 	 * wp-cron event seeded once at scan start (5s originally, slowed to 60s
-	 * by SEGURIUM-425 — the self-trigger drives the chain between beats and
-	 * cron is the rescue path). This helper is
+	 * later — the self-trigger drives the chain between beats and cron is
+	 * the rescue path). This helper is
 	 * idempotent: when the recurring tick is already scheduled it returns
 	 * without touching the cron array; otherwise it (re-)installs it. Used
 	 * both at scan start and from the catch handler in life_support_system()
@@ -2281,11 +2280,11 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Mechanism V (SEGURIUM-421): self-trigger to the dedicated
+	 * Mechanism V: self-trigger to the dedicated
 	 * `/wp-json/segurium/v1/scan-spawn` route so a fresh PHP worker picks up
 	 * the next chunk without waiting for the cron rescue beat.
 	 *
-	 * SEGURIUM-425: blocking POST with a {@see SELF_TRIGGER_TIMEOUT_SEC}
+	 * Blocking POST with a {@see SELF_TRIGGER_TIMEOUT_SEC}
 	 * timeout — was previously fire-and-forget with a fsockopen fallback
 	 * that ran in parallel whenever wp_remote_post() took >0.2s, which
 	 * doubled the dispatch rate on every WAF-fronted host (the WAF holds
@@ -2347,7 +2346,7 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Per-site shared secret proving the self-trigger POST came from this
-	 * site (SEGURIUM-607). The scan-spawn route's permission_callback
+	 * site. The scan-spawn route's permission_callback
 	 * compares the `X-Segurium-Tick-Auth` header against the same option.
 	 * Returns '' only when no CSPRNG is available, in which case the
 	 * self-trigger degrades to the cron / pageload fallback.
@@ -2370,7 +2369,7 @@ final class Segurium_Scan_Runner {
 	 * a non-timeout that happens to mention "timeout" in its message is
 	 * still classified as a timeout (we err on the side of "do not
 	 * retry"), which is the opposite of the failure mode this helper
-	 * exists to prevent. SEGURIUM-425.
+	 * exists to prevent.
 	 *
 	 * @param WP_Error $err Error returned by the primary self-trigger.
 	 * @return bool True if the message looks like a timeout.
@@ -2404,7 +2403,7 @@ final class Segurium_Scan_Runner {
 	 *
 	 * Tests can inject a deterministic outcome via the
 	 * `segurium_scan_spawn_socket_override` filter (return null to use the
-	 * real fsockopen, or true/false to short-circuit). SEGURIUM-421.
+	 * real fsockopen, or true/false to short-circuit).
 	 *
 	 * @param string $url Full URL of the target route.
 	 * @return bool True if the request was written; false on parse / open / write failure.
@@ -2460,7 +2459,7 @@ final class Segurium_Scan_Runner {
 	 * within a request) and compares `observer_last_seen` against the
 	 * `OBSERVER_FRESH_SEC` window. Returns false when no scan is running, no
 	 * observer has ever been seen, or the last observer ping is older than
-	 * the freshness window. SEGURIUM-271.
+	 * the freshness window.
 	 *
 	 * @return bool
 	 */
@@ -2522,7 +2521,7 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Current scan_history status for $scan_id, or '' when there is no row
-	 * (integrity scans) or the lookup fails. SEGURIUM-572.
+	 * (integrity scans) or the lookup fails.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return string
@@ -2550,7 +2549,6 @@ final class Segurium_Scan_Runner {
 	 * status reads as non-terminal and the normal tick path runs. On a storage
 	 * error scan_history_status() also returns '', which is non-terminal: a
 	 * transient DB blip must never strand a live scan by gating it out.
-	 * SEGURIUM-572.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return bool
@@ -2576,7 +2574,7 @@ final class Segurium_Scan_Runner {
 			 */
 			do_action( 'segurium_integrity_scan_completed', $engine );
 		} else {
-			// SEGURIUM-572: emit the terminal scan_completed (idempotent) on the
+			// Emit the terminal scan_completed (idempotent) on the
 			// same path that releases the lock, and before the
 			// `segurium_scan_completed` listener's cleanup tears down the verdict
 			// queue this payload is built from.
@@ -2594,7 +2592,7 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Increment the per-scan attempt counter and return the new value.
-	 * SEGURIUM-252 reframed this as an attempt counter: incremented at tick
+	 * An attempt counter: incremented at tick
 	 * entry, reset as soon as any process_chunk() call returns successfully.
 	 * Killed-mid-chunk ticks therefore persist the counter into the next
 	 * tick, and STUCK_MAX consecutive killed ticks abort the scan.
@@ -2684,8 +2682,8 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Scan-tick mutex lease TTL: always `HEARTBEAT_MAX_AGE`, so a dead
-	 * worker's row expires the moment its heartbeat reads as dead
-	 * (SEGURIUM-870). The lease is renewed per file / chunk / results
+	 * worker's row expires the moment its heartbeat reads as dead.
+	 * The lease is renewed per file / chunk / results
 	 * iteration, so it only has to outlive one gap between renewals.
 	 * `$max_exec` stays for signature stability and is ignored; see
 	 * docs/features/scan-runner-recurring-tick.md for the history.

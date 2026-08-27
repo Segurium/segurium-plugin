@@ -4522,3 +4522,38 @@ msgid ""
 msgstr ""
 "Trang web bị hack? Diệt mã độc và quét virus WordPress miễn phí: làm sạch "
 "tệp nhiễm và khôi phục. Kèm tường lửa, chống brute force và 2FA."
+
+msgid "Remote actions are switched off for this site."
+msgstr "Các hành động từ xa đã bị tắt cho trang web này."
+
+msgid "Remote actions require authentication."
+msgstr "Các hành động từ xa yêu cầu xác thực."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Cho phép Segurium Cloud yêu cầu cập nhật thành phần"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself"
+" this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud có thể yêu cầu trang web này cập nhật một plugin, giao diện "
+"hoặc chính WordPress. Nó chỉ có thể chỉ định một thành phần đã được cài "
+"đặt, và chỉ khi WordPress.org đã cung cấp bản cập nhật đó; bản cập nhật "
+"được WordPress tải về từ WordPress.org, không bao giờ từ Segurium. Nhân "
+"WordPress chỉ giới hạn ở các bản phát hành bảo mật và bảo trì. Segurium "
+"không bao giờ tự cập nhật theo cách này. Tắt tùy chọn này và trang web sẽ "
+"ngừng yêu cầu và chấp nhận các yêu cầu này."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Đã tắt trong wp-config.php bằng SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Các yêu cầu đám mây gần đây"
+
+msgid "Outcome"
+msgstr "Kết quả"

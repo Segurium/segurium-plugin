@@ -2,7 +2,7 @@
 /**
  * Async scan submitter — batches files for `/v1/scan/submit`.
  *
- * SEGURIUM-456: replaces the per-file synchronous Neo-Ray escalation.
+ * Replaces the per-file synchronous Neo-Ray escalation.
  * The malware scan loop feeds unknowns into {@see add()}; when a
  * pending buffer crosses one of the wire limits (10 MiB body, 200
  * files, 100 MiB single file) the submitter POSTs a batch. Files that
@@ -27,25 +27,25 @@ class Segurium_Async_Scan_Submitter {
 	const MAX_SINGLE_FILE_SIZE = 104857600;
 
 	/**
-	 * SEGURIUM-917: lowest batch byte ceiling the halving walks down to. A
+	 * Lowest batch byte ceiling the halving walks down to. A
 	 * link that cannot carry 100 KiB inside a tick is broken; a failure at
 	 * this ceiling terminates the scan instead of shrinking further.
 	 */
 	const BATCH_CEILING_FLOOR_BYTES = 102400;
 
 	/**
-	 * SEGURIUM-917: consecutive clean submits after which a lowered ceiling
+	 * Consecutive clean submits after which a lowered ceiling
 	 * doubles back toward {@see MAX_BATCH_BYTES}.
 	 */
 	const CEILING_RECOVERY_CLEAN_SUBMITS = 20;
 
 	/**
-	 * SEGURIUM-917: runtime_kv key prefix for the per-scan ceiling row.
+	 * Key prefix in runtime_kv for the per-scan ceiling row.
 	 */
 	const CEILING_KV_PREFIX = 'async_scan:ceiling:';
 
 	/**
-	 * SEGURIUM-917: `scan_submit()` error codes that mean "this link could
+	 * `scan_submit()` error codes that mean "this link could
 	 * not carry this batch". Mirrors
 	 * {@see Segurium_Verdict_Queue::UPLOAD_CAPACITY_ERROR_CODES}; kept here
 	 * so the submitter can react without depending on the queue class.
@@ -59,7 +59,7 @@ class Segurium_Async_Scan_Submitter {
 	);
 
 	/**
-	 * SEGURIUM-917: add() error codes that mean "the link, not the
+	 * Error codes from add() that mean "the link, not the
 	 * content": the file is a skip for the caller's accounting.
 	 *
 	 * @var string[]
@@ -71,8 +71,8 @@ class Segurium_Async_Scan_Submitter {
 
 	/**
 	 * Legacy runtime_kv key prefix under which the per-scan pending-verdicts
-	 * map used to be stored as one JSON blob (pre-SEGURIUM-576). Retained only
-	 * so the one-shot purge migration
+	 * map used to be stored as one JSON blob. Retained only so the
+	 * one-shot purge migration
 	 * ({@see Segurium_Async_Scan_Results_Loop::migrate_purge_legacy_pending_blobs()})
 	 * can find and drop the orphaned blobs. The live store is now the
 	 * `async_pending` table — one indexed row per submitted file.
@@ -80,7 +80,7 @@ class Segurium_Async_Scan_Submitter {
 	const PENDING_KV_PREFIX = 'async_scan:pending:';
 
 	/**
-	 * Logical name of the dedicated pending-verdicts table (SEGURIUM-576).
+	 * Logical name of the dedicated pending-verdicts table.
 	 */
 	const PENDING_TABLE = 'async_pending';
 
@@ -122,7 +122,7 @@ class Segurium_Async_Scan_Submitter {
 	private $buffer_bytes = 0;
 
 	/**
-	 * SEGURIUM-917: current batch byte ceiling. Starts at MAX_BATCH_BYTES,
+	 * Current batch byte ceiling. Starts at MAX_BATCH_BYTES,
 	 * halves on each upload-capacity failure, recovers after a run of
 	 * clean submits. Scan-scoped: persisted in runtime_kv so every
 	 * submitter instance within one scan shares it.
@@ -171,7 +171,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: current batch byte ceiling.
+	 * Current batch byte ceiling.
 	 *
 	 * @return int
 	 */
@@ -180,7 +180,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: file-count cap scaled with the byte ceiling.
+	 * File-count cap scaled with the byte ceiling.
 	 *
 	 * @return int
 	 */
@@ -189,7 +189,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: whether a batch failed at the floor ceiling.
+	 * Whether a batch failed at the floor ceiling.
 	 *
 	 * @return bool
 	 */
@@ -198,7 +198,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: whether the persisted ceiling row for a scan records a
+	 * Whether the persisted ceiling row for a scan records a
 	 * failure at the floor. The runner reads this after every chunk and
 	 * terminates the scan with `ABORTED_UPLOAD_CAPACITY` from its own tick,
 	 * so the termination never races the chunk's completion branch.
@@ -212,7 +212,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: read the persisted ceiling row for a scan.
+	 * Read the persisted ceiling row for a scan.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return array|null Decoded row or null.
@@ -236,7 +236,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: return and reset the count of files the submitter
+	 * Return and reset the count of files the submitter
 	 * dropped from batches the link refused. Callers fold the number into
 	 * `neoray_skipped`.
 	 *
@@ -249,7 +249,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: drop the per-scan ceiling row. Called on scan teardown.
+	 * Drop the per-scan ceiling row. Called on scan teardown.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return void
@@ -270,7 +270,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: read the persisted per-scan ceiling row, if any.
+	 * Read the persisted per-scan ceiling row, if any.
 	 *
 	 * @return void
 	 */
@@ -288,7 +288,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: persist the ceiling row for this scan.
+	 * Persist the ceiling row for this scan.
 	 *
 	 * @return void
 	 */
@@ -320,7 +320,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: a batch the link refused. The ceiling halves so the
+	 * A batch the link refused. The ceiling halves so the
 	 * caller can re-cut and resend; a failure at the floor drops the files
 	 * and flags the scan for termination.
 	 *
@@ -383,7 +383,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: count a clean submit; double a lowered ceiling back
+	 * Count a clean submit; double a lowered ceiling back
 	 * after a full run of them.
 	 *
 	 * @return void
@@ -473,11 +473,10 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: the ceiling gate a file passes before it may enter the
+	 * The ceiling gate a file passes before it may enter the
 	 * buffer. Once the link has refused a default-sized batch, a file
 	 * larger than the learned ceiling can never ship. At the default
-	 * ceiling a lone file above 10 MiB still goes out as a one-file batch
-	 * (SEGURIUM-474).
+	 * ceiling a lone file above 10 MiB still goes out as a one-file batch.
 	 *
 	 * @param int    $size Body size in bytes.
 	 * @param string $path Site-relative path, for the log line.
@@ -553,7 +552,7 @@ class Segurium_Async_Scan_Submitter {
 		$this->buffer       = array();
 		$this->buffer_bytes = 0;
 
-		// SEGURIUM-917: a batch the link refuses is split under the halved
+		// A batch the link refuses is split under the halved
 		// ceiling and sent again; files above the new ceiling drop out as
 		// skips. Each halving happens at most once per scan level, so the
 		// number of resends is bounded by the walk from MAX_BATCH_BYTES to
@@ -582,7 +581,7 @@ class Segurium_Async_Scan_Submitter {
 				}
 				$current_bytes = array_sum( array_column( $current, 'size' ) );
 				if ( $current_bytes > $this->ceiling_bytes ) {
-					// A lone file above the ceiling (SEGURIUM-474) says
+					// A lone file above the ceiling says
 					// nothing about the link's capacity for a regular
 					// batch. The re-cut below drops it as a skip.
 					Segurium_Scan_Runner::debug(
@@ -635,7 +634,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: whether the runner tick can afford another upload.
+	 * Whether the runner tick can afford another upload.
 	 * Outside a tick (realtime, upload, tests) always true. Inside one,
 	 * the heartbeat is renewed first so the watchdog does not reclaim a
 	 * scan that is resending, and the remaining budget must still hold
@@ -657,7 +656,7 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * SEGURIUM-917: re-cut a refused batch into batches that fit the
+	 * Re-cut a refused batch into batches that fit the
 	 * current ceiling. Files larger than the ceiling can never ship and
 	 * are counted as skips here.
 	 *
@@ -721,7 +720,7 @@ class Segurium_Async_Scan_Submitter {
 			)
 		);
 		if ( is_wp_error( $result ) ) {
-			// SEGURIUM-478: a `cti_paused` WP_Error carries the
+			// A `cti_paused` WP_Error carries the
 			// Retry-After value parsed off a 429 / 503 response. Stamp
 			// the IID-scoped submit pause so the next tick (and any
 			// concurrent scan sharing this IID's bucket) defers too.
@@ -729,7 +728,7 @@ class Segurium_Async_Scan_Submitter {
 				$data        = $result->get_error_data();
 				$retry_after = is_array( $data ) && isset( $data['retry_after'] ) ? (int) $data['retry_after'] : 0;
 				if ( $retry_after > 0 ) {
-					// SEGURIUM-483: the `scan_submit_pause` observability
+					// The `scan_submit_pause` observability
 					// event is emitted from {@see Segurium_CTI_Client::pause_error()}
 					// for both the submit and results endpoints — we only
 					// stamp the transient here.
@@ -742,7 +741,7 @@ class Segurium_Async_Scan_Submitter {
 			return $result;
 		}
 
-		// SEGURIUM-478: a 200 with Retry-After is CTI's pre-emptive
+		// A 200 with Retry-After is CTI's pre-emptive
 		// pacing for NRS-queue backpressure. Stamp the IID-scoped
 		// pause so a fresh submitter in the next scan tick still
 		// defers; clear it on the next clean 200 so a one-off slow
@@ -762,7 +761,7 @@ class Segurium_Async_Scan_Submitter {
 				)
 			);
 		} else {
-			// SEGURIUM-483: emit `scan_submit_resume` if we're clearing
+			// Emit `scan_submit_resume` if we're clearing
 			// an actually-active pause — the elapsed-time clock comes
 			// from the sibling `_set_at` transient.
 			$set_at = Segurium_Async_Scan_Pause::pause_set_at( Segurium_Async_Scan_Pause::ENDPOINT_SUBMIT );
@@ -800,9 +799,9 @@ class Segurium_Async_Scan_Submitter {
 		}
 
 		/**
-		 * SEGURIUM-479: hand-off for the first-poll ETA stamping. Fires on
+		 * Hand-off for the first-poll ETA stamping. Fires on
 		 * every successful 200 (including 200-with-Retry-After). The
-		 * listener — installed by SEGURIUM-480 — is idempotent on scan_id
+		 * listener is idempotent on scan_id
 		 * so a re-fire from a second submitter instance is a no-op.
 		 *
 		 * @param string $scan_id      Plugin-side scan UUID.
@@ -832,7 +831,7 @@ class Segurium_Async_Scan_Submitter {
 	 * a no-op upsert, never a duplicate, and two paths that share a content
 	 * hash become two rows so a single verdict can fan out to both.
 	 *
-	 * SEGURIUM-576: replaces the load-whole-blob + merge + save-whole-blob
+	 * Replaces the load-whole-blob + merge + save-whole-blob
 	 * runtime_kv rewrite, which was O(n) per call (O(n²) across a scan) and
 	 * capped at the 16 MB MEDIUMBLOB limit.
 	 *
@@ -995,7 +994,7 @@ class Segurium_Async_Scan_Submitter {
 	/**
 	 * Compatibility view of the legacy pending-paths row, reconstructed from
 	 * the `async_pending` table: `{detector, paths: {sha=>[paths]}}`. Kept so
-	 * call sites and tests that predate SEGURIUM-576 keep working. NOT used on
+	 * older call sites and tests keep working. NOT used on
 	 * the per-verdict hot path — the drain uses the granular accessors above.
 	 *
 	 * @param string $scan_id Scan UUID.
@@ -1033,7 +1032,7 @@ class Segurium_Async_Scan_Submitter {
 	/**
 	 * Compatibility writer mirroring the legacy whole-row replace: clears the
 	 * scan's pending rows and re-records whatever `$row['paths']` holds. Kept
-	 * for pre-SEGURIUM-576 call sites / tests. The hot path no longer rewrites
+	 * for legacy call sites / tests. The hot path no longer rewrites
 	 * the whole set; it deletes per-sha via {@see delete_pending_sha()}.
 	 *
 	 * @param string $scan_id Scan UUID.

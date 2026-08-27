@@ -1,6 +1,6 @@
 <?php
 /**
- * Bundled Cloudflare published IP ranges (SEGURIUM-194).
+ * Bundled Cloudflare published IP ranges.
  *
  * `Segurium_Geo_Blocker::get_real_ip()` historically honoured
  * `HTTP_CF_CONNECTING_IP` whenever `REMOTE_ADDR` was in the

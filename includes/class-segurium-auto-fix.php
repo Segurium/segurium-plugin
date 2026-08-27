@@ -1,6 +1,6 @@
 <?php
 /**
- * Unattended malware auto-fix orchestrator (SEGURIUM-64).
+ * Unattended malware auto-fix orchestrator.
  *
  * Listens on the `segurium_scan_completed` action that every malware scan
  * (manual, real-time, scheduled) fires through Segurium_Scan_Runner. When
@@ -8,13 +8,12 @@
  * (verdict ∈ {1, 2}) is run through the shared Segurium_Cleanup primitive,
  * skipping anything the user has explicitly ignored by path or by hash.
  * Plan-tier rate limiting is enforced inside CTI's quota service — there
- * is no local entitlement gate (SEGURIUM-341).
+ * is no local entitlement gate.
  *
  * Suspicious / unknown verdicts (4) are left for the human operator —
  * auto-fix is strictly malicious + injection only.
  *
  * @package Segurium
- * @since   SEGURIUM-64
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,7 +46,7 @@ final class Segurium_Auto_Fix {
 	 * Process every cleanable finding in the just-completed scan. Bails
 	 * before touching anything if the operator hasn't opted in. Plan-tier
 	 * limits (Free 3/30d, Pro unbounded) are enforced inside the per-file
-	 * cleanup primitive's CTI quota call, not here (SEGURIUM-341).
+	 * cleanup primitive's CTI quota call, not here.
 	 *
 	 * @param mixed $scan Completed scan instance (Segurium_Scan).
 	 * @return array{processed:int,cleaned:int,skipped:int,failed:int}
@@ -120,7 +119,7 @@ final class Segurium_Auto_Fix {
 			}
 		}
 
-		// SEGURIUM-548: freeze the auto-cleanup count into scan_history so
+		// Freeze the auto-cleanup count into scan_history so
 		// later display reads return a stable "X threats, Y cleaned" line
 		// regardless of subsequent manual Fix-All clicks.
 		self::persist_scan_cleaned_count( $scan_id, $summary );
@@ -129,7 +128,7 @@ final class Segurium_Auto_Fix {
 	}
 
 	/**
-	 * SEGURIUM-548: write the auto-fix `cleaned` count into the
+	 * Write the auto-fix `cleaned` count into the
 	 * scan_history.threats_cleaned column. No-op for empty scan_id (caller
 	 * bailed before any cleanup ran).
 	 *

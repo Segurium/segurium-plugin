@@ -568,12 +568,12 @@ class Segurium_Storage_Backup {
 	/**
 	 * Dry-run rotation against a hypothetical batch of pending stores.
 	 *
-	 * Used by the Integrity Fix-all preflight (SEGURIUM-279) so the operator
+	 * Used by the Integrity Fix-all preflight so the operator
 	 * sees how much of the existing backup ring would be evicted before we
 	 * actually start writing envelopes. Re-implements {@see rotate_with_caps()}
 	 * walk — counting victims rather than deleting them — and reports pinned
 	 * envelopes that would have been dropped if rotation were unaware of
-	 * SEGURIUM-278's pinning. The simulation is approximate by design: we use
+	 * pinning. The simulation is approximate by design: we use
 	 * the caller's predicted plaintext sizes for the new entries because the
 	 * compressed/encrypted envelope sizes are not knowable without writing.
 	 * Conservative overestimate is fine — it just nags more.

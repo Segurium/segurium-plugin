@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-421: public REST endpoint /wp-json/segurium/v1/scan-spawn.
+ * Public REST endpoint /wp-json/segurium/v1/scan-spawn.
  *
  * Mechanism V — fire-and-forget self-trigger. The runner's graceful-exit path
  * POSTs to this route so a fresh PHP worker picks up the next chunk without

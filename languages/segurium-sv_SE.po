@@ -4493,3 +4493,38 @@ msgstr ""
 "Webbplatsen hackad? Kostnadsfri borttagning av skadlig kod och virusskanning"
 " för WordPress: rensa infekterade filer och återställ dem. Brandvägg, brute "
 "force och 2FA ingår."
+
+msgid "Remote actions are switched off for this site."
+msgstr "Fjärråtgärder är avstängda för denna webbplats."
+
+msgid "Remote actions require authentication."
+msgstr "Fjärråtgärder kräver autentisering."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Låt Segurium Cloud begära komponentuppdateringar"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud kan be denna webbplats att uppdatera ett tillägg, ett tema "
+"eller WordPress självt. Det kan bara namnge en komponent som du redan har "
+"installerad, och endast när WordPress.org redan erbjuder den uppdateringen; "
+"uppdateringen hämtas av WordPress från WordPress.org, aldrig från Segurium. "
+"WordPress-kärnan är begränsad till säkerhets- och underhållsutgåvor. "
+"Segurium uppdaterar aldrig sig självt på detta sätt. Stäng av detta så "
+"slutar webbplatsen att be om och acceptera dessa förfrågningar."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Avstängt i wp-config.php av SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Senaste molnförfrågningar"
+
+msgid "Outcome"
+msgstr "Resultat"

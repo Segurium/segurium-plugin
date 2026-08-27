@@ -2,7 +2,7 @@
 /**
  * On-disk in-memory IP-list cache.
  *
- * SEGURIUM-272: trusted_proxy and firewall block lists are matched on
+ * The trusted_proxy and firewall block lists are matched on
  * every request via Geo_Blocker on plugins_loaded@0/@1. The DB-backed
  * `Segurium_Storage_IP_List::match()` does ~1+N queries per call (one
  * for the distinct CIDR widths, one per width); on a site fed by

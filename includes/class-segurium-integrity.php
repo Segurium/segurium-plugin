@@ -90,7 +90,7 @@ class Segurium_Integrity {
 		// Guard against touching wp-content via the core component, but leave
 		// plugin/theme files (scanned as their own components) to normal rules.
 		'/^wp-content\/(?!plugins\/|themes\/)/',
-		// SEGURIUM-830: third-party root loaders and vendor artifacts
+		// Third-party root loaders and vendor artifacts
 		// (auto_prepend_file targets fatal the site when deleted).
 		// Root-anchored on purpose: the same basenames nested inside a
 		// component stay visible. Trade-offs are documented in

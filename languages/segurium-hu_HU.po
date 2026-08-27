@@ -4536,3 +4536,38 @@ msgstr ""
 "Feltört a webhely? Ingyenes kártevőirtás és vírusvizsgálat WordPresshez: a "
 "fertőzött fájlok tisztítása és helyreállítása. Tűzfal, brute force védelem "
 "és 2FA is jár hozzá."
+
+msgid "Remote actions are switched off for this site."
+msgstr "A távoli műveletek ki vannak kapcsolva ezen a webhelyen."
+
+msgid "Remote actions require authentication."
+msgstr "A távoli műveletekhez hitelesítés szükséges."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "A Segurium Cloud kérhet komponensfrissítéseket"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself"
+" this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"A Segurium Cloud megkérheti ezt a webhelyet, hogy frissítsen egy bővítményt,"
+" sablont vagy magát a WordPresst. Csak olyan komponenst nevezhet meg, "
+"amelyet már telepített, és csak akkor, amikor a WordPress.org már kínálja "
+"az adott frissítést; a frissítést a WordPress a WordPress.org-ról tölti le,"
+" soha nem a Seguriumtól. A WordPress mag csak biztonsági és karbantartási "
+"kiadásokra korlátozódik. A Segurium soha nem frissíti magát ilyen módon. "
+"Kapcsolja ki, és a webhely nem kér és nem fogad el ilyen kéréseket."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "A wp-config.php SEGURIUM_DISABLE_REMOTE_ACTIONS beállítása kapcsolta ki."
+
+msgid "Recent cloud requests"
+msgstr "Legutóbbi felhőkérések"
+
+msgid "Outcome"
+msgstr "Eredmény"

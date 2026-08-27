@@ -2,7 +2,7 @@
 /**
  * Segurium admin-menu shell.
  *
- * SEGURIUM-272: on /wp-admin/* pages that aren't Segurium pages
+ * On /wp-admin/* pages that aren't Segurium pages
  * (admin_other tier) we don't load the full plugin. We still need the
  * Segurium menu visible in the WP sidebar and the dashboard widget
  * available on the Dashboard. This file registers those hooks with
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function segurium_admin_menu_shell_register() {
 	add_action( 'admin_menu', 'segurium_admin_menu_shell_add_menu' );
 	add_action( 'wp_dashboard_setup', 'segurium_admin_menu_shell_add_widget' );
-	// SEGURIUM-270: same heartbeat throttle that the full plugin sets,
+	// Same heartbeat throttle that the full plugin sets,
 	// applied here so admin pages outside Segurium also get the 60 s
 	// ceiling when Segurium is active.
 	add_filter( 'heartbeat_settings', 'segurium_admin_menu_shell_throttle_heartbeat' );
@@ -152,7 +152,7 @@ function segurium_admin_menu_shell_render_widget() {
 /**
  * Throttle WP Heartbeat to 60 s on admin pages. Mirrors the filter
  * registered by the full Segurium class so admin_other tier doesn't
- * regress SEGURIUM-270's idle-load reduction.
+ * regress its idle-load reduction.
  *
  * @param array $settings Heartbeat settings.
  * @return array

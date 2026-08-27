@@ -2,7 +2,7 @@
 /**
  * Single source of truth for "is this user entitled to feature X?".
  *
- * SEGURIUM-343: thin facade over the CTI quota envelope's entitlement
+ * Thin facade over the CTI quota envelope's entitlement
  * flag bag. The plugin no longer reads Freemius locally to decide
  * feature availability — that's the WP.org Guideline 5 (Serviceware)
  * contract. Renderers call `can()`; we hand back whatever the envelope
@@ -14,7 +14,6 @@
  * not a feature gate.
  *
  * @package Segurium
- * @since SEGURIUM-203
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -134,8 +133,8 @@ final class Segurium_Entitlements {
 	/**
 	 * Whether the current install is entitled to a specific feature.
 	 *
-	 * Reads the entitlement bag carried in the cached CTI quota envelope
-	 * (SEGURIUM-348). When no envelope is cached yet (fresh install
+	 * Reads the entitlement bag carried in the cached CTI quota envelope.
+	 * When no envelope is cached yet (fresh install
 	 * before the first /v1/quota/state hit) the conservative Free
 	 * default applies — no Pro chrome rendered until CTI confirms.
 	 *
@@ -202,7 +201,7 @@ final class Segurium_Entitlements {
 
 	/**
 	 * Diagnostic snapshot for the WP-CLI command and support tooling.
-	 * Envelope-sourced post-SEGURIUM-343 so support sees the same
+	 * Envelope-sourced so support sees the same
 	 * `plan_tier` and entitlement bag the renderers do.
 	 *
 	 * @return array{envelope_cached:bool,plan_tier:string,features:array<string,bool>}

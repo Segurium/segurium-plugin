@@ -1,6 +1,6 @@
 <?php
 /**
- * MainWP child bridge — action router (SEGURIUM-877, SEGURIUM-882).
+ * MainWP child bridge — action router.
  *
  * An agency running a MainWP dashboard manages ~35 client sites from one
  * screen. The dashboard extension (`segurium-for-mainwp`, a separate wp.org
@@ -12,7 +12,7 @@
  * comes from state the plugin already keeps.
  *
  * The action set is split. Three read-only actions answer questions and
- * write nothing. One write action starts a scan (SEGURIUM-882), because a
+ * write nothing. One write action starts a scan, because a
  * fleet-wide scan is the one thing an agency cannot already do from
  * anywhere else. Cleanup stays out: it is quota-metered and it modifies
  * files, so it remains a deliberate per-site action taken in the site's own
@@ -44,7 +44,7 @@
  * TCP connect rather than a round trip.
  *
  * "Read-only" means the site's security state is not changed. Two things
- * are still written on a read: the SEGURIUM-880 fleet marker records that
+ * are still written on a read: the fleet marker records that
  * a dashboard called, and WordPress may schedule this plugin's own cron
  * events the first time the include graph loads on a light tier.
  *
@@ -108,7 +108,7 @@ final class Segurium_MainWP_Bridge {
 	}
 
 	/**
-	 * Actions that change something (SEGURIUM-882).
+	 * Actions that change something.
 	 *
 	 * Deliberately one entry. Cleanup is quota-metered and modifies files,
 	 * so it stays a per-site action taken in the site's own admin — a
@@ -225,7 +225,7 @@ final class Segurium_MainWP_Bridge {
 
 		$reply = self::dispatch( $action );
 
-		// SEGURIUM-880: an answered call is the definition of "this install
+		// An answered call is the definition of "this install
 		// is managed from a MainWP dashboard", and that count is the only
 		// measurement of the epic's KPI. Refusals do not count — something
 		// that cannot speak the contract is not a managed dashboard. The
@@ -401,7 +401,7 @@ final class Segurium_MainWP_Bridge {
 	 * Last completed / cancelled / aborted malware scan.
 	 *
 	 * Reads through the shared static on the runner, which the admin UI
-	 * also uses, so the SEGURIUM-548 frozen-counter semantics have one
+	 * also uses, so the frozen-counter semantics have one
 	 * implementation. Deliberately not `Segurium::get_instance()`: that
 	 * constructor registers hooks and schedules cron events, so a
 	 * `status` read would have written to the child.

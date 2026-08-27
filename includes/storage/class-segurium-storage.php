@@ -31,6 +31,18 @@ class Segurium_Storage {
 	const SCHEMA_FINGERPRINT_OPTION = 'segurium_schema_fingerprint';
 
 	/**
+	 * `/v1/cleanup` result code: the cloud saw the real bytes and could
+	 * produce no clean version. Permanent — retrying changes nothing.
+	 */
+	const CLEANUP_ERR_NO_CLEAN_VERSION = 6;
+
+	/**
+	 * `/v1/cleanup` result code: the cure engine did not answer. Transient
+	 * — the same request may succeed later.
+	 */
+	const CLEANUP_ERR_CURE_UNAVAILABLE = 7;
+
+	/**
 	 * Whether boot() has registered the schema registry.
 	 *
 	 * @var bool
@@ -205,7 +217,31 @@ class Segurium_Storage {
 	}
 
 	/**
-	 * SEGURIUM-689: whether file bodies must stay on this server.
+	 * Translate a non-zero cleanup result code into something a site owner
+	 * can act on.
+	 *
+	 * Two of the codes are worth telling apart in the UI: the cloud looked
+	 * at the real bytes and could not produce a clean version, which no
+	 * amount of retrying changes, versus the cure engine not answering,
+	 * which is worth another go later. Everything else falls back to the
+	 * server's own wording.
+	 *
+	 * @param int   $error_code Wire-level code from `/v1/cleanup`.
+	 * @param array $result     Decoded response body.
+	 * @return string Human-readable, translated where we own the wording.
+	 */
+	private static function cleanup_error_message( int $error_code, array $result ): string {
+		if ( self::CLEANUP_ERR_NO_CLEAN_VERSION === $error_code ) {
+			return __( 'No clean version of this file exists. Remove or replace it by hand.', 'segurium' );
+		}
+		if ( self::CLEANUP_ERR_CURE_UNAVAILABLE === $error_code ) {
+			return __( 'Segurium Cloud could not clean this file right now. Try again later.', 'segurium' );
+		}
+		return isset( $result['error'] ) ? (string) $result['error'] : __( 'Cleanup unavailable.', 'segurium' );
+	}
+
+	/**
+	 * Whether file bodies must stay on this server.
 	 *
 	 * Lives on the storage façade rather than on `Segurium` because the
 	 * CTI client gates `scan_submit()` on it and ships in every request
@@ -337,7 +373,7 @@ class Segurium_Storage {
 	/**
 	 * Delete every row matching `$col = $val` in `$chunk`-sized batches.
 	 *
-	 * SEGURIUM-576: bounded-statement teardown for tables that can hold up
+	 * Bounded-statement teardown for tables that can hold up
 	 * to ~1M rows for a single scan (`async_pending`). Avoids one giant
 	 * unbounded DELETE transaction.
 	 *
@@ -346,7 +382,7 @@ class Segurium_Storage {
 	 * @param string $val     Value the column is compared against.
 	 * @param int    $chunk   Max rows per statement.
 	 * @param string $op      Comparison operator: `=` (default) or `<>`.
-	 *                        SEGURIUM-577 uses `<>` for the generation sweep.
+	 *                        The generation sweep uses `<>`.
 	 * @return int Total rows deleted.
 	 */
 	public static function table_delete_chunked( string $logical, string $col, string $val, int $chunk = 5000, string $op = '=' ): int {
@@ -368,7 +404,7 @@ class Segurium_Storage {
 	/**
 	 * Multi-row INSERT … ON DUPLICATE KEY UPDATE in bounded statements.
 	 *
-	 * SEGURIUM-577: one indexed write for a whole chunk of snapshot rows
+	 * One indexed write for a whole chunk of snapshot rows
 	 * instead of one statement per file. Every row must share the same column
 	 * set. Non-unique columns are refreshed from the incoming values on a
 	 * primary/unique-key conflict.
@@ -610,7 +646,7 @@ class Segurium_Storage {
 	/**
 	 * Dry-run a rotation that would happen if `$pending_sizes` envelopes were
 	 * added to the bucket. Used by the Integrity Fix-all preflight modal
-	 * (SEGURIUM-279) to warn the operator before older backups get rotated out.
+	 * to warn the operator before older backups get rotated out.
 	 *
 	 * @param string         $bucket        Bucket name.
 	 * @param array<int,int> $pending_sizes Plaintext byte sizes of pending stores.
@@ -757,7 +793,7 @@ class Segurium_Storage {
 	/**
 	 * Fetch the replacement (cleaned) bytes for a malicious file by SHA-256.
 	 *
-	 * SEGURIUM-353: `/v1/cleanup` is now the single quota-charging point
+	 * `/v1/cleanup` is now the single quota-charging point
 	 * and decides server-side whether to serve cured bytes (Injection
 	 * verdict) or an empty body (Malware verdict). The plugin always
 	 * asks; the server picks. Paywall denial surfaces as `WP_Error`
@@ -767,21 +803,23 @@ class Segurium_Storage {
 	 *
 	 * @param string $sha256   SHA-256 of the infected file.
 	 * @param string $filename Site-relative path of the infected file
-	 *                          (required by `/v1/cleanup` body schema —
-	 *                          SEGURIUM-356).
+	 *                          (required by the `/v1/cleanup` body schema).
 	 * @param int    $ctime    Inode change time of the file
-	 *                          (required by `/v1/cleanup` body schema —
-	 *                          SEGURIUM-356).
+	 *                          (required by the `/v1/cleanup` body schema).
+	 * @param string $content  Raw infected bytes. Ride along so the cloud can
+	 *                          produce the clean version when it has none
+	 *                          stored; the client drops them in on-premise
+	 *                          mode and above its upload ceiling.
 	 * @return array|WP_Error On success, `array{content:string,quota:?array}`
 	 *                         where `content` is the plaintext bytes (possibly
 	 *                         empty for fully-malicious files) and `quota` is
 	 *                         the post-charge envelope CTI echoes in the 200
-	 *                         body (SEGURIUM-549; `null` when an older CTI
+	 *                         body (`null` when an older CTI
 	 *                         build omits it). `WP_Error` on paywall /
 	 *                         transport / signature / unknown-verdict failure.
 	 */
-	public static function cti_fetch_cleanup_file( string $sha256, string $filename, int $ctime ) {
-		$result = self::cti_client()->clean( $sha256, $filename, $ctime );
+	public static function cti_fetch_cleanup_file( string $sha256, string $filename, int $ctime, string $content = '' ) {
+		$result = self::cti_client()->clean( $sha256, $filename, $ctime, $content );
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}
@@ -789,7 +827,7 @@ class Segurium_Storage {
 			return new WP_Error( 'cti_invalid_response', __( 'Invalid cleanup response from Segurium Cloud.', 'segurium' ) );
 		}
 
-		// SEGURIUM-353: `error_code` is the wire-level status returned
+		// `error_code` is the wire-level status returned
 		// by `/v1/cleanup`. Anything non-zero means we got *no* bytes
 		// to write back and the slot was *not* charged. Surface it as
 		// a typed `WP_Error` so the cleanup primitive can fail loudly
@@ -798,7 +836,7 @@ class Segurium_Storage {
 		if ( 0 !== $error_code ) {
 			return new WP_Error(
 				'cti_cleanup_error_' . $error_code,
-				isset( $result['error'] ) ? (string) $result['error'] : __( 'Cleanup unavailable.', 'segurium' ),
+				self::cleanup_error_message( $error_code, $result ),
 				array( 'error_code' => $error_code )
 			);
 		}
@@ -809,7 +847,7 @@ class Segurium_Storage {
 			return new WP_Error( 'cti_invalid_response', __( 'Segurium Cloud returned cleanup content that is not valid base64.', 'segurium' ) );
 		}
 
-		// SEGURIUM-192: the JSON envelope is Ed25519-signed (verified in
+		// The JSON envelope is Ed25519-signed (verified in
 		// Segurium_CTI_Client::clean()) but as defence-in-depth we also
 		// confirm the CTI-advertised hash of the cleaned bytes matches
 		// what we just decoded. A mismatch here means either CTI
@@ -826,7 +864,7 @@ class Segurium_Storage {
 			return new WP_Error( 'cti_hash_mismatch', __( 'Cleaned file does not match the checksum in the cleanup response.', 'segurium' ) );
 		}
 
-		// SEGURIUM-549: surface the post-charge quota envelope so the
+		// Surface the post-charge quota envelope so the
 		// caller can update the cached readout authoritatively instead
 		// of bumping `used` locally and leaving `next_slot_at = 0`.
 		$quota = ( isset( $result['quota'] ) && is_array( $result['quota'] ) ) ? $result['quota'] : null;
@@ -1003,7 +1041,7 @@ class Segurium_Storage {
 	}
 
 	/**
-	 * Push a hosting-platform snapshot to CTI (SEGURIUM-329).
+	 * Push a hosting-platform snapshot to CTI.
 	 *
 	 * @param array $payload Snapshot fields plus `snapshot_hash`.
 	 * @return bool
@@ -1018,7 +1056,7 @@ class Segurium_Storage {
 	 * Returns the raw JSON envelope as a string. Callers that want the
 	 * decoded, signature- and hash-verified bytes should use
 	 * {@see self::cti_fetch_original_content_bytes()} instead — that
-	 * path also enforces the SEGURIUM-192 integrity gate.
+	 * path also enforces the integrity gate.
 	 *
 	 * @param string $type    core|plugin|theme.
 	 * @param string $path    Relative path.
@@ -1035,8 +1073,7 @@ class Segurium_Storage {
 	 * end-to-end. Ed25519 signature verification runs inside the CTI
 	 * client; here we additionally hash_equals the decoded bytes
 	 * against the `sha256` field CTI puts in the signed envelope — a
-	 * defence-in-depth check against a CTI-internal content mismatch
-	 * (SEGURIUM-192).
+	 * defence-in-depth check against a CTI-internal content mismatch.
 	 *
 	 * @param string $type    core|plugin|theme.
 	 * @param string $path    Relative path within the component.

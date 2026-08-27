@@ -5,7 +5,6 @@
  * Segurium_Pricing::register_hooks). Strips the SDK's default
  * UPPERCASE + uniform-bold treatment from plan title, description,
  * billing cycle and CTA so the comparison reads like body copy.
- * SEGURIUM-391.
  */
 
 #fs_pricing .fs-plan-title,

@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-607: permission gate for the public scan-trigger REST routes
+ * Permission gate for the public scan-trigger REST routes
  * (`/wp-json/segurium/v1/scan-tick` and `/scan-spawn`).
  *
  * Both routes drive server-side scan work and, for scan-tick, disclose scan

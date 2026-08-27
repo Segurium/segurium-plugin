@@ -1,11 +1,11 @@
 <?php
 /**
- * Remediation quota gate (SEGURIUM-65).
+ * Remediation quota gate.
  *
  * Every remediation request hits CTI; CTI is the sole rate-limiter and
  * applies the right per-plan cap (Free: 3 actions / 30-day rolling
  * window; Pro: effectively unbounded). Removing the local Pro short-
- * circuit (SEGURIUM-341) is what brings the plugin in line with WP.org
+ * circuit is what brings the plugin in line with WP.org
  * Guideline 5 — the artifact runs identical code for every install.
  *
  * Fail-open policy: if CTI is unreachable the request is allowed. The
@@ -13,7 +13,6 @@
  * customers when our backend is down would be hostile.
  *
  * @package Segurium
- * @since   SEGURIUM-65
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -42,14 +41,14 @@ final class Segurium_Quota {
 	const DEFAULT_WINDOW_DAYS = 30;
 
 	/**
-	 * Plan-tier strings carried in the envelope (SEGURIUM-348). Match
+	 * Plan-tier strings carried in the envelope. Match
 	 * the CTI wire format exactly — see `service/src/quota.rs::PlanTier`.
 	 */
 	const PLAN_TIER_FREE = 'free';
 	const PLAN_TIER_PRO  = 'pro';
 
 	/**
-	 * Entitlement-flag bag (SEGURIUM-348). Key set must stay in lock-step
+	 * Entitlement-flag bag. Key set must stay in lock-step
 	 * with `service/src/quota.rs::Entitlements`; every envelope-emitting
 	 * code path must include every key (quota-state-key-parity.md).
 	 */
@@ -63,7 +62,7 @@ final class Segurium_Quota {
 	 * Default Free-tier entitlement bag, used when CTI has not spoken
 	 * yet (first install, fail-open, malformed response). Mirrors
 	 * `Entitlements::for_tier(Free)` on the CTI side — under Serviceware
-	 * (SEGURIUM-340), every plugin install runs every feature; only
+	 * every plugin install runs every feature; only
 	 * `unlimited_cleanup` is gated and is used purely for UI labelling.
 	 */
 	const DEFAULT_FREE_ENTITLEMENTS = array(
@@ -81,7 +80,7 @@ final class Segurium_Quota {
 	const OPTION_LAST_ENVELOPE = 'segurium_quota_last_envelope';
 
 	/**
-	 * SEGURIUM-302: how long a cached envelope is considered fresh enough
+	 * How long a cached envelope is considered fresh enough
 	 * to serve from `state()` without scheduling a refresh. The dashboard
 	 * counter is a soft paywall readout — a few minutes of staleness is
 	 * acceptable, and the synchronous CTI hop was responsible for ~500ms
@@ -90,7 +89,7 @@ final class Segurium_Quota {
 	const STATE_SOFT_TTL_SECS = 300;
 
 	/**
-	 * SEGURIUM-302: cron hook fired by `state()` when it serves a stale
+	 * Cron hook fired by `state()` when it serves a stale
 	 * envelope. Runs `refresh()` out of band so the next poll lands on a
 	 * fresh cache without the calling request paying the CTI cost.
 	 */
@@ -225,7 +224,7 @@ final class Segurium_Quota {
 	}
 
 	/**
-	 * SEGURIUM-353: `consume()` is gone. Slot accounting moved into
+	 * `consume()` is gone. Slot accounting moved into
 	 * `/v1/cleanup` on the CTI side. The only legitimate callers were
 	 * the cleanup AJAX handler and the integrity-fix AJAX handler; both
 	 * now go through {@see Segurium_Cleanup::cleanup_file()}, which
@@ -236,9 +235,9 @@ final class Segurium_Quota {
 	 */
 
 	/**
-	 * Read-only state for the dashboard counter (SEGURIUM-207).
+	 * Read-only state for the dashboard counter.
 	 *
-	 * SEGURIUM-302: stale-while-revalidate. A cached envelope (written
+	 * Stale-while-revalidate. A cached envelope (written
 	 * by the previous CTI hit) is served immediately when within
 	 * STATE_SOFT_TTL_SECS, eliminating the ~500ms tail-latency on the
 	 * admin counter poll. When the cache is stale the cached value is
@@ -283,18 +282,18 @@ final class Segurium_Quota {
 	}
 
 	/**
-	 * SEGURIUM-378 / SEGURIUM-522: cache the envelope returned by
+	 * Cache the envelope returned by
 	 * `POST /v1/billing/sync` directly, so a Pro flip-in doesn't need a
 	 * second `/v1/quota/state` round-trip to refresh the dashboard counter.
 	 *
-	 * SEGURIUM-522: CTI now embeds the canonical `/v1/quota/state` envelope
+	 * CTI now embeds the canonical `/v1/quota/state` envelope
 	 * under `resp['quota']`. Pass it through `wrap_state()` unchanged so
 	 * `window_days` and `next_slot_at` reflect the server's real
 	 * rolling-window state instead of being synthesised from the
 	 * `period` + `used`/`remaining` triple (which forced `next_slot_at = 0`
 	 * and rendered the dashboard banner as "next slot opens —").
 	 *
-	 * Back-compat: older CTI builds (pre-SEGURIUM-522) don't carry
+	 * Back-compat: older CTI builds don't carry
 	 * `resp['quota']`. Those falls back to the legacy synthesis so the
 	 * cache still writes something the renderer can use, only without an
 	 * accurate next-slot date.
@@ -358,14 +357,14 @@ final class Segurium_Quota {
 	}
 
 	/**
-	 * SEGURIUM-409: record a successfully-paid cleanup slot in the cached
+	 * Record a successfully-paid cleanup slot in the cached
 	 * envelope. CTI's `/v1/cleanup` is the slot-charging authority and
 	 * the caller must only invoke this after a successful cleanup; the
 	 * method then bumps the local cache so the post-clean readout is
 	 * deterministic even when a follow-up `/v1/quota/state` round-trip
 	 * would silently fail (transient transport blip, brief CTI outage)
 	 * and leave the cached envelope frozen on its pre-clean value — the
-	 * regression pinned by SEGURIUM-360.
+	 * regression this method guards against.
 	 *
 	 * Falls back to a synchronous `refresh()` when the cache shape is
 	 * not safe to bump (no envelope yet, fail-open placeholder, Pro
@@ -390,7 +389,7 @@ final class Segurium_Quota {
 	}
 
 	/**
-	 * SEGURIUM-549: apply the post-charge quota envelope CTI echoes in
+	 * Apply the post-charge quota envelope CTI echoes in
 	 * its `/v1/cleanup` 200 body directly to the cache. This is the
 	 * authoritative replacement for {@see record_consumed_slot()} — the
 	 * local bump only touches `used`/`allowed` and leaves `next_slot_at`
@@ -400,7 +399,7 @@ final class Segurium_Quota {
 	 * gives the readout an accurate date in a single round-trip.
 	 *
 	 * The caller invokes this only when the cleanup response actually
-	 * carried a `quota` echo (CTI ≥ SEGURIUM-549); older builds omit it
+	 * carried a `quota` echo; older builds omit it
 	 * and the caller falls back to {@see record_consumed_slot()}.
 	 *
 	 * @param array $envelope Echoed envelope (same shape as `/v1/quota/state`).
@@ -415,7 +414,7 @@ final class Segurium_Quota {
 	}
 
 	/**
-	 * SEGURIUM-302: out-of-band cache refresh. Hooked to CRON_REFRESH_HOOK
+	 * Out-of-band cache refresh. Hooked to CRON_REFRESH_HOOK
 	 * so wp-cron runs it in a separate request — the AJAX poll never
 	 * blocks on this. Transport / HTTP failures are silent: we keep the
 	 * prior cached envelope intact rather than overwriting it with a
@@ -454,15 +453,18 @@ final class Segurium_Quota {
 
 	/**
 	 * Build the structured paywall payload for ajax error responses
-	 * (SEGURIUM-207 modal). Use when consume() returned `allowed=false`.
+	 * (modal). Use when consume() returned `allowed=false`.
 	 *
-	 * @param array $envelope Output of consume().
+	 * @param array  $envelope    Output of consume().
+	 * @param string $action_type Remediation action that hit the wall,
+	 *                            one of Segurium_Paywall_Telemetry::action_types().
 	 * @return array
 	 */
-	public static function paywall_payload( $envelope ) {
+	public static function paywall_payload( $envelope, $action_type = '' ) {
 		return array(
-			'code'  => 'paywall_quota_exceeded',
-			'quota' => array(
+			'code'        => 'paywall_quota_exceeded',
+			'action_type' => (string) $action_type,
+			'quota'       => array(
 				'limit'        => isset( $envelope['limit'] ) ? (int) $envelope['limit'] : self::DEFAULT_LIMIT,
 				'window_days'  => isset( $envelope['window_days'] ) ? (int) $envelope['window_days'] : self::DEFAULT_WINDOW_DAYS,
 				'used'         => isset( $envelope['used'] ) ? (int) $envelope['used'] : self::DEFAULT_LIMIT,
@@ -487,11 +489,11 @@ final class Segurium_Quota {
 			'reset_at'     => 0,
 			'is_pro'       => false,
 			'fail_open'    => true,
-			// SEGURIUM-305: keep envelope shape uniform across all state()
+			// Keep envelope shape uniform across all state()
 			// return paths so consumers (test harness, batch endpoint)
 			// compare keys regardless of which branch produced the value.
 			'cached_at'    => 0,
-			// SEGURIUM-343 / 348: the JS demux + PHP renderers read these on
+			// The JS demux + PHP renderers read these on
 			// every envelope. Free defaults are conservative — fail-open
 			// shouldn't grant Pro chrome.
 			'plan_tier'    => self::PLAN_TIER_FREE,
@@ -520,16 +522,16 @@ final class Segurium_Quota {
 			'window_days'  => isset( $resp['window_days'] ) ? (int) $resp['window_days'] : self::DEFAULT_WINDOW_DAYS,
 			'next_slot_at' => isset( $resp['next_slot_at'] ) ? (int) $resp['next_slot_at'] : 0,
 			'reset_at'     => isset( $resp['reset_at'] ) ? (int) $resp['reset_at'] : 0,
-			// SEGURIUM-343: legacy boolean kept for back-compat with the JS
+			// Legacy boolean kept for back-compat with the JS
 			// demux's `envelope.is_pro` branch in renderQuotaReadout(); we now
 			// derive it from the authoritative plan_tier so a single source
 			// of truth wins even if a future CTI build forgets the legacy
 			// flag.
 			'is_pro'       => self::PLAN_TIER_PRO === $plan_tier,
 			'fail_open'    => false,
-			// SEGURIUM-302: freshness marker for the SWR path in state().
+			// Freshness marker for the SWR path in state().
 			'cached_at'    => time(),
-			// SEGURIUM-343 / 348: authoritative plan + capability bag.
+			// Authoritative plan + capability bag.
 			'plan_tier'    => $plan_tier,
 			'entitlements' => $entitlements,
 		);
@@ -540,7 +542,7 @@ final class Segurium_Quota {
 
 	/**
 	 * Coerce a raw plan_tier value into one of the accepted strings.
-	 * Unknown values fall back to Free — see SEGURIUM-340 reasoning:
+	 * Unknown values fall back to Free — reasoning:
 	 * Free is the conservative default that never grants Pro chrome.
 	 *
 	 * @param mixed $raw Raw value from the CTI response.

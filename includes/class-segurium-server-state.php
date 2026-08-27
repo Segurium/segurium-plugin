@@ -2,7 +2,7 @@
 /**
  * Per-file malware detection state helper.
  *
- * SEGURIUM-135: scan_findings is now append-only. All "current state per
+ * The scan_findings table is append-only. All "current state per
  * file" reads and writes funnel through {@see Segurium_File_State}. This
  * class retains the existing admin UI / scan runner / realtime API
  * surface and delegates to the projection.

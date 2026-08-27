@@ -10,7 +10,7 @@
  * The self-ping observes the cached production homepage (no
  * cache-buster) so that internal scoring matches the external scan
  * exposed at segurium.com/scan/. Both code paths apply identical
- * methodology to the same surface (SEGURIUM-304).
+ * methodology to the same surface.
  *
  * @package Segurium
  */
@@ -33,14 +33,14 @@ class Segurium_Self_Check {
 	const SCAN_FRESH_DAYS = 7;
 
 	/**
-	 * SEGURIUM-435: WP-Cron hook for the daily auto-run. Fired once per day
+	 * WP-Cron hook for the daily auto-run. Fired once per day
 	 * irrespective of whether anyone visits the admin tab — keeps the CTI
 	 * inventory fresh for the Site Profile + System Health dashboards.
 	 */
 	const CRON_HOOK = 'segurium_daily_self_check';
 
 	/**
-	 * SEGURIUM-435: CTI message_type. Server-side allow-list lives in
+	 * CTI message_type. Server-side allow-list lives in
 	 * segurium-cti's handler.rs::VALID_MESSAGE_TYPES. The materialised view
 	 * `segurium.self_check_mv` filters on this exact value.
 	 */
@@ -155,7 +155,7 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * SEGURIUM-435: register the daily-cron hook handler. Scheduling itself
+	 * Register the daily-cron hook handler. Scheduling itself
 	 * is driven by activation (see `schedule()`), mirroring
 	 * `Segurium_Platform_Snapshot`.
 	 *
@@ -312,7 +312,7 @@ class Segurium_Self_Check {
 	 * Self-ping the cached production homepage to capture response
 	 * headers and body. No cache-buster: scoring must reflect the
 	 * surface real visitors see, which is what the external scan at
-	 * segurium.com/scan/ also observes (SEGURIUM-304).
+	 * segurium.com/scan/ also observes.
 	 *
 	 * Returns a normalized lowercase-key header array regardless of
 	 * whether the WP HTTP layer handed us a dictionary or a plain array.
@@ -653,7 +653,7 @@ class Segurium_Self_Check {
 			)
 		);
 
-		// Follow-up SEGURIUM-75 splits WAF from firewall; self-check will move to that option when it lands.
+		// A follow-up splits WAF from firewall; self-check will move to that option when it lands.
 		$waf_on   = Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' );
 		$checks[] = $this->make_check(
 			array(
@@ -669,7 +669,7 @@ class Segurium_Self_Check {
 			)
 		);
 
-		// Follow-up SEGURIUM-74 will supply a fix target for the SSL row.
+		// A follow-up will supply a fix target for the SSL row.
 		$ssl_on   = is_ssl();
 		$checks[] = $this->make_check(
 			array(
@@ -695,7 +695,7 @@ class Segurium_Self_Check {
 	 * inspected for Secure / HttpOnly / SameSite. PASS only when every
 	 * cookie has the flag; PARTIAL when some do; FAIL when none do.
 	 * Mirrors CTI `eval_cookies()` so the plugin and the external scan
-	 * agree on the same observable surface (SEGURIUM-304).
+	 * agree on the same observable surface.
 	 *
 	 * @param array $headers Lower-cased header map (Set-Cookie may be string or array).
 	 * @return array
@@ -975,7 +975,7 @@ class Segurium_Self_Check {
 			)
 		);
 
-		// SEGURIUM-341: auto-fix is available on every install; pass = enabled.
+		// Auto-fix is available on every install; pass = enabled.
 		$auto_enabled = Segurium_Auto_Fix_Settings::is_enabled();
 		$checks[]     = $this->make_check(
 			array(
@@ -1080,7 +1080,7 @@ class Segurium_Self_Check {
 	 * whose state isn't on the inactive list (mirroring the integrity
 	 * tab's bucket_for() — the user has already acted on those).
 	 *
-	 * SEGURIUM-877: the query lives on Segurium_Integrity_Server_State so
+	 * The query lives on Segurium_Integrity_Server_State so
 	 * the posture score and the MainWP fleet table read one number.
 	 *
 	 * @param int $scan_ts Timestamp of the most recent integrity scan.

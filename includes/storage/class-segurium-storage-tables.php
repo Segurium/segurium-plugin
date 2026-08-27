@@ -221,7 +221,7 @@ class Segurium_Storage_Tables {
 			);
 		}
 
-		// SEGURIUM-413: scan_history grew a separate `files_found` column so
+		// scan_history grew a separate `files_found` column so
 		// the cancel/abort summary can show "X of Y scanned" honestly. For
 		// existing rows there's no recorded discovery total, so backfill
 		// files_found = files_scanned as the best approximation — a previously
@@ -238,7 +238,7 @@ class Segurium_Storage_Tables {
 			);
 		}
 
-		// SEGURIUM-548: scan_history grew `threats_found` + `threats_cleaned`
+		// scan_history grew `threats_found` + `threats_cleaned`
 		// columns so the scan-summary line is a frozen property of the scan,
 		// not recomputed at read time. Backfill historical rows from the
 		// scan_findings COUNT + JOIN-to-file_state logic that previously
@@ -263,7 +263,7 @@ class Segurium_Storage_Tables {
 	}
 
 	/**
-	 * SEGURIUM-548: backfill the v5 scan_history counters from the legacy
+	 * Backfill the v5 scan_history counters from the legacy
 	 * read-time logic (COUNT scan_findings; JOIN cured file_state). Public
 	 * so tests can exercise it without re-running the full migration.
 	 *
@@ -286,8 +286,8 @@ class Segurium_Storage_Tables {
 		// "both columns are 0" would silently skip rows where finalize_history
 		// already raced in to populate threats_found during the same
 		// upgrade request, leaving threats_cleaned stuck at the DEFAULT 0.
-		// Table identifiers are bound through the %i placeholder (WP 6.2+,
-		// SEGURIUM-531) so each call site stays prepared — no interpolation,
+		// Table identifiers are bound through the %i placeholder (WP 6.2+)
+		// so each call site stays prepared — no interpolation,
 		// no last-resort phpcs:ignore. prepare() is inlined into query() so
 		// the wporg prepared-SQL classifier can trace the call.
 		if ( $has_file_state ) {
@@ -540,7 +540,7 @@ class Segurium_Storage_Tables {
 	/**
 	 * Multi-row INSERT … ON DUPLICATE KEY UPDATE in bounded statements.
 	 *
-	 * SEGURIUM-577: lets the realtime snapshot reconcile persist a whole
+	 * Lets the realtime snapshot reconcile persist a whole
 	 * chunk of files in one statement (≈100× fewer queries than per-row
 	 * upsert at 100K+ files). Every row must carry the same columns in the
 	 * same order. Non-unique columns are refreshed from VALUES() on conflict.
@@ -720,7 +720,7 @@ class Segurium_Storage_Tables {
 	/**
 	 * Delete every row matching `$col = $val`, in `$chunk`-sized batches.
 	 *
-	 * SEGURIUM-576: a scan teardown / seal can have up to ~1M pending rows
+	 * A scan teardown / seal can have up to ~1M pending rows
 	 * to remove. A single unbounded `DELETE` would build one giant
 	 * transaction (huge undo log, long row-lock window). Looping a
 	 * `LIMIT`-bounded delete keeps each statement small and lets InnoDB
@@ -735,7 +735,7 @@ class Segurium_Storage_Tables {
 	 * @param string $val     Value the column is compared against.
 	 * @param int    $chunk   Max rows per statement (clamped to 1..100000).
 	 * @param string $op      Comparison operator: `<>` selects the inequality
-	 *                        template (SEGURIUM-577 generation sweep); any other
+	 *                        template (generation sweep); any other
 	 *                        value uses equality. Each maps to a fixed literal
 	 *                        template, so the operator is never interpolated.
 	 * @return int Total rows deleted.
@@ -755,7 +755,7 @@ class Segurium_Storage_Tables {
 		$total  = 0;
 		do {
 			// Each branch passes a fully-literal template straight into
-			// prepare() (the `<>` variant is the SEGURIUM-577 generation
+			// prepare() (the `<>` variant is the generation
 			// sweep; anything else uses equality). Keeping the operator out
 			// of any variable means prepare()'s first argument is always a
 			// string literal — provably prepared, no NotPrepared /
@@ -801,7 +801,7 @@ class Segurium_Storage_Tables {
 	 * physical table name to the args list once per placeholder.
 	 *
 	 * Note: `%i` is a WP 6.2+ feature; readme.txt 'Requires at least' is
-	 * pinned to 6.2 for this reason. See SEGURIUM-531.
+	 * pinned to 6.2 for this reason.
 	 *
 	 * @param string $sql_body SQL body.
 	 * @return string

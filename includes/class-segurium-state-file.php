@@ -66,7 +66,7 @@ final class Segurium_State_File {
 		// temp files mid-flight.
 		$tmp = $path . '.tmp.' . getmypid() . '.' . wp_generate_uuid4();
 
-		// SEGURIUM-428: write via fopen so we can fsync before the rename.
+		// Write via fopen so we can fsync before the rename.
 		// `file_put_contents` does not expose an fsync hook, and a missing
 		// fsync is exactly what lets a state-file rename reach the
 		// directory entry while the inode's data is still buffered — the

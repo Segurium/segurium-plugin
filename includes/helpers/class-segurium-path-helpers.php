@@ -2,7 +2,7 @@
 /**
  * Single audited entry point for the two unavoidable ABSPATH patterns.
  *
- * WP.org reviewer #2 (2026-05-22, SEGURIUM-523) flagged direct uses of
+ * WP.org reviewer #2 (2026-05-22) flagged direct uses of
  * ABSPATH / WP_PLUGIN_DIR / WP_CONTENT_DIR / WPINC across the plugin.
  * Two genuine remainders survive any cleanup:
  *
@@ -44,7 +44,7 @@ class Segurium_Path_Helpers {
 	/**
 	 * Return the plugins directory root. WordPress exposes no accessor
 	 * for it, and a caller that needs another plugin's directory (the
-	 * SEGURIUM-918 pre-update snapshot, the filesystem-method probe)
+	 * pre-update snapshot, the filesystem-method probe)
 	 * cannot use `plugin_dir_path( SEGURIUM_PLUGIN_FILE )`, which points
 	 * at ours.
 	 *

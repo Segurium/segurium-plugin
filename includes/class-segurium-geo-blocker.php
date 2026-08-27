@@ -63,7 +63,7 @@ class Segurium_Geo_Blocker {
 
 		$mode      = Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' );
 		$list_type = 'allow_list' === $mode ? 'allow' : 'block';
-		// SEGURIUM-272: hot path → opcached in-memory match.
+		// Hot path → opcached in-memory match.
 		if ( class_exists( 'Segurium_Storage_IP_List_Cache' ) ) {
 			$in_list = null !== Segurium_Storage_IP_List_Cache::match( $ip, $list_type );
 		} else {
@@ -134,7 +134,7 @@ class Segurium_Geo_Blocker {
 	 * @return string
 	 */
 	public function get_real_ip() {
-		// SEGURIUM-272: memoize within a request. maybe_block_by_firewall
+		// Memoize within a request. maybe_block_by_firewall
 		// and maybe_block_request both call this on plugins_loaded@0/@1
 		// and is_ip_allowed reaches it again. Each call costs an
 		// ip_is_trusted DB query against the trusted_proxy list (which
@@ -188,7 +188,7 @@ class Segurium_Geo_Blocker {
 		}
 
 		// Cloudflare-specific fallback when no XFF is present.
-		// SEGURIUM-194: honour HTTP_CF_CONNECTING_IP only when the
+		// Honour HTTP_CF_CONNECTING_IP only when the
 		// immediate peer (REMOTE_ADDR) is inside Cloudflare's published
 		// edge ranges. Before this gate, any trusted proxy could forge
 		// the header and land arbitrary IPs on get_real_ip() — enough
@@ -221,7 +221,7 @@ class Segurium_Geo_Blocker {
 		if ( '' === (string) $ip ) {
 			return false;
 		}
-		// SEGURIUM-272: hot path. The trusted_proxy list can hold
+		// Hot path. The trusted_proxy list can hold
 		// thousands of CIDRs (Cloudflare ranges, proxy-detector feeds);
 		// the DB matcher does ~2-N queries per call which dominates
 		// every request's TTFB when the firewall is enabled. The
@@ -300,7 +300,7 @@ class Segurium_Geo_Blocker {
 		Segurium_Storage::setting_set( 'segurium_geo_block_mode', ( 'allow' === ( $settings['block_mode'] ?? '' ) ) ? 'allow' : 'block' );
 		Segurium_Storage::setting_set( 'segurium_geo_blocked_countries', $settings['blocked_countries'] ?? array() );
 		if ( array_key_exists( 'trusted_proxies', $settings ) ) {
-			// SEGURIUM-392: must call the firewall-group helper, NOT the
+			// Must call the firewall-group helper, NOT the
 			// main Segurium class. This path runs from light tiers
 			// (visitor/login/admin_other/ajax_other) when an expired
 			// pending revert fires, and the main class is not loaded

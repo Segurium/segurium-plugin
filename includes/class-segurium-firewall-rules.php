@@ -2,15 +2,15 @@
 /**
  * Firewall IP-rule storage + pending-revert handler.
  *
- * SEGURIUM-540: lives in the firewall include group so the pending-revert
+ * Lives in the firewall include group so the pending-revert
  * action handler is registered on every tier that loads the firewall —
  * not just heavy tiers where the `Segurium` class boots. Without this,
  * `Segurium_Pending_Changes::check_expired( 'firewall' )` firing from a
  * lightweight tier (ajax_other heartbeat, visitor, etc.) had no handler
  * for the firewall context, so `segurium_firewall_enabled` would stay
  * `'1'` while the transient + ctx + scheduled cron were cleared — a
- * permanent self-lockout. Same pattern previously fixed for geo by
- * SEGURIUM-392 in Segurium_Trusted_Proxies.
+ * permanent self-lockout. The same pattern is already applied to geo
+ * in Segurium_Trusted_Proxies.
  *
  * @package Segurium
  */

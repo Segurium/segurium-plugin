@@ -187,8 +187,7 @@ class Segurium_Storage_Schema_Registry {
 	 * Canonical current-state projection keyed by file_path_hash. The
 	 * scan_findings table is an append-only event log; file_state is the
 	 * only source UI reads for "current status per file" and the only
-	 * source the cleanup/restore/ignore mutators write to. See
-	 * SEGURIUM-135.
+	 * source the cleanup/restore/ignore mutators write to.
 	 */
 	private static function sql_file_state(): string {
 		return "CREATE TABLE {prefix}segurium_file_state (
@@ -281,7 +280,7 @@ class Segurium_Storage_Schema_Registry {
 	/**
 	 * SQL for the async_pending table.
 	 *
-	 * SEGURIUM-576: one row per submitted-but-unverdicted file, replacing
+	 * One row per submitted-but-unverdicted file, replacing
 	 * the per-scan `async_scan:pending:{scan_id}` runtime_kv JSON blob. The
 	 * blob was rewritten whole on every submit batch and every drained
 	 * verdict row (O(n²) on the unknown-file count) and capped at the 16 MB
@@ -310,7 +309,7 @@ class Segurium_Storage_Schema_Registry {
 	/**
 	 * SQL for the realtime_snapshot table.
 	 *
-	 * SEGURIUM-577: the realtime FIM baseline is one row per file, keyed by
+	 * The realtime FIM baseline is one row per file, keyed by
 	 * file_path_hash, instead of a single `realtime:snapshot` runtime_kv JSON
 	 * blob. `generation` is a per-reconcile run marker: each cron tick stamps
 	 * every surviving file with the current generation, then mark-and-sweeps

@@ -2,13 +2,13 @@
 /**
  * Hourly realtime filesystem change detection and threat scanning.
  *
- * SEGURIUM-577 storage redesign: the file-integrity baseline lives in the
+ * Storage redesign: the file-integrity baseline lives in the
  * dedicated indexed `realtime_snapshot` table — one row per path — instead of
  * a single `realtime:snapshot` runtime_kv JSON blob. The reconcile streams the
  * filesystem walk (never holding the whole tree in PHP), upserts in chunks,
  * and mark-and-sweeps deleted files by generation. This removes the
  * max_allowed_packet write ceiling and the build/read OOM that broke realtime
- * FIM on 100K+ file sites. Mirrors the SEGURIUM-576 async_pending redesign.
+ * FIM on 100K+ file sites. Mirrors the async_pending redesign.
  *
  * Ingress batches live in a tmp/realtime-<uuid>/ workspace (auto-destroyed
  * after each run); scan history / findings land in the scan_history +
@@ -32,7 +32,7 @@ class Segurium_Realtime_Scan {
 	const SNAPSHOT_TABLE       = 'realtime_snapshot';
 
 	// Legacy single-blob key, kept only so the one-shot purge migration can
-	// find and delete it. No longer written. SEGURIUM-577.
+	// find and delete it. No longer written.
 	const KV_SNAPSHOT        = 'realtime:snapshot';
 	const KV_GENERATION      = 'realtime:snapshot_gen';
 	const KV_BASELINE_DONE   = 'realtime:baseline_done';
@@ -118,7 +118,7 @@ class Segurium_Realtime_Scan {
 	/**
 	 * One-shot purge of the legacy `realtime:snapshot` runtime_kv blob.
 	 *
-	 * SEGURIUM-577 moved the baseline to the indexed realtime_snapshot table.
+	 * The baseline lives in the indexed realtime_snapshot table.
 	 * The old single-row blob (up to ~19 MB on large sites) is dead weight and
 	 * is dropped on the first load after upgrade, then this stays a no-op. The
 	 * next realtime tick rebuilds the baseline into the table.
@@ -205,7 +205,7 @@ class Segurium_Realtime_Scan {
 			);
 		}
 
-		// SEGURIUM-546: pre-flight IID gate. Without a stored installation ID
+		// Pre-flight IID gate. Without a stored installation ID
 		// the realtime path would walk the filesystem, hash files, and POST to
 		// CTI unauthenticated, producing fake-failure rows. Direct call (no
 		// class_exists wrapper) so a missing-class fault fails loud, the same
@@ -285,7 +285,7 @@ class Segurium_Realtime_Scan {
 		);
 		$threats = (int) $stats['threats'];
 
-		// SEGURIUM-689: on-premise leaves every unknown hash unresolved.
+		// On-premise leaves every unknown hash unresolved.
 		// Without this the history row is byte-identical to a pass where
 		// every file came back clean.
 		$this->record_history( $scan_id, $now, count( $files ), $threats, (int) $stats['neoray_skipped'] );
@@ -328,7 +328,7 @@ class Segurium_Realtime_Scan {
 	/**
 	 * Streaming reconcile of the on-disk tree against the snapshot table.
 	 *
-	 * SEGURIUM-577: walks the filesystem without ever holding the whole tree
+	 * Walks the filesystem without ever holding the whole tree
 	 * in PHP, classifies each chunk against an indexed SELECT, upserts the
 	 * chunk stamped with a fresh generation, then mark-and-sweeps every row of
 	 * an older generation (the files that no longer exist). This is the
@@ -457,7 +457,7 @@ class Segurium_Realtime_Scan {
 	/**
 	 * Refresh snapshot rows for paths verdicted by a completed full scan.
 	 *
-	 * Chunked + table-backed (SEGURIUM-577). No-op when no baseline exists yet,
+	 * Chunked + table-backed. No-op when no baseline exists yet,
 	 * so we never half-seed state. Input is consumed in WALK_CHUNK batches so
 	 * the path list never has to be diffed against the whole baseline at once.
 	 *
@@ -874,10 +874,9 @@ class Segurium_Realtime_Scan {
 	 * @param string $scan_id       Unique scan identifier.
 	 * @param int    $now           Timestamp of the scan.
 	 * @param int    $files_checked Number of files checked.
-	 * @param int    $threats_found Threats found in this realtime pass (SEGURIUM-548).
+	 * @param int    $threats_found Threats found in this realtime pass.
 	 * @param int    $files_skipped Files left unresolved, e.g. an unknown hash
-	 *                              on-premise or a body over the size cap
-	 *                              (SEGURIUM-689).
+	 *                              on-premise or a body over the size cap.
 	 */
 	private function record_history( $scan_id, $now, $files_checked, $threats_found = 0, $files_skipped = 0 ) {
 		try {

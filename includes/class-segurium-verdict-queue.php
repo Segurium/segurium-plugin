@@ -2,7 +2,7 @@
 /**
  * Verdict queue for batch CTI hash inspection.
  *
- * SEGURIUM-137 unified pipeline: the per-chunk inspect+escalate+write logic
+ * Unified pipeline: the per-chunk inspect+escalate+write logic
  * is implemented once in the static helper {@see resolve_and_record} and
  * reused by the malware scan (via this queue), realtime scan, and upload
  * scan. The queue itself is now a thin wrapper that handles chunking +
@@ -30,7 +30,7 @@ class Segurium_Verdict_Queue {
 	const KV_TTL         = 86400;
 
 	/**
-	 * SEGURIUM-259: cooperative bail-out from the inspect-batch loop when the
+	 * Cooperative bail-out from the inspect-batch loop when the
 	 * runner's tick budget is about to expire. Projection is the rolling
 	 * average of the last `INSPECT_BATCH_WALL_WINDOW` batches multiplied by
 	 * `INSPECT_BATCH_PROJECTED_MULT`, floored at
@@ -42,7 +42,7 @@ class Segurium_Verdict_Queue {
 	const INSPECT_BATCH_PROJECTED_FLOOR_SEC = 3.0;
 
 	/**
-	 * SEGURIUM-578: cross-tick retry schedule for a transient `/v1/inspect`
+	 * Cross-tick retry schedule for a transient `/v1/inspect`
 	 * failure (transport error / timeout / 5xx). One entry per retry; the
 	 * value is the minimum delay in seconds before the batch may be
 	 * re-inspected. The first step is 0 — the next worker tick (~5s later,
@@ -67,7 +67,7 @@ class Segurium_Verdict_Queue {
 	const VERDICT_UNKNOWN = 4;
 
 	/**
-	 * SEGURIUM-936: the file is clean, but its bytes belong to a component
+	 * The file is clean, but its bytes belong to a component
 	 * release with a known vulnerability. Handled exactly like a clean
 	 * verdict here — no threat count, no file_state row, no UI change. The
 	 * append-only `scan_findings` row is persistence for a later feature.
@@ -171,7 +171,7 @@ class Segurium_Verdict_Queue {
 	private $batch_wall_history = array();
 
 	/**
-	 * SEGURIUM-433: count of files we have actually escalated to `/v1/neo-ray`
+	 * Count of files we have actually escalated to `/v1/neo-ray`
 	 * inside the current {@see process()} call. Reset at the top of process().
 	 * The tick-budget gate in {@see time_allows_next_unknown()} only fires
 	 * when this is non-zero, so the first escalation in any call always
@@ -182,7 +182,7 @@ class Segurium_Verdict_Queue {
 	private $files_processed_in_call = 0;
 
 	/**
-	 * SEGURIUM-578: set true within a {@see process()} call when the head
+	 * Set true within a {@see process()} call when the head
 	 * batch is held by a transient-inspect backoff window (a 5xx/timeout
 	 * deferral whose `inspect_next_retry_at` has not yet arrived, or that
 	 * was just scheduled). Read by {@see is_inspect_backoff_waiting()} so
@@ -195,7 +195,7 @@ class Segurium_Verdict_Queue {
 	private $inspect_backoff_waiting = false;
 
 	/**
-	 * SEGURIUM-262: latched at the start of {@see process()} when the
+	 * Latched at the start of {@see process()} when the
 	 * scan-runner lock currently holds this queue's scan id. The
 	 * cancellation checks (per-batch in {@see process_pending} and
 	 * per-file via the cancel callable in {@see send_batch}) only fire
@@ -219,7 +219,7 @@ class Segurium_Verdict_Queue {
 	);
 
 	/**
-	 * SEGURIUM-426: cached JSON of the last state we successfully wrote to
+	 * Cached JSON of the last state we successfully wrote to
 	 * runtime_kv. {@see save_state()} short-circuits when the new payload
 	 * is byte-identical, which both eliminates the spin-loop log flood
 	 * (1.3M lines / 7 min on the test site) and avoids burning DB write
@@ -230,7 +230,7 @@ class Segurium_Verdict_Queue {
 	private $last_persisted_json = null;
 
 	/**
-	 * SEGURIUM-426: counters that the per-counter MAX guard refuses to
+	 * Counters that the per-counter MAX guard refuses to
 	 * regress. When a stale-snapshot writer would overwrite a higher value
 	 * already in storage, save_state() pulls the row, bumps the in-memory
 	 * counter to MAX(memory, storage), then writes — defense-in-depth in
@@ -417,7 +417,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-578: whether the last {@see process()} call ended because the
+	 * Whether the last {@see process()} call ended because the
 	 * head batch is parked in a transient-inspect backoff window (nothing
 	 * drainable until `inspect_next_retry_at`). The scan engine surfaces this
 	 * to the runner so the tick ends early instead of spinning the budget.
@@ -439,7 +439,7 @@ class Segurium_Verdict_Queue {
 			? $this->state['scan_stats'][ $scan_id ]
 			: $this->default_stats();
 
-		// SEGURIUM-448: fold async-poller verdicts into the chunk-loop
+		// Fold async-poller verdicts into the chunk-loop
 		// stat block so progress UI consumers (`files_verdicted`,
 		// `threats_found`, etc.) catch up monotonically as the async
 		// poller drains `/v1/scan/results`. `apply_async_verdict()`
@@ -471,9 +471,9 @@ class Segurium_Verdict_Queue {
 			return false;
 		}
 		// Structural drain test: trust the queue's data structures, not
-		// per-scan counter arithmetic. SEGURIUM-261/262 already proved
-		// the counter invariant is fragile under cancel / retry / dup
-		// response paths; the bitreverse-2026-05-08 incident showed it
+		// per-scan counter arithmetic. That invariant proved fragile under
+		// cancel / retry / dup response paths; the bitreverse-2026-05-08
+		// incident showed it
 		// can also break under cold-CAS workloads where every file
 		// escalates to neo-ray. With submissions_complete + all sealed
 		// chunks drained + an empty open tail, no path can produce
@@ -481,17 +481,17 @@ class Segurium_Verdict_Queue {
 		if ( ! empty( $this->load_pending_tail() ) ) {
 			return false;
 		}
-		// SEGURIUM-448: async-batched malware scans hand Unknown files
+		// Async-batched malware scans hand Unknown files
 		// off to the submitter, then return from the chunk pass before
 		// the poller has applied verdicts. The pending table keeps
 		// is_scan_complete() honest under the new flow — drained queue
 		// + no async_pending rows means no more verdicts can arrive.
-		// SEGURIUM-576: a cheap LIMIT 1 EXISTS probe, not a whole-blob load.
+		// A cheap LIMIT 1 EXISTS probe, not a whole-blob load.
 		return ! Segurium_Async_Scan_Submitter::has_pending( $scan_id );
 	}
 
 	/**
-	 * SEGURIUM-564: seal async-pending paths that can never receive a
+	 * Seal async-pending paths that can never receive a
 	 * verdict.
 	 *
 	 * The async results loop calls this once CTI has confirmed its
@@ -501,7 +501,7 @@ class Segurium_Verdict_Queue {
 	 * (e.g. it was deduped server-side, or echoed as accepted in the
 	 * submit reply but never enqueued as a distinct job). Leaving it
 	 * there wedges {@see is_scan_complete()} forever and the results
-	 * loop polls an empty endpoint indefinitely (the SEGURIUM-564
+	 * loop polls an empty endpoint indefinitely (the
 	 * infinite-empty-poll).
 	 *
 	 * Each orphaned path is counted as `failed` (honest accounting — it
@@ -516,7 +516,7 @@ class Segurium_Verdict_Queue {
 		if ( '' === $scan_id ) {
 			return 0;
 		}
-		// SEGURIUM-576: count + delete the scan's pending rows by index
+		// Count + delete the scan's pending rows by index
 		// instead of loading the whole blob. Every pending row is one
 		// submitted-but-unverdicted path, so the count is the seal total.
 		$sealed = Segurium_Async_Scan_Submitter::count_pending( $scan_id );
@@ -592,7 +592,7 @@ class Segurium_Verdict_Queue {
 			return false;
 		}
 		$this->set_state( $decoded );
-		// SEGURIUM-426: prime the no-op-skip cache so the first save_state()
+		// Prime the no-op-skip cache so the first save_state()
 		// after load doesn't write redundant rows when nothing changed.
 		$this->last_persisted_json = (string) wp_json_encode( $this->state );
 		return true;
@@ -608,13 +608,13 @@ class Segurium_Verdict_Queue {
 			return;
 		}
 
-		// SEGURIUM-426 step 1 — per-counter MAX guard. Re-read the current
+		// Step 1 — per-counter MAX guard. Re-read the current
 		// row and bump in-memory counters that fell behind storage. This
 		// runs before the no-op check so a stale-snapshot caller still
 		// reconciles silently with what the active writer has persisted.
 		$this->reconcile_counters_from_storage();
 
-		// SEGURIUM-426 step 2 — no-op skip. After reconciliation, if the
+		// Step 2 — no-op skip. After reconciliation, if the
 		// resulting JSON matches what we last wrote, skip both the DB
 		// upsert and the diagnostic log line. This is what kept
 		// the test site's debug.log from a 655 MB flood once the runner
@@ -660,7 +660,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-426: per-counter MAX guard. Pulls the persisted state row
+	 * Per-counter MAX guard. Pulls the persisted state row
 	 * and reconciles each in-memory counter to MAX(memory, storage). The
 	 * `PROTECTED_STAT_COUNTERS` list covers everything the queue
 	 * monotonically increments per-scan; chunk_in / chunk_out are
@@ -741,7 +741,7 @@ class Segurium_Verdict_Queue {
 		$like  = $wpdb->esc_like( 'scan:' . $this->scan_id . ':' ) . '%';
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE kv_key LIKE %s', $table, $like ) );
-		// SEGURIUM-426: row is gone, so the next save_state must write
+		// Row is gone, so the next save_state must write
 		// (no-op skip would otherwise short-circuit if the in-memory state
 		// was still byte-equal to what we last persisted in this process).
 		$this->last_persisted_json = null;
@@ -784,8 +784,8 @@ class Segurium_Verdict_Queue {
 	 *                                                processing should stop.
 	 *                                                Evaluated at the top of
 	 *                                                every per-file iteration
-	 *                                                (SEGURIUM-262) so the
-	 *                                                in-flight batch can bail
+	 *                                                so the in-flight batch
+	 *                                                can bail
 	 *                                                without firing the
 	 *                                                remaining `/v1/neo-ray`
 	 *                                                escalations after the
@@ -796,7 +796,7 @@ class Segurium_Verdict_Queue {
 	 *               neoray_errors, neoray_skipped}`.
 	 *
 	 * @throws RuntimeException When the tick lease was taken over by another
-	 *                          worker mid-chunk (SEGURIUM-870); the runner ends the tick.
+	 *                          worker mid-chunk; the runner ends the tick.
 	 */
 	public static function resolve_and_record(
 		string $scan_id,
@@ -843,7 +843,7 @@ class Segurium_Verdict_Queue {
 			return $stats;
 		}
 
-		// SEGURIUM-261: index the inspect response by sha256 so that each
+		// Index the inspect response by sha256 so that each
 		// submitted file contributes exactly one increment to the stat
 		// block — even if CTI returns duplicate or unrequested entries.
 		// Iterating over the response directly used to allow `verdicted`
@@ -859,7 +859,7 @@ class Segurium_Verdict_Queue {
 		}
 
 		$now = time();
-		// SEGURIUM-399: per-file heartbeat refresh. The chunk loop in
+		// Per-file heartbeat refresh. The chunk loop in
 		// Segurium_Scan_Runner only stamps the lock heartbeat at chunk
 		// boundaries, but a single chunk can spend tens of seconds inside
 		// resolve_unknown() (one /v1/neo-ray RTT per Unknown file, capped at
@@ -870,7 +870,7 @@ class Segurium_Verdict_Queue {
 		// dwarfed by the CTI/Neo-Ray HTTP round-trip already happening.
 		// Gated to `malware` scans because realtime/upload paths don't hold
 		// a Segurium_Scan_Lock; heartbeat() would just no-op for them.
-		// SEGURIUM-430: every per-file heartbeat ALSO renews the runtime_kv
+		// Every per-file heartbeat ALSO renews the runtime_kv
 		// tick-mutex lease. Without this the lease drifts past `expires_at`
 		// during a long verdict_queue->process() pass and a concurrent
 		// life_support_system call self-heals a still-live mutex, putting
@@ -880,7 +880,7 @@ class Segurium_Verdict_Queue {
 		foreach ( $files as $f ) {
 			if ( $track_heartbeat && class_exists( 'Segurium_Scan_Runner' )
 				&& ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
-				// SEGURIUM-870: another driver owns the scan now; abandon the
+				// Another driver owns the scan now; abandon the
 				// rest of this chunk so the cursor is not advanced twice.
 				throw new RuntimeException( 'scan tick lost its lease mid-chunk; another worker took the scan over' );
 			}
@@ -898,7 +898,7 @@ class Segurium_Verdict_Queue {
 			}
 
 			if ( self::VERDICT_UNKNOWN === $verdict ) {
-				// SEGURIUM-262: cancellation skips the slow per-file
+				// Cancellation skips the slow per-file
 				// `/v1/neo-ray` escalation. Earlier this break sat at the
 				// top of the loop, which silently dropped every remaining
 				// file in the chunk — the chunk had already been deleted
@@ -913,7 +913,7 @@ class Segurium_Verdict_Queue {
 					++$stats['neoray_skipped'];
 					continue;
 				}
-				// SEGURIUM-448: malware scans dispatch Unknown files in
+				// Malware scans dispatch Unknown files in
 				// batches via the async submitter — one `/v1/scan/submit`
 				// POST per ~100 files, verdicts collected later by the
 				// async poller. Realtime / upload scans stay on the sync
@@ -940,7 +940,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-456: apply one async-pipeline verdict to local state.
+	 * Apply one async-pipeline verdict to local state.
 	 *
 	 * Hooked into by {@see Segurium_Async_Scan_Results_Loop::apply_row()}. The
 	 * verdict string follows the `/v1/scan/results` contract
@@ -1063,10 +1063,10 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-936: persist a vulnerable observation without surfacing it.
+	 * Persist a vulnerable observation without surfacing it.
 	 *
 	 * `scan_findings` is an append-only event log; `file_state` is the only
-	 * source the UI reads for current status per file (SEGURIUM-135). A row
+	 * source the UI reads for current status per file. A row
 	 * here with a status outside the read vocabulary is therefore invisible
 	 * to every list, counter and tab, while still recording which file on
 	 * which scan CTI reported as belonging to a vulnerable component.
@@ -1137,7 +1137,7 @@ class Segurium_Verdict_Queue {
 	private static function apply_verdict( $scan_id, $detector, $sha256, $path, $verdict, array &$stats, $now ) {
 		++$stats['verdicted'];
 
-		// SEGURIUM-936: a vulnerable file is a CLEAN file that happens to
+		// A vulnerable file is a CLEAN file that happens to
 		// belong to an outdated component. It takes the clean path below —
 		// same reconciliation, no threat counter, no file_state row — and
 		// only leaves an append-only trace in scan_findings.
@@ -1147,7 +1147,7 @@ class Segurium_Verdict_Queue {
 		}
 
 		if ( $is_vulnerable || $verdict <= 0 ) {
-			// SEGURIUM-427: when CTI flips a previously-detected file to
+			// When CTI flips a previously-detected file to
 			// Safe (scanner fix, false-positive correction, etc.),
 			// reconcile the projection here so the row disappears from
 			// the "still detected" UI without waiting for
@@ -1222,7 +1222,7 @@ class Segurium_Verdict_Queue {
 	 * @return string|null Body to escalate, or null when handled.
 	 */
 	private static function load_unknown_body( $scan_id, $detector, $sha256, $path, $base_path, array &$stats, $now ) {
-		// SEGURIUM-689: on-premise means an Unknown hash stays unresolved.
+		// On-premise means an Unknown hash stays unresolved.
 		// Counted as `neoray_skipped` — the same bucket an oversize file
 		// lands in — so `verdicted + failed + neoray_skipped == submitted`
 		// holds and the scan settles instead of stalling on a verdict that
@@ -1289,7 +1289,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-448: hand an Unknown-verdict file to the batched async
+	 * Hand an Unknown-verdict file to the batched async
 	 * submitter instead of doing an inline-poll escalation. Counters
 	 * keep their pre-async semantics for files that never reach the
 	 * wire — see {@see load_unknown_body()}.
@@ -1311,7 +1311,7 @@ class Segurium_Verdict_Queue {
 		$added                    = $submitter->add( $sha256, $path, $body );
 		$stats['neoray_skipped'] += $submitter->take_skipped();
 		if ( is_wp_error( $added ) ) {
-			// SEGURIUM-917: a file the learned ceiling cannot carry, or one
+			// A file the learned ceiling cannot carry, or one
 			// arriving after the ceiling hit its floor, is a skip: the link
 			// refused it, CTI never saw the content.
 			if ( in_array( $added->get_error_code(), Segurium_Async_Scan_Submitter::CEILING_SKIP_ERROR_CODES, true ) ) {
@@ -1332,7 +1332,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-448: end-of-chunk flush. Drains whatever the submitter
+	 * End-of-chunk flush. Drains whatever the submitter
 	 * still has buffered and folds wire-level failures into the chunk's
 	 * stat block. Files accepted by the server land in the per-scan
 	 * pending-paths row — the async poller picks them up later.
@@ -1346,7 +1346,7 @@ class Segurium_Verdict_Queue {
 			return;
 		}
 		$result = $submitter->flush();
-		// SEGURIUM-917: the submitter drops a batch the link refused and
+		// The submitter drops a batch the link refused and
 		// halves its ceiling; the dropped files come back through the
 		// tally, never through the buffer.
 		$stats['neoray_skipped'] += $submitter->take_skipped();
@@ -1356,8 +1356,8 @@ class Segurium_Verdict_Queue {
 			// submitter is call-local so that buffer dies with it; the files
 			// were already shifted off `unknown_queue`. Count them so the
 			// chunk's completion accounting stays whole. Link failures never
-			// reach this branch: the submitter drops those batches itself
-			// (SEGURIUM-745 / SEGURIUM-917). Sub-batches that shipped before
+			// reach this branch: the submitter drops those batches itself.
+			// Sub-batches that shipped before
 			// the rejection report their own rejected files in the error
 			// data.
 			$leftover                = $submitter->buffer_count();
@@ -1394,7 +1394,7 @@ class Segurium_Verdict_Queue {
 	/**
 	 * Escalate an Unknown-verdict file to `/v1/neo-ray` and apply the
 	 * returned verdict. Terminal for this file in the current scan — no
-	 * retries (per SEGURIUM-122).
+	 * retries.
 	 *
 	 * @param string                   $scan_id   Scan UUID.
 	 * @param string                   $detector  Detector label.
@@ -1423,7 +1423,7 @@ class Segurium_Verdict_Queue {
 					$result->get_error_message()
 				)
 			);
-			// SEGURIUM-256: when CTI says the body's SHA didn't match the
+			// When CTI says the body's SHA didn't match the
 			// header we declared, re-hash the body we just sent. If the
 			// recomputed hash differs from the queue-recorded one, the file
 			// changed on disk between the scanner pass that hashed it and
@@ -1529,7 +1529,7 @@ class Segurium_Verdict_Queue {
 	private function process_pending() {
 		$drain_partial = $this->should_drain_partial();
 		while ( $this->state['chunk_out'] < $this->state['chunk_in'] && ! $this->is_time_up() ) {
-			// SEGURIUM-262: stop pulling new chunks once the runner lock
+			// Stop pulling new chunks once the runner lock
 			// no longer holds this scan id (e.g. user clicked Stop or the
 			// watchdog reclaimed a stale lock). The currently-running
 			// resolve_and_record will also bail at the next file
@@ -1540,7 +1540,7 @@ class Segurium_Verdict_Queue {
 			$chunk_idx = (int) $this->state['chunk_out'];
 			$chunk     = $this->load_chunk( $chunk_idx );
 			if ( empty( $chunk ) ) {
-				// SEGURIUM-433: an empty/sealed slot — sweep any leftover
+				// An empty/sealed slot — sweep any leftover
 				// cursor row (defensive; cursor only exists when chunk
 				// content does) and advance past it.
 				$this->delete_chunk_cursor( $chunk_idx );
@@ -1550,7 +1550,7 @@ class Segurium_Verdict_Queue {
 				continue;
 			}
 
-			// SEGURIUM-433: chunk + sibling cursor lifecycle. The chunk row
+			// Chunk + sibling cursor lifecycle. The chunk row
 			// stays put across cursor saves so a mid-batch crash leaves the
 			// next process() with enough state to resume without re-running
 			// /v1/inspect or double-counting any verdict.
@@ -1585,7 +1585,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: drive one stored chunk through the inspect → classified
+	 * Drive one stored chunk through the inspect → classified
 	 * apply → per-file Neo-Ray escalation pipeline, persisting a sibling
 	 * cursor row after every file so a mid-loop kill never drops work.
 	 *
@@ -1617,7 +1617,7 @@ class Segurium_Verdict_Queue {
 			$cursor = self::new_chunk_cursor();
 		}
 
-		// SEGURIUM-578: run (or retry) the one-shot /v1/inspect step while it
+		// Run (or retry) the one-shot /v1/inspect step while it
 		// has not completed. On a transient transport/5xx failure this defers
 		// the chunk to a later tick instead of permanently failing its files;
 		// `false` is a cooperative exit (cursor saved, chunk row kept,
@@ -1646,7 +1646,7 @@ class Segurium_Verdict_Queue {
 				$this->flush_chunk_submitter( $submitter, $chunk_idx, $cursor );
 				return false;
 			}
-			// SEGURIUM-479: honour the IID-scoped submit pause at the
+			// Honour the IID-scoped submit pause at the
 			// loop level. CTI already asked us to back off — continuing
 			// to walk files would only swell the in-memory buffer and
 			// waste disk IO on files we cannot ship this tick. Flush
@@ -1658,13 +1658,13 @@ class Segurium_Verdict_Queue {
 				return false;
 			}
 
-			// SEGURIUM-430: per-file heartbeat + tick-mutex renewal. Even
+			// Per-file heartbeat + tick-mutex renewal. Even
 			// under the batched submitter path the loop still walks the
 			// unknown_queue one file at a time (file IO + sha re-check
 			// plus the occasional auto-flush HTTP POST), so stamping the
 			// heartbeat per iteration keeps the watchdog accurate.
 			if ( class_exists( 'Segurium_Scan_Runner' ) && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
-				// SEGURIUM-870: lease gone — yield without flushing; the new
+				// Lease gone — yield without flushing; the new
 				// owner resumes from the last persisted cursor.
 				return false;
 			}
@@ -1678,7 +1678,7 @@ class Segurium_Verdict_Queue {
 				$submitter = new Segurium_Async_Scan_Submitter( $scan_id, $detector, $this->cti_client );
 			}
 
-			// SEGURIUM-448: queue the unknown for the next batched
+			// Queue the unknown for the next batched
 			// `/v1/scan/submit`. The submitter auto-flushes when its
 			// buffer crosses 100 files / 10 MiB; otherwise the tail
 			// flush at end of chunk (or at cooperative exit) ships it.
@@ -1715,7 +1715,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-448: flush the chunk-local async submitter on cooperative
+	 * Flush the chunk-local async submitter on cooperative
 	 * exit (cancel / time-budget yield) and persist the cursor so the
 	 * partial-stat counters bumped by the flush survive the yield.
 	 *
@@ -1734,7 +1734,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433 / SEGURIUM-578: the zeroed cursor struct for a fresh
+	 * The zeroed cursor struct for a fresh
 	 * chunk. The /v1/inspect call no longer happens here — it runs (and, on
 	 * a transient failure, retries) in {@see run_inspect_step()} so the
 	 * chunk can be deferred across ticks without losing this state.
@@ -1757,12 +1757,12 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433 / SEGURIUM-578: run the chunk's one-shot /v1/inspect step.
+	 * Run the chunk's one-shot /v1/inspect step.
 	 * Calls inspect once, applies every non-Unknown verdict (idempotent DB
 	 * upsert), and stages the Unknowns into `unknown_queue` for the per-file
 	 * Neo-Ray loop.
 	 *
-	 * Retry model (SEGURIUM-578): a transient transport error / timeout / 5xx
+	 * Retry model: a transient transport error / timeout / 5xx
 	 * no longer fails the whole batch. Instead the chunk is DEFERRED — the
 	 * cursor records `inspect_retries` + `inspect_next_retry_at` and the
 	 * method returns false so the caller yields the tick (chunk row kept,
@@ -1808,7 +1808,7 @@ class Segurium_Verdict_Queue {
 		$result   = self::dispatch_inspect_static( $this->cti_client, $payload, (string) $scan_id );
 
 		if ( is_wp_error( $result ) || ! is_array( $result ) ) {
-			// SEGURIUM-578: do NOT feed a failed/timed-out inspect into the
+			// Do NOT feed a failed/timed-out inspect into the
 			// rolling wall-time window. An 8s timeout (or a string of them
 			// during a backoff round) would inflate the next-batch cost
 			// projection in {@see tick_will_exhaust_before_next_batch()} and
@@ -1820,7 +1820,7 @@ class Segurium_Verdict_Queue {
 
 		// Index inspect response by sha256 so each submitted file
 		// contributes exactly one increment — duplicates / extras
-		// from CTI are ignored (SEGURIUM-261).
+		// from CTI are ignored.
 		$verdict_by_sha = array();
 		foreach ( $result as $item ) {
 			$sha = isset( $item['sha256'] ) ? (string) $item['sha256'] : '';
@@ -1871,7 +1871,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-578: react to a failed /v1/inspect call. A transient error
+	 * React to a failed /v1/inspect call. A transient error
 	 * (transport/timeout/5xx) schedules a bounded cross-tick retry and
 	 * returns false (defer); a permanent error, or an exhausted retry
 	 * schedule, counts every file `failed` and returns true (drain).
@@ -1943,7 +1943,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-578: whether a failed inspect result is worth a bounded retry.
+	 * Whether a failed inspect result is worth a bounded retry.
 	 * Transient = a transport-layer failure (timeout, reset, DNS) or a 5xx
 	 * (gateway/server). A 4xx is a permanent client error and a malformed
 	 * (non-array) or `cti_invalid_response` shape is a CTI-side data fault —
@@ -1969,7 +1969,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-448: hard tick-budget floor for the batched-submit
+	 * Hard tick-budget floor for the batched-submit
 	 * variant of the chunk loop. Under the legacy sync-neoray path
 	 * each iteration could spend tens of seconds in a single HTTP RTT,
 	 * so the predictor projected per-file cost from a (size_b, wall_ms)
@@ -2009,7 +2009,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: fold a chunk's `partial_stats` into the persistent per-
+	 * Fold a chunk's `partial_stats` into the persistent per-
 	 * scan accounting. Called once per chunk, on full drain.
 	 *
 	 * @param string $scan_id Scan UUID.
@@ -2024,7 +2024,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: load the sibling cursor row for a chunk index. Returns
+	 * Load the sibling cursor row for a chunk index. Returns
 	 * null when no cursor is persisted yet.
 	 *
 	 * @param int $chunk_idx Chunk index.
@@ -2044,7 +2044,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: persist the sibling cursor row. Tiny JSON, well under
+	 * Persist the sibling cursor row. Tiny JSON, well under
 	 * 1 ms — dwarfed by the Neo-Ray RTT it follows on every iteration.
 	 *
 	 * @param int   $chunk_idx Chunk index.
@@ -2066,7 +2066,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: delete the sibling cursor row. Called on chunk drain
+	 * Delete the sibling cursor row. Called on chunk drain
 	 * and when sweeping past empty/sealed slots.
 	 *
 	 * @param int $chunk_idx Chunk index.
@@ -2079,7 +2079,7 @@ class Segurium_Verdict_Queue {
 	/**
 	 * Whether the runner lock no longer holds this queue's scan id.
 	 *
-	 * SEGURIUM-262: in unit tests and other no-runner contexts the static
+	 * In unit tests and other no-runner contexts the static
 	 * call resolves to "no lock", which would falsely look cancelled — so
 	 * only treat it as cancelled when the lock actually exists and points
 	 * at a different scan id (or is absent after having been held). The
@@ -2127,10 +2127,10 @@ class Segurium_Verdict_Queue {
 
 	/**
 	 * Whether the runner's remaining tick budget is shorter than the projected
-	 * cost of one more inspect batch. SEGURIUM-259: when called outside a
+	 * cost of one more inspect batch. When called outside a
 	 * runner tick (`time_left_in_tick()` returns 0.0), this is a no-op so the
 	 * realtime / upload / test paths keep their previous behaviour and only
-	 * the queue's internal `time_limit` gates the loop. SEGURIUM-260: also a
+	 * the queue's internal `time_limit` gates the loop. Also a
 	 * no-op when no batch has been processed yet in the current chunk — the
 	 * runner is the source of truth for whether to enter, so the first batch
 	 * always runs and the projected-cost guard only governs subsequent ones.
@@ -2193,7 +2193,7 @@ class Segurium_Verdict_Queue {
 		$scan_id = isset( $files[0]['scan_id'] ) ? (string) $files[0]['scan_id'] : $this->scan_id;
 		$this->ensure_scan_stats( $scan_id );
 
-		// SEGURIUM-262: hand the cancellation signal down to
+		// Hand the cancellation signal down to
 		// resolve_and_record so a `Stop scan` click can short-circuit the
 		// rest of this batch's neoray escalations. Only attach the check
 		// when the runner lock was already holding this scan when
@@ -2222,7 +2222,7 @@ class Segurium_Verdict_Queue {
 
 	/**
 	 * Default stat block. Kept here so {@see get_scan_stats} returns the
-	 * same shape callers used before SEGURIUM-137.
+	 * same shape callers used before.
 	 *
 	 * @return array
 	 */
@@ -2362,7 +2362,7 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * SEGURIUM-433: compose the runtime_kv key for a chunk's sibling cursor
+	 * Compose the runtime_kv key for a chunk's sibling cursor
 	 * row. Lives next to the chunk row keyed by `kv_chunk_key` so `purge()`
 	 * sweeps both via its single `LIKE 'scan:<id>:%'` delete.
 	 *

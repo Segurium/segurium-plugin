@@ -51,7 +51,7 @@ class Segurium_Integrity_Server_State {
 	 *
 	 * Used to set `integrity_issues.is_malicious` so the integrity-fix AJAX
 	 * handler knows whether the action consumes the shared cleanup quota
-	 * (SEGURIUM-204 corrected axis: infected vs clean, not modified vs new).
+	 * (corrected axis: infected vs clean, not modified vs new).
 	 *
 	 * Empty / unresolved hash → 0 (treat as clean for quota; missing files
 	 * have no body to scan and are always free).
@@ -407,7 +407,7 @@ class Segurium_Integrity_Server_State {
 	 * Aggregates in SQL: a core-compromised site can carry thousands of open
 	 * rows, and the count only needs one row per component.
 	 *
-	 * SEGURIUM-877: shared with the MainWP bridge so a fleet dashboard and
+	 * Shared with the MainWP bridge so a fleet dashboard and
 	 * the site's own posture score never disagree about the same number.
 	 *
 	 * @param int        $scan_ts  Timestamp of the most recent integrity scan.
@@ -745,7 +745,7 @@ class Segurium_Integrity_Server_State {
 		foreach ( $rows as $row ) {
 			$sha         = (string) $row['sha256'];
 			$has_malware = ( '' !== $sha ) && isset( $malicious_set[ $sha ] );
-			// SEGURIUM-278: a backup_id whose envelope is no longer on disk
+			// A backup_id whose envelope is no longer on disk
 			// must not be advertised as restorable to the UI — older sites
 			// can carry rows pinned to backups that were rotated out before
 			// the pinning guard landed. Drop it so the JS never offers

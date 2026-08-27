@@ -6,7 +6,6 @@
  * web-request-time logic.
  *
  * @package Segurium
- * @since SEGURIUM-203
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

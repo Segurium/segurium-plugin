@@ -143,7 +143,7 @@ class Segurium_Brute_Force {
 	 * for snapshotting the already-unslashed request payload in a context
 	 * that has been gated upstream (here: the WP `authenticate` filter,
 	 * which only runs from wp-login.php / XML-RPC after WP's own request
-	 * routing). Refactored under SEGURIUM-526.
+	 * routing).
 	 *
 	 * @param array  $source Caller-owned, already-unslashed input array.
 	 * @param string $key    Key to read.
@@ -464,7 +464,7 @@ class Segurium_Brute_Force {
 	 * @return null|WP_User|WP_Error
 	 */
 	public function authenticate_check( $user, $username, $password ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		// SEGURIUM-526: this is the WP `authenticate` filter callback.
+		// This is the WP `authenticate` filter callback.
 		// It runs from wp-login.php after WP has accepted the form post.
 		// There is no nonce on the WP login form to verify here and no
 		// user is yet authenticated (that is the whole point of this
@@ -537,7 +537,7 @@ class Segurium_Brute_Force {
 	/**
 	 * Hook: authenticate filter (priority AUTH_ENFORCE_PRIORITY).
 	 *
-	 * SEGURIUM-636: returning a WP_Error from priority 1 is not enforcement.
+	 * Returning a WP_Error from priority 1 is not enforcement.
 	 * Core's wp_authenticate_username_password() runs at 20 and only honours an
 	 * incoming error when a credential is empty — with both fields filled it
 	 * authenticates anyway and replaces our verdict with a WP_User. On
@@ -588,7 +588,7 @@ class Segurium_Brute_Force {
 	 * the threshold.
 	 *
 	 * Public because authentication surfaces the `authenticate` filter does
-	 * not cover must call it directly (SEGURIUM-635). `on_login_failed()` is
+	 * not cover must call it directly. `on_login_failed()` is
 	 * the hook-driven entry point for wp-login.php and XML-RPC; the pre-login
 	 * 2FA AJAX endpoint calls this method itself, since `wp_login_failed`
 	 * fires on that request but `is_login_surface()` rejects admin-ajax.php.
@@ -628,7 +628,7 @@ class Segurium_Brute_Force {
 
 	/**
 	 * Lockout verdict for the current request, for callers that authenticate
-	 * outside the `authenticate` filter (SEGURIUM-635).
+	 * outside the `authenticate` filter.
 	 *
 	 * Callers must deny the request before reaching `wp_authenticate()`. The
 	 * `authenticate` filter cannot cover them: `authenticate_check` bails on

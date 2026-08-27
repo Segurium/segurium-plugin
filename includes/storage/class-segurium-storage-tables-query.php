@@ -10,8 +10,6 @@
  * a `$wpdb->prepare(...)` expression, so the in-house wporg classifier
  * recognises it as `prepare` and plugin-check passes.
  *
- * See SEGURIUM-531.
- *
  * @package Segurium
  */
 

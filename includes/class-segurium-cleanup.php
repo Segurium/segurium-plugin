@@ -3,7 +3,7 @@
  * Shared malware cleanup primitive.
  *
  * Both the AJAX manual-cleanup handler (Segurium::ajax_cleanup_file) and the
- * unattended auto-fix path (Segurium_Auto_Fix, SEGURIUM-64) funnel through
+ * unattended auto-fix path (Segurium_Auto_Fix) funnel through
  * this class so that backup, TOCTOU re-verification, activity-log entries
  * and the CTI `file_cleaned` notification are byte-identical regardless of
  * actor.
@@ -14,7 +14,6 @@
  * up-stream keeps this primitive a thin "do the cleanup" function.
  *
  * @package Segurium
- * @since   SEGURIUM-64
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +34,7 @@ final class Segurium_Cleanup {
 	/**
 	 * Verdict codes the plugin will hand to {@see cleanup_file()}.
 	 *
-	 * SEGURIUM-353: the malicious-vs-injection split no longer drives
+	 * The malicious-vs-injection split no longer drives
 	 * the *behaviour* (CTI's verdict cache decides server-side whether
 	 * to serve cured bytes or an empty body), but the constants stay
 	 * because callers still pass them to record what was scanned and
@@ -50,7 +49,7 @@ final class Segurium_Cleanup {
 	/**
 	 * Run the cleanup pipeline against an already-validated finding.
 	 *
-	 * SEGURIUM-353: every cleanup goes through `/v1/cleanup` on CTI,
+	 * Every cleanup goes through `/v1/cleanup` on CTI,
 	 * regardless of local verdict. CTI consults its verdict cache and
 	 * returns either:
 	 *
@@ -122,19 +121,19 @@ final class Segurium_Cleanup {
 			return self::fail( 'backup_store_failed', __( 'Failed to create backup.', 'segurium' ), $e );
 		}
 
-		// SEGURIUM-353: ask CTI for the cleaned body. Paywall + other
+		// Ask CTI for the cleaned body. Paywall + other
 		// CTI errors propagate up — we never silently truncate when
 		// CTI refused or failed. Empty bytes (Malware verdict) are a
 		// *successful* return: CTI confirmed nothing is salvageable
 		// and charged the slot.
-		// SEGURIUM-356: `/v1/cleanup` requires `filename` + `ctime` in
+		// `/v1/cleanup` requires `filename` + `ctime` in
 		// the JSON body for the per-attempt ClickHouse telemetry row;
 		// `filectime` mirrors the field name on the wire and is the
 		// closest POSIX analogue to file creation time on Linux.
 		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		$ft      = @filectime( $abs_path );
 		$ctime   = (int) ( false === $ft ? 0 : $ft );
-		$fetched = Segurium_Storage::cti_fetch_cleanup_file( $sha256, (string) $path, $ctime );
+		$fetched = Segurium_Storage::cti_fetch_cleanup_file( $sha256, (string) $path, $ctime, $original_content );
 		if ( is_wp_error( $fetched ) ) {
 			$code    = (string) $fetched->get_error_code();
 			$data    = $fetched->get_error_data();
@@ -142,7 +141,7 @@ final class Segurium_Cleanup {
 
 			if ( 'paywall_quota_exceeded' === $code ) {
 				/**
-				 * SEGURIUM-914: fires once per cleanup the cloud refused
+				 * Fires once per cleanup the cloud refused
 				 * for quota, whatever the actor. Emitted here rather than
 				 * in the AJAX handlers so manual, fix-all, integrity-fix
 				 * and auto-fix denials all reach listeners identically.
@@ -162,7 +161,7 @@ final class Segurium_Cleanup {
 			);
 		}
 
-		// SEGURIUM-549: the fetch returns the cleaned bytes plus the
+		// The fetch returns the cleaned bytes plus the
 		// post-charge quota envelope CTI echoes in its 200 body. The
 		// envelope lets the caller refresh the readout authoritatively
 		// (`null` when an older CTI build omits it).
@@ -232,7 +231,7 @@ final class Segurium_Cleanup {
 		);
 
 		/**
-		 * SEGURIUM-709: fires once per successful cleanup, whatever the
+		 * Fires once per successful cleanup, whatever the
 		 * actor. Emitted here so manual, fix-all and auto-fix paths all
 		 * reach listeners identically.
 		 *
@@ -248,7 +247,7 @@ final class Segurium_Cleanup {
 			'error'      => null,
 			'error_code' => null,
 			'paywall'    => null,
-			// SEGURIUM-549: post-charge quota envelope echoed by CTI
+			// Post-charge quota envelope echoed by CTI
 			// (null on older builds — caller falls back to a local bump).
 			'quota'      => $quota_echo,
 		);

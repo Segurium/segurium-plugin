@@ -1,11 +1,11 @@
 <?php
 /**
- * Persisted settings + CTI sync for the auto-fix feature (SEGURIUM-64).
+ * Persisted settings + CTI sync for the auto-fix feature.
  *
  * Single boolean option:
  *   - segurium_auto_fix_enabled (bool, default false)
  *
- * Auto-fix runs on every install (SEGURIUM-341). Plan-tier rate limits
+ * Auto-fix runs on every install. Plan-tier rate limits
  * are enforced per-cleanup by CTI's quota service: Free sites get the
  * first N findings cleaned in a 30-day window and quota_exceeded for
  * the rest, Pro sites are effectively unbounded.
@@ -14,7 +14,6 @@
  * so the server has the latest user preference for diagnostics / support.
  *
  * @package Segurium
- * @since   SEGURIUM-64
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -115,7 +114,7 @@ final class Segurium_Auto_Fix_Settings {
 	 * @return string
 	 */
 	private static function current_tier() {
-		// SEGURIUM-343: tier is owned by CTI's quota envelope.
+		// Tier is owned by CTI's quota envelope.
 		if ( ! class_exists( 'Segurium_Quota' ) ) {
 			return 'free';
 		}

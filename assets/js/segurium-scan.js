@@ -5,7 +5,7 @@
         return document.getElementById(id);
     }
 
-    // SEGURIUM-270: Page Visibility helpers — pause periodic polling while
+    // Page Visibility helpers — pause periodic polling while
     // the tab is backgrounded so a parked admin tab does not generate
     // ~9k admin-ajax round-trips/day.
     //
@@ -163,7 +163,7 @@
     }
 
     function escAttr(str) {
-        // SEGURIUM-409: callers may pass JSON-numeric values (e.g. backup_id from /v1/cleanup) — coerce so .replace doesn't TypeError into a swallowed catch.
+        // Callers may pass JSON-numeric values (e.g. backup_id from /v1/cleanup) — coerce so .replace doesn't TypeError into a swallowed catch.
         return String(str == null ? '' : str)
             .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -193,7 +193,7 @@
         return (m > 0 ? m + 'm ' : '') + s + 's';
     }
 
-    // SEGURIUM-399: surface a "no progress" hint while data.running is
+    // Surface a "no progress" hint while data.running is
     // still true but the server-side heartbeat is older than the soft
     // threshold. Threshold matches HEARTBEAT_MAX_AGE (60 s) so the hint
     // stays silent during legitimate per-file work — a single
@@ -205,14 +205,14 @@
     // skew between browser and server can produce small negative ages;
     // clamp at zero and require >= threshold.
     //
-    // SEGURIUM-764: lives at module scope because both the malware and
+    // Lives at module scope because both the malware and
     // the integrity poller call it from their own IIFEs.
     function appendStalledHint(parts, data) {
         var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
         if (!data || data.running !== true) return;
         var hb = data.heartbeat || 0;
         if (hb <= 0) return;
-        // SEGURIUM-870: the server now ships heartbeat_age (its own clock);
+        // The server now ships heartbeat_age (its own clock);
         // prefer it so browser/server clock skew cannot hide or fake the
         // hint. Older servers omit it — fall back to the local estimate.
         var ageS = (typeof data.heartbeat_age === 'number')
@@ -224,7 +224,7 @@
         parts.push(msg);
     }
 
-    // SEGURIUM-764: post() resolves for every transport outcome — a failed
+    // post() resolves for every transport outcome — a failed
     // request comes back as a success:false envelope with code
     // network_error. An exception that reaches a .catch() on a post() chain
     // is therefore a bug in the handler, never a lost connection. Log it
@@ -418,7 +418,7 @@
         });
     })();
 
-    // SEGURIUM-248: generic close behaviour for `.segurium-modal` shells
+    // Generic close behaviour for `.segurium-modal` shells
     // (currently the "Show malware" textarea modal and the false-positive
     // form). The original implementation only had a close button on the
     // malware modal but no handler bound to it — the X did nothing and the
@@ -449,7 +449,7 @@
 
     var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
 
-    // SEGURIUM-301: batched first-paint read. Collapses the three init
+    // Batched first-paint read. Collapses the three init
     // round-trips (server_state + quota + cti_health) into a single
     // admin-ajax POST so first paint pays one WP bootstrap tax instead
     // of three. Each section consumes its slice exactly once via
@@ -509,10 +509,10 @@
     // current implementation, not the empty stub captured above.
     window.seguriumAdmin.refreshServerState  = function () { refreshServerState(); };
 
-    // ── Paywall modal (SEGURIUM-207) ──
+    // ── Paywall modal ──
     //
     // Driven exclusively by `paywall_quota_exceeded`, the only paywall
-    // signal CTI emits post-SEGURIUM-341 (Serviceware refactor). The
+    // signal CTI emits after the Serviceware refactor. The
     // legacy `paywall_feature_pro_only` code is no longer produced —
     // every feature runs on every install and the cap is enforced by
     // the cloud quota ledger.
@@ -530,6 +530,55 @@
         }
     }
 
+    // Quota-wall CTA telemetry. The click branch navigates away
+    // immediately, so delivery goes through sendBeacon when the browser
+    // has it and a keepalive fetch otherwise. Either way the report is
+    // fire-and-forget: nothing here may delay or cancel the navigation,
+    // and a failed report is invisible to the user.
+    function reportPaywallCta(event, surface, actionType) {
+        var nonce = seguriumScan && seguriumScan.paywallNonce;
+        if (!nonce) return;
+
+        var params = {
+            action: 'segurium_paywall_cta',
+            nonce: nonce,
+            cta_event: event,
+            cta_surface: surface,
+            cta_action_type: actionType || ''
+        };
+
+        try {
+            var body = new URLSearchParams(params);
+            // sendBeacon returns false rather than throwing when the UA
+            // refuses to queue (a long-lived admin tab can exhaust the
+            // per-page beacon budget), so fall through to fetch on false.
+            if (navigator.sendBeacon && navigator.sendBeacon(seguriumScan.ajaxUrl, body)) {
+                return;
+            }
+            fetch(seguriumScan.ajaxUrl, {
+                method: 'POST',
+                credentials: 'same-origin',
+                keepalive: true,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body
+            }).catch(function () {});
+        } catch (err) {
+            // Telemetry is never load-bearing.
+        }
+    }
+
+    // Delegated so it covers the readout the server rendered on page load
+    // and the one renderQuotaReadout() rebuilds on tab activation. Only
+    // clicks are reported here: the readout repaints on every dashboard
+    // view, so an impression event would drown the modal's in noise.
+    document.addEventListener('click', function (e) {
+        var node = e.target;
+        if (!node || typeof node.closest !== 'function') return;
+        if (node.closest('.segurium-quota-readout-cta')) {
+            reportPaywallCta('clicked', 'readout', '');
+        }
+    }, true);
+
     function showPaywallModal(payload) {
         if (!payload || typeof payload !== 'object') return;
         var modal   = el('segurium-confirm-modal');
@@ -539,6 +588,10 @@
         var cancel  = el('segurium-confirm-cancel');
         var close   = el('segurium-confirm-close');
         if (!modal || !okBtn) return;
+
+        var ctaAction = (payload.action_type && typeof payload.action_type === 'string')
+            ? payload.action_type
+            : '';
 
         var titleText = i18n.paywallProTitle || 'Upgrade to Pro';
         var bodyHtml  = '';
@@ -577,14 +630,38 @@
         cancel.style.display = hasUrl ? '' : 'none';
 
         modal.style.display = '';
+        reportPaywallCta('shown', 'modal', ctaAction);
+
+        // One terminal report per impression. Escape is handled by the
+        // shared shell's own keydown listener, which hides the modal
+        // without going through any of our handlers, so it is caught in
+        // the capture phase — before that listener hides it.
+        var reported = false;
+        function reportOutcome(event) {
+            if (reported) return;
+            reported = true;
+            document.removeEventListener('keydown', onEscape, true);
+            reportPaywallCta(event, 'modal', ctaAction);
+        }
+        function onEscape(e) {
+            if (e.key === 'Escape' && modal.style.display !== 'none') {
+                reportOutcome('dismissed');
+            }
+        }
+        document.addEventListener('keydown', onEscape, true);
 
         function closeModal() { modal.style.display = 'none'; }
-        cancel.onclick = closeModal;
-        close.onclick  = closeModal;
+        function dismiss() {
+            reportOutcome('dismissed');
+            closeModal();
+        }
+        cancel.onclick = dismiss;
+        close.onclick  = dismiss;
         var overlay = modal.querySelector('.segurium-diff-overlay');
-        if (overlay) overlay.onclick = closeModal;
+        if (overlay) overlay.onclick = dismiss;
 
         okBtn.onclick = function () {
+            reportOutcome(hasUrl ? 'clicked' : 'dismissed');
             closeModal();
             if (hasUrl) {
                 window.location.href = seguriumScan.upgradeUrl;
@@ -670,18 +747,18 @@
 
     // True when the server response carries a paywall envelope. Single check
     // point so cleanup + integrity-fix call sites stay symmetric. Only
-    // `paywall_quota_exceeded` is emitted post-SEGURIUM-341.
+    // `paywall_quota_exceeded` is the only code the current server emits.
     function isPaywallResponse(resp) {
         if (!resp || resp.success || !resp.data || !resp.data.code) return false;
         return resp.data.code === 'paywall_quota_exceeded';
     }
 
-    // SEGURIUM-207: Free-tier cleanup quota readout, surfaced on every
+    // Free-tier cleanup quota readout, surfaced on every
     // cleanup-bearing panel (malware scanner + integrity scanner). Pro skips
     // entirely. `fail_open=true` (CTI down) ⇒ hide rather than render a stale
     // 0/3.
     //
-    // SEGURIUM-247: phrase the window as a sliding "last N days" — the quota
+    // Phrase the window as a sliding "last N days" — the quota
     // is rolling, not calendar-month — and only mention the reset date once
     // the user has actually exhausted the quota. Until then a reset date is
     // misleading: every consumed slot expires individually as it ages out.
@@ -702,7 +779,7 @@
         var used   = (typeof envelope.used === 'number') ? envelope.used : 0;
         var limit  = (typeof envelope.limit === 'number' && envelope.limit > 0) ? envelope.limit : 3;
         var window = (typeof envelope.window_days === 'number' && envelope.window_days > 0) ? envelope.window_days : 30;
-        // SEGURIUM-355: gate the Upgrade-to-Pro CTA on the at-limit branch.
+        // Gate the Upgrade-to-Pro CTA on the at-limit branch.
         // Rendering the upsell at 0/3 is constant promotion (WP.org
         // Guideline 11) — the user has not experienced the limit yet.
         // The counter itself still renders on every cleanup-bearing panel.
@@ -731,7 +808,7 @@
         nodes.forEach(function (n) { n.innerHTML = html; n.hidden = false; });
     }
 
-    // SEGURIUM-270: cache the quota envelope for the page lifetime. The
+    // Cache the quota envelope for the page lifetime. The
     // sidebar already renders an authoritative counter at page load (PHP),
     // and every cleanup response includes a fresh envelope that updates
     // the readout. The tab-switch refetch was purely defensive; with a
@@ -780,7 +857,7 @@
         });
     }
 
-    // SEGURIUM-379: re-fetch the quota envelope after every interesting
+    // Re-fetch the quota envelope after every interesting
     // action so the readout reflects the server-authoritative counters.
     // The cleanup-file and malicious-integrity-fix AJAX responses already
     // carry a fresh `quota` object that renderQuotaReadout consumes inline;
@@ -791,7 +868,7 @@
     document.addEventListener('segurium:scan-finished', function () {
         if (seguriumScan && seguriumScan.isPro) {
             // Pro tier shows nothing about quotas anywhere in the plugin
-            // UI (SEGURIUM-379 render rule). Hide whatever a stale render
+            // UI (render rule). Hide whatever a stale render
             // left in place rather than refetching.
             quotaReadoutNodes().forEach(function (n) { n.hidden = true; });
             return;
@@ -823,7 +900,7 @@
 
     // ── CTI health status ──
     //
-    // SEGURIUM-270: poll every 5 minutes (was 60s) and only while the
+    // Poll every 5 minutes (was 60s) and only while the
     // admin tab is foregrounded. The CTI status indicator is purely
     // informational and is also cached server-side for 5 minutes, so
     // tighter cadence buys nothing. On tab-resume we refresh once so the
@@ -970,12 +1047,12 @@
             var textarea = el('segurium_scan_exclude');
             var cloudDetection = el('segurium_cloud_detection');
             var wipeOnUninstall = el('segurium_uninstall_wipe_data');
-            // SEGURIUM-206: alerts opt-in.
+            // Alerts opt-in.
             var alertsEnabled = el('segurium_alerts_email_enabled');
             var alertsEmail = el('segurium_alerts_email_address');
-            // SEGURIUM-64: auto-fix opt-in.
+            // Auto-fix opt-in.
             var autoFixEnabled = el('segurium_auto_fix_enabled');
-            // SEGURIUM-918: cloud-requested component updates.
+            // Cloud-requested component updates.
             var remoteActions = el('segurium_remote_actions_enabled');
             post({
                 action: 'segurium_save_settings',
@@ -1296,7 +1373,7 @@
         }
 
         function loadServerState() {
-            // SEGURIUM-301: first call at default params demuxes the
+            // First call at default params demuxes the
             // server_state slice from the batched initial-state read.
             // Anything that drifts from the defaults (pagination, filter
             // change, recent_only toggle) skips the cache and fetches
@@ -1367,7 +1444,7 @@
                 return;
             }
             var n = (counts && typeof counts.malicious === 'number') ? counts.malicious : 0;
-            // SEGURIUM-248: distinguish "no scans yet" from "scan ran, 0
+            // Distinguish "no scans yet" from "scan ran, 0
             // threats". `lastScan` is null on a fresh install until the
             // first scan completes; ssShowResult() refreshes it after a
             // run so the empty-state banner switches over without a
@@ -1850,7 +1927,7 @@
         var ssScanning = false;
         var ssTotalStart = null;
 
-        // SEGURIUM-248: stop button affordances. Visibility is toggled
+        // Stop button affordances. Visibility is toggled
         // from ssBeginObserving / ssDone so the button only appears
         // while a scan is actually in flight.
         function ssShowStop(visible) {
@@ -1919,7 +1996,7 @@
                 duration: elapsed
             };
             renderLastScan(summary);
-            // SEGURIUM-248: keep the localized lastScan in sync so the
+            // Keep the localized lastScan in sync so the
             // empty-state banner switches from "no scans yet" to the
             // clean / threats-remaining variant without a reload.
             seguriumScan.lastScan = summary;
@@ -1934,7 +2011,7 @@
         // ── Scanner tab: polling + dispatch via Segurium_Scan_Runner ──
         //
         // The Scanner tab's button delegates to the server-side runner
-        // (SEGURIUM-250 life_support_system architecture). We kick off the
+        // (life_support_system architecture). We kick off the
         // scan and then poll the dedicated `segurium_scan_tick` endpoint
         // until completion. The endpoint returns status synchronously and
         // — via the runner's shared `shutdown` action — drives the chunk
@@ -1943,7 +2020,7 @@
         //
         // Adaptive cadence: 3s while heartbeat advances (smooth UI without
         // perceptible lag), 5s while heartbeat is stalled (avoid hammering
-        // hosts where the worker is genuinely waiting on I/O). SEGURIUM-271
+        // hosts where the worker is genuinely waiting on I/O).
         // raised the fast cadence from 1.5s — the runner pairs the change
         // with an observer-fresh fast-path on the cron / pageload entry
         // hooks, so the lower JS poll rate does NOT hand off scan work to
@@ -1953,7 +2030,7 @@
         var SS_POLL_SLOW_MS = 5000;
         var ssPollTimer = null;
         var ssLastHeartbeat = 0;
-        // SEGURIUM-270: while the tab is backgrounded the runner keeps
+        // While the tab is backgrounded the runner keeps
         // making progress via wp-cron / pageload fallback, so park the
         // observer until the user comes back instead of polling blind.
         var ssVisibilityGate = makeVisibilityGate(function () {
@@ -1990,7 +2067,7 @@
                     // the most recent terminal scan (completed | cancelled
                     // | aborted) so we can paint the final summary instead
                     // of freezing at the last observed progress.
-                    // SEGURIUM-413: prefer `last_terminal` (carries status)
+                    // Prefer `last_terminal` (carries status)
                     // and only fall back to legacy `last_completed` when
                     // the server is older.
                     var terminal = data.last_terminal || data.last_completed;
@@ -2018,7 +2095,7 @@
                     advanced ? SS_POLL_FAST_MS : SS_POLL_SLOW_MS
                 );
             }).catch(function (err) {
-                // SEGURIUM-764: same guard as the integrity poll. Without it a
+                // Same guard as the integrity poll. Without it a
                 // handler exception stops the loop with the Scan button stuck
                 // disabled and nothing in the console.
                 ssStatus.textContent = reportPollHandlerError('malware-poll', err);
@@ -2113,7 +2190,7 @@
             var skipped = scan.files_skipped || 0;
             var html;
             if (status === 'cancelled' || status === 'aborted') {
-                // SEGURIUM-413: don't pretend the run completed. Show what
+                // Don't pretend the run completed. Show what
                 // was actually scanned vs discovered before termination.
                 var tpl = (status === 'cancelled')
                     ? (i18n.scanStoppedSummary || 'Scan stopped — %1$d of %2$d files scanned.')
@@ -2126,7 +2203,7 @@
                 ssStatus.innerHTML = html;
                 return;
             }
-            // SEGURIUM-486: `files_found` from the snapshot is the count of
+            // `files_found` from the snapshot is the count of
             // files that were hashed and submitted; it does NOT include
             // filesystem-stage skips (excludes/unreadable/too-large/etc).
             // Use `verdicted + failed + skipped` as the leading "X files" so
@@ -2274,7 +2351,7 @@
                             ? (i18n.completedWithErrors || 'Completed with') + ' ' + errors.length + ' ' + (i18n.errors || 'errors')
                             : (i18n.scanComplete || 'Done.');
                     }
-                    // SEGURIUM-588: do NOT refetch server state here. Each
+                    // Do NOT refetch server state here. Each
                     // cleaned file was already mutated in place via
                     // applyRowMutation below, so the rows stay visible,
                     // greyed + sticky — identical to the single "Clean"
@@ -2322,7 +2399,7 @@
                         next(i + 1);
                         return;
                     }
-                    // SEGURIUM-588: reflect the cleaned file in the table the
+                    // Reflect the cleaned file in the table the
                     // same way the single "Clean" button does — grey + pin
                     // the row in place. If the file is not on the current
                     // page (pagination), there is no row to mutate, so just
@@ -2809,7 +2886,7 @@
             function teardown() {
                 if (showTimer) { clearTimeout(showTimer); showTimer = null; }
                 if (modalShown) progressModal.close();
-                // SEGURIUM-830: every exit (completion, paywall, abort)
+                // Every exit (completion, paywall, abort)
                 // surfaces the first refusal instead of dropping it.
                 if (firstError) {
                     seguriumNoticeFromError(firstError, i18n.intFixFailed || 'Fix failed');
@@ -2818,7 +2895,7 @@
             }
 
             function next(resp) {
-                // SEGURIUM-207: a paywall response from any item in the
+                // A paywall response from any item in the
                 // queue aborts the rest — once the user has hit the cap
                 // every subsequent integrity fix would 402 too. Surface
                 // the modal once and let the user upgrade.
@@ -2828,7 +2905,7 @@
                     loadIntegrityState();
                     return;
                 }
-                // SEGURIUM-830: keep the first refusal so it is not lost
+                // Keep the first refusal so it is not lost
                 // when the queue finishes (e.g. integrity_protected_file).
                 if (resp && !resp.success && !firstError) {
                     firstError = resp.data || {};
@@ -2947,7 +3024,7 @@
                         comp_type: d.type, comp_slug: d.slug, comp_version: d.version,
                         file_path: d.path, sha256: d.sha256, verdict: fixVerdict
                     }).then(function (r) {
-                        // SEGURIUM-207: per-file integrity-fix can hit the
+                        // Per-file integrity-fix can hit the
                         // shared 3/30d quota when verdict='new' (delete added
                         // file). Show the upsell instead of a generic alert.
                         if (isPaywallResponse(r)) {
@@ -3167,7 +3244,7 @@
         // ── Integrity scan status polling ──
         //
         // The runner drives integrity scan execution server-side (see
-        // Segurium_Scan_Runner — SEGURIUM-250 life_support_system). The
+        // Segurium_Scan_Runner — life_support_system). The
         // admin UI is a pure observer: it polls the segurium_integrity_status
         // endpoint (which keeps the chained malware → integrity logic) and
         // never advances chunks itself. The runner's shared `shutdown`
@@ -3181,7 +3258,7 @@
         var IS_POLL_SLOW_MS = 5000;
         var isPollTimer = null;
         var isLastHeartbeat = 0;
-        // SEGURIUM-270: pause observer while tab is hidden — runner
+        // Pause observer while tab is hidden — runner
         // continues server-side via wp-cron / pageload fallback.
         var isVisibilityGate = makeVisibilityGate(function () {
             if (isScanning) isPollStatus();
@@ -3210,7 +3287,7 @@
                     return;
                 }
                 var data = response.data || {};
-                // SEGURIUM-205: when the user cancels the chained malware
+                // When the user cancels the chained malware
                 // scan, the deferred integrity start is dropped. The
                 // server returns a one-shot chain_message describing what
                 // happened — surface it before we tear the UI down.
@@ -3250,7 +3327,7 @@
             isBtn.disabled = true;
             isShowStop(true);
             isProgress.style.display = '';
-            // SEGURIUM-247: match the malware scanner — show an indeterminate
+            // Match the malware scanner — show an indeterminate
             // animation until the runner reports a total, otherwise the user
             // sees a stuck 0% bar during the discovery / chained-malware phase.
             isBar.classList.add('segurium-progress-bar--active');
@@ -3291,7 +3368,7 @@
             isBtn.disabled = true;
             isStatus.textContent = i18n.scanStarting || 'Starting scan...';
             isProgress.style.display = '';
-            // SEGURIUM-247: indeterminate animation until the first poll
+            // Indeterminate animation until the first poll
             // returns a total — same UX as the malware scanner's listing phase.
             isBar.classList.add('segurium-progress-bar--active');
             isBar.style.width = '';
@@ -3306,7 +3383,7 @@
                     isScanDone();
                     return;
                 }
-                // SEGURIUM-406: queued = chain helper kicked off a
+                // Queued = chain helper kicked off a
                 // malware scan first. Show a one-shot informational
                 // label and stop observing — the integrity tab waits
                 // in not-running state until its turn arrives. The
@@ -3367,7 +3444,7 @@
             isBtn.disabled = false;
             isShowStop(false);
             isStopPolling();
-            // SEGURIUM-379: integrity scan terminations dispatch the same
+            // Integrity scan terminations dispatch the same
             // signal the malware scanner already emits in ssDone(). The
             // post-action quota refresh listener (see "scan-finished →
             // refetch quota" below) re-reads /v1/quota/state so the
@@ -3390,7 +3467,7 @@
                     isBeginObserving();
                 }
             }).catch(function (err) {
-                // SEGURIUM-764: isUpdateStatus() runs here too. Without this
+                // isUpdateStatus() runs here too. Without this
                 // guard an exception is an unhandled rejection — silent, with
                 // the tab left claiming nothing is running.
                 isStatus.textContent = reportPollHandlerError('integrity-resume', err);
@@ -3425,7 +3502,7 @@
             return v + ' ' + units[i];
         }
 
-        // SEGURIUM-279: render the bucket-eviction warning when the upcoming
+        // Render the bucket-eviction warning when the upcoming
         // batch would rotate out non-pinned envelopes. Returns '' for safe
         // runs (zero evictions or only pinned-skipped) so the modal stays
         // quiet when there's nothing to warn about.
@@ -3530,7 +3607,7 @@
             okBtn.disabled = (total === 0);
             modal.style.display = '';
 
-            // SEGURIUM-279: when the run would evict non-pinned backups,
+            // When the run would evict non-pinned backups,
             // the default focus moves to Cancel so an Enter keypress doesn't
             // trigger an unintended bulk fix.
             var be = preview.bucket_eviction;
@@ -4919,7 +4996,7 @@
         var enableAllBtn = el('segurium-is-enable-all');
         var enableAllStatus = el('segurium-is-enable-all-status');
 
-        // SEGURIUM-397: Info Shield rows now use the shared `.segurium-setting-row`
+        // Info Shield rows now use the shared `.segurium-setting-row`
         // class. The `[data-key]` filter scopes the query to the per-toggle rows
         // (only Info Shield's rows carry data-key inside this panel).
         var toggleRows = panel.querySelectorAll('.segurium-setting-row[data-key]');
@@ -5247,7 +5324,7 @@
 
     })();
 
-    // SEGURIUM-248: hydrate every settings panel up-front so switching tabs
+    // Hydrate every settings panel up-front so switching tabs
     // does not block on a per-tab AJAX round-trip. Each *OnActivate hook is
     // already idempotent (gated on its own `loaded` / `settingsLoaded`
     // flag), so calling them all here is equivalent to the user clicking
@@ -5262,7 +5339,7 @@
         try { twoFactorOnActivate(); } catch (e) {}
     })();
 
-    // SEGURIUM-248: surface host-environment warnings (short
+    // Surface host-environment warnings (short
     // max_execution_time, disabled WP-Cron) into both scanner panels so
     // the user gets a banner instead of a stuck progress bar.
     (function renderEnvWarnings() {

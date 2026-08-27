@@ -4531,3 +4531,24 @@ msgstr ""
 "Website gehackt? Gratis malwareverwijdering en virusscan voor WordPress: "
 "geïnfecteerde bestanden opschonen en terugzetten. Firewall, brute force en "
 "2FA inbegrepen."
+
+msgid "Remote actions are switched off for this site."
+msgstr "Externe acties zijn uitgeschakeld voor deze website."
+
+msgid "Remote actions require authentication."
+msgstr "Externe acties vereisen authenticatie."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Segurium Cloud toestaan om updates van componenten aan te vragen"
+
+msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
+msgstr "Segurium Cloud kan deze website vragen om een plugin, thema of WordPress zelf bij te werken. Het kan alleen een component noemen dat je al hebt geïnstalleerd, en alleen wanneer WordPress.org die update al aanbiedt; de update wordt door WordPress opgehaald bij WordPress.org, nooit bij Segurium. WordPress core is beperkt tot beveiligings- en onderhoudsreleases. Segurium werkt zichzelf nooit op deze manier bij. Schakel dit uit en de website stopt met het aanvragen en accepteren van deze verzoeken."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Uitgeschakeld in wp-config.php via SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Recente cloudverzoeken"
+
+msgid "Outcome"
+msgstr "Resultaat"

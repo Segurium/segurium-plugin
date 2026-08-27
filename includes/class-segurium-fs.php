@@ -10,7 +10,7 @@
  *
  * Rather than scatter `// phpcs:ignore WordPress.WP.AlternativeFunctions`
  * and `WordPress.PHP.NoSilencedErrors` across ~25 files, every raw file
- * operation is funnelled through this one class (SEGURIUM-605). Two layers
+ * operation is funnelled through this one class. Two layers
  * of suppression are needed, because they are honoured by different tools:
  *   - `phpcs.xml` excludes this file from both sniffs — this covers
  *     `composer lint` (which loads the project ruleset).
@@ -18,7 +18,7 @@
  *     per-site justification — this covers the wp.org `wp plugin check`
  *     scanner, which runs PHPCS with its OWN ruleset and never loads
  *     phpcs.xml, so the exclude-pattern alone would leave these findings
- *     visible to the WP.org reviewer (SEGURIUM-616).
+ *     visible to the WP.org reviewer.
  *
  * Each method encapsulates the error-suppression and returns a handled
  * result (false / empty), never emitting a PHP warning to the caller.
@@ -58,7 +58,7 @@ class Segurium_Fs {
 	 * @return int|false Bytes written, or false on failure.
 	 */
 	public static function write( string $path, string $data, int $flags = 0 ) {
-		return @file_put_contents( $path, $data, $flags ); // phpcs:ignore WordPress.WP.AlternativeFunctions -- central FS write chokepoint; callers pass paths under wp_upload_dir()/segurium-data or a WP-root in-place repair target, never the plugin folder (SEGURIUM-605).
+		return @file_put_contents( $path, $data, $flags ); // phpcs:ignore WordPress.WP.AlternativeFunctions -- central FS write chokepoint; callers pass paths under wp_upload_dir()/segurium-data or a WP-root in-place repair target, never the plugin folder.
 	}
 
 	/**

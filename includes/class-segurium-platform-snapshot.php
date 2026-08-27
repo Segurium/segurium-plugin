@@ -1,9 +1,7 @@
 <?php
 /**
  * Daily WP-Cron event that pushes the site's hosting-platform snapshot to
- * CTI. Plugin-side counterpart of SEGURIUM-328 (the /v1/platform endpoint).
- *
- * SEGURIUM-329 / SEGURIUM-21.
+ * CTI. Plugin-side counterpart of the /v1/platform endpoint.
  *
  * @package Segurium
  */
@@ -45,7 +43,7 @@ final class Segurium_Platform_Snapshot {
 	/**
 	 * Schedule the daily event. Idempotent. Called on activation. The
 	 * cron handler itself short-circuits before any HTTP traffic if
-	 * consent (SEGURIUM-295) is not granted, so scheduling pre-consent
+	 * consent is not granted, so scheduling pre-consent
 	 * is safe and matches the integrity-inventory cron pattern.
 	 *
 	 * @return void
@@ -73,7 +71,7 @@ final class Segurium_Platform_Snapshot {
 
 	/**
 	 * One-shot piggyback fired immediately after the user accepts the
-	 * External Service Disclosure (SEGURIUM-295). Lets the dashboard
+	 * External Service Disclosure. Lets the dashboard
 	 * see new sites without waiting for the daily cron tick.
 	 *
 	 * @return void
@@ -366,7 +364,7 @@ final class Segurium_Platform_Snapshot {
 
 	/**
 	 * Hash the payload deterministically. 32 hex chars to match the
-	 * server-side validator (SEGURIUM-328).
+	 * server-side validator.
 	 *
 	 * @param array $payload Snapshot payload to hash.
 	 * @return string

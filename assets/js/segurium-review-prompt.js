@@ -1,5 +1,5 @@
 /**
- * SEGURIUM-709: review-ask notice behaviour.
+ * Review-ask notice behaviour.
  *
  * Three buttons, one AJAX action. "Leave a review" keeps its native
  * new-tab navigation and reports in parallel. A failed report always

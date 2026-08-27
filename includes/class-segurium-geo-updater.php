@@ -127,7 +127,7 @@ class Segurium_Geo_Updater {
 			return new WP_Error( 'geo_db_http_error', 'Geo DB endpoint returned HTTP ' . $code );
 		}
 
-		// SEGURIUM-192: refuse a MITM-tampered geo DB blob before we
+		// Refuse a MITM-tampered geo DB blob before we
 		// persist it. Ed25519 signature covers the whole response body;
 		// the magic-byte check below is still useful because a CTI-side
 		// bug could serve a structurally-invalid but authentically-

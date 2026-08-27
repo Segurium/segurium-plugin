@@ -1,10 +1,10 @@
 <?php
 /**
- * Integrity → malware scan chaining (SEGURIUM-205).
+ * Integrity → malware scan chaining.
  *
  * The Free/Pro packaging classifies integrity findings as benign-restore
- * vs malicious-deletion (SEGURIUM-204), and that classification is only
- * trustworthy when each file's CTI verdict is fresh. SEGURIUM-202 AC4
+ * vs malicious-deletion, and that classification is only
+ * trustworthy when each file's CTI verdict is fresh. The packaging
  * therefore requires every integrity scan to be preceded by a malware
  * scan no older than 24h.
  *
@@ -15,7 +15,6 @@
  * malware scan first" status while the chain is in flight.
  *
  * @package Segurium
- * @since   SEGURIUM-205
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +28,7 @@ final class Segurium_Integrity_Chain {
 
 	/**
 	 * Window after which an integrity scan must be preceded by a fresh
-	 * malware scan. 24 hours per SEGURIUM-202 AC4.
+	 * malware scan. 24 hours.
 	 */
 	const STALE_AFTER_SECS = 86400;
 
@@ -284,7 +283,7 @@ final class Segurium_Integrity_Chain {
 
 	/**
 	 * Drop the pending-chain marker so the next malware completion does
-	 * not auto-trigger an integrity scan. SEGURIUM-405 made this public so
+	 * not auto-trigger an integrity scan. It is public so
 	 * the unified `Segurium_Scan_Runner::terminate()` can clear the marker
 	 * on every termination path (cancel, all aborts, runtime error) — the
 	 * marker previously leaked when a chained malware scan was aborted by

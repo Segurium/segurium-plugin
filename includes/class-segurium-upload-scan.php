@@ -70,7 +70,7 @@ class Segurium_Upload_Scan {
 			rtrim( Segurium_Path_Helpers::wp_root(), '/' )
 		);
 
-		// SEGURIUM-689: on-premise leaves an unknown hash unresolved. The
+		// On-premise leaves an unknown hash unresolved. The
 		// file is accepted, so the history row has to say the scan reached
 		// no verdict rather than look identical to a clean one.
 		$this->record_scan( $scan_id, $now, (int) $stats['neoray_skipped'] );
@@ -104,7 +104,7 @@ class Segurium_Upload_Scan {
 	 * @param string $scan_id       Scan UUID.
 	 * @param int    $now           Current Unix timestamp.
 	 * @param int    $files_skipped 1 when the upload was left unresolved, e.g.
-	 *                              an unknown hash on-premise (SEGURIUM-689).
+	 *                              an unknown hash on-premise.
 	 * @return void
 	 */
 	private function record_scan( $scan_id, $now, $files_skipped = 0 ) {

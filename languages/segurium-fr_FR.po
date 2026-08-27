@@ -4884,6 +4884,27 @@ msgstr ""
 "antivirus pour WordPress : nettoyez les fichiers infectés et restaurez-les. "
 "Pare-feu, force brute et 2FA inclus."
 
+msgid "Remote actions are switched off for this site."
+msgstr "Les actions à distance sont désactivées pour ce site."
+
+msgid "Remote actions require authentication."
+msgstr "Les actions à distance requièrent une authentification."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Autoriser Segurium Cloud à demander des mises à jour de composants"
+
+msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
+msgstr "Segurium Cloud peut demander à ce site de mettre à jour une extension, un thème ou WordPress lui-même. Il ne peut désigner qu’un composant que vous avez déjà installé, et uniquement lorsque WordPress.org propose déjà cette mise à jour ; la mise à jour est téléchargée par WordPress depuis WordPress.org, jamais depuis Segurium. Le cœur de WordPress est limité aux versions de sécurité et de maintenance. Segurium ne se met jamais à jour de cette façon. Désactivez cette option et le site cesse de demander et d’accepter ces requêtes."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Désactivé dans wp-config.php par SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Requêtes récentes du cloud"
+
+msgid "Outcome"
+msgstr "Résultat"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Extension Segurium pour WordPress."
 

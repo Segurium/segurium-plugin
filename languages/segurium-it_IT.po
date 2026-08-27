@@ -4959,3 +4959,38 @@ msgstr ""
 #~ msgstr ""
 #~ "Quota di correzioni del piano gratuito superata. Passare a Pro per "
 #~ "correzioni illimitate."
+
+msgid "Remote actions are switched off for this site."
+msgstr "Le azioni remote sono disattivate per questo sito."
+
+msgid "Remote actions require authentication."
+msgstr "Le azioni remote richiedono l'autenticazione."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Consenti a Segurium Cloud di richiedere aggiornamenti dei componenti"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself "
+"this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud può chiedere a questo sito di aggiornare un plugin, un tema "
+"o WordPress stesso. Può indicare solo un componente che hai già installato "
+"e solo quando WordPress.org offre già quell'aggiornamento; l'aggiornamento "
+"viene scaricato da WordPress da WordPress.org, mai da Segurium. Il core di "
+"WordPress è limitato ai rilasci di sicurezza e manutenzione. Segurium non "
+"si aggiorna mai in questo modo. Disattiva questa opzione e il sito smette "
+"di richiedere e accettare queste richieste."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Disattivato in wp-config.php da SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Richieste cloud recenti"
+
+msgid "Outcome"
+msgstr "Esito"

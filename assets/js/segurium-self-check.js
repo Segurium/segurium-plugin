@@ -399,7 +399,7 @@
 
 		renderResult(boot.last, boot.history || []);
 
-		// SEGURIUM-435: cold-start auto-run. Fires once per install, when
+		// Cold-start auto-run. Fires once per install, when
 		// the Self-Check tab opens with an empty history table. The
 		// `historyEmpty` server flag is authoritative — it is computed
 		// from `self_check_history` rows, not from this in-memory

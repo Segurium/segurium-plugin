@@ -2,8 +2,7 @@
 /**
  * Phase B — in-tick `/v1/scan/results` poll loop.
  *
- * SEGURIUM-481: replaces the WP-Cron-driven
- * `Segurium_Async_Scan_Poller`. Polling now runs from
+ * Replaces the WP-Cron-driven `Segurium_Async_Scan_Poller`. Polling now runs from
  * `Segurium_Scan_Runner::run_chunk` after each chunk so verdicts land
  * during the same tick that submitted them, capped by the existing
  * scan-tick budget instead of the 60 s cron cadence.
@@ -48,7 +47,7 @@ class Segurium_Async_Scan_Results_Loop {
 	const MIGRATION_FLAG_510 = 'segurium_migrated_510_drop_legacy_cursor';
 
 	/**
-	 * One-shot migration sentinel for the SEGURIUM-576 purge of the legacy
+	 * One-shot migration sentinel for the purge of the legacy
 	 * `async_scan:pending:*` runtime_kv JSON blobs (superseded by the
 	 * `async_pending` table). Clears the orphaned blobs left behind by scans
 	 * that ran before the table existed.
@@ -112,7 +111,7 @@ class Segurium_Async_Scan_Results_Loop {
 	const POLL_LIMIT = 500;
 
 	/**
-	 * SEGURIUM-564: runtime_kv key prefix for the per-scan "submission
+	 * Key prefix in runtime_kv for the per-scan "submission
 	 * sealed" flag. The scan engine sets it once listing is done and
 	 * every Unknown has been handed to the submitter; the results loop
 	 * reads it to know that no further hashes will ever be submitted, so
@@ -121,7 +120,7 @@ class Segurium_Async_Scan_Results_Loop {
 	const SEAL_KV_PREFIX = 'async_scan:submit_sealed:';
 
 	/**
-	 * SEGURIUM-573: runtime_kv key prefix for the per-scan results cursor.
+	 * Key prefix in runtime_kv for the per-scan results cursor.
 	 * Stored in its OWN key — NOT inside the pending-paths row — so the
 	 * submit path (which rewrites the whole pending row) can never clobber
 	 * the drain's advance, and draining every path (which deletes the
@@ -219,7 +218,7 @@ class Segurium_Async_Scan_Results_Loop {
 				break;
 			}
 
-			// SEGURIUM-870: heartbeat + lease before each CTI call; a lost
+			// Heartbeat + lease before each CTI call; a lost
 			// lease means another driver owns the scan now.
 			if ( class_exists( 'Segurium_Scan_Runner' ) && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
 				break;
@@ -232,7 +231,7 @@ class Segurium_Async_Scan_Results_Loop {
 					$data        = $resp->get_error_data();
 					$retry_after = is_array( $data ) && isset( $data['retry_after'] ) ? (int) $data['retry_after'] : 0;
 					if ( $retry_after > 0 ) {
-						// SEGURIUM-483: the `scan_submit_pause` event
+						// The `scan_submit_pause` event
 						// is emitted from
 						// {@see Segurium_CTI_Client::pause_error()} —
 						// we only stamp the transient here.
@@ -260,7 +259,7 @@ class Segurium_Async_Scan_Results_Loop {
 			);
 			if ( empty( $results ) ) {
 				self::cursor_set( $scan_id, $cursor_after );
-				// SEGURIUM-564: caught up to the server high-water. If CTI
+				// Caught up to the server high-water. If CTI
 				// reports nothing more is queued for this scan
 				// (`pending === false`) and the plugin has finished
 				// submitting (`submit_sealed`), any sha still pending will
@@ -319,7 +318,7 @@ class Segurium_Async_Scan_Results_Loop {
 	}
 
 	/**
-	 * SEGURIUM-564: mark a scan as done submitting. After this, no new
+	 * Mark a scan as done submitting. After this, no new
 	 * hashes will be handed to the submitter, so a CTI `queue_depth == 0`
 	 * on an empty results page is a final "nothing more will arrive"
 	 * signal. Called by the scan engine when listing completes.
@@ -390,7 +389,7 @@ class Segurium_Async_Scan_Results_Loop {
 	 * @return int
 	 */
 	public static function unresolved_count( $scan_id ) {
-		// SEGURIUM-576: a single indexed COUNT(*) on the async_pending table
+		// A single indexed COUNT(*) on the async_pending table
 		// instead of loading and summing the whole per-scan blob.
 		return Segurium_Async_Scan_Submitter::count_pending( (string) $scan_id );
 	}
@@ -410,7 +409,7 @@ class Segurium_Async_Scan_Results_Loop {
 		if ( '' === $scan_id || '' === $verdict || '' === $rhash ) {
 			return false;
 		}
-		// SEGURIUM-576: pull only this hash's pending rows (indexed by
+		// Pull only this hash's pending rows (indexed by
 		// (scan_uuid, sha256)), never the whole pending set. Fan the verdict
 		// out to every path sharing the content hash, then drop just those
 		// rows. apply_async_verdict() is at-most-once per (scan, file) via
@@ -439,11 +438,11 @@ class Segurium_Async_Scan_Results_Loop {
 	 * `/v1/scan/results` this isolates verdicts across IID rotations.
 	 * Empty `scan_id` returns the zero cursor (orphan/test drain paths).
 	 *
-	 * SEGURIUM-573: the cursor used to live inside the pending-paths row,
+	 * The cursor used to live inside the pending-paths row,
 	 * where the submit path could clobber it and draining all paths
 	 * destroyed it. It now has its own key. An in-flight scan upgraded
 	 * mid-drain reads zero here once (no key yet) and re-drains from the
-	 * start, then heals — same self-healing tradeoff as SEGURIUM-510.
+	 * start, then heals.
 	 *
 	 * @param string $scan_id Active scan UUID.
 	 * @return array `{next_seq:int, updated_at:int}`
@@ -513,7 +512,7 @@ class Segurium_Async_Scan_Results_Loop {
 	}
 
 	/**
-	 * SEGURIUM-573: drop the per-scan cursor key. Called from the scan's
+	 * Drop the per-scan cursor key. Called from the scan's
 	 * teardown ({@see Segurium_Scan::cleanup_scan_state()}) so a finished
 	 * scan leaves no row behind. Abnormal terminations that skip teardown
 	 * leave a bounded, harmless orphan (see {@see CURSOR_KV_PREFIX}).
@@ -551,7 +550,7 @@ class Segurium_Async_Scan_Results_Loop {
 	}
 
 	/**
-	 * SEGURIUM-510 one-shot: drop the legacy global `wp_option` cursor
+	 * One-shot migration: drop the legacy global `wp_option` cursor
 	 * unconditionally. Affected installs (IID rotated post-install,
 	 * inheriting the old IID's high-water mark) heal on the next scan;
 	 * unaffected installs are no worse off because the cursor is now
@@ -568,7 +567,7 @@ class Segurium_Async_Scan_Results_Loop {
 	}
 
 	/**
-	 * SEGURIUM-576 one-shot: drop the legacy `async_scan:pending:*` runtime_kv
+	 * One-shot migration: drop the legacy `async_scan:pending:*` runtime_kv
 	 * JSON blobs. The per-scan pending map now lives in the `async_pending`
 	 * table; any blob still in runtime_kv is an orphan from a scan that ran
 	 * before this change (the ticket measured 6.15 MB of dead blob rows with
@@ -577,7 +576,7 @@ class Segurium_Async_Scan_Results_Loop {
 	 *
 	 * In-flight scans upgraded mid-drain lose their not-yet-applied pending
 	 * blob here; those files self-heal on the next scan (same bounded,
-	 * one-time tradeoff as SEGURIUM-510 / 573).
+	 * one-time tradeoff).
 	 *
 	 * @return void
 	 */

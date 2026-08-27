@@ -1,6 +1,6 @@
 <?php
 /**
- * Email-alerts opt-in settings (SEGURIUM-206).
+ * Email-alerts opt-in settings.
  *
  * Two persisted options:
  *   - segurium_alerts_email_enabled (bool, default false)
@@ -139,7 +139,7 @@ final class Segurium_Alerts_Settings {
 	 * @return string
 	 */
 	private static function current_tier() {
-		// SEGURIUM-343: tier is owned by CTI's quota envelope, not
+		// Tier is owned by CTI's quota envelope, not
 		// Freemius. The cached envelope reflects webhook-flipped state
 		// within one /v1/quota/state hop; on a fresh install (no cache
 		// yet) we report Free, which is the conservative default.

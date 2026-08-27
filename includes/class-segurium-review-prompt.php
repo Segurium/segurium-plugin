@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-709: in-plugin review ask, shown only after a positive event.
+ * In-plugin review ask, shown only after a positive event.
  *
  * WordPress.org guideline 9 bans compensating, pressuring or sockpuppeting
  * for reviews; a plain unconditioned ask is allowed. Everything here is
@@ -18,7 +18,7 @@
  * that found threats, and a scan that could not read every file all leave
  * it disarmed.
  *
- * SEGURIUM-914: a cleanup the cloud refused for quota is the opposite of
+ * A cleanup the cloud refused for quota is the opposite of
  * a positive event. Fix All can clean the last free slot — arming the ask
  * — and hit the paywall on the very next file, so the user meets "Upgrade
  * to Pro" and the review ask back to back. Every refusal therefore clears
@@ -26,7 +26,6 @@
  * is still Free. Upgrading lifts the mute on the next envelope refresh.
  *
  * @package Segurium
- * @since   SEGURIUM-709
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -74,7 +73,7 @@ final class Segurium_Review_Prompt {
 	const SNOOZE_SECONDS = 30 * DAY_IN_SECONDS;
 
 	/**
-	 * SEGURIUM-914: how long a quota refusal mutes the ask on a Free
+	 * How long a quota refusal mutes the ask on a Free
 	 * install. Long enough that the paywall modal is no longer what the
 	 * user remembers, short enough that a Free install which cleans up
 	 * fine the following week can still be asked.

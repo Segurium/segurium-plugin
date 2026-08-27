@@ -4592,3 +4592,24 @@ msgstr ""
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "무료 단계 복구 한도를 초과했습니다. 무제한 복구를 사용하려면 Pro로 업그레이드하십시오."
+
+msgid "Remote actions are switched off for this site."
+msgstr "이 사이트에서는 원격 작업이 꺼져 있습니다."
+
+msgid "Remote actions require authentication."
+msgstr "원격 작업에는 인증이 필요합니다."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Segurium Cloud가 구성 요소 업데이트를 요청하도록 허용"
+
+msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
+msgstr "Segurium Cloud는 이 사이트에 플러그인, 테마 또는 WordPress 자체의 업데이트를 요청할 수 있습니다. 이미 설치된 구성 요소만 지정할 수 있으며, WordPress.org에서 해당 업데이트를 제공하는 경우에만 가능합니다. 업데이트는 WordPress가 WordPress.org에서 내려받으며, Segurium에서 내려받지 않습니다. WordPress 코어는 보안 및 유지 관리 릴리스로 제한됩니다. Segurium은 이 방식으로 자체 업데이트하지 않습니다. 이 기능을 끄면 사이트는 이러한 요청을 요구하거나 수락하지 않습니다."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "wp-config.php에서 SEGURIUM_DISABLE_REMOTE_ACTIONS로 꺼져 있습니다."
+
+msgid "Recent cloud requests"
+msgstr "최근 클라우드 요청"
+
+msgid "Outcome"
+msgstr "결과"

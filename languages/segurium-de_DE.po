@@ -4916,6 +4916,42 @@ msgstr ""
 "infizierte Dateien bereinigen und wiederherstellen. Firewall, Brute-Force-"
 "Schutz und 2FA inklusive."
 
+msgid "Remote actions are switched off for this site."
+msgstr "Remote-Aktionen sind für diese Website deaktiviert."
+
+msgid "Remote actions require authentication."
+msgstr "Remote-Aktionen erfordern eine Authentifizierung."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Segurium Cloud erlauben, Komponenten-Updates anzufordern"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud kann diese Website auffordern, ein Plugin, ein Theme oder "
+"WordPress selbst zu aktualisieren. Genannt werden können nur Komponenten, "
+"die du bereits installiert hast, und nur wenn WordPress.org das Update "
+"bereits anbietet; das Update wird von WordPress von WordPress.org "
+"heruntergeladen, nie von Segurium. Der WordPress-Kern ist auf Sicherheits- "
+"und Wartungs-Releases beschränkt. Segurium aktualisiert sich selbst nie auf "
+"diesem Weg. Schalte dies aus, und die Website fragt diese Anfragen nicht "
+"mehr an und nimmt sie nicht mehr an."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "In wp-config.php durch SEGURIUM_DISABLE_REMOTE_ACTIONS deaktiviert."
+
+msgid "Recent cloud requests"
+msgstr "Letzte Cloud-Anfragen"
+
+msgid "Outcome"
+msgstr "Ergebnis"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Segurium-Plugin für WordPress."
 

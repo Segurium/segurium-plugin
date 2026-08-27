@@ -27,6 +27,6 @@ class Segurium_Debug {
 	 * @return void
 	 */
 	public static function log( $message ) {
-		error_log( (string) $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- centralized log chokepoint; the only sanctioned error_log() in the plugin (SEGURIUM-601).
+		error_log( (string) $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- centralized log chokepoint; the only sanctioned error_log() in the plugin.
 	}
 }

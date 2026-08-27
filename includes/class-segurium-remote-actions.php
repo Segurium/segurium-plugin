@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-918: CTI → plugin action channel.
+ * CTI → plugin action channel.
  *
  * CTI addresses a site by IID and hands it a short, closed-grammar
  * instruction. The only instruction in this release is "update this

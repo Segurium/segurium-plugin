@@ -2,8 +2,8 @@
 /**
  * IID-scoped pause transients for the async scan pipeline.
  *
- * SEGURIUM-478: replaces the per-`scan_id` `async_scan:retry_after:`
- * `runtime_kv` row introduced in SEGURIUM-476. CTI's per-IID gates
+ * Replaces the per-`scan_id` `async_scan:retry_after:`
+ * `runtime_kv` row. CTI's per-IID gates
  * (file-count bucket, fleet gate, NRS-queue gate) emit `Retry-After`
  * for the whole IID, so the pause is IID-scoped too — one WP install
  * runs at most one set of concurrent scans against one IID, and they
@@ -34,7 +34,7 @@ class Segurium_Async_Scan_Pause {
 	const TRANSIENT_RESULTS = 'segurium_results_pause_until';
 
 	/**
-	 * SEGURIUM-483: sibling transients that record when the pause was
+	 * Sibling transients that record when the pause was
 	 * stamped, so the resume observability event can report how long
 	 * the pause was actually honoured (vs. the requested length).
 	 */
@@ -69,8 +69,8 @@ class Segurium_Async_Scan_Pause {
 	}
 
 	/**
-	 * Sibling-transient key tracking when a pause was first stamped
-	 * (SEGURIUM-483). Empty for unknown endpoints.
+	 * Sibling-transient key tracking when a pause was first stamped.
+	 * Empty for unknown endpoints.
 	 *
 	 * @param string $endpoint One of self::ENDPOINT_*.
 	 * @return string
@@ -106,7 +106,7 @@ class Segurium_Async_Scan_Pause {
 		}
 		$now = time();
 
-		// SEGURIUM-483: only stamp `_set_at` on a fresh pause — back-to-
+		// Only stamp `_set_at` on a fresh pause — back-to-
 		// back Retry-Afters extend the deadline but should not reset
 		// the elapsed-time clock the resume event reports.
 		$prior_set_at = self::pause_set_at( $endpoint );
@@ -121,7 +121,7 @@ class Segurium_Async_Scan_Pause {
 
 	/**
 	 * Unix timestamp at which the active pause was first stamped, or 0
-	 * when no pause is currently set. Used by SEGURIUM-483's
+	 * when no pause is currently set. Used by the
 	 * `scan_submit_resume` event to compute `paused_for_secs`.
 	 *
 	 * @param string $endpoint One of self::ENDPOINT_*.

@@ -4795,6 +4795,41 @@ msgstr ""
 "kaldırma ve antivirüs taraması: virüslü dosyaları temizleyin ve geri "
 "yükleyin. Güvenlik duvarı, kaba kuvvet koruması ve 2FA dahil."
 
+msgid "Remote actions are switched off for this site."
+msgstr "Uzak eylemler bu site için kapatıldı."
+
+msgid "Remote actions require authentication."
+msgstr "Uzak eylemler için kimlik doğrulaması gerekiyor."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Segurium Cloud bileşen güncellemeleri isteyebilsin"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself"
+" this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud bu siteden bir eklentiyi, temayı veya WordPress'in kendisini"
+" güncellemesini isteyebilir. Yalnızca zaten kurulu olan bir bileşeni "
+"belirtebilir ve yalnızca WordPress.org o güncellemeyi zaten sunuyorsa; "
+"güncelleme WordPress tarafından WordPress.org'dan indirilir, hiçbir zaman "
+"Segurium'dan indirilmez. WordPress çekirdeği yalnızca güvenlik ve bakım "
+"sürümleriyle sınırlıdır. Segurium kendisini bu şekilde asla güncellemez. "
+"Bunu kapatırsanız site bu istekleri sormayı ve kabul etmeyi bırakır."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "SEGURIUM_DISABLE_REMOTE_ACTIONS ile wp-config.php'de kapatıldı."
+
+msgid "Recent cloud requests"
+msgstr "Son bulut istekleri"
+
+msgid "Outcome"
+msgstr "Sonuç"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress için Segurium eklentisi."
 

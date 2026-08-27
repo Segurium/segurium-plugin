@@ -1,6 +1,6 @@
 <?php
 /**
- * Freemius checkout prefill (SEGURIUM-447 Tier 1).
+ * Freemius checkout prefill (Tier 1).
  *
  * Hooks into Freemius's `pricing_url` and `checkout_url` filters and
  * appends `user_email`, `user_firstname`, `user_lastname` from the

@@ -1,7 +1,6 @@
 <?php
 /**
- * Verify Ed25519 signatures attached to CTI responses (SEGURIUM-192,
- * SEGURIUM-194).
+ * Verify Ed25519 signatures attached to CTI responses.
  *
  * A network-adjacent attacker (compromised CA, DNS hijack, rogue TLS
  * proxy) could previously substitute CTI response bodies for the four
@@ -47,7 +46,7 @@ class Segurium_CTI_Signature {
 	 * versa).
 	 *
 	 * NOTE: the public key below was generated alongside the CTI
-	 * private seed under SEGURIUM-192. Operator deploys the matching
+	 * private seed. Operator deploys the matching
 	 * seed to CTI; there is no credential here — this value is
 	 * inherently public.
 	 *
@@ -102,8 +101,8 @@ class Segurium_CTI_Signature {
 	 * Core Ed25519 verification over already-extracted header values and
 	 * body bytes. Reused by {@see self::verify_response()} (CTI → plugin
 	 * response bodies) and by inbound REST authentication where the caller
-	 * pulls the headers/body off a `WP_REST_Request` (SEGURIUM-607
-	 * mechanism VI scan-tick). Returns `true` on a valid signature, else a
+	 * pulls the headers/body off a `WP_REST_Request` (the mechanism VI
+	 * scan-tick). Returns `true` on a valid signature, else a
 	 * descriptive `WP_Error`.
 	 *
 	 * @param string $sig_b64 Base64 (padded or no-pad) signature.

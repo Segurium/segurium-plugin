@@ -18,19 +18,19 @@ class Segurium_IID {
 	const OPTION_TOKEN  = 'segurium_iid_token';
 	const REGISTER_PATH = '/v1/iid/register';
 
-	/** SEGURIUM-206: alerts opt-in option keys. */
+	/** Alerts opt-in option keys. */
 	const OPTION_ALERTS_EMAIL_ENABLED = 'segurium_alerts_email_enabled';
 	const OPTION_ALERTS_EMAIL_ADDRESS = 'segurium_alerts_email_address';
 
 	/**
-	 * SEGURIUM-376: set when CTI returns HTTP 409 `re_register` so the next
+	 * Set when CTI returns HTTP 409 `re_register` so the next
 	 * `admin_init` can re-register asynchronously instead of paying the
 	 * 15s register POST inside whatever request the 409 short-circuited.
 	 */
 	const OPTION_REREGISTER_PENDING = 'segurium_iid_reregister_pending';
 
 	/**
-	 * SEGURIUM-380: set when `POST /v1/billing/sync` (SEGURIUM-378) returns
+	 * Set when `POST /v1/billing/sync` returns
 	 * HTTP 409 `binding_conflict` — the license is currently bound to a
 	 * different installation. Surfaces an admin banner that tells the user
 	 * to deactivate the license on the original install via the Freemius
@@ -42,7 +42,7 @@ class Segurium_IID {
 	/**
 	 * Register with CTI if not already registered.
 	 *
-	 * SEGURIUM-295: enforced consent gate. wp.org submission rules forbid
+	 * Enforced consent gate. wp.org submission rules forbid
 	 * any unsolicited contact with an external service. Self::register()
 	 * POSTs site URL, site name and WP version to CTI; gating it here
 	 * makes every transitive caller (Segurium_CTI_Client::ensure_iid(),
@@ -68,7 +68,7 @@ class Segurium_IID {
 		$commitment = self::get_commitment();
 		$url        = Segurium_Storage::cti_endpoint( 'base' ) . self::REGISTER_PATH;
 
-		// SEGURIUM-206: alerts contact fields. Sent on every register so a
+		// Alerts contact fields. Sent on every register so a
 		// fresh install with the checkbox already on (e.g. via WP-CLI seed
 		// or import) lands its contact on CTI without a separate round-trip.
 		$alerts_payload = self::alerts_payload();
@@ -77,14 +77,14 @@ class Segurium_IID {
 			'site_name'   => get_bloginfo( 'name' ),
 			'site_url'    => home_url(),
 			'wp_version'  => get_bloginfo( 'version' ),
-			// SEGURIUM-333: tag non-production environments so analytics
+			// Tag non-production environments so analytics
 			// dashboards exclude this install from production metrics.
 			// `wp_get_environment_type()` returns one of `local`,
 			// `development`, `staging`, `production` (default
 			// `production` if unset). CTI propagates the flag onto every
 			// event row — see CTI feature 65.
 			'is_test'     => 'production' !== wp_get_environment_type(),
-			// SEGURIUM-376: server-side anchor written once on register, then
+			// Server-side anchor written once on register, then
 			// validated on every authenticated request via X-Fingerprint
 			// (see Segurium_CTI_Client::request). The four fields together
 			// distinguish a clone of `wp_options` from the original install.
@@ -124,10 +124,10 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-376: fingerprint sent at register time and on every
+	 * Fingerprint sent at register time and on every
 	 * authenticated CTI request. CTI anchors the four fields on the first
 	 * register and bounces any subsequent request whose fingerprint
-	 * differs (see SEGURIUM-371 / SEGURIUM-372).
+	 * differs.
 	 *
 	 * `server_name` falls back to the home_url host when `$_SERVER` is
 	 * unpopulated (CLI / wp-cli without `--url`) so the fingerprint stays
@@ -152,19 +152,19 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-376: base64-STANDARD of the fingerprint JSON, ready for the
+	 * Base64-STANDARD of the fingerprint JSON, ready for the
 	 * `X-Fingerprint` header. Matches the wire format the CTI knock
 	 * middleware decodes.
 	 */
 	public static function fingerprint_header() {
-		return base64_encode( wp_json_encode( self::fingerprint() ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- intentional wire format, see SEGURIUM-372.
+		return base64_encode( wp_json_encode( self::fingerprint() ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- intentional wire format.
 	}
 
 	/**
-	 * SEGURIUM-376: handle a CTI 409 `re_register` response. Drops the
+	 * Handle a CTI 409 `re_register` response. Drops the
 	 * stored IID and the cached quota envelope (so Pro tier collapses to
 	 * Free locally until Freemius webhook re-binds against the new IID,
-	 * or the user re-activates the license and SEGURIUM-378 sync runs)
+	 * or the user re-activates the license and sync runs)
 	 * and arms the pending flag the admin_init hook drains.
 	 *
 	 * Re-register is intentionally NOT performed here — the request that
@@ -179,20 +179,20 @@ class Segurium_IID {
 		Segurium_Storage::setting_set( self::OPTION_REREGISTER_PENDING, 1 );
 	}
 
-	/** SEGURIUM-509: MySQL named-lock key serialising concurrent
+	/** MySQL named-lock key serialising concurrent
 	 * `process_pending_reregister` calls on the same install. */
 	const REREGISTER_LOCK_NAME = 'segurium_reregister';
 
 	/**
-	 * SEGURIUM-376: admin_init hook entry point. Re-registers when the
+	 * Entry point for the admin_init hook. Re-registers when the
 	 * pending flag is set; consent gate matches `maybe_register()` so a
 	 * site that has not yet accepted the External Service Disclosure
 	 * stays silent and the flag persists for a future admin load that
 	 * happens after consent is given.
 	 *
-	 * SEGURIUM-509: concurrent admin pageloads can each race past the
+	 * Concurrent admin pageloads can each race past the
 	 * pending-flag check and fire their own `register()` POST in
-	 * parallel — SEGURIUM-507 saw 7 distinct registrations in 356 ms
+	 * parallel — we saw 7 distinct registrations in 356 ms
 	 * from a single site. A non-blocking MySQL `GET_LOCK` collapses
 	 * those races to a single winner; losers return immediately and
 	 * the pending flag stays armed for the next admin_init tick (which
@@ -237,7 +237,7 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-376 + SEGURIUM-380: admin_notices hook. Tells the admin the
+	 * Handler for the admin_notices hook. Tells the admin the
 	 * install just re-registered with the cloud service after a site
 	 * move/clone, and (for Pro installs) prompts re-activation of the
 	 * license — the new IID is not yet tied to the previous Freemius
@@ -261,8 +261,8 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-380: arm the binding-conflict banner. Called by the
-	 * `/v1/billing/sync` (SEGURIUM-378) caller when CTI returns HTTP 409
+	 * Arm the binding-conflict banner. Called by the
+	 * `/v1/billing/sync` caller when CTI returns HTTP 409
 	 * `binding_conflict` — the license is bound to a different IID and
 	 * the local install cannot transition into Pro until the user
 	 * deactivates on the original install.
@@ -272,8 +272,8 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-380: drop the binding-conflict banner. Called by the
-	 * `/v1/billing/sync` (SEGURIUM-378) caller on a 2xx response so a
+	 * Drop the binding-conflict banner. Called by the
+	 * `/v1/billing/sync` caller on a 2xx response so a
 	 * stale banner cannot outlive the conflict that produced it.
 	 */
 	public static function clear_billing_conflict_pending() {
@@ -281,7 +281,7 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-380: admin_notices hook for the binding-conflict surface.
+	 * Handler for the admin_notices binding-conflict surface.
 	 * Tells the user the license is currently held by another install
 	 * and that deactivating it from the Freemius account portal will
 	 * release the binding (the vendor webhook then frees CTI's record
@@ -303,9 +303,9 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-380: operator escape hatch behind `wp segurium iid reset`.
+	 * Operator escape hatch behind `wp segurium iid reset`.
 	 * Drops the IID, the cached quota envelope, and any stuck
-	 * binding-conflict banner, then arms the SEGURIUM-376 re-register
+	 * binding-conflict banner, then arms the re-register
 	 * pending flag so the next `admin_init` re-registers (subject to the
 	 * same consent gate as `maybe_register()`).
 	 *
@@ -373,7 +373,7 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-206 helper. Build the alerts contact fields for either the
+	 * Helper. Build the alerts contact fields for either the
 	 * `/v1/iid/register` body or a `settings_snapshot` push.
 	 *
 	 * Returns `null` when the operator has not configured a usable email —
@@ -409,7 +409,7 @@ class Segurium_IID {
 	}
 
 	/**
-	 * SEGURIUM-206 / SEGURIUM-343: current Pro/Free tier sourced from the
+	 * Current Pro/Free tier sourced from the
 	 * cached CTI quota envelope. Returns `'pro'` or `'free'`; any
 	 * unexpected condition resolves to Free so we never send Pro upsell
 	 * copy to an install we can't classify.

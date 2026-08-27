@@ -363,7 +363,7 @@ class Segurium_Scanner {
 	public function save_state() {
 		$ok = Segurium_State_File::atomic_write_json( $this->state_file, $this->state );
 		if ( ! $ok ) {
-			// SEGURIUM-428: never let a silently-failed state save let the
+			// Never let a silently-failed state save let the
 			// walker continue with stale `visited_real` / `files_found`.
 			// Surfacing as RuntimeException lets record_file roll back the
 			// JSONL append it just made and keeps the on-disk pair (state
@@ -501,7 +501,7 @@ class Segurium_Scanner {
 			)
 		);
 
-		// SEGURIUM-428: pair the JSONL append with the state save in one
+		// Pair the JSONL append with the state save in one
 		// place, with rollback on state-save failure. Without this, a
 		// silent atomic_write_json failure leaves the result file with
 		// records the scanner state has no record of — the next tick

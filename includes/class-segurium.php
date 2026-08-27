@@ -22,7 +22,7 @@ class Segurium {
 	const IID_REGISTER_CRON_HOOK = 'segurium_iid_register';
 
 	/**
-	 * Transient key + TTL (seconds) for the CTI health probe (SEGURIUM-270).
+	 * Transient key + TTL (seconds) for the CTI health probe.
 	 *
 	 * The status indicator is informational; a stale read for up to 5
 	 * minutes saves an outbound HTTP probe on every poll while still
@@ -56,19 +56,19 @@ class Segurium {
 	private function __construct() {
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
-		// SEGURIUM-490: buffer admin notices on our page so they paint inside
+		// Buffer admin notices on our page so they paint inside
 		// the wrap on first hit. Without this, WP common.js moves notices to
 		// the first <h1>/<h2> in .wrap on document.ready — which for us lives
 		// inside a hidden feature panel — and the Freemius sticky notice
 		// flashes for ~500 ms before vanishing.
 		add_action( 'load-toplevel_page_segurium', array( $this, 'register_admin_notice_buffer' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
-		// SEGURIUM-270: throttle WP Heartbeat to its 60s ceiling on Segurium
+		// Throttle WP Heartbeat to its 60s ceiling on Segurium
 		// admin pages. Most admins leave the Segurium tab open for hours; the
 		// 15s default produces ~5,800 admin-ajax round-trips/day per parked
 		// tab, each one bootstrapping WordPress.
 		add_filter( 'heartbeat_settings', array( $this, 'throttle_heartbeat_settings' ) );
-		// SEGURIUM-584: every privileged Segurium AJAX action is registered
+		// Every privileged Segurium AJAX action is registered
 		// to ONE central dispatcher (ajax_dispatch). The dispatcher verifies
 		// a CORE nonce (check_ajax_referer) + capability (current_user_can)
 		// for the matched route before handing off to the per-action
@@ -96,7 +96,7 @@ class Segurium {
 		add_action( 'wp_ajax_segurium_2fa_verify', array( $tfa, 'ajax_verify' ) );
 		add_action( 'wp_ajax_segurium_2fa_resend', array( $tfa, 'ajax_resend_email' ) );
 
-		// SEGURIUM-540: handler lives on Segurium_Firewall_Rules (firewall
+		// Handler lives on Segurium_Firewall_Rules (firewall
 		// include group) so it is registered on lightweight tiers too.
 		Segurium_Firewall_Rules::register_hooks();
 
@@ -113,19 +113,19 @@ class Segurium {
 		add_action( Segurium_Trusted_Proxies::CRON_HOOK, array( 'Segurium_Trusted_Proxies', 'fetch' ) );
 		Segurium_Trusted_Proxies::schedule();
 		add_action( self::IID_REGISTER_CRON_HOOK, array( 'Segurium_IID', 'maybe_register' ) );
-		// SEGURIUM-376: drain the deferred re-register flag set by the CTI
+		// Drain the deferred re-register flag set by the CTI
 		// 409 `re_register` short-circuit. admin_init runs on every admin
 		// page load — the first one after a clone-bounce re-registers and
 		// clears the flag.
 		add_action( 'admin_init', array( 'Segurium_IID', 'process_pending_reregister' ) );
 		add_action( 'admin_notices', array( 'Segurium_IID', 'render_reregister_notice' ) );
-		// SEGURIUM-380: surfaces a license-side recovery prompt when a
-		// `/v1/billing/sync` (SEGURIUM-378) call is rejected with HTTP 409
+		// Surfaces a license-side recovery prompt when a
+		// `/v1/billing/sync` call is rejected with HTTP 409
 		// `binding_conflict`. The flag is armed by the sync caller and
 		// cleared either by a successful sync, by `wp segurium iid reset`,
 		// or by `Segurium_IID::clear_billing_conflict_pending()` directly.
 		add_action( 'admin_notices', array( 'Segurium_IID', 'render_billing_conflict_notice' ) );
-		// SEGURIUM-302: SWR refresh of the Free-tier quota readout. The
+		// SWR refresh of the Free-tier quota readout. The
 		// AJAX poll serves the cached envelope and queues this hook;
 		// wp-cron runs it in a separate loopback request, so the user's
 		// browser never waits on the CTI hop.
@@ -142,13 +142,13 @@ class Segurium {
 			add_action( Segurium_Realtime_Scan::CRON_HOOK, array( $this, 'run_realtime_scan' ) );
 			Segurium_Realtime_Scan::schedule();
 
-			// SEGURIUM-481: Phase B (`/v1/scan/results`) now runs in
+			// Phase B (`/v1/scan/results`) now runs in
 			// the scan-runner tick, not on WP-Cron. The only hook
 			// registered here is the one-shot migration that
 			// unschedules the retired cron event.
 			Segurium_Async_Scan_Results_Loop::register_hooks();
 
-			// SEGURIUM-480: bind the first-poll ETA stamper to the
+			// Bind the first-poll ETA stamper to the
 			// submitter's first-success hook so Phase B's first-poll
 			// gate has a deadline to honour.
 			Segurium_Async_Scan_First_Poll_Eta::register_hooks();
@@ -174,13 +174,13 @@ class Segurium {
 		Segurium_Self_Check::register_hooks();
 		Segurium_Integrity_Chain::register_hooks();
 		Segurium_Realtime_Scan::register_hooks();
-		// SEGURIUM-206: alerts opt-in syncs to CTI on every settings change.
+		// Alerts opt-in syncs to CTI on every settings change.
 		Segurium_Alerts_Settings::register_hooks();
-		// SEGURIUM-64: unattended auto-fix listens after the default scan-
+		// Unattended auto-fix listens after the default scan-
 		// completion handler so canonical scan_findings rows are persisted.
 		Segurium_Auto_Fix_Settings::register_hooks();
 		Segurium_Auto_Fix::register_hooks();
-		// SEGURIUM-709: review ask. Listens after auto-fix so a scan that
+		// Review ask. Listens after auto-fix so a scan that
 		// auto-cleaned is judged on the cleanup, not on the scan that
 		// found the threats.
 		Segurium_Review_Prompt::register_hooks();
@@ -189,7 +189,7 @@ class Segurium {
 	}
 
 	/**
-	 * SEGURIUM-584: the central AJAX route table.
+	 * The central AJAX route table.
 	 *
 	 * Maps each privileged Segurium `wp_ajax_*` action to the nonce action
 	 * and capability the central dispatcher must verify before running the
@@ -201,7 +201,7 @@ class Segurium {
 	 * The pre-login 2FA actions (`segurium_2fa_authenticate` / `_verify` /
 	 * `_resend`) are intentionally NOT here: they run before a user identity
 	 * exists and are registered + verified directly. Scan-spawn / scan-tick
-	 * REST endpoints (SEGURIUM-421 / 424) are signature-authenticated and
+	 * REST endpoints are signature-authenticated and
 	 * registered separately via register_rest_route(); they are not AJAX
 	 * actions and do not belong in this table.
 	 *
@@ -222,6 +222,7 @@ class Segurium {
 		$selfcheck = Segurium_Self_Check::NONCE_ACTION;
 		$twofa     = Segurium_2FA::NONCE_ACTION;
 		$review    = Segurium_Review_Prompt::NONCE_ACTION;
+		$paywall   = Segurium_Paywall_Telemetry::NONCE_ACTION;
 
 		return array(
 			// Consent + core settings.
@@ -304,8 +305,11 @@ class Segurium {
 			// Support.
 			'segurium_submit_support_ticket'             => array( $support, $mo, array( $this, 'ajax_submit_support_ticket' ) ),
 
-			// SEGURIUM-709: review ask (leave / later / never).
+			// Review ask (leave / later / never).
 			Segurium_Review_Prompt::AJAX_ACTION          => array( $review, $mo, array( 'Segurium_Review_Prompt', 'ajax_review_prompt_action' ) ),
+
+			// Quota-wall CTA impressions and clicks.
+			Segurium_Paywall_Telemetry::AJAX_ACTION      => array( $paywall, $mo, array( 'Segurium_Paywall_Telemetry', 'ajax_paywall_cta' ) ),
 
 			// Security headers + info shield.
 			'segurium_get_sh_settings'                   => array( $settings, $mo, array( $this, 'ajax_get_sh_settings' ) ),
@@ -334,7 +338,7 @@ class Segurium {
 	}
 
 	/**
-	 * SEGURIUM-584: central privileged AJAX dispatcher (Pattern A).
+	 * Central privileged AJAX dispatcher (Pattern A).
 	 *
 	 * Every privileged Segurium `wp_ajax_*` action is routed here. The
 	 * dispatcher looks the action up in ajax_routes(), verifies the route's
@@ -407,7 +411,7 @@ class Segurium {
 			return;
 		}
 		$this->update_server_state_from_scan( $scan );
-		// SEGURIUM-205: stamp last-malware-scan freshness and, if an
+		// Stamp last-malware-scan freshness and, if an
 		// integrity scan was queued behind this run, schedule it to start
 		// after the runner releases the lock.
 		Segurium_Integrity_Chain::note_malware_completed();
@@ -527,7 +531,7 @@ class Segurium {
 
 	/**
 	 * Resolve the accent palette derived from the user's WordPress
-	 * Administration Color Scheme (SEGURIUM-317).
+	 * Administration Color Scheme.
 	 *
 	 * Returns the colors used by `assets/css/segurium-admin.css` via CSS
 	 * custom properties:
@@ -596,7 +600,7 @@ class Segurium {
 
 	/**
 	 * Inline CSS that re-declares Segurium's `--segurium-accent-*` custom
-	 * properties from the user's wp-admin color scheme (SEGURIUM-317).
+	 * properties from the user's wp-admin color scheme.
 	 *
 	 * Attached to the `segurium-admin` style handle via
 	 * `wp_add_inline_style()` so it loads after the linked stylesheet
@@ -724,7 +728,7 @@ class Segurium {
 	 * @return mixed
 	 */
 	private static function request_scalar( $source, $key, $fallback = '' ) {
-		// SEGURIUM-526: centralised superglobal reader. The actual
+		// Centralised superglobal reader. The actual
 		// nonce + capability enforcement lives at each call site (the
 		// central AJAX dispatcher verifies nonce + capability before any
 		// handler runs; admin page renders gate on current_user_can).
@@ -767,7 +771,7 @@ class Segurium {
 	 * @return array
 	 */
 	private static function request_array( $source, $key ) {
-		// SEGURIUM-526: centralised superglobal reader. Real enforcement
+		// Centralised superglobal reader. Real enforcement
 		// lives at each call site (the central AJAX dispatcher).
 		$bag = array();
 		// phpcs:disable WordPress.Security.NonceVerification -- centralized request reader; arrays are sanitized by their owning settings classes.
@@ -802,7 +806,7 @@ class Segurium {
 	 * @return bool
 	 */
 	private static function request_has( $source, $key ) {
-		// SEGURIUM-526: centralised superglobal presence check. Real
+		// Centralised superglobal presence check. Real
 		// enforcement lives at each call site (the central AJAX dispatcher).
 		$bag = array();
 		// phpcs:disable WordPress.Security.NonceVerification -- presence check only; values are read through typed helpers.
@@ -877,7 +881,7 @@ class Segurium {
 			array(),
 			$this->asset_version( 'assets/css/segurium-admin.css' )
 		);
-		// SEGURIUM-317: re-declare accent CSS variables from the user's
+		// Re-declare accent CSS variables from the user's
 		// chosen wp-admin color scheme so our admin UI follows it.
 		wp_add_inline_style( 'segurium-admin', self::admin_color_scheme_inline_css() );
 		wp_enqueue_script(
@@ -922,7 +926,7 @@ class Segurium {
 			$this->asset_version( 'assets/js/segurium-iid-copy.js' ),
 			true
 		);
-		// SEGURIUM-709: only enqueued when the ask is actually painting
+		// Only enqueued when the ask is actually painting
 		// this request, so the file costs nothing on every other load.
 		if ( Segurium_Review_Prompt::should_render() ) {
 			wp_enqueue_script(
@@ -933,7 +937,7 @@ class Segurium {
 				true
 			);
 		}
-		// SEGURIUM-413: feed the JS the most recent *terminal* scan so the
+		// Feed the JS the most recent *terminal* scan so the
 		// summary line can render an honest "Scan stopped — X of Y" after a
 		// user cancellation or watchdog abort, not the stale previous
 		// completed run. The JS branches on `.status` for copy.
@@ -970,8 +974,8 @@ class Segurium {
 			}
 		}
 
-		// SEGURIUM-341: tier signal for the JS payload comes from the cached
-		// CTI quota envelope's `plan_tier` field (added by SEGURIUM-348), not
+		// Tier signal for the JS payload comes from the cached
+		// CTI quota envelope's `plan_tier` field, not
 		// from a local Freemius read — the plugin code must run identically
 		// for every install (WP.org Guideline 5). Plan flips reach the JS
 		// within ≤60s of the CTI webhook; mid-session changes still require
@@ -989,13 +993,14 @@ class Segurium {
 					'settingsNonce'  => wp_create_nonce( 'segurium_settings' ),
 					'cleanupNonce'   => wp_create_nonce( 'segurium_cleanup' ),
 					'integrityNonce' => wp_create_nonce( 'segurium_integrity' ),
+					'paywallNonce'   => wp_create_nonce( Segurium_Paywall_Telemetry::NONCE_ACTION ),
 					'lastScan'       => $last_scan,
-					// SEGURIUM-248: surface host-environment problems that
+					// Surface host-environment problems that
 					// would silently break scanning (short max_execution_time,
 					// disabled WP-Cron with no real cron) so the user gets a
 					// banner instead of a stuck progress bar.
 					'envWarnings'    => Segurium_Scan_Runner::environment_warnings(),
-					// SEGURIUM-204/207: paywall CTA destination. Empty
+					// Paywall CTA destination. Empty
 					// string when the SDK is unreachable OR when Freemius
 					// has no synced paid plans (pricing submenu is then
 					// not registered and the URL would land on a blank
@@ -1141,7 +1146,7 @@ class Segurium {
 						'intConfirmDelete'        => __( 'This file is not part of the original installation and will be deleted. A backup will be created. Continue?', 'segurium' ),
 						'intConfirmDeleteAll'     => __( 'Some files will be deleted (unknown files) and some will be replaced with originals (modified files). Backups will be created for all. Continue?', 'segurium' ),
 						'intFixAll'               => __( 'Fixing files...', 'segurium' ),
-						// SEGURIUM-279: pre-flight backup-eviction warning shown inside the Fix All preview modal.
+						// Pre-flight backup-eviction warning shown inside the Fix All preview modal.
 						'intFixAllEvictHeading'   => __( 'Older backups will be rotated out', 'segurium' ),
 						/* translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4 MB") */
 						'intFixAllEvictBody1'     => __( 'You are about to fix %1$d files (~%2$s).', 'segurium' ),
@@ -1327,7 +1332,7 @@ class Segurium {
 		);
 
 		// Bootstrap self-check payload so the tab can render cached state
-		// without an initial round-trip. SEGURIUM-435: `historyEmpty` is
+		// without an initial round-trip. `historyEmpty` is
 		// the authoritative cold-start signal for the JS auto-run — true
 		// only when the `self_check_history` table has zero rows. Once
 		// any check has been recorded the flag flips false forever and
@@ -1354,7 +1359,7 @@ class Segurium {
 	 * (after stripping the WordPress install root from each enumerated
 	 * file). Any user-entered absolute path that lives under ABSPATH is
 	 * therefore a silent no-op — the relative form is what the matcher
-	 * actually sees. SEGURIUM-258: rewrite such lines to their relative
+	 * actually sees. Rewrite such lines to their relative
 	 * equivalent at save time. Lines we cannot map (absolute paths that
 	 * are not under ABSPATH, plain wildcard patterns, relative paths) are
 	 * returned untouched.
@@ -1491,7 +1496,7 @@ class Segurium {
 	 * @return string
 	 */
 	public static function current_tab() {
-		// SEGURIUM-526: read-only admin nav helper. Real cap enforcement is
+		// Read-only admin nav helper. Real cap enforcement is
 		// upstream — WP routes admin pages through
 		// `current_user_can( 'manage_options' )` before rendering this tab
 		// strip — and the value is validated against an allow-list below.
@@ -1656,7 +1661,7 @@ class Segurium {
 	 * @return void
 	 */
 	/**
-	 * SEGURIUM-341 / 343: tier read for the JS payload. Thin wrapper over
+	 * Tier read for the JS payload. Thin wrapper over
 	 * `Segurium_Quota::plan_tier()` so the bootstrap reflects the same
 	 * envelope-sourced state as every other renderer; defaults to Free
 	 * until CTI confirms otherwise.
@@ -1678,7 +1683,7 @@ class Segurium {
 	 * Returns '' when the readout should stay hidden — Pro tier, no
 	 * cached envelope yet, or a previously-cached fail-open placeholder.
 	 *
-	 * SEGURIUM-379: gate strictly on the cached envelope's plan_tier rather
+	 * Gate strictly on the cached envelope's plan_tier rather
 	 * than the `unlimited_cleanup` entitlement. Pro installs must show
 	 * nothing about quotas anywhere in the plugin UI; plan_tier is the
 	 * single source of truth for that decision (entitlements are derived
@@ -1729,7 +1734,7 @@ class Segurium {
 
 		$html = '<span>' . esc_html( $copy ) . '</span>';
 
-		// SEGURIUM-355: only attach the Upgrade-to-Pro CTA on the at-limit
+		// Only attach the Upgrade-to-Pro CTA on the at-limit
 		// branch. Rendering it at 0/3 is constant promotion (WP.org
 		// Guideline 11). Mirrors segurium-scan.js renderQuotaReadout() so
 		// the JS refresh on tab activation does not flip the CTA in or out.
@@ -1786,7 +1791,7 @@ class Segurium {
 	 * @return void
 	 */
 	private function render_main_page() {
-		// SEGURIUM-207: tier class drives Pro-affordance visibility (badge,
+		// Tier class drives Pro-affordance visibility (badge,
 		// upgrade CTAs) without per-element PHP branching. Default Free —
 		// Pro is granted only when Entitlements confirms.
 		$is_pro               = ( class_exists( 'Segurium_Entitlements' )
@@ -1886,15 +1891,15 @@ class Segurium {
 					do_action( 'segurium_admin_panel_before_scanner', $active_tab );
 					?>
 					<div class="segurium-feature" id="segurium-feature-scanner" style="display:<?php echo esc_attr( $segurium_panel_style( 'scanner' ) ); ?>;">
-						<?php // SEGURIUM-207: Free-only quota readout. Pre-rendered from the last cached CTI envelope (Segurium_Quota::cached_envelope) so it shows at first paint; segurium-scan.js refreshes on tab activation. Hidden when no cache, when Pro, or when the cache is fail-open. ?>
+						<?php // Free-only quota readout. Pre-rendered from the last cached CTI envelope (Segurium_Quota::cached_envelope) so it shows at first paint; segurium-scan.js refreshes on tab activation. Hidden when no cache, when Pro, or when the cache is fail-open. ?>
 						<div id="segurium-quota-readout" class="segurium-quota-readout"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
-						<?php // SEGURIUM-248: host-environment warnings. Populated by JS from seguriumScan.envWarnings on page load — kept hidden when the array is empty. ?>
+						<?php // Host-environment warnings. Populated by JS from seguriumScan.envWarnings on page load — kept hidden when the array is empty. ?>
 						<div id="segurium-env-warnings" class="segurium-env-warnings" hidden></div>
 						<div class="segurium-ss-scan-area">
 							<button id="segurium-ss-scan-btn" class="button button-primary">
 								<?php esc_html_e( 'Scan', 'segurium' ); ?>
 							</button>
-							<?php // SEGURIUM-248: surface a "Stop" affordance during an active scan so the user can clear a stuck/abandoned scan without waiting for the watchdog. JS toggles visibility off the polling state. ?>
+							<?php // Surface a "Stop" affordance during an active scan so the user can clear a stuck/abandoned scan without waiting for the watchdog. JS toggles visibility off the polling state. ?>
 							<button id="segurium-ss-stop-btn" class="button" hidden>
 								<?php esc_html_e( 'Stop scan', 'segurium' ); ?>
 							</button>
@@ -1946,7 +1951,7 @@ class Segurium {
 								</tr>
 							</thead>
 							<tbody id="segurium-server-state-tbody">
-								<?php // SEGURIUM-305: skeleton placeholder rows (replaced by renderServerState() on first AJAX render). ?>
+								<?php // Skeleton placeholder rows (replaced by renderServerState() on first AJAX render). ?>
 								<?php for ( $segurium_skel_i = 0; $segurium_skel_i < 6; $segurium_skel_i++ ) : ?>
 									<tr class="segurium-skeleton-row" aria-hidden="true">
 										<td><span class="segurium-skeleton segurium-skeleton--wide"></span></td>
@@ -1977,13 +1982,13 @@ class Segurium {
 					<div class="segurium-feature" id="segurium-feature-integrity-scanner" style="display:<?php echo esc_attr( $segurium_panel_style( 'integrity-scanner' ) ); ?>;">
 						<?php // Same Free-tier quota readout as the malware scanner panel — pre-rendered from cache so it shows at first paint. ?>
 						<div class="segurium-quota-readout"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
-						<?php // SEGURIUM-248: same env-warnings banner as the malware scanner panel; populated by JS from seguriumScan.envWarnings. ?>
+						<?php // Same env-warnings banner as the malware scanner panel; populated by JS from seguriumScan.envWarnings. ?>
 						<div class="segurium-env-warnings" hidden></div>
 						<div class="segurium-is-scan-area">
 							<button id="segurium-is-scan-btn" class="button button-primary">
 								<?php esc_html_e( 'Scan', 'segurium' ); ?>
 							</button>
-							<?php // SEGURIUM-248: stop button mirrors the malware scanner — lets users clear a stuck integrity scan. ?>
+							<?php // Stop button mirrors the malware scanner — lets users clear a stuck integrity scan. ?>
 							<button id="segurium-is-stop-btn" class="button" hidden>
 								<?php esc_html_e( 'Stop scan', 'segurium' ); ?>
 							</button>
@@ -2009,7 +2014,7 @@ class Segurium {
 								</tr>
 							</thead>
 							<tbody id="segurium-integrity-state-tbody">
-								<?php // SEGURIUM-305: skeleton placeholder rows (replaced by renderIntegrityState() on first AJAX render). ?>
+								<?php // Skeleton placeholder rows (replaced by renderIntegrityState() on first AJAX render). ?>
 								<?php for ( $segurium_skel_i = 0; $segurium_skel_i < 6; $segurium_skel_i++ ) : ?>
 									<tr class="segurium-skeleton-row" aria-hidden="true">
 										<td><span class="segurium-skeleton segurium-skeleton--short"></span></td>
@@ -2944,7 +2949,7 @@ class Segurium {
 					</div>
 					<div class="segurium-feature" id="segurium-feature-plans" style="display:<?php echo esc_attr( $segurium_panel_style( 'plans' ) ); ?>;">
 						<?php
-						// SEGURIUM-394: Plan-picker cards mirroring segurium.com/pricing
+						// Plan-picker cards mirroring segurium.com/pricing
 						// in a default WP-admin palette. data-current-tier marks the
 						// active card so JS / CSS can highlight it.
 						$tier_attr   = ( 'segurium--pro' === $tier_class ) ? 'pro' : 'free';
@@ -3079,7 +3084,7 @@ class Segurium {
 							</label>
 							<p class="description"><?php esc_html_e( 'Off (default): encrypted backups of deleted components and cured files are kept in the uploads/segurium-data directory after uninstall, so a reinstall can still restore them. Turn on only if you want a hard deletion on uninstall.', 'segurium' ); ?></p>
 						</div>
-						<?php // SEGURIUM-206: opt-in for the server-side daily security digest. ?>
+						<?php // Opt-in for the server-side daily security digest. ?>
 						<div class="segurium-setting-row">
 							<label>
 								<input type="checkbox" id="segurium_alerts_email_enabled" <?php checked( Segurium_Storage::setting_get_bool( Segurium_Alerts_Settings::OPTION_ENABLED, false ) ); ?>>
@@ -3097,7 +3102,7 @@ class Segurium {
 							<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
 						</div>
 						<?php
-						// SEGURIUM-64 / SEGURIUM-341: unattended auto-fix toggle.
+						// Unattended auto-fix toggle.
 						// Available on every install; per-cleanup CTI quota
 						// applies the right plan-tier cap.
 						?>
@@ -3108,7 +3113,7 @@ class Segurium {
 							</label>
 							<p class="description"><?php esc_html_e( 'After every scheduled or real-time scan, files with a known malware or injection verdict are cleaned without requiring a click. Files you have ignored (by path or by hash) are skipped.', 'segurium' ); ?></p>
 						</div>
-						<?php // SEGURIUM-918: consent for CTI-addressed component updates. ?>
+						<?php // Consent for CTI-addressed component updates. ?>
 						<div class="segurium-setting-row">
 							<label>
 								<input type="checkbox" id="segurium_remote_actions_enabled" <?php checked( Segurium_Remote_Actions::enabled() ); ?><?php disabled( Segurium_Remote_Actions::killed() ); ?>>
@@ -3313,7 +3318,7 @@ class Segurium {
 		Segurium_Storage::setting_set( 'segurium_cti_consent', 1 );
 		Segurium_Storage::setting_set( 'segurium_cloud_detection_enabled', 1 );
 
-		// SEGURIUM-245: defer IID registration off the AJAX path —
+		// Defer IID registration off the AJAX path —
 		// {@see Segurium_IID::register()} makes a 15s blocking POST.
 		// {@see self::maybe_schedule_missing_data()} retries on init
 		// if the cron event misses for any reason.
@@ -3324,7 +3329,7 @@ class Segurium {
 		Segurium_Storage::cti_send_message( 'plugin_activated' );
 		Segurium_Storage::cti_send_message( 'consent' );
 
-		// SEGURIUM-329: piggyback a fresh platform snapshot so the
+		// Piggyback a fresh platform snapshot so the
 		// installation-base dashboard populates without waiting for
 		// the daily cron tick.
 		Segurium_Platform_Snapshot::send_on_consent();
@@ -3405,7 +3410,7 @@ class Segurium {
 		$wipe_on_uninstall = self::request_bool( INPUT_POST, 'uninstall_wipe_data' );
 		Segurium_Storage::setting_set( 'segurium_uninstall_wipe_data', $wipe_on_uninstall ? 1 : 0 );
 
-		// SEGURIUM-206: alerts opt-in. When the inputs are absent (older
+		// Alerts opt-in. When the inputs are absent (older
 		// JS) leave the existing options untouched — Segurium_Alerts_Settings
 		// only fires the CTI push on actual change events.
 		if ( self::request_has( INPUT_POST, 'alerts_email_address' ) || self::request_has( INPUT_POST, 'alerts_email_enabled' ) ) {
@@ -3414,13 +3419,13 @@ class Segurium {
 			Segurium_Alerts_Settings::set( $alerts_enabled, $alerts_email );
 		}
 
-		// SEGURIUM-64 / SEGURIUM-341: unattended auto-fix opt-in. Available
+		// Unattended auto-fix opt-in. Available
 		// on every install; CTI applies plan-tier limits per cleanup.
 		if ( self::request_has( INPUT_POST, 'auto_fix_enabled' ) ) {
 			Segurium_Auto_Fix_Settings::set( self::request_bool( INPUT_POST, 'auto_fix_enabled' ) );
 		}
 
-		// SEGURIUM-918: consent for CTI-addressed component updates. The
+		// Consent for CTI-addressed component updates. The
 		// wp-config kill switch outranks the checkbox, so a site pinned off
 		// there cannot be re-opened from the admin screen.
 		if ( self::request_has( INPUT_POST, 'remote_actions_enabled' ) && ! Segurium_Remote_Actions::killed() ) {
@@ -3633,7 +3638,7 @@ class Segurium {
 			);
 		}
 
-		// SEGURIUM-205: if the user cancels the chained malware scan, the
+		// If the user cancels the chained malware scan, the
 		// integrity scan that was queued behind it must also be cancelled
 		// — otherwise the deferred-start cron would silently start it.
 		// Capture the active scan_type before we tear the lock down.
@@ -3724,7 +3729,7 @@ class Segurium {
 		if ( ! is_array( $row ) ) {
 			return null;
 		}
-		// SEGURIUM-548: read frozen counters from the row; manual cleanups
+		// Read frozen counters from the row; manual cleanups
 		// performed AFTER scan completion must not retroactively change the
 		// summary line.
 		$threats   = (int) $row['threats_found'];
@@ -3756,7 +3761,6 @@ class Segurium {
 	 * scheduled malware scanner. Used by `segurium_scan_tick` to surface a
 	 * truthful summary after the runner finished between polls — without
 	 * this, a cancelled run was masked by the previous completed scan.
-	 * SEGURIUM-413.
 	 *
 	 * @return array|null
 	 */
@@ -3765,7 +3769,7 @@ class Segurium {
 		if ( ! is_array( $row ) ) {
 			return null;
 		}
-		// SEGURIUM-548: read frozen counters from the row.
+		// Read frozen counters from the row.
 		$threats   = (int) $row['threats_found'];
 		$cleaned   = (int) $row['threats_cleaned'];
 		$started   = (int) $row['started_at'];
@@ -3901,7 +3905,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Invalid parameters', 'segurium' ) ) );
 		}
 
-		// SEGURIUM-410: resolve in 'write' mode so an in-root path that no
+		// Resolve in 'write' mode so an in-root path that no
 		// longer exists on disk falls through to the explicit File-not-found
 		// branch below. 'read' mode collapses "outside ABSPATH" and "in-root
 		// but file gone" into a single null and would mislabel a deleted
@@ -3915,7 +3919,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'File not found', 'segurium' ) ) );
 		}
 
-		// SEGURIUM-353: the rolling-window cap is enforced inside
+		// The rolling-window cap is enforced inside
 		// `/v1/cleanup` on CTI now — the plugin no longer asks twice.
 		// Paywall denial surfaces as `error_code = paywall_quota_exceeded`
 		// on the cleanup primitive's result, with the envelope on
@@ -3933,12 +3937,16 @@ class Segurium {
 				$envelope = is_array( $result['paywall'] ) && isset( $result['paywall']['quota'] )
 					? (array) $result['paywall']['quota']
 					: array();
+				Segurium_Paywall_Telemetry::stamp_wall( $envelope );
 				segurium_send_json_error(
 					array_merge(
 						array(
 							'message' => __( 'Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota.', 'segurium' ),
 						),
-						Segurium_Quota::paywall_payload( $envelope )
+						Segurium_Quota::paywall_payload(
+							$envelope,
+							Segurium_Paywall_Telemetry::ACTION_CLEANUP
+						)
 					),
 					402
 				);
@@ -3946,14 +3954,13 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => (string) $result['error'] ) );
 		}
 
-		// SEGURIUM-549: prefer the post-charge quota envelope CTI echoes
+		// Prefer the post-charge quota envelope CTI echoes
 		// in the `/v1/cleanup` 200 body — it carries the authoritative
 		// `next_slot_at`, so the at-limit readout shows a real date
-		// instead of "next slot opens —". Fall back to the SEGURIUM-409
+		// instead of "next slot opens —". Fall back to the
 		// local bump for older CTI builds that omit the echo: that path
 		// keeps the readout deterministic when a `/v1/quota/state`
-		// re-fetch would silently no-op on a transient transport blip
-		// (SEGURIUM-360 regression).
+		// re-fetch would silently no-op on a transient transport blip.
 		$quota_echo = ( isset( $result['quota'] ) && is_array( $result['quota'] ) ) ? $result['quota'] : null;
 		if ( null !== $quota_echo ) {
 			Segurium_Quota::instance()->apply_cleanup_envelope( $quota_echo );
@@ -3971,7 +3978,7 @@ class Segurium {
 	}
 
 	/**
-	 * AJAX handler for the read-only Free-tier quota readout (SEGURIUM-207).
+	 * AJAX handler for the read-only Free-tier quota readout.
 	 * Returns the same envelope shape as Segurium_Quota::consume() but
 	 * without consuming a slot. Pro short-circuits client-side via
 	 * Segurium_Entitlements; the readout is only rendered for Free, and
@@ -3986,7 +3993,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
 		}
 
-		// SEGURIUM-302: wall-clock log line so future regressions are
+		// Wall-clock log line so future regressions are
 		// visible without a fresh profile run. The pre-302 baseline was
 		// ~1,070ms (synchronous CTI hop). With the SWR cache active a
 		// readout at >100ms means the hot path regressed back to a
@@ -4328,7 +4335,7 @@ class Segurium {
 	}
 
 	/**
-	 * AJAX handler: batched initial-state read for the admin SPA (SEGURIUM-301).
+	 * AJAX handler: batched initial-state read for the admin SPA.
 	 *
 	 * Collapses the three first-paint reads (server state, quota, CTI health)
 	 * into a single admin-ajax round-trip so first paint pays one WP bootstrap
@@ -4391,7 +4398,7 @@ class Segurium {
 		$quota = Segurium_Quota::instance()->state();
 
 		// Reuse the same 5-minute transient cache as ajax_cti_health so the
-		// batch read does not bypass the SEGURIUM-270 caching policy.
+		// batch read does not bypass the caching policy.
 		$cached = get_transient( self::CTI_HEALTH_CACHE_KEY );
 		if ( false === $cached ) {
 			$healthy = Segurium_Storage::cti_health();
@@ -4414,8 +4421,8 @@ class Segurium {
 	 *
 	 * Returns the list of currently-open malicious findings so the JS can
 	 * iterate per-file cleanup. Per-file cleanups are quota-gated server-
-	 * side by CTI (SEGURIUM-65); SEGURIUM-341 removed the local entitlement
-	 * paywall so the preview is available on every install.
+	 * side by CTI; there is no local entitlement
+	 * paywall, so the preview is available on every install.
 	 *
 	 * @return void
 	 */
@@ -4473,10 +4480,9 @@ class Segurium {
 			// tab never shows integrity scan progress. The runner's
 			// `shutdown` trigger drives life_support_system() on this
 			// same request, so each poll both reads progress AND keeps
-			// the worker alive (SEGURIUM-250).
+			// the worker alive.
 			//
-			// SEGURIUM-406: drops the SEGURIUM-303 chain-driven-malware
-			// suppression. The malware tab is the canonical driver for
+			// The chain-driven-malware suppression is gone. The malware tab is the canonical driver for
 			// any non-integrity scan, regardless of whether a chain
 			// marker is queued behind it. Stranded markers therefore
 			// can no longer make a user-initiated malware scan look
@@ -4502,7 +4508,7 @@ class Segurium {
 			$payload  = array( 'running' => false );
 			$terminal = $this->get_last_terminal_scan();
 			if ( null !== $terminal ) {
-				// SEGURIUM-413: see Segurium_Scan_Runner::ajax_tick() — paired
+				// See Segurium_Scan_Runner::ajax_tick() — paired
 				// payload shape so both status entry points behave the same.
 				$payload['last_terminal'] = $terminal;
 				if ( 'completed' === ( $terminal['status'] ?? '' ) ) {
@@ -4527,7 +4533,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
 		}
 
-		// SEGURIUM-270: 5-minute server-side cache. The status indicator is
+		// 5-Minute server-side cache. The status indicator is
 		// purely informational ("CTI Connected / Disconnected") and does not
 		// gate any feature — a stale read for a few minutes is acceptable
 		// and saves an outbound HTTP probe on every poll.
@@ -4543,7 +4549,7 @@ class Segurium {
 	}
 
 	/**
-	 * Throttle WP Heartbeat on Segurium admin pages (SEGURIUM-270).
+	 * Throttle WP Heartbeat on Segurium admin pages.
 	 *
 	 * The heartbeat default of 15s produces ~5,800 admin-ajax round-trips
 	 * per day for a parked tab; bumping it to the 60s ceiling cuts that to
@@ -4563,14 +4569,14 @@ class Segurium {
 	/**
 	 * Detect whether the current request is rendering a Segurium admin page.
 	 *
-	 * Used by SEGURIUM-270 to scope load-reduction filters (heartbeat
+	 * Used to scope load-reduction filters (heartbeat
 	 * throttle, server-side polling caches) to our own admin surface
 	 * without affecting unrelated admin pages.
 	 *
 	 * @return bool
 	 */
 	private function is_on_segurium_admin_page() {
-		// SEGURIUM-526: read-only page-slug probe; no state is mutated.
+		// Read-only page-slug probe; no state is mutated.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only check of the admin page slug; no state is mutated.
 		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 		return '' !== $page && 0 === strpos( $page, 'segurium' );
@@ -4585,7 +4591,7 @@ class Segurium {
 	 * @return void
 	 */
 	public function maybe_schedule_missing_data() {
-		// SEGURIUM-245: every CTI-touching catch-up below is gated on
+		// Every CTI-touching catch-up below is gated on
 		// consent. The plugin must not contact CTI before the user
 		// accepts the External Service Disclosure.
 		if ( ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
@@ -4650,7 +4656,7 @@ class Segurium {
 
 		$this->handle_integrity_ajax(
 			function () {
-				// SEGURIUM-205: gate on a fresh malware scan (<24h). When
+				// Gate on a fresh malware scan (<24h). When
 				// stale, the chain helper kicks off a malware scan first
 				// and queues the integrity scan to start on completion.
 				$result = Segurium_Integrity_Chain::start_or_chain();
@@ -4663,7 +4669,7 @@ class Segurium {
 					);
 				}
 
-				// SEGURIUM-406: report only the integrity scan's own
+				// Report only the integrity scan's own
 				// state. When start_or_chain() returns kind=chain, the
 				// chained malware scan runs under the malware tab; the
 				// integrity tab waits in not-running state until its
@@ -4734,7 +4740,7 @@ class Segurium {
 	/**
 	 * AJAX handler for polling integrity scan status.
 	 *
-	 * SEGURIUM-406: the integrity tab strictly mirrors the integrity
+	 * The integrity tab strictly mirrors the integrity
 	 * scan entity's state. It no longer reads
 	 * `Segurium_Integrity_Chain::is_chain_pending()` to derive a
 	 * running indicator — that marker is a queue note, not live
@@ -4913,7 +4919,7 @@ class Segurium {
 	 *
 	 * @param array $components      List of scanned components.
 	 * @param array $unverified_keys "type:slug" keys CTI could not verify this
-	 *                               scan (SEGURIUM-621). They are kept out of
+	 *                               scan. They are kept out of
 	 *                               the not-found sweep but not reconciled, so
 	 *                               a pre-existing open finding is never
 	 *                               silently resolved by a chunk we never
@@ -5494,9 +5500,9 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
 		}
 
-		// SEGURIUM-204 / SEGURIUM-341: Fix All preview is available on every
+		// Fix All preview is available on every
 		// install. Per-file fixes against malicious findings are quota-gated
-		// inside CTI (SEGURIUM-65), so a Free site hitting "Fix All" cleans
+		// inside CTI, so a Free site hitting "Fix All" cleans
 		// the next-N-allowed and surfaces quota_exceeded for the rest from
 		// the per-file path.
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
@@ -5595,7 +5601,7 @@ class Segurium {
 				if ( 'open' !== ( $f['state'] ?? '' ) ) {
 					continue;
 				}
-				// SEGURIUM-832: defense-in-depth. The walker never submits
+				// Defense-in-depth. The walker never submits
 				// excluded paths and CTI only echoes verdicts for submitted
 				// files, so an open row on a protected path can only be stale
 				// state or a future verdict source. Never queue one.
@@ -5629,13 +5635,13 @@ class Segurium {
 						'size'      => $this->safe_filesize_within_wp_root( $f['path'] ),
 					);
 				} elseif ( 'version_not_found' === $verdict ) {
-					// SEGURIUM-832: CTI stamps this verdict on every file of a
+					// CTI stamps this verdict on every file of a
 					// component whose version it cannot resolve; there is
 					// nothing to restore from and bulk-deleting would wipe the
 					// component. Collapse to one skipped row after the loop.
 					++$vnf_count;
 				} else {
-					// SEGURIUM-832: fail closed on any verdict without a fix
+					// Fail closed on any verdict without a fix
 					// recipe (`unavailable`, future additions) instead of
 					// silently dropping the row from the preview.
 					$preview['skipped'][] = array(
@@ -5668,7 +5674,7 @@ class Segurium {
 			}
 		}
 
-		// SEGURIUM-279: simulate the integrity bucket rotation that would
+		// Simulate the integrity bucket rotation that would
 		// happen once we start writing pre-fix backups. Only modified-file
 		// replacements and unknown-file deletions create envelopes — missing
 		// files are re-downloaded with no backup. Use plaintext sizes; the
@@ -5895,7 +5901,7 @@ class Segurium {
 	}
 
 	/**
-	 * AJAX handler for submitting a False-Positive report (SEGURIUM-157).
+	 * AJAX handler for submitting a False-Positive report.
 	 *
 	 * Reads the malware row's file from disk, gzips it, posts to the CTI
 	 * /v1/submissions endpoint, and (when the "ignore on this site" box
@@ -6455,7 +6461,7 @@ class Segurium {
 	/**
 	 * Read user-managed firewall CIDR entries from the ip_list table.
 	 *
-	 * SEGURIUM-540: implementation moved to Segurium_Firewall_Rules (firewall
+	 * Implementation moved to Segurium_Firewall_Rules (firewall
 	 * include group). Kept here as a thin BC delegator for existing callers.
 	 *
 	 * @return string[] Array of `<ip>/<bits>` strings.
@@ -6467,7 +6473,7 @@ class Segurium {
 	/**
 	 * Replace the user-managed firewall CIDR entries in ip_list.
 	 *
-	 * SEGURIUM-540: implementation moved to Segurium_Firewall_Rules. BC delegator.
+	 * Implementation moved to Segurium_Firewall_Rules. BC delegator.
 	 *
 	 * @param string   $mode  `deny_list` or `allow_list`.
 	 * @param string[] $cidrs Array of `<ip>/<bits>` strings.
@@ -6482,7 +6488,7 @@ class Segurium {
 	 * @return string[]
 	 */
 	public static function trusted_proxies_manual_read() {
-		// SEGURIUM-392: storage helpers moved to Segurium_Trusted_Proxies
+		// Storage helpers moved to Segurium_Trusted_Proxies
 		// (firewall include group) so the geo-blocker pending-revert path
 		// works without the heavy Segurium class loaded. Kept here as a
 		// thin BC delegator for existing callers.
@@ -6626,7 +6632,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Invalid path', 'segurium' ) ), 403 );
 		}
 
-		// SEGURIUM-830: derive the canonical relative form of the target for
+		// Derive the canonical relative form of the target for
 		// the guard only — a spelling like "./aios-bootstrap.php" resolves
 		// to the loader while matching none of the root-anchored patterns.
 		// $file_path itself must stay the logical (walker-issued) path:
@@ -6642,9 +6648,9 @@ class Segurium {
 			}
 		}
 
-		// SEGURIUM-830: refuse one-click deletion of protected paths, checked
+		// Refuse one-click deletion of protected paths, checked
 		// against both the logical and the canonical spelling. Also covers
-		// integrity_issues rows written before the SEGURIUM-831 walker
+		// integrity_issues rows written before the walker
 		// exclusion and every verdict the UI maps to 'new'
 		// (unknown, version_not_found). See docs/features/integrity-scan.md.
 		if ( 'new' === $verdict
@@ -6675,7 +6681,7 @@ class Segurium {
 				$cti_path = $file_path;
 		}
 
-		// SEGURIUM-204 (corrected axis): the cleanup quota is consumed when
+		// Corrected axis: the cleanup quota is consumed when
 		// remediation touches an *infected* file, not based on whether the
 		// file is modified vs added. The authoritative classification lives
 		// in integrity_issues.is_malicious — populated at scan time by
@@ -6736,7 +6742,7 @@ class Segurium {
 			}
 
 			if ( $is_malicious ) {
-				// SEGURIUM-353: any malicious integrity finding (modified
+				// Any malicious integrity finding (modified
 				// or new) is a real malware cleanup — route it through
 				// the shared cleanup primitive so the slot is paid via
 				// `/v1/cleanup` and the file is wiped (or cured)
@@ -6759,12 +6765,16 @@ class Segurium {
 						$envelope = is_array( $cleanup['paywall'] ) && isset( $cleanup['paywall']['quota'] )
 							? (array) $cleanup['paywall']['quota']
 							: array();
+						Segurium_Paywall_Telemetry::stamp_wall( $envelope );
 						segurium_send_json_error(
 							array_merge(
 								array(
 									'message' => __( 'Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota.', 'segurium' ),
 								),
-								Segurium_Quota::paywall_payload( $envelope )
+								Segurium_Quota::paywall_payload(
+									$envelope,
+									Segurium_Paywall_Telemetry::ACTION_MALWARE_FIX
+								)
 							),
 							402
 						);
@@ -6772,7 +6782,7 @@ class Segurium {
 					segurium_send_json_error( array( 'message' => (string) $cleanup['error'] ) );
 				}
 
-				// SEGURIUM-549 / 409: same rationale as ajax_cleanup_file —
+				// Same rationale as ajax_cleanup_file —
 				// prefer CTI's echoed post-charge envelope (authoritative
 				// `next_slot_at`), falling back to the local bump for
 				// older CTI builds that omit it.
@@ -6847,7 +6857,7 @@ class Segurium {
 			}
 
 			if ( 'modified' === $verdict ) {
-				// SEGURIUM-192: signature- and hash-verified fetch. Refuses
+				// Signature- and hash-verified fetch. Refuses
 				// to hand us content whose decoded SHA-256 does not match
 				// the signed envelope's advertised hash, so we never write
 				// a MITM-tampered body as a legitimate integrity fix.
@@ -6929,7 +6939,7 @@ class Segurium {
 			segurium_send_missing_param( 'file_path' );
 		}
 
-		// SEGURIUM-278: surface the precise reason instead of the legacy
+		// Surface the precise reason instead of the legacy
 		// "Failed to restore file" so the operator can tell a rotation
 		// eviction apart from corruption / permissions. The
 		// load_files_for_component reconcile drops dangling backup_ids on
@@ -7033,7 +7043,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Failed to read file', 'segurium' ) ) );
 		}
 
-		// SEGURIUM-192: signature- and hash-verified fetch.
+		// Signature- and hash-verified fetch.
 		$original = Segurium_Storage::cti_fetch_original_content_bytes( $comp_type, $cti_path, $comp_slug, $comp_version );
 		if ( is_wp_error( $original ) ) {
 			segurium_send_json_error( array( 'message' => $original->get_error_message() ) );

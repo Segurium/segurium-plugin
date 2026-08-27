@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
- * Version:     1.2.2
+ * Version:     1.2.3
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.2.2' );
+define( 'SEGURIUM_VERSION', '1.2.3' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -55,7 +55,7 @@ unset( $segurium_bootstrap_error );
 /**
  * Classify the current request into a bootstrap tier.
  *
- * SEGURIUM-272: every active plugin pays the cost of its `require_once`
+ * Every active plugin pays the cost of its `require_once`
  * graph + every `add_action` registered at file-load time. Most Segurium
  * code paths only matter for a small subset of requests — admin UI on
  * /wp-admin/, AJAX handlers when the action is ours, brute-force on
@@ -71,7 +71,7 @@ unset( $segurium_bootstrap_error );
  *                admin_segurium|admin_other|login|visitor.
  */
 function segurium_request_tier() {
-	// SEGURIUM-526: routing-only classifier. Runs during plugin bootstrap
+	// Routing-only classifier. Runs during plugin bootstrap
 	// BEFORE WordPress has loaded the nonce verification context, before
 	// any user identity exists, and before request sanitisation. Its
 	// only job is to decide which slice of the plugin to load — values
@@ -90,7 +90,7 @@ function segurium_request_tier() {
 		$tier = 'full';
 		return $tier;
 	}
-	// SEGURIUM-318: benchmark / debug knob. Lets the memory-bench
+	// Benchmark / debug knob. Lets the memory-bench
 	// harness drive each tier from inside a single WP-CLI process by
 	// pinning the classifier to a chosen value. Allowed values match
 	// segurium_tier_groups() keys; anything else is ignored.
@@ -123,7 +123,7 @@ function segurium_request_tier() {
 		return $tier;
 	}
 
-	// SEGURIUM-424: REST requests targeting /wp-json/segurium/v1/* (or
+	// REST requests targeting /wp-json/segurium/v1/* (or
 	// the rest_route fallback) need the full plugin loaded so the scan
 	// runner is available to the route handler. is_admin() is false and
 	// DOING_AJAX is unset on these requests, so without this branch they
@@ -180,7 +180,7 @@ function segurium_request_tier() {
  * ID — without this branch the Freemius pricing/license/opt-in/GDPR
  * handlers never bootstrap on admin-ajax.php and admin-ajax.php returns
  * its `wp_die('0', '', ['response' => 400])` fallthrough, which is what
- * SEGURIUM-359 reported as the hung "Upgrade to Pro" pricing page.
+ * users reported as the hung "Upgrade to Pro" pricing page.
  *
  * @param string $action    `$_REQUEST['action']` from admin-ajax.php.
  * @param string $module_id `$_REQUEST['module_id']`. May be empty.
@@ -190,7 +190,7 @@ function segurium_classify_ajax_action( $action, $module_id ) {
 	if ( 0 === strncmp( $action, 'segurium_', 9 ) ) {
 		return 'ajax_segurium';
 	}
-	// SEGURIUM-520: Freemius's sticky-notice dismiss JS POSTs no
+	// Freemius's sticky-notice dismiss JS POSTs no
 	// module_id, so the gate below misroutes it and the sticky
 	// notice re-renders on every page load.
 	if ( 0 === strncmp( $action, 'fs_dismiss_notice_action_', 25 ) ) {
@@ -230,7 +230,7 @@ function segurium_admin_other_needs_fs( $script_name ) {
 
 /**
  * Whether this request is the MainWP dashboard call the child bridge
- * answers (SEGURIUM-877).
+ * answers.
  *
  * Cheap shape check, run on every light-tier request: the signature must
  * be present, the operation must be the one MainWP call we serve, and the
@@ -263,7 +263,7 @@ function segurium_is_mainwp_bridge_request( $signature, $operation, $has_action 
 }
 
 /**
- * Register the MainWP child bridge on a light tier (SEGURIUM-877).
+ * Register the MainWP child bridge on a light tier.
  *
  * MainWP posts to the child's `admin-ajax.php` with `function=` and no
  * `action=`, so a fleet request classifies as `ajax_other` — the firewall
@@ -312,7 +312,7 @@ function segurium_maybe_register_mainwp_bridge() {
 }
 
 /**
- * Whether MainWP Child is active on this site (SEGURIUM-877).
+ * Whether MainWP Child is active on this site.
  *
  * `MAINWP_CHILD_PLUGIN_DIR` is not enough on its own: plugins load in
  * activation order, so on a site where Segurium activated first the
@@ -463,6 +463,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cleanup.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-review-prompt.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-paywall-telemetry.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-component-discovery.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-scan-state.php';
@@ -524,7 +525,7 @@ function segurium_fs() {
 	try {
 		// Unconditional: start.php arbitrates newest-SDK-wins via
 		// $fs_active_plugins. A class_exists guard would pin the site to an
-		// older bundled copy (SEGURIUM-590).
+		// older bundled copy.
 		require_once $sdk_entry;
 		$segurium_fs = fs_dynamic_init(
 			array(
@@ -550,7 +551,7 @@ function segurium_fs() {
 	return $segurium_fs;
 }
 
-// Single audited accessor for WordPress install-root paths (SEGURIUM-544).
+// Single audited accessor for WordPress install-root paths.
 // Loaded before the storage tier because storage's install_all() calls
 // Segurium_Path_Helpers::wp_admin_include() to pull in dbDelta.
 require_once SEGURIUM_PLUGIN_DIR . 'includes/helpers/class-segurium-path-helpers.php';
@@ -560,7 +561,7 @@ require_once SEGURIUM_PLUGIN_DIR . 'includes/helpers/class-segurium-path-helpers
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-debug.php';
 
 // Centralized raw-filesystem chokepoint. Loaded before the storage tier so
-// every layer routes raw file ops through Segurium_Fs (SEGURIUM-605).
+// every layer routes raw file ops through Segurium_Fs.
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-fs.php';
 
 // Storage tier is small and required by every other tier (firewall reads
@@ -588,7 +589,7 @@ require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-signature.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-client.php';
 
 Segurium_Storage::boot();
-// SEGURIUM-278: integrity_issues stores a backup_id alongside each fixed file
+// integrity_issues stores a backup_id alongside each fixed file
 // and the UI offers Restore for as long as that row exists, so rotation must
 // never silently drop those envelopes. The byte cap is the meaningful limit;
 // max_count is set high enough to never bind, and the pinned-ids provider
@@ -636,7 +637,7 @@ Segurium_Storage::backup_register_bucket(
  * every request and triggers dbDelta only when the registered schema set
  * changes.
  *
- * SEGURIUM-272: schema drift can only legitimately occur after a plugin
+ * Schema drift can only legitimately occur after a plugin
  * update, which always lands through an admin or CLI request first.
  * Visitor / login / ajax_other / cron requests would just pay a DB
  * roundtrip per hit for nothing. We gate the fingerprint check to the
@@ -666,7 +667,7 @@ if ( in_array( segurium_request_tier(), $segurium_self_heal_tiers, true ) ) {
 unset( $segurium_self_heal_tiers );
 
 /**
- * SEGURIUM-871: one-shot close of scan_history rows orphaned at
+ * One-shot close of scan_history rows orphaned at
  * status=running by a lock overwrite before this release. Runs
  * `Segurium_Scan_Runner::sweep_orphaned_history()` once per install and
  * stamps `segurium_migrated_871_orphan_sweep`; the hourly watchdog keeps
@@ -715,7 +716,7 @@ function segurium_migrate_on_premise_to_cloud_detection() {
 }
 
 /**
- * SEGURIUM-425: drop any wp-cron events still scheduled under the legacy
+ * Drop any wp-cron events still scheduled under the legacy
  * `segurium_every_5_seconds` schedule. The recurring scan tick now runs at
  * 60 s under `segurium_every_60_seconds`; without this migration any scan
  * that started before the upgrade keeps firing the old 5-second beat
@@ -763,8 +764,8 @@ function segurium_migrate_scan_tick_cron_rescue() {
 }
 
 /**
- * SEGURIUM-478: drop legacy per-`scan_id` Retry-After rows from the
- * runtime_kv table. SEGURIUM-476 stored the cross-tick deadline under
+ * Drop legacy per-`scan_id` Retry-After rows from the
+ * runtime_kv table. The old design stored the cross-tick deadline under
  * `async_scan:retry_after:<scan_id>`; the new design stamps an
  * IID-scoped transient instead (see {@see Segurium_Async_Scan_Pause}),
  * so the legacy rows are dead weight and confusing if left around.
@@ -797,9 +798,9 @@ function segurium_migrate_async_scan_retry_after_kv() {
 }
 
 /**
- * SEGURIUM-482: drop deprecated wp_options that belonged to the
+ * Drop deprecated wp_options that belonged to the
  * abandoned v2 concurrent-submit design (curl_multi, max_in_flight).
- * The v3 pipeline (SEGURIUM-473 / 477 – 481) replaces them with native
+ * The v3 pipeline replaces them with native
  * `wp_remote_post` + IID-scoped Retry-After transients, so the options
  * carry no signal — leaving stale values around would confuse anyone
  * reading wp_options.
@@ -899,17 +900,21 @@ if ( null === $segurium_groups ) {
 		Segurium_Pricing::register_hooks();
 	}
 
+	if ( class_exists( 'Segurium_Paywall_Telemetry' ) ) {
+		Segurium_Paywall_Telemetry::register_hooks();
+	}
+
 	if ( class_exists( 'Segurium_Checkout_Prefill' ) ) {
 		Segurium_Checkout_Prefill::register_hooks();
 	}
 
-	// SEGURIUM-877: attaching this is inert on its own — the filter only
+	// Attaching this is inert on its own — the filter only
 	// exists inside MainWP Child, so a site without it never fires.
 	if ( class_exists( 'Segurium_MainWP_Bridge' ) ) {
 		Segurium_MainWP_Bridge::register();
 	}
 
-	// SEGURIUM-880: the cron listener has to exist on every heavy tier, or
+	// The cron listener has to exist on every heavy tier, or
 	// the queued fleet report fires into nothing.
 	if ( class_exists( 'Segurium_MainWP_Fleet_Marker' ) ) {
 		Segurium_MainWP_Fleet_Marker::register();
@@ -938,7 +943,7 @@ function segurium_lightweight_bootstrap( $tier ) {
 	// ~0.02 ms per hit, well inside the TTFB budget for non-Segurium AJAX.
 	add_action( 'plugins_loaded', array( Segurium_Geo_Blocker::get_instance(), 'maybe_block_by_firewall' ), 0 );
 	add_action( 'plugins_loaded', array( Segurium_Geo_Blocker::get_instance(), 'maybe_block_request' ), 1 );
-	// SEGURIUM-540: register the firewall pending-revert handler on every
+	// Register the firewall pending-revert handler on every
 	// tier the firewall runs on, so check_expired() finds a listener even
 	// when the heavy Segurium class is not loaded.
 	Segurium_Firewall_Rules::register_hooks();
@@ -979,7 +984,7 @@ function segurium_lightweight_bootstrap( $tier ) {
 			segurium_fs();
 		}
 
-		// SEGURIUM-411: 2FA hooks `show_user_profile` /
+		// 2FA hooks `show_user_profile` /
 		// `edit_user_profile` (the per-user configurator on
 		// /wp-admin/profile.php and user-edit.php) and `admin_notices`
 		// (the enforcement banner on every admin screen). Those pages
@@ -1030,7 +1035,7 @@ function segurium_check_requirements( $php_version, $wp_version ) {
 }
 
 /**
- * SEGURIUM-506: re-arm every recurring cron event the plugin owns.
+ * Re-arm every recurring cron event the plugin owns.
  *
  * The `register_activation_hook` callback only fires on a manual
  * activate/deactivate cycle, never on auto-update. Installs that were
@@ -1084,11 +1089,11 @@ function segurium_activate() {
 
 	segurium_migrate_scan_tick_cron_rescue();
 
-	// SEGURIUM-709: stamp the install date so the review ask can tell a
+	// Stamp the install date so the review ask can tell a
 	// week-old install from a five-minute-old one. Never overwrites.
 	Segurium_Review_Prompt::record_first_activation();
 
-	// SEGURIUM-245: no CTI traffic until the user accepts the External
+	// No CTI traffic until the user accepts the External
 	// Service Disclosure. IID registration, geo DB / trusted-proxies
 	// fetch, and the plugin_activated message all run after consent
 	// (see Segurium::ajax_accept_consent and maybe_schedule_missing_data).
@@ -1102,7 +1107,7 @@ register_activation_hook( __FILE__, 'segurium_activate' );
 function segurium_deactivate() {
 	segurium_load_full_plugin();
 
-	// SEGURIUM-295: only ping CTI on deactivation if the install has
+	// Only ping CTI on deactivation if the install has
 	// previously consented and registered. Without an IID, send_message
 	// is a no-op anyway (the IID gate in maybe_register short-circuits),
 	// but skipping the call here keeps intent explicit and avoids

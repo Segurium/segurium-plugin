@@ -4556,3 +4556,24 @@ msgstr ""
 #: segurium.php:1024
 msgid "unknown"
 msgstr "ukendt"
+
+msgid "Remote actions are switched off for this site."
+msgstr "Fjernhandlinger er slået fra for dette websted."
+
+msgid "Remote actions require authentication."
+msgstr "Fjernhandlinger kræver godkendelse."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Lad Segurium Cloud anmode om komponentopdateringer"
+
+msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
+msgstr "Segurium Cloud kan bede dette websted om at opdatere et plugin, et tema eller selve WordPress. Skyen kan kun nævne en komponent, du allerede har installeret, og kun når WordPress.org allerede tilbyder den opdatering. Opdateringen bliver hentet af WordPress fra WordPress.org, aldrig fra Segurium. WordPress-kernen er begrænset til sikkerheds- og vedligeholdelsesudgivelser. Segurium opdaterer aldrig sig selv på denne måde. Slår du den fra, holder webstedet op med at bede om og acceptere disse forespørgsler."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Slået fra i wp-config.php af SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Seneste skyforespørgsler"
+
+msgid "Outcome"
+msgstr "Resultat"

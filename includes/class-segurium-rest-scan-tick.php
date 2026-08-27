@@ -1,6 +1,6 @@
 <?php
 /**
- * SEGURIUM-424: public REST endpoint /wp-json/segurium/v1/scan-tick.
+ * Public REST endpoint /wp-json/segurium/v1/scan-tick.
  *
  * Consumed by mechanisms III (visitor browser) and VI (CTI remote tick).
  * The handler returns the runner's current status synchronously, then flips
@@ -61,7 +61,7 @@ final class Segurium_Rest_Scan_Tick {
 
 	/**
 	 * REST handler. Returns the documented JSON shape. `site_id` is accepted
-	 * and ignored. SEGURIUM-872: `scan_id`, when present, scopes the answer
+	 * and ignored. `scan_id`, when present, scopes the answer
 	 * to that scan (see {@see build_payload()}) so CTI never receives
 	 * another scan's terminal status for the row it is ticking.
 	 *
@@ -93,7 +93,7 @@ final class Segurium_Rest_Scan_Tick {
 	 * `running` = lock held, heartbeat ignored (a stalled lock still answers
 	 * running so mechanism VI keeps driving; see Segurium_Scan_Lock::is_running()).
 	 *
-	 * Per scan_id (SEGURIUM-872):
+	 * Per scan_id:
 	 *   - scan_id equals the lock's scan_id → `running`;
 	 *   - scan_id given and differs → that scan's `scan_history` row status
 	 *     (running | completed | cancelled | aborted), or `not_found` when
@@ -148,7 +148,7 @@ final class Segurium_Rest_Scan_Tick {
 	}
 
 	/**
-	 * SEGURIUM-872: per-scan answer from `scan_history` for a scan_id that
+	 * Per-scan answer from `scan_history` for a scan_id that
 	 * does not hold the lock.
 	 *
 	 * @param string $scan_id Scan UUID.

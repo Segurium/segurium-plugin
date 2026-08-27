@@ -176,7 +176,7 @@ class Segurium_Scan {
 		$this->verdict_queue->init( $scan_id );
 
 		$this->save_state();
-		// SEGURIUM-429: seed the listing row so load_state() reads a
+		// Seed the listing row so load_state() reads a
 		// well-formed payload even before the first chunk has run.
 		$this->save_listing_state();
 
@@ -187,14 +187,14 @@ class Segurium_Scan {
 				'scan_uuid'      => (string) $scan_id,
 				'scan_type'      => (string) $scan_type,
 				'status'         => 'running',
-				// SEGURIUM-572: same anchor as state['started_at'] so the frozen
+				// Same anchor as state['started_at'] so the frozen
 				// duration_seconds == finished_at - started_at exactly.
 				'started_at'     => (int) $this->state['started_at'],
 				'finished_at'    => null,
 				'files_found'    => 0,
 				'files_scanned'  => 0,
 				'trigger_source' => (string) $scan_type,
-				// SEGURIUM-405: every scan_history row carries a reason code.
+				// Every scan_history row carries a reason code.
 				// 'RUNNING' covers the in-flight window; one of the terminal
 				// REASON_* codes (COMPLETED / USER_CANCEL / ABORTED_*) replaces
 				// it once the scan reaches a terminal state.
@@ -229,7 +229,7 @@ class Segurium_Scan {
 			)
 		);
 
-		// SEGURIUM-326: peer of `segurium_scan_completed`. Fired so cross-
+		// Peer of `segurium_scan_completed`. Fired so cross-
 		// cutting listeners (telemetry, instrumentation) can mark the
 		// start of a scan without coupling to scan internals. Carries the
 		// Segurium_Scan instance as the lone argument.
@@ -286,7 +286,7 @@ class Segurium_Scan {
 		}
 		$this->state     = array_merge( $this->state, $decoded );
 		$this->workspace = isset( $decoded['workspace'] ) ? (string) $decoded['workspace'] : '';
-		// SEGURIUM-429: listing counters live in the dedicated
+		// Listing counters live in the dedicated
 		// scan:<id>:listing row. Merge them in last so they win over
 		// anything the legacy orch row may still carry from before the
 		// split landed (the orch upsert no longer writes them).
@@ -396,14 +396,14 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * Mark the current scan as user-cancelled. SEGURIUM-405: accepts the
+	 * Mark the current scan as user-cancelled. Accepts the
 	 * reason code so `scan_history.error_code` reflects which path called us
 	 * (today only USER_CANCEL, kept as a parameter for symmetry with
 	 * `mark_aborted()` and to make the runner's `terminate()` dispatcher
 	 * uniform).
 	 *
 	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
-	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 * @param bool   $cleanup     When false, skip
 	 *                            `cleanup_scan_state()` so a parallel worker
 	 *                            mid-tick can run cleanup itself via the
 	 *                            cooperative cancel handshake.
@@ -432,13 +432,13 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * Mark the current scan as aborted. SEGURIUM-405: callers must pass the
+	 * Mark the current scan as aborted. Callers must pass the
 	 * specific reason (heartbeat-stale / watchdog / stuck-no-progress /
 	 * engine-load-failed / runtime-error) so `scan_history.error_code` is
 	 * populated unambiguously.
 	 *
 	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
-	 * @param bool   $cleanup     SEGURIUM-414: when false, skip
+	 * @param bool   $cleanup     When false, skip
 	 *                            `cleanup_scan_state()` so a parallel worker
 	 *                            mid-tick can run cleanup itself via the
 	 *                            cooperative cancel handshake.
@@ -462,7 +462,7 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * SEGURIUM-414: idempotent workspace + runtime_kv teardown for the
+	 * Idempotent workspace + runtime_kv teardown for the
 	 * cooperative-cancel handshake. Called by the runner's chunk-loop cancel
 	 * observer so cleanup runs from the only PHP process that is still
 	 * actively reading the workspace, never from a parallel `terminate()`
@@ -496,7 +496,7 @@ class Segurium_Scan {
 				$verdicted = 0;
 				$threats   = 0;
 			}
-			// SEGURIUM-548: cooperative-cancel handshake (SEGURIUM-414) may
+			// Cooperative-cancel handshake may
 			// have purged the verdict queue before this method runs, so
 			// $threats can read 0 even though scan_findings already holds
 			// real rows for this scan. Fall back to a scan_findings COUNT
@@ -504,7 +504,7 @@ class Segurium_Scan {
 			// rows reflects the findings actually persisted, never the
 			// race-emptied 0.
 			if ( 0 === $threats ) {
-				// SEGURIUM-936: vulnerable rows are not threats. They live in
+				// Vulnerable rows are not threats. They live in
 				// the same append-only log under a status no read path selects
 				// on, so this COUNT must exclude them or a clean site with 40
 				// outdated files reports "40 threats" on any cancelled scan.
@@ -526,7 +526,7 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * SEGURIUM-415: build the shared payload emitted alongside every terminal
+	 * Build the shared payload emitted alongside every terminal
 	 * scan_history transition (scan_aborted / scan_cancelled). The
 	 * scan_completed emitter intentionally hand-rolls a narrower payload
 	 * (only the legacy fields plus duration_seconds) instead of reusing this
@@ -573,7 +573,7 @@ class Segurium_Scan {
 	/**
 	 * Persist orchestrator coordination state into runtime_kv.
 	 *
-	 * SEGURIUM-429: this row carries scan_id, scan_type, workspace,
+	 * This row carries scan_id, scan_type, workspace,
 	 * scanner_completed, scanner_read_offset, started_at — i.e. anything
 	 * the orchestrator owns. `files_found` and `files_skipped` are
 	 * persisted via {@see save_listing_state()} into a separate
@@ -604,7 +604,7 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * SEGURIUM-429: persist the listing-side counters (files_found,
+	 * Persist the listing-side counters (files_found,
 	 * files_skipped) into runtime_kv at `scan:<id>:listing`. Called
 	 * exactly once per chunk — right after `scanner->process_chunk()`
 	 * has updated the in-memory counters from scanner state on disk.
@@ -612,7 +612,7 @@ class Segurium_Scan {
 	 * Single-writer-per-chunk semantics: the orchestrator's `save_state()`
 	 * never touches this row, so even a stalled worker finishing its
 	 * chunk after a concurrent worker has advanced listing cannot regress
-	 * the persisted `files_found` value. Tick-mutex lease (SEGURIUM-430)
+	 * the persisted `files_found` value. Tick-mutex lease
 	 * is the primary line of defense against concurrent workers; this
 	 * split row is the architectural "no-mirror" cleanup that makes the
 	 * back-jump impossible if the lease ever glitches.
@@ -643,7 +643,7 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * SEGURIUM-429: read the listing row and merge `files_found` /
+	 * Read the listing row and merge `files_found` /
 	 * `files_skipped` into the in-memory state. Missing row is treated
 	 * as "no listing progress yet" and leaves the in-memory defaults
 	 * untouched — so callers (load_state(), test fixtures) get the same
@@ -731,7 +731,7 @@ class Segurium_Scan {
 		if ( '' === $scan_id ) {
 			return array();
 		}
-		// SEGURIUM-936: exclude vulnerable rows. This list is the cleanup
+		// Exclude vulnerable rows. This list is the cleanup
 		// API's threat set and is also consumed by Segurium_Auto_Fix and
 		// update_server_state_from_scan(); an unrecognised status falls
 		// through to state='malware' in ajax_get_threats().
@@ -765,7 +765,7 @@ class Segurium_Scan {
 
 	/**
 	 * Stream every verdicted relative path to $cb without building the full
-	 * list in memory. SEGURIUM-577: the realtime snapshot sync consumes this
+	 * list in memory. The realtime snapshot sync consumes this
 	 * so a 100K+ file result set never materialises a 100K-element PHP array.
 	 *
 	 * @param callable $cb Receives each relative path.
@@ -805,7 +805,7 @@ class Segurium_Scan {
 		$limit  = max( 1, min( 200, (int) $limit ) );
 		$offset = max( 0, (int) $offset );
 
-		// SEGURIUM-548: threats_found and threats_cleaned are frozen columns
+		// threats_found and threats_cleaned are frozen columns
 		// on scan_history; no JOIN to scan_findings required.
 		$rows = Segurium_Storage::table_get_results(
 			'scan_history',
@@ -869,7 +869,7 @@ class Segurium_Scan {
 
 		$this->submit_new_scanner_results();
 
-		// SEGURIUM-429: persist the listing-side counters (files_found,
+		// Persist the listing-side counters (files_found,
 		// files_skipped) into their own runtime_kv row right after the
 		// JSONL → verdict-queue handoff. Splitting them out of the orch
 		// row removes the back-jump pattern observed in debug3.log: a
@@ -882,7 +882,7 @@ class Segurium_Scan {
 
 		if ( $this->state['scanner_completed'] ) {
 			$this->verdict_queue->mark_submissions_complete( $this->state['scan_id'] );
-			// SEGURIUM-564: listing is done — no more hashes will be
+			// Listing is done — no more hashes will be
 			// submitted. Let the async results loop treat a CTI
 			// `queue_depth == 0` as final and seal any sha that never got
 			// a verdict, instead of polling an empty endpoint forever.
@@ -996,17 +996,17 @@ class Segurium_Scan {
 		}
 
 		if ( $completed && ! $this->completion_reported ) {
-			// SEGURIUM-572: the terminal emit is a durable, idempotent action,
+			// The terminal emit is a durable, idempotent action,
 			// not a side effect of building a status payload. Delegating keeps
 			// build_progress() a read model and guarantees exactly-once.
 			$this->finalize_completion( $stats, $neoray_skipped );
 		}
 
-		// SEGURIUM-548: `files_cleaned` is a frozen property of the scan and
+		// `files_cleaned` is a frozen property of the scan and
 		// only meaningful after the auto-fix listener has run. Read it from
 		// the persisted column once the scan is completed; for in-flight
 		// ticks it is always 0.
-		// SEGURIUM-572: never let this read throw out of build_progress. A
+		// Never let this read throw out of build_progress. A
 		// throw here lands after finalize_completion()'s atomic claim, so it
 		// would block process_chunk() from returning completed=true and strand
 		// the runner before it can release the lock — exactly the idle-loop
@@ -1037,7 +1037,7 @@ class Segurium_Scan {
 			'files_cleaned'   => $files_cleaned,
 			'neoray_errors'   => $neoray_errors,
 			'neoray_pending'  => $unknowns_pending,
-			// SEGURIUM-578: signals the runner that the head batch is parked
+			// Signals the runner that the head batch is parked
 			// in a transient-inspect backoff window — end the tick early.
 			'inspect_backoff' => $this->verdict_queue->is_inspect_backoff_waiting(),
 		);
@@ -1089,7 +1089,7 @@ class Segurium_Scan {
 	 * stay silent on every later attempt — across separate ticks and processes,
 	 * not just within one engine instance.
 	 *
-	 * SEGURIUM-572: the emit used to live inline in build_progress() guarded
+	 * The emit used to live inline in build_progress() guarded
 	 * only by the in-memory $completion_reported flag. Each driver tick rebuilds
 	 * the engine from persisted state, resetting that flag to false, so the
 	 * event re-fired on every poll with an ever-larger `now - started_at`
@@ -1179,7 +1179,7 @@ class Segurium_Scan {
 	/**
 	 * Idempotent terminal-completion trigger for the runner's finalize path.
 	 *
-	 * SEGURIUM-572: emitting the terminal event on the same path that releases
+	 * Emitting the terminal event on the same path that releases
 	 * the lock keeps emit-and-release coupled, so a tick can never emit without
 	 * releasing. When build_progress() already emitted during the completing
 	 * chunk this is a no-op (the in-memory flag short-circuits); when it did not
@@ -1202,7 +1202,7 @@ class Segurium_Scan {
 	 * Update the scan_history row for this run.
 	 *
 	 * When $expected_status is given the WHERE clause is narrowed to it, turning
-	 * the UPDATE into an atomic "first finalizer wins" claim (SEGURIUM-572):
+	 * the UPDATE into an atomic "first finalizer wins" claim:
 	 * only the worker whose UPDATE actually flips the row changes any rows and
 	 * sees a non-zero return. Callers that pass it MUST act on the count.
 	 *
@@ -1255,12 +1255,12 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * SEGURIUM-871: scan-id-addressable runtime teardown, shared by the
+	 * Scan-id-addressable runtime teardown, shared by the
 	 * engine's own cleanup and the runner's orphan sweep (which has no engine
 	 * instance: `load_state()` only finds the scan behind `scan_active`).
 	 *
-	 * Drops the tmp workspace (lifting `scanner-skips.jsonl` first,
-	 * SEGURIUM-486), every `scan:<id>:*` runtime_kv row (orchestrator,
+	 * Drops the tmp workspace (lifting `scanner-skips.jsonl` first),
+	 * every `scan:<id>:*` runtime_kv row (orchestrator,
 	 * listing, verdict-queue state and chunks), the async results cursor /
 	 * submit seal / first-poll ETA, the `async_pending` rows, and the
 	 * `scan_active` marker — the marker only when it still points at this
@@ -1287,7 +1287,7 @@ class Segurium_Scan {
 			}
 		}
 		if ( '' !== $workspace ) {
-			// SEGURIUM-486: lift the per-scan skip log out of the workspace
+			// Lift the per-scan skip log out of the workspace
 			// before `tmp_destroy()` wipes it. One file, overwritten per
 			// scan — only the most recent run is inspectable.
 			$skips_src = $workspace . '/scanner-skips.jsonl';
@@ -1357,7 +1357,7 @@ class Segurium_Scan {
 
 	/**
 	 * Return the listing-state runtime_kv key for the given scan id.
-	 * SEGURIUM-429: listing counters (files_found, files_skipped) live
+	 * Listing counters (files_found, files_skipped) live
 	 * in this dedicated row so the orch save_state can never overwrite
 	 * them.
 	 *

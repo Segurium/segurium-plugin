@@ -56,7 +56,7 @@ class Segurium_Storage_GC {
 		$backups_removed = Segurium_Storage_Backup::gc();
 		$activity_pruned = self::prune_activity_log();
 		$stats_pruned    = Segurium_Storage::table_prune_older_than( 'stats_daily', time() - 365 * DAY_IN_SECONDS );
-		// SEGURIUM-576: backstop for the async_pending table. A scan's pending
+		// Backstop for the async_pending table. A scan's pending
 		// rows are normally dropped by cleanup_scan_state() on teardown, but a
 		// scan that dies before teardown (the crash-loop this ticket fixes, a
 		// fatal, a killed worker) would otherwise leak its rows forever — the

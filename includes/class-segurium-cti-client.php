@@ -28,7 +28,7 @@ class Segurium_CTI_Client {
 	 * String form sidesteps the WordPress `update_option('opt', false)`
 	 * no-op when the option row does not yet exist.
 	 *
-	 * Option key is unchanged from SEGURIUM-443 for backward compat with
+	 * Option key is unchanged for backward compat with
 	 * sites that already wrote it; the constant name still reads as
 	 * `OPTION_NEO_RAY_GZIP` for the same reason.
 	 */
@@ -50,24 +50,57 @@ class Segurium_CTI_Client {
 	const TRUSTED_PROXIES_ENDPOINT      = 'https://cti.segurium.com:8901/v1/geo/trusted-proxies';
 	const SUPPORT_ENDPOINT              = 'https://cti.segurium.com:8901/v1/support/ticket';
 	const SUBMISSIONS_ENDPOINT          = 'https://cti.segurium.com:8901/v1/submissions';
-	// SEGURIUM-353: /v1/quota/consume removed. /v1/cleanup auto-consumes
+
+	/**
+	 * Largest infected file whose bytes ride along in the `/v1/cleanup`
+	 * body. Base64 inflates by a third, so 6 MiB of file is 8 MiB of
+	 * payload plus the JSON envelope around it. The cloud's per-route
+	 * ceiling sits above that on purpose: a file this side lets through
+	 * must never come back as a 413, because by then the caller has
+	 * already taken a backup and has no way to fall back. Above this the
+	 * request goes out without a body and the cloud answers from its own
+	 * stores.
+	 */
+	const MAX_CLEANUP_UPLOAD_BYTES = 6291456;
+
+	/**
+	 * Wall-clock ceiling for a `/v1/cleanup` POST that carries the
+	 * infected file.
+	 *
+	 * The bodyless request is answered from the cloud's own stores and
+	 * returns fast, so it keeps the 30 s default. A request with a body
+	 * can end in a fresh cure, which costs a scan-engine round trip the
+	 * cloud budgets 52 s for. Giving up at 30 s would abandon a cure
+	 * that is about to arrive.
+	 */
+	const CLEANUP_UPLOAD_TIMEOUT_SEC = 60;
+
+	/**
+	 * Same ceiling while a runner tick is driving the request. Matches
+	 * {@see INTEGRITY_TICK_TIMEOUT_SEC}: the tick owns the wall clock and
+	 * one file must not eat the whole budget. A cure that lands after we
+	 * hang up is not lost — the cloud stores it, so the next attempt
+	 * reads it back immediately.
+	 */
+	const CLEANUP_UPLOAD_TICK_TIMEOUT_SEC = 50;
+	// /v1/quota/consume removed. /v1/cleanup auto-consumes
 	// the slot when it serves a body, so the plugin no longer needs a
 	// separate consume hop. /v1/quota/state remains for the read-only
 	// dashboard counter.
-	// SEGURIUM-366: /v1/quota/reset is gone — quota resets are now an
+	// /v1/quota/reset is gone — quota resets are now an
 	// operator action via the admin-only /v1/admin/quota/reset endpoint
 	// on the local-bind listener. Pro IIDs already get unbounded
-	// cleanups via plan-tier source-of-truth (SEGURIUM-348), so the
+	// cleanups via plan-tier source-of-truth, so the
 	// plugin has nothing to reset on Pro transition.
 	const QUOTA_STATE_ENDPOINT = 'https://cti.segurium.com:8901/v1/quota/state';
 	const PLATFORM_ENDPOINT    = 'https://cti.segurium.com:8901/v1/platform';
-	// SEGURIUM-378: replaces the SEGURIUM-347 bind/unbind pair. CTI proves
+	// Replaces the bind/unbind pair. CTI proves
 	// install ownership by comparing fs_install_secret_key to the install's
 	// secret in Freemius — the plugin sends a tuple, never a verdict.
 	const BILLING_SYNC_ENDPOINT = 'https://cti.segurium.com:8901/v1/billing/sync';
 
 	/**
-	 * SEGURIUM-469: maximum number of HTTP attempts the scan-pipeline
+	 * Maximum number of HTTP attempts the scan-pipeline
 	 * methods ({@see scan_submit()}, {@see scan_results()}) will make
 	 * against /v1/scan/* before giving up. Includes the initial attempt
 	 * — i.e. up to two retries after a transport error (WP_Error) or
@@ -77,11 +110,11 @@ class Segurium_CTI_Client {
 	const MAX_SCAN_ATTEMPTS = 3;
 
 	/**
-	 * SEGURIUM-578: wall-clock ceiling (seconds) for a single `/v1/inspect`
+	 * Wall-clock ceiling (seconds) for a single `/v1/inspect`
 	 * POST. A healthy inspect (bloom + RocksDB hash lookups) answers in
 	 * sub-second to a couple of seconds; a stalled gateway used to hang the
 	 * worker tick for ~28s before a 504. 8s fails fast while still sitting
-	 * above CTI's 5s server-side ceiling (SEGURIUM-404), so the plugin never
+	 * above CTI's 5s server-side ceiling, so the plugin never
 	 * times out before CTI can return its own bounded response/error. The
 	 * verdict queue's bounded cross-tick retry then re-runs the batch instead
 	 * of burning the files' verdict on one transient stall.
@@ -89,10 +122,10 @@ class Segurium_CTI_Client {
 	const INSPECT_TIMEOUT_SEC = 8;
 
 	/**
-	 * SEGURIUM-936: capability token telling CTI this build can read verdict
+	 * Capability token telling CTI this build can read verdict
 	 * 5 ({@see Segurium_Verdict_Queue::VERDICT_VULNERABLE}). Without it CTI
-	 * answers 0 (Safe) for those hashes, because every build released before
-	 * SEGURIUM-936 turns any verdict above 0 into a severity-2 finding with
+	 * answers 0 (Safe) for those hashes: a build released before this token
+	 * existed turns any verdict above 0 into a severity-2 finding with
 	 * no cleanup recipe.
 	 */
 	const CAP_VULNERABLE = 'vuln';
@@ -109,14 +142,14 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-745: `/v1/scan/submit` timeout used outside a runner tick —
+	 * `/v1/scan/submit` timeout used outside a runner tick —
 	 * the realtime, upload and test paths, where `time_left_in_tick()`
 	 * returns 0.0 because there is no budget to derive from.
 	 */
 	const SUBMIT_TIMEOUT_DEFAULT_SEC = 30;
 
 	/**
-	 * SEGURIUM-745: smallest remaining budget that still justifies a *retry*.
+	 * Smallest remaining budget that still justifies a *retry*.
 	 * Never applies to a batch's first attempt, which always runs with at
 	 * least {@see SUBMIT_TIMEOUT_DEFAULT_SEC}. Matches
 	 * `Segurium_Scan_Runner::TICK_BUDGET_MIN_SEC`.
@@ -124,7 +157,7 @@ class Segurium_CTI_Client {
 	const SUBMIT_TIMEOUT_MIN_SEC = 5;
 
 	/**
-	 * SEGURIUM-745: hard ceiling for a derived submit timeout.
+	 * Hard ceiling for a derived submit timeout.
 	 *
 	 * No heartbeat is stamped while `wp_remote_post()` blocks — the runner
 	 * stamps per file, before the POST — so a single upload must stay well
@@ -133,15 +166,15 @@ class Segurium_CTI_Client {
 	 * around that; a longer POST makes `is_stale()` true and invites
 	 * `run_watchdog()` to reclaim a scan that is uploading fine. The same
 	 * ceiling keeps a POST under `compute_mutex_ttl()`, which equals
-	 * `HEARTBEAT_MAX_AGE` (60 s, SEGURIUM-870), so the tick mutex cannot
+	 * `HEARTBEAT_MAX_AGE` (60 s), so the tick mutex cannot
 	 * lapse mid-upload and let a second worker into the same scan (the
-	 * corruption SEGURIUM-426 closed). Without this a host with
+	 * corruption this bound prevents). Without this a host with
 	 * `max_execution_time = 600` would derive a 588 s timeout.
 	 */
 	const SUBMIT_TIMEOUT_MAX_SEC = 50;
 
 	/**
-	 * SEGURIUM-870: `/v1/integrity` timeout while a runner tick is driving
+	 * `/v1/integrity` timeout while a runner tick is driving
 	 * the request. Same reasoning as {@see SUBMIT_TIMEOUT_MAX_SEC}: the
 	 * lease is renewed right before the POST, so the POST itself must end
 	 * inside the 60 s lease with margin. Outside a tick (synchronous
@@ -150,7 +183,7 @@ class Segurium_CTI_Client {
 	const INTEGRITY_TICK_TIMEOUT_SEC = 50;
 
 	/**
-	 * SEGURIUM-477: classification buckets returned by
+	 * Classification buckets returned by
 	 * {@see classify_scan_response()}. Stringly-typed enum so callers
 	 * can `switch` / `===` on stable symbols instead of magic strings.
 	 *
@@ -164,7 +197,7 @@ class Segurium_CTI_Client {
 	const SCAN_CLASS_DROP  = 'drop';
 
 	/**
-	 * SEGURIUM-376: standard authenticated-request headers — the IID
+	 * Standard authenticated-request headers — the IID
 	 * bearer plus the per-request fingerprint the CTI knock middleware
 	 * checks against the anchor. Centralised so the four inline-multipart
 	 * paths (support, submissions, neo-ray, ad-hoc) carry the same set
@@ -252,7 +285,7 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-745: wall-clock ceiling for one `/v1/scan/submit` POST.
+	 * Wall-clock ceiling for one `/v1/scan/submit` POST.
 	 *
 	 * Implements the discipline already documented on
 	 * {@see Segurium_Scan_Runner::time_left_in_tick()}:
@@ -297,7 +330,7 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-745: whether the tick can still afford another attempt.
+	 * Whether the tick can still afford another attempt.
 	 *
 	 * Only gates *retries*. The first attempt always runs, because dropping a
 	 * batch costs the files (see {@see submit_timeout_secs()}), while a retry
@@ -369,7 +402,7 @@ class Segurium_CTI_Client {
 	 */
 	private function pause_error( $response, $endpoint, $event, $label, $attempts, $wall_ms, $retry_after ) {
 		$http_code = (int) wp_remote_retrieve_response_code( $response );
-		// SEGURIUM-483: emit on the unified `scan_submit_pause` event with
+		// Emit on the unified `scan_submit_pause` event with
 		// the spec's normalized field names. The `endpoint` field is the
 		// short label (`submit` / `results`) that matches
 		// `Segurium_Async_Scan_Pause::ENDPOINT_*` constants.
@@ -396,10 +429,10 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-376: detect the CTI knock middleware's re-register signal.
+	 * Detect the CTI knock middleware's re-register signal.
 	 * Two indicators, either is sufficient:
 	 *   1. `X-Segurium-Reregister: true` response header (the canonical
-	 *      contract emitted by SEGURIUM-372's middleware).
+	 *      contract emitted by its middleware).
 	 *   2. HTTP 409 status with body `{"action":"re_register"}` (defensive
 	 *      — a future server-side variant or a load balancer stripping the
 	 *      header would still trip this).
@@ -727,7 +760,7 @@ class Segurium_CTI_Client {
 					'code'     => 'cti_http_error',
 				)
 			);
-			// SEGURIUM-578: carry the status code so the verdict queue can
+			// Carry the status code so the verdict queue can
 			// tell a transient 5xx (retry) from a permanent 4xx (give up).
 			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code, array( 'status' => (int) $code ) );
 		}
@@ -764,10 +797,10 @@ class Segurium_CTI_Client {
 	/**
 	 * Submit a batch of file bodies to the async scan pipeline.
 	 *
-	 * SEGURIUM-456: replaces the synchronous `/v1/neo-ray` upload. The
+	 * Replaces the synchronous `/v1/neo-ray` upload. The
 	 * plugin POSTs a multipart batch (meta JSON + one part per file, part
 	 * name = the claimed sha256 hex) to `/v1/scan/submit`. Body is
-	 * gzip-compressed using the SEGURIUM-443 transport (kill-switch
+	 * gzip-compressed using the transport (kill-switch
 	 * {@see OPTION_NEO_RAY_GZIP}); server decompresses and re-hashes each
 	 * part. Verdicts arrive asynchronously via {@see scan_results()} —
 	 * this call returns only the accepted/rejected manifest plus a
@@ -789,7 +822,7 @@ class Segurium_CTI_Client {
 	 *                       WP_Error on transport / HTTP / decode failure.
 	 */
 	public function scan_submit( $scan_id, $client_batch_id, $files ) {
-		// SEGURIUM-689: the only route that ships file bytes on its own,
+		// The only route that ships file bytes on its own,
 		// without the user naming the file. `neo_ray_scan()` reaches the
 		// network through here too. The two user-initiated uploads
 		// ({@see submit_fp()}, {@see submit_support_ticket()}) stay open
@@ -797,7 +830,7 @@ class Segurium_CTI_Client {
 		//
 		// The gate sits ahead of every argument check because a caller
 		// that forgets it must still be unable to leak a body — same
-		// reasoning as the SEGURIUM-295 consent gate. Anything automatic
+		// reasoning as the consent gate. Anything automatic
 		// added to submit_fp() would need its own gate.
 		if ( Segurium_Storage::on_premise_mode() ) {
 			Segurium_Debug::log(
@@ -849,7 +882,7 @@ class Segurium_CTI_Client {
 			);
 			$total_payload += $size;
 		}
-		// SEGURIUM-474: the 10 MiB cap applies to multi-file batches only.
+		// The 10 MiB cap applies to multi-file batches only.
 		// A single file is allowed to take the whole batch on its own up
 		// to the single-file cap (100 MiB) so files between 10 and 100
 		// MiB still get scanned instead of being permanently failed.
@@ -897,7 +930,7 @@ class Segurium_CTI_Client {
 			$this->auth_headers( $iid ),
 			array( 'Content-Type' => 'multipart/form-data; boundary=' . $boundary )
 		);
-		// SEGURIUM-443 / SEGURIUM-456: same gzip transport as the legacy
+		// Same gzip transport as the legacy
 		// /v1/neo-ray path. Server decompresses, then multipart-parses,
 		// then re-hashes each file part. Skip if compression made it
 		// bigger (tiny payloads).
@@ -942,7 +975,7 @@ class Segurium_CTI_Client {
 			'retry_after' => 0,
 		);
 		while ( $attempt < self::MAX_SCAN_ATTEMPTS ) {
-			// SEGURIUM-745: stop retrying once the budget is spent, but never
+			// Stop retrying once the budget is spent, but never
 			// skip the first attempt — see submit_budget_allows_retry().
 			if ( $attempt > 0 && ! self::submit_budget_allows_retry() ) {
 				Segurium_Scan_Runner::debug(
@@ -957,7 +990,7 @@ class Segurium_CTI_Client {
 				);
 				break;
 			}
-			// SEGURIUM-870: a retry starts a new POST of up to
+			// A retry starts a new POST of up to
 			// SUBMIT_TIMEOUT_MAX_SEC with no heartbeat in between; renew
 			// the lease + heartbeat first, and stop when the lease is gone
 			// (another driver owns the scan; a second upload of the same
@@ -1059,7 +1092,7 @@ class Segurium_CTI_Client {
 		}
 
 		// CTI emits Retry-After on 200 to pace the next submit when the
-		// NRS queue is close to saturating (SEGURIUM-476). Already
+		// NRS queue is close to saturating. Already
 		// parsed by classify_scan_response().
 		$retry_after = $class['retry_after'];
 
@@ -1088,7 +1121,7 @@ class Segurium_CTI_Client {
 	/**
 	 * Pull verdicts incrementally from the async scan pipeline.
 	 *
-	 * SEGURIUM-456: short-poll cursor over the per-IID monotonic
+	 * Short-poll cursor over the per-IID monotonic
 	 * `result_seq`. Returns immediately — no long-poll. IID comes from
 	 * the `X-Segurium-IID` middleware header; the per-IID stream is
 	 * implicit in the authenticated identity.
@@ -1217,7 +1250,7 @@ class Segurium_CTI_Client {
 			'results'  => is_array( $data['results'] ) ? $data['results'] : array(),
 			'next_seq' => (int) $data['next_seq'],
 			'more'     => ! empty( $data['more'] ),
-			// SEGURIUM-564: whether the server still has jobs queued for
+			// Whether the server still has jobs queued for
 			// this scan. Absent on pre-564 CTI builds → null ("unknown"),
 			// which the results loop treats as "do not seal" so existing
 			// installs keep working unchanged.
@@ -1228,7 +1261,7 @@ class Segurium_CTI_Client {
 	/**
 	 * Synchronous-looking facade kept for realtime / upload scans.
 	 *
-	 * SEGURIUM-456: the on-the-wire `/v1/neo-ray` route is gone. This
+	 * The on-the-wire `/v1/neo-ray` route is gone. This
 	 * helper now submits the file through {@see scan_submit()} and
 	 * inline-polls {@see scan_results()} for up to ~55s for the verdict
 	 * to land. Used by upload-time scan and realtime scan where the
@@ -1348,36 +1381,54 @@ class Segurium_CTI_Client {
 	/**
 	 * Request a clean version of a malicious file by its hash.
 	 *
-	 * SEGURIUM-353: `/v1/cleanup` now auto-consumes one quota slot every
+	 * `/v1/cleanup` now auto-consumes one quota slot every
 	 * time it serves a body — there is no separate `/v1/quota/consume`
 	 * endpoint to ask first. The Free-tier cap surfaces here as HTTP 402
 	 * with a `{ code, quota }` envelope; we bubble it up as a `WP_Error`
 	 * with code `paywall_quota_exceeded` so callers can render the
 	 * paywall modal without re-deriving the envelope shape.
 	 *
-	 * SEGURIUM-356: `/v1/cleanup` validates the JSON body strictly and
+	 * `/v1/cleanup` validates the JSON body strictly and
 	 * rejects the request with HTTP 400 when `filename` or `ctime` are
 	 * absent — they are required for the ClickHouse `malware_cleanup`
 	 * telemetry row CTI writes per attempt. Callers must supply the
 	 * site-relative path and the inode change time of the file being
 	 * cleaned (see Segurium_Cleanup::cleanup_file).
 	 *
+	 * The infected bytes ride along in `content` whatever the
+	 * verdict: CTI owns the decision of what to do with them. When the
+	 * cleaned body is on neither the cloud's disk nor its upstream, the
+	 * bytes are what lets the cloud produce a cure instead of answering
+	 * "not found" forever. Three cases send nothing and keep the older
+	 * contract (cloud answers from its own stores or fails):
+	 * on-premise mode, a file above {@see MAX_CLEANUP_UPLOAD_BYTES}, and
+	 * a caller that passes no content.
+	 *
 	 * @param string $sha256   SHA-256 hash of the malicious file.
 	 * @param string $filename Site-relative path of the infected file.
 	 * @param int    $ctime    Inode change time of the file (unix epoch).
+	 * @param string $content  Raw infected bytes, as read from disk.
 	 * @return array|WP_Error Clean file data or error.
 	 */
-	public function clean( $sha256, $filename, $ctime ) {
-		$response = $this->request(
-			self::CLEAN_ENDPOINT,
-			array(
-				'body' => array(
-					'sha256'   => (string) $sha256,
-					'filename' => (string) $filename,
-					'ctime'    => (int) $ctime,
-				),
-			)
+	public function clean( $sha256, $filename, $ctime, $content = '' ) {
+		$body = array(
+			'sha256'   => (string) $sha256,
+			'filename' => (string) $filename,
+			'ctime'    => (int) $ctime,
 		);
+
+		$opts    = array( 'body' => $body );
+		$encoded = $this->cleanup_upload_body( (string) $content );
+		if ( '' !== $encoded ) {
+			$body['content'] = $encoded;
+			$opts['body']    = $body;
+			$in_tick         = class_exists( 'Segurium_Scan_Runner' ) && Segurium_Scan_Runner::in_tick();
+			$opts['timeout'] = $in_tick
+				? self::CLEANUP_UPLOAD_TICK_TIMEOUT_SEC
+				: self::CLEANUP_UPLOAD_TIMEOUT_SEC;
+		}
+
+		$response = $this->request( self::CLEAN_ENDPOINT, $opts );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
@@ -1404,7 +1455,7 @@ class Segurium_CTI_Client {
 			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code );
 		}
 
-		// SEGURIUM-192: refuse a MITM-tampered body before we act on it.
+		// Refuse a MITM-tampered body before we act on it.
 		$verified = Segurium_CTI_Signature::verify_response( $response, 'cleanup' );
 		if ( is_wp_error( $verified ) ) {
 			return $verified;
@@ -1416,6 +1467,45 @@ class Segurium_CTI_Client {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Base64-encode the infected bytes for the `/v1/cleanup` body, or
+	 * return an empty string when they must not leave the server.
+	 *
+	 * On-premise mode is the same gate {@see scan_submit()} enforces:
+	 * a site that opted out of cloud detection never ships a file body,
+	 * and an operator who forgets that here would leak one through a
+	 * path nobody audits. The size ceiling keeps the JSON request under
+	 * the cloud's wire limit — base64 costs a third on top of the raw
+	 * bytes, and a body the cloud would reject with 413 is worse than no
+	 * body at all, which still gets answered from its stores.
+	 *
+	 * @param string $content Raw infected bytes.
+	 * @return string Base64 payload, or '' when the body must be omitted.
+	 */
+	private function cleanup_upload_body( $content ) {
+		if ( '' === $content ) {
+			return '';
+		}
+		if ( Segurium_Storage::on_premise_mode() ) {
+			Segurium_Debug::log(
+				'[segurium-cti] cleanup body omitted: on-premise mode keeps file contents on the server'
+			);
+			return '';
+		}
+		if ( strlen( $content ) > self::MAX_CLEANUP_UPLOAD_BYTES ) {
+			Segurium_Debug::log(
+				sprintf(
+					'[segurium-cti] cleanup body omitted: %d bytes above the %d-byte ceiling',
+					strlen( $content ),
+					self::MAX_CLEANUP_UPLOAD_BYTES
+				)
+			);
+			return '';
+		}
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		return base64_encode( $content );
 	}
 
 	/**
@@ -1487,7 +1577,7 @@ class Segurium_CTI_Client {
 			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code );
 		}
 
-		// SEGURIUM-192: verify signature before returning the body.
+		// Verify signature before returning the body.
 		$verified = Segurium_CTI_Signature::verify_response( $response, 'integrity/original-content' );
 		if ( is_wp_error( $verified ) ) {
 			return $verified;
@@ -1550,8 +1640,8 @@ class Segurium_CTI_Client {
 
 	/**
 	 * Push a hosting-platform snapshot to CTI asynchronously
-	 * (SEGURIUM-329 → /v1/platform). Routed through {@see request()}
-	 * so the SEGURIUM-295 consent / IID gate fires.
+	 * (→ /v1/platform). Routed through {@see request()}
+	 * so the consent / IID gate fires.
 	 *
 	 * @param array $payload Snapshot body matching PlatformSnapshotRequest
 	 *                       on the CTI side. Must include `snapshot_hash`.
@@ -1600,7 +1690,7 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-918: pull the CTI-addressed action queue.
+	 * Pull the CTI-addressed action queue.
 	 *
 	 * Carries the highest envelope sequence this install has accepted plus
 	 * any outcomes still waiting to be reported. The response body must
@@ -1669,7 +1759,7 @@ class Segurium_CTI_Client {
 	}
 
 	/**
-	 * SEGURIUM-378: race-resolver sync. POSTs the Freemius
+	 * Race-resolver sync. POSTs the Freemius
 	 * `(install_id, install_secret_key, license_id, license_key)` tuple;
 	 * CTI cross-checks every field against the Freemius developer API
 	 * before writing the binding row, so the plugin never gets to assert
@@ -1697,7 +1787,7 @@ class Segurium_CTI_Client {
 			'fs_license_id'         => (string) $license_id,
 			'fs_license_key'        => (string) $license_key,
 		);
-		// SEGURIUM-385: identify which Freemius product this install
+		// Identify which Freemius product this install
 		// belongs to, so the multi-tenant CTI deployment can route
 		// developer-API validation to the right product. Defaults to
 		// the prod product (26814) in production builds; DDEV/test

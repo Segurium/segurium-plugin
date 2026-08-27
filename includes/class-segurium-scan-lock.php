@@ -32,7 +32,7 @@ final class Segurium_Scan_Lock {
 
 	/**
 	 * Maximum heartbeat staleness (seconds) before the lock is considered
-	 * abandoned by a crashed worker. SEGURIUM-399 dropped this from 240 s
+	 * abandoned by a crashed worker. Dropped from 240 s
 	 * to 60 s once {@see Segurium_Verdict_Queue::resolve_and_record()}
 	 * started stamping the heartbeat per file (not just at chunk
 	 * boundaries). The previous 240 s ceiling was margin around a single
@@ -49,9 +49,9 @@ final class Segurium_Scan_Lock {
 	/**
 	 * Try to acquire the lock for the given scan.
 	 *
-	 * SEGURIUM-871: refuses while any lock within `LOCK_MAX_AGE` exists,
+	 * Refuses while any lock within `LOCK_MAX_AGE` exists,
 	 * heartbeat ignored. A stale heartbeat is a resume signal for the next
-	 * driver tick (SEGURIUM-563), not a free slot; overwriting such a lock
+	 * driver tick, not a free slot; overwriting such a lock
 	 * left the previous scan's history row at RUNNING forever. Callers that
 	 * want the slot of an ancient lock close it through
 	 * `Segurium_Scan_Runner::terminate()` first. The return value reflects
@@ -74,7 +74,7 @@ final class Segurium_Scan_Lock {
 			'scan_type'          => (string) $scan_type,
 			'started_at'         => $now,
 			'heartbeat'          => $now,
-			// SEGURIUM-271: 0 means "no observer-driven tick yet". Any
+			// 0 means "no observer-driven tick yet". Any
 			// caller checking observer freshness will treat this as stale
 			// and fall through to its own LSS path.
 			'observer_last_seen' => 0,
@@ -89,7 +89,7 @@ final class Segurium_Scan_Lock {
 	 * Refresh the heartbeat for the given scan. When `$is_observer` is true the
 	 * `observer_last_seen` field is also stamped in the same option write, so
 	 * cron / visitor-pageload entry hooks can cheaply detect that a browser
-	 * observer is currently driving the runner and bail (SEGURIUM-271). Folded
+	 * observer is currently driving the runner and bail. Folded
 	 * into heartbeat() so observer-driven ticks pay zero extra DB writes vs.
 	 * the existing per-chunk heartbeat refresh.
 	 *
@@ -144,9 +144,9 @@ final class Segurium_Scan_Lock {
 	 * Whether a scan currently holds the lock: a lock row exists and its
 	 * `started_at` is within `LOCK_MAX_AGE`.
 	 *
-	 * SEGURIUM-870: this no longer reads the heartbeat. A stale heartbeat
+	 * This no longer reads the heartbeat. A stale heartbeat
 	 * means the worker died and the next driver tick takes the scan over
-	 * (SEGURIUM-563); the scan itself is still in progress, so status
+	 * the scan itself is still in progress, so status
 	 * consumers (`get_status()`, `ajax_tick()`, REST `/scan-tick`) must keep
 	 * reporting it as running. Use {@see is_worker_alive()} to ask whether a
 	 * worker is actively advancing it.
@@ -193,7 +193,7 @@ final class Segurium_Scan_Lock {
 	 * than `HEARTBEAT_MAX_AGE`. A `null` lock counts as not-stale (there
 	 * is nothing to reclaim).
 	 *
-	 * SEGURIUM-405: this replaces the old `watchdog_sweep()` helper which
+	 * This replaces the old `watchdog_sweep()` helper which
 	 * conflated staleness detection with lock release. The runner now
 	 * checks `is_stale()` and routes through `Segurium_Scan_Runner::terminate()`
 	 * so every termination path goes through one orchestration site.

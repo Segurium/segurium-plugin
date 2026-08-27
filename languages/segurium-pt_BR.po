@@ -4837,6 +4837,41 @@ msgstr ""
 "WordPress: limpe e restaure os arquivos infectados. Inclui firewall, força "
 "bruta e 2FA."
 
+msgid "Remote actions are switched off for this site."
+msgstr "As ações remotas estão desativadas para este site."
+
+msgid "Remote actions require authentication."
+msgstr "As ações remotas exigem autenticação."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Permitir que o Segurium Cloud solicite atualizações de componentes"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is "
+"limited to security and maintenance releases. Segurium never updates itself"
+" this way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"O Segurium Cloud pode pedir a este site para atualizar um plugin, tema ou o"
+" próprio WordPress. Ele só pode indicar um componente já instalado e "
+"apenas quando o WordPress.org já oferece essa atualização; o download é "
+"feito pelo WordPress a partir do WordPress.org, nunca do Segurium. O núcleo"
+" do WordPress é limitado a versões de segurança e manutenção. O Segurium "
+"nunca se atualiza dessa forma. Desative esta opção e o site deixa de "
+"solicitar e aceitar essas requisições."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Desativado em wp-config.php por SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Solicitações recentes da nuvem"
+
+msgid "Outcome"
+msgstr "Resultado"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
 

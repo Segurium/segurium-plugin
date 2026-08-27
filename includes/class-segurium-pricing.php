@@ -4,7 +4,7 @@
  *
  * Hooks into Freemius's `pricing/css_path` filter to ship a stylesheet
  * that overrides the SDK defaults (uppercase plan title / description /
- * cycle / CTA, uniform 700 weights). SEGURIUM-391.
+ * cycle / CTA, uniform 700 weights).
  *
  * @package Segurium
  */
