@@ -4571,3 +4571,51 @@ msgstr "Legutóbbi felhőkérések"
 
 msgid "Outcome"
 msgstr "Eredmény"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"A Segurium felhő most nem tudta megtisztítani ezt a fájlt. Kérjük, próbáljuk"
+" meg később."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Nincs tiszta változata ennek a fájlnak. Távolítsuk el vagy cseréljük ki "
+"kézzel."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Miért kapcsolja ki a Seguriumot?"
+
+msgid "Missing feature"
+msgstr "Hiányzó funkció"
+
+msgid "It is causing issues"
+msgstr "Problémákat okoz"
+
+msgid "No longer needed"
+msgstr "Már nincs rá szükség"
+
+msgid "Found better alternative"
+msgstr "Jobb alternatívát találtam"
+
+msgid "Temporary deactivation"
+msgstr "Ideiglenes kikapcsolás"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the "
+"one you enter below, together with your email alerts choice."
+msgstr ""
+"A biztonsági riasztások e-mail-címe: a WordPress adminisztrátor e-mail-"
+"címe, vagy az alább megadott, az e-mail értesítési beállítással együtt."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Értesítsen a kártevőkről és a webhelyet érintő biztonsági fenyegetésekről."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Naponta legfeljebb egy e-mail a support@segurium.com címről. Ezt később a "
+"Beállításokban módosíthatja."

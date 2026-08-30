@@ -4956,3 +4956,48 @@ msgstr "Resultado"
 #~ msgstr ""
 #~ "Cota de remediação do nível gratuito excedida. Atualize para o Pro para "
 #~ "obter correções ilimitadas."
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"O Segurium Cloud não conseguiu limpar este arquivo agora. Tente novamente "
+"mais tarde."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Não existe uma versão limpa deste arquivo. Remova ou substitua o arquivo "
+"manualmente."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Por que você está desativando o Segurium?"
+
+msgid "Missing feature"
+msgstr "Falta um recurso"
+
+msgid "It is causing issues"
+msgstr "Está causando problemas"
+
+msgid "No longer needed"
+msgstr "Não é mais necessário"
+
+msgid "Found better alternative"
+msgstr "Encontrei uma alternativa melhor"
+
+msgid "Temporary deactivation"
+msgstr "Desativação temporária"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you enter below, together with your email alerts choice."
+msgstr ""
+"O endereço de e-mail para alertas de segurança: o e-mail do administrador "
+"do WordPress ou o que você informar abaixo, junto com sua escolha de "
+"alertas por e-mail."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Avisar sobre detecções de malware e ameaças de segurança neste site."
+
+msgid "One email per day at most, sent from support@segurium.com. You can change this later under Settings."
+msgstr ""
+"No máximo um e-mail por dia, enviado por support@segurium.com. Você pode "
+"alterar isso depois em Configurações."

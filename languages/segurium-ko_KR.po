@@ -4519,6 +4519,78 @@ msgstr ""
 "웹사이트가 해킹당했나요? 워드프레스용 무료 멀웨어 제거 및 바이러스 검사: 감염된 파일을 정리하고 복원하세요. 방화벽, 무차별 대입 공격"
 " 차단, 2FA 포함"
 
+msgid "Remote actions are switched off for this site."
+msgstr "이 사이트에서는 원격 작업이 꺼져 있습니다."
+
+msgid "Remote actions require authentication."
+msgstr "원격 작업에는 인증이 필요합니다."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Segurium Cloud가 구성 요소 업데이트를 요청하도록 허용"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud는 이 사이트에 플러그인, 테마 또는 워드프레스 자체의 업데이트를 요청할 수 있습니다. 이미 설치된 구성 요소만"
+" 지정할 수 있으며, WordPress.org에서 해당 업데이트를 제공하는 경우에만 가능합니다. 업데이트는 워드프레스가 "
+"WordPress.org에서 내려받으며, Segurium에서 내려받지 않습니다. 워드프레스 코어는 보안 및 유지 관리 릴리스로 "
+"제한됩니다. Segurium은 이 방식으로 자체 업데이트하지 않습니다. 이 기능을 끄면 사이트는 이러한 요청을 요구하거나 수락하지 "
+"않습니다."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "SEGURIUM_DISABLE_REMOTE_ACTIONS에 의해 wp-config.php에서 꺼져 있습니다."
+
+msgid "Recent cloud requests"
+msgstr "최근 클라우드 요청"
+
+msgid "Outcome"
+msgstr "결과"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud가 지금은 이 파일을 정리하지 못했습니다. 잠시 후 다시 시도하세요."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "이 파일의 정상 버전이 없습니다. 직접 제거하거나 교체하세요."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Segurium을 비활성화하는 이유는 무엇인가요?"
+
+msgid "Missing feature"
+msgstr "필요한 기능 부재"
+
+msgid "It is causing issues"
+msgstr "문제가 발생하고 있음"
+
+msgid "No longer needed"
+msgstr "더 이상 필요 없음"
+
+msgid "Found better alternative"
+msgstr "더 나은 대안을 찾음"
+
+msgid "Temporary deactivation"
+msgstr "일시적 비활성화"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr "보안 알림용 이메일 주소: 워드프레스 관리자 이메일 또는 아래에 입력한 주소가 이메일 알림 설정과 함께 사용됩니다."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "이 웹사이트의 멀웨어 탐지 및 보안 위협에 대해 알림을 받습니다."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr "이메일은 하루 최대 1통, support@segurium.com에서 발송됩니다. 나중에 설정에서 변경할 수 있습니다."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 
@@ -4592,24 +4664,3 @@ msgstr ""
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "무료 단계 복구 한도를 초과했습니다. 무제한 복구를 사용하려면 Pro로 업그레이드하십시오."
-
-msgid "Remote actions are switched off for this site."
-msgstr "이 사이트에서는 원격 작업이 꺼져 있습니다."
-
-msgid "Remote actions require authentication."
-msgstr "원격 작업에는 인증이 필요합니다."
-
-msgid "Let Segurium Cloud request component updates"
-msgstr "Segurium Cloud가 구성 요소 업데이트를 요청하도록 허용"
-
-msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
-msgstr "Segurium Cloud는 이 사이트에 플러그인, 테마 또는 WordPress 자체의 업데이트를 요청할 수 있습니다. 이미 설치된 구성 요소만 지정할 수 있으며, WordPress.org에서 해당 업데이트를 제공하는 경우에만 가능합니다. 업데이트는 WordPress가 WordPress.org에서 내려받으며, Segurium에서 내려받지 않습니다. WordPress 코어는 보안 및 유지 관리 릴리스로 제한됩니다. Segurium은 이 방식으로 자체 업데이트하지 않습니다. 이 기능을 끄면 사이트는 이러한 요청을 요구하거나 수락하지 않습니다."
-
-msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "wp-config.php에서 SEGURIUM_DISABLE_REMOTE_ACTIONS로 꺼져 있습니다."
-
-msgid "Recent cloud requests"
-msgstr "최근 클라우드 요청"
-
-msgid "Outcome"
-msgstr "결과"

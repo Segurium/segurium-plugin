@@ -3457,7 +3457,7 @@ msgstr ""
 #: includes/class-segurium.php:2501
 msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
 msgstr ""
-"Geo-blokkering (inlog + beheerafscherming met vangnet voor bevestigen-of-"
+"Geo-blokkering (login + beheerafscherming met vangnet voor bevestigen-of-"
 "terugdraaien)"
 
 #: includes/class-segurium.php:2506
@@ -3483,7 +3483,7 @@ msgstr "Activiteitenlogboek (alleen toevoegen, bewaring per gebeurtenistype)"
 
 #: includes/class-segurium.php:2531
 msgid "Migration importer (Wordfence, AIOS, Sucuri, Solid Security)"
-msgstr "Migratie-importeur (Wordfence, AIOS, Sucuri, Solid Security)"
+msgstr "Migratie-importeerfunctie (Wordfence, AIOS, Sucuri, Solid Security)"
 
 #: includes/class-segurium.php:2536
 msgid "Disaster recovery (encrypted reversible backups, extractable offline)"
@@ -3568,7 +3568,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2604
 msgid "Capability"
-msgstr "Functie"
+msgstr "Rechten"
 
 #: includes/class-segurium.php:2606 includes/class-segurium.php:2801
 msgid "Free"
@@ -4846,6 +4846,89 @@ msgstr ""
 "geïnfecteerde bestanden opschonen en terugzetten. Firewall, brute force en "
 "2FA inbegrepen."
 
+msgid "Remote actions are switched off for this site."
+msgstr "Externe acties zijn uitgeschakeld voor deze site."
+
+msgid "Remote actions require authentication."
+msgstr "Externe acties vereisen authenticatie."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Sta Segurium Cloud toe een aanvraag te doen voor component-updates"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud kan deze site vragen om een plugin, thema of WordPress zelf "
+"bij te werken. Alleen een component die je al hebt geïnstalleerd kan worden "
+"genoemd, en alleen wanneer WordPress.org die update al aanbiedt; de update "
+"wordt door WordPress bij WordPress.org gedownload, nooit bij Segurium. "
+"WordPress core is beperkt tot beveiligings- en onderhoudsreleases. Segurium "
+"werkt zichzelf nooit op deze manier bij. Schakel dit uit en de site stopt "
+"met het doen en accepteren van deze aanvragen."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Uitgeschakeld in wp-config.php door SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Recente cloudaanvragen"
+
+msgid "Outcome"
+msgstr "Resultaat"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud kon dit bestand nu niet opschonen. Probeer het later opnieuw."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Er bestaat geen schone versie van dit bestand. Verwijder of vervang het "
+"handmatig."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Waarom deactiveer je Segurium?"
+
+msgid "Missing feature"
+msgstr "Ontbrekende functie"
+
+msgid "It is causing issues"
+msgstr "Het veroorzaakt problemen"
+
+msgid "No longer needed"
+msgstr "Niet meer nodig"
+
+msgid "Found better alternative"
+msgstr "Beter alternatief gevonden"
+
+msgid "Temporary deactivation"
+msgstr "Tijdelijke deactivering"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"Het e-mailadres voor beveiligingswaarschuwingen: het WordPress beheerders-e-"
+"mailadres, of het adres dat je hieronder invoert, samen met je keuze voor "
+"e-mailwaarschuwingen."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Waarschuw me bij malwarevondsten en beveiligingsdreigingen op deze site."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Maximaal één e-mail per dag, verzonden vanaf support@segurium.com. Je kunt "
+"dit later wijzigen onder Instellingen."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Segurium-plug-in voor WordPress."
 
@@ -4930,38 +5013,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Hersteldquotum van het gratis niveau overschreden. Upgrade naar Pro voor "
 #~ "onbeperkte reparaties."
-
-msgid "Remote actions are switched off for this site."
-msgstr "Externe acties zijn uitgeschakeld voor deze site."
-
-msgid "Remote actions require authentication."
-msgstr "Externe acties vereisen authenticatie."
-
-msgid "Let Segurium Cloud request component updates"
-msgstr "Sta Segurium Cloud toe om component-updates aan te vragen"
-
-msgid ""
-"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
-"itself. It can only name a component you already have installed, and only "
-"when WordPress.org already offers that update; the update is downloaded by "
-"WordPress from WordPress.org, never from Segurium. WordPress core is "
-"limited to security and maintenance releases. Segurium never updates itself "
-"this way. Turn this off and the site stops asking for and accepting these "
-"requests."
-msgstr ""
-"Segurium Cloud kan deze site vragen om een plugin, thema of WordPress zelf "
-"bij te werken. Alleen een component die je al hebt geïnstalleerd kan worden "
-"genoemd, en alleen wanneer WordPress.org die update al aanbiedt; de update "
-"wordt door WordPress bij WordPress.org opgehaald, nooit bij Segurium. "
-"WordPress core is beperkt tot beveiligings- en onderhoudsreleases. Segurium "
-"werkt zichzelf nooit op deze manier bij. Schakel dit uit en de site vraagt "
-"deze verzoeken niet meer aan en accepteert ze niet meer."
-
-msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "Uitgeschakeld in wp-config.php door SEGURIUM_DISABLE_REMOTE_ACTIONS."
-
-msgid "Recent cloud requests"
-msgstr "Recente cloud-verzoeken"
-
-msgid "Outcome"
-msgstr "Resultaat"

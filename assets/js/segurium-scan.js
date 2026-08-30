@@ -518,9 +518,9 @@
     // the cloud quota ledger.
     //
     // Rendered into the existing #segurium-confirm-modal shell so the keyboard
-    // dismiss / overlay-click behaviour comes for free. Hidden the Upgrade
-    // button when seguriumScan.upgradeUrl is empty (Freemius unreachable) so
-    // we never ship a dead "#" link — the user sees a Close button instead.
+    // dismiss / overlay-click behaviour comes for free. upgradeUrl resolves to
+    // the public pricing page when the billing SDK yields nothing, so the
+    // Close-button branch below only fires if localization itself failed.
     function formatLocalizedDate(unixSecs) {
         if (!unixSecs) return '';
         try {
@@ -663,7 +663,13 @@
         okBtn.onclick = function () {
             reportOutcome(hasUrl ? 'clicked' : 'dismissed');
             closeModal();
-            if (hasUrl) {
+            if (!hasUrl) return;
+            // An offsite destination gets its own tab: the operator reached
+            // this modal from a refusal mid-cleanup, and replacing the
+            // location would throw away the screen they were working on.
+            if (seguriumScan.upgradeOffsite) {
+                window.open(seguriumScan.upgradeUrl, '_blank', 'noopener');
+            } else {
                 window.location.href = seguriumScan.upgradeUrl;
             }
         };
@@ -766,6 +772,74 @@
         return document.querySelectorAll('.segurium-quota-readout');
     }
 
+    // Malicious files still on disk. PHP seeds it so the first repaint
+    // agrees with the server pre-render; the scanner list keeps it
+    // current from there.
+    var quotaThreatsOpen = (seguriumScan && typeof seguriumScan.threatsOpen === 'number')
+        ? Math.max(0, seguriumScan.threatsOpen)
+        : 0;
+    var quotaLastEnvelope = null;
+    var quotaEnvelopeRetried = false;
+
+    function setQuotaThreatsOpen(n) {
+        var next = (typeof n === 'number' && n > 0) ? n : 0;
+        if (next === quotaThreatsOpen) return;
+        quotaThreatsOpen = next;
+        if (quotaLastEnvelope) {
+            renderQuotaReadout(quotaLastEnvelope);
+            return;
+        }
+        // No envelope has landed, so the page-load fetch failed and the
+        // server pre-render on screen still names the count that just
+        // changed. Ask once more rather than leave a card claiming six
+        // live threats the user has already dealt with.
+        if (quotaEnvelopeRetried || !quotaReadoutNodes().length) return;
+        if (seguriumScan && seguriumScan.isPro) return;
+        quotaEnvelopeRetried = true;
+        quotaCacheTs = 0;
+        fetchQuotaReadout();
+    }
+
+    // One block per cleanup slot, spent ones filled. Mirrors
+    // Segurium::quota_card_meter_html().
+    function quotaMeterHtml(used, limit) {
+        var max = (seguriumScan && typeof seguriumScan.meterMaxSlots === 'number')
+            ? seguriumScan.meterMaxSlots
+            : 12;
+        if (limit < 1 || limit > max) return '';
+        var slots = '';
+        for (var i = 0; i < limit; i++) {
+            slots += '<span class="segurium-quota-card__slot' + (i < used ? ' is-spent' : '') + '"></span>';
+        }
+        return '<span class="segurium-quota-card__meter">' + slots + '</span>';
+    }
+
+    // At-limit card. Mirrors Segurium::quota_card_html() so a tab switch
+    // cannot repaint the card into something else.
+    function quotaCardHtml(used, limit, usageCopy, threats) {
+        var threatCopy = (i18n.threatsRemaining || '%d threats still need your attention')
+            .replace('%d', String(threats));
+        var target = seguriumScan.upgradeOffsite ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return '<div class="segurium-quota-card__body">' +
+            '<h3 class="segurium-quota-card__title">' +
+            escHtml(i18n.paywallQuotaTitle || 'Cleanup quota reached') + '</h3>' +
+            '<p class="segurium-quota-card__threats">' + escHtml(threatCopy) + '</p>' +
+            '<p class="segurium-quota-card__usage">' + escHtml(usageCopy) + '</p>' +
+            quotaMeterHtml(used, limit) +
+            '</div>' +
+            '<div class="segurium-quota-card__actions">' +
+            '<p class="segurium-quota-card__buttons">' +
+            '<a class="button button-primary button-hero segurium-quota-readout-cta" href="' +
+            escAttr(seguriumScan.upgradeUrl) + '"' + target + '>' +
+            escHtml(i18n.quotaReadoutUpgradeCta || 'Upgrade to Pro') + '</a>' +
+            '<a class="segurium-quota-card__secondary" href="' + escAttr(buildTabUrl('plans')) + '">' +
+            escHtml(i18n.plansTab || 'Plans') + '</a>' +
+            '</p>' +
+            '<p class="segurium-quota-card__guarantee">' +
+            escHtml(i18n.moneyBackGuarantee || '14-day money-back guarantee.') + '</p>' +
+            '</div>';
+    }
+
     function renderQuotaReadout(envelope) {
         var nodes = quotaReadoutNodes();
         if (!nodes.length) return;
@@ -776,6 +850,7 @@
         // at page load — it's stale at worst, and blanking the counter
         // because CTI happens to be unreachable right now is hostile.
         if (!envelope || envelope.is_pro || envelope.fail_open) { return; }
+        quotaLastEnvelope = envelope;
         var used   = (typeof envelope.used === 'number') ? envelope.used : 0;
         var limit  = (typeof envelope.limit === 'number' && envelope.limit > 0) ? envelope.limit : 3;
         var window = (typeof envelope.window_days === 'number' && envelope.window_days > 0) ? envelope.window_days : 30;
@@ -799,13 +874,30 @@
                 .replace('%3$d', String(window));
         }
         var html = '<span>' + escHtml(copy) + '</span>';
+        var ctaHtml = '';
         if (atLimit && seguriumScan && seguriumScan.upgradeUrl) {
-            html += '<a class="segurium-quota-readout-cta" href="' +
-                escAttr(seguriumScan.upgradeUrl) + '">' +
+            ctaHtml = '<a class="segurium-quota-readout-cta" href="' +
+                escAttr(seguriumScan.upgradeUrl) + '"' +
+                (seguriumScan.upgradeOffsite ? ' target="_blank" rel="noopener noreferrer"' : '') +
+                '>' +
                 escHtml(i18n.quotaReadoutUpgradeCta || 'Upgrade to Pro') +
                 '</a>';
         }
-        nodes.forEach(function (n) { n.innerHTML = html; n.hidden = false; });
+        // The one state worth escalating: the plugin has just refused a
+        // cleanup and malicious files are still on disk. Below the cap,
+        // and at the cap with nothing outstanding, keep the strip.
+        var isCard = atLimit && quotaThreatsOpen > 0 && !!(seguriumScan && seguriumScan.upgradeUrl);
+        var cardHtml = isCard ? quotaCardHtml(used, limit, copy, quotaThreatsOpen) : '';
+        // data-cta="off" marks a readout that sits beside a primary CTA
+        // already (the Plans tab's Pro card); a second link to the same
+        // destination competes with it, and so does a whole card.
+        nodes.forEach(function (n) {
+            var muted = n.getAttribute('data-cta') === 'off';
+            var card  = isCard && !muted;
+            n.classList.toggle('segurium-quota-readout--card', card);
+            n.innerHTML = card ? cardHtml : (html + (muted ? '' : ctaHtml));
+            n.hidden = false;
+        });
     }
 
     // Cache the quota envelope for the page lifetime. The
@@ -883,9 +975,13 @@
     if (consentBtn) {
         consentBtn.addEventListener('click', function () {
             consentBtn.disabled = true;
+            var consentAlertsEnabled = el('segurium_consent_alerts_enabled');
+            var consentAlertsEmail = el('segurium_consent_alerts_email');
             post({
                 action: 'segurium_accept_consent',
-                nonce: seguriumScan.consentNonce
+                nonce: seguriumScan.consentNonce,
+                alerts_email_enabled: consentAlertsEnabled && consentAlertsEnabled.checked ? '1' : '',
+                alerts_email_address: consentAlertsEmail ? consentAlertsEmail.value : ''
             }).then(function (response) {
                 if (response.success) {
                     location.reload();
@@ -994,6 +1090,27 @@
             || (window.location.pathname + '?page=segurium');
         return base + '&tab=' + encodeURIComponent(feature);
     }
+
+    // The at-limit card's secondary action lands on the Plans tab. It is
+    // rebuilt on every quota repaint, so the per-node listener below
+    // cannot reach it.
+    document.addEventListener('click', function (e) {
+        var link = (e.target && typeof e.target.closest === 'function')
+            ? e.target.closest('.segurium-quota-card__secondary')
+            : null;
+        if (!link) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+        if (!document.getElementById('segurium-feature-plans')) return;
+        e.preventDefault();
+        var url = buildTabUrl('plans');
+        try {
+            window.history.pushState({ seguriumTab: 'plans' }, '', url);
+        } catch (err) {
+            window.location.href = url;
+            return;
+        }
+        switchTab('plans');
+    });
 
     navItems.forEach(function (item) {
         item.addEventListener('click', function (e) {
@@ -1369,6 +1486,11 @@
             ssLastCounts = Object.assign({ all: 0, malicious: 0, cleaned: 0, fixed: 0, ignored: 0 }, data.counts || {});
             updateTabCounts(ssLastCounts);
             updateThreatBanner(ssLastCounts);
+            // Only the recent window feeds the quota card. `counts` follows
+            // whatever `recent_only` the request carried, and the server
+            // pre-render always measures the recent window — taking an
+            // all-time count would escalate a card PHP would never render.
+            if (ssRecentOnly) setQuotaThreatsOpen(ssLastCounts.malicious);
             updateFixAllState(ssLastCounts);
         }
 
@@ -1560,6 +1682,8 @@
             if (to && from !== to) ssLastCounts[to] = (ssLastCounts[to] || 0) + 1;
             updateTabCounts(ssLastCounts);
             updateThreatBanner(ssLastCounts);
+            // Same recent-window rule as applyServerState().
+            if (ssRecentOnly) setQuotaThreatsOpen(ssLastCounts.malicious);
             updateFixAllState(ssLastCounts);
         }
 

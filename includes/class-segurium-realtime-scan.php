@@ -303,6 +303,8 @@ class Segurium_Realtime_Scan {
 			);
 		}
 
+		$this->finalize_findings( $scan_id, $threats, $now );
+
 		if ( $workspace ) {
 			Segurium_Storage::tmp_destroy( $workspace );
 		}
@@ -311,6 +313,58 @@ class Segurium_Realtime_Scan {
 			'files_checked' => count( $files ),
 			'threats_found' => $threats,
 		);
+	}
+
+	/**
+	 * Close a realtime cycle the way Segurium_Scan_Runner closes a
+	 * runner-driven one: reconcile the server-state projection, then hand
+	 * the findings to the auto-fix orchestrator. Realtime constructs no
+	 * Segurium_Scan and fires no `segurium_scan_completed`, so neither
+	 * listener would ever run on this path.
+	 *
+	 * Ordering mirrors the action's priorities — state at 10, auto-fix at
+	 * 15 — so the cure writes the last word on each row.
+	 *
+	 * The scanned-path set stays empty on purpose. Segurium_Verdict_Queue
+	 * already flips each individually verdicted clean file to `fixed`, so
+	 * the only work left is the sweep for flagged files that have left the
+	 * disk. Handing the submitted set to that first pass instead would flip
+	 * a still-infected file to `fixed` whenever `/v1/inspect` failed: the
+	 * file was submitted but never verdicted, and an empty threat list then
+	 * reads as "scanned, came back clean".
+	 *
+	 * @param string $scan_id Scan UUID of this cycle.
+	 * @param int    $threats Threat count reported by the verdict queue.
+	 * @param int    $now     Cycle timestamp.
+	 * @return void
+	 */
+	private function finalize_findings( $scan_id, $threats, $now ) {
+		$threats      = (int) $threats;
+		$threat_paths = array();
+		if ( $threats > 0 ) {
+			foreach ( Segurium_Scan::findings_for( $scan_id ) as $row ) {
+				if ( ! empty( $row['path'] ) ) {
+					$threat_paths[] = (string) $row['path'];
+				}
+			}
+		}
+
+		try {
+			$state = new Segurium_Server_State();
+			$state->mark_fixed_after_scan( $threat_paths, array(), (int) $now );
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-realtime] server state reconcile failed: ' . $e->getMessage() );
+		}
+
+		if ( $threats < 1 ) {
+			return;
+		}
+
+		try {
+			Segurium_Auto_Fix::run_for_scan( $scan_id, $this->base_path, $this->data_dir );
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-realtime] auto-fix failed: ' . $e->getMessage() );
+		}
 	}
 
 	/**

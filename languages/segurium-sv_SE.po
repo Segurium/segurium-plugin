@@ -4514,11 +4514,12 @@ msgid ""
 msgstr ""
 "Segurium Cloud kan be denna webbplats att uppdatera ett tillägg, ett tema "
 "eller WordPress självt. Det kan bara namnge en komponent som du redan har "
-"installerad, och endast när WordPress.org redan erbjuder den uppdateringen; "
-"uppdateringen hämtas av WordPress från WordPress.org, aldrig från Segurium. "
-"WordPress-kärnan är begränsad till säkerhets- och underhållsutgåvor. "
-"Segurium uppdaterar aldrig sig självt på detta sätt. Stäng av detta så "
-"slutar webbplatsen att be om och acceptera dessa förfrågningar."
+"installerad, och endast när WordPress.org redan erbjuder den uppdateringen. "
+"Uppdateringen laddas ner av WordPress från WordPress.org, aldrig från "
+"Segurium. WordPress-kärnan är begränsad till säkerhets- och "
+"underhållsutgåvor. Segurium uppdaterar aldrig sig självt på detta sätt. "
+"Stäng av detta så slutar webbplatsen att be om och acceptera dessa "
+"förfrågningar."
 
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
 msgstr "Avstängt i wp-config.php av SEGURIUM_DISABLE_REMOTE_ACTIONS."
@@ -4528,3 +4529,48 @@ msgstr "Senaste molnförfrågningar"
 
 msgid "Outcome"
 msgstr "Resultat"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud kunde inte rensa denna fil just nu. Försök igen senare."
+
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Det finns ingen ren version av denna fil. Ta bort eller ersätt den för hand."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Varför inaktiverar du Segurium?"
+
+msgid "Missing feature"
+msgstr "Saknad funktion"
+
+msgid "It is causing issues"
+msgstr "Det orsakar problem"
+
+msgid "No longer needed"
+msgstr "Behövs inte längre"
+
+msgid "Found better alternative"
+msgstr "Hittade ett bättre alternativ"
+
+msgid "Temporary deactivation"
+msgstr "Tillfällig avaktivering"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"E-postadressen för säkerhetsvarningar: WordPress-administratörens e-post, "
+"eller den du anger nedan, tillsammans med ditt val av e-postvarningar."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Meddela mig om fynd av skadlig kod och säkerhetshot på denna webbplats."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Högst ett e-postmeddelande per dag, skickat från support@segurium.com. Du "
+"kan ändra detta senare under Inställningar."

@@ -362,7 +362,7 @@ msgstr "Plan"
 
 #: includes/class-segurium-account-page.php:405
 msgid "Trial"
-msgstr "Prueba"
+msgstr "Periodo de prueba"
 
 #: includes/class-segurium-account-page.php:409
 msgid "License renews"
@@ -563,7 +563,7 @@ msgstr "No hay versión limpia disponible para este archivo"
 
 #: includes/class-segurium-geo-blocker.php:425
 msgid "Access from your location is not allowed."
-msgstr "El acceso desde tu ubicación no está permitido."
+msgstr "No tienes permisos de acceso desde tu ubicación."
 
 #: includes/class-segurium-geo-blocker.php:426
 msgid "Access Denied"
@@ -1341,7 +1341,7 @@ msgstr "Iniciando análisis..."
 
 #: includes/class-segurium.php:833
 msgid "Failed to start scan."
-msgstr "No se pudo iniciar el análisis."
+msgstr "No se pudo iniciar la exploración."
 
 #: includes/class-segurium.php:834
 msgid "Error"
@@ -3471,28 +3471,28 @@ msgstr "Incluido"
 
 #: includes/class-segurium.php:2488
 msgid "Hardening — included in every install"
-msgstr "Endurecimiento — incluido en todas las instalaciones"
+msgstr "Refuerzo — incluido en todas las instalaciones"
 
 #: includes/class-segurium.php:2491
 msgid ""
 "Two-factor authentication (TOTP, email fallback, backup codes, trusted "
 "devices)"
 msgstr ""
-"Autenticación de dos factores (TOTP, alternativa por correo electrónico, "
+"Identificación de dos factores (TOTP, alternativa por correo electrónico, "
 "códigos de respaldo, dispositivos de confianza)"
 
 #: includes/class-segurium.php:2496
 msgid ""
 "Brute-force protection (rate limits, lockouts, honeypot, optional hCaptcha)"
 msgstr ""
-"Protección contra fuerza bruta (límites de tasa, bloqueos, señuelo, hCaptcha"
-" opcional)"
+"Protección contra fuerza bruta (límites de frecuencia, bloqueos, señuelo, "
+"hCaptcha opcional)"
 
 #: includes/class-segurium.php:2501
 msgid "Geo-blocking (login + admin gating with confirm-or-revert safety net)"
 msgstr ""
-"Bloqueo geográfico (control del inicio de sesión + administración con red de"
-" seguridad de confirmar o revertir)"
+"Bloqueo geográfico (control del acceso + administración con red de seguridad"
+" de confirmar o revertir)"
 
 #: includes/class-segurium.php:2506
 msgid "Firewall (allow / deny IP rules, CIDR, country filter)"
@@ -3502,8 +3502,7 @@ msgstr ""
 #: includes/class-segurium.php:2511
 msgid "Security headers and cookie hardening (presets, custom)"
 msgstr ""
-"Cabeceras de seguridad y endurecimiento de cookies (preajustes, "
-"personalizado)"
+"Cabeceras de seguridad y refuerzo de cookies (preajustes, personalizado)"
 
 #: includes/class-segurium.php:2516
 msgid "Information Shield (version and endpoint hiding)"
@@ -3573,7 +3572,7 @@ msgstr "Cuenta para la cuota de limpieza de 3 / 30 días"
 
 #: includes/class-segurium.php:2567
 msgid "Bulk “Fix All” (malware + integrity)"
-msgstr "«Corregir todo» en masa (malware + integridad)"
+msgstr "«Corregir todo» en bloque (malware + integridad)"
 
 #: includes/class-segurium.php:2572
 msgid "Auto-fix (unattended remediation)"
@@ -3647,7 +3646,7 @@ msgid ""
 "kept in wp-content/segurium-data after uninstall, so a reinstall can still "
 "restore them. Turn on only if you want a hard deletion on uninstall."
 msgstr ""
-"Desactivado (predeterminado): las copias de seguridad cifradas de los "
+"Desactivado (por defecto): las copias de seguridad cifradas de los "
 "componentes eliminados y de los archivos saneados se mantienen en wp-"
 "content/segurium-data después de desinstalar, para que una reinstalación aún"
 " pueda restaurarlos. Actívalo solo si quieres una eliminación definitiva al "
@@ -4496,7 +4495,7 @@ msgstr ""
 
 #: includes/class-segurium-async-scan-poller.php:125
 msgid "Segurium async scan poll (1 min)"
-msgstr "Sondeo de análisis asíncrono de Segurium (1 min)"
+msgstr "Sondeo de exploración asíncrona de Segurium (1 min)"
 
 #: includes/class-segurium.php:878
 msgid "files"
@@ -4774,7 +4773,7 @@ msgid ""
 "Restore original files, Anti-virus, Malware Scan, Bruteforce protection, "
 "Firewall, 2FA, Geo-blocking, and more for free."
 msgstr ""
-"Restauración de archivos originales, antivirus, análisis de malware, "
+"Restauración de archivos originales, antivirus, exploración de malware, "
 "protección contra ataques de fuerza bruta, cortafuegos, 2FA, bloqueo "
 "geográfico y mucho más — gratis."
 
@@ -4788,15 +4787,15 @@ msgstr "El secreto del activador del análisis no coincide."
 msgid ""
 "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
 msgstr ""
-"Segurium – Eliminación y limpieza de malware, cortafuegos, autenticación de "
-"dos factores"
+"Segurium – Eliminación y limpieza de malware, cortafuegos, identificación de"
+" dos factores"
 
 #. Description of the plugin
 msgid ""
 "Free malware cleanup, not just detection — scan, clean, and restore hacked "
 "sites. Plus firewall, brute-force protection, 2FA, geo-blocking."
 msgstr ""
-"Limpieza gratuita de malware, no solo detección — analice, limpie y restaure"
+"Limpieza gratuita de malware, no solo detección — explore, limpie y restaure"
 " sitios pirateados. Además, cortafuegos, protección contra fuerza bruta, 2FA"
 " y bloqueo geográfico."
 
@@ -4891,6 +4890,92 @@ msgstr ""
 " para WordPress: limpia los archivos infectados y restáuralos. Incluye "
 "cortafuegos, fuerza bruta y 2FA."
 
+msgid "Remote actions are switched off for this site."
+msgstr "Las acciones remotas están desactivadas para este sitio."
+
+msgid "Remote actions require authentication."
+msgstr "Las acciones remotas requieren identificación."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "Permitir que Segurium Cloud solicite actualizaciones de componentes"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud puede pedir a este sitio que actualice un plugin, un tema o "
+"el propio WordPress. Solo puede indicar un componente que ya tengas "
+"instalado y solo cuando WordPress.org ya ofrezca esa actualización; la "
+"actualización la descarga WordPress desde WordPress.org, nunca desde "
+"Segurium. El núcleo de WordPress se limita a versiones de seguridad y "
+"mantenimiento. Segurium nunca se actualiza a sí mismo por esta vía. "
+"Desactívalo y el sitio dejará de pedir y aceptar estas solicitudes."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr ""
+"Desactivado en wp-config.php mediante SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "Solicitudes recientes de la nube"
+
+msgid "Outcome"
+msgstr "Resultado"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud no ha podido limpiar este archivo ahora mismo. Inténtalo de "
+"nuevo más tarde."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"No existe una versión limpia de este archivo. Elimínalo o sustitúyelo a "
+"mano."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "¿Por qué desactivas Segurium?"
+
+msgid "Missing feature"
+msgstr "Falta una función"
+
+msgid "It is causing issues"
+msgstr "Está causando problemas"
+
+msgid "No longer needed"
+msgstr "Ya no lo necesito"
+
+msgid "Found better alternative"
+msgstr "He encontrado una alternativa mejor"
+
+msgid "Temporary deactivation"
+msgstr "Desactivación temporal"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"La dirección de correo electrónico para las alertas de seguridad: el correo "
+"electrónico del administrador de WordPress o el que introduzcas abajo, junto"
+" con tu elección de alertas por correo electrónico."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Avísame de las detecciones de malware y las amenazas de seguridad en este "
+"sitio web."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Como máximo un correo electrónico al día, enviado desde "
+"support@segurium.com. Puedes cambiarlo más tarde en los Ajustes."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
 
@@ -4976,38 +5061,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Cuota de remediación del nivel gratuito superada. Actualice a Pro para "
 #~ "obtener correcciones ilimitadas."
-
-msgid "Remote actions are switched off for this site."
-msgstr "Las acciones remotas están desactivadas para este sitio."
-
-msgid "Remote actions require authentication."
-msgstr "Las acciones remotas requieren autenticación."
-
-msgid "Let Segurium Cloud request component updates"
-msgstr "Permitir que Segurium Cloud solicite actualizaciones de componentes"
-
-msgid ""
-"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
-"itself. It can only name a component you already have installed, and only "
-"when WordPress.org already offers that update; the update is downloaded by "
-"WordPress from WordPress.org, never from Segurium. WordPress core is "
-"limited to security and maintenance releases. Segurium never updates itself "
-"this way. Turn this off and the site stops asking for and accepting these "
-"requests."
-msgstr ""
-"Segurium Cloud puede pedir a este sitio que actualice un plugin, un tema o "
-"el propio WordPress. Solo puede indicar un componente que ya tengas "
-"instalado y solo cuando WordPress.org ya ofrezca esa actualización; la "
-"actualización la descarga WordPress desde WordPress.org, nunca desde "
-"Segurium. El núcleo de WordPress se limita a versiones de seguridad y "
-"mantenimiento. Segurium nunca se actualiza a sí mismo por esta vía. "
-"Desactívalo y el sitio dejará de pedir y aceptar estas solicitudes."
-
-msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "Desactivado en wp-config.php mediante SEGURIUM_DISABLE_REMOTE_ACTIONS."
-
-msgid "Recent cloud requests"
-msgstr "Solicitudes recientes de la nube"
-
-msgid "Outcome"
-msgstr "Resultado"

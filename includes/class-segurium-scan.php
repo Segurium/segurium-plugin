@@ -310,7 +310,13 @@ class Segurium_Scan {
 
 		if ( ! $this->state['scanner_completed'] ) {
 			if ( ! $scanner->load_state() ) {
-				return $this->build_progress();
+				// An unreadable or corrupt state file leaves nothing to
+				// resume from. The runner reads this marker and takes the
+				// ENGINE_LOAD_FAILED terminal path; bare progress would read
+				// as a healthy no-op chunk and spin until the lock ages out.
+				$progress                       = $this->build_progress();
+				$progress['engine_load_failed'] = true;
+				return $progress;
 			}
 			$scanner_state = $scanner->get_state();
 			if ( 'completed' === $scanner_state['status'] ) {
@@ -727,20 +733,37 @@ class Segurium_Scan {
 	 */
 	public function get_threats( $scanner_result_file = null, $verdict_result_file = null, $scan_uuid = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		unset( $scanner_result_file, $verdict_result_file );
-		$scan_id = $scan_uuid ? (string) $scan_uuid : (string) $this->state['scan_id'];
+		return self::findings_for( $scan_uuid ? (string) $scan_uuid : (string) $this->state['scan_id'] );
+	}
+
+	/**
+	 * Read the threat set of any scan by UUID, without an instance. The
+	 * real-time path records findings under a UUID it generates itself and
+	 * never builds a Segurium_Scan, so both it and Segurium_Auto_Fix read
+	 * the canonical rows through here.
+	 *
+	 * Excludes vulnerable rows. This list is the cleanup API's threat set
+	 * and is also consumed by update_server_state_from_scan(); an
+	 * unrecognised status falls through to state='malware' in
+	 * ajax_get_threats().
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return array
+	 */
+	public static function findings_for( $scan_id ) {
+		$scan_id = (string) $scan_id;
 		if ( '' === $scan_id ) {
 			return array();
 		}
-		// Exclude vulnerable rows. This list is the cleanup
-		// API's threat set and is also consumed by Segurium_Auto_Fix and
-		// update_server_state_from_scan(); an unrecognised status falls
-		// through to state='malware' in ajax_get_threats().
 		$rows = Segurium_Storage::table_get_results(
 			'scan_findings',
 			'SELECT file_path AS path, sha256, verdict, status, backup_id, created_at AS detected_at FROM {{table}} WHERE scan_uuid = %s AND status <> %s ORDER BY id ASC',
 			array( $scan_id, Segurium_Verdict_Queue::STATUS_VULNERABLE ),
 			ARRAY_A
 		);
+		if ( ! is_array( $rows ) ) {
+			return array();
+		}
 		foreach ( $rows as &$row ) {
 			$row['verdict'] = (int) $row['verdict'];
 		}
@@ -1064,10 +1087,19 @@ class Segurium_Scan {
 	 */
 	private function create_scanner() {
 		$workspace = '' !== (string) $this->workspace ? (string) $this->workspace : $this->data_dir;
+		// Seconds one listing pass may spend before it yields the request
+		// back. Filterable so a constrained host can shorten it, and so a
+		// test can force a listing to span more than one chunk without
+		// racing a wall clock.
+		$listing_budget = (float) apply_filters(
+			'segurium_scan_listing_time_budget',
+			$this->time_limit * 0.6
+		);
+
 		return new Segurium_Scanner(
 			$this->base_path,
 			$workspace,
-			$this->time_limit * 0.6,
+			$listing_budget,
 			$this->exclude_patterns
 		);
 	}

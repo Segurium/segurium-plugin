@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-17 00:00+0000\n"
+"PO-Revision-Date: 2026-08-29 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Mexican Spanish\n"
 "Language: es_MX\n"
@@ -4926,3 +4926,53 @@ msgstr "Solicitudes recientes de la nube"
 
 msgid "Outcome"
 msgstr "Resultado"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud no pudo limpiar este archivo en este momento. Inténtalo de "
+"nuevo más tarde."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"No existe una versión limpia de este archivo. Elimínalo o reemplázalo a "
+"mano."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "¿Por qué estás desactivando Segurium?"
+
+msgid "Missing feature"
+msgstr "Falta una función"
+
+msgid "It is causing issues"
+msgstr "Está causando problemas"
+
+msgid "No longer needed"
+msgstr "Ya no lo necesito"
+
+msgid "Found better alternative"
+msgstr "Encontré una alternativa mejor"
+
+msgid "Temporary deactivation"
+msgstr "Desactivación temporal"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the "
+"one you enter below, together with your email alerts choice."
+msgstr ""
+"La dirección de correo electrónico para las alertas de seguridad: el "
+"correo del administrador de WordPress, o el que introduzcas abajo, junto "
+"con tu opción de alertas por correo."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Notifícame sobre hallazgos de malware y amenazas de seguridad en este "
+"sitio web."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Como máximo un correo al día, enviado desde support@segurium.com. Puedes "
+"cambiarlo más adelante en Ajustes."

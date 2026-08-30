@@ -24,6 +24,55 @@ class Segurium_Geo_Blocker {
 	private static $instance = null;
 
 	/**
+	 * Forced answer for is_cli_request(), or null to auto-detect.
+	 *
+	 * @var bool|null
+	 */
+	private static $cli_override = null;
+
+	/**
+	 * Force or release the CLI-context answer.
+	 *
+	 * Ignored unless the PHPUnit bootstrap defined SEGURIUM_TESTING. Code
+	 * that runs before `plugins_loaded` can reach every public method here,
+	 * and a setter that switches the firewall off is not something to leave
+	 * callable in production. It is not a security boundary — anything able
+	 * to call this could unhook the blockers instead — it just keeps the
+	 * test seam out of the shipped surface.
+	 *
+	 * @param bool|null $value True/false to force, null to auto-detect.
+	 * @return void
+	 */
+	public static function set_cli_override( $value ) {
+		if ( ! defined( 'SEGURIUM_TESTING' ) ) {
+			return;
+		}
+		self::$cli_override = ( null === $value ) ? null : (bool) $value;
+	}
+
+	/**
+	 * Whether this process is a command-line run rather than a visitor request.
+	 *
+	 * WP-CLI puts 127.0.0.1 in REMOTE_ADDR, so the empty-IP guards below
+	 * never fire for it and every list rule judges the local machine as if
+	 * it were a visitor. There is no visitor to judge, and the SAPI cannot
+	 * be reached over HTTP, so nothing is given away by skipping.
+	 *
+	 * @return bool
+	 */
+	public static function is_cli_request() {
+		if ( null !== self::$cli_override ) {
+			return self::$cli_override;
+		}
+
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			return true;
+		}
+
+		return 'cli' === PHP_SAPI || 'phpdbg' === PHP_SAPI;
+	}
+
+	/**
 	 * Get the singleton instance.
 	 *
 	 * @return self Singleton instance.
@@ -48,6 +97,10 @@ class Segurium_Geo_Blocker {
 	 */
 	public function maybe_block_by_firewall() {
 		Segurium_Pending_Changes::check_expired( 'firewall' );
+
+		if ( self::is_cli_request() ) {
+			return;
+		}
 
 		if ( ! Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ) ) {
 			return;
@@ -81,6 +134,10 @@ class Segurium_Geo_Blocker {
 	 */
 	public function maybe_block_request() {
 		Segurium_Pending_Changes::check_expired( 'geo_blocking' );
+
+		if ( self::is_cli_request() ) {
+			return;
+		}
 
 		if ( ! Segurium_Storage::setting_get_bool( 'segurium_geo_blocking_enabled' ) ) {
 			return;
@@ -220,6 +277,15 @@ class Segurium_Geo_Blocker {
 	private static function ip_is_trusted( $ip ) {
 		if ( '' === (string) $ip ) {
 			return false;
+		}
+		// A peer on a local address is a reverse proxy in front of PHP —
+		// nginx, LiteSpeed, Varnish, a CDN agent. Without this the whole
+		// X-Forwarded-For walk below never runs on those installs and
+		// every visitor resolves to the same private address, which
+		// leaves the firewall and the geo-blocker judging the proxy
+		// instead of the client.
+		if ( Segurium_Geo_DB::is_local_ip( $ip ) ) {
+			return true;
 		}
 		// Hot path. The trusted_proxy list can hold
 		// thousands of CIDRs (Cloudflare ranges, proxy-detector feeds);

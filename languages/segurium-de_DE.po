@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-12 03:30+0000\n"
+"PO-Revision-Date: 2026-08-29 03:31+0000\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5041,3 +5041,58 @@ msgstr "Ergebnis"
 #~ msgstr ""
 #~ "Korrekturkontingent der kostenlosen Stufe überschritten. Upgraden Sie auf "
 #~ "Pro für unbegrenzte Korrekturen."
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud konnte diese Datei gerade nicht bereinigen. Versuche es "
+"später erneut."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Es gibt keine saubere Version dieser Datei. Entferne oder ersetze sie von "
+"Hand."
+
+#: includes/class-segurium-deactivation-reason.php:247
+msgid "Why are you deactivating Segurium?"
+msgstr "Warum deaktivierst du Segurium?"
+
+#: includes/class-segurium-deactivation-reason.php:391
+msgid "Missing feature"
+msgstr "Fehlende Funktion"
+
+#: includes/class-segurium-deactivation-reason.php:393
+msgid "It is causing issues"
+msgstr "Es verursacht Probleme"
+
+#: includes/class-segurium-deactivation-reason.php:395
+msgid "No longer needed"
+msgstr "Nicht mehr benötigt"
+
+#: includes/class-segurium-deactivation-reason.php:397
+msgid "Found better alternative"
+msgstr "Bessere Alternative gefunden"
+
+#: includes/class-segurium-deactivation-reason.php:399
+msgid "Temporary deactivation"
+msgstr "Vorübergehende Deaktivierung"
+
+#: includes/class-segurium.php:1630
+msgid "The email address for security alerts: the WordPress admin email, or the one you enter below, together with your email alerts choice."
+msgstr ""
+"Die E-Mail-Adresse für Sicherheitswarnungen: die WordPress-Admin-E-Mail oder"
+" die unten eingegebene, zusammen mit deiner Auswahl für E-Mail-"
+"Benachrichtigungen."
+
+#: includes/class-segurium.php:1659
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Benachrichtige mich über Malware-Funde und Sicherheitsbedrohungen auf dieser"
+" Website."
+
+#: includes/class-segurium.php:1669
+msgid "One email per day at most, sent from support@segurium.com. You can change this later under Settings."
+msgstr ""
+"Höchstens eine E-Mail pro Tag, gesendet von support@segurium.com. Du kannst "
+"dies später unter Einstellungen ändern."

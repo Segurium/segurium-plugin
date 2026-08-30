@@ -1,0 +1,105 @@
+/**
+ * Exit-reason dialog, plugins screen only.
+ *
+ * Self-contained: the main admin stylesheet is not loaded here, and
+ * loading it would restyle the plugins table. Every selector is scoped
+ * under its own prefix so nothing leaks onto that table either.
+ */
+
+.segurium-deact-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.segurium-deact-overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, .5);
+}
+
+.segurium-deact-box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 480px;
+	max-height: 80vh;
+	margin: 0 16px;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .3);
+}
+
+.segurium-deact-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 16px 20px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.segurium-deact-head h2 {
+	margin: 0;
+	font-size: 16px;
+	line-height: 1.4;
+}
+
+.segurium-deact-close {
+	padding: 0 4px;
+	font-size: 20px;
+	line-height: 1;
+	color: #646970;
+	cursor: pointer;
+	background: none;
+	border: 0;
+}
+
+.segurium-deact-close:hover {
+	color: #135e96;
+}
+
+.segurium-deact-body {
+	flex: 1;
+	padding: 16px 20px;
+	overflow-y: auto;
+}
+
+.segurium-deact-reasons {
+	margin: 0 0 16px;
+}
+
+.segurium-deact-reasons li {
+	margin: 0 0 8px;
+}
+
+.segurium-deact-reasons label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.segurium-deact-detail {
+	margin: 0;
+}
+
+.segurium-deact-detail label {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.segurium-deact-detail textarea {
+	width: 100%;
+}
+
+.segurium-deact-foot {
+	display: flex;
+	gap: 8px;
+	padding: 16px 20px;
+	border-top: 1px solid #dcdcde;
+}

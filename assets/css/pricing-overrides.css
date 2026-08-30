@@ -1,43 +1,138 @@
 /*
- * Segurium pricing-page typography overrides.
+ * Segurium pricing-page overrides.
  *
  * Loaded via the Freemius `pricing/css_path` filter (see
- * Segurium_Pricing::register_hooks). Strips the SDK's default
- * UPPERCASE + uniform-bold treatment from plan title, description,
- * billing cycle and CTA so the comparison reads like body copy.
+ * Segurium_Pricing::register_hooks). The SDK injects its own stylesheet
+ * from JavaScript, after our <link>, at up to `#fs_pricing_app .a .b .c`.
+ * Cascade order therefore cannot win — every rule below carries the
+ * `#fs_pricing #fs_pricing_app` double-id prefix so it outranks the SDK
+ * on specificity without `!important`.
+ *
+ * The middle-of-three selector `:nth-child(2):nth-last-child(2)` marks the
+ * 5-site card. Segurium sells one paid plan with three pricing rows, so
+ * Freemius suppresses its own `is_featured` treatment; this restores it
+ * using the SDK's own ribbon markup and geometry.
  */
 
-#fs_pricing .fs-plan-title,
-#fs_pricing .fs-plan-description,
-#fs_pricing .fs-selected-pricing-cycle,
-#fs_pricing .fs-upgrade-button {
+#fs_pricing #fs_pricing_app .fs-plan-title,
+#fs_pricing #fs_pricing_app .fs-plan-description,
+#fs_pricing #fs_pricing_app .fs-selected-pricing-cycle,
+#fs_pricing #fs_pricing_app .fs-upgrade-button {
 	text-transform: none;
 	letter-spacing: normal;
 }
 
-#fs_pricing .fs-plan-title {
+#fs_pricing #fs_pricing_app .fs-package .fs-plan-title {
 	font-weight: 600;
+	font-size: 17px;
 }
 
-#fs_pricing .fs-plan-title strong {
+#fs_pricing #fs_pricing_app .fs-package .fs-plan-title strong {
 	font-weight: inherit;
 }
 
-#fs_pricing .fs-plan-description {
-	font-weight: 400;
-	opacity: 0.78;
-}
-
-#fs_pricing .fs-plan-description strong {
-	font-weight: inherit;
-}
-
-#fs_pricing .fs-selected-pricing-cycle,
-#fs_pricing .fs-selected-pricing-cycle strong {
+#fs_pricing #fs_pricing_app .fs-package .fs-selected-pricing-cycle,
+#fs_pricing #fs_pricing_app .fs-package .fs-selected-pricing-cycle strong {
 	font-weight: 400;
 }
 
-#fs_pricing .fs-upgrade-button {
+#fs_pricing #fs_pricing_app .fs-package .fs-upgrade-button {
 	font-weight: 600;
 	letter-spacing: 0.01em;
+}
+
+/* The plan description is one string shared by all three pricing rows, so
+   it repeats verbatim across the cards and restates the bullets below it. */
+#fs_pricing #fs_pricing_app .fs-package .fs-plan-description {
+	display: none;
+}
+
+#fs_pricing #fs_pricing_app .fs-app-header .fs-plugin-title-and-logo,
+#fs_pricing #fs_pricing_app .fs-section--badges {
+	display: none;
+}
+
+/* The strip sits inside `.fs-packages-nav`, which the SDK clips with
+   `overflow: hidden` and sizes to the strip exactly whenever the container
+   fits no more cards than there are rows. A shadow on the list would be cut
+   off flat at both ends, so each card carries its own. */
+#fs_pricing #fs_pricing_app .fs-package {
+	box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.28);
+}
+
+#fs_pricing #fs_pricing_app .fs-package:first-child {
+	border-bottom-left-radius: 10px;
+}
+
+#fs_pricing #fs_pricing_app .fs-package:last-child {
+	border-bottom-right-radius: 10px;
+}
+
+/* The ribbon hangs above the strip on a negative margin, so the room it needs
+   is reserved only when a card is actually there to fill it. */
+#fs_pricing #fs_pricing_app .fs-section--packages .fs-packages:has(.fs-package:nth-child(2):nth-last-child(2)) {
+	margin-top: 2.8em;
+}
+
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) {
+	position: relative;
+	z-index: 0;
+	box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.28), 0 0 0 2px #2271b1;
+}
+
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-most-popular {
+	display: block;
+	line-height: 2.8em;
+	margin-top: -2.8em;
+	border-radius: 10px 10px 0 0;
+	background: #dbe9f5;
+	color: #1d2327;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: none;
+	letter-spacing: 0.02em;
+}
+
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-plan-title {
+	background: #2271b1;
+	color: #fff;
+	border-top-color: #2271b1;
+	border-bottom-color: #2271b1;
+}
+
+/* Only an actual upgrade gets the filled CTA. The SDK disables this button on
+   the customer's current plan and drops the primary class on a downgrade. */
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-upgrade-button.fs-button--type-primary:not(:disabled) {
+	background-color: #2271b1;
+	border-color: #135e96;
+	color: #fff;
+}
+
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-upgrade-button.fs-button--type-primary:hover:not(:disabled),
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-upgrade-button.fs-button--type-primary:focus:not(:disabled),
+#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-upgrade-button.fs-button--type-primary:active:not(:disabled) {
+	background-color: #135e96;
+	border-color: #0a4b78;
+	color: #fff;
+}
+
+#fs_pricing #fs_pricing_app .fs-package .fs-tooltip {
+	opacity: 0.35;
+	transition: opacity 0.15s ease-out;
+}
+
+#fs_pricing #fs_pricing_app .fs-package li:hover .fs-tooltip,
+#fs_pricing #fs_pricing_app .fs-package .fs-tooltip:hover,
+#fs_pricing #fs_pricing_app .fs-package .fs-tooltip:focus-within {
+	opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+	#fs_pricing #fs_pricing_app .fs-section--packages .fs-packages:has(.fs-package:nth-child(2):nth-last-child(2)) {
+		margin-top: 0;
+	}
+
+	#fs_pricing #fs_pricing_app .fs-package:nth-child(2):nth-last-child(2) .fs-most-popular {
+		display: none;
+	}
 }

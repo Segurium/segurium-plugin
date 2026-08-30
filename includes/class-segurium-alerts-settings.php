@@ -6,6 +6,10 @@
  *   - segurium_alerts_email_enabled (bool, default false)
  *   - segurium_alerts_email_address (string, default get_option('admin_email'))
  *
+ * A third option, segurium_migrated_alerts_timezone, marks the one-shot
+ * snapshot that carries the site timezone to installs which opted in
+ * before the field existed.
+ *
  * On any change to either option we push a `settings_snapshot` CTI message
  * with `feature=alerts` so the server-side mailer picks up the new contact
  * without forcing a re-register cycle. CTI itself decides when to send
@@ -29,6 +33,21 @@ final class Segurium_Alerts_Settings {
 	const CTI_MSG_TYPE   = 'settings_snapshot';
 
 	/**
+	 * One-shot sentinel for the snapshot that backfills the timezone. Not
+	 * stamped until the IID exists, so an install that has not registered
+	 * yet retries on a later admin request.
+	 */
+	const MIGRATION_FLAG_TIMEZONE = 'segurium_migrated_alerts_timezone';
+
+	/**
+	 * Raised while set() writes its two options so the option hooks do
+	 * not push a half-written tuple.
+	 *
+	 * @var bool
+	 */
+	private static $suppress_push = false;
+
+	/**
 	 * Wire `update_option` hooks so a settings change immediately flows to
 	 * CTI. Idempotent — safe to call from the plugin bootstrap on every
 	 * request.
@@ -40,6 +59,32 @@ final class Segurium_Alerts_Settings {
 		add_action( 'update_option_' . self::OPTION_EMAIL, array( __CLASS__, 'on_change' ), 10, 2 );
 		add_action( 'add_option_' . self::OPTION_ENABLED, array( __CLASS__, 'on_added' ), 10, 2 );
 		add_action( 'add_option_' . self::OPTION_EMAIL, array( __CLASS__, 'on_added' ), 10, 2 );
+		add_action( 'admin_init', array( __CLASS__, 'migrate_push_timezone' ) );
+	}
+
+	/**
+	 * Deliver the timezone of an install that opted in before the field
+	 * existed, so it does not wait for the owner to change a setting.
+	 *
+	 * The capability check is not decoration: `segurium_2fa_*` are `nopriv`
+	 * actions, and admin-ajax fires `admin_init`.
+	 *
+	 * @return void
+	 */
+	public static function migrate_push_timezone() {
+		if ( (bool) Segurium_Storage::setting_get( self::MIGRATION_FLAG_TIMEZONE, false ) ) {
+			return;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		if ( null === Segurium_IID::get_iid() ) {
+			return;
+		}
+		if ( self::get()['enabled'] ) {
+			self::push_to_cti();
+		}
+		Segurium_Storage::setting_set( self::MIGRATION_FLAG_TIMEZONE, 1 );
 	}
 
 	/**
@@ -62,22 +107,29 @@ final class Segurium_Alerts_Settings {
 	/**
 	 * Persist the settings tuple.
 	 *
-	 * Triggers the registered hooks (which push to CTI). Returns true when
-	 * at least one of the underlying options actually changed.
+	 * Pushes one settings_snapshot to CTI when either option changed.
+	 * Returns true in that case.
 	 *
 	 * @param bool   $enabled Whether alerts are opted in.
-	 * @param string $email   Contact email. Empty falls back to the site's
-	 *                        `admin_email`.
+	 * @param string $email   Contact email. An empty or invalid value is
+	 *                        stored as '' so get() keeps following the
+	 *                        site's `admin_email`.
 	 * @return bool
 	 */
 	public static function set( $enabled, $email ) {
-		$email = is_string( $email ) ? sanitize_email( $email ) : '';
-		if ( '' === $email ) {
-			$email = (string) Segurium_Storage::setting_get( 'admin_email', '' );
+		$email               = is_string( $email ) ? sanitize_email( $email ) : '';
+		self::$suppress_push = true;
+		try {
+			$changed_a = (bool) Segurium_Storage::setting_set( self::OPTION_ENABLED, $enabled ? 1 : 0 );
+			$changed_b = (bool) Segurium_Storage::setting_set( self::OPTION_EMAIL, $email );
+		} finally {
+			self::$suppress_push = false;
 		}
-		$changed_a = (bool) Segurium_Storage::setting_set( self::OPTION_ENABLED, (bool) $enabled );
-		$changed_b = (bool) Segurium_Storage::setting_set( self::OPTION_EMAIL, $email );
-		return $changed_a || $changed_b;
+		$changed = $changed_a || $changed_b;
+		if ( $changed ) {
+			self::push_to_cti();
+		}
+		return $changed;
 	}
 
 	/**
@@ -115,7 +167,13 @@ final class Segurium_Alerts_Settings {
 	 * @return void
 	 */
 	public static function push_to_cti() {
-		if ( ! class_exists( 'Segurium_Storage' ) ) {
+		if ( self::$suppress_push || ! class_exists( 'Segurium_Storage' ) ) {
+			return;
+		}
+		// Before the IID exists the register body carries the same
+		// contact fields, and sending here would register synchronously
+		// inside the consent request.
+		if ( null === Segurium_IID::get_iid() ) {
 			return;
 		}
 		$settings = self::get();
@@ -124,10 +182,11 @@ final class Segurium_Alerts_Settings {
 		$payload  = array(
 			'feature'  => self::FEATURE_KEY,
 			'settings' => array(
-				'email'  => $settings['email'],
-				'opt_in' => (bool) $settings['enabled'],
-				'tier'   => $tier,
-				'locale' => $locale,
+				'email'    => $settings['email'],
+				'opt_in'   => (bool) $settings['enabled'],
+				'tier'     => $tier,
+				'locale'   => $locale,
+				'timezone' => wp_timezone_string(),
 			),
 		);
 		Segurium_Storage::cti_send_message( self::CTI_MSG_TYPE, wp_json_encode( $payload ) );

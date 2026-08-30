@@ -4586,8 +4586,22 @@ msgstr "Acțiunile la distanță necesită autentificare."
 msgid "Let Segurium Cloud request component updates"
 msgstr "Permite Segurium Cloud să solicite actualizări de componente"
 
-msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
-msgstr "Segurium Cloud poate cere acestui site să actualizeze un plugin, o temă sau WordPress. Poate indica doar o componentă deja instalată și doar atunci când WordPress.org oferă deja acea actualizare; actualizarea este descărcată de WordPress de pe WordPress.org, niciodată de la Segurium. Nucleul WordPress este limitat la versiuni de securitate și mentenanță. Segurium nu se actualizează niciodată pe această cale. Dezactivează opțiunea și site-ul nu mai cere și nu mai acceptă astfel de solicitări."
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud poate cere acestui site să actualizeze un modul, o temă sau "
+"WordPress. Poate indica doar o componentă deja instalată și doar atunci când"
+" WordPress.org oferă deja acea actualizare; actualizarea este descărcată de "
+"WordPress de pe WordPress.org, niciodată de la Segurium. Nucleul WordPress "
+"este limitat la versiuni de securitate și mentenanță. Segurium nu se "
+"actualizează niciodată pe această cale. Dezactivează opțiunea și site-ul nu "
+"mai cere și nu mai acceptă astfel de solicitări."
 
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
 msgstr "Dezactivat în wp-config.php prin SEGURIUM_DISABLE_REMOTE_ACTIONS."
@@ -4597,3 +4611,42 @@ msgstr "Solicitări recente din cloud"
 
 msgid "Outcome"
 msgstr "Rezultat"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud nu a putut curăța acest fișier acum. Te rog să încerci din "
+"nou mai târziu."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Nu există o versiune curată a acestui fișier. Înlătură-l sau înlocuiește-l "
+"manual."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "De ce dezactivezi Segurium?"
+
+msgid "Missing feature"
+msgstr "Funcționalitate lipsă"
+
+msgid "It is causing issues"
+msgstr "Cauzează probleme"
+
+msgid "No longer needed"
+msgstr "Nu mai este necesar"
+
+msgid "Found better alternative"
+msgstr "Am găsit o alternativă mai bună"
+
+msgid "Temporary deactivation"
+msgstr "Dezactivare temporară"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you enter below, together with your email alerts choice."
+msgstr "Adresa de email pentru alerte de securitate: adresa de email a administratorului WordPress sau cea pe care o introduci mai jos, împreună cu alegerea ta pentru alertele prin email."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "Anunță-mă despre constatările malware și amenințările de securitate de pe acest site."
+
+msgid "One email per day at most, sent from support@segurium.com. You can change this later under Settings."
+msgstr "Cel mult un email pe zi, trimis de la support@segurium.com. Poți schimba această opțiune mai târziu în Setări."

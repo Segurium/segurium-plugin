@@ -4725,6 +4725,85 @@ msgstr ""
 " للفيروسات لووردبريس: تنظيف الملفات المصابة واستعادتها. يشمل جدار الحماية "
 "والحماية من هجمات التخمين والمصادقة الثنائية."
 
+msgid "Remote actions are switched off for this site."
+msgstr "الإجراءات عن بُعد معطّلة لهذا الموقع."
+
+msgid "Remote actions require authentication."
+msgstr "تتطلب الإجراءات عن بُعد المصادقة."
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "السماح لسحابة Segurium بطلب تحديثات المكوّنات"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"يمكن لسحابة Segurium أن تطلب من هذا الموقع تحديث إضافة أو قالب أو ووردبريس "
+"نفسه. لا يمكنها سوى ذكر اسم مكوّن مثبّت لديك بالفعل، وفقط عندما يوفّر "
+"WordPress.org هذا التحديث؛ يقوم ووردبريس بتنزيل التحديث من WordPress.org، "
+"وليس من Segurium أبداً. يقتصر تحديث نواة ووردبريس على إصدارات الأمان "
+"والصيانة. لا يقوم Segurium بتحديث نفسه بهذه الطريقة أبداً. عند إيقاف هذا "
+"الخيار يتوقّف الموقع عن طلب هذه الطلبات وقبولها."
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "تم تعطيله في wp-config.php بواسطة SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+msgid "Recent cloud requests"
+msgstr "الطلبات السحابية الأخيرة"
+
+msgid "Outcome"
+msgstr "النتيجة"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "تعذّر على Segurium Cloud تنظيف هذا الملف الآن. يُرجى المحاولة لاحقًا."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "لا توجد نسخة نظيفة من هذا الملف. يلزم إزالته أو استبداله يدويًا."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "لماذا تقوم بإلغاء تفعيل Segurium؟"
+
+msgid "Missing feature"
+msgstr "ميزة مفقودة"
+
+msgid "It is causing issues"
+msgstr "يُسبّب مشكلات"
+
+msgid "No longer needed"
+msgstr "لم يعد مطلوبًا"
+
+msgid "Found better alternative"
+msgstr "وجدت بديلاً أفضل"
+
+msgid "Temporary deactivation"
+msgstr "تعطيل مؤقت"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"عنوان البريد الإلكتروني لتنبيهات الأمان: بريد مسؤول ووردبريس، أو العنوان "
+"الذي تُدخله أدناه، إلى جانب اختيارك لتنبيهات البريد الإلكتروني."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"أعلمني بالبرمجيات الخبيثة المكتشفة والتهديدات الأمنية على هذا الموقع "
+"الإلكتروني."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"بريد إلكتروني واحد يوميًا كحدٍ أقصى، يُرسَل من support@segurium.com. يمكنك "
+"تغيير ذلك لاحقًا من الإعدادات."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "إضافة Segurium لـ WordPress."
 
@@ -4806,24 +4885,3 @@ msgstr ""
 #~ msgstr ""
 #~ "تم تجاوز حصة المعالجة للفئة المجانية. قم بالترقية إلى الإصدار الاحترافي "
 #~ "للحصول على إصلاحات غير محدودة."
-
-msgid "Remote actions are switched off for this site."
-msgstr "الإجراءات عن بُعد معطّلة لهذا الموقع."
-
-msgid "Remote actions require authentication."
-msgstr "تتطلب الإجراءات عن بُعد المصادقة."
-
-msgid "Let Segurium Cloud request component updates"
-msgstr "السماح لسحابة Segurium بطلب تحديثات المكوّنات"
-
-msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
-msgstr "يمكن لسحابة Segurium أن تطلب من هذا الموقع تحديث إضافة أو قالب أو WordPress نفسه. لا يمكنها سوى تسمية مكوّن مثبّت لديك بالفعل، وفقط عندما يوفّر WordPress.org هذا التحديث؛ يقوم WordPress بتنزيل التحديث من WordPress.org، وليس من Segurium أبداً. يقتصر تحديث نواة WordPress على إصدارات الأمان والصيانة. لا يقوم Segurium بتحديث نفسه بهذه الطريقة أبداً. عند إيقاف هذا الخيار يتوقّف الموقع عن طلب هذه الطلبات وقبولها."
-
-msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "تم تعطيله في wp-config.php بواسطة SEGURIUM_DISABLE_REMOTE_ACTIONS."
-
-msgid "Recent cloud requests"
-msgstr "الطلبات السحابية الأخيرة"
-
-msgid "Outcome"
-msgstr "النتيجة"

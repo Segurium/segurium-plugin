@@ -4917,3 +4917,51 @@ msgstr "Sonuç"
 #~ msgstr ""
 #~ "Ücretsiz katman onarım kotası aşıldı. Sınırsız düzeltme için Pro'ya "
 #~ "yükseltin."
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud bu dosyayı şu anda temizleyemedi. Lütfen daha sonra yeniden "
+"deneyin."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Bu dosyanın temiz bir sürümü yok. Dosyayı elle kaldırın veya değiştirin."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Segurium'u neden devre dışı bırakıyorsunuz?"
+
+msgid "Missing feature"
+msgstr "Eksik özellik"
+
+msgid "It is causing issues"
+msgstr "Sorunlara yol açıyor"
+
+msgid "No longer needed"
+msgstr "Artık gerekli değil"
+
+msgid "Found better alternative"
+msgstr "Daha iyi bir alternatif buldum"
+
+msgid "Temporary deactivation"
+msgstr "Geçici devre dışı bırakma"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the "
+"one you enter below, together with your email alerts choice."
+msgstr ""
+"Güvenlik uyarıları için e-posta adresi: WordPress yönetici e-postası veya "
+"aşağıda gireceğiniz adres, e-posta uyarısı tercihinizle birlikte kullanılır."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Bu web sitesindeki kötü amaçlı yazılım bulguları ve güvenlik tehditleri "
+"hakkında beni bilgilendir."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Günde en fazla bir e-posta, support@segurium.com adresinden gönderilir. Bu "
+"tercihi daha sonra Ayarlar altında değiştirebilirsiniz."

@@ -2,13 +2,19 @@
 /**
  * Unattended malware auto-fix orchestrator.
  *
- * Listens on the `segurium_scan_completed` action that every malware scan
- * (manual, real-time, scheduled) fires through Segurium_Scan_Runner. When
- * the operator has opted in, every finding with a defined cleanup recipe
- * (verdict ∈ {1, 2}) is run through the shared Segurium_Cleanup primitive,
- * skipping anything the user has explicitly ignored by path or by hash.
- * Plan-tier rate limiting is enforced inside CTI's quota service — there
- * is no local entitlement gate.
+ * Two entries, one loop. Runner-driven scans (manual and scheduled) arrive
+ * on the `segurium_scan_completed` action that Segurium_Scan_Runner fires.
+ * The real-time scan builds no Segurium_Scan and fires no action, so it
+ * calls {@see run_for_scan()} directly with the UUID it generated.
+ *
+ * When the operator has opted in, every finding with a defined cleanup
+ * recipe (verdict ∈ {1, 2}) is run through the shared Segurium_Cleanup
+ * primitive, skipping anything the user has explicitly ignored by path or
+ * by hash. Plan-tier rate limiting is enforced inside CTI's quota service —
+ * there is no local entitlement gate, so an install meets its ceiling as a
+ * `paywall_quota_exceeded` refusal. The first one stops the cleaning: every
+ * remaining file would buy the same answer. The loop still walks the rest so
+ * the run summary keeps counting them, it just stops issuing requests.
  *
  * Suspicious / unknown verdicts (4) are left for the human operator —
  * auto-fix is strictly malicious + injection only.
@@ -43,42 +49,54 @@ final class Segurium_Auto_Fix {
 	}
 
 	/**
-	 * Process every cleanable finding in the just-completed scan. Bails
-	 * before touching anything if the operator hasn't opted in. Plan-tier
-	 * limits (Free 3/30d, Pro unbounded) are enforced inside the per-file
-	 * cleanup primitive's CTI quota call, not here.
+	 * Hook adapter for the runner-driven scans.
 	 *
 	 * @param mixed $scan Completed scan instance (Segurium_Scan).
 	 * @return array{processed:int,cleaned:int,skipped:int,failed:int}
 	 */
 	public static function on_scan_completed( $scan ) {
-		$summary = array(
-			'processed' => 0,
-			'cleaned'   => 0,
-			'skipped'   => 0,
-			'failed'    => 0,
-		);
-
 		if ( ! $scan instanceof Segurium_Scan ) {
-			return $summary;
+			return self::empty_summary();
 		}
+		$state = $scan->get_state();
+		return self::run_for_scan(
+			isset( $state['scan_id'] ) ? (string) $state['scan_id'] : '',
+			(string) $scan->get_base_path(),
+			(string) $scan->get_data_dir()
+		);
+	}
+
+	/**
+	 * Process every cleanable finding recorded under a scan UUID. Bails
+	 * before touching anything if the operator hasn't opted in. Plan-tier
+	 * limits (Free 3/30d, Pro unbounded) are enforced inside the per-file
+	 * cleanup primitive's CTI quota call, not here.
+	 *
+	 * @param string $scan_id   Scan UUID the findings were recorded under.
+	 * @param string $base_path WordPress root the relative paths resolve against.
+	 * @param string $data_dir  Data directory whose ignore-lists apply.
+	 * @return array{processed:int,cleaned:int,skipped:int,failed:int}
+	 */
+	public static function run_for_scan( $scan_id, $base_path, $data_dir ) {
+		$summary = self::empty_summary();
+		$scan_id = (string) $scan_id;
+
 		if ( ! Segurium_Auto_Fix_Settings::is_enabled() ) {
 			return $summary;
 		}
 
-		$threats = $scan->get_threats();
+		$threats = Segurium_Scan::findings_for( $scan_id );
 		if ( empty( $threats ) ) {
 			return $summary;
 		}
 
-		$base_path = (string) $scan->get_base_path();
+		$base_path = (string) $base_path;
 		if ( '' === $base_path ) {
 			return $summary;
 		}
 
-		$state   = $scan->get_state();
-		$scan_id = isset( $state['scan_id'] ) ? (string) $state['scan_id'] : '';
-		$ignore  = self::load_ignore_lists( $scan );
+		$ignore    = self::load_ignore_lists( (string) $data_dir );
+		$paywalled = false;
 
 		foreach ( $threats as $row ) {
 			++$summary['processed'];
@@ -101,6 +119,11 @@ final class Segurium_Auto_Fix {
 				continue;
 			}
 
+			if ( $paywalled ) {
+				++$summary['skipped'];
+				continue;
+			}
+
 			$abs_path = $base_path . '/' . ltrim( $rel_path, '/' );
 
 			$result = Segurium_Cleanup::cleanup_file(
@@ -114,8 +137,18 @@ final class Segurium_Auto_Fix {
 
 			if ( $result['ok'] ) {
 				++$summary['cleaned'];
-			} else {
-				++$summary['failed'];
+				// Written per cure, not once at the end: a long run
+				// killed by max_execution_time leaves the files cured
+				// either way, and a count frozen only after the last
+				// file would report "N threats, 0 cleaned" forever.
+				self::persist_scan_cleaned_count( $scan_id, $summary );
+				continue;
+			}
+
+			++$summary['failed'];
+			$error_code = isset( $result['error_code'] ) ? (string) $result['error_code'] : '';
+			if ( 'paywall_quota_exceeded' === $error_code ) {
+				$paywalled = true;
 			}
 		}
 
@@ -153,20 +186,34 @@ final class Segurium_Auto_Fix {
 	}
 
 	/**
+	 * Empty result block, shared by every early return.
+	 *
+	 * @return array{processed:int,cleaned:int,skipped:int,failed:int}
+	 */
+	private static function empty_summary() {
+		return array(
+			'processed' => 0,
+			'cleaned'   => 0,
+			'skipped'   => 0,
+			'failed'    => 0,
+		);
+	}
+
+	/**
 	 * Load the path/hash ignore lists for this scan. We use the scan's own
 	 * data dir (mirroring Segurium_Scan::submit_for_verdict, the only other
 	 * site that consults ignore-lists during scan processing) so the
 	 * exclusion scope follows the scan rather than the plugin singleton.
 	 *
-	 * @param Segurium_Scan $scan Completed scan.
+	 * @param string $data_dir Data directory of the completed scan.
 	 * @return Segurium_Ignore_Lists|null
 	 */
-	private static function load_ignore_lists( $scan ) {
+	private static function load_ignore_lists( $data_dir ) {
 		if ( ! class_exists( 'Segurium_Ignore_Lists' ) ) {
 			return null;
 		}
 		try {
-			$data_dir = (string) $scan->get_data_dir();
+			$data_dir = (string) $data_dir;
 			if ( '' === $data_dir ) {
 				return null;
 			}

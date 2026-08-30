@@ -122,6 +122,12 @@ class Segurium_Storage_GC {
 				'storage_gc'      => 30 * DAY_IN_SECONDS,
 				'pro_activated'   => 365 * DAY_IN_SECONDS,
 				'pro_deactivated' => 365 * DAY_IN_SECONDS,
+				// The reporter's high-water mark is a row id, so a prune
+				// that outran the daily flush would skip events rather
+				// than resend them. 90 days over a one-day cadence.
+				'user_*'          => 90 * DAY_IN_SECONDS,
+				'component_*'     => 90 * DAY_IN_SECONDS,
+				'site_*'          => 90 * DAY_IN_SECONDS,
 				'_default'        => 90 * DAY_IN_SECONDS,
 			)
 		);
@@ -164,11 +170,25 @@ class Segurium_Storage_GC {
 			$removed += ( false === $n ? 0 : (int) $n );
 		}
 
+		// Every glob key already swept above has to be excluded here too,
+		// or this sweep deletes at the default age whatever the matrix said
+		// for it. Derived from the matrix rather than listed, so a new
+		// prefix cannot be added upstairs and forgotten down here.
+		$glob_clause = '';
+		$glob_args   = array();
+		foreach ( array_keys( $retention ) as $key ) {
+			if ( '_default' === $key || false === strpos( $key, '*' ) ) {
+				continue;
+			}
+			$glob_clause .= ' AND event_type NOT LIKE %s';
+			$glob_args[]  = $wpdb->esc_like( rtrim( $key, '*' ) ) . '%';
+		}
+
 		$default_cutoff = $now - $default;
 		if ( ! empty( $handled_exact ) ) {
 			$placeholders = implode( ',', array_fill( 0, count( $handled_exact ), '%s' ) );
-			$args         = array_merge( array( $table ), $handled_exact, array( $default_cutoff ) );
-			$sql_body     = 'DELETE FROM %i WHERE event_type NOT IN (' . $placeholders . ") AND event_type NOT LIKE 'brute_force_%%' AND event_type NOT LIKE '2fa_%%' AND created_at < %d";
+			$args         = array_merge( array( $table ), $handled_exact, $glob_args, array( $default_cutoff ) );
+			$sql_body     = 'DELETE FROM %i WHERE event_type NOT IN (' . $placeholders . ')' . $glob_clause . ' AND created_at < %d';
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- SQL template uses %i for table; placeholders dynamically generated for hardcoded IN-arg count
 			$n        = $wpdb->query( $wpdb->prepare( $sql_body, $args ) );
 			$removed += ( false === $n ? 0 : (int) $n );

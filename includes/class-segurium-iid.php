@@ -76,6 +76,10 @@ class Segurium_IID {
 			'commitment'  => $commitment,
 			'site_name'   => get_bloginfo( 'name' ),
 			'site_url'    => home_url(),
+			// wp-admin lives under site_url(), not home_url(), on
+			// "WordPress in its own directory" installs; the digest
+			// links to the scanner page through this.
+			'admin_url'   => admin_url(),
 			'wp_version'  => get_bloginfo( 'version' ),
 			// Tag non-production environments so analytics
 			// dashboards exclude this install from production metrics.
@@ -268,7 +272,24 @@ class Segurium_IID {
 	 * deactivates on the original install.
 	 */
 	public static function mark_billing_conflict_pending() {
-		Segurium_Storage::setting_set( self::OPTION_BILLING_CONFLICT_PENDING, 1 );
+		Segurium_Storage::setting_set( self::OPTION_BILLING_CONFLICT_PENDING, time() );
+	}
+
+	/** Seconds the admin-load reconciler waits after a refused bind
+	 * before it retries `/v1/billing/sync`. */
+	const BILLING_CONFLICT_RETRY_AFTER = 3600;
+
+	/**
+	 * True while the last binding conflict is younger than
+	 * `BILLING_CONFLICT_RETRY_AFTER`. The admin-load reconciler skips
+	 * the sync inside that window so a held license does not turn
+	 * every Segurium page load into a refused round trip.
+	 *
+	 * @return bool
+	 */
+	public static function billing_conflict_retry_held() {
+		$marked_at = Segurium_Storage::setting_get_int( self::OPTION_BILLING_CONFLICT_PENDING );
+		return $marked_at > 0 && ( time() - $marked_at ) < self::BILLING_CONFLICT_RETRY_AFTER;
 	}
 
 	/**

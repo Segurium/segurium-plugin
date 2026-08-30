@@ -3547,9 +3547,9 @@ msgid ""
 "cloud cleanup quota Segurium will perform on your behalf — your current tier"
 " is highlighted."
 msgstr ""
-"Кожна функція плагіна входить у кожну інсталяцію. Тарифний рівень визначає "
-"квоту хмарного очищення, яку Segurium виконуватиме від вашого імені — ваш "
-"поточний рівень виділено."
+"Кожна функція плагіна працює всюди, де ви встановили Segurium. Тарифний "
+"рівень визначає квоту хмарного очищення, яку Segurium виконуватиме від "
+"вашого імені — ваш поточний рівень виділено."
 
 #: includes/class-segurium.php:2604
 msgid "Capability"
@@ -4808,8 +4808,22 @@ msgid "Let Segurium Cloud request component updates"
 msgstr "Дозволити хмарі Segurium запитувати оновлення компонентів"
 
 #: includes/class-segurium.php:3117
-msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
-msgstr "Хмара Segurium може попросити цей сайт оновити плагін, тему або сам WordPress. Вона може вказати лише той компонент, який у вас уже встановлено, і лише тоді, коли WordPress.org уже пропонує це оновлення; оновлення завантажує WordPress із WordPress.org, а не із Segurium. Ядро WordPress обмежене випусками безпеки та обслуговування. Segurium ніколи не оновлює себе в такий спосіб. Вимкніть цю опцію — і сайт перестане запитувати й приймати такі запити."
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Хмара Segurium може попросити цей сайт оновити плагін, тему або сам "
+"WordPress. Вона може вказати лише той компонент, який у вас уже встановлено,"
+" і лише тоді, коли WordPress.org уже пропонує це оновлення; оновлення "
+"завантажує WordPress із WordPress.org, а не із Segurium. Ядро WordPress "
+"обмежене випусками безпеки та обслуговування. Segurium ніколи не оновлює "
+"себе в такий спосіб. Вимкніть цю опцію — і сайт перестане запитувати й "
+"приймати такі запити."
 
 #: includes/class-segurium.php:3119
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
@@ -4822,6 +4836,51 @@ msgstr "Останні хмарні запити"
 #: includes/class-segurium.php:3129
 msgid "Outcome"
 msgstr "Результат"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud не зміг очистити цей файл зараз. Спробуйте пізніше."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Чистої версії цього файлу не існує. Вилучіть або замініть його вручну."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Чому ви вимикаєте Segurium?"
+
+msgid "Missing feature"
+msgstr "Бракує функції"
+
+msgid "It is causing issues"
+msgstr "Спричиняє проблеми"
+
+msgid "No longer needed"
+msgstr "Більше не потрібен"
+
+msgid "Found better alternative"
+msgstr "Знайшов кращу альтернативу"
+
+msgid "Temporary deactivation"
+msgstr "Тимчасове вимкнення"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"Адреса електронної пошти для сповіщень про безпеку: адреса адміністратора "
+"WordPress або та, яку ви вкажете нижче, разом із вибором сповіщень."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Сповіщати мене про виявлення шкідливого ПЗ і загрози безпеці на цьому сайті."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Не більше одного листа на день, надсилається з support@segurium.com. Пізніше"
+" це можна змінити в розділі «Налаштування»."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Плагін Segurium для WordPress."

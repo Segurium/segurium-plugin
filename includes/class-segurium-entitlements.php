@@ -11,7 +11,8 @@
  *
  * `upgrade_url()` keeps a Freemius dependency on purpose — it routes
  * the CTA to the embedded pricing page, which is a billing concern,
- * not a feature gate.
+ * not a feature gate. It never returns an empty string: when the SDK
+ * yields nothing the CTA falls back to the public pricing page.
  *
  * @package Segurium
  */
@@ -47,6 +48,17 @@ final class Segurium_Entitlements {
 	 * this constant.
 	 */
 	const PRO_PLAN_SLUG = 'pro';
+
+	/**
+	 * Destination `upgrade_url()` returns when the billing SDK yields
+	 * nothing. Points at the public pricing page the Plans tab already
+	 * links in its footer note, so no new destination is introduced.
+	 *
+	 * The UTM tail keeps this source separable from the SDK-resolved
+	 * checkout in the segurium.com funnel — the two reach the same page
+	 * but describe very different installs.
+	 */
+	const FALLBACK_UPGRADE_URL = 'https://segurium.com/pricing/?utm_source=segurium-plugin&utm_medium=wp-admin&utm_campaign=upgrade-fallback';
 
 	/**
 	 * Process-wide singleton.
@@ -164,18 +176,23 @@ final class Segurium_Entitlements {
 	}
 
 	/**
-	 * URL the "Upgrade to Pro" CTA should target, or '' when no working
-	 * target is reachable.
+	 * URL the "Upgrade to Pro" CTA should target. Never empty.
 	 *
-	 * Routes through Freemius's embedded pricing page (admin.php?page=
+	 * Prefers Freemius's embedded pricing page (admin.php?page=
 	 * segurium-pricing). The page renders the Freemius pricing React app,
 	 * which opens the in-WP checkout iframe on plan selection. Checkout
 	 * has native gift-code / promo-code support. Anonymous installs are
 	 * handled there too — Freemius collects the email at checkout time.
 	 *
-	 *   - SDK unloaded / throws          → ''
-	 *   - pricing submenu not registered → '' (no synced paid plans;
-	 *                                          there's nothing to show)
+	 * Every other outcome lands on self::FALLBACK_UPGRADE_URL. An install
+	 * whose SDK is unloaded, throwing, or hiding its pricing submenu is
+	 * still an install that can buy Pro on the website, and every caller
+	 * of this method treats an empty return as "render no CTA at all" —
+	 * a priced Pro card with no way to buy it.
+	 *
+	 *   - SDK unloaded / throws          → fallback
+	 *   - pricing submenu not registered → fallback (no synced paid plans)
+	 *   - get_upgrade_url() absent/empty → fallback
 	 *   - otherwise                      → get_upgrade_url()
 	 *
 	 * @return string
@@ -183,20 +200,92 @@ final class Segurium_Entitlements {
 	public function upgrade_url() {
 		$fs = $this->load_sdk();
 		if ( null === $fs ) {
-			return '';
+			return self::FALLBACK_UPGRADE_URL;
 		}
 		try {
 			if ( method_exists( $fs, 'is_pricing_page_visible' ) && ! $fs->is_pricing_page_visible() ) {
-				return '';
+				return self::FALLBACK_UPGRADE_URL;
 			}
 			if ( ! method_exists( $fs, 'get_upgrade_url' ) ) {
-				return '';
+				return self::FALLBACK_UPGRADE_URL;
 			}
-			$url = (string) $fs->get_upgrade_url();
+			$url = trim( (string) $fs->get_upgrade_url() );
 		} catch ( Throwable $e ) {
-			return '';
+			return self::FALLBACK_UPGRADE_URL;
 		}
-		return $url;
+		return '' === $url ? self::FALLBACK_UPGRADE_URL : $url;
+	}
+
+	/**
+	 * Submenu slug Freemius registers the embedded pricing page under.
+	 * The same slug is the tail of that page's WP screen id.
+	 */
+	const PRICING_PAGE_SLUG = 'segurium-pricing';
+
+	/**
+	 * Whether an upgrade destination leaves wp-admin.
+	 *
+	 * The SDK's embedded pricing page does not; the fallback does. A
+	 * click on an offsite destination must open a new tab, or it throws
+	 * the operator out of the admin screen they were working on — mid
+	 * scan, in the case of the paywall modal.
+	 *
+	 * Network admin counts as leaving. On a network-activated install the
+	 * SDK builds its pricing URL through `network_admin_url()` even while
+	 * the operator is inside a subsite, and on subdomain multisite that
+	 * is a different host; following it in place discards the subsite
+	 * screen exactly the way segurium.com would.
+	 *
+	 * @param string $url Destination from upgrade_url().
+	 * @return bool
+	 */
+	public static function is_offsite_url( $url ) {
+		$url = (string) $url;
+		return '' !== $url && 0 !== strpos( $url, admin_url() );
+	}
+
+	/**
+	 * Whether a destination is this plugin's own embedded pricing page.
+	 *
+	 * That page's render is what fires the `pricing` / `shown`
+	 * impression, so this is the exact predicate for "the funnel can see
+	 * what happens after this click". Everything else ends the funnel at
+	 * the click: the public pricing page, the add-on URL the SDK returns
+	 * for an add-on, and whatever a third party puts on the SDK's
+	 * pricing-url filter.
+	 *
+	 * Independent of is_offsite_url(), and the two disagree on purpose.
+	 * A URL can sit inside wp-admin without being the page we watch, and
+	 * the network-admin copy of that page is both offsite (it leaves the
+	 * subsite the operator was on) and observable — WordPress suffixes
+	 * its screen id with `-network`, which
+	 * `Segurium_Paywall_Telemetry::is_pricing_screen()` accepts.
+	 *
+	 * @param string $url Destination from upgrade_url().
+	 * @return bool
+	 */
+	public static function is_embedded_pricing_url( $url ) {
+		$url = (string) $url;
+		if ( '' === $url ) {
+			return false;
+		}
+
+		$under_admin = false;
+		foreach ( array( admin_url(), network_admin_url() ) as $base ) {
+			if ( 0 === strpos( $url, $base ) ) {
+				$under_admin = true;
+				break;
+			}
+		}
+		if ( ! $under_admin ) {
+			return false;
+		}
+
+		$query = (string) wp_parse_url( $url, PHP_URL_QUERY );
+		$args  = array();
+		parse_str( $query, $args );
+
+		return isset( $args['page'] ) && self::PRICING_PAGE_SLUG === $args['page'];
 	}
 
 	/**

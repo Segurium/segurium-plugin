@@ -4536,15 +4536,15 @@ msgid ""
 "Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
 "itself. It can only name a component you already have installed, and only "
 "when WordPress.org already offers that update; the update is downloaded by "
-"WordPress from WordPress.org, never from Segurium. WordPress core is "
-"limited to security and maintenance releases. Segurium never updates itself"
-" this way. Turn this off and the site stops asking for and accepting these "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
 "requests."
 msgstr ""
 "Segurium Cloud có thể yêu cầu trang web này cập nhật một plugin, giao diện "
-"hoặc chính WordPress. Nó chỉ có thể chỉ định một thành phần đã được cài "
-"đặt, và chỉ khi WordPress.org đã cung cấp bản cập nhật đó; bản cập nhật "
-"được WordPress tải về từ WordPress.org, không bao giờ từ Segurium. Nhân "
+"hoặc chính WordPress. Nó chỉ có thể chỉ định một thành phần mà bạn đã cài "
+"đặt, và chỉ khi WordPress.org đã cung cấp bản cập nhật đó; bản cập nhật được"
+" WordPress tải về từ WordPress.org, không bao giờ từ Segurium. Nhân "
 "WordPress chỉ giới hạn ở các bản phát hành bảo mật và bảo trì. Segurium "
 "không bao giờ tự cập nhật theo cách này. Tắt tùy chọn này và trang web sẽ "
 "ngừng yêu cầu và chấp nhận các yêu cầu này."
@@ -4557,3 +4557,49 @@ msgstr "Các yêu cầu đám mây gần đây"
 
 msgid "Outcome"
 msgstr "Kết quả"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud hiện không thể làm sạch tệp này. Vui lòng thử lại sau."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Không có phiên bản sạch của tệp này. Hãy xoá hoặc thay thế tệp thủ công."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Vì sao bạn tắt Segurium?"
+
+msgid "Missing feature"
+msgstr "Thiếu tính năng"
+
+msgid "It is causing issues"
+msgstr "Đang gây ra sự cố"
+
+msgid "No longer needed"
+msgstr "Không còn cần dùng"
+
+msgid "Found better alternative"
+msgstr "Đã tìm được lựa chọn thay thế tốt hơn"
+
+msgid "Temporary deactivation"
+msgstr "Tắt tạm thời"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the "
+"one you enter below, together with your email alerts choice."
+msgstr ""
+"Địa chỉ email nhận cảnh báo bảo mật: email quản trị WordPress, hoặc email "
+"bạn nhập bên dưới, kèm lựa chọn nhận email cảnh báo của bạn."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Thông báo cho tôi khi phát hiện mã độc và mối đe doạ bảo mật trên trang web "
+"này."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Tối đa một email mỗi ngày, gửi từ support@segurium.com. Bạn có thể đổi mục "
+"này sau ở Cài đặt."

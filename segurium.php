@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
- * Version:     1.2.3
+ * Version:     1.3.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.2.3' );
+define( 'SEGURIUM_VERSION', '1.3.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -229,6 +229,29 @@ function segurium_admin_other_needs_fs( $script_name ) {
 }
 
 /**
+ * Decide whether the admin_other tier must load the exit-reason ask on
+ * the current request. It hangs off the Deactivate row action, which
+ * only exists on the plugins screen.
+ *
+ * Network deactivation is excluded: it acts on every site at once, so a
+ * single operator's reason would speak for a whole fleet. The network
+ * screen shares this basename, hence the directory test.
+ *
+ * Pure helper so the routing rule is unit-testable without forging
+ * $_SERVER state inside PHPUnit.
+ *
+ * @param string $script_name `$_SERVER['SCRIPT_NAME']` for the request.
+ * @return bool True when admin_other must wire the exit ask.
+ */
+function segurium_admin_other_needs_deactivation_ask( $script_name ) {
+	if ( '' === $script_name || 'plugins.php' !== basename( $script_name ) ) {
+		return false;
+	}
+
+	return 'network' !== basename( dirname( $script_name ) );
+}
+
+/**
  * Whether this request is the MainWP dashboard call the child bridge
  * answers.
  *
@@ -385,21 +408,32 @@ function segurium_tier_groups( $tier ) {
 	$admin_shell_group     = array(
 		'includes/segurium-admin-menu-shell.php',
 	);
+	// Account registration is a front-end action on any store or
+	// membership site, and plugin activation happens on plugins.php,
+	// which carries no `page=segurium`. Neither lands on a heavy tier,
+	// so the tracker has to be present on all four light ones. Its
+	// listeners only write to the local activity_log; the flush runs
+	// from cron and from admin_init.
+	$activity_group = array(
+		'includes/class-segurium-activity-tracker.php',
+	);
 
 	switch ( $tier ) {
 		case 'visitor':
-			return array_merge( $firewall_group, $visitor_headers_group );
+			return array_merge( $firewall_group, $visitor_headers_group, $activity_group );
 		case 'ajax_other':
 			// Firewall + geo-block must run on every reachable WP entry
 			// point — admin-ajax is reachable, including unauthenticated
 			// (wp_ajax_nopriv_* handlers). Storage tier is loaded above;
-			// add only the firewall slice. No login/headers/admin-shell
-			// classes — heartbeat and third-party AJAX don't render UI.
-			return $firewall_group;
+			// add the firewall slice plus the activity tracker, since a
+			// store's registration form posts here. No login/headers/
+			// admin-shell classes — heartbeat and third-party AJAX don't
+			// render UI.
+			return array_merge( $firewall_group, $activity_group );
 		case 'login':
-			return array_merge( $firewall_group, $login_group, $visitor_headers_group );
+			return array_merge( $firewall_group, $login_group, $visitor_headers_group, $activity_group );
 		case 'admin_other':
-			return array_merge( $firewall_group, $admin_shell_group );
+			return array_merge( $firewall_group, $admin_shell_group, $activity_group );
 		default:
 			// testing / cli / cron / ajax_segurium / admin_segurium /
 			// rest_segurium / full.
@@ -464,6 +498,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-review-prompt.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-paywall-telemetry.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-deactivation-reason.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-component-discovery.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-scan-state.php';
@@ -471,6 +506,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-inventory-cron.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-platform-snapshot.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-memory-recorder.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-activity-tracker.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-chain.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-component-backup.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-pending-changes.php';
@@ -947,6 +983,7 @@ function segurium_lightweight_bootstrap( $tier ) {
 	// tier the firewall runs on, so check_expired() finds a listener even
 	// when the heavy Segurium class is not loaded.
 	Segurium_Firewall_Rules::register_hooks();
+	Segurium_Activity_Tracker::register_hooks();
 
 	if ( 'visitor' === $tier ) {
 		Segurium_Security_Headers::get_instance()->init();
@@ -982,6 +1019,14 @@ function segurium_lightweight_bootstrap( $tier ) {
 		$segurium_script = isset( $_SERVER['SCRIPT_NAME'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- routing only.
 		if ( segurium_admin_other_needs_fs( $segurium_script ) ) {
 			segurium_fs();
+		}
+
+		// The exit ask hangs off the Deactivate row action on that same
+		// screen. One small class, loaded only there — the answer itself
+		// travels on admin-ajax, which runs the full graph anyway.
+		if ( segurium_admin_other_needs_deactivation_ask( $segurium_script ) ) {
+			require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-deactivation-reason.php';
+			Segurium_Deactivation_Reason::register_hooks();
 		}
 
 		// 2FA hooks `show_user_profile` /
@@ -1035,14 +1080,124 @@ function segurium_check_requirements( $php_version, $wp_version ) {
 }
 
 /**
+ * Every recurring cron hook the plugin owns, mapped to the scheduler
+ * that arms it.
+ *
+ * One declaration feeds both the re-arm helper and the light-tier
+ * missing-hook check, so a newly-owned cron cannot reach the helper
+ * without also reaching the check. Building the array resolves no
+ * callable and loads no class, which is what lets the check run on a
+ * tier where none of these classes exist.
+ *
+ * @return array<string, callable> Cron hook name => scheduler.
+ */
+function segurium_cron_schedulers() {
+	return array(
+		'segurium_storage_gc'                => array( 'Segurium_Storage_GC', 'schedule' ),
+		'segurium_bf_prune'                  => array( 'Segurium_Brute_Force', 'schedule_prune' ),
+		'segurium_daily_components_snapshot' => array( 'Segurium_Integrity_Inventory_Cron', 'schedule' ),
+		'segurium_actions_poll'              => array( 'Segurium_Remote_Actions', 'schedule' ),
+		'segurium_daily_platform_snapshot'   => array( 'Segurium_Platform_Snapshot', 'schedule' ),
+		'segurium_daily_memory_sample'       => array( 'Segurium_Memory_Recorder', 'schedule' ),
+		'segurium_daily_self_check'          => array( 'Segurium_Self_Check', 'schedule' ),
+	);
+}
+
+/**
+ * Names of the recurring cron hooks the plugin owns.
+ *
+ * @return string[] Cron hook names.
+ */
+function segurium_owned_cron_hooks() {
+	return array_keys( segurium_cron_schedulers() );
+}
+
+/**
+ * Tiers allowed to run the cron self-heal on `admin_init`.
+ *
+ * `admin_init` fires on `/wp-admin/*` and on admin-ajax.php alike, so an
+ * ungated hook runs the self-heal on every heartbeat and third-party
+ * AJAX call — the exact workload the `ajax_other` tier exists to keep
+ * cheap. Only the two admin page tiers are listed. WP-CLI and wp-cron
+ * never fire `admin_init` and so cannot heal at all: an update applied
+ * over CLI heals on the operator's next admin page load.
+ *
+ * @return string[] Tier names.
+ */
+function segurium_cron_self_heal_tiers() {
+	return array( 'testing', 'full', 'admin_segurium', 'admin_other' );
+}
+
+/**
+ * Cron hooks the plugin owns that are not currently queued.
+ *
+ * `wp_next_scheduled()` reads the autoloaded `cron` option, so on the
+ * healthy path this is seven in-memory array lookups and no query.
+ *
+ * @return string[] Missing hook names, empty when every hook is queued.
+ */
+function segurium_missing_cron_hooks() {
+	$missing = array();
+	foreach ( segurium_owned_cron_hooks() as $hook ) {
+		if ( ! wp_next_scheduled( $hook ) ) {
+			$missing[] = $hook;
+		}
+	}
+	return $missing;
+}
+
+/**
+ * Self-heal missing cron registrations without paying for the include
+ * graph on the healthy path.
+ *
+ * Only a genuinely missing hook loads the full plugin — on `admin_other`
+ * that is once per auto-update, not once per admin page load.
+ *
+ * A re-arm can fail for reasons no retry fixes: a cron manager filtering
+ * `pre_schedule_event`, a read-only `cron` option. Each failure doubles
+ * the retry window from an hour up to a day, so a site in that state
+ * pays one graph load a day rather than one per admin request, and each
+ * attempt logs the hooks that stayed unscheduled. A successful heal
+ * clears the counter.
+ */
+function segurium_maybe_ensure_all_crons_scheduled() {
+	if ( ! segurium_missing_cron_hooks() ) {
+		return;
+	}
+	if ( get_transient( 'segurium_cron_heal_backoff' ) ) {
+		return;
+	}
+
+	segurium_ensure_all_crons_scheduled();
+
+	$still_missing = segurium_missing_cron_hooks();
+	if ( ! $still_missing ) {
+		Segurium_Storage::setting_delete( 'segurium_cron_heal_failures' );
+		return;
+	}
+
+	$attempt = Segurium_Storage::setting_get_int( 'segurium_cron_heal_failures', 0 ) + 1;
+	Segurium_Storage::setting_set( 'segurium_cron_heal_failures', $attempt, false );
+	set_transient(
+		'segurium_cron_heal_backoff',
+		1,
+		min( DAY_IN_SECONDS, HOUR_IN_SECONDS * ( 1 << min( $attempt - 1, 5 ) ) )
+	);
+	Segurium_Debug::log(
+		'[segurium] cron self-heal attempt ' . $attempt . ' could not schedule: ' . implode( ', ', $still_missing )
+	);
+}
+
+/**
  * Re-arm every recurring cron event the plugin owns.
  *
  * The `register_activation_hook` callback only fires on a manual
  * activate/deactivate cycle, never on auto-update. Installs that were
  * activated before a cron-emitting feature shipped, then auto-updated
- * past it, silently lose the cron registration. Calling this helper on
- * `admin_init` (in addition to activation) self-heals those installs on
- * the next admin page load.
+ * past it, silently lose the cron registration. Reached from
+ * `segurium_maybe_ensure_all_crons_scheduled()` on `admin_init` (and
+ * directly from activation), which self-heals those installs on the
+ * next admin page load.
  *
  * Each schedule() short-circuits via wp_next_scheduled(), so this is
  * effectively a handful of in-memory option reads when every hook is
@@ -1051,15 +1206,14 @@ function segurium_check_requirements( $php_version, $wp_version ) {
 function segurium_ensure_all_crons_scheduled() {
 	segurium_load_full_plugin();
 
-	Segurium_Storage_GC::schedule();
-	Segurium_Brute_Force::schedule_prune();
-	Segurium_Integrity_Inventory_Cron::schedule();
-	Segurium_Remote_Actions::schedule();
-	Segurium_Platform_Snapshot::schedule();
-	Segurium_Memory_Recorder::schedule();
-	Segurium_Self_Check::schedule();
+	foreach ( segurium_cron_schedulers() as $scheduler ) {
+		call_user_func( $scheduler );
+	}
 }
-add_action( 'admin_init', 'segurium_ensure_all_crons_scheduled' );
+
+if ( in_array( segurium_request_tier(), segurium_cron_self_heal_tiers(), true ) ) {
+	add_action( 'admin_init', 'segurium_maybe_ensure_all_crons_scheduled' );
+}
 
 /**
  * Handle plugin activation.

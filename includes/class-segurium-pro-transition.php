@@ -193,6 +193,10 @@ final class Segurium_Pro_Transition {
 			return;
 		}
 
+		if ( class_exists( 'Segurium_IID' ) && Segurium_IID::billing_conflict_retry_held() ) {
+			return;
+		}
+
 		try {
 			if ( ! $this->is_pro_from_sdk() ) {
 				return;
@@ -257,6 +261,7 @@ final class Segurium_Pro_Transition {
 			// re-applies them on the next sync). The plugin no longer
 			// has a license tuple to send, so we just refresh the local
 			// cache against whatever CTI currently reports.
+			Segurium_IID::clear_billing_conflict_pending();
 			$this->safe_refresh_quota_envelope();
 			$this->append_activity_log( self::EVENT_PRO_DEACTIVATED, (string) $plan_change, $plan_slug );
 			$this->safe_send_cti( self::EVENT_PRO_DEACTIVATED, (string) $plan_change, $plan_slug );
@@ -349,9 +354,16 @@ final class Segurium_Pro_Transition {
 				$tuple['license_key']
 			);
 			if ( ! is_array( $resp ) ) {
+				$scope = $this->binding_conflict_scope( $resp );
+				if ( null !== $scope ) {
+					Segurium_IID::mark_billing_conflict_pending();
+					Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_sync failed: code=binding_conflict scope=%s — CTI holds this license on another install identity; recovery banner armed, admin-load retry held', $scope ) );
+					return false;
+				}
 				Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_sync failed: code=cti_response_invalid type=%s — CTI /v1/billing/sync returned non-array (HTTP non-2xx, transport error, or malformed JSON)', gettype( $resp ) ) );
 				return false;
 			}
+			Segurium_IID::clear_billing_conflict_pending();
 			$quota = $this->load_quota();
 			if ( null === $quota || ! method_exists( $quota, 'apply_billing_sync_envelope' ) ) {
 				Segurium_Debug::log( '[segurium-pro-transition] billing_sync failed: code=quota_unavailable — Segurium_Quota missing apply_billing_sync_envelope method' );
@@ -366,6 +378,26 @@ final class Segurium_Pro_Transition {
 			Segurium_Debug::log( '[segurium-pro-transition] billing_sync failed: code=exception — ' . $e->getMessage() );
 			return false;
 		}
+	}
+
+	/**
+	 * Pick the CTI 409 `binding_conflict` refusal out of a failed
+	 * `billing_sync()` result.
+	 *
+	 * @param mixed $resp `billing_sync()` return value.
+	 * @return string|null Conflict scope (`install` or `license`, '' when
+	 *                     the body carries none); null for any other outcome.
+	 */
+	private function binding_conflict_scope( $resp ) {
+		if ( ! is_wp_error( $resp )
+			|| 'cti_billing_http_409' !== $resp->get_error_code()
+			|| 'binding_conflict' !== $resp->get_error_message()
+		) {
+			return null;
+		}
+		$data = $resp->get_error_data();
+		$body = is_array( $data ) && isset( $data['body'] ) ? json_decode( (string) $data['body'], true ) : null;
+		return is_array( $body ) && isset( $body['scope'] ) ? (string) $body['scope'] : '';
 	}
 
 	/**

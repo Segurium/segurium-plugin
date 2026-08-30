@@ -24,6 +24,18 @@ class Segurium_Geo_DB {
 	const TRANSIENT_TTL = 86400;
 
 	/**
+	 * Ranges that are not globally routable and that filter_var's
+	 * NO_PRIV_RANGE / NO_RES_RANGE flags do not cover. Each can legitimately
+	 * carry a load balancer or NAT hop that fronts PHP, so each has to read
+	 * as local rather than as a visitor with a country.
+	 */
+	const NON_ROUTABLE_CIDRS = array(
+		'100.64.0.0/10',  // RFC 6598 shared address space (CGNAT, cloud load balancers).
+		'192.0.0.0/24',   // RFC 6890 IETF protocol assignments.
+		'198.18.0.0/15',  // RFC 2544 benchmarking.
+	);
+
+	/**
 	 * Optional override for the database file path.
 	 *
 	 * @var string|null
@@ -143,12 +155,73 @@ class Segurium_Geo_DB {
 	}
 
 	/**
+	 * Test whether an address is routable on the public internet.
+	 *
+	 * The address is canonicalised through its binary form first, then
+	 * IPv4-mapped IPv6 is unmapped. filter_var scores every mapped
+	 * spelling as public — `::ffff:127.0.0.1` and the hex `::ffff:7f00:1`
+	 * alike — and a dual-stack server can put either in REMOTE_ADDR.
+	 *
+	 * Invalid input is not public.
+	 *
+	 * @param string $ip Human-readable IP address.
+	 * @return bool
+	 */
+	public static function is_public_ip( $ip ) {
+		$bin = self::normalize_ip( $ip );
+		if ( false === $bin ) {
+			return false;
+		}
+
+		if ( 0 === strncmp( $bin, self::IPV4_PREFIX, 12 ) ) {
+			$bin = substr( $bin, 12 );
+		}
+
+		$canonical = inet_ntop( $bin );
+		if ( false === $canonical ) {
+			return false;
+		}
+
+		if ( ! filter_var( $canonical, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+			return false;
+		}
+
+		foreach ( self::NON_ROUTABLE_CIDRS as $cidr ) {
+			if ( self::ip_in_cidr( $canonical, $cidr ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Test whether an address is a valid one that is not publicly routable.
+	 *
+	 * Distinct from `! is_public_ip()`, which also answers true for garbage.
+	 *
+	 * @param string $ip Human-readable IP address.
+	 * @return bool
+	 */
+	public static function is_local_ip( $ip ) {
+		return false !== self::normalize_ip( $ip ) && ! self::is_public_ip( $ip );
+	}
+
+	/**
 	 * Look up the ISO 3166-1 alpha-2 country code for an IP address.
+	 *
+	 * Reserved and private ranges carry "ZZ" in the upstream feed. That is
+	 * a placeholder, not a country, so callers get null and skip the test
+	 * rather than matching a list against a code no operator can select.
 	 *
 	 * @param string $ip Human-readable IP address.
 	 * @return string|null Country code or null if not found / DB unavailable.
 	 */
 	public static function get_country( $ip ) {
+		if ( ! self::is_public_ip( $ip ) ) {
+			return null;
+		}
+
 		$ip_bin = self::normalize_ip( $ip );
 		if ( false === $ip_bin ) {
 			return null;

@@ -118,6 +118,28 @@ final class Segurium_Scan_Runner {
 	const STUCK_MAX = 5;
 
 	/**
+	 * Consecutive ticks whose chunk could not load the engine's state before
+	 * the scan is aborted with `ABORTED_ENGINE_LOAD_FAILED`. A single failed
+	 * read is not proof of a corrupt workspace: `read_json_with_retry()`
+	 * gives up after 60 ms, so an EMFILE or a momentary EACCES lands on the
+	 * same branch as a truncated file. A load-failed tick exits through the
+	 * graceful handoff, which floors at `MIN_TICK_WALL_SEC`, so the window is
+	 * ~15 s of wall clock when the self-trigger drives the ticks and minutes
+	 * when wp-cron does — short of a long fd-exhaustion spike, but a
+	 * load-failed tick also counts toward `STUCK_MAX`, and going past that
+	 * would hand the operator the generic no-progress code instead of this
+	 * one. A scan already several killed-mid-chunk ticks deep reaches that
+	 * generic abort first either way.
+	 */
+	const ENGINE_LOAD_MAX_ATTEMPTS = 4;
+
+	/**
+	 * Logical key in runtime_kv holding the consecutive engine-load failure
+	 * count for a scan.
+	 */
+	const ENGINE_LOAD_FAIL_KV_PREFIX = 'scan_engine_load_fail:';
+
+	/**
 	 * Safety margin (seconds) deducted from `max_execution_time` when
 	 * computing the effective tick budget. Leaves room for the chunk
 	 * loop to exit cleanly before PHP terminates the worker mid-iteration.
@@ -1914,8 +1936,10 @@ final class Segurium_Scan_Runner {
 			self::$tick_started_at    = $started;
 			self::$tick_budget_active = $budget;
 			$chunks_returned          = 0;
+			$chunks_succeeded         = 0;
 			$completed                = false;
 			$cancel_observed          = false;
+			$engine_load_failed       = false;
 
 			self::debug(
 				'chunk_loop_start',
@@ -2001,7 +2025,17 @@ final class Segurium_Scan_Runner {
 						$tick_outcome = 'lease_lost';
 						return;
 					}
+
+					// Ahead of reset_stuck_counter(): a chunk that could not
+					// load its state made no progress, so the tick's attempt
+					// must carry into the next one.
+					if ( ! empty( $result['engine_load_failed'] ) ) {
+						$engine_load_failed = true;
+						break;
+					}
+
 					self::reset_stuck_counter( $scan_id );
+					++$chunks_succeeded;
 
 					self::debug(
 						'chunk_returned',
@@ -2067,6 +2101,41 @@ final class Segurium_Scan_Runner {
 						);
 						break;
 					}
+				}
+
+				if ( $chunks_succeeded > 0 ) {
+					// The tick moved the scan forward, so any load failure it
+					// also saw was transient and the run ends here.
+					self::clear_engine_load_failures( $scan_id );
+				} elseif ( $engine_load_failed ) {
+					$load_failures = self::increment_engine_load_failures( $scan_id );
+					self::debug(
+						'engine_load_failed_chunk',
+						array(
+							'scan_id'  => $scan_id,
+							'chunks'   => $chunks_returned,
+							'failures' => $load_failures,
+							'max'      => self::ENGINE_LOAD_MAX_ATTEMPTS,
+						)
+					);
+					if ( $load_failures >= self::ENGINE_LOAD_MAX_ATTEMPTS ) {
+						// terminate() defers the workspace teardown while this
+						// worker holds the tick mutex, as it does for a
+						// cooperative cancel. We are that worker.
+						self::terminate( self::REASON_ABORTED_ENGINE_LOAD_FAILED, $scan_id );
+						try {
+							$engine->cleanup_state();
+						} catch ( Throwable $cleanup_exc ) {
+							self::log_exception( 'engine_load_failed_cleanup', $cleanup_exc );
+						}
+						self::clear_cancel_flag( $scan_id );
+						self::clear_stuck_state( $scan_id );
+						$tick_outcome = 'engine_load_failed_abort';
+						return;
+					}
+					// Below the ceiling the read may still recover: fall
+					// through to the graceful handoff so the next tick
+					// re-reads the state file.
 				}
 
 				if ( $completed ) {
@@ -2622,7 +2691,9 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Reset the per-scan attempt counter. Called on every successful
-	 * process_chunk() return inside the chunk loop.
+	 * process_chunk() return inside the chunk loop — a return carrying
+	 * `engine_load_failed` is not one, so those ticks accumulate toward
+	 * ENGINE_LOAD_MAX_ATTEMPTS instead.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return void
@@ -2646,6 +2717,51 @@ final class Segurium_Scan_Runner {
 		Segurium_Storage::table_delete(
 			'runtime_kv',
 			array( 'kv_key' => self::STUCK_COUNTER_KV_PREFIX . $scan_id )
+		);
+		self::clear_engine_load_failures( $scan_id );
+	}
+
+	/**
+	 * Consecutive ticks that made no progress and could not load the engine's
+	 * state. Separate from the stuck counter, which is already several ticks
+	 * along on a scan being killed mid-chunk: sharing it would let one
+	 * unreadable state file end such a scan on its first failed read.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return int
+	 */
+	private static function increment_engine_load_failures( $scan_id ) {
+		$key   = self::ENGINE_LOAD_FAIL_KV_PREFIX . $scan_id;
+		$value = (int) Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+			array( $key )
+		);
+		++$value;
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => $key,
+				'kv_value'   => (string) $value,
+				'updated_at' => time(),
+			),
+			array( 'kv_key' )
+		);
+		return $value;
+	}
+
+	/**
+	 * Drop the engine-load failure counter. Cleared per tick, not per chunk:
+	 * `reset_stuck_counter()` fires inside the loop and deliberately leaves
+	 * this row alone, so the count survives a tick that scanned nothing.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return void
+	 */
+	private static function clear_engine_load_failures( $scan_id ) {
+		Segurium_Storage::table_delete(
+			'runtime_kv',
+			array( 'kv_key' => self::ENGINE_LOAD_FAIL_KV_PREFIX . $scan_id )
 		);
 	}
 

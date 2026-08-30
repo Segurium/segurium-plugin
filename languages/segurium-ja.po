@@ -4586,16 +4586,60 @@ msgid ""
 "way. Turn this off and the site stops asking for and accepting these "
 "requests."
 msgstr ""
-"Segurium Cloud はこのサイトに対して、プラグイン、テーマ、または WordPress 本体の更新を要求できます。指定できるのはすでにインストール済みのコンポーネントに限られ、かつ WordPress.org がその更新を提供している場合のみです。更新は WordPress によって WordPress.org からダウンロードされ、Segurium から配信されることはありません。WordPress コアはセキュリティおよびメンテナンスリリースに限定されます。Segurium 自体がこの方法で更新されることはありません。これを無効にすると、サイトはこれらのリクエストの送信および受け入れを停止します。"
+"Segurium Cloud はこのサイトに対して、プラグイン、テーマ、または WordPress "
+"本体の更新を要求できます。指定できるのはすでにインストール済みのコンポーネントに限られ、かつ WordPress.org "
+"がその更新を提供している場合のみです。更新は WordPress によって WordPress.org からダウンロードされ、Segurium "
+"から配信されることはありません。WordPress コアはセキュリティおよびメンテナンスリリースに限定されます。Segurium "
+"自体がこの方法で更新されることはありません。これを無効にすると、サイトはこれらのリクエストの送信および受け入れを停止します。"
 
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "wp-config.php の SEGURIUM_DISABLE_REMOTE_ACTIONS によって無効化されています。"
+msgstr "SEGURIUM_DISABLE_REMOTE_ACTIONS により wp-config.php で無効化されています。"
 
 msgid "Recent cloud requests"
 msgstr "最近のクラウドリクエスト"
 
 msgid "Outcome"
 msgstr "結果"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud は現在このファイルをクリーンアップできませんでした。しばらくしてからもう一度お試しください。"
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "このファイルのクリーンな版は存在しません。手動で削除するか置き換えてください。"
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Segurium を無効化する理由を教えてください。"
+
+msgid "Missing feature"
+msgstr "機能が不足している"
+
+msgid "It is causing issues"
+msgstr "問題が発生している"
+
+msgid "No longer needed"
+msgstr "必要なくなった"
+
+msgid "Found better alternative"
+msgstr "より良い代替品が見つかった"
+
+msgid "Temporary deactivation"
+msgstr "一時的な無効化"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"セキュリティ通知の送信先メールアドレス: WordPress の管理者メール、または下に入力するアドレスを、メール通知の設定と併せて使用します。"
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "このサイトでマルウェアの検出やセキュリティ上の脅威があった場合に通知します。"
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr "メールは1日あたり最大1通、support@segurium.com から送信されます。この設定は後から「設定」で変更できます。"
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress 用 Segurium プラグイン。"

@@ -4455,6 +4455,76 @@ msgid ""
 " infected files, restore them. Firewall, brute force, 2FA included."
 msgstr "网站被黑？WordPress 免费恶意软件清除与病毒扫描：清理受感染文件并进行还原。包含防火墙、暴力破解防护和 2FA。"
 
+msgid "Remote actions are switched off for this site."
+msgstr "此站点已关闭远程操作。"
+
+msgid "Remote actions require authentication."
+msgstr "远程操作需要身份验证。"
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "允许 Segurium 云端请求组件更新"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium 云端可以请求此站点更新插件、主题或 WordPress 本身。它只能指定您已安装的组件，且仅当 WordPress.org "
+"已提供该更新时才可用；更新由 WordPress 从 WordPress.org 下载，绝不会来自 Segurium。WordPress "
+"核心仅限于安全和维护版本。Segurium 从不通过这种方式更新自身。关闭此项后，站点将停止请求和接受这些请求。"
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "已通过 wp-config.php 中的 SEGURIUM_DISABLE_REMOTE_ACTIONS 关闭。"
+
+msgid "Recent cloud requests"
+msgstr "最近的云端请求"
+
+msgid "Outcome"
+msgstr "结果"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud 目前无法清理此文件。请稍后再试一次。"
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "此文件没有干净的版本。请手动移除或替换。"
+
+msgid "Why are you deactivating Segurium?"
+msgstr "您为何要停用 Segurium？"
+
+msgid "Missing feature"
+msgstr "缺少功能"
+
+msgid "It is causing issues"
+msgstr "它导致了问题"
+
+msgid "No longer needed"
+msgstr "不再需要"
+
+msgid "Found better alternative"
+msgstr "找到了更好的替代方案"
+
+msgid "Temporary deactivation"
+msgstr "临时停用"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr "用于接收安全警报的电子邮件地址：WordPress 管理员邮箱，或您在下方输入的邮箱，同时应用您选择的邮件警报设置。"
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "在本网站发现恶意软件和安全威胁时通知我。"
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr "每天最多一封邮件，由 support@segurium.com 发送。您可以稍后在「设置」中更改此项。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"
 
@@ -4525,24 +4595,3 @@ msgstr "网站被黑？WordPress 免费恶意软件清除与病毒扫描：清�
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "免费版修复配额已用尽。升级至 Pro 可获得无限次修复。"
-
-msgid "Remote actions are switched off for this site."
-msgstr "此站点已关闭远程操作。"
-
-msgid "Remote actions require authentication."
-msgstr "远程操作需要身份验证。"
-
-msgid "Let Segurium Cloud request component updates"
-msgstr "允许 Segurium 云端请求组件更新"
-
-msgid "Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests."
-msgstr "Segurium 云端可以请求此站点更新插件、主题或 WordPress 本身。它只能指定你已安装的组件，且仅当 WordPress.org 已提供该更新时才可用；更新由 WordPress 从 WordPress.org 下载，绝不会来自 Segurium。WordPress 核心仅限于安全和维护版本。Segurium 从不通过这种方式更新自身。关闭此项后，站点将停止请求和接受这些请求。"
-
-msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "已通过 wp-config.php 中的 SEGURIUM_DISABLE_REMOTE_ACTIONS 关闭。"
-
-msgid "Recent cloud requests"
-msgstr "最近的云端请求"
-
-msgid "Outcome"
-msgstr "结果"

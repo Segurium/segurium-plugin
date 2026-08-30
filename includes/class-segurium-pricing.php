@@ -4,7 +4,9 @@
  *
  * Hooks into Freemius's `pricing/css_path` filter to ship a stylesheet
  * that overrides the SDK defaults (uppercase plan title / description /
- * cycle / CTA, uniform 700 weights).
+ * cycle / CTA, uniform 700 weights, hidden featured plan), and into
+ * `pricing/show_annual_in_monthly` so the annual-only price ladder is
+ * quoted per year rather than broken down per month.
  *
  * @package Segurium
  */
@@ -14,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Wires the `pricing/css_path` filter that ships our override stylesheet.
+ * Wires the Freemius pricing-page filters.
  */
 final class Segurium_Pricing {
 
@@ -24,12 +26,16 @@ final class Segurium_Pricing {
 	const CSS_RELATIVE_PATH = 'assets/css/pricing-overrides.css';
 
 	/**
-	 * Wire the Freemius filter. Invoked once during plugin init.
+	 * Wire the Freemius filters. Invoked once during plugin init.
 	 */
 	public static function register_hooks() {
 		add_filter(
 			'fs_pricing/css_path_segurium',
 			array( __CLASS__, 'override_css_path' )
+		);
+		add_filter(
+			'fs_pricing/show_annual_in_monthly_segurium',
+			array( __CLASS__, 'show_annual_in_monthly' )
 		);
 	}
 
@@ -52,5 +58,18 @@ final class Segurium_Pricing {
 			return $current;
 		}
 		return $path;
+	}
+
+	/**
+	 * Filter callback. Segurium bills annually only, so the SDK default
+	 * of dividing the annual price into a monthly figure quotes a price
+	 * nobody is ever charged.
+	 *
+	 * @param mixed $current Current filter value (Freemius default: true).
+	 * @return bool
+	 */
+	public static function show_annual_in_monthly( $current ) {
+		unset( $current );
+		return false;
 	}
 }

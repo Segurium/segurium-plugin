@@ -32,6 +32,13 @@ class Segurium {
 	const CTI_HEALTH_CACHE_TTL = 300;
 
 	/**
+	 * Widest cleanup cap the at-limit card still draws as blocks. Past
+	 * this the row stops reading as a count, and the counter line beside
+	 * it carries the same two numbers anyway.
+	 */
+	const MAX_QUOTA_METER_SLOTS = 12;
+
+	/**
 	 * Singleton instance.
 	 *
 	 * @var Segurium|null
@@ -171,6 +178,7 @@ class Segurium {
 		Segurium_Integrity_Inventory_Cron::register_hooks();
 		Segurium_Platform_Snapshot::register_hooks();
 		Segurium_Memory_Recorder::register_hooks();
+		Segurium_Activity_Tracker::register_hooks();
 		Segurium_Self_Check::register_hooks();
 		Segurium_Integrity_Chain::register_hooks();
 		Segurium_Realtime_Scan::register_hooks();
@@ -223,6 +231,7 @@ class Segurium {
 		$twofa     = Segurium_2FA::NONCE_ACTION;
 		$review    = Segurium_Review_Prompt::NONCE_ACTION;
 		$paywall   = Segurium_Paywall_Telemetry::NONCE_ACTION;
+		$deact     = Segurium_Deactivation_Reason::NONCE_ACTION;
 
 		return array(
 			// Consent + core settings.
@@ -310,6 +319,9 @@ class Segurium {
 
 			// Quota-wall CTA impressions and clicks.
 			Segurium_Paywall_Telemetry::AJAX_ACTION      => array( $paywall, $mo, array( 'Segurium_Paywall_Telemetry', 'ajax_paywall_cta' ) ),
+
+			// Exit reason picked on the Deactivate link.
+			Segurium_Deactivation_Reason::AJAX_ACTION    => array( $deact, $mo, array( 'Segurium_Deactivation_Reason', 'ajax_deactivation_reason' ) ),
 
 			// Security headers + info shield.
 			'segurium_get_sh_settings'                   => array( $settings, $mo, array( $this, 'ajax_get_sh_settings' ) ),
@@ -1000,14 +1012,21 @@ class Segurium {
 					// disabled WP-Cron with no real cron) so the user gets a
 					// banner instead of a stuck progress bar.
 					'envWarnings'    => Segurium_Scan_Runner::environment_warnings(),
-					// Paywall CTA destination. Empty
-					// string when the SDK is unreachable OR when Freemius
-					// has no synced paid plans (pricing submenu is then
-					// not registered and the URL would land on a blank
-					// admin page). JS hides the upgrade button on ''.
+					// Paywall CTA destination. Resolves to the public
+					// pricing page whenever the SDK yields nothing, so the
+					// modal always has somewhere to send the user.
 					'upgradeUrl'     => class_exists( 'Segurium_Entitlements' )
 						? Segurium_Entitlements::instance()->upgrade_url()
 						: '',
+					'upgradeOffsite' => class_exists( 'Segurium_Entitlements' )
+						&& Segurium_Entitlements::is_offsite_url( Segurium_Entitlements::instance()->upgrade_url() ),
+					// Seeds renderQuotaReadout()'s at-limit card decision so the
+					// first JS repaint agrees with the server pre-render instead
+					// of collapsing the card until the scanner list lands. Pro
+					// hides every readout node before the count is consulted,
+					// so the query would be dead work there.
+					'threatsOpen'    => 'pro' === $plan_tier ? 0 : $this->outstanding_threat_count(),
+					'meterMaxSlots'  => self::MAX_QUOTA_METER_SLOTS,
 					'planTier'       => $plan_tier,
 					'isPro'          => 'pro' === $plan_tier,
 					'migrationNonce' => wp_create_nonce( 'segurium_migration' ),
@@ -1181,6 +1200,8 @@ class Segurium {
 						/* translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens */
 						'quotaReadoutAtLimit'     => __( '%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s', 'segurium' ),
 						'quotaReadoutUpgradeCta'  => __( 'Upgrade to Pro', 'segurium' ),
+						'plansTab'                => __( 'Plans', 'segurium' ),
+						'moneyBackGuarantee'      => __( '14-day money-back guarantee.', 'segurium' ),
 						'proBadge'                => __( 'Pro', 'segurium' ),
 						'intDiff'                 => __( 'Diff', 'segurium' ),
 						'intDelisted'             => __( 'Delisted from official WordPress.org', 'segurium' ),
@@ -1623,6 +1644,7 @@ class Segurium {
 					<li><?php esc_html_e( 'A randomly-generated installation identifier and basic site info (URL, name, WordPress version) used to associate requests with this install.', 'segurium' ); ?></li>
 					<li><?php esc_html_e( 'Scan, cleanup, and security-settings events, so the cloud can keep your site protection in sync.', 'segurium' ); ?></li>
 					<li><?php esc_html_e( 'Firewall events (blocked IPs, attack patterns) used to adapt protection across all Segurium-protected sites.', 'segurium' ); ?></li>
+					<li><?php esc_html_e( 'The email address for security alerts: the WordPress admin email, or the one you enter below, together with your email alerts choice.', 'segurium' ); ?></li>
 				</ul>
 
 				<p><strong><?php esc_html_e( 'What is NOT sent:', 'segurium' ); ?></strong></p>
@@ -1647,6 +1669,23 @@ class Segurium {
 					);
 					?>
 				</p>
+				<?php $segurium_alerts_stored = Segurium_Storage::setting_get( Segurium_Alerts_Settings::OPTION_ENABLED, null ); ?>
+				<div class="segurium-setting-row segurium-consent-alerts">
+					<label>
+						<input type="checkbox" id="segurium_consent_alerts_enabled" <?php checked( null === $segurium_alerts_stored || (bool) $segurium_alerts_stored ); ?>>
+						<strong><?php esc_html_e( 'Notify me on malware findings and security threats on this website.', 'segurium' ); ?></strong>
+					</label>
+					<label for="segurium_consent_alerts_email" class="screen-reader-text"><?php esc_html_e( 'Alert email address', 'segurium' ); ?></label>
+					<input
+						type="email"
+						id="segurium_consent_alerts_email"
+						class="regular-text"
+						placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
+						value="<?php echo esc_attr( (string) Segurium_Storage::setting_get_string( Segurium_Alerts_Settings::OPTION_EMAIL ) ); ?>"
+					/>
+					<p class="description"><?php esc_html_e( 'One email per day at most, sent from support@segurium.com. You can change this later under Settings.', 'segurium' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
+				</div>
 				<button id="segurium-accept-consent" class="button button-primary">
 					<?php esc_html_e( 'I agree', 'segurium' ); ?>
 				</button>
@@ -1690,15 +1729,66 @@ class Segurium {
 	 * from it and are therefore one indirection further from the contract
 	 * the ticket states).
 	 *
+	 * @param bool $with_cta Attach the at-limit upgrade link. The Plans
+	 *                       tab passes false — the Pro card beside it
+	 *                       already carries the primary CTA, and a second
+	 *                       one to the same destination competes with it.
 	 * @return string Already-escaped HTML, or ''.
 	 */
-	private function quota_readout_inner_html() {
+	private function quota_readout_inner_html( $with_cta = true ) {
+		$parts = $this->quota_readout_parts( $with_cta );
+		return $parts['html'];
+	}
+
+	/**
+	 * Malicious files the operator has not dealt with yet, over the same
+	 * recent window the scanner list defaults to, so the number on the
+	 * card matches the one on the tab badge beside it.
+	 *
+	 * A storage error yields 0, which downgrades the card to the strip
+	 * rather than claiming a threat count nobody measured. One grouped
+	 * COUNT; the bootstrap and the server pre-render each pay for their
+	 * own, rather than share a memo the page-lifetime singleton would
+	 * carry past the request that filled it.
+	 *
+	 * @return int
+	 */
+	private function outstanding_threat_count() {
+		if ( ! class_exists( 'Segurium_File_State' ) ) {
+			return 0;
+		}
+		try {
+			$counts = Segurium_File_State::get_counts( true );
+		} catch ( Throwable $e ) {
+			return 0;
+		}
+		return isset( $counts['malicious'] ) ? max( 0, (int) $counts['malicious'] ) : 0;
+	}
+
+	/**
+	 * Readout body plus the shape it should take.
+	 *
+	 * Three states. Below the cap and at the cap with nothing
+	 * outstanding both render the strip they have always rendered. The
+	 * third — cap reached while malicious files are still on disk — is
+	 * the one moment the plugin has refused work the operator is asking
+	 * for, so it escalates to a card: a heading, the two numbers the
+	 * install produced itself, a primary button and a secondary path.
+	 *
+	 * @param bool $with_cta Attach the at-limit upgrade affordance.
+	 * @return array{html:string,card:bool}
+	 */
+	private function quota_readout_parts( $with_cta = true ) {
+		$hidden = array(
+			'html' => '',
+			'card' => false,
+		);
 		if ( Segurium_Quota::PLAN_TIER_FREE !== Segurium_Quota::plan_tier() ) {
-			return '';
+			return $hidden;
 		}
 		$env = Segurium_Quota::cached_envelope();
 		if ( null === $env || ! empty( $env['fail_open'] ) ) {
-			return '';
+			return $hidden;
 		}
 
 		$used   = (int) $env['used'];
@@ -1738,18 +1828,99 @@ class Segurium {
 		// branch. Rendering it at 0/3 is constant promotion (WP.org
 		// Guideline 11). Mirrors segurium-scan.js renderQuotaReadout() so
 		// the JS refresh on tab activation does not flip the CTA in or out.
-		if ( $used >= $limit ) {
+		if ( $with_cta && $used >= $limit ) {
 			$upgrade_url = class_exists( 'Segurium_Entitlements' )
 				? Segurium_Entitlements::instance()->upgrade_url()
 				: '';
 			if ( '' !== $upgrade_url ) {
-				$html .= '<a class="segurium-quota-readout-cta" href="' . esc_url( $upgrade_url ) . '">'
+				$threats = $this->outstanding_threat_count();
+				if ( $threats > 0 ) {
+					return array(
+						'html' => $this->quota_card_html( $used, $limit, $copy, $threats, $upgrade_url ),
+						'card' => true,
+					);
+				}
+				$html .= '<a class="segurium-quota-readout-cta" href="' . esc_url( $upgrade_url ) . '"'
+					. ( Segurium_Entitlements::is_offsite_url( $upgrade_url ) ? ' target="_blank" rel="noopener noreferrer"' : '' )
+					. '>'
 					. esc_html__( 'Upgrade to Pro', 'segurium' )
 					. '</a>';
 			}
 		}
 
-		return $html;
+		return array(
+			'html' => $html,
+			'card' => false,
+		);
+	}
+
+	/**
+	 * Card body for the at-limit state. Every string here already
+	 * ships — the heading comes from the paywall modal, the threat line
+	 * from the scanner's own banner, the guarantee from the Plans tab.
+	 * What changes is hierarchy, not vocabulary.
+	 *
+	 * Kept byte-compatible with the branch of segurium-scan.js's
+	 * renderQuotaReadout() that rebuilds this node, so a tab switch does
+	 * not repaint the card into something else.
+	 *
+	 * @param int    $used        Cleanups consumed in the window.
+	 * @param int    $limit       Per-window cap.
+	 * @param string $usage_copy  Rendered at-limit counter line.
+	 * @param int    $threats     Malicious files still outstanding.
+	 * @param string $upgrade_url Destination for the primary button.
+	 * @return string
+	 */
+	private function quota_card_html( $used, $limit, $usage_copy, $threats, $upgrade_url ) {
+		$threat_copy = sprintf(
+			/* translators: %d: number of malicious files still needing attention */
+			__( '%d threats still need your attention', 'segurium' ),
+			$threats
+		);
+
+		$offsite = class_exists( 'Segurium_Entitlements' ) && Segurium_Entitlements::is_offsite_url( $upgrade_url );
+
+		return '<div class="segurium-quota-card__body">'
+			. '<h3 class="segurium-quota-card__title">' . esc_html__( 'Cleanup quota reached', 'segurium' ) . '</h3>'
+			. '<p class="segurium-quota-card__threats">' . esc_html( $threat_copy ) . '</p>'
+			. '<p class="segurium-quota-card__usage">' . esc_html( $usage_copy ) . '</p>'
+			. self::quota_card_meter_html( $used, $limit )
+			. '</div>'
+			. '<div class="segurium-quota-card__actions">'
+			. '<p class="segurium-quota-card__buttons">'
+				. '<a class="button button-primary button-hero segurium-quota-readout-cta" href="' . esc_url( $upgrade_url ) . '"'
+					. ( $offsite ? ' target="_blank" rel="noopener noreferrer"' : '' ) . '>'
+					. esc_html__( 'Upgrade to Pro', 'segurium' )
+				. '</a>'
+				. '<a class="segurium-quota-card__secondary" href="' . esc_url( self::admin_tab_url( 'plans' ) ) . '">'
+					. esc_html__( 'Plans', 'segurium' )
+				. '</a>'
+			. '</p>'
+			. '<p class="segurium-quota-card__guarantee">' . esc_html__( '14-day money-back guarantee.', 'segurium' ) . '</p>'
+			. '</div>';
+	}
+
+	/**
+	 * One block per cleanup slot in the window, spent ones filled. The
+	 * counter line above it already states the same two numbers, so the
+	 * blocks carry no text of their own.
+	 *
+	 * Skipped entirely past MAX_QUOTA_METER_SLOTS — a row of forty
+	 * blocks reads as a texture rather than a count.
+	 *
+	 * @param int $used  Cleanups consumed in the window.
+	 * @param int $limit Per-window cap.
+	 * @return string
+	 */
+	private static function quota_card_meter_html( $used, $limit ) {
+		if ( $limit < 1 || $limit > self::MAX_QUOTA_METER_SLOTS ) {
+			return '';
+		}
+		$slots = '';
+		for ( $i = 0; $i < $limit; $i++ ) {
+			$slots .= '<span class="segurium-quota-card__slot' . ( $i < $used ? ' is-spent' : '' ) . '"></span>';
+		}
+		return '<span class="segurium-quota-card__meter">' . $slots . '</span>';
 	}
 
 	/**
@@ -1797,7 +1968,10 @@ class Segurium {
 		$is_pro               = ( class_exists( 'Segurium_Entitlements' )
 			&& Segurium_Entitlements::instance()->can( 'unlimited_cleanup' ) );
 		$tier_class           = $is_pro ? 'segurium--pro' : 'segurium--free';
-		$quota_readout_html   = $this->quota_readout_inner_html();
+		$quota_readout_parts  = $this->quota_readout_parts();
+		$quota_readout_html   = $quota_readout_parts['html'];
+		$quota_readout_class  = 'segurium-quota-readout' . ( $quota_readout_parts['card'] ? ' segurium-quota-readout--card' : '' );
+		$quota_readout_plan   = $this->quota_readout_inner_html( false );
 		$active_tab           = self::current_tab();
 		$segurium_nav_class   = function ( $feature ) use ( $active_tab ) {
 			return 'segurium-nav-item' . ( $feature === $active_tab ? ' segurium-nav-item--active' : '' );
@@ -1892,7 +2066,7 @@ class Segurium {
 					?>
 					<div class="segurium-feature" id="segurium-feature-scanner" style="display:<?php echo esc_attr( $segurium_panel_style( 'scanner' ) ); ?>;">
 						<?php // Free-only quota readout. Pre-rendered from the last cached CTI envelope (Segurium_Quota::cached_envelope) so it shows at first paint; segurium-scan.js refreshes on tab activation. Hidden when no cache, when Pro, or when the cache is fail-open. ?>
-						<div id="segurium-quota-readout" class="segurium-quota-readout"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
+						<div id="segurium-quota-readout" class="<?php echo esc_attr( $quota_readout_class ); ?>"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
 						<?php // Host-environment warnings. Populated by JS from seguriumScan.envWarnings on page load — kept hidden when the array is empty. ?>
 						<div id="segurium-env-warnings" class="segurium-env-warnings" hidden></div>
 						<div class="segurium-ss-scan-area">
@@ -1981,7 +2155,7 @@ class Segurium {
 					</div>
 					<div class="segurium-feature" id="segurium-feature-integrity-scanner" style="display:<?php echo esc_attr( $segurium_panel_style( 'integrity-scanner' ) ); ?>;">
 						<?php // Same Free-tier quota readout as the malware scanner panel — pre-rendered from cache so it shows at first paint. ?>
-						<div class="segurium-quota-readout"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
+						<div class="<?php echo esc_attr( $quota_readout_class ); ?>"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
 						<?php // Same env-warnings banner as the malware scanner panel; populated by JS from seguriumScan.envWarnings. ?>
 						<div class="segurium-env-warnings" hidden></div>
 						<div class="segurium-is-scan-area">
@@ -3001,6 +3175,8 @@ class Segurium {
 												<li><?php echo esc_html( $bullet ); ?></li>
 											<?php endforeach; ?>
 										</ul>
+										<?php // Same Free-tier readout as the scanner panels, pinned to the card foot so it sits level with the Pro card's CTA. The bullet above states the policy; this states the install's position in it. data-cta="off" keeps the readout's own upgrade link out of a card that already sits beside the primary one; segurium-scan.js honours it on refresh. ?>
+										<div class="segurium-quota-readout segurium-plan__quota" data-cta="off"<?php echo '' === $quota_readout_plan ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_plan ); ?></div>
 									</article>
 
 									<article class="segurium-plan segurium-plan--pro segurium-plan--featured<?php echo 'pro' === $tier_attr ? ' segurium-plan--current' : ''; ?>">
@@ -3029,7 +3205,8 @@ class Segurium {
 											<?php endforeach; ?>
 										</ul>
 										<?php if ( 'free' === $tier_attr && '' !== $upgrade_url ) : ?>
-											<a class="button button-primary button-hero segurium-plan__cta" href="<?php echo esc_url( $upgrade_url ); ?>">
+											<?php // The fallback destination lives on segurium.com. Leaving wp-admin in the same tab discards whatever the operator had open, and the note below this grid already opens the same page in a new one. ?>
+											<a class="button button-primary button-hero segurium-plan__cta" href="<?php echo esc_url( $upgrade_url ); ?>"<?php echo class_exists( 'Segurium_Entitlements' ) && Segurium_Entitlements::is_offsite_url( $upgrade_url ) ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
 												<?php esc_html_e( 'Upgrade to Pro', 'segurium' ); ?>
 											</a>
 											<p class="segurium-plan__guarantee">
@@ -3077,13 +3254,6 @@ class Segurium {
 							</label>
 							<p class="description"><?php esc_html_e( 'When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself.', 'segurium' ); ?></p>
 						</div>
-						<div class="segurium-setting-row segurium-danger-zone">
-							<label>
-								<input type="checkbox" id="segurium_uninstall_wipe_data" <?php checked( Segurium_Storage::setting_get_bool( 'segurium_uninstall_wipe_data', false ) ); ?>>
-								<strong><?php esc_html_e( 'Wipe encrypted backups when the plugin is uninstalled', 'segurium' ); ?></strong>
-							</label>
-							<p class="description"><?php esc_html_e( 'Off (default): encrypted backups of deleted components and cured files are kept in the uploads/segurium-data directory after uninstall, so a reinstall can still restore them. Turn on only if you want a hard deletion on uninstall.', 'segurium' ); ?></p>
-						</div>
 						<?php // Opt-in for the server-side daily security digest. ?>
 						<div class="segurium-setting-row">
 							<label>
@@ -3100,6 +3270,13 @@ class Segurium {
 								value="<?php echo esc_attr( (string) Segurium_Storage::setting_get_string( Segurium_Alerts_Settings::OPTION_EMAIL ) ); ?>"
 							/>
 							<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
+						</div>
+						<div class="segurium-setting-row segurium-danger-zone">
+							<label>
+								<input type="checkbox" id="segurium_uninstall_wipe_data" <?php checked( Segurium_Storage::setting_get_bool( 'segurium_uninstall_wipe_data', false ) ); ?>>
+								<strong><?php esc_html_e( 'Wipe encrypted backups when the plugin is uninstalled', 'segurium' ); ?></strong>
+							</label>
+							<p class="description"><?php esc_html_e( 'Off (default): encrypted backups of deleted components and cured files are kept in the uploads/segurium-data directory after uninstall, so a reinstall can still restore them. Turn on only if you want a hard deletion on uninstall.', 'segurium' ); ?></p>
 						</div>
 						<?php
 						// Unattended auto-fix toggle.
@@ -3305,6 +3482,23 @@ class Segurium {
 	}
 
 	/**
+	 * Store the alerts opt-in fields when the request carries them.
+	 * Absent fields (older cached JS) leave the stored options untouched.
+	 * The caller verifies the nonce.
+	 *
+	 * @return void
+	 */
+	private static function save_alerts_from_request() {
+		if ( ! self::request_has( INPUT_POST, 'alerts_email_address' ) && ! self::request_has( INPUT_POST, 'alerts_email_enabled' ) ) {
+			return;
+		}
+		Segurium_Alerts_Settings::set(
+			self::request_bool( INPUT_POST, 'alerts_email_enabled' ),
+			self::request_scalar( INPUT_POST, 'alerts_email_address' )
+		);
+	}
+
+	/**
 	 * AJAX handler for accepting CTI consent.
 	 *
 	 * @return void
@@ -3317,6 +3511,10 @@ class Segurium {
 
 		Segurium_Storage::setting_set( 'segurium_cti_consent', 1 );
 		Segurium_Storage::setting_set( 'segurium_cloud_detection_enabled', 1 );
+
+		// Written before any CTI call so the register body carries the
+		// contact the user just chose.
+		self::save_alerts_from_request();
 
 		// Defer IID registration off the AJAX path —
 		// {@see Segurium_IID::register()} makes a 15s blocking POST.
@@ -3410,14 +3608,7 @@ class Segurium {
 		$wipe_on_uninstall = self::request_bool( INPUT_POST, 'uninstall_wipe_data' );
 		Segurium_Storage::setting_set( 'segurium_uninstall_wipe_data', $wipe_on_uninstall ? 1 : 0 );
 
-		// Alerts opt-in. When the inputs are absent (older
-		// JS) leave the existing options untouched — Segurium_Alerts_Settings
-		// only fires the CTI push on actual change events.
-		if ( self::request_has( INPUT_POST, 'alerts_email_address' ) || self::request_has( INPUT_POST, 'alerts_email_enabled' ) ) {
-			$alerts_enabled = self::request_bool( INPUT_POST, 'alerts_email_enabled' );
-			$alerts_email   = sanitize_email( self::request_scalar( INPUT_POST, 'alerts_email_address' ) );
-			Segurium_Alerts_Settings::set( $alerts_enabled, $alerts_email );
-		}
+		self::save_alerts_from_request();
 
 		// Unattended auto-fix opt-in. Available
 		// on every install; CTI applies plan-tier limits per cleanup.

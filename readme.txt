@@ -4,7 +4,7 @@ Tags: malware-removal, hacked-website, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.3
+Stable tag: 1.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -166,7 +166,7 @@ Cloud Threat Inspection, our own service at `cti.segurium.com`, provides malware
 
 **Retention:** we keep file samples uploaded for analysis for up to 365 days, then an automated nightly purge removes them. The full schedule is in the privacy policy linked below.
 
-A random installation identifier (IID), issued at registration time, identifies each request. We do not store or send any WordPress user data, content, or visitor information. The privacy policy linked below names the data controller and how to reach them.
+A random installation identifier (IID), issued at registration time, identifies each request. We do not send your posts, pages, or anything about your visitors, and we never send a passwords. The privacy policy linked below names the data controller and how to reach them.
 
 * Terms of Service: [https://segurium.com/terms](https://segurium.com/terms)
 * Privacy Policy: [https://segurium.com/privacy](https://segurium.com/privacy)
@@ -219,6 +219,13 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 13. Plans — $0 forever, 3 cleanups every 30 days; $79 a year per site lifts the cap.
 
 == Changelog ==
+
+= 1.3.0 - 2026-08-31 =
+* Improved consent screen.
+* Plugin deactivation poll.
+* Track account actions.
+* Auto-cleanup in real-time scans.
+* Minor UI improvements.
 
 = 1.2.3 - 2026-08-27 =
 * Reliable malware cleanup procedure.

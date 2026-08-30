@@ -42,8 +42,22 @@ final class Segurium_Paywall_Telemetry {
 	 * screen id. WordPress builds a submenu screen id from the sanitised
 	 * parent menu *title*, which is translated, so only this suffix is
 	 * stable across locales.
+	 *
+	 * Must stay in step with `Segurium_Entitlements::PRICING_PAGE_SLUG`,
+	 * which is the same slug seen from the URL side. A test pins the
+	 * pair: if they drift, the URL predicate keeps matching while the
+	 * screen match dies, and `cta_embedded` silently stops meaning what
+	 * it claims.
 	 */
 	const PRICING_SCREEN_SUFFIX = '_page_segurium-pricing';
+
+	/**
+	 * Suffix WordPress appends to a screen id inside network admin.
+	 * A network-activated install renders the pricing page there, and
+	 * without this the impression was never recorded for that whole
+	 * deployment class.
+	 */
+	const NETWORK_SCREEN_SUFFIX = '-network';
 
 	const ACTION_CLEANUP     = 'cleanup';
 	const ACTION_MALWARE_FIX = 'malware_fix';
@@ -122,8 +136,13 @@ final class Segurium_Paywall_Telemetry {
 	 */
 	public static function is_pricing_screen( $screen_id ) {
 		$screen_id = (string) $screen_id;
-		$suffix    = self::PRICING_SCREEN_SUFFIX;
-		$offset    = strlen( $screen_id ) - strlen( $suffix );
+		$network   = self::NETWORK_SCREEN_SUFFIX;
+		$strip     = strlen( $screen_id ) - strlen( $network );
+		if ( $strip > 0 && strpos( $screen_id, $network, $strip ) === $strip ) {
+			$screen_id = substr( $screen_id, 0, $strip );
+		}
+		$suffix = self::PRICING_SCREEN_SUFFIX;
+		$offset = strlen( $screen_id ) - strlen( $suffix );
 
 		return $offset > 0 && strpos( $screen_id, $suffix, $offset ) === $offset;
 	}
@@ -175,6 +194,11 @@ final class Segurium_Paywall_Telemetry {
 			return new WP_Error( self::ERR_NO_IID );
 		}
 
+		// One resolution for both flags. Two calls would pay for the SDK
+		// round trip twice and could, in principle, describe two
+		// different destinations in one payload.
+		$upgrade_url = self::upgrade_url();
+
 		$sent = Segurium_Storage::cti_send_message(
 			self::CTI_MESSAGE_TYPE,
 			array_merge(
@@ -182,7 +206,8 @@ final class Segurium_Paywall_Telemetry {
 					'event'         => $event,
 					'surface'       => $surface,
 					'action_type'   => $action_type,
-					'cta_available' => self::cta_available(),
+					'cta_available' => '' === $upgrade_url ? 0 : 1,
+					'cta_embedded'  => self::cta_embedded( $upgrade_url ),
 				),
 				self::quota_snapshot()
 			)
@@ -227,20 +252,59 @@ final class Segurium_Paywall_Telemetry {
 	}
 
 	/**
-	 * Whether an upgrade destination existed at the moment of the event.
+	 * Destination the CTA carried at the moment of the event, or '' when
+	 * the entitlements resolver is not loaded.
 	 *
-	 * The modal paints whether or not the billing SDK resolved a pricing
-	 * URL, and with none it offers a Close button instead of Upgrade. Those
-	 * impressions carry no offer, so leaving them unmarked would put them
-	 * in the click-through denominator and understate it.
+	 * Two payload fields are derived from it.
 	 *
-	 * @return int 1 when the CTA had a destination, 0 otherwise.
+	 * `cta_available` is an invariant tripwire, not a cohort:
+	 * `upgrade_url()` falls back to the public pricing page, so a live
+	 * install always reports 1. A 0 means the CTA painted with no
+	 * destination behind it — the regression the fallback exists to
+	 * prevent — and such an impression must not sit in the click-through
+	 * denominator and understate it.
+	 *
+	 * `cta_embedded` is the cohort. It is 1 only for this plugin's own
+	 * pricing page — either admin base, since a network-activated
+	 * install resolves the network copy and `is_pricing_screen()`
+	 * accepts its `-network` screen id — whose render fires the
+	 * `pricing` / `shown` impression. So it answers exactly one
+	 * question: will the funnel see anything after this click? A 0 ends
+	 * the funnel here, and the
+	 * rest of that journey is measured on the website — the fallback
+	 * carries `utm_campaign=upgrade-fallback` for that. A run of 0s
+	 * usually means the billing SDK is resolving nothing, though a
+	 * healthy SDK also hides its pricing page for a paying install on a
+	 * single plan, so read it as a prompt to look rather than an outage.
+	 *
+	 * With no resolver both fields read 0, and `cta_available = 0`
+	 * excludes the row from every funnel widget — never treat a 0
+	 * `cta_embedded` as a cohort without that filter.
+	 *
+	 * @return string
 	 */
-	private static function cta_available() {
+	private static function upgrade_url() {
 		if ( ! class_exists( 'Segurium_Entitlements' ) ) {
+			return '';
+		}
+		return (string) Segurium_Entitlements::instance()->upgrade_url();
+	}
+
+	/**
+	 * Cohort flag for one resolved destination.
+	 *
+	 * An empty destination is the only way the resolver can be missing,
+	 * so this branch is also what keeps the static call below behind its
+	 * guard.
+	 *
+	 * @param string $upgrade_url Destination from self::upgrade_url().
+	 * @return int
+	 */
+	private static function cta_embedded( $upgrade_url ) {
+		if ( '' === $upgrade_url ) {
 			return 0;
 		}
-		return '' === Segurium_Entitlements::instance()->upgrade_url() ? 0 : 1;
+		return Segurium_Entitlements::is_embedded_pricing_url( $upgrade_url ) ? 1 : 0;
 	}
 
 	/**

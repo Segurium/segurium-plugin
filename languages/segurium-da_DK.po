@@ -4577,3 +4577,47 @@ msgstr "Seneste skyforespørgsler"
 
 msgid "Outcome"
 msgstr "Resultat"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium Cloud kunne ikke rense denne fil lige nu. Prøv igen senere."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Der findes ingen ren version af denne fil. Fjern eller erstat den manuelt."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Hvorfor deaktiverer du Segurium?"
+
+msgid "Missing feature"
+msgstr "Manglende funktion"
+
+msgid "It is causing issues"
+msgstr "Det giver problemer"
+
+msgid "No longer needed"
+msgstr "Ikke længere nødvendigt"
+
+msgid "Found better alternative"
+msgstr "Fandt et bedre alternativ"
+
+msgid "Temporary deactivation"
+msgstr "Midlertidig deaktivering"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the "
+"one you enter below, together with your email alerts choice."
+msgstr ""
+"E-mailadressen til sikkerhedsadvarsler: WordPress-administratorens e-mail "
+"eller den, du angiver herunder, sammen med dit valg af e-mailadvarsler."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "Underret mig om malwarefund og sikkerhedstrusler på dette websted."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Højst én e-mail om dagen, sendt fra support@segurium.com. Du kan ændre "
+"dette senere under Indstillinger."
