@@ -185,6 +185,55 @@ class Segurium_Fs {
 	}
 
 	/**
+	 * Cut a file back to $size bytes and flush the change to storage.
+	 *
+	 * @param string $path Absolute path.
+	 * @param int    $size Target length in bytes.
+	 * @return bool True when the file now measures $size bytes.
+	 */
+	public static function truncate( string $path, int $size ): bool {
+		$handle = self::open( $path, 'cb' );
+		if ( false === $handle ) {
+			return false;
+		}
+		// Same LOCK_EX the append path takes, so a truncate can never land
+		// between another writer's seek and its write.
+		if ( ! self::flock( $handle, LOCK_EX ) ) {
+			self::close( $handle );
+			return false;
+		}
+		$ok = ftruncate( $handle, max( 0, $size ) );
+		if ( $ok ) {
+			fflush( $handle );
+			if ( function_exists( 'fsync' ) ) {
+				fsync( $handle );
+			}
+		}
+		self::flock( $handle, LOCK_UN );
+		self::close( $handle );
+		return (bool) $ok;
+	}
+
+	/**
+	 * Flush a path's buffered contents to storage.
+	 *
+	 * @param string $path Absolute path.
+	 * @return bool True when the bytes reached the device.
+	 */
+	public static function sync( string $path ): bool {
+		if ( ! function_exists( 'fsync' ) ) {
+			return false;
+		}
+		$handle = self::open( $path, 'cb' );
+		if ( false === $handle ) {
+			return false;
+		}
+		$ok = fsync( $handle );
+		self::close( $handle );
+		return (bool) $ok;
+	}
+
+	/**
 	 * Filesystem stat() metadata.
 	 *
 	 * @param string $path Absolute path.

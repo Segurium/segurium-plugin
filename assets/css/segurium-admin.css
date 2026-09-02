@@ -546,6 +546,19 @@ input.segurium-text::placeholder,
 	color: var(--segurium-accent, #2271b1);
 }
 
+/* File actions held while a scan runs. Dimmed rather than hidden so the
+ * operator can see what unlocks when the scan ends. */
+.segurium-action--locked {
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: default;
+}
+
+.segurium-dropdown-item.segurium-action--locked:hover {
+	background: transparent;
+	color: #1d2327;
+}
+
 /* ── Modal (show malware) ─────────────────────────────── */
 
 .segurium-modal {

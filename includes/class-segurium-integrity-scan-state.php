@@ -297,6 +297,19 @@ class Segurium_Integrity_Scan_State {
 			$cti_row          = $cti_by_key[ $key ] ?? array();
 			$component_status = $cti_row['component_status'] ?? 'listed';
 
+			// A version the cloud catalogue has not indexed yet carries no
+			// verdict at all: every file comes back "version_not_found".
+			// Recording that as a result row is wrong in both directions —
+			// the rows are not findings, and an empty row reconciles as
+			// verified-clean and resolves whatever the last real scan left
+			// open. `unverified` keeps the component out of the not-found
+			// sweep and leaves its persisted state alone until a scan
+			// actually checks it.
+			if ( 'version_not_indexed' === $component_status ) {
+				$this->state['unverified'][] = $key;
+				continue;
+			}
+
 			$ui_entry = array(
 				'type'             => $comp['type'],
 				'slug'             => $comp['slug'],

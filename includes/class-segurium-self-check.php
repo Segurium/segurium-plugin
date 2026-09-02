@@ -670,7 +670,7 @@ class Segurium_Self_Check {
 		);
 
 		// A follow-up will supply a fix target for the SSL row.
-		$ssl_on   = is_ssl();
+		$ssl_on   = 'https' === strtolower( (string) wp_parse_url( home_url( '/' ), PHP_URL_SCHEME ) );
 		$checks[] = $this->make_check(
 			array(
 				'id'       => 'ssl',

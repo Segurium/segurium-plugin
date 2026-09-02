@@ -1771,7 +1771,7 @@ msgstr "Pro"
 
 #: includes/class-segurium.php:942
 msgid "Diff"
-msgstr "Порівняння"
+msgstr "Diff"
 
 #: includes/class-segurium.php:943
 msgid "Delisted from official WordPress.org"
@@ -3557,7 +3557,7 @@ msgstr "Можливість"
 
 #: includes/class-segurium.php:2606 includes/class-segurium.php:2801
 msgid "Free"
-msgstr "Безкоштовний"
+msgstr "Free"
 
 #: includes/class-segurium.php:2608 includes/class-segurium.php:2614
 msgid "Current plan"
@@ -4734,13 +4734,13 @@ msgstr ""
 "WordPress.org? Це займе хвилину."
 
 msgid "Unknown review prompt action."
-msgstr "Невідома дія запиту відгуку."
+msgstr "Невідома дія запиту на відгук."
 
 msgid "Could not save your choice. Please try again."
 msgstr "Не вдалося зберегти ваш вибір. Будь ласка, спробуйте ще раз."
 
 msgid "Scan in progress..."
-msgstr "Сканування триває..."
+msgstr "Сканування…"
 
 msgid ""
 "The progress display hit a script error and stopped updating. Reload the "

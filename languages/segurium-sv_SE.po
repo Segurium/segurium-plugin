@@ -4543,7 +4543,7 @@ msgid "Why are you deactivating Segurium?"
 msgstr "Varför inaktiverar du Segurium?"
 
 msgid "Missing feature"
-msgstr "Saknad funktion"
+msgstr "Funktion saknas"
 
 msgid "It is causing issues"
 msgstr "Det orsakar problem"
@@ -4555,7 +4555,7 @@ msgid "Found better alternative"
 msgstr "Hittade ett bättre alternativ"
 
 msgid "Temporary deactivation"
-msgstr "Tillfällig avaktivering"
+msgstr "Tillfällig inaktivering"
 
 msgid ""
 "The email address for security alerts: the WordPress admin email, or the one"
@@ -4566,11 +4566,11 @@ msgstr ""
 
 msgid "Notify me on malware findings and security threats on this website."
 msgstr ""
-"Meddela mig om fynd av skadlig kod och säkerhetshot på denna webbplats."
+"Varna mig om skadlig kod och säkerhetshot som upptäcks på denna webbplats."
 
 msgid ""
 "One email per day at most, sent from support@segurium.com. You can change "
 "this later under Settings."
 msgstr ""
-"Högst ett e-postmeddelande per dag, skickat från support@segurium.com. Du "
-"kan ändra detta senare under Inställningar."
+"Högst en e-post per dag, skickad från support@segurium.com. Du kan ändra "
+"detta senare under Inställningar."

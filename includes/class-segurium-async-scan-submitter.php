@@ -27,6 +27,25 @@ class Segurium_Async_Scan_Submitter {
 	const MAX_SINGLE_FILE_SIZE = 104857600;
 
 	/**
+	 * Bodies at or below this size go on the wire at their raw
+	 * length as far as the ceiling is concerned. Sampling a small file to
+	 * learn a ratio costs more than the ceiling headroom it could win back.
+	 */
+	const WIRE_ESTIMATE_MIN_BYTES = 1048576;
+
+	/**
+	 * Prefix gzipped to learn a body's compression ratio.
+	 */
+	const WIRE_SAMPLE_BYTES = 262144;
+
+	/**
+	 * Chunk fed to the deflate stream when a refused batch is
+	 * re-measured exactly. Bounds the memory the measurement needs to the
+	 * chunk plus its output, never a second copy of the body.
+	 */
+	const WIRE_CHUNK_BYTES = 1048576;
+
+	/**
 	 * Lowest batch byte ceiling the halving walks down to. A
 	 * link that cannot carry 100 KiB inside a tick is broken; a failure at
 	 * this ceiling terminates the scan instead of shrinking further.
@@ -107,19 +126,34 @@ class Segurium_Async_Scan_Submitter {
 	private $detector;
 
 	/**
-	 * In-flight files waiting to be POSTed. Each entry: `{sha256, path, body, size}`.
+	 * In-flight files waiting to be POSTed. Each entry:
+	 * `{sha256, path, body, size, wire}`, where `wire` is the estimated
+	 * on-the-wire length after transport compression.
 	 *
 	 * @var array
 	 */
 	private $buffer = array();
 
 	/**
-	 * Running total of buffered body bytes; mirrored from
-	 * sum( $buffer[*].size ) so we don't recompute on every add().
+	 * Running total of estimated wire bytes in the buffer;
+	 * mirrored from sum( $buffer[*].wire ) so we don't recompute on every
+	 * add(). The ceiling bounds what the link carries, so every comparison
+	 * against it uses wire bytes, never raw ones.
 	 *
 	 * @var int
 	 */
-	private $buffer_bytes = 0;
+	private $buffer_wire_bytes = 0;
+
+	/**
+	 * Running total of raw buffered body bytes. The wire total
+	 * above bounds what the link carries; this one bounds what
+	 * `scan_submit()` accepts — its multi-file cap is
+	 * {@see MAX_BATCH_BYTES} of raw payload — and with it the memory the
+	 * buffer holds.
+	 *
+	 * @var int
+	 */
+	private $buffer_raw_bytes = 0;
 
 	/**
 	 * Current batch byte ceiling. Starts at MAX_BATCH_BYTES,
@@ -434,21 +468,37 @@ class Segurium_Async_Scan_Submitter {
 		if ( $size > self::MAX_SINGLE_FILE_SIZE ) {
 			return new WP_Error( 'cti_file_too_large', 'async submit single-file cap is 100 MiB' );
 		}
-		$refused = $this->refuse_for_ceiling( $size, (string) $relative_path );
+		$wire = $this->estimate_wire_size( $body );
+
+		// The gate runs before the flush. Its verdict does not depend on
+		// the buffer, so flushing first could only cost a POST — and the
+		// hard-cap flush below bypasses the submit pause, which a file
+		// we are about to skip has no right to do.
+		$refused = $this->refuse_for_ceiling( $size, $wire, (string) $relative_path );
 		if ( null !== $refused ) {
 			return $refused;
 		}
 
-		// Would the new file push us past a wire limit? Flush what we
-		// have first, then queue this one. Net effect: the new file
-		// always lands in a fresh batch, never spills across two.
+		// Would the new file push us past a limit? Flush what we have
+		// first, then queue this one. Net effect: the new file always
+		// lands in a fresh batch, never spills across two, and a file
+		// too big for any batch is only ever judged against an empty
+		// buffer.
+		//
+		// Two byte limits, both binding: the learned ceiling bounds
+		// what the link carries, in wire bytes; MAX_BATCH_BYTES bounds
+		// what scan_submit() accepts from a multi-file batch, in raw
+		// bytes. A lone file may exceed the raw one — the client
+		// exempts a single file up to MAX_SINGLE_FILE_SIZE — which is
+		// why the raw check needs a non-empty buffer to bite.
 		//
 		// A hard-cap flush ignores the submit-pause transient because
 		// we cannot accept this file without shipping the buffer
 		// first. End-of-chunk flushes go through the soft path
 		// (flush() honours the IID-scoped pause).
 		if ( ! empty( $this->buffer )
-			&& ( $this->buffer_bytes + $size > $this->ceiling_bytes
+			&& ( $this->buffer_wire_bytes + $wire > $this->ceiling_bytes
+				|| $this->buffer_raw_bytes + $size > self::MAX_BATCH_BYTES
 				|| count( $this->buffer ) >= $this->batch_file_cap() )
 		) {
 			$flushed = $this->flush( true );
@@ -456,37 +506,130 @@ class Segurium_Async_Scan_Submitter {
 				return $flushed;
 			}
 			// The flush may have lowered the ceiling under this file.
-			$refused = $this->refuse_for_ceiling( $size, (string) $relative_path );
+			$refused = $this->refuse_for_ceiling( $size, $wire, (string) $relative_path );
 			if ( null !== $refused ) {
 				return $refused;
 			}
 		}
 
-		$this->buffer[]      = array(
+		$this->buffer[]           = array(
 			'sha256' => $sha256,
 			'path'   => (string) $relative_path,
 			'body'   => $body,
 			'size'   => $size,
+			'wire'   => $wire,
 		);
-		$this->buffer_bytes += $size;
+		$this->buffer_wire_bytes += $wire;
+		$this->buffer_raw_bytes  += $size;
 		return true;
 	}
 
 	/**
-	 * The ceiling gate a file passes before it may enter the
-	 * buffer. Once the link has refused a default-sized batch, a file
-	 * larger than the learned ceiling can never ship. At the default
-	 * ceiling a lone file above 10 MiB still goes out as a one-file batch.
+	 * How many bytes a body is expected to occupy on the wire.
+	 * `Segurium_CTI_Client::scan_submit()` gzips the whole multipart body
+	 * and keeps the result only when it is smaller, so the estimate is
+	 * capped at the raw length.
 	 *
-	 * @param int    $size Body size in bytes.
+	 * Bodies at or below {@see WIRE_ESTIMATE_MIN_BYTES} report their raw
+	 * length. Larger ones are sampled: the first
+	 * {@see WIRE_SAMPLE_BYTES} are gzipped and the resulting ratio is
+	 * applied to the whole file. A sample cannot know what the tail
+	 * compresses to, so the estimate is approximate by construction —
+	 * the halving still catches a batch the link refuses anyway.
+	 *
+	 * @param string $body Raw file bytes.
+	 * @return int Estimated wire length in bytes.
+	 */
+	private function estimate_wire_size( $body ) {
+		$size = strlen( $body );
+		if ( $size <= self::WIRE_ESTIMATE_MIN_BYTES || ! function_exists( 'gzencode' ) ) {
+			return $size;
+		}
+		if ( '0' === (string) Segurium_Storage::setting_get( Segurium_CTI_Client::OPTION_NEO_RAY_GZIP, '1' ) ) {
+			return $size;
+		}
+		$sample = substr( $body, 0, self::WIRE_SAMPLE_BYTES );
+		$packed = gzencode( $sample, 6 );
+		if ( ! is_string( $packed ) || '' === $packed ) {
+			return $size;
+		}
+		$ratio = strlen( $packed ) / max( 1, strlen( $sample ) );
+		return (int) min( $size, ceil( $size * $ratio ) );
+	}
+
+	/**
+	 * Replace a refused batch's sampled estimates with the
+	 * measured wire length. Every file the sample judged is re-measured,
+	 * whichever way it erred: a low guess would otherwise keep the file
+	 * in every resend down to the floor, and a high one — a body whose
+	 * first 256 KiB resist gzip and whose tail does not — would skip a
+	 * file the link can carry. Bodies at or below
+	 * {@see WIRE_ESTIMATE_MIN_BYTES} were never sampled and keep their
+	 * raw length.
+	 *
+	 * @param array $batch Files of the refused batch.
+	 * @return array The same files with exact `wire` values.
+	 */
+	private function refine_wire_sizes( array $batch ) {
+		foreach ( $batch as $i => $f ) {
+			if ( ! empty( $f['wire_exact'] ) || $f['size'] <= self::WIRE_ESTIMATE_MIN_BYTES ) {
+				continue;
+			}
+			$batch[ $i ]['wire']       = $this->exact_wire_size( $f['body'] );
+			$batch[ $i ]['wire_exact'] = true;
+		}
+		return $batch;
+	}
+
+	/**
+	 * Measured gzip length of a body, streamed so the whole
+	 * compressed copy is never held. Falls back to the raw length when
+	 * the stream is unavailable or fails, which can only make the gate
+	 * stricter.
+	 *
+	 * @param string $body Raw file bytes.
+	 * @return int Wire length in bytes.
+	 */
+	private function exact_wire_size( $body ) {
+		$len = strlen( $body );
+		if ( ! function_exists( 'deflate_init' ) ) {
+			return $len;
+		}
+		$ctx = deflate_init( ZLIB_ENCODING_GZIP, array( 'level' => 6 ) );
+		if ( false === $ctx ) {
+			return $len;
+		}
+		$total = 0;
+		for ( $off = 0; $off < $len; $off += self::WIRE_CHUNK_BYTES ) {
+			$out = deflate_add( $ctx, substr( $body, $off, self::WIRE_CHUNK_BYTES ), ZLIB_NO_FLUSH );
+			if ( false === $out ) {
+				return $len;
+			}
+			$total += strlen( $out );
+		}
+		$tail = deflate_add( $ctx, '', ZLIB_FINISH );
+		if ( false === $tail ) {
+			return $len;
+		}
+		return (int) min( $len, $total + strlen( $tail ) );
+	}
+
+	/**
+	 * The ceiling gate a file passes before it may enter the
+	 * buffer, judged on estimated wire bytes against an empty buffer. A
+	 * file the link cannot carry inside one POST is skipped here rather
+	 * than burning three attempts and the tick budget proving it.
+	 *
+	 * @param int    $size Raw body size in bytes.
+	 * @param int    $wire Estimated wire size in bytes.
 	 * @param string $path Site-relative path, for the log line.
 	 * @return WP_Error|null Error to hand back from add(), or null to accept.
 	 */
-	private function refuse_for_ceiling( $size, $path ) {
+	private function refuse_for_ceiling( $size, $wire, $path ) {
 		if ( $this->floor_reached ) {
 			return new WP_Error( 'cti_upload_ceiling_floor', 'async submit ceiling hit the floor; the scan is terminating' );
 		}
-		if ( $this->ceiling_bytes >= self::MAX_BATCH_BYTES || $size <= $this->ceiling_bytes ) {
+		if ( $wire <= $this->ceiling_bytes ) {
 			return null;
 		}
 		Segurium_Scan_Runner::debug(
@@ -495,15 +638,17 @@ class Segurium_Async_Scan_Submitter {
 				'scan_id' => $this->scan_id,
 				'path'    => $path,
 				'size'    => $size,
+				'wire'    => $wire,
 				'ceiling' => $this->ceiling_bytes,
 			)
 		);
 		Segurium_Debug::log(
 			sprintf(
-				'[segurium-async-submit] scan %s: skipping %s (%d bytes) above the %d-byte ceiling',
+				'[segurium-async-submit] scan %s: skipping %s (%d bytes, ~%d on the wire) above the %d-byte ceiling',
 				$this->scan_id,
 				$path,
 				$size,
+				$wire,
 				$this->ceiling_bytes
 			)
 		);
@@ -512,6 +657,7 @@ class Segurium_Async_Scan_Submitter {
 			'file is larger than the current submit batch ceiling',
 			array(
 				'size'    => $size,
+				'wire'    => $wire,
 				'ceiling' => $this->ceiling_bytes,
 			)
 		);
@@ -548,9 +694,10 @@ class Segurium_Async_Scan_Submitter {
 			);
 		}
 
-		$batch              = $this->buffer;
-		$this->buffer       = array();
-		$this->buffer_bytes = 0;
+		$batch                   = $this->buffer;
+		$this->buffer            = array();
+		$this->buffer_wire_bytes = 0;
+		$this->buffer_raw_bytes  = 0;
 
 		// A batch the link refuses is split under the halved
 		// ceiling and sent again; files above the new ceiling drop out as
@@ -572,18 +719,29 @@ class Segurium_Async_Scan_Submitter {
 					// from sub-batches that did ship travel in the error
 					// data so they are not lost.
 					array_unshift( $queue, $current );
-					$this->buffer       = array_merge( ...$queue );
-					$this->buffer_bytes = array_sum( array_column( $this->buffer, 'size' ) );
-					$data               = $result->get_error_data();
-					$data               = is_array( $data ) ? $data : array();
-					$data['rejected']   = $rejected;
+					$this->buffer            = array_merge( ...$queue );
+					$this->buffer_wire_bytes = array_sum( array_column( $this->buffer, 'wire' ) );
+					$this->buffer_raw_bytes  = array_sum( array_column( $this->buffer, 'size' ) );
+					$data                    = $result->get_error_data();
+					$data                    = is_array( $data ) ? $data : array();
+					$data['rejected']        = $rejected;
 					return new WP_Error( $result->get_error_code(), $result->get_error_message(), $data );
 				}
-				$current_bytes = array_sum( array_column( $current, 'size' ) );
+				$current       = $this->refine_wire_sizes( $current );
+				$current_bytes = array_sum( array_column( $current, 'wire' ) );
 				if ( $current_bytes > $this->ceiling_bytes ) {
-					// A lone file above the ceiling says
-					// nothing about the link's capacity for a regular
-					// batch. The re-cut below drops it as a skip.
+					// A batch above the ceiling says nothing
+					// about the link's capacity for a regular batch. The
+					// gate in add() keeps one out of the buffer, so this
+					// only fires when a sampled estimate came in low. The
+					// re-cut below drops the file as a skip.
+					//
+					// The link did refuse a batch, so the clean-submit
+					// run breaks even though the ceiling stays: a
+					// lowered ceiling must not double back on a streak
+					// that contained a real failure.
+					$this->clean_submits = 0;
+					$this->save_ceiling();
 					Segurium_Scan_Runner::debug(
 						'async_submit_oversize_batch_refused',
 						array(
@@ -667,8 +825,9 @@ class Segurium_Async_Scan_Submitter {
 		$out   = array();
 		$cur   = array();
 		$bytes = 0;
+		$raw   = 0;
 		foreach ( $batch as $f ) {
-			if ( $f['size'] > $this->ceiling_bytes ) {
+			if ( $f['wire'] > $this->ceiling_bytes ) {
 				++$this->skipped_tally;
 				Segurium_Scan_Runner::debug(
 					'async_submit_ceiling_skip',
@@ -676,18 +835,25 @@ class Segurium_Async_Scan_Submitter {
 						'scan_id' => $this->scan_id,
 						'path'    => $f['path'],
 						'size'    => $f['size'],
+						'wire'    => $f['wire'],
 						'ceiling' => $this->ceiling_bytes,
 					)
 				);
 				continue;
 			}
-			if ( ! empty( $cur ) && ( $bytes + $f['size'] > $this->ceiling_bytes || count( $cur ) >= $this->batch_file_cap() ) ) {
+			if ( ! empty( $cur )
+				&& ( $bytes + $f['wire'] > $this->ceiling_bytes
+					|| $raw + $f['size'] > self::MAX_BATCH_BYTES
+					|| count( $cur ) >= $this->batch_file_cap() )
+			) {
 				$out[] = $cur;
 				$cur   = array();
 				$bytes = 0;
+				$raw   = 0;
 			}
 			$cur[]  = $f;
-			$bytes += $f['size'];
+			$bytes += $f['wire'];
+			$raw   += $f['size'];
 		}
 		if ( ! empty( $cur ) ) {
 			$out[] = $cur;
@@ -1062,11 +1228,22 @@ class Segurium_Async_Scan_Submitter {
 	}
 
 	/**
-	 * Bytes currently buffered.
+	 * Raw body bytes currently buffered. This is what
+	 * `scan_submit()` caps for a multi-file batch.
 	 *
 	 * @return int
 	 */
 	public function buffer_bytes() {
-		return $this->buffer_bytes;
+		return $this->buffer_raw_bytes;
+	}
+
+	/**
+	 * Estimated wire bytes currently buffered. This is what the
+	 * ceiling bounds.
+	 *
+	 * @return int
+	 */
+	public function buffer_wire_bytes() {
+		return $this->buffer_wire_bytes;
 	}
 }

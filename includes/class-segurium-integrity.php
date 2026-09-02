@@ -62,6 +62,30 @@ class Segurium_Integrity {
 	);
 
 	/**
+	 * Exact root-level names left over from localized WordPress core
+	 * packages, which shipped a translated readme/license pair next to
+	 * the English one until 5.0. Core updates never remove unknown root
+	 * files, so pre-5.0 installs in these locales still carry them.
+	 * Matched against the full relative path, so the same names nested
+	 * inside a component stay visible.
+	 *
+	 * @var array
+	 */
+	private static $builtin_root_excludes = array(
+		'liesmich.html',
+		'licenc.txt',
+		'olvasdel.html',
+		'licenca.txt',
+		'procitajme.html',
+		'licencia.txt',
+		'licenza.html',
+		'lisenssi.html',
+		'licens.html',
+		'licens-sv_SE.txt',
+		'trwydded.txt',
+	);
+
+	/**
 	 * File extensions excluded from integrity checks by default.
 	 *
 	 * @var array
@@ -104,6 +128,18 @@ class Segurium_Integrity {
 		'/^installer\.php$/i',
 		'/^dup-installer\//i',
 		'/^[^\/]+\.conf$/i',
+		// Backups of .htaccess, written by hosts and by other plugins.
+		// The original is already excluded by name; the suffix spellings
+		// vary per host, so match the family by prefix. The lookahead
+		// keeps executable suffixes visible — a backup is inert, and
+		// .htaccess.php is a dropper an include() can still reach.
+		'/(^|\/)\.htaccess(?![^\/]*\.(?:php\d?|phtml|phps|phar|shtml)$)[^\/]+$/i',
+		// All-in-One WP Migration writes these at runtime to stop
+		// directory listing over its backup store, so they are absent
+		// from the wp.org manifest. Pinned to the storage directory
+		// itself: the backup subdirectories below it are web-exposed and
+		// plugin-writable, so index.php stays visible there.
+		'/^wp-content\/plugins\/all-in-one-wp-migration\/storage\/index\.(?:php|html)$/i',
 	);
 
 	/**
@@ -130,6 +166,9 @@ class Segurium_Integrity {
 			return true;
 		}
 		if ( in_array( $basename, self::$builtin_excludes, true ) ) {
+			return true;
+		}
+		if ( in_array( $relative_path, self::$builtin_root_excludes, true ) ) {
 			return true;
 		}
 

@@ -580,12 +580,26 @@ class Segurium_Remote_Actions {
 	 * @return bool
 	 */
 	private static function same_branch( string $installed, string $offered ): bool {
-		if ( '' === $installed || '' === $offered ) {
-			return false;
+		$a = self::branch_of( $installed );
+		$b = self::branch_of( $offered );
+		return array() !== $a && $a === $b;
+	}
+
+	/**
+	 * Major and minor of a version, with any pre-release or build suffix
+	 * dropped: a site running 6.9-alpha-60123 or 6.9-RC1 is on branch 6.9
+	 * and the 6.9 offer it is served is not a major bump.
+	 *
+	 * @param string $version Version string.
+	 * @return array Empty when no leading numeric component is present.
+	 */
+	private static function branch_of( string $version ): array {
+		$numeric = (string) preg_replace( '/[^0-9.].*$/', '', trim( $version ) );
+		if ( '' === $numeric || '.' === $numeric[0] ) {
+			return array();
 		}
-		$a = explode( '.', $installed );
-		$b = explode( '.', $offered );
-		return ( $a[0] ?? '' ) === ( $b[0] ?? '' ) && ( $a[1] ?? '0' ) === ( $b[1] ?? '0' );
+		$parts = explode( '.', $numeric );
+		return array( (int) $parts[0], (int) ( $parts[1] ?? 0 ) );
 	}
 
 	/**

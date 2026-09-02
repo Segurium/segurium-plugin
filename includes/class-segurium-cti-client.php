@@ -1669,13 +1669,23 @@ class Segurium_CTI_Client {
 	public function send_message( $message_type, $payload = '' ) {
 		global $wp_version;
 
+		// A third-party `home_url` filter can return a value with no host
+		// at all. CTI calls back into site_url for scan ticks, so send
+		// nothing rather than something unreachable.
+		$site_url = home_url();
+		$host     = wp_parse_url( $site_url, PHP_URL_HOST );
+		if ( ! is_string( $host ) || '' === $host ) {
+			$site_url = '';
+			$host     = '';
+		}
+
 		$response = $this->request(
 			self::MESSAGES_ENDPOINT,
 			array(
 				'body'     => array(
 					'message_type'   => $message_type,
-					'domain'         => wp_parse_url( home_url(), PHP_URL_HOST ),
-					'site_url'       => home_url(),
+					'domain'         => $host,
+					'site_url'       => $site_url,
 					'wp_version'     => $wp_version,
 					'plugin_version' => SEGURIUM_VERSION,
 					'php_version'    => PHP_VERSION,

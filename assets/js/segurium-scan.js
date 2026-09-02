@@ -1473,6 +1473,93 @@
         var ssStickyRows = Object.create(null);
         var ssLastCounts = { all: 0, malicious: 0, cleaned: 0, fixed: 0, ignored: 0 };
 
+        // Row controls that mutate server state. A cleanup writes file_state
+        // and the backup store while the verdict queue is writing findings for
+        // the same paths, and Fix all can rewrite component files the scan has
+        // not verdicted yet, so these stay inert for the whole run. The
+        // read-only viewers are deliberately absent: inspecting a finding
+        // mid-scan is safe, and it is the one useful thing to do while waiting.
+        function ssActionLockTargets() {
+            return '.segurium-ss-clean-btn,' +
+                '.segurium-ss-restore-btn,' +
+                '.segurium-ss-unignore-btn,' +
+                '.segurium-ss-ignore-hash,' +
+                '.segurium-ss-ignore-path';
+        }
+
+        function ssActionsLocked() {
+            return !!ssScanning;
+        }
+
+        function ssApplyActionLock() {
+            var locked = ssActionsLocked();
+            var nodes = tbody.querySelectorAll(ssActionLockTargets());
+            for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (locked) {
+                    node.classList.add('segurium-action--locked');
+                    node.setAttribute('aria-disabled', 'true');
+                    // Claim only what the lock itself turned off: a Clean still
+                    // in flight when the scan starts must stay disabled once
+                    // the lock lifts.
+                    if ('disabled' in node && !node.disabled) {
+                        node.disabled = true;
+                        node.setAttribute('data-seg-relock', '1');
+                    }
+                } else {
+                    node.classList.remove('segurium-action--locked');
+                    node.removeAttribute('aria-disabled');
+                    if (node.getAttribute('data-seg-relock')) {
+                        node.disabled = false;
+                        node.removeAttribute('data-seg-relock');
+                    }
+                }
+            }
+            if (locked) ssCloseFixAllConfirmation();
+            updateFixAllState(ssLastCounts);
+        }
+
+        function ssSetScanning(running) {
+            ssScanning = !!running;
+            ssApplyActionLock();
+        }
+
+        // The Fix all confirmation is a plain overlay on the shared confirm
+        // shell, so a scan can start under an open one — a chained integrity
+        // scan, or ssResumeIfRunning() on a tab switch. Retire ours when the
+        // lock engages: executeSSFixAll() would bail with nothing to show for
+        // the click, and the shell has four other callers, so the lock must not
+        // reach past its own dialog.
+        function ssCloseFixAllConfirmation() {
+            var confirmModal = el('segurium-confirm-modal');
+            if (!confirmModal || !confirmModal.getAttribute('data-seg-fixall')) return;
+            confirmModal.removeAttribute('data-seg-fixall');
+            confirmModal.style.display = 'none';
+        }
+
+        // A row menu closed only on its own toggle, a sibling toggle, a menu
+        // item, or a table re-render. The mid-scan refetch defers to an open
+        // menu, and that re-render was the only other way one closed, so
+        // clicking elsewhere on the page used to strand it open and stall the
+        // refresh for the rest of the run.
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.closest && e.target.closest('.segurium-dropdown')) return;
+            document.querySelectorAll('.segurium-dropdown-menu.segurium-dropdown-menu--open')
+                .forEach(function (m) { m.classList.remove('segurium-dropdown-menu--open'); });
+        });
+
+        // bindSSRowActions() binds each control directly, and an anchor takes no
+        // disabled attribute, so the guard has to win in the capture phase.
+        tbody.addEventListener('click', function (e) {
+            if (!ssActionsLocked()) return;
+            var hit = (e.target && e.target.closest)
+                ? e.target.closest(ssActionLockTargets())
+                : null;
+            if (!hit) return;
+            e.preventDefault();
+            e.stopPropagation();
+        }, true);
+
         function ssIsActed(path) {
             return !!ssStickyRows[path];
         }
@@ -1491,7 +1578,7 @@
             // pre-render always measures the recent window — taking an
             // all-time count would escalate a card PHP would never render.
             if (ssRecentOnly) setQuotaThreatsOpen(ssLastCounts.malicious);
-            updateFixAllState(ssLastCounts);
+            ssApplyActionLock();
         }
 
         function loadServerState() {
@@ -1528,7 +1615,7 @@
         function updateFixAllState(counts) {
             var btn = el('segurium-ss-fix-all-btn');
             if (!btn) return;
-            btn.disabled = !(counts && counts.malicious > 0);
+            btn.disabled = ssActionsLocked() || !(counts && counts.malicious > 0);
         }
 
         // Map UI states (what the row actually shows) → counts bucket.
@@ -1705,6 +1792,10 @@
             if (actionsCell) {
                 actionsCell.innerHTML = buildActionsHtml(item);
                 bindSSRowActions(tr);
+                // buildActionsHtml() knows nothing about the lock, so a
+                // mutation resolving mid-scan would render live-looking
+                // controls the capture guard then silently swallows.
+                ssApplyActionLock();
             }
             if (item.backup_id) tr.setAttribute('data-backup-id', item.backup_id);
             tr.setAttribute('data-state', newState);
@@ -2060,11 +2151,11 @@
             ssStopBtn.disabled = false;
         }
 
-        disableSSBtn = function () { if (ssBtn) { ssScanning = true; ssBtn.disabled = true; } };
-        enableSSBtn = function () { if (ssBtn) { ssScanning = false; ssBtn.disabled = false; } };
+        disableSSBtn = function () { if (ssBtn) { ssSetScanning(true); ssBtn.disabled = true; } };
+        enableSSBtn = function () { if (ssBtn) { ssSetScanning(false); ssBtn.disabled = false; } };
 
         function ssDone() {
-            ssScanning = false;
+            ssSetScanning(false);
             if (ssBtn) ssBtn.disabled = false;
             ssShowStop(false);
             // Tear down the live progress UI so a Stop click clears the
@@ -2152,6 +2243,12 @@
 
         var SS_POLL_FAST_MS = 3000;
         var SS_POLL_SLOW_MS = 5000;
+        // Findings are written to file_state as each verdict lands, so the
+        // table can follow a running scan. Refetch only when the threat count
+        // actually moves, and no faster than this.
+        var SS_FINDINGS_REFRESH_MIN_MS = 5000;
+        var ssLastThreatCount = 0;
+        var ssLastFindingsRefresh = 0;
         var ssPollTimer = null;
         var ssLastHeartbeat = 0;
         // While the tab is backgrounded the runner keeps
@@ -2211,6 +2308,20 @@
                 }
                 ssUpdateStatus(data);
 
+                // Advance the watermark only when the refetch actually fires,
+                // so a throttled poll retries instead of losing the refresh.
+                // An open row menu holds it off as well: renderServerState()
+                // empties the table body, and Show malware lives in that menu —
+                // the one action deliberately left live during a scan.
+                var threats = data.threats_found || 0;
+                var menuOpen = !!tbody.querySelector('.segurium-dropdown-menu--open');
+                if (threats > ssLastThreatCount && !menuOpen &&
+                    (Date.now() - ssLastFindingsRefresh) >= SS_FINDINGS_REFRESH_MIN_MS) {
+                    ssLastThreatCount = threats;
+                    ssLastFindingsRefresh = Date.now();
+                    loadServerState();
+                }
+
                 var hb = data.heartbeat || 0;
                 var advanced = hb > ssLastHeartbeat;
                 ssLastHeartbeat = hb;
@@ -2228,7 +2339,9 @@
         }
 
         function ssBeginObserving(data) {
-            ssScanning = true;
+            ssSetScanning(true);
+            ssLastThreatCount = 0;
+            ssLastFindingsRefresh = 0;
             if (ssBtn) ssBtn.disabled = true;
             ssShowStop(true);
             document.dispatchEvent(new CustomEvent('segurium:scan-starting'));
@@ -2269,7 +2382,7 @@
             ssBtn.addEventListener('click', function () {
                 if (ssScanning) return;
                 // Disable immediately — double-click must not race itself.
-                ssScanning = true;
+                ssSetScanning(true);
                 ssBtn.disabled = true;
                 document.dispatchEvent(new CustomEvent('segurium:scan-starting'));
                 ssTotalStart = Date.now();
@@ -2393,25 +2506,37 @@
         var ssFixAllBtn = el('segurium-ss-fix-all-btn');
         if (ssFixAllBtn) {
             ssFixAllBtn.addEventListener('click', function () {
+                if (ssActionsLocked()) {
+                    updateFixAllState(ssLastCounts);
+                    return;
+                }
                 ssFixAllBtn.disabled = true;
                 post({
                     action: 'segurium_scanner_fix_all_preview',
                     nonce: seguriumScan.nonce
                 }).then(function (resp) {
+                    // A scan can start while the preview is in flight. Drop the
+                    // preview rather than open a confirmation whose Clean all
+                    // would run the whole list against a running scan.
+                    if (ssActionsLocked()) {
+                        updateFixAllState(ssLastCounts);
+                        return;
+                    }
                     if (resp.success) {
-                        ssFixAllBtn.disabled = !(resp.data && resp.data.count > 0);
+                        ssFixAllBtn.disabled = ssActionsLocked()
+                            || !(resp.data && resp.data.count > 0);
                         showSSFixAllConfirmation(resp.data);
                         return;
                     }
                     if (isPaywallResponse(resp)) {
                         showPaywallModal(resp.data);
-                        ssFixAllBtn.disabled = !(ssLastCounts.malicious > 0);
+                        updateFixAllState(ssLastCounts);
                         return;
                     }
-                    ssFixAllBtn.disabled = !(ssLastCounts.malicious > 0);
+                    updateFixAllState(ssLastCounts);
                     seguriumNotice(describeAjaxError(resp.data), resp.data && resp.data.code);
                 }).catch(function () {
-                    ssFixAllBtn.disabled = !(ssLastCounts.malicious > 0);
+                    updateFixAllState(ssLastCounts);
                 });
             });
         }
@@ -2435,9 +2560,13 @@
             okBtn.disabled    = (count === 0);
             cancel.textContent = i18n.cancel || 'Cancel';
             cancel.style.display = '';
+            modal.setAttribute('data-seg-fixall', '1');
             modal.style.display = '';
 
-            function closeModal() { modal.style.display = 'none'; }
+            function closeModal() {
+                modal.removeAttribute('data-seg-fixall');
+                modal.style.display = 'none';
+            }
             cancel.onclick = closeModal;
             close.onclick  = closeModal;
             var overlay = modal.querySelector('.segurium-diff-overlay');
@@ -2451,6 +2580,12 @@
 
         function executeSSFixAll(files) {
             if (!files.length) return;
+            // Last gate before the write loop: the confirmation is a plain
+            // overlay, so a scan can have started under an open one.
+            if (ssActionsLocked()) {
+                updateFixAllState(ssLastCounts);
+                return;
+            }
             var total  = files.length;
             var done   = 0;
             var errors = [];
@@ -2466,7 +2601,7 @@
                 if (i >= total) {
                     if (ssBar) ssBar.style.width = '100%';
                     if (ssBtn) ssBtn.disabled = false;
-                    if (ssFixAllBtn) ssFixAllBtn.disabled = !(ssLastCounts.malicious > 0);
+                    updateFixAllState(ssLastCounts);
                     setTimeout(function () {
                         if (ssProgressWrap) ssProgressWrap.style.display = 'none';
                     }, 400);

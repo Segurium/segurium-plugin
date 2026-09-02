@@ -103,8 +103,22 @@ class Segurium_Scanner {
 		'dirs_stack'    => array(),
 		'pending_files' => array(),
 		'result_file'   => '',
-		'visited_real'  => array(),
+		'result_bytes'  => 0,
+		'skips_bytes'   => 0,
+		'visited_bytes' => 0,
 	);
+
+	/**
+	 * Realpaths of directories already enumerated, as a lookup map.
+	 *
+	 * Held in memory and backed by `$this->visited_file`, never by the
+	 * state record: one absolute path per directory turns the state into
+	 * a payload that grows with the site, and the state is rewritten on
+	 * every checkpoint.
+	 *
+	 * @var array<string,bool>
+	 */
+	private $visited = array();
 
 	/**
 	 * Timestamp when the current chunk started.
@@ -128,6 +142,13 @@ class Segurium_Scanner {
 	private $skips_file;
 
 	/**
+	 * Path to the per-scan visited-directory log (one realpath per line).
+	 *
+	 * @var string
+	 */
+	private $visited_file;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $base_path        Absolute path to WordPress root.
@@ -141,6 +162,7 @@ class Segurium_Scanner {
 		$this->time_limit       = $time_limit;
 		$this->state_file       = $this->data_dir . '/scanner-state.json';
 		$this->skips_file       = $this->data_dir . '/scanner-skips.jsonl';
+		$this->visited_file     = $this->data_dir . '/scanner-visited.jsonl';
 		$this->exclude_patterns = $this->compile_patterns( $exclude_patterns );
 	}
 
@@ -267,9 +289,9 @@ class Segurium_Scanner {
 	public function start() {
 		$this->ensure_data_dir();
 
-		$now         = time();
-		$result_file = $this->data_dir . '/scanner-results.jsonl';
-		$this->state = array(
+		$now           = time();
+		$result_file   = $this->data_dir . '/scanner-results.jsonl';
+		$this->state   = array(
 			'status'        => 'running',
 			'started_at'    => $now,
 			'updated_at'    => $now,
@@ -280,14 +302,18 @@ class Segurium_Scanner {
 			'dirs_stack'    => array( $this->base_path ),
 			'pending_files' => array(),
 			'result_file'   => $result_file,
-			'visited_real'  => array(),
+			'result_bytes'  => 0,
+			'skips_bytes'   => 0,
+			'visited_bytes' => 0,
 		);
+		$this->visited = array();
 
 		$this->detect_warnings();
 
 		touch( $result_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-		// Truncate any leftover skip log from the previous run.
+		// Truncate any leftover logs from the previous run.
 		Segurium_Fs::write( $this->skips_file, '' );
+		Segurium_Fs::write( $this->visited_file, '' );
 		$this->save_state();
 	}
 
@@ -302,8 +328,126 @@ class Segurium_Scanner {
 			return false;
 		}
 
+		// A state record written before the visited log existed carries
+		// its directory list inline and knows no byte offsets. Seed the
+		// in-memory set from it and adopt whatever the output files hold,
+		// so an upgrade landing mid-scan keeps both its cycle guard and
+		// the rows it already committed.
+		$legacy = array();
+		if ( isset( $data['visited_real'] ) && is_array( $data['visited_real'] ) ) {
+			$legacy = $data['visited_real'];
+			unset( $data['visited_real'] );
+		}
+		if ( ! isset( $data['result_file'] ) ) {
+			$data['result_file'] = '';
+		}
+		$offsets = array(
+			'result_bytes'  => (string) $data['result_file'],
+			'skips_bytes'   => $this->skips_file,
+			'visited_bytes' => $this->visited_file,
+		);
+		foreach ( $offsets as $key => $path ) {
+			if ( ! isset( $data[ $key ] ) ) {
+				$data[ $key ] = $this->byte_length( $path );
+			}
+		}
+
 		$this->state = $data;
+		if ( ! $this->rewind_outputs() ) {
+			return false;
+		}
+		// Through mark_visited(), not straight into the map: the inline
+		// list is dropped from the state here, so a set that only lived in
+		// memory would leave the walker with no cycle guard for the
+		// directories it had already seen from the next chunk on.
+		foreach ( $legacy as $real ) {
+			if ( ! isset( $this->visited[ (string) $real ] ) ) {
+				$this->mark_visited( (string) $real );
+			}
+		}
 		return true;
+	}
+
+	/**
+	 * Cut every append-only output back to the byte offset the last
+	 * checkpoint recorded, then reload the visited set from what
+	 * survives.
+	 *
+	 * A chunk appends result, skip and visited rows as it works and only
+	 * records their lengths when the state save succeeds. Anything past
+	 * those offsets belongs to a chunk that never committed: replaying it
+	 * would duplicate result rows, and a stale visited row would make the
+	 * walker skip a directory it still owes.
+	 *
+	 * Only ever shrinks. A log shorter than its recorded offset means the
+	 * bytes never reached the disk or something outside the scan removed
+	 * them; padding it back up to length would hand the verdict queue a
+	 * run of NULs to parse as results.
+	 *
+	 * @return bool False when a log could not be cut back, which leaves
+	 *               uncommitted rows in place and voids the rollback.
+	 */
+	private function rewind_outputs() {
+		$targets = array(
+			(string) $this->state['result_file'] => (int) $this->state['result_bytes'],
+			$this->skips_file                    => (int) $this->state['skips_bytes'],
+			$this->visited_file                  => (int) $this->state['visited_bytes'],
+		);
+		$ok      = true;
+		foreach ( $targets as $path => $bytes ) {
+			if ( '' === $path || $this->byte_length( $path ) <= $bytes ) {
+				continue;
+			}
+			if ( Segurium_Fs::truncate( $path, $bytes ) ) {
+				continue;
+			}
+			$ok = false;
+			if ( class_exists( 'Segurium_Scan_Runner' ) ) {
+				Segurium_Scan_Runner::debug(
+					'scanner_rewind_failed',
+					array(
+						'path'  => $path,
+						'bytes' => $bytes,
+						'size'  => $this->byte_length( $path ),
+					)
+				);
+			}
+		}
+		$this->load_visited();
+		return $ok;
+	}
+
+	/**
+	 * Read the visited-directory log into the in-memory lookup map.
+	 *
+	 * @return void
+	 */
+	private function load_visited() {
+		$this->visited = array();
+		$raw           = Segurium_Fs::read( $this->visited_file );
+		if ( false === $raw || '' === $raw ) {
+			return;
+		}
+		foreach ( explode( "\n", $raw ) as $line ) {
+			if ( '' === $line ) {
+				continue;
+			}
+			$row = json_decode( $line, true );
+			if ( is_array( $row ) && isset( $row['path'] ) ) {
+				$this->visited[ (string) $row['path'] ] = true;
+			}
+		}
+	}
+
+	/**
+	 * Current byte length of a path, zero when it does not exist.
+	 *
+	 * @param string $path Absolute path.
+	 * @return int
+	 */
+	private function byte_length( $path ) {
+		$size = Segurium_Fs::size( (string) $path );
+		return false === $size ? 0 : (int) $size;
 	}
 
 	/**
@@ -313,7 +457,9 @@ class Segurium_Scanner {
 	 */
 	public function process_chunk() {
 		$this->start_time = microtime( true );
+		$checkpoint       = $this->state;
 		$did_work         = false;
+		$completed        = false;
 
 		while ( true ) {
 			if ( $did_work && $this->is_time_up() ) {
@@ -328,7 +474,8 @@ class Segurium_Scanner {
 			}
 
 			if ( empty( $this->state['dirs_stack'] ) ) {
-				return $this->finish();
+				$completed = true;
+				break;
 			}
 
 			$dir = array_pop( $this->state['dirs_stack'] );
@@ -336,10 +483,73 @@ class Segurium_Scanner {
 			$did_work = true;
 		}
 
+		if ( $completed ) {
+			$this->state['status']        = 'completed';
+			$this->state['dirs_stack']    = array();
+			$this->state['pending_files'] = array();
+		}
 		$this->state['updated_at'] = time();
-		$this->save_state();
+		$this->commit( $checkpoint );
 
-		return $this->build_progress();
+		$progress = $this->build_progress();
+		if ( $completed ) {
+			$progress['completed']   = true;
+			$progress['result_file'] = $this->state['result_file'];
+		}
+		return $progress;
+	}
+
+	/**
+	 * Seal the work this chunk did: flush every append-only output,
+	 * record their lengths, and persist the state record once.
+	 *
+	 * This is the scan's only durability point. The rows a chunk appends
+	 * become committed the moment the state naming their offsets lands;
+	 * until then `rewind_outputs()` can discard them wholesale. That is
+	 * what lets the walker append thousands of result rows per chunk
+	 * while rewriting the state exactly once.
+	 *
+	 * @param array $checkpoint State as it stood when the chunk started.
+	 * @return void
+	 * @throws RuntimeException When the state save fails; the chunk's
+	 *                          appends are rolled back first so the
+	 *                          outputs match the restored counters.
+	 */
+	private function commit( array $checkpoint ) {
+		$result_file = (string) $this->state['result_file'];
+		if ( '' !== $result_file ) {
+			Segurium_Fs::sync( $result_file );
+		}
+		Segurium_Fs::sync( $this->skips_file );
+		Segurium_Fs::sync( $this->visited_file );
+
+		$this->state['result_bytes']  = $this->byte_length( $result_file );
+		$this->state['skips_bytes']   = $this->byte_length( $this->skips_file );
+		$this->state['visited_bytes'] = $this->byte_length( $this->visited_file );
+
+		if ( Segurium_State_File::atomic_write_json( $this->state_file, $this->state ) ) {
+			return;
+		}
+
+		// Never let a silently-failed state save leave the outputs ahead
+		// of the counters: rewind to the last committed offsets and
+		// surface the failure so the runner stops instead of walking on
+		// with state it could not persist.
+		$uncommitted = (int) $this->state['files_found'];
+		$this->state = $checkpoint;
+		$this->rewind_outputs();
+
+		if ( class_exists( 'Segurium_Scan_Runner' ) ) {
+			Segurium_Scan_Runner::debug(
+				'scanner_save_state_failed',
+				array(
+					'state_file'  => (string) $this->state_file,
+					'files_found' => $uncommitted,
+					'rolled_back' => (int) $this->state['files_found'],
+				)
+			);
+		}
+		throw new RuntimeException( 'Segurium_Scanner::save_state failed for ' . esc_html( (string) $this->state_file ) );
 	}
 
 	/**
@@ -363,11 +573,6 @@ class Segurium_Scanner {
 	public function save_state() {
 		$ok = Segurium_State_File::atomic_write_json( $this->state_file, $this->state );
 		if ( ! $ok ) {
-			// Never let a silently-failed state save let the
-			// walker continue with stale `visited_real` / `files_found`.
-			// Surfacing as RuntimeException lets record_file roll back the
-			// JSONL append it just made and keeps the on-disk pair (state
-			// file + result file) byte-equivalent across every record.
 			if ( class_exists( 'Segurium_Scan_Runner' ) ) {
 				Segurium_Scan_Runner::debug(
 					'scanner_save_state_failed',
@@ -394,10 +599,10 @@ class Segurium_Scanner {
 			return;
 		}
 
-		if ( in_array( $real, $this->state['visited_real'], true ) ) {
+		if ( isset( $this->visited[ $real ] ) ) {
 			return;
 		}
-		$this->state['visited_real'][] = $real;
+		$this->mark_visited( $real );
 
 		// Skip the plugin data directory.
 		$data_real = Segurium_Fs::realpath( $this->data_dir );
@@ -436,7 +641,7 @@ class Segurium_Scanner {
 				continue;
 			}
 			$subdir_real = Segurium_Fs::realpath( $subdir );
-			if ( false !== $subdir_real && in_array( $subdir_real, $this->state['visited_real'], true ) ) {
+			if ( false !== $subdir_real && isset( $this->visited[ $subdir_real ] ) ) {
 				continue;
 			}
 			$this->state['dirs_stack'][] = $subdir;
@@ -501,35 +706,22 @@ class Segurium_Scanner {
 			)
 		);
 
-		// Pair the JSONL append with the state save in one
-		// place, with rollback on state-save failure. Without this, a
-		// silent atomic_write_json failure leaves the result file with
-		// records the scanner state has no record of — the next tick
-		// reloads stale `visited_real`, re-walks the same dirs, and the
-		// JSONL grows duplicate copies of every path.
-		$this->durable_record_append( $record . "\n" );
+		$this->record_append( $record . "\n" );
 	}
 
 	/**
-	 * Append one JSONL record AND persist the matching state mutation as
-	 * a paired durable operation.
+	 * Append one JSONL result row and count it.
 	 *
-	 * If `save_state` cannot persist the new `files_found`, the JSONL is
-	 * truncated back to its pre-append size and the in-memory counter is
-	 * rolled back, so the result file and the state file stay
-	 * byte-equivalent at every record boundary. The exception is
-	 * re-thrown to the caller (`process_chunk`) so the runner can stop
-	 * cleanly instead of running on stale state.
+	 * The row is not durable yet: `commit()` flushes the file and records
+	 * its length at the end of the chunk, and `rewind_outputs()` discards
+	 * anything past that offset. A short write is rolled back here so the
+	 * file never carries a torn row.
 	 *
 	 * @param string $line One full JSONL line, including the trailing newline.
 	 * @return void
-	 * @throws RuntimeException When the JSONL fopen / flock / fwrite / ftell
-	 *                          fails before the state save would have run.
-	 * @throws Throwable        When `save_state` itself throws; the JSONL is
-	 *                          truncated back to its pre-append size and the
-	 *                          original exception is re-thrown unchanged.
+	 * @throws RuntimeException When the JSONL fopen / flock / fwrite / ftell fails.
 	 */
-	private function durable_record_append( $line ) {
+	private function record_append( $line ) {
 		$result_file = $this->state['result_file'];
 
 		$fh = Segurium_Fs::open( $result_file, 'cb' );
@@ -537,7 +729,6 @@ class Segurium_Scanner {
 			throw new RuntimeException( 'Segurium_Scanner: failed to open result file ' . esc_html( (string) $result_file ) );
 		}
 
-		$rolled_back = false;
 		try {
 			if ( ! Segurium_Fs::flock( $fh, LOCK_EX ) ) {
 				throw new RuntimeException( 'Segurium_Scanner: failed to lock result file ' . esc_html( (string) $result_file ) );
@@ -553,46 +744,39 @@ class Segurium_Scanner {
 				ftruncate( $fh, $pre_size );
 				throw new RuntimeException( 'Segurium_Scanner: short write on result file ' . esc_html( (string) $result_file ) );
 			}
-			fflush( $fh );
-			if ( function_exists( 'fsync' ) ) {
-				fsync( $fh );
-			}
 
 			++$this->state['files_found'];
-			try {
-				$this->save_state();
-			} catch ( Throwable $e ) {
-				ftruncate( $fh, $pre_size );
-				--$this->state['files_found'];
-				$rolled_back = true;
-				throw $e;
-			}
 		} finally {
-			if ( $rolled_back && function_exists( 'fsync' ) ) {
-				fsync( $fh );
-			}
 			Segurium_Fs::flock( $fh, LOCK_UN );
 			Segurium_Fs::close( $fh );
 		}
 	}
 
 	/**
-	 * Mark the scan as completed and return final progress.
+	 * Record a directory realpath as enumerated, in memory and in the
+	 * per-scan visited log.
 	 *
-	 * @return array Final progress data.
+	 * @param string $real Directory realpath.
+	 * @return void
 	 */
-	private function finish() {
-		$this->state['status']        = 'completed';
-		$this->state['updated_at']    = time();
-		$this->state['dirs_stack']    = array();
-		$this->state['pending_files'] = array();
-		$this->state['visited_real']  = array();
-		$this->save_state();
-
-		$progress                = $this->build_progress();
-		$progress['completed']   = true;
-		$progress['result_file'] = $this->state['result_file'];
-		return $progress;
+	private function mark_visited( $real ) {
+		$this->visited[ $real ] = true;
+		$line                   = wp_json_encode( array( 'path' => $real ) );
+		if ( false === $line ) {
+			return;
+		}
+		if ( false !== Segurium_Fs::write( $this->visited_file, $line . "\n", FILE_APPEND | LOCK_EX ) ) {
+			return;
+		}
+		// The in-memory set carries this chunk regardless. Surfacing the
+		// failed append is what tells you why a later chunk re-walked a
+		// subtree: the reload rebuilds the set from this log alone.
+		if ( class_exists( 'Segurium_Scan_Runner' ) ) {
+			Segurium_Scan_Runner::debug(
+				'scanner_visited_append_failed',
+				array( 'path' => $real )
+			);
+		}
 	}
 
 	/**
