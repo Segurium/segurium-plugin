@@ -4804,6 +4804,30 @@ msgstr ""
 "بريد إلكتروني واحد يوميًا كحدٍ أقصى، يُرسَل من support@segurium.com. يمكنك "
 "تغيير ذلك لاحقًا من الإعدادات."
 
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Outdated"
+msgstr "قديم"
+
+msgid "Vulnerable"
+msgstr "قابل للاختراق"
+
+msgid "No update available"
+msgstr "لا يوجد تحديث متاح"
+
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s ينتقل من %2$s إلى %3$s. هذا تغيير في الإصدار الرئيسي وقد يُعطّل موقعك."
+
+msgid "Malware is waiting for you to act"
+msgstr "البرمجيات الخبيثة تنتظر منك اتخاذ إجراء"
+
+msgid "A vulnerable component is installed"
+msgstr "تم تثبيت مكوّن قابل للاختراق"
+
+msgid "Security issues need your attention"
+msgstr "مشكلات أمنية تحتاج إلى انتباهك"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "إضافة Segurium لـ WordPress."
 

@@ -4650,3 +4650,28 @@ msgstr "Anunță-mă despre constatările malware și amenințările de securita
 
 msgid "One email per day at most, sent from support@segurium.com. You can change this later under Settings."
 msgstr "Cel mult un email pe zi, trimis de la support@segurium.com. Poți schimba această opțiune mai târziu în Setări."
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Outdated"
+msgstr "Învechit"
+
+msgid "Vulnerable"
+msgstr "Vulnerabil"
+
+msgid "No update available"
+msgstr "Nicio actualizare disponibilă"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s trece de la %2$s la %3$s. Aceasta este o schimbare de versiune majoră și poate afecta site-ul tău."
+
+msgid "Malware is waiting for you to act"
+msgstr "Programele malware așteaptă să iei măsuri"
+
+msgid "A vulnerable component is installed"
+msgstr "Este instalată o componentă vulnerabilă"
+
+msgid "Security issues need your attention"
+msgstr "Problemele de securitate necesită atenția ta"

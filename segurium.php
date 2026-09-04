@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
- * Version:     1.3.1
+ * Version:     1.3.2
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.3.1' );
+define( 'SEGURIUM_VERSION', '1.3.2' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -406,6 +406,9 @@ function segurium_tier_groups( $tier ) {
 		'includes/class-segurium-self-check.php',
 	);
 	$admin_shell_group     = array(
+		// Read-only on this tier: the sidebar icon needs the stored
+		// open-issue flags, and neither counter class is loaded here.
+		'includes/class-segurium-issue-indicator.php',
 		'includes/segurium-admin-menu-shell.php',
 	);
 	// Account registration is a front-end action on any store or
@@ -484,6 +487,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-trigger-auth.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-tick.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-spawn.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-component-updates.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-actions.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-actions-poke.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan-settings.php';
@@ -493,6 +497,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-realtime-scan.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-file-state.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-server-state.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-issue-indicator.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-ignore-lists.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cleanup.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix.php';
@@ -1247,10 +1252,23 @@ function segurium_activate() {
 	// week-old install from a five-minute-old one. Never overwrites.
 	Segurium_Review_Prompt::record_first_activation();
 
-	// No CTI traffic until the user accepts the External
-	// Service Disclosure. IID registration, geo DB / trusted-proxies
-	// fetch, and the plugin_activated message all run after consent
-	// (see Segurium::ajax_accept_consent and maybe_schedule_missing_data).
+	// No CTI traffic on this path. IID registration, geo DB /
+	// trusted-proxies fetch, and the first plugin_activated message all
+	// run after consent (see Segurium::ajax_accept_consent and
+	// maybe_schedule_missing_data).
+	//
+	// A re-activation still has to be reported — consent and an IID are
+	// already on record, and without this CTI only ever hears the
+	// deactivation. It goes through cron rather than an inline
+	// send_message: `blocking => false` does not make wp_remote_post
+	// asynchronous (Requests calls curl_exec either way and only
+	// discards the response), so an inline send would stall activation
+	// for the connect timeout on a site that cannot reach CTI.
+	if ( Segurium_Storage::setting_get_bool( 'segurium_cti_consent' )
+		&& null !== Segurium_IID::get_iid()
+		&& ! wp_next_scheduled( Segurium::ACTIVATED_PING_CRON_HOOK ) ) {
+		wp_schedule_single_event( time(), Segurium::ACTIVATED_PING_CRON_HOOK );
+	}
 }
 register_activation_hook( __FILE__, 'segurium_activate' );
 

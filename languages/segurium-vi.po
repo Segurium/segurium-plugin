@@ -4603,3 +4603,33 @@ msgid ""
 msgstr ""
 "Tối đa một email mỗi ngày, gửi từ support@segurium.com. Bạn có thể đổi mục "
 "này sau ở Cài đặt."
+
+msgid "Update"
+msgstr "Cập nhật"
+
+msgid "Outdated"
+msgstr "Đã lỗi thời"
+
+msgid "Vulnerable"
+msgstr "Có lỗ hổng"
+
+msgid "No update available"
+msgstr "Không có bản cập nhật"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#, php-format
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s chuyển từ %2$s lên %3$s. Đây là thay đổi phiên bản lớn và có thể làm "
+"hỏng trang web của bạn."
+
+msgid "Malware is waiting for you to act"
+msgstr "Mã độc đang chờ bạn xử lý"
+
+msgid "A vulnerable component is installed"
+msgstr "Một thành phần có lỗ hổng đang được cài đặt"
+
+msgid "Security issues need your attention"
+msgstr "Các vấn đề bảo mật cần bạn lưu ý"

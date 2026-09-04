@@ -30,6 +30,7 @@ class Segurium_Storage_Settings {
 		'segurium_cti_consent',
 		'segurium_iid_token',
 		'segurium_schema_versions',
+		'segurium_issue_flags',
 	);
 
 	/**
@@ -239,6 +240,9 @@ class Segurium_Storage_Settings {
 			'segurium_first_activation_at',
 			// Last cleanup-quota refusal, mutes the ask.
 			'segurium_review_paywall_at',
+
+			// Open-issue flags behind the admin attention markers.
+			'segurium_issue_flags',
 
 			// Danger zone: opt-in wipe of encrypted backups on uninstall.
 			'segurium_uninstall_wipe_data',

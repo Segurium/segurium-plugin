@@ -1578,6 +1578,7 @@
             // pre-render always measures the recent window — taking an
             // all-time count would escalate a card PHP would never render.
             if (ssRecentOnly) setQuotaThreatsOpen(ssLastCounts.malicious);
+            updateIssueMarkers(ssLastCounts);
             ssApplyActionLock();
         }
 
@@ -1641,6 +1642,24 @@
                     tabs[i].classList.remove('is-nonzero');
                 }
             }
+        }
+
+        // Attention markers: the "!" on the Malware Scanner tab and the
+        // bubble on the Segurium icon in the WP sidebar. Both were painted
+        // by PHP over the recent window, so only a recent-window count may
+        // move them.
+        function updateIssueMarkers(counts) {
+            if (!ssRecentOnly) return;
+            var n = (counts && typeof counts.malicious === 'number') ? counts.malicious : 0;
+            var mark = document.querySelector('.segurium-nav-item[data-feature="scanner"] .segurium-nav-alert');
+            if (mark) mark.hidden = (n === 0);
+            if (n > 0) return;
+            // The sidebar bubble answers for the Integrity tab too, so it
+            // clears only once no tab is marked.
+            if (document.querySelector('.segurium-nav-alert:not([hidden])')) return;
+            document.querySelectorAll('.segurium-menu-alert').forEach(function (bubble) {
+                bubble.remove();
+            });
         }
 
         function updateThreatBanner(counts) {
@@ -1771,6 +1790,7 @@
             updateThreatBanner(ssLastCounts);
             // Same recent-window rule as applyServerState().
             if (ssRecentOnly) setQuotaThreatsOpen(ssLastCounts.malicious);
+            updateIssueMarkers(ssLastCounts);
             updateFixAllState(ssLastCounts);
         }
 
@@ -2849,6 +2869,10 @@
                     var totalIssues = 1 + openCount;
                     var issueWord = totalIssues === 1 ? (i18n.issue || 'issue') : (i18n.issues || 'issues');
                     filesHtml = '<strong style="color:#d63638;">' + totalIssues + ' ' + escHtml(issueWord) + '</strong>';
+                } else if (badgedVulnerable(comp)) {
+                    // The flagged release is the issue; the verified file
+                    // count is not what the user acts on here.
+                    filesHtml = '<strong style="color:#d63638;">1 ' + escHtml(i18n.issue || 'issue') + '</strong>';
                 } else {
                     var issueWord = openCount === 1 ? (i18n.issue || 'issue') : (i18n.issues || 'issues');
                     if (openCount > 0) {
@@ -2922,9 +2946,41 @@
                 return '<span class="segurium-is-status segurium-is-status--issues">' + escHtml(i18n.intNotWpOrg || 'Not from WordPress.org') + '</span>';
             }
             var hasOpen = (comp.files || []).some(function (f) { return f.state === 'open'; });
-            return hasOpen
-                ? '<span class="segurium-is-status segurium-is-status--issues">' + escHtml(i18n.issuesFound || 'Issues') + '</span>'
-                : '<span class="segurium-is-status segurium-is-status--clean">' + escHtml(i18n.clean || 'Clean') + '</span>';
+            if (hasOpen) {
+                return '<span class="segurium-is-status segurium-is-status--issues">' + escHtml(i18n.issuesFound || 'Issues') + '</span>';
+            }
+            if (badgedVulnerable(comp)) {
+                return '<span class="segurium-is-status segurium-is-status--vulnerable">' + escHtml(i18n.intVulnerable || 'Vulnerable') + '</span>';
+            }
+            if (pendingUpdate(comp)) {
+                return '<span class="segurium-is-status segurium-is-status--outdated">' + escHtml(i18n.intOutdated || 'Outdated') + '</span>';
+            }
+            return '<span class="segurium-is-status segurium-is-status--clean">' + escHtml(i18n.clean || 'Clean') + '</span>';
+        }
+
+        // Whether the row's badge reads Vulnerable. A component status and
+        // open file findings both outrank it, so a flagged component can
+        // carry the flag and show another badge.
+        function badgedVulnerable(comp) {
+            if (!comp.vulnerable) return false;
+            if (comp.state === 'deleted' || comp.state === 'not_found' || comp.state === 'ignored') return false;
+            if (compCategory(comp) !== 'known') return false;
+            return !(comp.files || []).some(function (f) { return f.state === 'open'; });
+        }
+
+        // Pending update for a component, or null. A row without a package
+        // (an expired premium licence) shows the badge and no button.
+        function pendingUpdate(comp) {
+            var upd = comp.update;
+            if (!upd || !upd.new_version) return null;
+            return upd;
+        }
+
+        // The button needs a package to install and a user allowed to
+        // install it: multisite grants update_plugins to super admins only.
+        function updatableComponent(comp) {
+            var upd = pendingUpdate(comp);
+            return (upd && upd.package_available && upd.can_update) ? upd : null;
         }
 
         // Component-level action availability per the spreadsheet.
@@ -2950,6 +3006,10 @@
 
             var btns = '';
 
+            if (updatableComponent(comp)) {
+                btns += compBtn('segurium-is-update-comp', comp, i18n.intUpdate || 'Update') + ' ';
+            }
+
             if (cat === 'known') {
                 // Core/known: Fix (file-level), Ignore (file-level), Unignore (file-level), Restore.
                 if (hasOpen) {
@@ -2972,6 +3032,13 @@
                 }
             }
 
+            // Only on a row that reads Vulnerable, and only when no newer
+            // release exists. An offer the user cannot install is a
+            // permission or licence problem, not a missing release.
+            if (badgedVulnerable(comp) && !pendingUpdate(comp)) {
+                btns += '<span class="segurium-is-update-note">' + escHtml(i18n.intVulnerableNoUpdate || 'No update available') + '</span>';
+            }
+
             return btns;
         }
 
@@ -2982,6 +3049,59 @@
                 ' data-version="' + escAttr(comp.version || '') + '"' +
                 ' data-backup="' + escAttr(comp.backup_id || '') + '">' +
                 escHtml(label) + '</button>';
+        }
+
+        function runComponentUpdate(btn, comp) {
+            btn.disabled = true;
+            post({
+                action: 'segurium_integrity_update_component',
+                nonce: seguriumScan.nonce,
+                type: comp.type, slug: comp.slug
+            }).then(function (resp) {
+                // A stale button (the offer is gone) just needs a repaint,
+                // not a notice.
+                if (!resp.success && !(resp.data && resp.data.code === 'no_update_pending')) {
+                    seguriumNoticeFromError(resp.data, i18n.errUnexpectedError);
+                }
+                loadIntegrityState();
+            });
+        }
+
+        // A different leading version segment can break the site, so the
+        // click asks first. The warning names the jump; it never promises
+        // that an update without a warning is safe.
+        function confirmMajorUpdate(comp, upd, onConfirm) {
+            var modal   = el('segurium-confirm-modal');
+            var title   = el('segurium-confirm-title');
+            var content = el('segurium-confirm-content');
+            var okBtn   = el('segurium-confirm-ok');
+            var cancel  = el('segurium-confirm-cancel');
+            var close   = el('segurium-confirm-close');
+
+            title.textContent = i18n.intUpdate || 'Update';
+            content.innerHTML = '<p>' + escHtml(
+                (i18n.intUpdateMajor || '%1$s moves from %2$s to %3$s. This is a major version change and can break your site.')
+                    .replace('%1$s', comp.comp_name || comp.slug || '')
+                    .replace('%2$s', upd.current_version || comp.version || '')
+                    .replace('%3$s', upd.new_version || '')
+            ) + '</p>';
+            okBtn.textContent = i18n.intFixAllEvictContinue || 'Continue';
+            okBtn.disabled = false;
+            // seguriumNotice() hides Cancel and other callers relabel it, so
+            // restore both before the modal is shown.
+            cancel.textContent = i18n.cancel || 'Cancel';
+            cancel.style.display = '';
+            modal.style.display = '';
+            try { cancel.focus(); } catch (e) { /* ignore */ }
+
+            function closeModal() { modal.style.display = 'none'; }
+            cancel.onclick = closeModal;
+            close.onclick  = closeModal;
+            modal.querySelector('.segurium-diff-overlay').onclick = closeModal;
+            okBtn.onclick = function () {
+                closeModal();
+                onConfirm();
+            };
         }
 
         function bindISComponentActionHandlers(tr, comp) {
@@ -3008,6 +3128,17 @@
                     title: i18n.intFixAll || 'Fixing files...',
                     getLabel: function (item) { return item.file_path || ''; }
                 });
+            });
+
+            // Update: hand the pending WP offer to core's upgrader.
+            bindClick(tr, '.segurium-is-update-comp', function (btn) {
+                var upd = updatableComponent(comp);
+                if (!upd) return;
+                if (upd.major) {
+                    confirmMajorUpdate(comp, upd, function () { runComponentUpdate(btn, comp); });
+                    return;
+                }
+                runComponentUpdate(btn, comp);
             });
 
             // Delete (abandoned/unknown/delisted): backup & delete entire component.

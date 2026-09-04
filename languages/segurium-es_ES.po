@@ -4976,6 +4976,35 @@ msgstr ""
 "Como máximo un correo electrónico al día, enviado desde "
 "support@segurium.com. Puedes cambiarlo más tarde en los Ajustes."
 
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Outdated"
+msgstr "Desactualizado"
+
+msgid "Vulnerable"
+msgstr "Vulnerable"
+
+msgid "No update available"
+msgstr "No hay actualización disponible"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s pasa de %2$s a %3$s. Es un cambio de versión mayor y puede romper tu "
+"sitio."
+
+msgid "Malware is waiting for you to act"
+msgstr "Hay malware esperando a que actúes"
+
+msgid "A vulnerable component is installed"
+msgstr "Hay instalado un componente vulnerable"
+
+msgid "Security issues need your attention"
+msgstr "Hay problemas de seguridad que necesitan tu atención"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
 

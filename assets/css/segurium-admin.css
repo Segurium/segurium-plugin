@@ -141,6 +141,39 @@
 	white-space: nowrap;
 }
 
+/* Attention marker: an open malware finding, or an installed component
+   the cloud flags as vulnerable. Rendered on every paint and revealed by
+   the `hidden` attribute so the scanner JS can clear it in place. */
+
+.segurium-nav-icon-wrap {
+	position: relative;
+	display: inline-flex;
+	line-height: 1;
+}
+
+.segurium-nav-alert {
+	position: absolute;
+	top: -5px;
+	right: -11px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-width: 16px;
+	height: 16px;
+	padding: 0 4px;
+	border-radius: 8px;
+	background: #d63638;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.segurium-nav-alert[hidden] {
+	display: none;
+}
+
 /* ── Feature content area ──────────────────────────────── */
 
 .segurium-feature {
@@ -855,6 +888,9 @@ button.button[hidden],
 .segurium-is-status--abandoned { color: #d63638; }
 .segurium-is-status--not-in-repo { color: #8c8f94; }
 .segurium-is-status--issues { color: #d63638; }
+.segurium-is-status--outdated { color: #dba617; }
+.segurium-is-status--vulnerable { color: #d63638; }
+.segurium-is-update-note { color: #8c8f94; font-size: 12px; }
 .segurium-is-status--clean { color: #00a32a; }
 .segurium-is-status--deleted { color: #8c8f94; }
 
@@ -2358,6 +2394,17 @@ button.button[hidden],
 	border-radius: 4px;
 	font-size: 13px;
 	color: #374151;
+}
+
+.segurium-sc-notice {
+	grid-column: 1 / -1;
+	margin-top: 8px;
+	padding: 8px 12px;
+	background: #fffbeb;
+	border-left: 3px solid #d97706;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #78350f;
 }
 
 .segurium-sc-help-block ul {

@@ -4619,3 +4619,28 @@ msgid ""
 msgstr ""
 "Naponta legfeljebb egy e-mail a support@segurium.com címről. Ezt később a "
 "Beállításokban módosíthatja."
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Outdated"
+msgstr "Elavult"
+
+msgid "Vulnerable"
+msgstr "Sebezhető"
+
+msgid "No update available"
+msgstr "Nincs elérhető frissítés"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s a(z) %2$s verzióról a(z) %3$s verzióra frissül. Ez fő verzióváltás, és megtörheti a webhelyét."
+
+msgid "Malware is waiting for you to act"
+msgstr "Kártevő várja a beavatkozását"
+
+msgid "A vulnerable component is installed"
+msgstr "Sebezhető komponens van telepítve"
+
+msgid "Security issues need your attention"
+msgstr "Biztonsági problémák igénylik a figyelmét"

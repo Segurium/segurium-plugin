@@ -4965,3 +4965,28 @@ msgid ""
 msgstr ""
 "Günde en fazla bir e-posta, support@segurium.com adresinden gönderilir. Bu "
 "tercihi daha sonra Ayarlar altında değiştirebilirsiniz."
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Outdated"
+msgstr "Güncel değil"
+
+msgid "Vulnerable"
+msgstr "Güvenlik açığı var"
+
+msgid "No update available"
+msgstr "Güncelleme yok"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s, %2$s sürümünden %3$s sürümüne geçiyor. Bu bir ana sürüm değişikliğidir ve sitenizi bozabilir."
+
+msgid "Malware is waiting for you to act"
+msgstr "Kötü amaçlı yazılım harekete geçmenizi bekliyor"
+
+msgid "A vulnerable component is installed"
+msgstr "Güvenlik açığı olan bir bileşen kurulu"
+
+msgid "Security issues need your attention"
+msgstr "Güvenlik sorunları ilginizi bekliyor"

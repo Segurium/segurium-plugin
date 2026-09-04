@@ -119,7 +119,9 @@ class Segurium_File_State {
 		);
 		if ( false === $result ) {
 			Segurium_Debug::log( '[segurium-file-state] record_finding failed: ' . $wpdb->last_error );
+			return;
 		}
+		self::flag_indicator_stale();
 	}
 
 	/**
@@ -141,7 +143,13 @@ class Segurium_File_State {
 		$args  = array_merge( array( $table, 'fixed', $timestamp, $timestamp ), $file_path_hashes, array( 'open' ) );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber -- SQL template uses %i for table; placeholders dynamically generated for variable-length IN-list; splat unpacks every value into a separate prepare() arg at runtime — plugin-check counts the splat statically as 1.
 		$affected = $wpdb->query( $wpdb->prepare( 'UPDATE %i SET current_status = %s, resolved_at = %d, updated_at = %d WHERE file_path_hash IN (' . $in . ') AND current_status = %s', ...$args ) );
-		return false === $affected ? 0 : (int) $affected;
+		if ( false === $affected ) {
+			return 0;
+		}
+		if ( $affected > 0 ) {
+			self::flag_indicator_stale();
+		}
+		return (int) $affected;
 	}
 
 	/**
@@ -502,6 +510,22 @@ class Segurium_File_State {
 			);
 		} catch ( Segurium_Storage_Exception $e ) {
 			Segurium_Debug::log( '[segurium-file-state] update failed: ' . $e->getMessage() );
+			return;
+		}
+		if ( array_key_exists( 'current_status', $data ) ) {
+			self::flag_indicator_stale();
+		}
+	}
+
+	/**
+	 * Tell the admin attention markers their stored answer is out of date.
+	 * One recount runs at shutdown however many rows moved.
+	 *
+	 * @return void
+	 */
+	private static function flag_indicator_stale() {
+		if ( class_exists( 'Segurium_Issue_Indicator' ) ) {
+			Segurium_Issue_Indicator::mark_stale();
 		}
 	}
 }

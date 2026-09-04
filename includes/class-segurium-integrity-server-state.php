@@ -37,6 +37,13 @@ class Segurium_Integrity_Server_State {
 	private $comp_meta = array();
 
 	/**
+	 * Pending updates keyed "{type}:{slug}", or null until first read.
+	 *
+	 * @var array|null
+	 */
+	private $update_map = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $data_dir Accepted for call-site compatibility; unused.
@@ -70,6 +77,45 @@ class Segurium_Integrity_Server_State {
 			array( $sha256, 'open' )
 		);
 		return null === $hit ? 0 : 1;
+	}
+
+	/**
+	 * Inject the pending-update map instead of reading WordPress' own
+	 * transients. Tests and callers that already hold the map use this.
+	 *
+	 * @param array $map Map of "{type}:{slug}" to update entry.
+	 * @return void
+	 */
+	public function set_update_map( array $map ) {
+		$this->update_map = $map;
+	}
+
+	/**
+	 * Pending updates for the installed components.
+	 *
+	 * @return array
+	 */
+	public function get_update_map() {
+		if ( null === $this->update_map ) {
+			$this->update_map = class_exists( 'Segurium_Component_Updates' )
+				? Segurium_Component_Updates::available()
+				: array();
+		}
+		return $this->update_map;
+	}
+
+	/**
+	 * Whether the stored metadata flags this component's release as
+	 * vulnerable. Reads the metadata only — no file issues, no update
+	 * transients — because callers that want the boolean do not want the
+	 * work `find_component()` does around it.
+	 *
+	 * @param string $slug Component slug.
+	 * @param string $type Component type.
+	 * @return bool
+	 */
+	public function is_vulnerable( $slug, $type ) {
+		return ! empty( $this->comp_meta[ $type . ':' . $slug ]['vulnerable'] );
 	}
 
 	/**
@@ -112,6 +158,9 @@ class Segurium_Integrity_Server_State {
 			),
 			array( 'kv_key' )
 		);
+		if ( class_exists( 'Segurium_Issue_Indicator' ) ) {
+			Segurium_Issue_Indicator::mark_stale();
+		}
 	}
 
 	/**
@@ -141,6 +190,7 @@ class Segurium_Integrity_Server_State {
 			'component_status' => $scan_component['component_status'] ?? 'listed',
 			'last_updated'     => $scan_component['last_updated'] ?? null,
 			'latest_version'   => $scan_component['latest_version'] ?? null,
+			'vulnerable'       => ! empty( $scan_component['vulnerable'] ),
 			'state'            => $existing['state'] ?? 'active',
 			'timestamp'        => $now,
 			'ok_count'         => (int) ( $scan_component['ok_count'] ?? 0 ),
@@ -221,9 +271,10 @@ class Segurium_Integrity_Server_State {
 	/**
 	 * Get paginated list of components.
 	 *
-	 * Bucket order is fixed: Issues → Delisted → Abandoned → Clean/Deleted/Ignored.
-	 * Within issues/delisted/abandoned the rows are alphanumeric by slug; within
-	 * the rest they are by last-scanned timestamp DESC.
+	 * Bucket order is fixed: Issues → Delisted → Abandoned → Vulnerable →
+	 * Outdated → Clean/Deleted/Ignored. Within the first five the rows are
+	 * alphanumeric by slug; within the rest they are by last-scanned
+	 * timestamp DESC.
 	 *
 	 * If a non-empty $snapshot_id is supplied, the sorted key order is cached in
 	 * runtime_kv (1 h TTL) and reused on subsequent calls so component rows do
@@ -247,7 +298,13 @@ class Segurium_Integrity_Server_State {
 			}
 			$meta                = $this->comp_meta[ $key ];
 			list( $type, $slug ) = explode( ':', $key, 2 );
-			$result[]            = array_merge( $meta, array( 'files' => $this->load_files_for_component( $type, $slug ) ) );
+			$result[]            = array_merge(
+				$meta,
+				array(
+					'files'  => $this->load_files_for_component( $type, $slug ),
+					'update' => $this->pending_update( $key ),
+				)
+			);
 		}
 
 		return $result;
@@ -346,7 +403,10 @@ class Segurium_Integrity_Server_State {
 		}
 		return array_merge(
 			$this->comp_meta[ $key ],
-			array( 'files' => $this->load_files_for_component( $type, $slug ) )
+			array(
+				'files'  => $this->load_files_for_component( $type, $slug ),
+				'update' => $this->pending_update( $key ),
+			)
 		);
 	}
 
@@ -443,6 +503,43 @@ class Segurium_Integrity_Server_State {
 				continue;
 			}
 			$count += (int) $row['n'];
+		}
+		return $count;
+	}
+
+	/**
+	 * Installed components whose stored release carries a vulnerability
+	 * the cloud flagged, excluding the ones the user already acted on.
+	 *
+	 * Independent of {@see self::count_open_issues()}: a flagged release
+	 * with every file matching the vendor's own hashes produces no issue
+	 * row, and is still the thing an attacker walks in through.
+	 *
+	 * @return int
+	 */
+	public static function count_vulnerable_components() {
+		$json = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+			array( 'integrity:comp_meta' )
+		);
+		if ( ! $json ) {
+			return 0;
+		}
+		$meta = json_decode( (string) $json, true );
+		if ( ! is_array( $meta ) ) {
+			return 0;
+		}
+
+		$count = 0;
+		foreach ( $meta as $entry ) {
+			if ( ! is_array( $entry ) || empty( $entry['vulnerable'] ) ) {
+				continue;
+			}
+			if ( in_array( $entry['state'] ?? 'active', self::INACTIVE_COMPONENT_STATES, true ) ) {
+				continue;
+			}
+			++$count;
 		}
 		return $count;
 	}
@@ -575,7 +672,9 @@ class Segurium_Integrity_Server_State {
 	 *  0 — Issues       (active components with open file findings or "not_in_repository")
 	 *  1 — Delisted     (component_status = delisted, not deleted/ignored)
 	 *  2 — Abandoned    (component_status = abandoned, not deleted/ignored)
-	 *  3 — Clean/Deleted/Ignored (everything else)
+	 *  3 — Vulnerable   (a release the cloud flags, otherwise clean)
+	 *  4 — Outdated     (otherwise clean, with a pending update)
+	 *  5 — Clean/Deleted/Ignored (everything else)
 	 *
 	 * @param string $key Component key "{type}:{slug}".
 	 * @param array  $count_map Map of "{type}:{slug}" → open issue count.
@@ -585,7 +684,7 @@ class Segurium_Integrity_Server_State {
 		$meta  = $this->comp_meta[ $key ] ?? array();
 		$state = $meta['state'] ?? 'active';
 		if ( in_array( $state, self::INACTIVE_COMPONENT_STATES, true ) ) {
-			return 3;
+			return 5;
 		}
 		$cs = $meta['component_status'] ?? 'listed';
 		if ( 'delisted' === $cs ) {
@@ -598,14 +697,36 @@ class Segurium_Integrity_Server_State {
 			return 0;
 		}
 		$has_open = ( $count_map[ $key ] ?? 0 ) > 0;
-		return $has_open ? 0 : 3;
+		if ( $has_open ) {
+			return 0;
+		}
+		if ( ! empty( $meta['vulnerable'] ) ) {
+			return 3;
+		}
+		return array() === $this->pending_update( $key ) ? 5 : 4;
+	}
+
+	/**
+	 * Pending update entry for a component key, or an empty array.
+	 *
+	 * @param string $key Component key "{type}:{slug}".
+	 * @return array
+	 */
+	private function pending_update( $key ) {
+		$map   = $this->get_update_map();
+		$entry = $map[ $key ] ?? array();
+		if ( ! is_array( $entry ) || '' === (string) ( $entry['new_version'] ?? '' ) ) {
+			return array();
+		}
+		return $entry;
 	}
 
 	/**
 	 * Return sorted component keys.
 	 *
-	 * Order: Issues → Delisted → Abandoned (each alphanumeric by slug),
-	 * then Clean/Deleted/Ignored by last-scanned timestamp DESC.
+	 * Order: Issues → Delisted → Abandoned → Vulnerable → Outdated (each
+	 * alphanumeric by slug), then Clean/Deleted/Ignored by last-scanned
+	 * timestamp DESC.
 	 *
 	 * If $snapshot_id is non-empty, the order is cached in runtime_kv and
 	 * subsequent calls return the same order until the cache expires. New
@@ -671,11 +792,12 @@ class Segurium_Integrity_Server_State {
 				}
 				$a_meta = $this->comp_meta[ $a ];
 				$b_meta = $this->comp_meta[ $b ];
-				if ( 3 === $ba ) {
+				if ( 5 === $ba ) {
 					// Clean/Deleted/Ignored — most-recently-scanned first.
 					return ( $b_meta['timestamp'] ?? 0 ) <=> ( $a_meta['timestamp'] ?? 0 );
 				}
-				// Issues / Delisted / Abandoned — alphanumeric by slug.
+				// Issues / Delisted / Abandoned / Vulnerable / Outdated —
+				// alphanumeric by slug.
 				return strnatcasecmp( $a_meta['slug'] ?? '', $b_meta['slug'] ?? '' );
 			}
 		);

@@ -1,0 +1,4650 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-09-02T15:38:54+00:00\n"
+"PO-Revision-Date: 2026-09-02 12:00+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Domain: segurium\n"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, "
+"Firewall, 2FA"
+msgstr ""
+"Segurium – Hapus Malware & Pemindai Antivirus Gratis, Bersihkan Situs Web "
+"Diretas, Firewall, 2FA"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean "
+"infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Situs web diretas? Hapus malware gratis dan pemindaian antivirus WordPress: "
+"bersihkan berkas terinfeksi, pulihkan. Firewall, brute force, 2FA."
+
+#. Author of the plugin
+#: segurium.php includes/class-segurium.php:460 includes/class-segurium.php:512
+#: includes/class-segurium.php:513 includes/class-segurium.php:1986
+#: includes/segurium-admin-menu-shell.php:38
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:102
+msgid "Segurium"
+msgstr "Segurium"
+
+#: includes/class-segurium-2fa.php:597
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr ""
+"Autentikasi dua faktor diperlukan. Aktifkan JavaScript untuk menyelesaikan "
+"login."
+
+#: includes/class-segurium-2fa.php:617
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr ""
+"Penyiapan autentikasi dua faktor diperlukan untuk peran Anda. Hubungi "
+"administrator Anda."
+
+#: includes/class-segurium-2fa.php:658
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr ""
+"Autentikasi dua faktor diperlukan. Tambahkan kode 2FA Anda di belakang kata "
+"sandi Anda."
+
+#: includes/class-segurium-2fa.php:1000
+msgid "Verifying..."
+msgstr "Memverifikasi..."
+
+#: includes/class-segurium-2fa.php:1001
+msgid "Logging in..."
+msgstr "Sedang login..."
+
+#: includes/class-segurium-2fa.php:1002
+msgid "Enter the code from your authenticator app:"
+msgstr "Masukkan kode dari aplikasi authenticator Anda:"
+
+#: includes/class-segurium-2fa.php:1003
+msgid "Enter the code sent to your email:"
+msgstr "Masukkan kode yang dikirim ke e-mail Anda:"
+
+#: includes/class-segurium-2fa.php:1004
+msgid "Verify"
+msgstr "Verifikasi"
+
+#: includes/class-segurium-2fa.php:1005
+msgid "Resend code"
+msgstr "Kirim ulang kode"
+
+#: includes/class-segurium-2fa.php:1006
+msgid "A new code has been sent to your email."
+msgstr "Kode baru telah dikirim ke e-mail Anda."
+
+#: includes/class-segurium-2fa.php:1007
+msgid "Lost your device? Enter a backup code instead."
+msgstr "Kehilangan perangkat Anda? Masukkan kode cadangan sebagai gantinya."
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:1009
+#, php-format
+msgid "Trust this device for %d days"
+msgstr "Percayai perangkat ini selama %d hari"
+
+#: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1597
+#: includes/class-segurium-2fa.php:1675 includes/class-segurium-2fa.php:1733
+msgid "Too many failed attempts. Please try again later."
+msgstr "Terlalu banyak percobaan gagal. Coba lagi nanti."
+
+#: includes/class-segurium-2fa.php:1011
+msgid "Two-factor authentication setup is required for your role."
+msgstr "Penyiapan autentikasi dua faktor diperlukan untuk peran Anda."
+
+#: includes/class-segurium-2fa.php:1035
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:274
+#: includes/migrations/class-segurium-migration-wordfence.php:288
+msgid "Two-Factor Authentication"
+msgstr "Autentikasi Dua Faktor"
+
+#: includes/class-segurium-2fa.php:1038 includes/class-segurium.php:2184
+#: includes/class-segurium.php:3429
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-segurium-2fa.php:1041
+msgid "JavaScript is required for 2FA setup."
+msgstr "JavaScript diperlukan untuk penyiapan 2FA."
+
+#: includes/class-segurium-2fa.php:1079
+msgid "Not configured"
+msgstr "Belum dikonfigurasi"
+
+#: includes/class-segurium-2fa.php:1080
+msgid "Set up Authenticator App"
+msgstr "Siapkan Aplikasi Authenticator"
+
+#: includes/class-segurium-2fa.php:1081
+msgid "Set up Email Verification"
+msgstr "Siapkan Verifikasi E-mail"
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Current method:"
+msgstr "Metode saat ini:"
+
+#: includes/class-segurium-2fa.php:1083 includes/class-segurium.php:2624
+msgid "Authenticator App (TOTP)"
+msgstr "Aplikasi Authenticator (TOTP)"
+
+#: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:2625
+msgid "Email Verification"
+msgstr "Verifikasi E-mail"
+
+#: includes/class-segurium-2fa.php:1085
+msgid "Backup codes remaining:"
+msgstr "Sisa kode cadangan:"
+
+#: includes/class-segurium-2fa.php:1086
+msgid "Regenerate Backup Codes"
+msgstr "Buat Ulang Kode Cadangan"
+
+#: includes/class-segurium-2fa.php:1087
+msgid "Disable 2FA"
+msgstr "Nonaktifkan 2FA"
+
+#: includes/class-segurium-2fa.php:1088
+msgid "Scan this QR code with your authenticator app:"
+msgstr "Pindai kode QR ini dengan aplikasi authenticator Anda:"
+
+#: includes/class-segurium-2fa.php:1089
+msgid "Or enter this key manually:"
+msgstr "Atau masukkan kunci ini secara manual:"
+
+#: includes/class-segurium-2fa.php:1090
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "Masukkan kode 6 digit dari aplikasi Anda untuk mengonfirmasi:"
+
+#: includes/class-segurium-2fa.php:1091 includes/class-segurium.php:2249
+#: includes/class-segurium.php:2337
+msgid "Confirm"
+msgstr "Konfirmasi"
+
+#: includes/class-segurium-2fa.php:1092 includes/class-segurium.php:1058
+#: includes/class-segurium.php:1187 includes/class-segurium.php:1232
+#: includes/class-segurium.php:2226 includes/class-segurium.php:3419
+msgid "Cancel"
+msgstr "Batal"
+
+#: includes/class-segurium-2fa.php:1093
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr ""
+"Simpan kode cadangan ini di tempat aman. Kode ini tidak akan ditampilkan "
+"lagi."
+
+#: includes/class-segurium-2fa.php:1094
+msgid "2FA has been set up successfully."
+msgstr "2FA berhasil disiapkan."
+
+#: includes/class-segurium-2fa.php:1095 includes/class-segurium-2fa.php:1430
+msgid "2FA has been disabled."
+msgstr "2FA telah dinonaktifkan."
+
+#: includes/class-segurium-2fa.php:1096
+msgid "New backup codes generated."
+msgstr "Kode cadangan baru dibuat."
+
+#: includes/class-segurium-2fa.php:1097
+msgid "Enter your current 2FA code to confirm:"
+msgstr "Masukkan kode 2FA Anda saat ini untuk mengonfirmasi:"
+
+#: includes/class-segurium-2fa.php:1098
+msgid "A verification code has been sent to your email."
+msgstr "Kode verifikasi telah dikirim ke e-mail Anda."
+
+#: includes/class-segurium-2fa.php:1099
+msgid "Your administrator requires 2FA for your role."
+msgstr "Administrator Anda mewajibkan 2FA untuk peran Anda."
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1133
+#, php-format
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"Administrator Anda mewajibkan autentikasi dua faktor. Anda punya sisa %d hari"
+" untuk menyiapkannya."
+
+#: includes/class-segurium-2fa.php:1138 includes/class-segurium-2fa.php:1145
+msgid "Set up now"
+msgstr "Siapkan sekarang"
+
+#: includes/class-segurium-2fa.php:1143
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr "Autentikasi dua faktor diperlukan untuk peran Anda. Segera siapkan."
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1180
+#, php-format
+msgid "[%s] Your login verification code"
+msgstr "[%s] Kode verifikasi login Anda"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1186
+#, php-format
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"Kode verifikasi Anda adalah: %1$s\n"
+"\n"
+"Kode ini kedaluwarsa dalam %2$d menit.\n"
+"\n"
+"Bila Anda tidak meminta ini, abaikan e-mail ini."
+
+#: includes/class-segurium-2fa.php:1229 includes/class-segurium-2fa.php:1265
+#: includes/class-segurium-2fa.php:1320 includes/class-segurium-2fa.php:1346
+#: includes/class-segurium-2fa.php:1387 includes/class-segurium-2fa.php:1441
+msgid "Not authenticated."
+msgstr "Tidak terautentikasi."
+
+#: includes/class-segurium-2fa.php:1235 includes/class-segurium-2fa.php:1271
+#: includes/class-segurium-2fa.php:1326 includes/class-segurium-2fa.php:1352
+#: includes/class-segurium-2fa.php:1393 includes/class-segurium-2fa.php:1447
+#: includes/class-segurium-2fa.php:1503 includes/class-segurium-2fa.php:1637
+#: includes/class-segurium-2fa.php:1760 includes/class-segurium.php:392
+#: includes/class-segurium.php:5077 includes/segurium-ajax-envelope.php:125
+msgid "You do not have permission to perform this action."
+msgstr "Anda tidak punya izin untuk melakukan tindakan ini."
+
+#: includes/class-segurium-2fa.php:1282
+msgid "Setup session expired. Please start again."
+msgstr "Sesi penyiapan kedaluwarsa. Mulai lagi."
+
+#: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
+msgid "Invalid code. Please try again."
+msgstr "Kode tidak valid. Coba lagi."
+
+#: includes/class-segurium-2fa.php:1292
+msgid "Encryption error."
+msgstr "Eror enkripsi."
+
+#: includes/class-segurium-2fa.php:1335
+msgid "Verification code sent to your email."
+msgstr "Kode verifikasi dikirim ke e-mail Anda."
+
+#: includes/class-segurium-2fa.php:1403
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "2FA diwajibkan untuk peran Anda dan tidak dapat dinonaktifkan."
+
+#: includes/class-segurium-2fa.php:1425 includes/class-segurium-2fa.php:1473
+msgid "Invalid verification code."
+msgstr "Kode verifikasi tidak valid."
+
+#: includes/class-segurium-2fa.php:1520
+msgid "Please enter your username and password."
+msgstr "Masukkan nama pengguna dan kata sandi Anda."
+
+#: includes/class-segurium-2fa.php:1656
+msgid "Session expired. Please log in again."
+msgstr "Sesi kedaluwarsa. Login lagi."
+
+#: includes/class-segurium-2fa.php:1662 includes/class-segurium-2fa.php:1775
+msgid "Invalid session."
+msgstr "Sesi tidak valid."
+
+#: includes/class-segurium-2fa.php:1742
+msgid "Invalid verification code. Please try again."
+msgstr "Kode verifikasi tidak valid. Coba lagi."
+
+#: includes/class-segurium-2fa.php:1770
+msgid "Session expired."
+msgstr "Sesi kedaluwarsa."
+
+#: includes/class-segurium-2fa.php:1780
+msgid "Code sent."
+msgstr "Kode dikirim."
+
+#: includes/class-segurium-brute-force.php:503
+msgid "Login blocked."
+msgstr "Login diblokir."
+
+#: includes/class-segurium-brute-force.php:517
+msgid "Please complete the CAPTCHA challenge."
+msgstr "Selesaikan tantangan CAPTCHA."
+
+#: includes/class-segurium-brute-force.php:1336
+msgid "Leave this field empty"
+msgstr "Biarkan kolom ini kosong"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1484
+#: includes/class-segurium-brute-force.php:1507
+#, php-format
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "Terlalu banyak percobaan login gagal. Coba lagi dalam %s."
+
+#: includes/class-segurium-brute-force.php:1488
+msgid "Login Locked"
+msgstr "Login Terkunci"
+
+#: includes/class-segurium-cleanup.php:89
+msgid "Verdict has no defined cleanup recipe."
+msgstr "Putusan tidak punya resep pembersihan yang ditetapkan."
+
+#: includes/class-segurium-cleanup.php:93
+msgid "File not found."
+msgstr "Berkas tidak ditemukan."
+
+#: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:6932
+msgid "File has been modified since scan. Re-scan first."
+msgstr "Berkas telah diubah sejak pemindaian. Pindai ulang dulu."
+
+#: includes/class-segurium-cleanup.php:103
+msgid "Failed to read file for backup."
+msgstr "Gagal membaca berkas untuk pencadangan."
+
+#: includes/class-segurium-cleanup.php:121
+msgid "Failed to create backup."
+msgstr "Gagal membuat cadangan."
+
+#: includes/class-segurium-cleanup.php:175
+msgid "Failed to clean file."
+msgstr "Gagal membersihkan berkas."
+
+#: includes/class-segurium-component-backup.php:50
+#: includes/class-segurium.php:5518
+msgid "Component directory not found."
+msgstr "Direktori komponen tidak ditemukan."
+
+#: includes/class-segurium-component-backup.php:53
+msgid "Invalid component type."
+msgstr "Tipe komponen tidak valid."
+
+#: includes/class-segurium-component-backup.php:56
+msgid "Invalid component slug."
+msgstr "Slug komponen tidak valid."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "Ekstensi PHP Phar diperlukan untuk pencadangan komponen."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Pencadangan gagal: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "Arsip cadangan tidak dibuat."
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:104
+#, php-format
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"Komponen berukuran %1$.1f MB, melebihi batas cadangan terenkripsi %2$d MB. "
+"Penghapusan dilewati supaya situs Anda tidak kehilangan data yang tidak "
+"tercakup."
+
+#: includes/class-segurium-component-backup.php:119
+msgid "Failed to read packed component archive."
+msgstr "Gagal membaca arsip komponen yang dikemas."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:141
+#, php-format
+msgid "Failed to encrypt component backup: %s"
+msgstr "Gagal mengenkripsi cadangan komponen: %s"
+
+#: includes/class-segurium-component-backup.php:165
+msgid "Invalid backup identifier."
+msgstr "Pengidentifikasi cadangan tidak valid."
+
+#: includes/class-segurium-component-backup.php:175
+msgid "Backup archive not found or failed integrity check."
+msgstr "Arsip cadangan tidak ditemukan atau gagal pemeriksaan integritas."
+
+#: includes/class-segurium-component-backup.php:188
+msgid "Failed to stage backup for extraction."
+msgstr "Gagal menyiapkan cadangan untuk diekstrak."
+
+#: includes/class-segurium-component-backup.php:193
+#: includes/class-segurium.php:5312
+msgid "Restore target directory is not writable."
+msgstr "Direktori target pemulihan tidak dapat ditulisi."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Pemulihan gagal: %s"
+
+#: includes/class-segurium-component-backup.php:243
+msgid "Secure randomness is unavailable on this host."
+msgstr "Keacakan aman tidak tersedia pada host ini."
+
+#: includes/class-segurium-cti-client.php:234
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr "ID Instalasi tidak tersedia. Pastikan plugin diaktifkan dengan benar."
+
+#: includes/class-segurium-cti-client.php:609
+msgid "Too many requests. Please try again later."
+msgstr "Terlalu banyak permintaan. Coba lagi nanti."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:615
+#, php-format
+msgid "Support service error (HTTP %d)."
+msgstr "Eror layanan bantuan (HTTP %d)."
+
+#: includes/class-segurium-cti-client.php:1444
+msgid "Cleanup quota reached."
+msgstr "Kuota pembersihan tercapai."
+
+#: includes/class-segurium-cti-client.php:1451
+msgid "Clean version not available for this file"
+msgstr "Versi bersih tidak tersedia untuk berkas ini"
+
+#: includes/class-segurium-cti-client.php:1850
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Respons penagihan dari Segurium Cloud tidak valid."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:88
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): tidak ada respons untuk diverifikasi."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:120
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): header tanda tangan hilang."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:130
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr ""
+"Segurium Cloud (%1$s): ditandatangani dengan kunci tidak tepercaya \"%2$s\"."
+
+#: includes/class-segurium-cti-signature.php:141
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "Daftar kepercayaan tanda tangan rusak — kunci publik gagal didekode."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:151
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): header tanda tangan salah bentuk."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:162
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): stempel waktu tanda tangan salah bentuk."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:175
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): stempel waktu tanda tangan %2$d detik di luar rentang."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:192
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium menolak tanda tangan (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:204
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): tanda tangan tidak terverifikasi."
+
+#: includes/class-segurium-deactivation-reason.php:247
+msgid "Why are you deactivating Segurium?"
+msgstr "Mengapa Anda menonaktifkan Segurium?"
+
+#: includes/class-segurium-deactivation-reason.php:248
+#: includes/class-segurium.php:1116 includes/class-segurium.php:2222
+#: includes/class-segurium.php:2236
+msgid "Close"
+msgstr "Tutup"
+
+#: includes/class-segurium-deactivation-reason.php:262
+#: includes/class-segurium.php:1055 includes/class-segurium.php:3412
+msgid "Note (optional, max 2000 chars)"
+msgstr "Catatan (opsional, maks 2000 karakter)"
+
+#: includes/class-segurium-deactivation-reason.php:267
+#: includes/class-segurium.php:1176
+msgid "Continue"
+msgstr "Lanjutkan"
+
+#: includes/class-segurium-deactivation-reason.php:268
+#: includes/class-segurium.php:1235
+msgid "Skip"
+msgstr "Lewati"
+
+#: includes/class-segurium-deactivation-reason.php:336
+#: includes/class-segurium-paywall-telemetry.php:374
+#: includes/class-segurium-review-prompt.php:548
+#: includes/class-segurium.php:4009 includes/class-segurium.php:4087
+#: includes/class-segurium.php:4184 includes/class-segurium.php:4220
+#: includes/class-segurium.php:4293 includes/class-segurium.php:4378
+#: includes/class-segurium.php:4413 includes/class-segurium.php:4482
+#: includes/class-segurium.php:4546 includes/class-segurium.php:4623
+#: includes/class-segurium.php:4724 includes/class-segurium.php:4842
+#: includes/class-segurium.php:4900 includes/class-segurium.php:4950
+#: includes/class-segurium.php:5185 includes/class-segurium.php:5225
+#: includes/class-segurium.php:5252 includes/class-segurium.php:5280
+#: includes/class-segurium.php:5338 includes/class-segurium.php:5378
+#: includes/class-segurium.php:5420 includes/class-segurium.php:5462
+#: includes/class-segurium.php:5587 includes/class-segurium.php:5691
+#: includes/class-segurium.php:6050 includes/class-segurium.php:6107
+#: includes/class-segurium.php:6202 includes/class-segurium.php:6796
+#: includes/class-segurium.php:7118 includes/class-segurium.php:7195
+msgid "Unauthorized"
+msgstr "Tidak diizinkan"
+
+#: includes/class-segurium-deactivation-reason.php:391
+msgid "Missing feature"
+msgstr "Fitur tidak ada"
+
+#: includes/class-segurium-deactivation-reason.php:393
+msgid "It is causing issues"
+msgstr "Menimbulkan masalah"
+
+#: includes/class-segurium-deactivation-reason.php:395
+msgid "No longer needed"
+msgstr "Tidak diperlukan lagi"
+
+#: includes/class-segurium-deactivation-reason.php:397
+msgid "Found better alternative"
+msgstr "Menemukan alternatif yang lebih baik"
+
+#: includes/class-segurium-deactivation-reason.php:399
+msgid "Temporary deactivation"
+msgstr "Penonaktifan sementara"
+
+#: includes/class-segurium-deactivation-reason.php:401
+#: includes/class-segurium.php:2692
+msgid "Other"
+msgstr "Lainnya"
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Downloaded geo DB has invalid format."
+msgstr "Basis data geo yang diunduh berformat tidak valid."
+
+#: includes/class-segurium-geo-updater.php:148
+msgid "Failed to write geo DB to disk."
+msgstr "Gagal menulis basis data geo ke disk."
+
+#: includes/class-segurium-geo-updater.php:153
+msgid "Failed to install geo DB."
+msgstr "Gagal memasang basis data geo."
+
+#: includes/class-segurium-iid.php:260
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium mendeteksi situs ini dipindahkan atau dikloning dan sedang membangun"
+" ulang sambungan amannya di latar belakang. Bila Anda punya lisensi Pro, "
+"aktifkan ulang lisensi itu pada layar akun Segurium supaya fitur Pro "
+"dipulihkan pada identitas baru."
+
+#: includes/class-segurium-iid.php:319
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium tidak dapat mengaktifkan lisensi Pro di situs ini karena lisensi itu"
+" sedang terikat pada instalasi lain. Buka portal akun Segurium pada instalasi"
+" asli lalu nonaktifkan lisensi di sana; ikatannya akan dilepas dan fitur Pro "
+"akan aktif kembali di sini pada pemeriksaan lisensi berikutnya."
+
+#: includes/class-segurium-info-shield.php:331
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"Pada Nginx, header Server harus dihapus di tingkat server (server_tokens "
+"off;). Sakelar ini tidak berpengaruh."
+
+#: includes/class-segurium-info-shield.php:334
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"Pada Apache dengan FastCGI, header Server ditambahkan setelah PHP berjalan. "
+"Gunakan ServerTokens Prod pada konfigurasi Apache."
+
+#: includes/class-segurium-info-shield.php:338
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"Pada IIS, gunakan atribut removeServerHeader di web.config. Sakelar ini "
+"berpengaruh terbatas."
+
+#: includes/class-segurium-info-shield.php:352
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"Server Anda memakai FastCGI, yang mungkin menambahkan kembali header "
+"X-Powered-By. Verifikasi penghapusannya dengan memeriksa header respons."
+
+#: includes/class-segurium-info-shield.php:365
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr ""
+"Jetpack aktif dan memerlukan XML-RPC. Menonaktifkan XML-RPC akan memutus "
+"sambungan Jetpack."
+
+#: includes/class-segurium-integrity-chain.php:148
+#: includes/class-segurium.php:1188
+msgid "Running a quick malware scan first…"
+msgstr "Menjalankan pemindaian malware cepat dulu…"
+
+#: includes/class-segurium-integrity-chain.php:199
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr ""
+"Pemindaian malware berantai dibatalkan — pemindaian integritas tidak dimulai."
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:222
+#, php-format
+msgid "Could not start the chained integrity scan: %s"
+msgstr "Tidak dapat memulai pemindaian integritas berantai: %s"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:173
+#, php-format
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr "Pemindaian realtime Segurium (tiap %d detik, penimpaan dev)"
+
+#: includes/class-segurium-rest-actions-poke.php:79
+msgid "Remote actions are switched off for this site."
+msgstr "Tindakan jarak jauh dimatikan untuk situs ini."
+
+#: includes/class-segurium-rest-actions-poke.php:95
+#: includes/class-segurium-rest-actions-poke.php:103
+msgid "Remote actions require authentication."
+msgstr "Tindakan jarak jauh memerlukan autentikasi."
+
+#: includes/class-segurium-review-prompt.php:459
+msgid "Leave a review"
+msgstr "Tulis ulasan"
+
+#: includes/class-segurium-review-prompt.php:461
+#: includes/class-segurium.php:1191
+msgid "Maybe later"
+msgstr "Mungkin nanti"
+
+#: includes/class-segurium-review-prompt.php:463
+msgid "Don't ask again"
+msgstr "Jangan tanya lagi"
+
+#: includes/class-segurium-review-prompt.php:479
+msgid "Segurium just cleaned your site."
+msgstr "Segurium baru saja membersihkan situs Anda."
+
+#: includes/class-segurium-review-prompt.php:480
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Senang kami bisa membantu. Bila Segurium menghemat waktu atau uang Anda hari "
+"ini, ulasan jujur di WordPress.org membantu pemilik situs lain menemukannya, "
+"dan membantu kami menjaga tingkat pembersihan tetap gratis."
+
+#: includes/class-segurium-review-prompt.php:485
+msgid "Scan complete. Your site is clean."
+msgstr "Pemindaian selesai. Situs Anda bersih."
+
+#: includes/class-segurium-review-prompt.php:486
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Bila Segurium menjalankan tugasnya, maukah Anda menulis ulasan jujur di "
+"WordPress.org? Hanya perlu semenit."
+
+#: includes/class-segurium-review-prompt.php:556
+msgid "Unknown review prompt action."
+msgstr "Tindakan permintaan ulasan tidak dikenal."
+
+#: includes/class-segurium-scan-runner.php:378
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "Tiap 60 detik (penyelamatan pemindaian Segurium)"
+
+#: includes/class-segurium-scan-runner.php:409
+msgid "A scan type is required."
+msgstr "Tipe pemindaian diperlukan."
+
+#: includes/class-segurium-scan-runner.php:422
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try again"
+" in a moment."
+msgstr ""
+"Aktivasi dengan layanan cloud Segurium masih tertunda. Coba lagi sebentar."
+
+#: includes/class-segurium-scan-runner.php:436 includes/class-segurium.php:1099
+#: includes/class-segurium.php:5018
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"Penyimpanan pemindaian belum siap. Nonaktifkan lalu aktifkan kembali plugin "
+"Segurium, kemudian coba lagi."
+
+#: includes/class-segurium-scan-runner.php:446
+#: includes/class-segurium-scan-runner.php:481 includes/class-segurium.php:1078
+msgid "A scan is already in progress."
+msgstr "Pemindaian sudah berjalan."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:474
+#: includes/class-segurium-scan-runner.php:550
+#, php-format
+msgid "Unexpected error starting scan: %s"
+msgstr "Eror tak terduga saat memulai pemindaian: %s"
+
+#: includes/class-segurium-scan-runner.php:502
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please click"
+" \"Start scan\" again."
+msgstr ""
+"Penyimpanan pemindaian belum siap. Penyimpanan sudah diperbaiki otomatis — "
+"klik \"Mulai pemindaian\" lagi."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:511
+#, php-format
+msgid "Failed to initialize scan: %s"
+msgstr "Gagal menginisialisasi pemindaian: %s"
+
+#: includes/class-segurium-scan-runner.php:1354
+#: includes/class-segurium.php:1082 includes/class-segurium.php:3734
+#: includes/class-segurium.php:3799 includes/class-segurium.php:3826
+#: includes/class-segurium.php:4663
+msgid "You do not have permission to manage scans."
+msgstr "Anda tidak punya izin untuk mengelola pemindaian."
+
+#: includes/class-segurium-scan-runner.php:1384
+#: includes/class-segurium.php:4691
+msgid "Could not fetch scan status due to a server error."
+msgstr "Tidak dapat mengambil status pemindaian karena eror server."
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:2311
+#, php-format
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"PHP max_execution_time adalah %ds — terlalu pendek untuk pemindaian yang "
+"andal. Minta penyedia hosting Anda menaikkannya ke minimal 30 detik."
+
+#: includes/class-segurium-scan-runner.php:2322
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way to"
+" detach long tasks from page requests. Background scans will only progress "
+"while a Segurium admin tab stays open. Ask your host to either enable a real "
+"system cron job hitting wp-cron.php every minute, or to switch from mod_php "
+"to PHP-FPM / LiteSpeed."
+msgstr ""
+"Cron WordPress dinonaktifkan (DISABLE_WP_CRON) dan penyiapan PHP Anda tidak "
+"punya cara melepas tugas panjang dari permintaan halaman. Pemindaian latar "
+"hanya akan maju selama tab admin Segurium tetap terbuka. Minta penyedia "
+"hosting Anda menyalakan tugas cron sistem sungguhan yang memanggil wp-"
+"cron.php tiap menit, atau berpindah dari mod_php ke PHP-FPM / LiteSpeed."
+
+#: includes/class-segurium-scan-runner.php:2324
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"Cron WordPress dinonaktifkan (DISABLE_WP_CRON). Pemindaian terjadwal "
+"bergantung pada tugas cron sistem sungguhan yang memanggil wp-cron.php tiap "
+"menit. Minta penyedia hosting Anda menyiapkannya."
+
+#: includes/class-segurium-scan-trigger-auth.php:93
+#: includes/class-segurium-scan-trigger-auth.php:135
+#: includes/class-segurium-scan-trigger-auth.php:143
+msgid "Scan trigger requires authentication."
+msgstr "Pemicu pemindaian memerlukan autentikasi."
+
+#: includes/class-segurium-scan-trigger-auth.php:122
+msgid "Scan trigger secret did not match."
+msgstr "Rahasia pemicu pemindaian tidak cocok."
+
+#: includes/class-segurium-scheduled-scan-settings.php:108
+msgid "Invalid settings payload."
+msgstr "Muatan pengaturan tidak valid."
+
+#: includes/class-segurium-scheduled-scan-settings.php:127
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "Frekuensi harus salah satu dari: off, daily, weekly."
+
+#: includes/class-segurium-scheduled-scan-settings.php:138
+msgid "Hour must be between 0 and 23."
+msgstr "Jam harus antara 0 dan 23."
+
+#: includes/class-segurium-scheduled-scan-settings.php:149
+msgid "Minute must be between 0 and 59."
+msgstr "Menit harus antara 0 dan 59."
+
+#: includes/class-segurium-scheduled-scan-settings.php:160
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "Hari dalam minggu harus antara 0 (Minggu) dan 6 (Sabtu)."
+
+#: includes/class-segurium-self-check.php:401 includes/class-segurium.php:2882
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:404
+msgid "CSP is enforced."
+msgstr "CSP ditegakkan."
+
+#: includes/class-segurium-self-check.php:406
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr "CSP hanya melaporkan. Beralih ke penegakan untuk perlindungan penuh."
+
+#: includes/class-segurium-self-check.php:407
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr ""
+"Tidak ada header Content-Security-Policy. Header ini melindungi dari XSS dan "
+"injeksi."
+
+#: includes/class-segurium-self-check.php:422
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:425
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS aktif dengan max-age minimal satu tahun."
+
+#: includes/class-segurium-self-check.php:427
+msgid "HSTS present but max-age is below one year."
+msgstr "HSTS ada tetapi max-age di bawah satu tahun."
+
+#: includes/class-segurium-self-check.php:428
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr "Tidak ada header HSTS. Peramban dapat menyambung lewat HTTP polos."
+
+#: includes/class-segurium-self-check.php:440
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:443
+msgid "MIME sniffing prevented."
+msgstr "Pengendusan MIME dicegah."
+
+#: includes/class-segurium-self-check.php:444
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "Hilang. Peramban dapat salah menafsirkan tipe berkas."
+
+#: includes/class-segurium-self-check.php:456 includes/class-segurium.php:2751
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:459
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "Perlindungan clickjacking lewat X-Frame-Options."
+
+#: includes/class-segurium-self-check.php:460
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr "X-Frame-Options hilang. Situs dapat dibingkai penyerang."
+
+#: includes/class-segurium-self-check.php:472 includes/class-segurium.php:2759
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:475
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "Referrer-Policy membatasi kebocoran informasi saat navigasi."
+
+#: includes/class-segurium-self-check.php:476
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr "Referrer-Policy hilang atau tidak aman. URL lengkap dapat bocor."
+
+#: includes/class-segurium-self-check.php:487 includes/class-segurium.php:2847
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:490
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "Permissions-Policy membatasi akses ke fitur peramban."
+
+#: includes/class-segurium-self-check.php:491
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "Permissions-Policy hilang. Fitur peramban tidak dibatasi."
+
+#: includes/class-segurium-self-check.php:503 includes/class-segurium.php:2779
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:506
+msgid "Legacy XSS filter directive present."
+msgstr "Direktif penyaring XSS lawas ada."
+
+#: includes/class-segurium-self-check.php:507
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"X-XSS-Protection hilang. Setel ke 0 untuk menonaktifkan penyaring XSS "
+"peramban lawas dengan aman."
+
+#: includes/class-segurium-self-check.php:532
+msgid "X-Powered-By hidden"
+msgstr "X-Powered-By disembunyikan"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:537
+#, php-format
+msgid "X-Powered-By reveals: %s"
+msgstr "X-Powered-By mengungkap: %s"
+
+#: includes/class-segurium-self-check.php:540
+msgid "X-Powered-By header is not exposed."
+msgstr "Header X-Powered-By tidak terungkap."
+
+#: includes/class-segurium-self-check.php:551
+msgid "WordPress version hidden"
+msgstr "Versi WordPress disembunyikan"
+
+#: includes/class-segurium-self-check.php:554
+msgid "WordPress version exposed in HTML source."
+msgstr "Versi WordPress terungkap di sumber HTML."
+
+#: includes/class-segurium-self-check.php:555
+msgid "WordPress version not visible in HTML."
+msgstr "Versi WordPress tidak terlihat di HTML."
+
+#: includes/class-segurium-self-check.php:566
+msgid "Asset version query hidden"
+msgstr "Kueri versi aset disembunyikan"
+
+#: includes/class-segurium-self-check.php:569
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr "Versi core/tema/plugin terungkap di ?ver= pada URL aset."
+
+#: includes/class-segurium-self-check.php:570
+msgid "Asset URLs do not expose version numbers."
+msgstr "URL aset tidak mengungkap nomor versi."
+
+#: includes/class-segurium-self-check.php:597
+msgid "XML-RPC disabled"
+msgstr "XML-RPC dinonaktifkan"
+
+#: includes/class-segurium-self-check.php:600
+msgid "XML-RPC endpoint is disabled."
+msgstr "Titik akhir XML-RPC dinonaktifkan."
+
+#: includes/class-segurium-self-check.php:601
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr ""
+"XML-RPC dapat dijangkau. Target brute force dan amplifikasi pingback yang "
+"sering."
+
+#: includes/class-segurium-self-check.php:612
+msgid "REST API discovery disabled"
+msgstr "Penemuan REST API dinonaktifkan"
+
+#: includes/class-segurium-self-check.php:615
+msgid "REST API discovery link removed from <head>."
+msgstr "Tautan penemuan REST API dihapus dari <head>."
+
+#: includes/class-segurium-self-check.php:616
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr "Tautan penemuan REST API terungkap — mempermudah pengintaian."
+
+#: includes/class-segurium-self-check.php:627
+msgid "Brute-force protection"
+msgstr "Perlindungan brute force"
+
+#: includes/class-segurium-self-check.php:630
+msgid "Login brute-force protection is active."
+msgstr "Perlindungan brute force login aktif."
+
+#: includes/class-segurium-self-check.php:631
+msgid "Brute-force protection is disabled."
+msgstr "Perlindungan brute force dinonaktifkan."
+
+#: includes/class-segurium-self-check.php:646
+msgid "Two-factor enforced for administrators"
+msgstr "Dua faktor ditegakkan untuk administrator"
+
+#: includes/class-segurium-self-check.php:649
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "Autentikasi dua faktor ditegakkan untuk peran administrator."
+
+#: includes/class-segurium-self-check.php:650
+msgid "Administrators can log in with a password alone."
+msgstr "Administrator dapat login hanya dengan kata sandi."
+
+#: includes/class-segurium-self-check.php:662 includes/class-segurium.php:2022
+msgid "Firewall"
+msgstr "Firewall"
+
+#: includes/class-segurium-self-check.php:665
+msgid "Firewall rules are active."
+msgstr "Aturan firewall aktif."
+
+#: includes/class-segurium-self-check.php:666
+msgid "No firewall rules are active."
+msgstr "Tidak ada aturan firewall yang aktif."
+
+#: includes/class-segurium-self-check.php:678
+msgid "HTTPS / SSL active"
+msgstr "HTTPS / SSL aktif"
+
+#: includes/class-segurium-self-check.php:681
+msgid "Site is served over HTTPS."
+msgstr "Situs dilayani lewat HTTPS."
+
+#: includes/class-segurium-self-check.php:682
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "Situs tidak dilayani lewat HTTPS. Lalu lintas tidak terenkripsi."
+
+#: includes/class-segurium-self-check.php:726
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"Tidak ada header Set-Cookie di beranda; penanda cookie tidak dapat dinilai "
+"dari luar."
+
+#: includes/class-segurium-self-check.php:732
+#: includes/class-segurium-self-check.php:754
+msgid "Cookies — Secure"
+msgstr "Cookie — Secure"
+
+msgid "Cookies — HttpOnly"
+msgstr "Cookie — HttpOnly"
+
+#: includes/class-segurium-self-check.php:743
+#: includes/class-segurium-self-check.php:850
+#: includes/class-segurium-self-check.php:864
+#: includes/class-segurium-self-check.php:882
+msgid "Cookies — SameSite"
+msgstr "Cookie — SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:786
+#, php-format
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "Semua %1$d cookie menyetel atribut %2$s."
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
+#: includes/class-segurium-self-check.php:800
+#, php-format
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%1$d dari %2$d cookie menyetel %3$s."
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:813
+#, php-format
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "Tidak satu pun dari %1$d cookie menyetel atribut %2$s."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:853
+#, php-format
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "Semua %d cookie menyetel SameSite=Lax/Strict."
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:867
+#, php-format
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "%1$d dari %2$d cookie menyetel SameSite=Lax/Strict."
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:875
+#, php-format
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "%1$d dari %2$d cookie memakai SameSite=None."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:877
+#, php-format
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "Tidak ada cookie yang menyetel SameSite=Lax atau Strict (dari %d)."
+
+#: includes/class-segurium-self-check.php:944 includes/class-segurium.php:3253
+msgid "Cloud-assisted malware detection"
+msgstr "Deteksi malware berbantuan cloud"
+
+#: includes/class-segurium-self-check.php:947
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Mode On-premise diaktifkan: konten berkas tetap di server ini, dan berkas apa"
+" pun yang tidak dapat dikenali cloud lewat hash akan menggantung. Nyalakan "
+"deteksi berbantuan cloud untuk akurasi penuh."
+
+#: includes/class-segurium-self-check.php:948
+msgid "Cloud-assisted malware detection is active."
+msgstr "Deteksi malware berbantuan cloud aktif."
+
+#: includes/class-segurium-self-check.php:960
+msgid "Scheduled malware scans"
+msgstr "Pemindaian malware terjadwal"
+
+#: includes/class-segurium-self-check.php:963
+msgid "A recurring malware scan is scheduled."
+msgstr "Pemindaian malware berulang dijadwalkan."
+
+#: includes/class-segurium-self-check.php:964
+msgid "No recurring malware scan is scheduled."
+msgstr "Tidak ada pemindaian malware berulang yang dijadwalkan."
+
+#: includes/class-segurium-self-check.php:976
+msgid "Automatic malware cleanup"
+msgstr "Pembersihan malware otomatis"
+
+#: includes/class-segurium-self-check.php:979
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "Malware yang terdeteksi dibersihkan otomatis setelah tiap pemindaian."
+
+#: includes/class-segurium-self-check.php:980
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr ""
+"Pembersihan otomatis dinonaktifkan. Malware yang terdeteksi butuh klik manual"
+" untuk dibersihkan."
+
+#: includes/class-segurium-self-check.php:994
+msgid "Malware scan up to date"
+msgstr "Pemindaian malware terbaru"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:999
+#, php-format
+msgid "Last malware scan completed %s ago."
+msgstr "Pemindaian malware terakhir selesai %s lalu."
+
+#: includes/class-segurium-self-check.php:1003
+msgid "Malware scan is older than 7 days."
+msgstr "Pemindaian malware lebih tua dari 7 hari."
+
+#: includes/class-segurium-self-check.php:1004
+msgid "No malware scan has been completed yet."
+msgstr "Belum ada pemindaian malware yang selesai."
+
+#: includes/class-segurium-self-check.php:1016
+msgid "No malware in the last 24 hours"
+msgstr "Tidak ada malware dalam 24 jam terakhir"
+
+#: includes/class-segurium-self-check.php:1019
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr ""
+"Pemindaian malware terbaru berjalan dalam 24 jam terakhir dan tidak menemukan"
+" apa pun."
+
+#: includes/class-segurium-self-check.php:1021
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"Tidak ada pemindaian malware yang berjalan dalam 24 jam terakhir. Pemindaian "
+"berlangsung cepat — jalankan satu untuk menyegarkan putusan ini."
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:1024
+#, php-format
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner tab."
+msgstr[0] ""
+"Pemindaian malware terakhir menandai %d ancaman. Tinjau pada tab pemindai "
+"Malware."
+msgstr[1] ""
+"Pemindaian malware terakhir menandai %d ancaman. Tinjau pada tab pemindai "
+"Malware."
+
+#: includes/class-segurium-self-check.php:1048
+msgid "No integrity issues in the last 24 hours"
+msgstr "Tidak ada masalah integritas dalam 24 jam terakhir"
+
+#: includes/class-segurium-self-check.php:1051
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr ""
+"Pemindaian integritas terbaru berjalan dalam 24 jam terakhir dan tidak "
+"melaporkan masalah."
+
+#: includes/class-segurium-self-check.php:1053
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"Tidak ada pemindaian integritas yang berjalan dalam 24 jam terakhir. "
+"Pemindaian berlangsung cepat — jalankan satu untuk menyegarkan putusan ini."
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:1056
+#, php-format
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity scanner"
+" tab."
+msgstr[0] ""
+"%d masalah integritas terbuka belum terselesaikan. Tinjau pada tab pemindai "
+"Integritas."
+msgstr[1] ""
+"%d masalah integritas terbuka belum terselesaikan. Tinjau pada tab pemindai "
+"Integritas."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+#, php-format
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "Titik akhir proksi tepercaya mengembalikan HTTP %d."
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "Respons proksi tepercaya berformat tidak valid."
+
+#: includes/class-segurium-upload-scan.php:93
+msgid "This file was identified as malware and has been blocked."
+msgstr "Berkas ini dikenali sebagai malware dan telah diblokir."
+
+#: includes/class-segurium.php:377
+msgid "Unknown or unsupported action."
+msgstr "Tindakan tidak dikenal atau tidak didukung."
+
+#: includes/class-segurium.php:403
+msgid "This action is temporarily unavailable."
+msgstr "Tindakan ini tidak tersedia untuk sementara."
+
+#: includes/class-segurium.php:478 includes/segurium-admin-menu-shell.php:125
+msgid "Security score:"
+msgstr "Skor keamanan:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:488 includes/class-segurium.php:1325
+#: includes/segurium-admin-menu-shell.php:135
+#, php-format
+msgid "Last checked %s ago."
+msgstr "Terakhir diperiksa %s lalu."
+
+#: includes/class-segurium.php:495 includes/segurium-admin-menu-shell.php:142
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"Jalankan Self-Check dari halaman admin Segurium untuk melihat skor keamanan "
+"Anda."
+
+#: includes/class-segurium.php:501 includes/segurium-admin-menu-shell.php:148
+msgid "Open Segurium"
+msgstr "Buka Segurium"
+
+#: includes/class-segurium.php:1042
+msgid "Malware"
+msgstr "Malware"
+
+#: includes/class-segurium.php:1043
+msgid "Clean"
+msgstr "Bersihkan"
+
+#: includes/class-segurium.php:1044 includes/class-segurium.php:2105
+msgid "Cleaned"
+msgstr "Dibersihkan"
+
+#: includes/class-segurium.php:1045
+msgid "Restored"
+msgstr "Dipulihkan"
+
+#: includes/class-segurium.php:1046
+msgid "Failed"
+msgstr "Gagal"
+
+#: includes/class-segurium.php:1047
+msgid "Processing..."
+msgstr "Memproses..."
+
+#: includes/class-segurium.php:1048
+msgid "Show malware"
+msgstr "Tampilkan malware"
+
+#: includes/class-segurium.php:1049
+msgid "Report false positive"
+msgstr "Laporkan positif palsu"
+
+#: includes/class-segurium.php:1050 includes/class-segurium.php:3398
+msgid "Report False Positive"
+msgstr "Laporkan Positif Palsu"
+
+#: includes/class-segurium.php:1051 includes/class-segurium.php:3403
+msgid "File path"
+msgstr "Jalur berkas"
+
+#: includes/class-segurium.php:1052 includes/class-segurium.php:3405
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:1053 includes/class-segurium.php:2183
+#: includes/class-segurium.php:3310 includes/class-segurium.php:3407
+msgid "Component"
+msgstr "Komponen"
+
+#: includes/class-segurium.php:1054 includes/class-segurium.php:3409
+msgid "Current verdict"
+msgstr "Putusan saat ini"
+
+#: includes/class-segurium.php:1056 includes/class-segurium.php:3416
+msgid "Also ignore this file on this site"
+msgstr "Abaikan juga berkas ini di situs ini"
+
+#: includes/class-segurium.php:1057 includes/class-segurium.php:3420
+msgid "Submit report"
+msgstr "Kirim laporan"
+
+#: includes/class-segurium.php:1059
+msgid "Submitting…"
+msgstr "Mengirim…"
+
+#: includes/class-segurium.php:1060
+msgid "Report submitted. Thank you."
+msgstr "Laporan Anda terkirim. Terima kasih."
+
+#: includes/class-segurium.php:1061
+msgid "Could not submit the report."
+msgstr "Tidak dapat mengirim laporan."
+
+#: includes/class-segurium.php:1062 includes/class-segurium.php:1161
+msgid "Restore"
+msgstr "Pulihkan"
+
+#: includes/class-segurium.php:1063
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr ""
+"Ini akan memulihkan berkas asli yang terinfeksi dari cadangan. Lanjutkan?"
+
+#: includes/class-segurium.php:1064
+msgid "Restore file"
+msgstr "Pulihkan berkas"
+
+#: includes/class-segurium.php:1065
+msgid "Checking…"
+msgstr "Memeriksa…"
+
+#: includes/class-segurium.php:1066
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"Berkas di disk sudah berupa versi cadangan. Tetap pulihkan untuk memperbarui "
+"catatan basis data?"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1068
+#, php-format
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"Berkas di %s telah diubah sejak pembersihan terakhir. Memulihkan akan menimpa"
+" berkas yang ada dengan versi cadangan. Ini tidak dapat dibatalkan."
+
+#: includes/class-segurium.php:1069
+msgid "Overwrite & Restore"
+msgstr "Timpa & Pulihkan"
+
+#: includes/class-segurium.php:1070
+msgid "No threats found."
+msgstr "Tidak ada ancaman ditemukan."
+
+#: includes/class-segurium.php:1071
+msgid "Scan complete."
+msgstr "Pemindaian selesai."
+
+#: includes/class-segurium.php:1072
+msgid "files"
+msgstr "berkas"
+
+#: includes/class-segurium.php:1073
+msgid "failed"
+msgstr "gagal"
+
+#: includes/class-segurium.php:1074
+msgid "skipped"
+msgstr "dilewati"
+
+#: includes/class-segurium.php:1075
+msgid "scanned"
+msgstr "dipindai"
+
+#: includes/class-segurium.php:1076
+msgid "Starting scan..."
+msgstr "Memulai pemindaian..."
+
+#: includes/class-segurium.php:1077
+msgid "Error"
+msgstr "Eror"
+
+#: includes/class-segurium.php:1079
+msgid "Scan in progress..."
+msgstr "Pemindaian berjalan..."
+
+#: includes/class-segurium.php:1080
+msgid "Request failed"
+msgstr "Permintaan gagal"
+
+#: includes/class-segurium.php:1081
+msgid "Your session has expired. Reload the page and try again."
+msgstr "Sesi Anda telah kedaluwarsa. Muat ulang halaman lalu coba lagi."
+
+#: includes/class-segurium.php:1083 includes/class-segurium.php:3744
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Persetujuan Segurium Cloud diperlukan sebelum memindai."
+
+#: includes/class-segurium.php:1084
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr "Pemindaian tidak dapat diinisialisasi. Periksa log eror PHP."
+
+#: includes/class-segurium.php:1085
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr ""
+"Pemindaian dimulai tetapi pekerja latar tidak dapat dikirim. Coba lagi."
+
+#: includes/class-segurium.php:1086
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error log."
+msgstr ""
+"Pemindaian tidak dapat dimulai karena eror server. Periksa log eror PHP."
+
+#: includes/class-segurium.php:1087
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr ""
+"Tidak dapat mengambil status pemindaian karena eror server. Periksa log eror "
+"PHP."
+
+#: includes/class-segurium.php:1088
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Tidak dapat menghentikan pemindaian yang berjalan karena eror server. Periksa"
+" log eror PHP."
+
+#: includes/class-segurium.php:1089
+msgid "The server returned an error while processing the request."
+msgstr "Server mengembalikan eror saat memproses permintaan."
+
+#: includes/class-segurium.php:1090
+msgid "Network error — the request could not reach the server."
+msgstr "Eror jaringan — permintaan tidak dapat mencapai server."
+
+#: includes/class-segurium.php:1091
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the page"
+" to see the current state — the scan itself is unaffected. Details are in the"
+" browser console."
+msgstr ""
+"Tampilan progres terkena eror skrip dan berhenti memperbarui. Muat ulang "
+"halaman untuk melihat keadaan saat ini — pemindaiannya sendiri tidak "
+"terpengaruh. Detailnya ada di konsol peramban."
+
+#: includes/class-segurium.php:1092
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr ""
+"Server mengembalikan respons tak terduga. Muat ulang halaman lalu coba lagi."
+
+#: includes/class-segurium.php:1093
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium mendapat respons kosong dari server. Penangan PHP kemungkinan "
+"berhenti mendadak sebelum menghasilkan keluaran apa pun — periksa log eror "
+"PHP untuk eror fatal, OOM, atau kehabisan waktu."
+
+#: includes/class-segurium.php:1094
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"Penanda respons Segurium hilang dari badan respons. Penangan AJAX Segurium "
+"tidak berjalan, atau plugin lain mengganti seluruh responsnya. Periksa wp-"
+"content/mu-plugins, plugin aktif, dan log eror PHP."
+
+#: includes/class-segurium.php:1095
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but the"
+" end marker did not. The PHP handler crashed mid-response (fatal, OOM, or "
+"timeout). Check the PHP error log."
+msgstr ""
+"Respons Segurium terpotong di tengah aliran — penanda mulai tiba tetapi "
+"penanda akhir tidak. Penangan PHP berhenti mendadak di tengah respons (eror "
+"fatal, OOM, atau kehabisan waktu). Periksa log eror PHP."
+
+#: includes/class-segurium.php:1096
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a "
+"fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium tidak dapat membuka respons server. Periksa log eror PHP untuk eror "
+"fatal, OOM, atau kehabisan waktu pada penangan Segurium."
+
+#: includes/class-segurium.php:1097
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside did"
+" not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Segurium menerima respons yang terbungkus penanda valid tetapi JSON di "
+"dalamnya tidak terurai. Ini biasanya menandakan eror PHP fatal di dalam "
+"penangan Segurium — periksa log eror PHP."
+
+#: includes/class-segurium.php:1098 includes/class-segurium.php:3808
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr ""
+"Versi halaman admin ini sudah basi. Muat ulang halaman untuk melanjutkan."
+
+#: includes/class-segurium.php:1100
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr "Terjadi eror server tak terduga. Periksa log eror PHP lalu coba lagi."
+
+#: includes/class-segurium.php:1101 includes/class-segurium.php:3349
+msgid "Frequency"
+msgstr "Frekuensi"
+
+#: includes/class-segurium.php:1102 includes/class-segurium.php:2731
+#: includes/class-segurium.php:3352
+msgid "Off"
+msgstr "Mati"
+
+#: includes/class-segurium.php:1103 includes/class-segurium.php:3353
+msgid "Daily"
+msgstr "Harian"
+
+#: includes/class-segurium.php:1104 includes/class-segurium.php:3354
+msgid "Weekly"
+msgstr "Mingguan"
+
+#: includes/class-segurium.php:1105 includes/class-segurium.php:3359
+msgid "Time of day"
+msgstr "Waktu dalam sehari"
+
+#: includes/class-segurium.php:1106 includes/class-segurium.php:3366
+msgid "Day of week"
+msgstr "Hari dalam minggu"
+
+#: includes/class-segurium.php:1107
+msgid "Next run:"
+msgstr "Proses berikutnya:"
+
+#: includes/class-segurium.php:1108
+msgid "Schedule saved."
+msgstr "Jadwal disimpan."
+
+#: includes/class-segurium.php:1109
+msgid "Could not save schedule."
+msgstr "Tidak dapat menyimpan jadwal."
+
+#: includes/class-segurium.php:1110
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "Disimpan dalam UTC. Ditampilkan dalam lokal peramban Anda."
+
+#: includes/class-segurium.php:1111
+msgid "Scanned files"
+msgstr "Berkas yang dipindai"
+
+#: includes/class-segurium.php:1112
+msgid "showing first"
+msgstr "menampilkan yang pertama"
+
+#: includes/class-segurium.php:1113
+msgid "Original file content (malware)"
+msgstr "Konten berkas asli (malware)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1115
+#, php-format
+msgid "Current on-disk content (malware): %s"
+msgstr "Konten di disk saat ini (malware): %s"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:1118
+msgid "OK"
+msgstr "OK"
+
+#: includes/class-segurium.php:1119
+msgid "Delete failed"
+msgstr "Penghapusan gagal"
+
+#: includes/class-segurium.php:1120
+msgid "Restore failed"
+msgstr "Pemulihan gagal"
+
+#: includes/class-segurium.php:1121
+msgid "Fix failed"
+msgstr "Perbaikan gagal"
+
+#: includes/class-segurium.php:1122
+msgid "Diff failed"
+msgstr "Diff gagal"
+
+#: includes/class-segurium.php:1123
+msgid "Diff decode error"
+msgstr "Eror dekode diff"
+
+#: includes/class-segurium.php:1124
+msgid "View failed"
+msgstr "Tampilan gagal"
+
+#: includes/class-segurium.php:1125
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Tidak dapat memulihkan — tidak ada cadangan tercatat untuk berkas ini. "
+"Cadangannya mungkin sudah dirotasi keluar."
+
+#: includes/class-segurium.php:1126 includes/class-segurium.php:1162
+#: includes/class-segurium.php:2109
+msgid "Fixed"
+msgstr "Diperbaiki"
+
+#: includes/class-segurium.php:1127 includes/class-segurium.php:2113
+msgid "Ignored"
+msgstr "Diabaikan"
+
+#: includes/class-segurium.php:1128
+msgid "Ignore until file is the same"
+msgstr "Abaikan sampai berkas sama"
+
+#: includes/class-segurium.php:1129
+msgid "Always ignore"
+msgstr "Selalu abaikan"
+
+#: includes/class-segurium.php:1130
+msgid "Remove from ignore"
+msgstr "Hapus dari daftar abaikan"
+
+#: includes/class-segurium.php:1131
+msgid "Connected"
+msgstr "Tersambung"
+
+#: includes/class-segurium.php:1132
+msgid "Disconnected"
+msgstr "Terputus"
+
+#: includes/class-segurium.php:1133
+msgid "No files found."
+msgstr "Tidak ada berkas ditemukan."
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:1135 includes/class-segurium.php:1877
+#, php-format
+msgid "%d threats still need your attention"
+msgstr "%d ancaman masih perlu perhatian Anda"
+
+#: includes/class-segurium.php:1136
+msgid "No threats — you are clear."
+msgstr "Tidak ada ancaman — Anda aman."
+
+#: includes/class-segurium.php:1137
+msgid "No scans yet — run your first scan."
+msgstr "Belum ada pemindaian — jalankan pemindaian pertama Anda."
+
+#: includes/class-segurium.php:1138 includes/class-segurium.php:2078
+#: includes/class-segurium.php:2167
+msgid "Stop scan"
+msgstr "Hentikan pemindaian"
+
+#: includes/class-segurium.php:1139
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr "Hentikan pemindaian yang berjalan? Progres sejauh ini akan dibuang."
+
+#: includes/class-segurium.php:1140
+msgid "Could not stop the scan."
+msgstr "Tidak dapat menghentikan pemindaian."
+
+#: includes/class-segurium.php:1141
+msgid "Scan stopped."
+msgstr "Pemindaian dihentikan."
+
+#. translators: %1$d: files scanned before stop, %2$d: files discovered
+#: includes/class-segurium.php:1143
+#, php-format
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "Pemindaian dihentikan — %1$d dari %2$d berkas dipindai."
+
+#. translators: %1$d: files scanned before abort, %2$d: files discovered
+#: includes/class-segurium.php:1145
+#, php-format
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "Pemindaian dibatalkan — %1$d dari %2$d berkas dipindai."
+
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
+#: includes/class-segurium.php:1147
+#, php-format
+msgid "no progress for %ds — waiting for worker"
+msgstr "tidak ada progres selama %ds — menunggu pekerja"
+
+#: includes/class-segurium.php:1148
+msgid "Hosting environment warnings"
+msgstr "Peringatan lingkungan hosting"
+
+#: includes/class-segurium.php:1149
+msgid "No malicious files. All known threats have been handled."
+msgstr ""
+"Tidak ada berkas berbahaya. Semua ancaman yang diketahui telah ditangani."
+
+#: includes/class-segurium.php:1150
+msgid "No cleaned files yet."
+msgstr "Belum ada berkas yang dibersihkan."
+
+#: includes/class-segurium.php:1151
+msgid "No files marked fixed."
+msgstr "Tidak ada berkas yang ditandai diperbaiki."
+
+#: includes/class-segurium.php:1152
+msgid "No ignored files."
+msgstr "Tidak ada berkas yang diabaikan."
+
+#: includes/class-segurium.php:1153
+msgid "Recently processed in this session"
+msgstr "Baru saja diproses pada sesi ini"
+
+#: includes/class-segurium.php:1154 includes/class-segurium.php:1305
+msgid "Page"
+msgstr "Halaman"
+
+#: includes/class-segurium.php:1155 includes/class-segurium.php:1306
+msgid "of"
+msgstr "dari"
+
+#: includes/class-segurium.php:1156
+msgid "items"
+msgstr "item"
+
+#: includes/class-segurium.php:1157 includes/class-segurium.php:1303
+#: includes/class-segurium.php:2604
+msgid "Previous"
+msgstr "Sebelumnya"
+
+#: includes/class-segurium.php:1158 includes/class-segurium.php:1304
+#: includes/class-segurium.php:2606
+msgid "Next"
+msgstr "Berikutnya"
+
+#: includes/class-segurium.php:1159 includes/class-segurium.php:1326
+msgid "Fix"
+msgstr "Perbaiki"
+
+#: includes/class-segurium.php:1160
+msgid "Ignore"
+msgstr "Abaikan"
+
+#: includes/class-segurium.php:1163
+msgid "Deleted"
+msgstr "Dihapus"
+
+#: includes/class-segurium.php:1164
+msgid "Not found"
+msgstr "Tidak ditemukan"
+
+#: includes/class-segurium.php:1165
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"Berkas ini bukan bagian dari instalasi asli dan akan dihapus. Cadangan akan "
+"dibuat. Lanjutkan?"
+
+#: includes/class-segurium.php:1166
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"Sebagian berkas akan dihapus (berkas tidak dikenal) dan sebagian akan diganti"
+" dengan berkas asli (berkas yang diubah). Cadangan akan dibuat untuk "
+"semuanya. Lanjutkan?"
+
+#: includes/class-segurium.php:1167
+msgid "Fixing files..."
+msgstr "Memperbaiki berkas..."
+
+#: includes/class-segurium.php:1169
+msgid "Older backups will be rotated out"
+msgstr "Cadangan lama akan dirotasi keluar"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
+#: includes/class-segurium.php:1171
+#, php-format
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "Anda akan memperbaiki %1$d berkas (~%2$s)."
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
+#: includes/class-segurium.php:1173
+#, php-format
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points for"
+" previously-fixed files."
+msgstr ""
+"%1$d cadangan lama (~%2$s) akan dirotasi keluar — cadangan itu adalah titik "
+"pemulihan untuk berkas yang sebelumnya diperbaiki."
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:1175
+#, php-format
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr "%d cadangan tersemat akan disimpan (masih dirujuk oleh Pulihkan)."
+
+#: includes/class-segurium.php:1177
+msgid "Restoring files…"
+msgstr "Memulihkan berkas…"
+
+#: includes/class-segurium.php:1178
+msgid "Updating files…"
+msgstr "Memperbarui berkas…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:1180
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d dari %2$d"
+
+#: includes/class-segurium.php:1181
+msgid "Cancelling…"
+msgstr "Membatalkan…"
+
+#: includes/class-segurium.php:1182
+msgid "Clean all detected malware"
+msgstr "Bersihkan semua malware yang terdeteksi"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:1184
+#, php-format
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is backed"
+" up before cleanup."
+msgstr ""
+"Ini akan mencoba membersihkan %d berkas berbahaya yang terdeteksi. Tiap "
+"berkas dicadangkan sebelum dibersihkan."
+
+#: includes/class-segurium.php:1185
+msgid "Clean all"
+msgstr "Bersihkan semua"
+
+#: includes/class-segurium.php:1186
+msgid "Cleaning malware..."
+msgstr "Membersihkan malware..."
+
+#: includes/class-segurium.php:1189 includes/class-segurium.php:1190
+#: includes/class-segurium.php:1202 includes/class-segurium.php:1846
+#: includes/class-segurium.php:1893 includes/class-segurium.php:3210
+msgid "Upgrade to Pro"
+msgstr "Tingkatkan ke Pro"
+
+#: includes/class-segurium.php:1192 includes/class-segurium.php:4135
+#: includes/class-segurium.php:6963
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"Kuota pembersihan tercapai. Tingkatkan ke Pro untuk kuota pembersihan cloud "
+"tanpa batas."
+
+#: includes/class-segurium.php:1193 includes/class-segurium.php:1884
+msgid "Cleanup quota reached"
+msgstr "Kuota pembersihan tercapai"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g., 3);
+#. 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1195
+#, php-format
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an "
+"unbounded cloud cleanup quota."
+msgstr ""
+"Anda telah memakai %1$d pembersihan cloud dalam %2$d hari terakhir. "
+"Tingkatkan ke Pro untuk kuota pembersihan cloud tanpa batas."
+
+#. translators: %s: localized date when the next cleanup slot becomes available
+#: includes/class-segurium.php:1197
+#, php-format
+msgid "Next slot opens %s"
+msgstr "Slot berikutnya terbuka %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1199 includes/class-segurium.php:1818
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "%1$d dari %2$d pembersihan terpakai dalam %3$d hari terakhir"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
+#: includes/class-segurium.php:1201 includes/class-segurium.php:1809
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"%1$d dari %2$d pembersihan terpakai dalam %3$d hari terakhir — slot "
+"berikutnya terbuka %4$s"
+
+#: includes/class-segurium.php:1203 includes/class-segurium.php:1896
+#: includes/class-segurium.php:2054 includes/class-segurium.php:3152
+msgid "Plans"
+msgstr "Paket"
+
+#: includes/class-segurium.php:1204 includes/class-segurium.php:1899
+#: includes/class-segurium.php:3213
+msgid "14-day money-back guarantee."
+msgstr "Jaminan uang kembali 14 hari."
+
+#: includes/class-segurium.php:1205 includes/class-segurium.php:3193
+#: includes/class-segurium.php:3434
+msgid "Pro"
+msgstr "Pro"
+
+#: includes/class-segurium.php:1206
+msgid "Diff"
+msgstr "Diff"
+
+#: includes/class-segurium.php:1207
+msgid "Delisted from official WordPress.org"
+msgstr "Dicabut dari WordPress.org resmi"
+
+#: includes/class-segurium.php:1208 includes/class-segurium.php:5773
+msgid "Abandoned (no updates >2 years)"
+msgstr "Ditelantarkan (tanpa pembaruan >2 tahun)"
+
+#: includes/class-segurium.php:1209
+msgid "Not from official WordPress.org"
+msgstr "Bukan dari WordPress.org resmi"
+
+#: includes/class-segurium.php:1210
+msgid "ignored"
+msgstr "diabaikan"
+
+#: includes/class-segurium.php:1211
+msgid "Issues"
+msgstr "Masalah"
+
+#: includes/class-segurium.php:1212
+msgid "issue"
+msgstr "masalah"
+
+#: includes/class-segurium.php:1213
+msgid "unrecognized file"
+msgstr "berkas tidak dikenali"
+
+#: includes/class-segurium.php:1214
+msgid "(!) malware"
+msgstr "(!) malware"
+
+#: includes/class-segurium.php:1215
+msgid "View"
+msgstr "Lihat"
+
+#: includes/class-segurium.php:1216
+msgid "issues"
+msgstr "masalah"
+
+#: includes/class-segurium.php:1217
+msgid "Checking"
+msgstr "Memeriksa"
+
+#: includes/class-segurium.php:1218
+msgid "Discovering components…"
+msgstr "Menemukan komponen…"
+
+#: includes/class-segurium.php:1219
+msgid "Saved permanently."
+msgstr "Disimpan permanen."
+
+#: includes/class-segurium.php:1220
+msgid "Changes reverted."
+msgstr "Perubahan dibatalkan."
+
+#: includes/class-segurium.php:1221 includes/class-segurium.php:2277
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Blocked Countries"
+msgstr "Negara Diblokir"
+
+#: includes/class-segurium.php:1222
+msgid "Allowed Countries"
+msgstr "Negara Diizinkan"
+
+#: includes/class-segurium.php:1223 includes/class-segurium.php:2286
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr "Ketik nama negara atau kode ISO untuk menambahkannya ke daftar blokir."
+
+#: includes/class-segurium.php:1224
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr "Ketik nama negara atau kode ISO untuk menambahkannya ke daftar izin."
+
+#: includes/class-segurium.php:1225 includes/class-segurium.php:2365
+msgid "Blocked IPs / CIDRs"
+msgstr "IP / CIDR Diblokir"
+
+#: includes/class-segurium.php:1226 includes/class-segurium.php:2366
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"IP ini selalu diblokir. Satu entri per baris. Menerima IPv4, IPv6, dan "
+"rentang CIDR."
+
+#: includes/class-segurium.php:1227
+msgid "Allowed IPs / CIDRs"
+msgstr "IP / CIDR Diizinkan"
+
+#: includes/class-segurium.php:1228
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"Hanya IP ini yang dapat mengakses situs. Semua lainnya diblokir. Satu entri "
+"per baris."
+
+#: includes/class-segurium.php:1229
+msgid "No supported security plugins detected."
+msgstr "Tidak ada plugin keamanan yang didukung terdeteksi."
+
+#: includes/class-segurium.php:1230
+msgid "Preview"
+msgstr "Pratinjau"
+
+#: includes/class-segurium.php:1231
+msgid "Apply Migration"
+msgstr "Terapkan Migrasi"
+
+#: includes/class-segurium.php:1233
+msgid "Migration complete."
+msgstr "Migrasi selesai."
+
+#: includes/class-segurium.php:1234
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Import"
+msgstr "Impor"
+
+#: includes/class-segurium.php:1236
+msgid "Planned feature"
+msgstr "Fitur terencana"
+
+#: includes/class-segurium.php:1237
+msgid "Feature"
+msgstr "Fitur"
+
+#: includes/class-segurium.php:1238
+msgid "Value"
+msgstr "Nilai"
+
+#: includes/class-segurium.php:1239
+msgid "Action"
+msgstr "Tindakan"
+
+#: includes/class-segurium.php:1240
+msgid "Note"
+msgstr "Catatan"
+
+#: includes/class-segurium.php:1241
+msgid "items imported"
+msgstr "item diimpor"
+
+#: includes/class-segurium.php:1242
+msgid "features planned"
+msgstr "fitur terencana"
+
+#: includes/class-segurium.php:1243
+msgid "Submitting\\u2026"
+msgstr "Mengirim…"
+
+#: includes/class-segurium.php:1244
+msgid "Ticket submitted successfully."
+msgstr "Tiket berhasil dikirim."
+
+#: includes/class-segurium.php:1245
+msgid "Your ticket reference:"
+msgstr "Rujukan tiket Anda:"
+
+#: includes/class-segurium.php:1246
+msgid "Failed to submit ticket. Please try again."
+msgstr "Gagal mengirim tiket. Coba lagi."
+
+#: includes/class-segurium.php:1247
+msgid "Please attach a file before submitting."
+msgstr "Lampirkan berkas sebelum mengirim."
+
+#: includes/class-segurium.php:1248
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "Berkas terpilih melebihi batas 100 MB."
+
+#: includes/class-segurium.php:1249
+msgid "Please enter a valid reply-to email."
+msgstr "Masukkan e-mail balasan yang valid."
+
+#: includes/class-segurium.php:1250
+msgid "Please enter your name."
+msgstr "Masukkan nama Anda."
+
+#: includes/class-segurium.php:1251
+msgid "Could not save your choice. Please try again."
+msgstr "Tidak dapat menyimpan pilihan Anda. Coba lagi."
+
+#: includes/class-segurium.php:1252
+msgid "Brute-Force Protection"
+msgstr "Perlindungan Brute Force"
+
+#: includes/class-segurium.php:1253 includes/class-segurium.php:2391
+msgid "Enable brute-force protection"
+msgstr "Aktifkan perlindungan brute force"
+
+#: includes/class-segurium.php:1254 includes/class-segurium.php:2409
+msgid "Max failed attempts"
+msgstr "Maksimum percobaan gagal"
+
+#: includes/class-segurium.php:1255 includes/class-segurium.php:2411
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr "Jumlah percobaan login gagal yang diizinkan sebelum IP dikunci."
+
+#: includes/class-segurium.php:1256 includes/class-segurium.php:2414
+msgid "Attempt window (seconds)"
+msgstr "Jendela percobaan (detik)"
+
+#: includes/class-segurium.php:1257 includes/class-segurium.php:2416
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "Jendela waktu tempat percobaan gagal dihitung terhadap ambang batas."
+
+#: includes/class-segurium.php:1258 includes/class-segurium.php:2419
+msgid "Initial lockout duration (seconds)"
+msgstr "Durasi penguncian awal (detik)"
+
+#: includes/class-segurium.php:1259 includes/class-segurium.php:2423
+msgid "Lockouts before extended ban"
+msgstr "Penguncian sebelum blokir lanjutan"
+
+#: includes/class-segurium.php:1260 includes/class-segurium.php:2428
+msgid "Extended lockout duration (seconds)"
+msgstr "Durasi penguncian lanjutan (detik)"
+
+#: includes/class-segurium.php:1261 includes/class-segurium.php:2432
+msgid "History window (seconds)"
+msgstr "Jendela riwayat (detik)"
+
+#: includes/class-segurium.php:1262 includes/class-segurium.php:2438
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "Lindungi juga XML-RPC (xmlrpc.php)"
+
+#: includes/class-segurium.php:1263 includes/class-segurium.php:2444
+msgid "Add honeypot field to login form"
+msgstr "Tambahkan kolom honeypot ke formulir login"
+
+#: includes/class-segurium.php:1264 includes/class-segurium.php:2492
+msgid "Active Lockouts"
+msgstr "Penguncian Aktif"
+
+#: includes/class-segurium.php:1265 includes/class-segurium.php:2505
+msgid "No IPs are currently locked out."
+msgstr "Tidak ada IP yang sedang terkunci."
+
+#: includes/class-segurium.php:1266 includes/class-segurium.php:1310
+#: includes/class-segurium.php:2572
+msgid "Unlock"
+msgstr "Buka kunci"
+
+#: includes/class-segurium.php:1267 includes/class-segurium.php:1300
+#: includes/class-segurium.php:2497 includes/class-segurium.php:2597
+msgid "Tier"
+msgstr "Tingkat"
+
+#: includes/class-segurium.php:1268 includes/class-segurium.php:1297
+#: includes/class-segurium.php:2496 includes/class-segurium.php:2539
+#: includes/class-segurium.php:2593
+msgid "IP"
+msgstr "IP"
+
+#: includes/class-segurium.php:1269 includes/class-segurium.php:2498
+msgid "Locked at"
+msgstr "Terkunci pada"
+
+#: includes/class-segurium.php:1270 includes/class-segurium.php:2499
+msgid "Expires"
+msgstr "Kedaluwarsa"
+
+#: includes/class-segurium.php:1271 includes/class-segurium.php:1316
+msgid "Settings saved."
+msgstr "Pengaturan disimpan."
+
+#: includes/class-segurium.php:1272
+msgid "Unlock this IP?"
+msgstr "Buka kunci IP ini?"
+
+#: includes/class-segurium.php:1273 includes/class-segurium.php:2449
+msgid "Log retention (days)"
+msgstr "Masa simpan log (hari)"
+
+#: includes/class-segurium.php:1274 includes/class-segurium.php:2454
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1275 includes/class-segurium.php:2459
+msgid "Require hCaptcha after repeated failures"
+msgstr "Wajibkan hCaptcha setelah kegagalan berulang"
+
+#: includes/class-segurium.php:1276 includes/class-segurium.php:2467
+msgid "hCaptcha site key"
+msgstr "kunci situs hCaptcha"
+
+#: includes/class-segurium.php:1277 includes/class-segurium.php:2473
+msgid "hCaptcha secret key"
+msgstr "kunci rahasia hCaptcha"
+
+#: includes/class-segurium.php:1278 includes/class-segurium.php:2479
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "Tampilkan CAPTCHA setelah N percobaan gagal"
+
+#: includes/class-segurium.php:1279
+msgid "Presets:"
+msgstr "Prasetel:"
+
+#: includes/class-segurium.php:1280
+msgid "Light"
+msgstr "Ringan"
+
+#: includes/class-segurium.php:1281 includes/class-segurium.php:2400
+#: includes/class-segurium.php:2733 includes/class-segurium.php:3188
+msgid "Recommended"
+msgstr "Disarankan"
+
+#: includes/class-segurium.php:1282 includes/class-segurium.php:2734
+#: includes/class-segurium.php:2927
+msgid "Strict"
+msgstr "Ketat"
+
+#: includes/class-segurium.php:1283
+msgid "Click a preset to fill the form, then Save."
+msgstr "Klik prasetel untuk mengisi formulir, lalu Simpan."
+
+#: includes/class-segurium.php:1284 includes/class-segurium.php:2510
+msgid "Statistics"
+msgstr "Statistik"
+
+#: includes/class-segurium.php:1285 includes/class-segurium.php:2513
+msgid "Active lockouts"
+msgstr "Penguncian aktif"
+
+#: includes/class-segurium.php:1286 includes/class-segurium.php:2517
+msgid "Attempts (24h)"
+msgstr "Percobaan (24 jam)"
+
+#: includes/class-segurium.php:1287 includes/class-segurium.php:2521
+msgid "Lockouts (24h)"
+msgstr "Penguncian (24 jam)"
+
+#: includes/class-segurium.php:1288 includes/class-segurium.php:2525
+msgid "Honeypot hits (24h)"
+msgstr "Kena honeypot (24 jam)"
+
+#: includes/class-segurium.php:1289 includes/class-segurium.php:2529
+msgid "CAPTCHA failures (24h)"
+msgstr "Kegagalan CAPTCHA (24 jam)"
+
+#: includes/class-segurium.php:1290 includes/class-segurium.php:2535
+msgid "Top attacking IPs (24h)"
+msgstr "IP penyerang teratas (24 jam)"
+
+#: includes/class-segurium.php:1291 includes/class-segurium.php:2548
+msgid "Top targeted usernames (24h)"
+msgstr "Nama pengguna target teratas (24 jam)"
+
+#: includes/class-segurium.php:1292 includes/class-segurium.php:2545
+msgid "No attacking IPs in the last 24 hours."
+msgstr "Tidak ada IP penyerang dalam 24 jam terakhir."
+
+#: includes/class-segurium.php:1293 includes/class-segurium.php:2558
+msgid "No targeted usernames in the last 24 hours."
+msgstr "Tidak ada nama pengguna target dalam 24 jam terakhir."
+
+#: includes/class-segurium.php:1294 includes/class-segurium.php:2564
+msgid "Event log"
+msgstr "Log peristiwa"
+
+#: includes/class-segurium.php:1295 includes/class-segurium.php:2591
+#: includes/class-segurium.php:3309
+msgid "When"
+msgstr "Kapan"
+
+#: includes/class-segurium.php:1296 includes/class-segurium.php:2592
+msgid "Event"
+msgstr "Peristiwa"
+
+#: includes/class-segurium.php:1298 includes/class-segurium.php:2552
+#: includes/class-segurium.php:2595
+msgid "Username"
+msgstr "Nama pengguna"
+
+#: includes/class-segurium.php:1299 includes/class-segurium.php:2596
+msgid "Surface"
+msgstr "Titik masuk"
+
+#: includes/class-segurium.php:1301 includes/class-segurium.php:2566
+msgid "All events"
+msgstr "Semua peristiwa"
+
+#: includes/class-segurium.php:1302 includes/class-segurium.php:2602
+msgid "No events recorded yet."
+msgstr "Belum ada peristiwa tercatat."
+
+#: includes/class-segurium.php:1307 includes/class-segurium.php:2569
+msgid "Attempt"
+msgstr "Percobaan"
+
+#: includes/class-segurium.php:1308 includes/class-segurium.php:2570
+msgid "Lockout"
+msgstr "Penguncian"
+
+#: includes/class-segurium.php:1309 includes/class-segurium.php:2571
+msgid "Honeypot"
+msgstr "Honeypot"
+
+#: includes/class-segurium.php:1311 includes/class-segurium.php:2573
+msgid "CAPTCHA failed"
+msgstr "CAPTCHA gagal"
+
+#: includes/class-segurium.php:1312
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1313 includes/class-segurium.php:3074
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1314
+msgid "Loading settings..."
+msgstr "Memuat pengaturan..."
+
+#: includes/class-segurium.php:1315
+msgid "Saving..."
+msgstr "Menyimpan..."
+
+#: includes/class-segurium.php:1317
+msgid "Failed to save settings."
+msgstr "Gagal menyimpan pengaturan."
+
+#: includes/class-segurium.php:1318
+msgid "Failed to load settings."
+msgstr "Gagal memuat pengaturan."
+
+#: includes/class-segurium.php:1319
+msgid "All recommended settings enabled."
+msgstr "Semua pengaturan yang disarankan telah diaktifkan."
+
+#: includes/class-segurium.php:1320 includes/class-segurium.php:1996
+msgid "Self-Check"
+msgstr "Self-Check"
+
+#: includes/class-segurium.php:1321 includes/class-segurium.php:3107
+msgid "Run Self-Check"
+msgstr "Jalankan Self-Check"
+
+#: includes/class-segurium.php:1322
+msgid "Running..."
+msgstr "Berjalan..."
+
+#: includes/class-segurium.php:1323
+msgid "Click Run Self-Check to grade your site."
+msgstr "Klik Jalankan Self-Check untuk menilai situs Anda."
+
+#: includes/class-segurium.php:1327
+msgid "How to fix"
+msgstr "Cara memperbaiki"
+
+#: includes/class-segurium.php:1328
+msgid "Hide details"
+msgstr "Sembunyikan detail"
+
+#: includes/class-segurium.php:1329
+msgid "fail"
+msgstr "gagal"
+
+#: includes/class-segurium.php:1330
+msgid "warn"
+msgstr "peringatan"
+
+#: includes/class-segurium.php:1331
+msgid "HTTP Security Headers"
+msgstr "Header Keamanan HTTP"
+
+#: includes/class-segurium.php:1332
+msgid "Information Disclosure"
+msgstr "Pengungkapan Informasi"
+
+#: includes/class-segurium.php:1333
+msgid "WordPress Hardening"
+msgstr "Pengerasan WordPress"
+
+#: includes/class-segurium.php:1334
+msgid "Cookie Security"
+msgstr "Keamanan Cookie"
+
+#: includes/class-segurium.php:1335
+msgid "Malware Protection"
+msgstr "Perlindungan Malware"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1337
+#, php-format
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "%1$d lulus, %2$d peringatan, %3$d gagal"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1339
+#, php-format
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
+#: includes/class-segurium.php:1341
+#, php-format
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "Berubah dari %1$s (%2$d) menjadi %3$s (%4$d)."
+
+#: includes/class-segurium.php:1342
+msgid "No change since last run."
+msgstr "Tidak ada perubahan sejak jalan terakhir."
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1344
+#, php-format
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr ""
+"Self-check tidak dapat menjangkau situs Anda: %s. Hasilnya tidak lengkap."
+
+#: includes/class-segurium.php:1345
+msgid "Verify with securityheaders.com"
+msgstr "Verifikasi dengan securityheaders.com"
+
+#: includes/class-segurium.php:1346
+msgid "Verify with Mozilla Observatory"
+msgstr "Verifikasi dengan Mozilla Observatory"
+
+#: includes/class-segurium.php:1637
+msgid "External Service Disclosure"
+msgstr "Pengungkapan Layanan Luar"
+
+#: includes/class-segurium.php:1638
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. When"
+" you enable it, Segurium exchanges data with our servers so it can detect "
+"malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Segurium melindungi situs Anda dengan bekerja sama dengan cloud Segurium. "
+"Ketika Anda mengaktifkannya, Segurium bertukar data dengan server kami supaya"
+" ia dapat mendeteksi malware, memverifikasi berkas Anda, dan menyesuaikan "
+"perlindungan terhadap ancaman aktif."
+
+#: includes/class-segurium.php:1640
+msgid "What is sent:"
+msgstr "Yang dikirim:"
+
+#: includes/class-segurium.php:1642
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"Metadata berkas: hash SHA-256, jalur relatif terhadap instalasi WordPress "
+"Anda, ukuran, waktu perubahan."
+
+#: includes/class-segurium.php:1643
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"Konten berkas — hanya ketika klasifikasi lewat hash saja tidak meyakinkan, "
+"atau ketika membuat pengganti bersih selama pembersihan."
+
+#: includes/class-segurium.php:1644
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name, "
+"WordPress version) used to associate requests with this install."
+msgstr ""
+"Pengidentifikasi instalasi acak dan info dasar situs (URL, nama, versi "
+"WordPress) yang dipakai untuk mengaitkan permintaan dengan instalasi ini."
+
+#: includes/class-segurium.php:1645
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site "
+"protection in sync."
+msgstr ""
+"Peristiwa pemindaian, pembersihan, dan pengaturan keamanan, supaya cloud "
+"dapat menjaga perlindungan situs Anda tetap selaras."
+
+#: includes/class-segurium.php:1646
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"Peristiwa firewall (IP yang diblokir, pola serangan) yang dipakai untuk "
+"menyesuaikan perlindungan di seluruh situs yang dilindungi Segurium."
+
+#: includes/class-segurium.php:1647
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one "
+"you enter below, together with your email alerts choice."
+msgstr ""
+"Alamat e-mail untuk peringatan keamanan: e-mail admin WordPress, atau yang "
+"Anda masukkan di bawah, bersama pilihan peringatan e-mail Anda."
+
+#: includes/class-segurium.php:1650
+msgid "What is NOT sent:"
+msgstr "Yang TIDAK dikirim:"
+
+#: includes/class-segurium.php:1652
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr ""
+"Analitik pengunjung atau data pribadi pengguna yang mengunjungi situs Anda."
+
+#: includes/class-segurium.php:1653
+msgid "Database content, posts, comments, or media files."
+msgstr "Konten basis data, pos, komentar, atau berkas media."
+
+#: includes/class-segurium.php:1654
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr ""
+"Berkas yang hash-nya sudah dikenal cloud — hanya hash yang meninggalkan "
+"server Anda."
+
+#: includes/class-segurium.php:1657
+msgid "Where it is sent:"
+msgstr "Ke mana dikirimnya:"
+
+#: includes/class-segurium.php:1657
+msgid "Segurium servers at cti.segurium.com."
+msgstr "Server Segurium di cti.segurium.com."
+
+#: includes/class-segurium.php:1658
+msgid "Retention:"
+msgstr "Masa simpan:"
+
+#: includes/class-segurium.php:1658
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once it"
+" has been reviewed."
+msgstr ""
+"Sampel berkas yang diunggah untuk analisis disimpan hingga 365 hari lalu "
+"dihapus oleh pembersihan otomatis tiap malam. Sebuah sampel dapat dihapus "
+"lebih cepat setelah ditinjau."
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium.php:1664
+#, php-format
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"Dengan mengaktifkan pemindaian, Anda menyetujui %1$sKetentuan Layanan%2$s dan"
+" %3$sKebijakan Privasi%4$s."
+
+#: includes/class-segurium.php:1676
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Beri tahu saya tentang temuan malware dan ancaman keamanan di situs web ini."
+
+#: includes/class-segurium.php:1678 includes/class-segurium.php:3264
+msgid "Alert email address"
+msgstr "Alamat e-mail peringatan"
+
+#: includes/class-segurium.php:1686
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Paling banyak satu e-mail per hari, dikirim dari support@segurium.com. Anda "
+"dapat mengubahnya nanti di Pengaturan."
+
+#: includes/class-segurium.php:1687 includes/class-segurium.php:3272
+msgid "Leave blank to use the WordPress site admin email."
+msgstr "Kosongkan untuk memakai e-mail admin situs WordPress."
+
+#: includes/class-segurium.php:1690
+msgid "I agree"
+msgstr "Saya setuju"
+
+#: includes/class-segurium.php:1939
+msgid "Up to date"
+msgstr "Terbaru"
+
+#: includes/class-segurium.php:1944
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "Basi — penyegaran terakhir melewati jendela harian"
+
+#: includes/class-segurium.php:1945
+msgid "Never updated on this site yet"
+msgstr "Belum pernah diperbarui di situs ini"
+
+#: includes/class-segurium.php:1987
+msgid "WordPress Security"
+msgstr "Keamanan WordPress"
+
+#: includes/class-segurium.php:2000
+msgid "Malware Scanner"
+msgstr "Pemindai Malware"
+
+#: includes/class-segurium.php:2014
+msgid "Integrity"
+msgstr "Integritas"
+
+#: includes/class-segurium.php:2018
+msgid "GEO Blocking"
+msgstr "Pemblokiran GEO"
+
+#: includes/class-segurium.php:2026
+msgid "Brute-Force"
+msgstr "Brute Force"
+
+#: includes/class-segurium.php:2030
+msgid "2FA"
+msgstr "2FA"
+
+#: includes/class-segurium.php:2034
+msgid "Headers"
+msgstr "Header"
+
+#: includes/class-segurium.php:2038
+msgid "Info Shield"
+msgstr "Info Shield"
+
+#: includes/class-segurium.php:2042
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: includes/class-segurium.php:2046
+msgid "Migration"
+msgstr "Migrasi"
+
+#: includes/class-segurium.php:2050 includes/class-segurium.php:2668
+msgid "Support"
+msgstr "Bantuan"
+
+#: includes/class-segurium.php:2074 includes/class-segurium.php:2163
+msgid "Scan"
+msgstr "Pindai"
+
+#: includes/class-segurium.php:2087 includes/class-segurium.php:2171
+msgid "Fix all"
+msgstr "Perbaiki semua"
+
+#: includes/class-segurium.php:2097
+msgid "Malicious"
+msgstr "Berbahaya"
+
+#: includes/class-segurium.php:2101
+msgid "All"
+msgstr "Semua"
+
+#: includes/class-segurium.php:2121
+msgid "File"
+msgstr "Berkas"
+
+#: includes/class-segurium.php:2122
+msgid "State"
+msgstr "Keadaan"
+
+#: includes/class-segurium.php:2123
+msgid "Date"
+msgstr "Tanggal"
+
+#: includes/class-segurium.php:2124 includes/class-segurium.php:2187
+msgid "Actions"
+msgstr "Tindakan"
+
+#: includes/class-segurium.php:2142
+msgid "Show recent only (14 days)"
+msgstr "Tampilkan yang terbaru saja (14 hari)"
+
+#: includes/class-segurium.php:2152 includes/class-segurium.php:2213
+msgid "per page"
+msgstr "per halaman"
+
+#: includes/class-segurium.php:2185
+msgid "Files"
+msgstr "Berkas"
+
+#: includes/class-segurium.php:2186
+msgid "Last Scanned"
+msgstr "Terakhir Dipindai"
+
+#: includes/class-segurium.php:2245 includes/class-segurium.php:2333
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr ""
+"Pengaturan diterapkan. Konfirmasi untuk menyimpannya, atau perubahan "
+"dibatalkan dalam"
+
+#: includes/class-segurium.php:2246 includes/class-segurium.php:2334
+msgid "s."
+msgstr "d."
+
+#: includes/class-segurium.php:2250 includes/class-segurium.php:2338
+msgid "Revert"
+msgstr "Batalkan"
+
+#: includes/class-segurium.php:2259
+msgid "Enable Geo-Blocking"
+msgstr "Aktifkan Pemblokiran Geografis"
+
+#: includes/class-segurium.php:2264
+msgid "Blocking Mode"
+msgstr "Mode Pemblokiran"
+
+#: includes/class-segurium.php:2268
+msgid "Block specific countries"
+msgstr "Blokir negara tertentu"
+
+#: includes/class-segurium.php:2272
+msgid "Allow only specific countries"
+msgstr "Izinkan hanya negara tertentu"
+
+#: includes/class-segurium.php:2279
+msgid "EU"
+msgstr "Uni Eropa"
+
+#: includes/class-segurium.php:2280
+msgid "Americas"
+msgstr "Amerika"
+
+#: includes/class-segurium.php:2281
+msgid "Asia-Pacific"
+msgstr "Asia-Pasifik"
+
+#: includes/class-segurium.php:2282
+msgid "Africa"
+msgstr "Afrika"
+
+#: includes/class-segurium.php:2283
+msgid "Middle East"
+msgstr "Timur Tengah"
+
+#: includes/class-segurium.php:2284
+msgid "High-Risk"
+msgstr "Berisiko Tinggi"
+
+#: includes/class-segurium.php:2291
+msgid "Search countries…"
+msgstr "Cari negara…"
+
+#: includes/class-segurium.php:2297
+msgid "Block Action"
+msgstr "Tindakan Blokir"
+
+#: includes/class-segurium.php:2299
+msgid "Return 403 Forbidden"
+msgstr "Kembalikan 403 Forbidden"
+
+#: includes/class-segurium.php:2300
+msgid "Redirect to URL"
+msgstr "Alihkan ke URL"
+
+#: includes/class-segurium.php:2301
+msgid "Silent drop (no response)"
+msgstr "Putus diam-diam (tanpa respons)"
+
+#: includes/class-segurium.php:2309 includes/class-segurium.php:2379
+#: includes/class-segurium.php:2486 includes/class-segurium.php:2934
+#: includes/class-segurium.php:3085
+msgid "Save"
+msgstr "Simpan"
+
+#: includes/class-segurium.php:2315
+msgid "Blocked Requests"
+msgstr "Permintaan Diblokir"
+
+#: includes/class-segurium.php:2319 includes/class-segurium.php:2594
+msgid "Country"
+msgstr "Negara"
+
+#: includes/class-segurium.php:2320
+msgid "Requests"
+msgstr "Permintaan"
+
+#: includes/class-segurium.php:2347
+msgid "Enable Firewall"
+msgstr "Aktifkan Firewall"
+
+#: includes/class-segurium.php:2352 includes/class-segurium.php:2892
+msgid "Mode"
+msgstr "Mode"
+
+#: includes/class-segurium.php:2356
+msgid "Allow everything except…"
+msgstr "Izinkan semuanya kecuali…"
+
+#: includes/class-segurium.php:2360
+msgid "Deny everything except…"
+msgstr "Tolak semuanya kecuali…"
+
+#: includes/class-segurium.php:2370
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "IP / CIDR Proksi Tepercaya Khusus"
+
+#: includes/class-segurium.php:2372
+msgid "Loading auto-detected proxy status..."
+msgstr "Memuat status proksi yang terdeteksi otomatis..."
+
+#: includes/class-segurium.php:2374
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave empty"
+" if all your proxies are covered above."
+msgstr ""
+"IP proksi tambahan di luar daftar yang terdeteksi otomatis, satu per baris. "
+"Kosongkan bila semua proksi Anda sudah tercakup di atas."
+
+#: includes/class-segurium.php:2393
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"Melacak percobaan login gagal lalu mengunci IP setelah ambang batas yang "
+"dapat diatur. Memakai ulang daftar izin firewall untuk IP tepercaya."
+
+#: includes/class-segurium.php:2397
+msgid "Settings:"
+msgstr "Pengaturan:"
+
+#: includes/class-segurium.php:2400
+msgid "safe defaults; settings are locked."
+msgstr "standar aman; pengaturan terkunci."
+
+#: includes/class-segurium.php:2404 includes/class-segurium.php:2735
+msgid "Custom"
+msgstr "Khusus"
+
+#: includes/class-segurium.php:2404
+msgid "edit every setting yourself."
+msgstr "atur sendiri tiap pengaturan."
+
+#: includes/class-segurium.php:2425
+msgid ""
+"After this many lockouts within the history window, the next lockout will use"
+" the extended duration."
+msgstr ""
+"Setelah sekian banyak penguncian dalam jendela riwayat, penguncian berikutnya"
+" akan memakai durasi lanjutan."
+
+#: includes/class-segurium.php:2446
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it triggers"
+" an immediate lockout."
+msgstr ""
+"Menambahkan input di luar layar yang tidak pernah dilihat pengguna sah. "
+"Mengisinya memicu penguncian seketika."
+
+#: includes/class-segurium.php:2455
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable "
+"number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"Secara opsional menampilkan tantangan hCaptcha pada formulir login setelah "
+"sejumlah percobaan gagal yang dapat diatur. Dapatkan kunci gratis di "
+"hcaptcha.com."
+
+#: includes/class-segurium.php:2481
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"Harus lebih kecil daripada maksimum percobaan gagal supaya tantangannya "
+"muncul sebelum penguncian."
+
+#: includes/class-segurium.php:2540 includes/class-segurium.php:2553
+msgid "Attempts"
+msgstr "Percobaan"
+
+#: includes/class-segurium.php:2616
+msgid "Enable Two-Factor Authentication"
+msgstr "Aktifkan Autentikasi Dua Faktor"
+
+#: includes/class-segurium.php:2618
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr ""
+"Wajibkan pengguna memverifikasi identitasnya dengan faktor kedua saat login."
+
+#: includes/class-segurium.php:2622
+msgid "Available Methods"
+msgstr "Metode Tersedia"
+
+#: includes/class-segurium.php:2623
+msgid "Select which 2FA methods users can choose from."
+msgstr "Pilih metode 2FA mana yang dapat dipilih pengguna."
+
+#: includes/class-segurium.php:2628
+msgid "Enforced Roles"
+msgstr "Peran yang Ditegakkan"
+
+#: includes/class-segurium.php:2629
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "Pengguna dengan peran ini akan diwajibkan menyiapkan 2FA."
+
+#: includes/class-segurium.php:2633
+msgid "Grace Period (days)"
+msgstr "Masa Tenggang (hari)"
+
+#: includes/class-segurium.php:2634
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"Jumlah hari sebelum penegakan memblokir login bagi pengguna yang belum "
+"menyiapkan 2FA. Setel ke 0 untuk menegakkan seketika."
+
+#: includes/class-segurium.php:2638
+msgid "Trusted Device Duration (days)"
+msgstr "Durasi Perangkat Tepercaya (hari)"
+
+#: includes/class-segurium.php:2639
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr ""
+"Berapa hari sebuah perangkat tetap tepercaya setelah pengguna mencentang "
+"pilihan percaya."
+
+#: includes/class-segurium.php:2644 includes/class-segurium.php:3337
+msgid "Save Settings"
+msgstr "Simpan Pengaturan"
+
+#: includes/class-segurium.php:2649
+msgid "User Statistics"
+msgstr "Statistik Pengguna"
+
+#: includes/class-segurium.php:2653
+msgid "Method"
+msgstr "Metode"
+
+#: includes/class-segurium.php:2654
+msgid "Users"
+msgstr "Pengguna"
+
+#: includes/class-segurium.php:2659
+msgid "Reset User 2FA"
+msgstr "Setel Ulang 2FA Pengguna"
+
+#: includes/class-segurium.php:2660
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr ""
+"Masukkan nama pengguna atau ID pengguna untuk menyetel ulang konfigurasi 2FA-"
+"nya."
+
+#: includes/class-segurium.php:2661
+msgid "Username or ID"
+msgstr "Nama pengguna atau ID"
+
+#: includes/class-segurium.php:2662
+msgid "Reset 2FA"
+msgstr "Setel Ulang 2FA"
+
+#: includes/class-segurium.php:2669
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "Kirim tiket bantuan di bawah ini. Tim kami akan menjawab lewat e-mail."
+
+#: includes/class-segurium.php:2672
+msgid "Your name"
+msgstr "Nama Anda"
+
+#: includes/class-segurium.php:2676
+msgid "Reply-to email"
+msgstr "E-mail balasan"
+
+#: includes/class-segurium.php:2678
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr ""
+"Kami akan membalas ke alamat ini. Ubah bila Anda ingin jawabannya dikirim ke "
+"tempat lain."
+
+#: includes/class-segurium.php:2681
+msgid "Website"
+msgstr "Situs Web"
+
+#: includes/class-segurium.php:2683
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr ""
+"Disertakan otomatis supaya tim bantuan dapat mengenali situs Anda. Ubah ini "
+"di Pengaturan → Umum."
+
+#: includes/class-segurium.php:2686
+msgid "Type"
+msgstr "Tipe"
+
+#: includes/class-segurium.php:2688 includes/class-segurium.php:7703
+msgid "Bug report"
+msgstr "Laporan bug"
+
+#: includes/class-segurium.php:2689 includes/class-segurium.php:7705
+msgid "Feature request"
+msgstr "Permintaan fitur"
+
+#: includes/class-segurium.php:2690 includes/class-segurium.php:7707
+msgid "General question"
+msgstr "Pertanyaan umum"
+
+#: includes/class-segurium.php:2691
+msgid "Report missed malware"
+msgstr "Laporkan malware yang terlewat"
+
+#: includes/class-segurium.php:2696
+msgid "Suspicious file"
+msgstr "Berkas mencurigakan"
+
+#: includes/class-segurium.php:2698
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "Lampirkan berkas yang Anda yakini malware. Maksimum 100 MB."
+
+#: includes/class-segurium.php:2701
+msgid "Message"
+msgstr "Pesan"
+
+#: includes/class-segurium.php:2707
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"Lampirkan informasi sistem (versi WP, versi PHP, versi plugin, plugin aktif, "
+"tanggal pemindaian terakhir)"
+
+#: includes/class-segurium.php:2711
+msgid "Submit Ticket"
+msgstr "Kirim Tiket"
+
+#: includes/class-segurium.php:2722
+msgid "Enable Security Headers"
+msgstr "Aktifkan Header Keamanan"
+
+#: includes/class-segurium.php:2724
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"Menambahkan header respons keamanan HTTP ke semua respons. Melindungi dari "
+"clickjacking, pengendusan MIME, XSS, dan serangan penurunan protokol."
+
+#: includes/class-segurium.php:2728
+msgid "Mode:"
+msgstr "Mode:"
+
+#: includes/class-segurium.php:2732
+msgid "Basic"
+msgstr "Dasar"
+
+#: includes/class-segurium.php:2732
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+
+#: includes/class-segurium.php:2733
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "Dasar + Referrer-Policy, Permissions-Policy, HSTS"
+
+#: includes/class-segurium.php:2734
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr "Disarankan + kebijakan Cross-Origin, DNS prefetch, Cache-Control"
+
+#: includes/class-segurium.php:2735
+msgid "configure each header individually"
+msgstr "atur tiap header satu per satu"
+
+#: includes/class-segurium.php:2746
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual "
+"headers."
+msgstr ""
+"Mode ini memancarkan nilai prasetel yang tetap. Beralih ke Khusus untuk "
+"menimpa masing-masing header."
+
+#: includes/class-segurium.php:2749
+msgid "Header Values"
+msgstr "Nilai Header"
+
+#: includes/class-segurium.php:2753 includes/class-segurium.php:2767
+#: includes/class-segurium.php:2824 includes/class-segurium.php:2833
+#: includes/class-segurium.php:2843
+msgid "Same origin"
+msgstr "Origin yang sama"
+
+#: includes/class-segurium.php:2754
+msgid "Deny all"
+msgstr "Tolak semua"
+
+#: includes/class-segurium.php:2756
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "Mencegah situs Anda ditanam dalam iframe di domain lain."
+
+#: includes/class-segurium.php:2763
+msgid "No referrer"
+msgstr "Tanpa referrer"
+
+#: includes/class-segurium.php:2764
+msgid "No referrer when downgrade"
+msgstr "Tanpa referrer saat penurunan"
+
+#: includes/class-segurium.php:2765
+msgid "Origin only"
+msgstr "Origin saja"
+
+#: includes/class-segurium.php:2766
+msgid "Origin when cross-origin"
+msgstr "Origin saat lintas origin"
+
+#: includes/class-segurium.php:2768
+msgid "Strict origin"
+msgstr "Origin ketat"
+
+#: includes/class-segurium.php:2769
+msgid "Strict origin when cross-origin"
+msgstr "Origin ketat saat lintas origin"
+
+#: includes/class-segurium.php:2770
+msgid "Unsafe URL"
+msgstr "URL tidak aman"
+
+#: includes/class-segurium.php:2781 includes/class-segurium.php:2785
+msgid "Disabled (recommended)"
+msgstr "Dinonaktifkan (disarankan)"
+
+#: includes/class-segurium.php:2782 includes/class-segurium.php:2786
+msgid "Enabled"
+msgstr "Diaktifkan"
+
+#: includes/class-segurium.php:2783 includes/class-segurium.php:2787
+msgid "Enabled with block mode"
+msgstr "Diaktifkan dengan mode blokir"
+
+#: includes/class-segurium.php:2785
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is"
+" the actual XSS defence."
+msgstr ""
+"Secara tegas mematikan penyaring XSS IE/Edge lama, yang punya bug XSS "
+"universal yang dapat dipersenjatai. Peramban modern mengabaikan header ini; "
+"CSP adalah pertahanan XSS yang sesungguhnya."
+
+#: includes/class-segurium.php:2786
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false positives"
+" that silently break valid pages and known UXSS bypasses. Not recommended."
+msgstr ""
+"Menyuruh peramban lawas membersihkan pantulan. Penyaring itu punya positif "
+"palsu yang diam-diam merusak halaman yang sah serta jalan pintas UXSS yang "
+"diketahui. Tidak disarankan."
+
+#: includes/class-segurium.php:2787
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Penyaring yang sama seperti di atas, tetapi memblokir seluruh halaman saat "
+"pantulan dicurigai. Bug yang sama, ditambah kanal samping waktu yang dapat "
+"membocorkan data lintas origin. Tidak disarankan."
+
+#: includes/class-segurium.php:2789
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2793
+msgid "Enable HSTS"
+msgstr "Aktifkan HSTS"
+
+#: includes/class-segurium.php:2795
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "Memaksa peramban memakai HTTPS. Hanya dikirim ketika SSL aktif."
+
+#: includes/class-segurium.php:2799
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (detik)"
+
+#: includes/class-segurium.php:2805
+msgid "Include subdomains"
+msgstr "Sertakan subdomain"
+
+#: includes/class-segurium.php:2811
+msgid "Preload"
+msgstr "Preload"
+
+#: includes/class-segurium.php:2813
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"Peringatan: preload sulit dibatalkan. Perlu max-age minimal 1 tahun dan "
+"subdomain disertakan."
+
+#: includes/class-segurium.php:2817
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"Situs Anda tampaknya berada di subdomain. Mengaktifkan includeSubDomains pada"
+" HSTS akan memengaruhi semua subdomain dari domain induk, termasuk yang "
+"mungkin tidak Anda kendalikan."
+
+#: includes/class-segurium.php:2819
+msgid "Cross-Origin Policies"
+msgstr "Kebijakan Cross-Origin"
+
+#: includes/class-segurium.php:2821
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2823 includes/class-segurium.php:2832
+msgid "Not set"
+msgstr "Tidak disetel"
+
+#: includes/class-segurium.php:2825
+msgid "Same origin, allow popups"
+msgstr "Origin yang sama, izinkan popup"
+
+#: includes/class-segurium.php:2826 includes/class-segurium.php:2844
+msgid "Unsafe none"
+msgstr "Unsafe none"
+
+#: includes/class-segurium.php:2830
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2834
+msgid "Same site"
+msgstr "Situs yang sama"
+
+#: includes/class-segurium.php:2835
+msgid "Cross origin"
+msgstr "Lintas origin"
+
+#: includes/class-segurium.php:2839
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2841
+msgid "Not set (recommended)"
+msgstr "Tidak disetel (disarankan)"
+
+#: includes/class-segurium.php:2842
+msgid "Require CORP"
+msgstr "Wajibkan CORP"
+
+#: includes/class-segurium.php:2848
+msgid "Control which browser features your site may use."
+msgstr "Kendalikan fitur peramban mana yang boleh dipakai situs Anda."
+
+#: includes/class-segurium.php:2852
+msgid "Accelerometer"
+msgstr "Akselerometer"
+
+#: includes/class-segurium.php:2853
+msgid "Autoplay"
+msgstr "Putar otomatis"
+
+#: includes/class-segurium.php:2854
+msgid "Camera"
+msgstr "Kamera"
+
+#: includes/class-segurium.php:2855
+msgid "Encrypted media"
+msgstr "Media terenkripsi"
+
+#: includes/class-segurium.php:2856
+msgid "Fullscreen"
+msgstr "Layar penuh"
+
+#: includes/class-segurium.php:2857
+msgid "Geolocation"
+msgstr "Geolokasi"
+
+#: includes/class-segurium.php:2858
+msgid "Gyroscope"
+msgstr "Giroskop"
+
+#: includes/class-segurium.php:2859
+msgid "Magnetometer"
+msgstr "Magnetometer"
+
+#: includes/class-segurium.php:2860
+msgid "Microphone"
+msgstr "Mikrofon"
+
+#: includes/class-segurium.php:2861
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2862
+msgid "Payment"
+msgstr "Pembayaran"
+
+#: includes/class-segurium.php:2863
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2873
+msgid "Deny"
+msgstr "Tolak"
+
+#: includes/class-segurium.php:2874
+msgid "Self only"
+msgstr "Diri sendiri saja"
+
+#: includes/class-segurium.php:2875
+msgid "Allow all"
+msgstr "Izinkan semua"
+
+#: includes/class-segurium.php:2886
+msgid "Send Content-Security-Policy header"
+msgstr "Kirim header Content-Security-Policy"
+
+#: includes/class-segurium.php:2888
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"CSP membatasi dari mana skrip, gaya, dan sumber daya lain boleh dimuat, "
+"sehingga meredam XSS dan injeksi. CSP bersifat khas per situs dan dapat "
+"merusak tema atau page builder — mulailah pada mode hanya-laporan untuk "
+"memunculkan pelanggaran sebelum menegakkannya."
+
+#: includes/class-segurium.php:2894
+msgid "Report-only (recommended for first deploy)"
+msgstr "Hanya laporan (disarankan untuk penerapan pertama)"
+
+#: includes/class-segurium.php:2895
+msgid "Enforce"
+msgstr "Tegakkan"
+
+#: includes/class-segurium.php:2897
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-Security-"
+"Policy and blocks them."
+msgstr ""
+"Hanya-laporan mengirim Content-Security-Policy-Report-Only — peramban "
+"mencatat pelanggaran di log tetapi tetap memuat sumber daya yang diblokir. "
+"Tegakkan mengirim Content-Security-Policy lalu memblokirnya."
+
+#: includes/class-segurium.php:2900
+msgid "Policy directives"
+msgstr "Direktif kebijakan"
+
+#: includes/class-segurium.php:2903
+msgid ""
+"Single line of directives separated by semicolons. The default starter policy"
+" permits Gutenberg and most themes; tighten once your reports are clean."
+msgstr ""
+"Satu baris direktif yang dipisahkan titik koma. Kebijakan awal standar "
+"mengizinkan Gutenberg dan sebagian besar tema; perketat setelah laporan Anda "
+"bersih."
+
+#: includes/class-segurium.php:2904
+msgid "CSP reference (MDN)"
+msgstr "Rujukan CSP (MDN)"
+
+#: includes/class-segurium.php:2908
+msgid "Report URI (optional)"
+msgstr "Report URI (opsional)"
+
+#: includes/class-segurium.php:2910
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"Bila disetel, peramban akan mengirim laporan pelanggaran ke URL ini lewat "
+"POST. Ditambahkan otomatis sebagai report-uri kecuali direktif Anda sudah "
+"memuatnya."
+
+#: includes/class-segurium.php:2914
+msgid "Cookie Hardening"
+msgstr "Pengerasan Cookie"
+
+#: includes/class-segurium.php:2918
+msgid "Add SameSite attribute to auth cookies"
+msgstr "Tambahkan atribut SameSite ke cookie autentikasi"
+
+#: includes/class-segurium.php:2920
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"Menambahkan penanda SameSite ke cookie sesi WordPress. Melindungi dari "
+"serangan CSRF. Mozilla Observatory menghukum SameSite yang hilang."
+
+#: includes/class-segurium.php:2924
+msgid "SameSite value"
+msgstr "Nilai SameSite"
+
+#: includes/class-segurium.php:2926
+msgid "Lax (recommended)"
+msgstr "Lax (disarankan)"
+
+#: includes/class-segurium.php:2929
+msgid "Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"Strict dapat merusak alur login OAuth/SSO yang mengalihkan kembali ke situs "
+"Anda."
+
+#: includes/class-segurium.php:2940
+msgid "Headers Preview"
+msgstr "Pratinjau Header"
+
+#: includes/class-segurium.php:2952
+msgid "Enable Information Shield"
+msgstr "Aktifkan Information Shield"
+
+#: includes/class-segurium.php:2954
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"Mengurangi pengungkapan informasi WordPress dengan menghapus sidik jari "
+"versi, titik akhir penemuan, dan metadata yang tidak perlu dari header HTTP "
+"dan keluaran HTML."
+
+#: includes/class-segurium.php:2957
+msgid "Enable All Recommended"
+msgstr "Aktifkan Semua yang Disarankan"
+
+#: includes/class-segurium.php:2961
+msgid "HTTP Header Disclosure"
+msgstr "Pengungkapan Header HTTP"
+
+#: includes/class-segurium.php:2965
+msgid "Remove X-Powered-By header"
+msgstr "Hapus header X-Powered-By"
+
+#: includes/class-segurium.php:2967
+msgid "Removes the header that reveals your PHP version."
+msgstr "Menghapus header yang mengungkap versi PHP Anda."
+
+#: includes/class-segurium.php:2973
+msgid "Remove Server header"
+msgstr "Hapus header Server"
+
+#: includes/class-segurium.php:2975
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr ""
+"Menghapus header yang mengenali perangkat lunak server web Anda. Sebisa "
+"mungkin."
+
+#: includes/class-segurium.php:2981
+msgid "Remove X-Pingback header"
+msgstr "Hapus header X-Pingback"
+
+#: includes/class-segurium.php:2983
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr "Menyembunyikan URL titik akhir pingback/XML-RPC dari header respons."
+
+#: includes/class-segurium.php:2988
+msgid "Remove REST API Link: header"
+msgstr "Hapus header Link: REST API"
+
+#: includes/class-segurium.php:2990
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr "Menghapus header HTTP Link yang mengiklankan titik akhir REST API."
+
+#: includes/class-segurium.php:2995
+msgid "Remove Shortlink Link: header"
+msgstr "Hapus header Link: Shortlink"
+
+#: includes/class-segurium.php:2997
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "Menghapus header HTTP rel=shortlink."
+
+#: includes/class-segurium.php:3000
+msgid "HTML Meta and Links"
+msgstr "Meta dan Tautan HTML"
+
+#: includes/class-segurium.php:3004
+msgid "Remove WordPress generator tag"
+msgstr "Hapus tag generator WordPress"
+
+#: includes/class-segurium.php:3006
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"Menghapus tag meta generator dan generator RSS yang mengungkap versi "
+"WordPress Anda."
+
+#: includes/class-segurium.php:3011
+msgid "Remove RSD link"
+msgstr "Hapus tautan RSD"
+
+#: includes/class-segurium.php:3013
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr "Menghapus tautan titik akhir Really Simple Discovery dari head HTML."
+
+#: includes/class-segurium.php:3018
+msgid "Remove WLW manifest link"
+msgstr "Hapus tautan manifes WLW"
+
+#: includes/class-segurium.php:3020
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to "
+"write posts."
+msgstr ""
+"Menghapus tautan manifes Windows Live Writer. Hanya perlu bila Anda memakai "
+"WLW untuk menulis pos."
+
+#: includes/class-segurium.php:3025
+msgid "Remove REST API discovery link"
+msgstr "Hapus tautan penemuan REST API"
+
+#: includes/class-segurium.php:3027
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"Menghapus tag tautan penemuan dari head HTML. REST API itu sendiri tetap "
+"berfungsi di /wp-json/."
+
+#: includes/class-segurium.php:3032
+msgid "Remove oEmbed discovery links"
+msgstr "Hapus tautan penemuan oEmbed"
+
+#: includes/class-segurium.php:3034
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr ""
+"Mencegah situs lain menampilkan pratinjau sematan kaya ketika menautkan ke "
+"konten Anda."
+
+#: includes/class-segurium.php:3039
+msgid "Remove shortlink meta tag"
+msgstr "Hapus tag meta shortlink"
+
+#: includes/class-segurium.php:3041
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "Menghapus tag tautan shortlink dari head HTML."
+
+#: includes/class-segurium.php:3046
+msgid "Remove emoji scripts and styles"
+msgstr "Hapus skrip dan gaya emoji"
+
+#: includes/class-segurium.php:3048
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers have"
+" native emoji support."
+msgstr ""
+"Menghapus JavaScript dan CSS polyfill emoji WordPress. Peramban modern sudah "
+"mendukung emoji secara bawaan."
+
+#: includes/class-segurium.php:3053
+msgid "Remove RSS/Atom feed links"
+msgstr "Hapus tautan umpan RSS/Atom"
+
+#: includes/class-segurium.php:3055
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site does"
+" not use RSS feeds."
+msgstr ""
+"Dapat merusak pembaca RSS dan WordPress.com Reader. Aktifkan hanya bila situs"
+" Anda tidak memakai umpan RSS."
+
+#: includes/class-segurium.php:3060
+msgid "Remove adjacent post links"
+msgstr "Hapus tautan pos bersebelahan"
+
+#: includes/class-segurium.php:3062
+msgid "Removes prev/next post rel links from HTML head."
+msgstr "Menghapus tautan rel pos sebelumnya/berikutnya dari head HTML."
+
+#: includes/class-segurium.php:3065
+msgid "Asset Fingerprinting"
+msgstr "Sidik Jari Aset"
+
+#: includes/class-segurium.php:3069
+msgid "Remove version query strings"
+msgstr "Hapus string kueri versi"
+
+#: includes/class-segurium.php:3071
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"Melucuti ?ver= dari URL CSS dan JavaScript. Aset yang tersimpan di cache "
+"peramban dapat menjadi basi setelah plugin atau tema diperbarui."
+
+#: includes/class-segurium.php:3078
+msgid "Disable XML-RPC entirely"
+msgstr "Nonaktifkan XML-RPC sepenuhnya"
+
+#: includes/class-segurium.php:3080
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only if"
+" you do not use them."
+msgstr ""
+"Sebagian plugin (Jetpack, aplikasi seluler WordPress) memerlukan XML-RPC. "
+"Nonaktifkan hanya bila Anda tidak memakainya."
+
+#: includes/class-segurium.php:3092
+msgid "Security Self-Check"
+msgstr "Security Self-Check"
+
+#: includes/class-segurium.php:3094
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Segurium menjalankan pemeriksaan yang sama seperti pemindai keamanan luar "
+"terkemuka, ditambah pemeriksaan pengerasan khas WordPress, lalu menilai situs"
+" Anda dari A+ sampai F. Hasilnya disimpan sampai jalan berikutnya."
+
+#: includes/class-segurium.php:3113
+msgid "Check results"
+msgstr "Hasil pemeriksaan"
+
+#: includes/class-segurium.php:3115
+msgid "Independent verification"
+msgstr "Verifikasi independen"
+
+#: includes/class-segurium.php:3117
+msgid "Cross-check results with these public scanners:"
+msgstr "Periksa silang hasilnya dengan pemindai publik ini:"
+
+#: includes/class-segurium.php:3120
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:3121
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:3135
+msgid "Cleanup: 3 files / 30 days"
+msgstr "Pembersihan: 3 berkas / 30 hari"
+
+#: includes/class-segurium.php:3136
+msgid "Full malware detection — same findings as Pro"
+msgstr "Deteksi malware penuh — temuan sama seperti Pro"
+
+#: includes/class-segurium.php:3137
+msgid "Auto-fix and Bulk Fix All"
+msgstr "Perbaikan otomatis dan Perbaiki Semua massal"
+
+#: includes/class-segurium.php:3138
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr ""
+"Pengerasan: 2FA, brute force, pemblokiran geografis, firewall, header "
+"keamanan"
+
+#: includes/class-segurium.php:3139
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "Pemantauan integritas berkas (core / plugin / tema)"
+
+#: includes/class-segurium.php:3140
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Pengimpor migrasi (Wordfence, AIOS, Solid Security)"
+
+#: includes/class-segurium.php:3141
+msgid "Community support"
+msgstr "Bantuan komunitas"
+
+#: includes/class-segurium.php:3144
+msgid "Unlimited cleanup"
+msgstr "Pembersihan tanpa batas"
+
+#: includes/class-segurium.php:3145
+msgid "Everything in Free"
+msgstr "Semua yang ada di Free"
+
+#: includes/class-segurium.php:3146
+msgid "Email support, priority queue"
+msgstr "Bantuan e-mail, antrean prioritas"
+
+#: includes/class-segurium.php:3154
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Tiap fitur dikirim pada tiap instalasi. Pro menaikkan batas pembersihan "
+"bulanan."
+
+#: includes/class-segurium.php:3161 includes/class-segurium.php:3186
+msgid "Current plan"
+msgstr "Paket saat ini"
+
+#: includes/class-segurium.php:3164 includes/class-segurium.php:3434
+msgid "Free"
+msgstr "Free"
+
+#: includes/class-segurium.php:3166
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr "Tiap fitur, di tiap situs. Pembersihan dibatasi 3 tiap 30 hari."
+
+#: includes/class-segurium.php:3171
+msgid "forever"
+msgstr "selamanya"
+
+#: includes/class-segurium.php:3195
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr "Pembersihan tanpa batas. Fitur sama seperti Free, tanpa batas bulanan."
+
+#: includes/class-segurium.php:3200
+msgid "/year per site"
+msgstr "/tahun per situs"
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+#: includes/class-segurium.php:3224
+#, php-format
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"Bundel untuk 5 dan 25 situs, plus penawaran 100+, ada di "
+"%1$ssegurium.com/pricing/%2$s."
+
+#: includes/class-segurium.php:3242
+msgid "Scan Settings"
+msgstr "Pengaturan Pemindaian"
+
+#: includes/class-segurium.php:3245
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"Kecualikan berkas dari pemindaian yang cocok dengan pola wildcard ini (satu "
+"per baris)"
+
+#: includes/class-segurium.php:3247
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/* "
+"will exclude the vendor directory and everything inside it."
+msgstr ""
+"Gunakan * sebagai wildcard. Misalnya, *.log akan mengecualikan semua berkas "
+"log. vendor/* akan mengecualikan direktori vendor dan semua isinya."
+
+#: includes/class-segurium.php:3255
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes,"
+" file paths, and metadata only, and a file the cloud cannot identify by hash "
+"stays unresolved. Reporting a false positive or attaching a file to a support"
+" ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Ketika diaktifkan, konten berkas dapat dibagikan dengan Segurium Cloud untuk "
+"deteksi malware lanjutan dan pembersihan bertenaga cloud. Hanya berkas "
+"mencurigakan yang dikirim. Matikan untuk mode On-premise: pemindaian lalu "
+"hanya mengirim hash SHA-256, jalur berkas, dan metadata, dan berkas yang "
+"tidak dapat dikenali cloud lewat hash tetap menggantung. Melaporkan positif "
+"palsu atau melampirkan berkas ke tiket bantuan tetap mengirim berkas itu, "
+"karena Anda sendiri yang memilihnya."
+
+#: includes/class-segurium.php:3261
+msgid "Email me about findings"
+msgstr "Kirimi saya e-mail tentang temuan"
+
+#: includes/class-segurium.php:3263
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"Mengirim ringkasan harian berisi putusan malware dan pembersihan yang "
+"berhasil, dikirim dari support@segurium.com. Paling banyak satu e-mail per "
+"situs tiap 24 jam."
+
+#: includes/class-segurium.php:3277
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "Musnahkan cadangan terenkripsi ketika plugin diuninstal"
+
+#: includes/class-segurium.php:3279
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Mati (standar): cadangan terenkripsi berisi komponen yang dihapus dan berkas "
+"yang disembuhkan tetap disimpan di direktori uploads/segurium-data setelah "
+"uninstal, sehingga pemasangan ulang masih dapat memulihkannya. Nyalakan hanya"
+" bila Anda menginginkan penghapusan permanen saat uninstal."
+
+#: includes/class-segurium.php:3289
+msgid "Automatically clean detected malware"
+msgstr "Bersihkan malware yang terdeteksi secara otomatis"
+
+#: includes/class-segurium.php:3291
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"Setelah tiap pemindaian terjadwal atau real-time, berkas dengan putusan "
+"malware atau injeksi yang diketahui dibersihkan tanpa perlu klik. Berkas yang"
+" Anda abaikan (per jalur atau per hash) dilewati."
+
+#: includes/class-segurium.php:3297
+msgid "Let Segurium Cloud request component updates"
+msgstr "Izinkan Segurium Cloud meminta pembaruan komponen"
+
+#: includes/class-segurium.php:3299
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited "
+"to security and maintenance releases. Segurium never updates itself this way."
+" Turn this off and the site stops asking for and accepting these requests."
+msgstr ""
+"Segurium Cloud dapat meminta situs ini memperbarui plugin, tema, atau "
+"WordPress itu sendiri. Ia hanya dapat menyebut komponen yang sudah Anda "
+"pasang, dan hanya ketika WordPress.org sudah menawarkan pembaruan itu; "
+"pembaruan diunduh oleh WordPress dari WordPress.org, tidak pernah dari "
+"Segurium. Core WordPress dibatasi pada rilis keamanan dan pemeliharaan. "
+"Segurium tidak pernah memperbarui dirinya sendiri lewat cara ini. Matikan ini"
+" dan situs berhenti meminta serta menerima permintaan tersebut."
+
+#: includes/class-segurium.php:3301
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Dimatikan di wp-config.php oleh SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+#: includes/class-segurium.php:3305
+msgid "Recent cloud requests"
+msgstr "Permintaan cloud terbaru"
+
+#: includes/class-segurium.php:3311
+msgid "Outcome"
+msgstr "Hasil"
+
+#: includes/class-segurium.php:3343
+msgid "Scheduled Scan"
+msgstr "Pemindaian Terjadwal"
+
+#: includes/class-segurium.php:3345
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is already"
+" in progress is skipped, not queued."
+msgstr ""
+"Menjalankan pemindaian malware penuh secara otomatis pada jadwal berulang. "
+"Pemindaian terjadwal mengerjakan hal yang sama seperti pemindaian manual, "
+"tetapi tidak menuntut Anda membiarkan peramban terbuka. Detak terjadwal yang "
+"jatuh ketika pemindaian manual sedang berjalan akan dilewati, bukan "
+"diantrekan."
+
+#: includes/class-segurium.php:3372
+msgid "Save Schedule"
+msgstr "Simpan Jadwal"
+
+#: includes/class-segurium.php:3380
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium "
+"settings are preserved; imported data is merged."
+msgstr ""
+"Impor pengaturan dari plugin keamanan lain ke Segurium. Pengaturan Segurium "
+"yang ada tetap dipertahankan; data yang diimpor digabungkan."
+
+#: includes/class-segurium.php:3431
+msgid "Version"
+msgstr "Versi"
+
+#: includes/class-segurium.php:3433
+msgid "Plan"
+msgstr "Paket"
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3436
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/class-segurium.php:3438
+msgid "Geo DB updated"
+msgstr "Basis data geo diperbarui"
+
+#: includes/class-segurium.php:3445
+msgid "Proxies DB updated"
+msgstr "Basis data proksi diperbarui"
+
+#: includes/class-segurium.php:3455
+msgid "IID"
+msgstr "IID"
+
+#: includes/class-segurium.php:3461
+msgid "Copy IID to clipboard"
+msgstr "Salin IID ke papan klip"
+
+#: includes/class-segurium.php:3465
+msgid "Your IP"
+msgstr "IP Anda"
+
+#: includes/class-segurium.php:3559
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "Pola * tunggal dihapus karena akan mengecualikan semua berkas."
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium.php:3576
+#, php-format
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"%d jalur absolut ditulis ulang menjadi jalur relatif terhadap root instalasi "
+"WordPress."
+msgstr[1] ""
+"%d jalur absolut ditulis ulang menjadi jalur relatif terhadap root instalasi "
+"WordPress."
+
+#: includes/class-segurium.php:3589
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "Daftar pengecualian pemindaian dibatasi 500 entri."
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium.php:3596
+#, php-format
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "%d entri yang lebih panjang dari 191 karakter dihapus."
+msgstr[1] "%d entri yang lebih panjang dari 191 karakter dihapus."
+
+#: includes/class-segurium.php:3645 includes/class-segurium.php:3678
+msgid "You do not have permission to manage scan settings."
+msgstr "Anda tidak punya izin untuk mengelola pengaturan pemindaian."
+
+#: includes/class-segurium.php:3757
+msgid "The scan could not be started due to a server error."
+msgstr "Pemindaian tidak dapat dimulai karena eror server."
+
+#: includes/class-segurium.php:3846
+msgid "Could not stop the running scan due to a server error."
+msgstr "Tidak dapat menghentikan pemindaian yang berjalan karena eror server."
+
+#: includes/class-segurium.php:3894
+msgid "Check the PHP error log for details."
+msgstr "Periksa log eror PHP untuk detailnya."
+
+#: includes/class-segurium.php:4025
+msgid "No scan results available"
+msgstr "Tidak ada hasil pemindaian yang tersedia"
+
+#: includes/class-segurium.php:4096 includes/class-segurium.php:6058
+#: includes/class-segurium.php:6062 includes/class-segurium.php:6118
+#: includes/class-segurium.php:6207 includes/class-segurium.php:6811
+#: includes/class-segurium.php:7207
+msgid "Invalid parameters"
+msgstr "Parameter tidak valid"
+
+#: includes/class-segurium.php:4106 includes/class-segurium.php:4418
+#: includes/class-segurium.php:5295 includes/class-segurium.php:5343
+#: includes/class-segurium.php:5348 includes/class-segurium.php:6823
+#: includes/class-segurium.php:7152 includes/class-segurium.php:7214
+msgid "Invalid path"
+msgstr "Jalur tidak valid"
+
+#: includes/class-segurium.php:4110 includes/class-segurium.php:5352
+#: includes/class-segurium.php:6919 includes/class-segurium.php:7229
+msgid "File not found"
+msgstr "Berkas tidak ditemukan"
+
+#: includes/class-segurium.php:4164 includes/class-segurium.php:7022
+msgid "File cleaned"
+msgstr "Berkas dibersihkan"
+
+#: includes/class-segurium.php:4225 includes/class-segurium.php:4298
+#: includes/class-segurium.php:4383
+msgid "Missing backup ID"
+msgstr "ID cadangan hilang"
+
+#: includes/class-segurium.php:4236 includes/class-segurium.php:4309
+#: includes/class-segurium.php:4388
+msgid "Backup not found"
+msgstr "Cadangan tidak ditemukan"
+
+#: includes/class-segurium.php:4252 includes/class-segurium.php:4263
+#: includes/class-segurium.php:7280
+msgid "Failed to restore file"
+msgstr "Gagal memulihkan berkas"
+
+#: includes/class-segurium.php:4256 includes/class-segurium.php:4319
+msgid "Invalid restore path"
+msgstr "Jalur pemulihan tidak valid"
+
+#: includes/class-segurium.php:4278 includes/class-segurium.php:7184
+msgid "File restored from backup"
+msgstr "Berkas dipulihkan dari cadangan"
+
+#: includes/class-segurium.php:4314
+msgid "Backup has no target path"
+msgstr "Cadangan tidak punya jalur target"
+
+#: includes/class-segurium.php:4336
+msgid "Failed to read target file"
+msgstr "Gagal membaca berkas target"
+
+#: includes/class-segurium.php:4426
+msgid "File is not an active malware entry."
+msgstr "Berkas ini bukan entri malware yang aktif."
+
+#: includes/class-segurium.php:4433
+msgid "File is outside the WordPress root."
+msgstr "Berkas berada di luar root WordPress."
+
+#: includes/class-segurium.php:4436
+msgid "File not found or not readable."
+msgstr "Berkas tidak ditemukan atau tidak dapat dibaca."
+
+#: includes/class-segurium.php:4444
+msgid "File is too large to preview."
+msgstr "Berkas terlalu besar untuk dipratinjau."
+
+#: includes/class-segurium.php:4453 includes/class-segurium.php:6134
+msgid "Failed to read file."
+msgstr "Gagal membaca berkas."
+
+#: includes/class-segurium.php:4919
+msgid "No integrity scan is currently running."
+msgstr "Tidak ada pemindaian integritas yang sedang berjalan."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:5037
+#, php-format
+msgid "Unexpected error: %s"
+msgstr "Eror tak terduga: %s"
+
+#: includes/class-segurium.php:5057
+msgid "Unexpected error."
+msgstr "Eror tak terduga."
+
+#: includes/class-segurium.php:5085
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "Titik akhir ini telah dihapus. Muat ulang halaman."
+
+#: includes/class-segurium.php:5233 includes/class-segurium.php:5260
+#: includes/class-segurium.php:5289 includes/class-segurium.php:5385
+#: includes/class-segurium.php:5427 includes/class-segurium.php:5595
+msgid "Missing parameters."
+msgstr "Parameter hilang."
+
+#: includes/class-segurium.php:5315 includes/class-segurium.php:7159
+msgid "Failed to write restored file"
+msgstr "Gagal menulis berkas yang dipulihkan"
+
+#: includes/class-segurium.php:5357
+msgid "File too large to view (>2 MB)"
+msgstr "Berkas terlalu besar untuk dilihat (>2 MB)"
+
+#: includes/class-segurium.php:5469 includes/class-segurium.php:5473
+#: includes/class-segurium.php:5500 includes/class-segurium.php:5599
+#: includes/class-segurium.php:5603 includes/class-segurium.php:5616
+msgid "Invalid parameters."
+msgstr "Parameter tidak valid."
+
+#: includes/class-segurium.php:5493
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr ""
+"Tidak dapat menghapus tema yang sedang aktif. Beralih ke tema lain dulu."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5570
+#, php-format
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "%1$s \"%2$s\" telah dihapus. Cadangan telah dibuat."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5675
+#, php-format
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "%1$s \"%2$s\" telah dipulihkan dari cadangan."
+
+#: includes/class-segurium.php:5734
+msgid "Cannot delete active theme. Switch first."
+msgstr "Tidak dapat menghapus tema aktif. Beralih dulu."
+
+#: includes/class-segurium.php:5741
+msgid "Delisted from WordPress.org"
+msgstr "Dicabut dari WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:5751
+#, php-format
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr "Tema \"%s\" ditelantarkan tetapi sedang aktif. Tema ini akan dilewati."
+
+#: includes/class-segurium.php:5757
+msgid "Active abandoned theme — switch manually."
+msgstr "Tema aktif yang ditelantarkan — beralihlah secara manual."
+
+#: includes/class-segurium.php:5783
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "Bukan dari WordPress.org — integritas tidak dapat diverifikasi."
+
+#: includes/class-segurium.php:5804
+msgid "Protected file (exclusion list)."
+msgstr "Berkas terlindungi (daftar pengecualian)."
+
+#. translators: %s: file verdict reported by the integrity check.
+#: includes/class-segurium.php:5844
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Tidak ada perbaikan otomatis untuk putusan \"%s\"."
+
+#. translators: %d: number of files.
+#: includes/class-segurium.php:5856
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "Versi komponen tidak dikenali. %d berkas tidak dapat diverifikasi."
+msgstr[1] "Versi komponen tidak dikenali. %d berkas tidak dapat diverifikasi."
+
+#: includes/class-segurium.php:6126
+msgid "File not found on disk."
+msgstr "Berkas tidak ditemukan di disk."
+
+#: includes/class-segurium.php:6130
+msgid "File is too large to submit."
+msgstr "Berkas terlalu besar untuk dikirim."
+
+#: includes/class-segurium.php:6137
+msgid "File contents changed since the scan."
+msgstr "Konten berkas berubah sejak pemindaian."
+
+#: includes/class-segurium.php:6141 includes/class-segurium.php:7797
+msgid "Failed to compress file."
+msgstr "Gagal memampatkan berkas."
+
+#: includes/class-segurium.php:6508 includes/class-segurium.php:6524
+#: includes/class-segurium.php:6559 includes/class-segurium.php:6580
+#: includes/class-segurium.php:6594 includes/class-segurium.php:6616
+#: includes/class-segurium.php:6639 includes/class-segurium.php:6706
+#: includes/class-segurium.php:6766 includes/class-segurium.php:6779
+#: includes/class-segurium.php:7349 includes/class-segurium.php:7371
+#: includes/class-segurium.php:7386 includes/class-segurium.php:7408
+#: includes/class-segurium.php:7424 includes/class-segurium.php:7446
+#: includes/class-segurium.php:7463 includes/class-segurium.php:7478
+#: includes/class-segurium.php:7493 includes/class-segurium.php:7511
+#: includes/class-segurium.php:7524 includes/class-segurium.php:7543
+#: includes/class-segurium.php:7556 includes/class-segurium.php:7580
+#: includes/class-segurium.php:7849 includes/class-segurium.php:7868
+#: includes/class-segurium.php:7883 includes/class-segurium.php:7917
+msgid "Unauthorized."
+msgstr "Tidak diizinkan."
+
+#: includes/class-segurium.php:6601 includes/class-segurium.php:6623
+msgid "Pending change not found or already expired."
+msgstr "Perubahan tertunda tidak ditemukan atau sudah kedaluwarsa."
+
+#. translators: %s: file path relative to the WordPress root.
+#: includes/class-segurium.php:6854
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Penghapusan ditolak: \"%s\" adalah berkas terlindungi. Server web atau plugin"
+" lain mungkin memuatnya, dan menghapusnya dapat menumbangkan seluruh situs. "
+"Hapus secara manual bila Anda yakin itu aman."
+
+#: includes/class-segurium.php:6906
+msgid "Failed to create directory"
+msgstr "Gagal membuat direktori"
+
+#: includes/class-segurium.php:6909 includes/class-segurium.php:7061
+msgid "Failed to write file"
+msgstr "Gagal menulis berkas"
+
+#: includes/class-segurium.php:6924 includes/class-segurium.php:7032
+msgid "Failed to read file for backup"
+msgstr "Gagal membaca berkas untuk pencadangan"
+
+#: includes/class-segurium.php:7047
+msgid "Failed to create backup"
+msgstr "Gagal membuat cadangan"
+
+#: includes/class-segurium.php:7070
+msgid "Failed to delete file"
+msgstr "Gagal menghapus berkas"
+
+#: includes/class-segurium.php:7234
+msgid "Failed to read file"
+msgstr "Gagal membaca berkas"
+
+#: includes/class-segurium.php:7266
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr ""
+"Cadangan tidak lagi tersedia — cadangan itu dirotasi keluar oleh cadangan "
+"yang lebih baru."
+
+#: includes/class-segurium.php:7268
+msgid "Backup metadata is missing or unreadable."
+msgstr "Metadata cadangan hilang atau tidak dapat dibaca."
+
+#: includes/class-segurium.php:7270
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Berkas cadangan tidak dapat dibaca. Periksa izin sistem berkas pada "
+"uploads/segurium-data."
+
+#: includes/class-segurium.php:7272
+msgid "Backup file is corrupt — decryption failed."
+msgstr "Berkas cadangan rusak — dekripsi gagal."
+
+#: includes/class-segurium.php:7274
+msgid "Backup file is corrupt — decompression failed."
+msgstr "Berkas cadangan rusak — dekompresi gagal."
+
+#: includes/class-segurium.php:7276
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"Pemeriksaan integritas cadangan gagal — hash konten tidak cocok dengan "
+"metadata."
+
+#: includes/class-segurium.php:7278
+msgid "Invalid backup reference."
+msgstr "Rujukan cadangan tidak valid."
+
+#: includes/class-segurium.php:7497
+msgid "Invalid IP address."
+msgstr "Alamat IP tidak valid."
+
+#: includes/class-segurium.php:7561 includes/class-segurium.php:7585
+msgid "Plugin not found or no data to migrate."
+msgstr "Plugin tidak ditemukan atau tidak ada data untuk dimigrasikan."
+
+#: includes/class-segurium.php:7709
+msgid "Missed malware report"
+msgstr "Laporan malware yang terlewat"
+
+#: includes/class-segurium.php:7711
+msgid "Other request"
+msgstr "Permintaan lain"
+
+#: includes/class-segurium.php:7740
+msgid "Permission denied."
+msgstr "Izin ditolak."
+
+#: includes/class-segurium.php:7750
+msgid "Message is required."
+msgstr "Pesan wajib diisi."
+
+#: includes/class-segurium.php:7757
+msgid "A valid reply-to email is required."
+msgstr "E-mail balasan yang valid wajib diisi."
+
+#: includes/class-segurium.php:7775
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "Anda sudah mengirim terlalu banyak tiket hari ini. Coba lagi besok."
+
+#: includes/class-segurium.php:7781
+msgid "Failed to upload the file. Try again."
+msgstr "Gagal mengunggah berkas. Coba lagi."
+
+#: includes/class-segurium.php:7785
+msgid "File is empty or too large (max 100 MB)."
+msgstr "Berkas kosong atau terlalu besar (maksimum 100 MB)."
+
+#: includes/class-segurium.php:7789
+msgid "Invalid upload."
+msgstr "Unggahan tidak valid."
+
+#: includes/class-segurium.php:7793
+msgid "Failed to read uploaded file."
+msgstr "Gagal membaca berkas yang diunggah."
+
+#: includes/class-segurium.php:7922
+msgid "Please enter a username or user ID."
+msgstr "Masukkan nama pengguna atau ID pengguna."
+
+#: includes/class-segurium.php:7927
+msgid "User not found."
+msgstr "Pengguna tidak ditemukan."
+
+#. translators: %s: username
+#: includes/class-segurium.php:7935
+#, php-format
+msgid "2FA reset for user %s."
+msgstr "2FA disetel ulang untuk pengguna %s."
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "Whitelist IP"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"Whitelist IP (lewati) milik AIOS tidak punya padanan langsung pada mode "
+"firewall daftar-tolak Segurium. Atur secara manual bila diperlukan."
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "Perlindungan Brute Force"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "Perlindungan brute force Segurium (terencana)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "Pemblokiran Negara"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported locally."
+msgstr ""
+"Pemblokiran negara AIOS adalah fitur cloud berbayar dan tidak dapat diimpor "
+"secara lokal."
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Blocked IPs"
+msgstr "IP Diblokir"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+msgid "No banned IPs configured in AIOS."
+msgstr "Tidak ada IP terlarang yang diatur di AIOS."
+
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Merge"
+msgstr "Gabungkan"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+msgid "Scan Exclusions"
+msgstr "Pengecualian Pemindaian"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+msgid "No file exclusions configured in AIOS."
+msgstr "Tidak ada pengecualian berkas yang diatur di AIOS."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "2FA Segurium (terencana)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"Solid Security menyimpan pemblokiran negara di dasbor cloud. Atur secara "
+"manual pada tab Pemblokiran Geografis."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+msgid "Banned IPs"
+msgstr "IP Terlarang"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+msgid "No banned IPs found in Solid Security."
+msgstr "Tidak ada IP terlarang yang ditemukan di Solid Security."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "Pengaturan yang Dikelola Cloud"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"Sucuri Security menyimpan aturan WAF, pemblokiran geografis, dan pengaturan "
+"pemindaian malware-nya di dasbor cloud Sucuri. Semua itu tidak dapat diimpor "
+"secara lokal."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "Aturan WAF"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "Aturan WAF Segurium (terencana)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"Pemblokiran geografis Segurium (tersedia) — atur secara manual pada tab "
+"Pemblokiran Geografis."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "Tidak ada pola pengecualian yang diatur di Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+msgid "No country blocks configured in Wordfence."
+msgstr "Tidak ada pemblokiran negara yang diatur di Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+msgid "No manual IP blocks found in Wordfence."
+msgstr "Tidak ada pemblokiran IP manual yang ditemukan di Wordfence."
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:279
+#, php-format
+msgid "Import %d user(s) with TOTP"
+msgstr "Impor %d pengguna dengan TOTP"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:282
+msgid "Import into Segurium 2FA"
+msgstr "Impor ke 2FA Segurium"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:292
+msgid "No Wordfence 2FA data found"
+msgstr "Tidak ada data 2FA Wordfence yang ditemukan"
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+#, php-format
+msgid "Missing parameter: %s"
+msgstr "Parameter hilang: %s"
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Tidak ada versi bersih dari berkas ini. Hapus atau ganti secara manual."
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud tidak dapat membersihkan berkas ini sekarang. Coba lagi nanti."
+
+#: includes/storage/class-segurium-storage.php:240
+msgid "Cleanup unavailable."
+msgstr "Pembersihan tidak tersedia."
+
+#: includes/storage/class-segurium-storage.php:827
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Respons pembersihan dari Segurium Cloud tidak valid."
+
+#: includes/storage/class-segurium-storage.php:847
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr ""
+"Segurium Cloud mengembalikan konten pembersihan yang bukan base64 valid."
+
+#: includes/storage/class-segurium-storage.php:860
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "Respons pembersihan kehilangan checksum berkas yang dibersihkan."
+
+#: includes/storage/class-segurium-storage.php:864
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr ""
+"Berkas yang dibersihkan tidak cocok dengan checksum pada respons pembersihan."
+
+#: includes/storage/class-segurium-storage.php:1093
+msgid "Invalid response from Segurium Cloud."
+msgstr "Respons dari Segurium Cloud tidak valid."
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1101
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud mengembalikan eror %d."
+
+#: includes/storage/class-segurium-storage.php:1109
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Respons Segurium Cloud kehilangan konten berkas."
+
+#: includes/storage/class-segurium-storage.php:1117
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud mengembalikan konten berkas yang bukan base64 valid."
+
+#: includes/storage/class-segurium-storage.php:1124
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Respons Segurium Cloud kehilangan checksum berkas."
+
+#: includes/storage/class-segurium-storage.php:1131
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "Berkas yang diunduh tidak cocok dengan checksum pada respons."
+
+#: segurium.php:49 segurium.php:1231
+msgid "Plugin Activation Error"
+msgstr "Eror Aktivasi Plugin"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:1066
+#, php-format
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Segurium memerlukan PHP %1$s atau lebih tinggi. Situs ini menjalankan PHP "
+"%2$s. Minta penyedia hosting Anda memutakhirkan PHP, lalu coba aktifkan "
+"Segurium lagi."
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:1074
+#, php-format
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Segurium memerlukan WordPress %1$s atau lebih tinggi. Situs ini menjalankan "
+"WordPress %2$s. Perbarui WordPress, lalu coba aktifkan Segurium lagi."
+
+#: segurium.php:1076
+msgid "unknown"
+msgstr "tidak diketahui"
+
+msgid "Update"
+msgstr "Perbarui"
+
+msgid "Outdated"
+msgstr "Kedaluwarsa"
+
+msgid "Vulnerable"
+msgstr "Rentan"
+
+msgid "No update available"
+msgstr "Tidak ada pembaruan tersedia"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#, php-format
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s berpindah dari %2$s ke %3$s. Ini adalah perubahan versi mayor dan dapat merusak situs Anda."
+
+msgid "Malware is waiting for you to act"
+msgstr "Malware menunggu tindakan Anda"
+
+msgid "A vulnerable component is installed"
+msgstr "Komponen rentan terpasang"
+
+msgid "Security issues need your attention"
+msgstr "Masalah keamanan memerlukan perhatian Anda"

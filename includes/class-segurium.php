@@ -22,6 +22,16 @@ class Segurium {
 	const IID_REGISTER_CRON_HOOK = 'segurium_iid_register';
 
 	/**
+	 * Cron hook that reports a re-activation to CTI.
+	 *
+	 * Scheduled by {@see segurium_activate()} instead of sending inline:
+	 * `blocking => false` does not make wp_remote_post asynchronous, so an
+	 * inline send stalls activation for the connect timeout whenever the
+	 * site cannot reach CTI.
+	 */
+	const ACTIVATED_PING_CRON_HOOK = 'segurium_plugin_activated_ping';
+
+	/**
 	 * Transient key + TTL (seconds) for the CTI health probe.
 	 *
 	 * The status indicator is informational; a stale read for up to 5
@@ -63,6 +73,7 @@ class Segurium {
 	private function __construct() {
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+		add_action( 'admin_head', 'segurium_admin_menu_strip_submenu_alert' );
 		// Buffer admin notices on our page so they paint inside
 		// the wrap on first hit. Without this, WP common.js moves notices to
 		// the first <h1>/<h2> in .wrap on document.ready — which for us lives
@@ -120,6 +131,7 @@ class Segurium {
 		add_action( Segurium_Trusted_Proxies::CRON_HOOK, array( 'Segurium_Trusted_Proxies', 'fetch' ) );
 		Segurium_Trusted_Proxies::schedule();
 		add_action( self::IID_REGISTER_CRON_HOOK, array( 'Segurium_IID', 'maybe_register' ) );
+		add_action( self::ACTIVATED_PING_CRON_HOOK, array( __CLASS__, 'send_activated_ping' ) );
 		// Drain the deferred re-register flag set by the CTI
 		// 409 `re_register` short-circuit. admin_init runs on every admin
 		// page load — the first one after a clone-bounce re-registers and
@@ -275,6 +287,7 @@ class Segurium {
 			'segurium_integrity_ignore_component'        => array( $scan, $mo, array( $this, 'ajax_integrity_ignore_component' ) ),
 			'segurium_integrity_unignore_component'      => array( $scan, $mo, array( $this, 'ajax_integrity_unignore_component' ) ),
 			'segurium_integrity_delete_component'        => array( $scan, $mo, array( $this, 'ajax_integrity_delete_component' ) ),
+			'segurium_integrity_update_component'        => array( $scan, $mo, array( $this, 'ajax_integrity_update_component' ) ),
 			'segurium_integrity_restore_component'       => array( $scan, $mo, array( $this, 'ajax_integrity_restore_component' ) ),
 			'segurium_integrity_fix_all_preview'         => array( $scan, $mo, array( $this, 'ajax_integrity_fix_all_preview' ) ),
 
@@ -331,6 +344,7 @@ class Segurium {
 
 			// Self check.
 			'segurium_run_self_check'                    => array( $selfcheck, $mo, array( $this, 'ajax_run_self_check' ) ),
+			'segurium_self_check_apply_fix'              => array( $selfcheck, $mo, array( $this, 'ajax_self_check_apply_fix' ) ),
 
 			// 2FA admin settings (manage_options).
 			'segurium_get_2fa_settings'                  => array( $twofa, $mo, array( $this, 'ajax_get_2fa_settings' ) ),
@@ -508,9 +522,14 @@ class Segurium {
 	 * @return void
 	 */
 	public function add_admin_menu() {
+		// The heavy tier is the only one that can count, and this hook is
+		// the last point before the page renders. Recounting here keeps
+		// the sidebar bubble and the tab markers on one answer.
+		Segurium_Issue_Indicator::recount();
+
 		add_menu_page(
 			__( 'Segurium', 'segurium' ),
-			__( 'Segurium', 'segurium' ),
+			segurium_admin_menu_title(),
 			'manage_options',
 			'segurium',
 			array( $this, 'render_admin_page' ),
@@ -1157,6 +1176,12 @@ class Segurium {
 						'prev'                    => __( 'Previous', 'segurium' ),
 						'next'                    => __( 'Next', 'segurium' ),
 						'intFix'                  => __( 'Fix', 'segurium' ),
+						'intUpdate'               => __( 'Update', 'segurium' ),
+						'intOutdated'             => __( 'Outdated', 'segurium' ),
+						'intVulnerable'           => __( 'Vulnerable', 'segurium' ),
+						'intVulnerableNoUpdate'   => __( 'No update available', 'segurium' ),
+						/* translators: 1: component name, 2: installed version, 3: version WordPress would install */
+						'intUpdateMajor'          => __( '%1$s moves from %2$s to %3$s. This is a major version change and can break your site.', 'segurium' ),
 						'intIgnore'               => __( 'Ignore', 'segurium' ),
 						'intRestore'              => __( 'Restore', 'segurium' ),
 						'intFixed'                => __( 'Fixed', 'segurium' ),
@@ -1324,6 +1349,9 @@ class Segurium {
 						/* translators: %s: human-readable time difference such as "5 mins" */
 						'scLastRun'               => __( 'Last checked %s ago.', 'segurium' ),
 						'scFix'                   => __( 'Fix', 'segurium' ),
+						'scFixing'                => __( 'Applying...', 'segurium' ),
+						'scFixNotVisible'         => __( 'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.', 'segurium' ),
+						'scFixFailed'             => __( 'The fix could not be applied. Open the feature tab and switch it on there.', 'segurium' ),
 						'scHowToFix'              => __( 'How to fix', 'segurium' ),
 						'scHideFix'               => __( 'Hide details', 'segurium' ),
 						'scFail'                  => __( 'fail', 'segurium' ),
@@ -1683,7 +1711,7 @@ class Segurium {
 						placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
 						value="<?php echo esc_attr( (string) Segurium_Storage::setting_get_string( Segurium_Alerts_Settings::OPTION_EMAIL ) ); ?>"
 					/>
-					<p class="description"><?php esc_html_e( 'One email per day at most, sent from support@segurium.com. You can change this later under Settings.', 'segurium' ); ?></p>
+					<p class="description"><?php esc_html_e( 'You can change this later under Settings.', 'segurium' ); ?></p>
 					<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
 				</div>
 				<button id="segurium-accept-consent" class="button button-primary">
@@ -1979,6 +2007,18 @@ class Segurium {
 		$segurium_panel_style = function ( $feature ) use ( $active_tab ) {
 			return $feature === $active_tab ? 'block' : 'none';
 		};
+		// The marker is always in the DOM and hidden until something is
+		// open, so the scanner JS can raise or clear it after a cleanup
+		// without a reload.
+		$issue_flags        = Segurium_Issue_Indicator::flags();
+		$segurium_nav_alert = function ( $raised, $label ) {
+			printf(
+				'<span class="segurium-nav-alert" title="%1$s"%3$s><span aria-hidden="true">!</span><span class="screen-reader-text">%2$s</span></span>',
+				esc_attr( $label ),
+				esc_html( $label ),
+				$raised ? '' : ' hidden'
+			);
+		};
 		?>
 		<div class="wrap segurium-wrap <?php echo esc_attr( $tier_class ); ?>">
 			<div class="segurium-banner">
@@ -1996,7 +2036,10 @@ class Segurium {
 							<span class="segurium-nav-label"><?php esc_html_e( 'Self-Check', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'scanner' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'scanner' ) ); ?>" data-feature="scanner">
-							<span class="segurium-nav-icon">&#x1F50D;</span>
+							<span class="segurium-nav-icon-wrap">
+								<span class="segurium-nav-icon">&#x1F50D;</span>
+								<?php $segurium_nav_alert( $issue_flags[ Segurium_Issue_Indicator::SIGNAL_MALWARE ], __( 'Malware is waiting for you to act', 'segurium' ) ); ?>
+							</span>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Malware Scanner', 'segurium' ); ?></span>
 						</a>
 						<?php
@@ -2010,7 +2053,10 @@ class Segurium {
 						do_action( 'segurium_admin_nav_after_scanner', $active_tab );
 						?>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'integrity-scanner' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'integrity-scanner' ) ); ?>" data-feature="integrity-scanner">
-							<span class="segurium-nav-icon">&#x1F9E9;</span>
+							<span class="segurium-nav-icon-wrap">
+								<span class="segurium-nav-icon">&#x1F9E9;</span>
+								<?php $segurium_nav_alert( $issue_flags[ Segurium_Issue_Indicator::SIGNAL_VULNERABLE ], __( 'A vulnerable component is installed', 'segurium' ) ); ?>
+							</span>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Integrity', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'geo' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'geo' ) ); ?>" data-feature="geo">
@@ -3496,6 +3542,22 @@ class Segurium {
 			self::request_bool( INPUT_POST, 'alerts_email_enabled' ),
 			self::request_scalar( INPUT_POST, 'alerts_email_address' )
 		);
+	}
+
+	/**
+	 * Report a re-activation to CTI. Runs on cron, off the activation
+	 * request. Re-checks both gates because the install can be
+	 * deactivated again, or its IID cleared, between the schedule and
+	 * the tick.
+	 *
+	 * @return void
+	 */
+	public static function send_activated_ping() {
+		if ( ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' )
+			|| null === Segurium_IID::get_iid() ) {
+			return;
+		}
+		Segurium_Storage::cti_send_message( 'plugin_activated' );
 	}
 
 	/**
@@ -5115,9 +5177,13 @@ class Segurium {
 	 *                               a pre-existing open finding is never
 	 *                               silently resolved by a chunk we never
 	 *                               actually checked.
+	 * @param bool  $sweep_not_found Whether components absent from
+	 *                               $components are marked not-found. Only a
+	 *                               scan that walked the whole site may sweep;
+	 *                               a single-component re-check must not.
 	 * @return void
 	 */
-	private function update_integrity_server_state( $components, $unverified_keys = array() ) {
+	private function update_integrity_server_state( $components, $unverified_keys = array(), $sweep_not_found = true ) {
 		$acc = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$acc->load();
 
@@ -5157,6 +5223,7 @@ class Segurium {
 					'component_status' => $comp['component_status'] ?? 'listed',
 					'last_updated'     => $comp['last_updated'] ?? null,
 					'latest_version'   => $comp['latest_version'] ?? null,
+					'vulnerable'       => ! empty( $comp['vulnerable'] ),
 					'ok_count'         => $ok_count,
 					'files'            => $issue_files,
 				)
@@ -5170,8 +5237,233 @@ class Segurium {
 			$scanned_keys[] = $uk;
 		}
 
-		$acc->mark_not_found( $scanned_keys );
+		if ( $sweep_not_found ) {
+			$acc->mark_not_found( $scanned_keys );
+		}
 		$acc->save();
+	}
+
+	/**
+	 * Install the pending update for one component and return its refreshed
+	 * integrity row.
+	 *
+	 * The offer comes from WordPress' own update transient and the package
+	 * is fetched by core's upgrader, so nothing here trusts a value that
+	 * arrived with the request beyond the component's identity.
+	 *
+	 * @return void
+	 */
+	public function ajax_integrity_update_component() {
+		check_ajax_referer( 'segurium_scan', 'nonce' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => 'insufficient_permissions',
+					'message' => __( 'You do not have permission to perform this action.', 'segurium' ),
+				),
+				403
+			);
+		}
+
+		$type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
+		$slug = isset( $_POST['slug'] ) ? sanitize_text_field( wp_unslash( $_POST['slug'] ) ) : '';
+
+		if ( ! in_array( $type, array( 'core', 'plugin', 'theme' ), true ) || ! $this->is_safe_component_slug( $slug ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => 'invalid_params',
+					'message' => __( 'Invalid parameters.', 'segurium' ),
+				)
+			);
+		}
+
+		// Multisite grants update_plugins / update_themes / update_core to
+		// super admins only, so a subsite administrator is refused here.
+		if ( ! current_user_can( Segurium_Component_Updates::capability_for( $type ) ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => 'insufficient_permissions',
+					'message' => __( 'You do not have permission to perform this action.', 'segurium' ),
+				),
+				403
+			);
+		}
+
+		$pending = Segurium_Component_Updates::for_component( $type, $slug );
+		if ( array() === $pending || empty( $pending['package_available'] ) ) {
+			segurium_send_json_error( array( 'code' => 'no_update_pending' ) );
+		}
+
+		$result = Segurium_Component_Updates::apply( $type, $slug, Segurium_Component_Updates::TRIGGER_INTEGRITY_TAB, $pending );
+		if ( is_wp_error( $result ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => $result->get_error_code(),
+					'message' => $result->get_error_message(),
+				)
+			);
+		}
+
+		// The upgrade clears the offers it acted on. Left empty they read as
+		// "nothing to update", and the tab would answer the click by calling
+		// every outdated component clean.
+		Segurium_Component_Updates::refresh();
+
+		segurium_send_json_success( array( 'component' => $this->recheck_integrity_component( $type, $slug ) ) );
+	}
+
+	/**
+	 * Re-run the integrity check for a single component and merge the result
+	 * into the accumulated state. Called after an update so the row does not
+	 * keep showing the previous version's hashes.
+	 *
+	 * A failed check leaves the stored state untouched and returns the row as
+	 * it stands, so a CTI outage cannot resolve or invent findings.
+	 *
+	 * @param string $type Component type (core|plugin|theme).
+	 * @param string $slug Component slug.
+	 * @return array|null Refreshed component row, or null when unknown.
+	 */
+	private function recheck_integrity_component( $type, $slug ) {
+		// Core keeps its pre-update version for the rest of this request:
+		// update_core() deliberately leaves $wp_version alone, so a re-check
+		// would grade the new files against the old manifest and flag every
+		// one of them. Our own files sit in the same position after a
+		// self-update. Both rows wait for the next scan.
+		if ( 'core' === $type
+			|| ( 'plugin' === $type && dirname( plugin_basename( SEGURIUM_PLUGIN_FILE ) ) === $slug ) ) {
+			return $this->load_integrity_component( $type, $slug );
+		}
+
+		$version   = $this->lookup_component_version( $type, $slug );
+		$discovery = new Segurium_Integrity_Component_Discovery(
+			Segurium_Path_Helpers::wp_root(),
+			$this->get_scan_exclusions()
+		);
+		$hashes    = $discovery->collect_hashes( $type, $slug );
+		$path      = $this->integrity_component_path( $type, $slug );
+
+		$rows = Segurium_Storage::cti_integrity_check(
+			array(
+				array(
+					'component_type' => $type,
+					'name'           => $slug,
+					'version'        => $version,
+					'path'           => $path,
+					'files'          => $hashes,
+				),
+			),
+			'component_update'
+		);
+		if ( is_wp_error( $rows ) || ! is_array( $rows ) || empty( $rows[0] ) ) {
+			return $this->load_integrity_component( $type, $slug );
+		}
+
+		$row              = $rows[0];
+		$component_status = (string) ( $row['component_status'] ?? 'listed' );
+		// A version the cloud catalogue has not indexed yet carries no
+		// verdict, so recording it would resolve real findings.
+		if ( 'version_not_indexed' === $component_status ) {
+			return $this->load_integrity_component( $type, $slug );
+		}
+
+		$existing = $this->load_integrity_component( $type, $slug );
+
+		// A file that is still flagged keeps its backup pointer. Dropping it
+		// would leave the row's Restore action with nothing to restore from.
+		$backups = array();
+		foreach ( $existing['files'] ?? array() as $known ) {
+			if ( ! empty( $known['backup_id'] ) ) {
+				$backups[ $known['path'] ] = $known['backup_id'];
+			}
+		}
+
+		// The flag rides on pristine files, so it is read straight off the
+		// response rather than off the findings below. The updated release
+		// keeps the badge whenever the cloud still flags its hashes.
+		$vulnerable = false;
+		foreach ( $row['files'] ?? array() as $file ) {
+			if ( ! empty( $file['vulnerable'] ) ) {
+				$vulnerable = true;
+				break;
+			}
+		}
+
+		$issues = array();
+		if ( 'not_in_repository' !== $component_status && ! empty( $row['files'] ) && is_array( $row['files'] ) ) {
+			$hash_map = array();
+			foreach ( $hashes as $h ) {
+				$hash_map[ $h['path'] ] = $h['sha256'];
+			}
+			foreach ( $row['files'] as $file ) {
+				$verdict = (string) ( $file['verdict'] ?? '' );
+				if ( 'ok' === $verdict || '' === $verdict ) {
+					continue;
+				}
+				$file_path = (string) ( $file['path'] ?? '' );
+				$issues[]  = array(
+					'path'         => $file_path,
+					'verdict'      => $verdict,
+					'status'       => 'open',
+					'sha256'       => (string) ( $file['sha256'] ?? ( $hash_map[ $file_path ] ?? '' ) ),
+					'correct_hash' => $file['correct_hash'] ?? null,
+					'backup_id'    => $backups[ $file_path ] ?? null,
+				);
+			}
+		}
+		$this->update_integrity_server_state(
+			array(
+				array(
+					'type'             => $type,
+					'slug'             => $slug,
+					'name'             => $existing['comp_name'] ?? $slug,
+					'version'          => $version,
+					'path'             => $path,
+					'component_status' => $component_status,
+					'last_updated'     => $row['last_updated'] ?? null,
+					'latest_version'   => $row['latest_version'] ?? null,
+					'vulnerable'       => $vulnerable,
+					'files'            => count( $hashes ),
+					'issues'           => $issues,
+				),
+			),
+			array(),
+			false
+		);
+
+		return $this->load_integrity_component( $type, $slug );
+	}
+
+	/**
+	 * Read one component row out of the accumulated integrity state.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return array|null
+	 */
+	private function load_integrity_component( $type, $slug ) {
+		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
+		$state->load();
+		return $state->find_component( $slug, $type );
+	}
+
+	/**
+	 * Relative path CTI stores a component under.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return string
+	 */
+	private function integrity_component_path( $type, $slug ) {
+		switch ( $type ) {
+			case 'core':
+				return Segurium_Path_Helpers::wp_root();
+			case 'plugin':
+				return 'wp-content/plugins/' . $slug;
+			case 'theme':
+				return 'wp-content/themes/' . $slug;
+		}
+		return '';
 	}
 
 	/**
@@ -7465,6 +7757,35 @@ class Segurium {
 		$force  = self::request_bool( INPUT_POST, 'force' );
 		$result = Segurium_Self_Check::get_instance()->run_checks( $force );
 		segurium_send_json_success( $result );
+	}
+
+	/**
+	 * AJAX handler for switching on the feature behind one failing
+	 * Self-Check row and returning the rescored result.
+	 *
+	 * @return void
+	 */
+	public function ajax_self_check_apply_fix() {
+		check_ajax_referer( Segurium_Self_Check::NONCE_ACTION, 'nonce' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			segurium_send_json_error( array( 'message' => __( 'Unauthorized.', 'segurium' ) ), 403 );
+		}
+
+		$check_id = isset( $_POST['check_id'] ) ? sanitize_key( wp_unslash( $_POST['check_id'] ) ) : '';
+
+		$outcome = Segurium_Self_Check::get_instance()->apply_fix( $check_id );
+		if ( is_wp_error( $outcome ) ) {
+			$data = $outcome->get_error_data();
+			segurium_send_json_error(
+				array(
+					'code'    => $outcome->get_error_code(),
+					'message' => $outcome->get_error_message(),
+				),
+				isset( $data['status'] ) ? (int) $data['status'] : 400
+			);
+		}
+
+		segurium_send_json_success( $outcome );
 	}
 
 	/**

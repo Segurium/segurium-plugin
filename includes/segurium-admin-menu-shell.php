@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function segurium_admin_menu_shell_register() {
 	add_action( 'admin_menu', 'segurium_admin_menu_shell_add_menu' );
+	add_action( 'admin_head', 'segurium_admin_menu_strip_submenu_alert' );
 	add_action( 'wp_dashboard_setup', 'segurium_admin_menu_shell_add_widget' );
 	// Same heartbeat throttle that the full plugin sets,
 	// applied here so admin pages outside Segurium also get the 60 s
@@ -36,13 +37,69 @@ function segurium_admin_menu_shell_register() {
 function segurium_admin_menu_shell_add_menu() {
 	add_menu_page(
 		__( 'Segurium', 'segurium' ),
-		__( 'Segurium', 'segurium' ),
+		segurium_admin_menu_title(),
 		'manage_options',
 		'segurium',
 		'segurium_admin_menu_shell_render_page',
 		segurium_admin_menu_icon(),
 		65
 	);
+}
+
+/**
+ * Sidebar menu title, carrying the attention bubble WordPress already
+ * styles for its own update and moderation counters.
+ *
+ * The bubble is emitted only when something is open. Every other wp-admin
+ * page loads none of the plugin's CSS, so a bubble hidden by a stylesheet
+ * rule would render red on all of them.
+ *
+ * Reads the stored flags only. This runs on every wp-admin page, including
+ * the tier that loads no scan class at all.
+ *
+ * @return string
+ */
+function segurium_admin_menu_title() {
+	$title = __( 'Segurium', 'segurium' );
+	if ( ! Segurium_Issue_Indicator::has_any() ) {
+		return $title;
+	}
+
+	return $title
+		. ' <span class="update-plugins segurium-menu-alert">'
+		. '<span class="segurium-menu-alert-mark" aria-hidden="true">!</span>'
+		. '<span class="screen-reader-text">'
+		. esc_html__( 'Security issues need your attention', 'segurium' )
+		. '</span></span>';
+}
+
+/**
+ * Take the marker back off the first submenu row.
+ *
+ * The billing SDK registers Account and Upgrade under our slug, and
+ * `add_submenu_page()` answers a parent with no submenu of its own by
+ * copying the parent's entry — title markup included. That paints the same
+ * bubble twice, one line apart, reading as two problems.
+ *
+ * Hooked on `admin_head`, not on `admin_menu`. The SDK registers at
+ * `WP_FS__LOWEST_PRIORITY` (999999999), so any priority race on `admin_menu`
+ * is one someone else can win. `admin_head` fires after every menu callback
+ * and before `menu-header.php` prints the sidebar.
+ *
+ * Only touches a row WordPress copied from us.
+ *
+ * @return void
+ */
+function segurium_admin_menu_strip_submenu_alert() {
+	global $submenu;
+	if ( ! isset( $submenu['segurium'][0][0] ) || ! is_string( $submenu['segurium'][0][0] ) ) {
+		return;
+	}
+	if ( false === strpos( $submenu['segurium'][0][0], 'segurium-menu-alert' ) ) {
+		return;
+	}
+	// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- rewrites one label WordPress copied from our own menu entry; the array itself is untouched.
+	$submenu['segurium'][0][0] = __( 'Segurium', 'segurium' );
 }
 
 /**

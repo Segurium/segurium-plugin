@@ -399,9 +399,11 @@ final class Segurium_Scan_Runner {
 	 * describing why the start was refused.
 	 *
 	 * @param string $scan_type Scan type label ('manual', 'scheduled', ...).
+	 * @param string $trigger   Origin passed to engines that accept one;
+	 *                          integrity scans report it to CTI.
 	 * @return string|WP_Error
 	 */
-	public static function start( $scan_type = 'manual' ) {
+	public static function start( $scan_type = 'manual', $trigger = '' ) {
 		$scan_type = (string) $scan_type;
 		if ( '' === $scan_type ) {
 			return new WP_Error(
@@ -461,6 +463,9 @@ final class Segurium_Scan_Runner {
 			}
 
 			$engine = self::create_engine( $scan_type );
+			if ( '' !== (string) $trigger && method_exists( $engine, 'set_trigger' ) ) {
+				$engine->set_trigger( (string) $trigger );
+			}
 
 			$scan_id = wp_generate_uuid4();
 

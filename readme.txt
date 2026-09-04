@@ -4,7 +4,7 @@ Tags: malware-removal, hacked-website, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -220,54 +220,16 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.3.2 - 2026-09-04 =
+* Some Self-Check fixes apply in place.
+* Show a red mark on the Segurium menu and tab when malware or a vulnerable component is present.
+* Badge components whose installed release is known vulnerable.
+* Show Outdated status and an Update button on the Integrity tab.
+* Stop assessing the cookie HttpOnly flag in Self-Check.
+
 = 1.3.1 - 2026-09-02 =
 * Improved Malware Scanner IO.
 * Improved Integrity Scanner.
 * Large scans no longer stall on big files.
 
-= 1.3.0 - 2026-08-31 =
-* Improved consent screen.
-* Plugin deactivation poll.
-* Track account actions.
-* Auto-cleanup in real-time scans.
-* Minor UI improvements.
-
-= 1.2.3 - 2026-08-27 =
-* Reliable malware cleanup procedure.
-
-= 1.2.2 - 2026-08-26 =
-* Dynamic batch size for slow network.
-
-= 1.2.1 - 2026-08-25 =
-* Minor UI fixes.
-
-= 1.2.0 - 2026-08-24 =
-* MainWP integration.
-
-= 1.1.2 - 2026-08-21 =
-* Improves management of scan threads.
-* Better integrity checks.
-
-= 1.1.1 - 2026-08-20 =
-* Fix for integrity scan that could crash a site.
-* Minor UI fixes.
-* Translations updated.
-
-= 1.1.0 - 2026-08-16 =
-* Adds review request.
-* Prevents scan aborts on slow network uploads and huge files.
-* Declares compatibility with WordPress 7.1.
-* Minor translation improvements.
-* Minor UI fixes.
-
-= 1.0.2 - 2026-08-10 =
-* Language translation fixes.
-* On-premise mode now stops file uploads.
-* Consent screen shows accurate retention period.
-
-= 1.0.1 - 2026-08-08 =
-* Brute-force lockout covers XML-RPC logins.
-* Brute-force lockout covers 2FA login step.
-* Translations updated.
-
-Older entries, from 1.0.0 back to 0.1.0, are in `changelog.txt`, which ships with the plugin and is published at [https://plugins.svn.wordpress.org/segurium/trunk/changelog.txt](https://plugins.svn.wordpress.org/segurium/trunk/changelog.txt).
+Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

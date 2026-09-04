@@ -36,9 +36,10 @@ final class Segurium_Integrity_Chain {
 	 * Runtime_kv keys. Public so tests and the WP-CLI diagnostics can
 	 * inspect/clear them deterministically.
 	 */
-	const KV_LAST_MALWARE = 'malware:last_scan';
-	const KV_PENDING      = 'integrity:chain_pending';
-	const KV_STATUS_MSG   = 'integrity:chain_status';
+	const KV_LAST_MALWARE    = 'malware:last_scan';
+	const KV_PENDING         = 'integrity:chain_pending';
+	const KV_PENDING_TRIGGER = 'integrity:chain_trigger';
+	const KV_STATUS_MSG      = 'integrity:chain_status';
 
 	/**
 	 * WP-Cron action used to start the deferred integrity scan after the
@@ -55,7 +56,7 @@ final class Segurium_Integrity_Chain {
 	 * @return void
 	 */
 	public static function register_hooks() {
-		add_action( self::CHAIN_HOOK, array( __CLASS__, 'fire_pending_integrity_start' ) );
+		add_action( self::CHAIN_HOOK, array( __CLASS__, 'fire_pending_integrity_start' ), 10, 1 );
 	}
 
 	/**
@@ -173,13 +174,16 @@ final class Segurium_Integrity_Chain {
 		if ( ! self::is_chain_pending() ) {
 			return;
 		}
+		$trigger = self::get_pending_trigger();
 		self::clear_pending();
 
 		// Defer the integrity start by one cron tick. The completion hook
 		// fires before Segurium_Scan_Runner releases the malware lock, so
-		// calling start() inline would hit `scan_already_running`.
-		wp_clear_scheduled_hook( self::CHAIN_HOOK );
-		wp_schedule_single_event( $now, self::CHAIN_HOOK );
+		// calling start() inline would hit `scan_already_running`. The
+		// trigger rides along as the event argument because the marker it
+		// came from is already gone by the time the event fires.
+		wp_unschedule_hook( self::CHAIN_HOOK );
+		wp_schedule_single_event( $now, self::CHAIN_HOOK, array( $trigger ) );
 	}
 
 	/**
@@ -204,10 +208,11 @@ final class Segurium_Integrity_Chain {
 	 * WP-Cron handler that fires the deferred integrity start after a
 	 * chained malware scan completes. Public for the hook callable.
 	 *
+	 * @param string $trigger Origin recorded when the chain was enrolled.
 	 * @return void
 	 */
-	public static function fire_pending_integrity_start() {
-		$result = Segurium_Scan_Runner::start( 'integrity' );
+	public static function fire_pending_integrity_start( $trigger = 'manual' ) {
+		$result = Segurium_Scan_Runner::start( 'integrity', (string) $trigger );
 		if ( is_wp_error( $result ) ) {
 			Segurium_Debug::log(
 				sprintf(
@@ -266,8 +271,10 @@ final class Segurium_Integrity_Chain {
 	 * the runtime_kv plumbing.
 	 *
 	 * @param string $malware_scan_id Lock scan_id of the chained run.
+	 * @param string $trigger         Origin of the follow-up integrity scan,
+	 *                                reported to CTI when it runs.
 	 */
-	public static function set_pending( $malware_scan_id ) {
+	public static function set_pending( $malware_scan_id, $trigger = 'manual' ) {
 		$now = time();
 		Segurium_Storage::table_upsert(
 			'runtime_kv',
@@ -279,6 +286,32 @@ final class Segurium_Integrity_Chain {
 			),
 			array( 'kv_key' )
 		);
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => self::KV_PENDING_TRIGGER,
+				'kv_value'   => (string) $trigger,
+				'expires_at' => null,
+				'updated_at' => $now,
+			),
+			array( 'kv_key' )
+		);
+	}
+
+	/**
+	 * Origin of the queued follow-up. A marker written before this key
+	 * existed reads back as 'manual', which is how those runs already
+	 * report themselves to CTI.
+	 *
+	 * @return string
+	 */
+	public static function get_pending_trigger() {
+		$raw = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+			array( self::KV_PENDING_TRIGGER )
+		);
+		return ( null === $raw || '' === (string) $raw ) ? 'manual' : (string) $raw;
 	}
 
 	/**
@@ -293,6 +326,7 @@ final class Segurium_Integrity_Chain {
 	 */
 	public static function clear_pending() {
 		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_PENDING ) );
+		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_PENDING_TRIGGER ) );
 	}
 
 	/**

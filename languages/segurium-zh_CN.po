@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-12 06:30+0000\n"
+"PO-Revision-Date: 2026-09-03 03:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -4524,6 +4524,34 @@ msgid ""
 "One email per day at most, sent from support@segurium.com. You can change "
 "this later under Settings."
 msgstr "每天最多一封邮件，由 support@segurium.com 发送。您可以稍后在「设置」中更改此项。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Outdated"
+msgstr "已过期"
+
+msgid "Vulnerable"
+msgstr "存在漏洞"
+
+msgid "No update available"
+msgstr "无可用更新"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr "%1$s 将从 %2$s 升级到 %3$s。这是一个主版本变更，可能会导致您的站点无法正常运行。"
+
+msgid "Malware is waiting for you to act"
+msgstr "恶意软件正等待您处理"
+
+msgid "A vulnerable component is installed"
+msgstr "已安装存在漏洞的组件"
+
+msgid "Security issues need your attention"
+msgstr "安全问题需要您关注"
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"

@@ -4574,3 +4574,37 @@ msgid ""
 msgstr ""
 "Högst en e-post per dag, skickad från support@segurium.com. Du kan ändra "
 "detta senare under Inställningar."
+
+#: includes/class-segurium.php:1178
+msgid "Update"
+msgstr "Uppdatering"
+
+#: includes/class-segurium.php:1179
+msgid "Outdated"
+msgstr "Föråldrad"
+
+#: includes/class-segurium.php:1180
+msgid "Vulnerable"
+msgstr "Sårbar"
+
+#: includes/class-segurium.php:1181
+msgid "No update available"
+msgstr "Ingen uppdatering tillgänglig"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#: includes/class-segurium.php:1183
+#, php-format
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s går från %2$s till %3$s. Detta är en större versionsändring och kan skada din webbplats."
+
+#: includes/class-segurium.php:2037
+msgid "Malware is waiting for you to act"
+msgstr "Skadlig kod väntar på att du ska agera"
+
+#: includes/class-segurium.php:2054
+msgid "A vulnerable component is installed"
+msgstr "En sårbar komponent är installerad"
+
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Security issues need your attention"
+msgstr "Säkerhetsproblem kräver din uppmärksamhet"

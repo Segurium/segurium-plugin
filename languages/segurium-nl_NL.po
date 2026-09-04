@@ -4929,6 +4929,36 @@ msgstr ""
 "Maximaal één e-mail per dag, verzonden vanaf support@segurium.com. Je kunt "
 "dit later wijzigen onder Instellingen."
 
+msgid "Update"
+msgstr "Updaten"
+
+msgid "Outdated"
+msgstr "Verouderd"
+
+msgid "Vulnerable"
+msgstr "Kwetsbaar"
+
+msgid "No update available"
+msgstr "Geen update beschikbaar"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s gaat van %2$s naar %3$s. Dit is een grote versiewijziging en kan je "
+"site breken."
+
+msgid "Malware is waiting for you to act"
+msgstr "Malware wacht op actie van je"
+
+msgid "A vulnerable component is installed"
+msgstr "Er is een kwetsbaar onderdeel geïnstalleerd"
+
+msgid "Security issues need your attention"
+msgstr "Beveiligingsproblemen vragen je aandacht"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Segurium-plug-in voor WordPress."
 

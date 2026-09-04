@@ -131,9 +131,10 @@ class Segurium_CTI_Client {
 	const CAP_VULNERABLE = 'vuln';
 
 	/**
-	 * Verdict capabilities this build declares on `/v1/inspect`. Lives on
-	 * the client, not the verdict queue: the client is loaded in the
-	 * lightweight tier on every request, the queue only on full load.
+	 * Verdict capabilities this build declares on `/v1/inspect` and
+	 * `/v1/integrity/check`. Lives on the client, not the verdict queue: the
+	 * client is loaded in the lightweight tier on every request, the queue
+	 * only on full load.
 	 *
 	 * @return array<string> Capability tokens.
 	 */
@@ -1521,7 +1522,10 @@ class Segurium_CTI_Client {
 	public function integrity_check( $components, $trigger = '' ) {
 		$in_tick = class_exists( 'Segurium_Scan_Runner' ) && Segurium_Scan_Runner::in_tick();
 		$opts    = array(
-			'body'    => array( 'components' => $components ),
+			'body'    => array(
+				'components' => $components,
+				'caps'       => self::inspect_capabilities(),
+			),
 			'timeout' => $in_tick ? self::INTEGRITY_TICK_TIMEOUT_SEC : 60,
 		);
 		if ( is_string( $trigger ) && '' !== $trigger ) {

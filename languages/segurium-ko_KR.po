@@ -4591,6 +4591,32 @@ msgid ""
 "this later under Settings."
 msgstr "이메일은 하루 최대 1통, support@segurium.com에서 발송됩니다. 나중에 설정에서 변경할 수 있습니다."
 
+msgid "Update"
+msgstr "업데이트"
+
+msgid "Outdated"
+msgstr "오래됨"
+
+msgid "Vulnerable"
+msgstr "취약함"
+
+msgid "No update available"
+msgstr "사용 가능한 업데이트가 없습니다"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#, php-format
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s이(가) %2$s에서 %3$s(으)로 변경됩니다. 이는 메이저 버전 변경이므로 사이트가 손상될 수 있습니다."
+
+msgid "Malware is waiting for you to act"
+msgstr "멀웨어가 조치를 기다리고 있습니다"
+
+msgid "A vulnerable component is installed"
+msgstr "취약한 구성 요소가 설치되어 있습니다"
+
+msgid "Security issues need your attention"
+msgstr "보안 문제에 대한 조치가 필요합니다"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 

@@ -1,6 +1,7 @@
 /**
  * Self-Check tab controller: renders the security grade, runs the
- * AJAX scan, and wires Fix-button navigation to the target tab.
+ * AJAX scan, applies in-place fixes, and wires the remaining Fix
+ * buttons to their target tab.
  *
  * Depends on the global `seguriumScan` object for ajaxUrl + nonce +
  * i18n, and `window.seguriumSelfCheck` for server-side bootstrap
@@ -12,6 +13,11 @@
 	var cfg   = (typeof window !== 'undefined' && window.seguriumScan) ? window.seguriumScan : {};
 	var boot  = (typeof window !== 'undefined' && window.seguriumSelfCheck) ? window.seguriumSelfCheck : { last: null, history: [] };
 	var i18n  = cfg.i18n || {};
+
+	// Per-row messages that outlive a re-render, keyed by check id.
+	// Populated when a write lands but the rescore cannot observe it.
+	var rowNotices = {};
+
 	function $ (id) { return document.getElementById(id); }
 
 	function t (key, fallback) {
@@ -165,6 +171,17 @@
 	function renderChecks (checks) {
 		var wrap = $('segurium-sc-checks');
 		if (!wrap) { return; }
+
+		// Applying a fix redraws the whole list. Carry the open groups
+		// across so the user keeps the place they were reading.
+		var wasOpen = {};
+		Array.prototype.forEach.call(wrap.querySelectorAll('.segurium-sc-group'), function (g) {
+			var head = g.querySelector('.segurium-sc-cat-header');
+			if (head && head.getAttribute('aria-expanded') === 'true') {
+				wasOpen[g.getAttribute('data-category')] = true;
+			}
+		});
+
 		wrap.innerHTML = '';
 		if (!Array.isArray(checks)) { return; }
 
@@ -190,11 +207,12 @@
 
 			var group = document.createElement('div');
 			group.className = 'segurium-sc-group';
+			group.setAttribute('data-category', cat);
 
 			var header = document.createElement('button');
 			header.type = 'button';
 			header.className = 'segurium-sc-cat-header';
-			header.setAttribute('aria-expanded', 'false');
+			header.setAttribute('aria-expanded', wasOpen[cat] ? 'true' : 'false');
 
 			var titleSpan = document.createElement('span');
 			titleSpan.className = 'segurium-sc-cat-title';
@@ -259,7 +277,14 @@
 				var showTxt = t('scHowToFix', 'How to fix');
 				var hideTxt = t('scHideFix', 'Hide details');
 
-				if (c.status !== 'pass' && hasHelp) {
+				if (c.status !== 'pass' && c.fix_action) {
+					var applyBtn = document.createElement('button');
+					applyBtn.type = 'button';
+					applyBtn.className = 'button button-primary segurium-sc-apply';
+					applyBtn.setAttribute('data-fix-check', c.id);
+					applyBtn.textContent = t('scFix', 'Fix');
+					action.appendChild(applyBtn);
+				} else if (c.status !== 'pass' && hasHelp) {
 					help = document.createElement('div');
 					help.className = 'segurium-sc-help';
 					help.innerHTML = c.help_html;
@@ -291,6 +316,14 @@
 				row.appendChild(action);
 				if (help) {
 					row.appendChild(help);
+				}
+				if (c.status === 'pass') { delete rowNotices[c.id]; }
+				if (rowNotices[c.id]) {
+					var notice = document.createElement('div');
+					notice.className = 'segurium-sc-notice';
+					notice.setAttribute('role', 'status');
+					notice.textContent = rowNotices[c.id];
+					row.appendChild(notice);
 				}
 				items.appendChild(row);
 			});
@@ -325,6 +358,56 @@
 		if (nav) { nav.click(); }
 	}
 
+	function applyFix (checkId, btn) {
+		showStatus('');
+		delete rowNotices[checkId];
+
+		btn.disabled = true;
+		btn.textContent = t('scFixing', 'Applying...');
+
+		var body = new FormData();
+		body.append('action', 'segurium_self_check_apply_fix');
+		body.append('nonce', cfg.selfCheckNonce || '');
+		body.append('check_id', checkId);
+
+		fetch(cfg.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
+			.then(window.seguriumParseResponse)
+			.then(function (res) {
+				if (!res || !res.success || !res.data || !res.data.result) {
+					var msg = (res && res.data && res.data.message)
+						? res.data.message
+						: t('scFixFailed', 'The fix could not be applied. Open the feature tab and switch it on there.');
+					showStatus(msg);
+					btn.disabled = false;
+					btn.textContent = t('scFix', 'Fix');
+					return;
+				}
+
+				// The write landed but the rescore reads the homepage the
+				// way a visitor does, so a page cache can still be serving
+				// the response from before the fix.
+				if (!res.data.flipped) {
+					rowNotices[checkId] = t(
+						'scFixNotVisible',
+						'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.'
+					);
+				}
+
+				boot.last = res.data.result;
+				boot.history = (boot.history || []).concat([{
+					score: res.data.result.score,
+					grade: res.data.result.grade,
+					scanned_at: res.data.result.scanned_at
+				}]).slice(-10);
+				renderResult(boot.last, boot.history);
+			})
+			.catch(function () {
+				showStatus(t('scFixFailed', 'The fix could not be applied. Open the feature tab and switch it on there.'));
+				btn.disabled = false;
+				btn.textContent = t('scFix', 'Fix');
+			});
+	}
+
 	function showStatus (message) {
 		var slot = $('segurium-sc-ping-error');
 		if (!slot) { return; }
@@ -339,6 +422,7 @@
 
 	function runScan (force) {
 		showStatus('');
+		rowNotices = {};
 
 		var btn = $('segurium-sc-run');
 		var originalLabel = btn ? btn.textContent : '';
@@ -387,6 +471,12 @@
 			checksWrap.addEventListener('click', function (ev) {
 				var target = ev.target;
 				while (target && target !== checksWrap) {
+					if (target.classList && target.classList.contains('segurium-sc-apply')) {
+						if (target.disabled) { return; }
+						var checkId = target.getAttribute('data-fix-check');
+						if (checkId) { applyFix(checkId, target); }
+						return;
+					}
 					if (target.classList && target.classList.contains('segurium-sc-fix')) {
 						var tab = target.getAttribute('data-fix-tab');
 						if (tab) { navigateToFix(tab); }

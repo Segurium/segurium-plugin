@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-05-25 03:35+0000\n"
+"PO-Revision-Date: 2026-09-03 03:35+0000\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4881,6 +4881,35 @@ msgid ""
 msgstr ""
 "Не більше одного листа на день, надсилається з support@segurium.com. Пізніше"
 " це можна змінити в розділі «Налаштування»."
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Outdated"
+msgstr "Застаріле"
+
+msgid "Vulnerable"
+msgstr "Уразливе"
+
+msgid "No update available"
+msgstr "Оновлень немає"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s оновиться з %2$s до %3$s. Це основне оновлення версії, і воно може "
+"зламати ваш сайт."
+
+msgid "Malware is waiting for you to act"
+msgstr "Шкідливе ПЗ чекає на вашу дію"
+
+msgid "A vulnerable component is installed"
+msgstr "Встановлено уразливий компонент"
+
+msgid "Security issues need your attention"
+msgstr "Проблеми безпеки потребують вашої уваги"
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Плагін Segurium для WordPress."

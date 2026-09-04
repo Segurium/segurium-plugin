@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Singleton that runs the 25-check security self-check.
+ * Singleton that runs the 24-check security self-check.
  */
 class Segurium_Self_Check {
 
@@ -92,6 +92,68 @@ class Segurium_Self_Check {
 	const TAB_NONE        = '';
 
 	/**
+	 * Features a failing row can switch on without leaving this tab.
+	 */
+	const FIX_INFO_SHIELD  = 'info_shield';
+	const FIX_HEADERS      = 'security_headers';
+	const FIX_BRUTE_FORCE  = 'brute_force';
+	const FIX_AUTO_CLEANUP = 'auto_cleanup';
+
+	/**
+	 * Check ids whose failure is one settings write away, mapped to the
+	 * feature that owns the write.
+	 *
+	 * Membership is deliberately narrow. A row belongs here only when the
+	 * write is reversible from the feature's own tab, cannot take the site
+	 * offline, and carries no consequence the user would want to hear
+	 * about first. That rules out 2FA enforcement (every administrator
+	 * must then enrol), XML-RPC (Jetpack, the mobile app and several
+	 * backup plugins stop working), the firewall (staged behind a
+	 * confirm-or-auto-revert of its own), HSTS (a browser pins it for a
+	 * year) and CSP (enforcing it breaks third-party assets on most
+	 * sites). Those keep the tab-switch button.
+	 *
+	 * This map is also the renderer's source of truth — `make_check()`
+	 * projects it onto every row as `fix_action`, so the JS never carries
+	 * a second copy of the list.
+	 */
+	const FIXABLE = array(
+		'x_powered_by'       => self::FIX_INFO_SHIELD,
+		'wp_generator'       => self::FIX_INFO_SHIELD,
+		'version_query'      => self::FIX_INFO_SHIELD,
+		'rest_api_link'      => self::FIX_INFO_SHIELD,
+		'xcto'               => self::FIX_HEADERS,
+		'xfo'                => self::FIX_HEADERS,
+		'xss_protection'     => self::FIX_HEADERS,
+		'referrer_policy'    => self::FIX_HEADERS,
+		'permissions_policy' => self::FIX_HEADERS,
+		'bruteforce'         => self::FIX_BRUTE_FORCE,
+		'auto_cleanup'       => self::FIX_AUTO_CLEANUP,
+	);
+
+	/**
+	 * Header modes that do not emit every value the five auto-fixable
+	 * header rows test, so switching the feature on is not enough.
+	 */
+	const HEADER_MODES_TO_UPGRADE = array( 'off', 'basic' );
+
+	/**
+	 * Info Shield removal key each disclosure row is scored from.
+	 *
+	 * Switching the feature on is not enough: a user who once saved the
+	 * Info Shield form with one of these unchecked would press Fix, see
+	 * nothing move, and be told the page cache was to blame. The write
+	 * forces the one key the clicked row needs and leaves the rest of
+	 * their form alone.
+	 */
+	const FIX_SHIELD_KEYS = array(
+		'x_powered_by'  => 'remove_x_powered_by',
+		'wp_generator'  => 'remove_wp_generator',
+		'version_query' => 'remove_version_query',
+		'rest_api_link' => 'remove_rest_api_link',
+	);
+
+	/**
 	 * Singleton instance.
 	 *
 	 * @var Segurium_Self_Check|null
@@ -125,10 +187,14 @@ class Segurium_Self_Check {
 	/**
 	 * Run the full check battery and return a structured result array.
 	 *
-	 * @param bool $force When true, bypass the 1-hour transient.
+	 * @param bool $force          When true, bypass the 1-hour transient.
+	 * @param bool $record_history When false, skip the history row. Used by
+	 *                             `apply_fix()`, whose rescores would
+	 *                             otherwise push every real run out of the
+	 *                             ten-entry trend within a minute.
 	 * @return array { score, grade, categories, checks, scanned_at, self_ping_error }
 	 */
-	public function run_checks( $force = false ) {
+	public function run_checks( $force = false, $record_history = true ) {
 		if ( ! $force ) {
 			$cached = get_transient( self::CACHE_KEY );
 			if ( is_array( $cached ) ) {
@@ -149,7 +215,9 @@ class Segurium_Self_Check {
 		$result['self_ping_error'] = $ping['error'];
 
 		set_transient( self::CACHE_KEY, $result, self::CACHE_TTL );
-		$this->save_to_history( $result );
+		if ( $record_history ) {
+			$this->save_to_history( $result );
+		}
 		$this->send_to_cti( $result );
 		return $result;
 	}
@@ -370,15 +438,233 @@ class Segurium_Self_Check {
 	 * @return array
 	 */
 	private function make_check( array $spec ) {
+		$id = (string) ( $spec['id'] ?? '' );
+
 		return array(
-			'id'        => (string) ( $spec['id'] ?? '' ),
-			'category'  => (string) ( $spec['category'] ?? '' ),
-			'label'     => (string) ( $spec['label'] ?? '' ),
-			'status'    => (string) ( $spec['status'] ?? self::STATUS_FAIL ),
-			'detail'    => (string) ( $spec['detail'] ?? '' ),
-			'fix_tab'   => (string) ( $spec['fix_tab'] ?? self::TAB_NONE ),
-			'help_html' => (string) ( $spec['help_html'] ?? '' ),
-			'points'    => (float) ( $spec['points'] ?? 0 ),
+			'id'         => $id,
+			'category'   => (string) ( $spec['category'] ?? '' ),
+			'label'      => (string) ( $spec['label'] ?? '' ),
+			'status'     => (string) ( $spec['status'] ?? self::STATUS_FAIL ),
+			'detail'     => (string) ( $spec['detail'] ?? '' ),
+			'fix_tab'    => (string) ( $spec['fix_tab'] ?? self::TAB_NONE ),
+			'fix_action' => self::is_fixable( $id ) && self::server_supports_fix( $id ),
+			'help_html'  => (string) ( $spec['help_html'] ?? '' ),
+			'points'     => (float) ( $spec['points'] ?? 0 ),
+		);
+	}
+
+	/**
+	 * Whether a check id can be resolved by a settings write from the
+	 * Self-Check tab itself.
+	 *
+	 * @param string $check_id Check identifier as emitted by `make_check()`.
+	 * @return bool
+	 */
+	public static function is_fixable( $check_id ) {
+		return is_string( $check_id ) && '' !== $check_id && isset( self::FIXABLE[ $check_id ] );
+	}
+
+	/**
+	 * Whether this server can actually deliver the fix.
+	 *
+	 * `X-Powered-By` is the one row where the write can land and the
+	 * header still come back: under FastCGI the web server re-adds it
+	 * after PHP has run. Offering an in-place button there would leave
+	 * the row failing forever while the tab blamed a page cache, and
+	 * would hide the Info Shield tab link that carries the real
+	 * server-level guidance.
+	 *
+	 * @param string $check_id Check identifier.
+	 * @return bool
+	 */
+	public static function server_supports_fix( $check_id ) {
+		if ( 'x_powered_by' !== $check_id ) {
+			return true;
+		}
+		if ( ! class_exists( 'Segurium_Info_Shield' ) ) {
+			return false;
+		}
+		$env = Segurium_Info_Shield::detect_server_environment();
+		return ! empty( $env['can_remove_x_powered'] );
+	}
+
+	/**
+	 * Switch on the feature that resolves one failing row, then rescore.
+	 *
+	 * The rescore is forced so the caller always gets the posture the
+	 * write produced rather than the transient it replaced. It reads the
+	 * homepage the same way every other run does, so a check derived from
+	 * the response (the header rows, and the two disclosure rows read out
+	 * of the HTML) can still report `fail` when a page cache is serving
+	 * the pre-fix response. That is what `flipped` is for: the setting
+	 * landed, the observation has not caught up, and the caller has to say
+	 * so rather than leave the user staring at an unchanged row.
+	 *
+	 * @param string $check_id Check identifier from the FIXABLE map.
+	 * @return array|WP_Error { check_id, feature, flipped, score_before, result }
+	 */
+	public function apply_fix( $check_id ) {
+		if ( ! self::is_fixable( $check_id ) ) {
+			return new WP_Error(
+				'segurium_self_check_unknown_fix',
+				__( 'This item cannot be switched on from here.', 'segurium' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		if ( ! self::server_supports_fix( $check_id ) ) {
+			return new WP_Error(
+				'segurium_self_check_fix_blocked_by_server',
+				__( 'This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix.', 'segurium' ),
+				array( 'status' => 409 )
+			);
+		}
+
+		$feature = self::FIXABLE[ $check_id ];
+		$applied = $this->run_fix( $feature, $check_id );
+		if ( is_wp_error( $applied ) ) {
+			return $applied;
+		}
+
+		$previous     = $this->get_last_result();
+		$score_before = ( is_array( $previous ) && isset( $previous['score'] ) ) ? (int) $previous['score'] : null;
+
+		// No history row: eleven presses would otherwise flush the whole
+		// ten-entry trend the delta messaging exists to show.
+		$result = $this->run_checks( true, false );
+
+		$status = '';
+		foreach ( $result['checks'] as $check ) {
+			if ( $check['id'] === $check_id ) {
+				$status = $check['status'];
+				break;
+			}
+		}
+
+		return array(
+			'check_id'     => $check_id,
+			'feature'      => $feature,
+			'flipped'      => ( self::STATUS_PASS === $status ),
+			'score_before' => $score_before,
+			'result'       => $result,
+		);
+	}
+
+	/**
+	 * Perform the settings write for one feature, preserving every
+	 * choice the user has already made inside it.
+	 *
+	 * @param string $feature  One of the FIX_* constants.
+	 * @param string $check_id Check the user pressed, for the per-row key.
+	 * @return true|WP_Error
+	 */
+	private function run_fix( $feature, $check_id ) {
+		switch ( $feature ) {
+			case self::FIX_INFO_SHIELD:
+				if ( ! class_exists( 'Segurium_Info_Shield' ) ) {
+					return $this->fix_unavailable( $feature );
+				}
+				$shield              = Segurium_Info_Shield::get_instance();
+				$settings            = $shield->get_settings();
+				$settings['enabled'] = true;
+				if ( isset( self::FIX_SHIELD_KEYS[ $check_id ] ) ) {
+					$settings[ self::FIX_SHIELD_KEYS[ $check_id ] ] = true;
+				}
+				$saved = $shield->save_settings( $settings );
+				return empty( $saved['enabled'] ) ? $this->fix_not_persisted( $feature ) : true;
+
+			case self::FIX_HEADERS:
+				if ( ! class_exists( 'Segurium_Security_Headers' ) ) {
+					return $this->fix_unavailable( $feature );
+				}
+				$headers             = Segurium_Security_Headers::get_instance();
+				$settings            = $headers->get_settings();
+				$settings['enabled'] = true;
+				if ( in_array( $settings['mode'], self::HEADER_MODES_TO_UPGRADE, true ) ) {
+					$settings['mode']   = 'custom';
+					$settings['custom'] = self::header_values_without_hsts();
+				}
+				$saved = $headers->save_settings( $settings );
+				return empty( $saved['enabled'] ) ? $this->fix_not_persisted( $feature ) : true;
+
+			case self::FIX_BRUTE_FORCE:
+				if ( ! class_exists( 'Segurium_Brute_Force' ) ) {
+					return $this->fix_unavailable( $feature );
+				}
+				$brute               = Segurium_Brute_Force::get_instance();
+				$settings            = $brute->get_settings();
+				$settings['enabled'] = true;
+				$saved               = $brute->save_settings( $settings );
+				return empty( $saved['enabled'] ) ? $this->fix_not_persisted( $feature ) : true;
+
+			case self::FIX_AUTO_CLEANUP:
+				if ( ! class_exists( 'Segurium_Auto_Fix_Settings' ) ) {
+					return $this->fix_unavailable( $feature );
+				}
+				Segurium_Auto_Fix_Settings::set( true );
+				return Segurium_Auto_Fix_Settings::is_enabled() ? true : $this->fix_not_persisted( $feature );
+		}
+
+		return $this->fix_unavailable( $feature );
+	}
+
+	/**
+	 * The Recommended header set with HSTS left switched off.
+	 *
+	 * The five auto-fixable header rows all pass under Recommended, but
+	 * that preset also turns on `Strict-Transport-Security` with a
+	 * one-year max-age and `includeSubDomains`. A browser pins that for
+	 * the full year, so any subdomain still served over plain HTTP goes
+	 * dark and switching the setting back off does not bring it back.
+	 * `hsts` is excluded from FIXABLE for exactly that reason, and it
+	 * must not ride in through the preset either — so the write lands as
+	 * a custom set instead. Reached only when the mode was `off` or
+	 * `basic`, neither of which has a custom set worth preserving.
+	 *
+	 * @return array
+	 */
+	private static function header_values_without_hsts() {
+		$values = Segurium_Security_Headers::MODE_PRESETS['recommended'];
+
+		$values['hsts_enabled']            = false;
+		$values['hsts_max_age']            = 0;
+		$values['hsts_include_subdomains'] = false;
+		$values['hsts_preload']            = false;
+
+		return $values;
+	}
+
+	/**
+	 * The feature that owns this fix is not loaded on this install.
+	 *
+	 * @param string $feature Feature key that could not be reached.
+	 * @return WP_Error
+	 */
+	private function fix_unavailable( $feature ) {
+		return new WP_Error(
+			'segurium_self_check_fix_unavailable',
+			__( 'That feature is not available on this installation.', 'segurium' ),
+			array(
+				'status'  => 500,
+				'feature' => $feature,
+			)
+		);
+	}
+
+	/**
+	 * The write was issued but did not survive a read-back.
+	 *
+	 * @param string $feature Feature key whose write did not survive.
+	 * @return WP_Error
+	 */
+	private function fix_not_persisted( $feature ) {
+		return new WP_Error(
+			'segurium_self_check_fix_not_persisted',
+			__( 'The setting could not be saved. Open the feature tab and switch it on there.', 'segurium' ),
+			array(
+				'status'  => 500,
+				'feature' => $feature,
+			)
 		);
 	}
 
@@ -689,19 +975,19 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * Category 4 — 3 cookie security checks, total 8 points.
+	 * Category 4 — 2 cookie security checks, total 8 points.
 	 *
 	 * Observation-style scoring: every Set-Cookie on the homepage is
-	 * inspected for Secure / HttpOnly / SameSite. PASS only when every
-	 * cookie has the flag; PARTIAL when some do; FAIL when none do.
-	 * Mirrors CTI `eval_cookies()` so the plugin and the external scan
-	 * agree on the same observable surface.
+	 * inspected for Secure / SameSite. PASS only when every cookie has
+	 * the flag; PARTIAL when some do; FAIL when none do. Mirrors CTI
+	 * `eval_cookies()` so the plugin and the external scan agree on the
+	 * same observable surface.
 	 *
 	 * @param array $headers Lower-cased header map (Set-Cookie may be string or array).
 	 * @return array
 	 */
 	private function check_cookie_security( $headers ) {
-		$pts     = self::PTS_COOKIES / 3;
+		$pts     = self::PTS_COOKIES / 2;
 		$cookies = $headers['set-cookie'] ?? array();
 		if ( is_string( $cookies ) ) {
 			$cookies = array( $cookies );
@@ -734,17 +1020,6 @@ class Segurium_Self_Check {
 				),
 				$this->make_check(
 					array(
-						'id'       => 'cookie_httponly',
-						'category' => self::CAT_COOKIES,
-						'label'    => __( 'Cookies — HttpOnly', 'segurium' ),
-						'status'   => self::STATUS_WARN,
-						'detail'   => $detail,
-						'fix_tab'  => self::TAB_HEADERS,
-						'points'   => $pts,
-					)
-				),
-				$this->make_check(
-					array(
 						'id'       => 'cookie_samesite',
 						'category' => self::CAT_COOKIES,
 						'label'    => __( 'Cookies — SameSite', 'segurium' ),
@@ -759,17 +1034,16 @@ class Segurium_Self_Check {
 
 		return array(
 			$this->cookie_flag_check( $cookies, 'cookie_secure', __( 'Cookies — Secure', 'segurium' ), 'Secure', $pts ),
-			$this->cookie_flag_check( $cookies, 'cookie_httponly', __( 'Cookies — HttpOnly', 'segurium' ), 'HttpOnly', $pts ),
 			$this->cookie_samesite_check( $cookies, $pts ),
 		);
 	}
 
 	/**
-	 * Score a boolean cookie attribute (Secure / HttpOnly) across all
-	 * Set-Cookie lines from the homepage response.
+	 * Score a boolean cookie attribute across all Set-Cookie lines from
+	 * the homepage response.
 	 *
 	 * @param string[] $cookies Raw Set-Cookie header values.
-	 * @param string   $id      Check id (`cookie_secure` | `cookie_httponly`).
+	 * @param string   $id      Check id (`cookie_secure`).
 	 * @param string   $label   Localised label.
 	 * @param string   $flag    Attribute name as it appears in Set-Cookie.
 	 * @param float    $pts     Per-check max points.
@@ -900,7 +1174,7 @@ class Segurium_Self_Check {
 	 * Whether a Set-Cookie line carries a flag attribute (case-insensitive).
 	 *
 	 * @param string $cookie Raw Set-Cookie value.
-	 * @param string $attr   Attribute name (e.g. `Secure`, `HttpOnly`).
+	 * @param string $attr   Attribute name (e.g. `Secure`).
 	 * @return bool
 	 */
 	private function cookie_has_attr( $cookie, $attr ) {

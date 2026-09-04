@@ -107,7 +107,7 @@ final class Segurium_Scheduled_Scan {
 				// Segurium::on_scan_completed() will fan out via
 				// Segurium_Integrity_Chain::note_malware_completed().
 				if ( class_exists( 'Segurium_Integrity_Chain' ) ) {
-					Segurium_Integrity_Chain::set_pending( (string) $result );
+					Segurium_Integrity_Chain::set_pending( (string) $result, 'scheduled' );
 				}
 				self::log(
 					'scheduled_started',

@@ -4958,6 +4958,31 @@ msgstr ""
 "Al massimo un'email al giorno, inviata da support@segurium.com. Puoi "
 "modificarlo in seguito nelle Impostazioni."
 
+msgid "Update"
+msgstr "Aggiorna"
+
+msgid "Outdated"
+msgstr "Obsoleto"
+
+msgid "Vulnerable"
+msgstr "Vulnerabile"
+
+msgid "No update available"
+msgstr "Nessun aggiornamento disponibile"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s passa da %2$s a %3$s. Si tratta di un cambio di versione principale e potrebbe compromettere il tuo sito."
+
+msgid "Malware is waiting for you to act"
+msgstr "Un malware attende un tuo intervento"
+
+msgid "A vulnerable component is installed"
+msgstr "È installato un componente vulnerabile"
+
+msgid "Security issues need your attention"
+msgstr "Problemi di sicurezza richiedono la tua attenzione"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium per WordPress."
 

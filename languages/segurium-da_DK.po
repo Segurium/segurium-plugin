@@ -4621,3 +4621,32 @@ msgid ""
 msgstr ""
 "Højst én e-mail om dagen, sendt fra support@segurium.com. Du kan ændre "
 "dette senere under Indstillinger."
+
+msgid "Update"
+msgstr "Opdater"
+
+msgid "Outdated"
+msgstr "Forældet"
+
+msgid "Vulnerable"
+msgstr "Sårbar"
+
+msgid "No update available"
+msgstr "Ingen opdatering tilgængelig"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s går fra %2$s til %3$s. Dette er en større versionsændring og kan gøre "
+"dit websted ustabilt."
+
+msgid "Malware is waiting for you to act"
+msgstr "Malware venter på, at du handler"
+
+msgid "A vulnerable component is installed"
+msgstr "En sårbar komponent er installeret"
+
+msgid "Security issues need your attention"
+msgstr "Sikkerhedsproblemer kræver din opmærksomhed"

@@ -4976,3 +4976,37 @@ msgid ""
 msgstr ""
 "Como máximo un correo al día, enviado desde support@segurium.com. Puedes "
 "cambiarlo más adelante en Ajustes."
+
+#: includes/class-segurium.php:1178
+msgid "Update"
+msgstr "Actualizar"
+
+#: includes/class-segurium.php:1179
+msgid "Outdated"
+msgstr "Desactualizado"
+
+#: includes/class-segurium.php:1180
+msgid "Vulnerable"
+msgstr "Vulnerable"
+
+#: includes/class-segurium.php:1181
+msgid "No update available"
+msgstr "No hay actualización disponible"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#: includes/class-segurium.php:1183
+#, php-format
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s pasa de %2$s a %3$s. Es un cambio de versión mayor y puede romper tu sitio."
+
+#: includes/class-segurium.php:2037
+msgid "Malware is waiting for you to act"
+msgstr "Hay malware esperando que actúes"
+
+#: includes/class-segurium.php:2054
+msgid "A vulnerable component is installed"
+msgstr "Hay un componente vulnerable instalado"
+
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Security issues need your attention"
+msgstr "Hay problemas de seguridad que requieren tu atención"

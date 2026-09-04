@@ -1,0 +1,4829 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-09-03T03:34:35+00:00\n"
+"PO-Revision-Date: 2026-09-03 11:32+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Domain: segurium\n"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – Δωρεάν αφαίρεση κακόβουλου λογισμικού & σαρωτής antivirus, "
+"καθαρισμός παραβιασμένου ιστότοπου, τείχος προστασίας, 2FA"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"Παραβιάστηκε ο ιστότοπός σας; Δωρεάν αφαίρεση κακόβουλου λογισμικού και "
+"σάρωση antivirus για WordPress: καθαρισμός και επαναφορά μολυσμένων αρχείων."
+
+#. Author of the plugin
+#: segurium.php includes/class-segurium.php:473
+#: includes/class-segurium.php:530 includes/class-segurium.php:2022
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:63
+#: includes/segurium-admin-menu-shell.php:102
+#: includes/segurium-admin-menu-shell.php:159
+msgid "Segurium"
+msgstr "Segurium"
+
+#: includes/class-segurium-2fa.php:597
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr ""
+"Απαιτείται έλεγχος ταυτότητας δύο παραγόντων. Ενεργοποιήστε το JavaScript "
+"για να ολοκληρώσετε τη σύνδεση."
+
+#: includes/class-segurium-2fa.php:617
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr ""
+"Απαιτείται ρύθμιση ελέγχου ταυτότητας δύο παραγόντων για τον ρόλο σας. "
+"Επικοινωνήστε με τον διαχειριστή σας."
+
+#: includes/class-segurium-2fa.php:658
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr ""
+"Απαιτείται έλεγχος ταυτότητας δύο παραγόντων. Προσθέστε τον κωδικό 2FA στο "
+"τέλος του συνθηματικού σας."
+
+#: includes/class-segurium-2fa.php:1000
+msgid "Verifying..."
+msgstr "Γίνεται επαλήθευση..."
+
+#: includes/class-segurium-2fa.php:1001
+msgid "Logging in..."
+msgstr "Γίνεται σύνδεση..."
+
+#: includes/class-segurium-2fa.php:1002
+msgid "Enter the code from your authenticator app:"
+msgstr "Εισαγάγετε τον κωδικό από την εφαρμογή ταυτοποίησης:"
+
+#: includes/class-segurium-2fa.php:1003
+msgid "Enter the code sent to your email:"
+msgstr "Εισαγάγετε τον κωδικό που στάλθηκε στο email σας:"
+
+#: includes/class-segurium-2fa.php:1004
+msgid "Verify"
+msgstr "Επαλήθευση"
+
+#: includes/class-segurium-2fa.php:1005
+msgid "Resend code"
+msgstr "Επαναποστολή κωδικού"
+
+#: includes/class-segurium-2fa.php:1006
+msgid "A new code has been sent to your email."
+msgstr "Στάλθηκε νέος κωδικός στο email σας."
+
+#: includes/class-segurium-2fa.php:1007
+msgid "Lost your device? Enter a backup code instead."
+msgstr "Χάσατε τη συσκευή σας; Εισαγάγετε εφεδρικό κωδικό."
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:1009
+#, php-format
+msgid "Trust this device for %d days"
+msgstr "Να θεωρείται έμπιστη αυτή η συσκευή για %d ημέρες"
+
+#: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1597
+#: includes/class-segurium-2fa.php:1675 includes/class-segurium-2fa.php:1733
+msgid "Too many failed attempts. Please try again later."
+msgstr "Πάρα πολλές αποτυχημένες προσπάθειες. Δοκιμάστε ξανά αργότερα."
+
+#: includes/class-segurium-2fa.php:1011
+msgid "Two-factor authentication setup is required for your role."
+msgstr ""
+"Απαιτείται ρύθμιση ελέγχου ταυτότητας δύο παραγόντων για τον ρόλο σας."
+
+#: includes/class-segurium-2fa.php:1035
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:274
+#: includes/migrations/class-segurium-migration-wordfence.php:288
+msgid "Two-Factor Authentication"
+msgstr "Έλεγχος ταυτότητας δύο παραγόντων"
+
+#: includes/class-segurium-2fa.php:1038 includes/class-segurium.php:2226
+#: includes/class-segurium.php:3471
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: includes/class-segurium-2fa.php:1041
+msgid "JavaScript is required for 2FA setup."
+msgstr "Απαιτείται JavaScript για τη ρύθμιση του 2FA."
+
+#: includes/class-segurium-2fa.php:1079
+msgid "Not configured"
+msgstr "Δεν έχει ρυθμιστεί"
+
+#: includes/class-segurium-2fa.php:1080
+msgid "Set up Authenticator App"
+msgstr "Ρύθμιση εφαρμογής ταυτοποίησης"
+
+#: includes/class-segurium-2fa.php:1081
+msgid "Set up Email Verification"
+msgstr "Ρύθμιση επαλήθευσης με email"
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Current method:"
+msgstr "Τρέχουσα μέθοδος:"
+
+#: includes/class-segurium-2fa.php:1083 includes/class-segurium.php:2666
+msgid "Authenticator App (TOTP)"
+msgstr "Εφαρμογή ταυτοποίησης (TOTP)"
+
+#: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:2667
+msgid "Email Verification"
+msgstr "Επαλήθευση με email"
+
+#: includes/class-segurium-2fa.php:1085
+msgid "Backup codes remaining:"
+msgstr "Εφεδρικοί κωδικοί που απομένουν:"
+
+#: includes/class-segurium-2fa.php:1086
+msgid "Regenerate Backup Codes"
+msgstr "Αναδημιουργία εφεδρικών κωδικών"
+
+#: includes/class-segurium-2fa.php:1087
+msgid "Disable 2FA"
+msgstr "Απενεργοποίηση 2FA"
+
+#: includes/class-segurium-2fa.php:1088
+msgid "Scan this QR code with your authenticator app:"
+msgstr "Σαρώστε αυτόν τον κωδικό QR με την εφαρμογή ταυτοποίησης:"
+
+#: includes/class-segurium-2fa.php:1089
+msgid "Or enter this key manually:"
+msgstr "Ή εισαγάγετε αυτό το κλειδί χειροκίνητα:"
+
+#: includes/class-segurium-2fa.php:1090
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "Εισαγάγετε τον εξαψήφιο κωδικό από την εφαρμογή σας για επιβεβαίωση:"
+
+#: includes/class-segurium-2fa.php:1091 includes/class-segurium.php:2291
+#: includes/class-segurium.php:2379
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+#: includes/class-segurium-2fa.php:1092 includes/class-segurium.php:1076
+#: includes/class-segurium.php:1211 includes/class-segurium.php:1256
+#: includes/class-segurium.php:2268 includes/class-segurium.php:3461
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: includes/class-segurium-2fa.php:1093
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr ""
+"Αποθηκεύστε αυτούς τους εφεδρικούς κωδικούς σε ασφαλές μέρος. Δεν θα "
+"εμφανιστούν ξανά."
+
+#: includes/class-segurium-2fa.php:1094
+msgid "2FA has been set up successfully."
+msgstr "Το 2FA ρυθμίστηκε με επιτυχία."
+
+#: includes/class-segurium-2fa.php:1095 includes/class-segurium-2fa.php:1430
+msgid "2FA has been disabled."
+msgstr "Το 2FA απενεργοποιήθηκε."
+
+#: includes/class-segurium-2fa.php:1096
+msgid "New backup codes generated."
+msgstr "Δημιουργήθηκαν νέοι εφεδρικοί κωδικοί."
+
+#: includes/class-segurium-2fa.php:1097
+msgid "Enter your current 2FA code to confirm:"
+msgstr "Εισαγάγετε τον τρέχοντα κωδικό 2FA για επιβεβαίωση:"
+
+#: includes/class-segurium-2fa.php:1098
+msgid "A verification code has been sent to your email."
+msgstr "Στάλθηκε κωδικός επαλήθευσης στο email σας."
+
+#: includes/class-segurium-2fa.php:1099
+msgid "Your administrator requires 2FA for your role."
+msgstr "Ο διαχειριστής σας απαιτεί 2FA για τον ρόλο σας."
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1133
+#, php-format
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"Ο διαχειριστής σας απαιτεί έλεγχο ταυτότητας δύο παραγόντων. Σας απομένουν "
+"%d ημέρα/ημέρες για να τον ρυθμίσετε."
+
+#: includes/class-segurium-2fa.php:1138 includes/class-segurium-2fa.php:1145
+msgid "Set up now"
+msgstr "Ρύθμιση τώρα"
+
+#: includes/class-segurium-2fa.php:1143
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr ""
+"Απαιτείται έλεγχος ταυτότητας δύο παραγόντων για τον ρόλο σας. Ρυθμίστε τον "
+"αμέσως."
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1180
+#, php-format
+msgid "[%s] Your login verification code"
+msgstr "[%s] Ο κωδικός επαλήθευσης σύνδεσής σας"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1186
+#, php-format
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"Ο κωδικός επαλήθευσής σας είναι: %1$s\n"
+"\n"
+"Ο κωδικός λήγει σε %2$d λεπτά.\n"
+"\n"
+"Αν δεν το ζητήσατε εσείς, αγνοήστε αυτό το email."
+
+#: includes/class-segurium-2fa.php:1229 includes/class-segurium-2fa.php:1265
+#: includes/class-segurium-2fa.php:1320 includes/class-segurium-2fa.php:1346
+#: includes/class-segurium-2fa.php:1387 includes/class-segurium-2fa.php:1441
+msgid "Not authenticated."
+msgstr "Δεν έγινε έλεγχος ταυτότητας."
+
+#: includes/class-segurium-2fa.php:1235 includes/class-segurium-2fa.php:1271
+#: includes/class-segurium-2fa.php:1326 includes/class-segurium-2fa.php:1352
+#: includes/class-segurium-2fa.php:1393 includes/class-segurium-2fa.php:1447
+#: includes/class-segurium-2fa.php:1503 includes/class-segurium-2fa.php:1637
+#: includes/class-segurium-2fa.php:1760 includes/class-segurium.php:405
+#: includes/class-segurium.php:5135 includes/class-segurium.php:5258
+#: includes/class-segurium.php:5282 includes/segurium-ajax-envelope.php:125
+msgid "You do not have permission to perform this action."
+msgstr "Δεν έχετε δικαίωμα να εκτελέσετε αυτή την ενέργεια."
+
+#: includes/class-segurium-2fa.php:1282
+msgid "Setup session expired. Please start again."
+msgstr "Η συνεδρία ρύθμισης έληξε. Ξεκινήστε ξανά."
+
+#: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
+msgid "Invalid code. Please try again."
+msgstr "Μη έγκυρος κωδικός. Δοκιμάστε ξανά."
+
+#: includes/class-segurium-2fa.php:1292
+msgid "Encryption error."
+msgstr "Σφάλμα κρυπτογράφησης."
+
+#: includes/class-segurium-2fa.php:1335
+msgid "Verification code sent to your email."
+msgstr "Ο κωδικός επαλήθευσης στάλθηκε στο email σας."
+
+#: includes/class-segurium-2fa.php:1403
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "Το 2FA απαιτείται για τον ρόλο σας και δεν μπορεί να απενεργοποιηθεί."
+
+#: includes/class-segurium-2fa.php:1425 includes/class-segurium-2fa.php:1473
+msgid "Invalid verification code."
+msgstr "Μη έγκυρος κωδικός επαλήθευσης."
+
+#: includes/class-segurium-2fa.php:1520
+msgid "Please enter your username and password."
+msgstr "Εισαγάγετε το όνομα χρήστη και το συνθηματικό σας."
+
+#: includes/class-segurium-2fa.php:1656
+msgid "Session expired. Please log in again."
+msgstr "Η συνεδρία έληξε. Συνδεθείτε ξανά."
+
+#: includes/class-segurium-2fa.php:1662 includes/class-segurium-2fa.php:1775
+msgid "Invalid session."
+msgstr "Μη έγκυρη συνεδρία."
+
+#: includes/class-segurium-2fa.php:1742
+msgid "Invalid verification code. Please try again."
+msgstr "Μη έγκυρος κωδικός επαλήθευσης. Δοκιμάστε ξανά."
+
+#: includes/class-segurium-2fa.php:1770
+msgid "Session expired."
+msgstr "Η συνεδρία έληξε."
+
+#: includes/class-segurium-2fa.php:1780
+msgid "Code sent."
+msgstr "Ο κωδικός στάλθηκε."
+
+#: includes/class-segurium-brute-force.php:503
+msgid "Login blocked."
+msgstr "Η σύνδεση μπλοκαρίστηκε."
+
+#: includes/class-segurium-brute-force.php:517
+msgid "Please complete the CAPTCHA challenge."
+msgstr "Ολοκληρώστε την πρόκληση CAPTCHA."
+
+#: includes/class-segurium-brute-force.php:1336
+msgid "Leave this field empty"
+msgstr "Αφήστε αυτό το πεδίο κενό"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1484
+#: includes/class-segurium-brute-force.php:1507
+#, php-format
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "Πάρα πολλές αποτυχημένες προσπάθειες σύνδεσης. Δοκιμάστε ξανά σε %s."
+
+#: includes/class-segurium-brute-force.php:1488
+msgid "Login Locked"
+msgstr "Η σύνδεση κλειδώθηκε"
+
+#: includes/class-segurium-cleanup.php:89
+msgid "Verdict has no defined cleanup recipe."
+msgstr "Η ετυμηγορία δεν έχει καθορισμένη συνταγή καθαρισμού."
+
+#: includes/class-segurium-cleanup.php:93
+msgid "File not found."
+msgstr "Το αρχείο δεν βρέθηκε."
+
+#: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:7220
+msgid "File has been modified since scan. Re-scan first."
+msgstr "Το αρχείο τροποποιήθηκε μετά τη σάρωση. Σαρώστε ξανά πρώτα."
+
+#: includes/class-segurium-cleanup.php:103
+msgid "Failed to read file for backup."
+msgstr "Αποτυχία ανάγνωσης αρχείου για αντίγραφο ασφαλείας."
+
+#: includes/class-segurium-cleanup.php:121
+msgid "Failed to create backup."
+msgstr "Αποτυχία δημιουργίας αντιγράφου ασφαλείας."
+
+#: includes/class-segurium-cleanup.php:175
+msgid "Failed to clean file."
+msgstr "Αποτυχία καθαρισμού αρχείου."
+
+#: includes/class-segurium-component-backup.php:50
+#: includes/class-segurium.php:5806
+msgid "Component directory not found."
+msgstr "Ο κατάλογος του στοιχείου δεν βρέθηκε."
+
+#: includes/class-segurium-component-backup.php:53
+msgid "Invalid component type."
+msgstr "Μη έγκυρος τύπος στοιχείου."
+
+#: includes/class-segurium-component-backup.php:56
+msgid "Invalid component slug."
+msgstr "Μη έγκυρο σύντομο όνομα στοιχείου."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "Απαιτείται η επέκταση PHP Phar για τα αντίγραφα ασφαλείας στοιχείων."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Το αντίγραφο ασφαλείας απέτυχε: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "Το αρχείο του αντιγράφου ασφαλείας δεν δημιουργήθηκε."
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:104
+#, php-format
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"Το στοιχείο είναι %1$.1f MB και υπερβαίνει το όριο %2$d MB για "
+"κρυπτογραφημένο αντίγραφο ασφαλείας. Η διαγραφή παραλείφθηκε ώστε ο "
+"ιστότοπός σας να μη χάσει δεδομένα χωρίς κάλυψη."
+
+#: includes/class-segurium-component-backup.php:119
+msgid "Failed to read packed component archive."
+msgstr "Αποτυχία ανάγνωσης του συμπιεσμένου αρχείου του στοιχείου."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:141
+#, php-format
+msgid "Failed to encrypt component backup: %s"
+msgstr "Αποτυχία κρυπτογράφησης του αντιγράφου ασφαλείας του στοιχείου: %s"
+
+#: includes/class-segurium-component-backup.php:165
+msgid "Invalid backup identifier."
+msgstr "Μη έγκυρο αναγνωριστικό αντιγράφου ασφαλείας."
+
+#: includes/class-segurium-component-backup.php:175
+msgid "Backup archive not found or failed integrity check."
+msgstr ""
+"Το αρχείο του αντιγράφου ασφαλείας δεν βρέθηκε ή απέτυχε στον έλεγχο "
+"ακεραιότητας."
+
+#: includes/class-segurium-component-backup.php:188
+msgid "Failed to stage backup for extraction."
+msgstr "Αποτυχία προετοιμασίας του αντιγράφου ασφαλείας για εξαγωγή."
+
+#: includes/class-segurium-component-backup.php:193
+#: includes/class-segurium.php:5600
+msgid "Restore target directory is not writable."
+msgstr "Ο κατάλογος προορισμού της επαναφοράς δεν είναι εγγράψιμος."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Η επαναφορά απέτυχε: %s"
+
+#: includes/class-segurium-component-backup.php:243
+msgid "Secure randomness is unavailable on this host."
+msgstr "Η ασφαλής τυχαιότητα δεν είναι διαθέσιμη σε αυτόν τον εξυπηρετητή."
+
+#: includes/class-segurium-cti-client.php:235
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr ""
+"Το αναγνωριστικό εγκατάστασης δεν είναι διαθέσιμο. Βεβαιωθείτε ότι το "
+"πρόσθετο έχει ενεργοποιηθεί σωστά."
+
+#: includes/class-segurium-cti-client.php:610
+msgid "Too many requests. Please try again later."
+msgstr "Πάρα πολλά αιτήματα. Δοκιμάστε ξανά αργότερα."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:616
+#, php-format
+msgid "Support service error (HTTP %d)."
+msgstr "Σφάλμα υπηρεσίας υποστήριξης (HTTP %d)."
+
+#: includes/class-segurium-cti-client.php:1445
+msgid "Cleanup quota reached."
+msgstr "Συμπληρώθηκε το όριο καθαρισμών."
+
+#: includes/class-segurium-cti-client.php:1452
+msgid "Clean version not available for this file"
+msgstr "Δεν υπάρχει διαθέσιμη καθαρή έκδοση για αυτό το αρχείο"
+
+#: includes/class-segurium-cti-client.php:1854
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Μη έγκυρη απάντηση χρέωσης από το Segurium Cloud."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:88
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): δεν υπάρχει απάντηση προς επαλήθευση."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:120
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): λείπουν οι κεφαλίδες υπογραφής."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:130
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): υπογράφηκε με μη έμπιστο κλειδί «%2$s»."
+
+#: includes/class-segurium-cti-signature.php:141
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr ""
+"Η λίστα έμπιστων υπογραφών είναι κατεστραμμένη — το δημόσιο κλειδί δεν "
+"αποκωδικοποιήθηκε."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:151
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): η κεφαλίδα υπογραφής είναι κακοδιατυπωμένη."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:162
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr ""
+"Segurium Cloud (%s): η χρονοσήμανση της υπογραφής είναι κακοδιατυπωμένη."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:175
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): η χρονοσήμανση της υπογραφής είναι %2$d δευτερόλεπτα "
+"εκτός εύρους."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:192
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): το libsodium απέρριψε την υπογραφή (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:204
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): η υπογραφή δεν επαληθεύτηκε."
+
+#: includes/class-segurium-deactivation-reason.php:247
+msgid "Why are you deactivating Segurium?"
+msgstr "Γιατί απενεργοποιείτε το Segurium;"
+
+#: includes/class-segurium-deactivation-reason.php:248
+#: includes/class-segurium.php:1134 includes/class-segurium.php:2264
+#: includes/class-segurium.php:2278
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: includes/class-segurium-deactivation-reason.php:262
+#: includes/class-segurium.php:1073 includes/class-segurium.php:3454
+msgid "Note (optional, max 2000 chars)"
+msgstr "Σημείωση (προαιρετική, έως 2000 χαρακτήρες)"
+
+#: includes/class-segurium-deactivation-reason.php:267
+#: includes/class-segurium.php:1200
+msgid "Continue"
+msgstr "Συνέχεια"
+
+#: includes/class-segurium-deactivation-reason.php:268
+#: includes/class-segurium.php:1259
+msgid "Skip"
+msgstr "Παράλειψη"
+
+#: includes/class-segurium-deactivation-reason.php:336
+#: includes/class-segurium-paywall-telemetry.php:374
+#: includes/class-segurium-review-prompt.php:548
+#: includes/class-segurium.php:4067 includes/class-segurium.php:4145
+#: includes/class-segurium.php:4242 includes/class-segurium.php:4278
+#: includes/class-segurium.php:4351 includes/class-segurium.php:4436
+#: includes/class-segurium.php:4471 includes/class-segurium.php:4540
+#: includes/class-segurium.php:4604 includes/class-segurium.php:4681
+#: includes/class-segurium.php:4782 includes/class-segurium.php:4900
+#: includes/class-segurium.php:4958 includes/class-segurium.php:5008
+#: includes/class-segurium.php:5473 includes/class-segurium.php:5513
+#: includes/class-segurium.php:5540 includes/class-segurium.php:5568
+#: includes/class-segurium.php:5626 includes/class-segurium.php:5666
+#: includes/class-segurium.php:5708 includes/class-segurium.php:5750
+#: includes/class-segurium.php:5875 includes/class-segurium.php:5979
+#: includes/class-segurium.php:6338 includes/class-segurium.php:6395
+#: includes/class-segurium.php:6490 includes/class-segurium.php:7084
+#: includes/class-segurium.php:7406 includes/class-segurium.php:7483
+msgid "Unauthorized"
+msgstr "Μη εξουσιοδοτημένο"
+
+#: includes/class-segurium-deactivation-reason.php:391
+msgid "Missing feature"
+msgstr "Λείπει κάποια λειτουργία"
+
+#: includes/class-segurium-deactivation-reason.php:393
+msgid "It is causing issues"
+msgstr "Προκαλεί προβλήματα"
+
+#: includes/class-segurium-deactivation-reason.php:395
+msgid "No longer needed"
+msgstr "Δεν χρειάζεται πλέον"
+
+#: includes/class-segurium-deactivation-reason.php:397
+msgid "Found better alternative"
+msgstr "Βρέθηκε καλύτερη εναλλακτική"
+
+#: includes/class-segurium-deactivation-reason.php:399
+msgid "Temporary deactivation"
+msgstr "Προσωρινή απενεργοποίηση"
+
+#: includes/class-segurium-deactivation-reason.php:401
+#: includes/class-segurium.php:2734
+msgid "Other"
+msgstr "Άλλο"
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Downloaded geo DB has invalid format."
+msgstr "Η γεωγραφική βάση δεδομένων που κατέβηκε έχει μη έγκυρη μορφή."
+
+#: includes/class-segurium-geo-updater.php:148
+msgid "Failed to write geo DB to disk."
+msgstr "Αποτυχία εγγραφής της γεωγραφικής βάσης δεδομένων στον δίσκο."
+
+#: includes/class-segurium-geo-updater.php:153
+msgid "Failed to install geo DB."
+msgstr "Αποτυχία εγκατάστασης της γεωγραφικής βάσης δεδομένων."
+
+#: includes/class-segurium-iid.php:260
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Το Segurium εντόπισε ότι αυτός ο ιστότοπος μεταφέρθηκε ή κλωνοποιήθηκε και "
+"αποκαθιστά την ασφαλή σύνδεσή του στο παρασκήνιο. Αν έχετε άδεια Pro, "
+"ενεργοποιήστε την ξανά στην οθόνη λογαριασμού του Segurium ώστε οι "
+"λειτουργίες Pro να επανέλθουν στη νέα ταυτότητα."
+
+#: includes/class-segurium-iid.php:319
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Το Segurium δεν μπόρεσε να ενεργοποιήσει την άδεια Pro σε αυτόν τον ιστότοπο"
+" επειδή είναι δεσμευμένη σε άλλη εγκατάσταση. Ανοίξτε την πύλη λογαριασμού "
+"του Segurium στην αρχική εγκατάσταση και απενεργοποιήστε εκεί την άδεια· η "
+"δέσμευση θα λυθεί και οι λειτουργίες Pro θα ενεργοποιηθούν ξανά εδώ στον "
+"επόμενο έλεγχο άδειας."
+
+#: includes/class-segurium-info-shield.php:331
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"Στον Nginx, η κεφαλίδα Server πρέπει να αφαιρεθεί σε επίπεδο διακομιστή "
+"(server_tokens off;). Αυτός ο διακόπτης δεν έχει αποτέλεσμα."
+
+#: includes/class-segurium-info-shield.php:334
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"Στον Apache με FastCGI, η κεφαλίδα Server προστίθεται αφού εκτελεστεί η PHP."
+" Χρησιμοποιήστε ServerTokens Prod στη διαμόρφωση του Apache."
+
+#: includes/class-segurium-info-shield.php:338
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"Στον IIS, χρησιμοποιήστε το χαρακτηριστικό removeServerHeader στο "
+"web.config. Αυτός ο διακόπτης έχει περιορισμένο αποτέλεσμα."
+
+#: includes/class-segurium-info-shield.php:352
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"Ο διακομιστής σας χρησιμοποιεί FastCGI, που μπορεί να προσθέσει ξανά την "
+"κεφαλίδα X-Powered-By. Επαληθεύστε την αφαίρεση εξετάζοντας τις κεφαλίδες "
+"απόκρισης."
+
+#: includes/class-segurium-info-shield.php:365
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr ""
+"Το Jetpack είναι ενεργό και απαιτεί XML-RPC. Η απενεργοποίηση του XML-RPC θα"
+" διακόψει τη σύνδεση με το Jetpack."
+
+#: includes/class-segurium-integrity-chain.php:149
+#: includes/class-segurium.php:1212
+msgid "Running a quick malware scan first…"
+msgstr "Εκτελείται πρώτα μια γρήγορη σάρωση κακόβουλου λογισμικού…"
+
+#: includes/class-segurium-integrity-chain.php:203
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr ""
+"Η αλυσιδωτή σάρωση κακόβουλου λογισμικού ακυρώθηκε — η σάρωση ακεραιότητας "
+"δεν ξεκίνησε."
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:227
+#, php-format
+msgid "Could not start the chained integrity scan: %s"
+msgstr "Δεν ήταν δυνατή η έναρξη της αλυσιδωτής σάρωσης ακεραιότητας: %s"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:173
+#, php-format
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr ""
+"Σάρωση Segurium σε πραγματικό χρόνο (κάθε %d δευτερόλεπτα, παράκαμψη "
+"ανάπτυξης)"
+
+#: includes/class-segurium-rest-actions-poke.php:79
+msgid "Remote actions are switched off for this site."
+msgstr ""
+"Οι απομακρυσμένες ενέργειες είναι απενεργοποιημένες για αυτόν τον ιστότοπο."
+
+#: includes/class-segurium-rest-actions-poke.php:95
+#: includes/class-segurium-rest-actions-poke.php:103
+msgid "Remote actions require authentication."
+msgstr "Οι απομακρυσμένες ενέργειες απαιτούν έλεγχο ταυτότητας."
+
+#: includes/class-segurium-review-prompt.php:459
+msgid "Leave a review"
+msgstr "Αφήστε μια αξιολόγηση"
+
+#: includes/class-segurium-review-prompt.php:461
+#: includes/class-segurium.php:1215
+msgid "Maybe later"
+msgstr "Ίσως αργότερα"
+
+#: includes/class-segurium-review-prompt.php:463
+msgid "Don't ask again"
+msgstr "Να μην ερωτηθώ ξανά"
+
+#: includes/class-segurium-review-prompt.php:479
+msgid "Segurium just cleaned your site."
+msgstr "Το Segurium μόλις καθάρισε τον ιστότοπό σας."
+
+#: includes/class-segurium-review-prompt.php:480
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Χαιρόμαστε που βοηθήσαμε. Αν το Segurium σάς γλίτωσε χρόνο ή χρήματα σήμερα,"
+" μια ειλικρινής αξιολόγηση στο WordPress.org βοηθά άλλους ιδιοκτήτες "
+"ιστότοπων να το βρουν και μας βοηθά να κρατήσουμε δωρεάν το επίπεδο "
+"καθαρισμού."
+
+#: includes/class-segurium-review-prompt.php:485
+msgid "Scan complete. Your site is clean."
+msgstr "Η σάρωση ολοκληρώθηκε. Ο ιστότοπός σας είναι καθαρός."
+
+#: includes/class-segurium-review-prompt.php:486
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Αν το Segurium κάνει τη δουλειά του, θα αφήνατε μια ειλικρινή αξιολόγηση στο"
+" WordPress.org; Παίρνει ένα λεπτό."
+
+#: includes/class-segurium-review-prompt.php:556
+msgid "Unknown review prompt action."
+msgstr "Άγνωστη ενέργεια στην προτροπή αξιολόγησης."
+
+#: includes/class-segurium-scan-runner.php:378
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "Κάθε 60 δευτερόλεπτα (διάσωση σάρωσης Segurium)"
+
+#: includes/class-segurium-scan-runner.php:411
+msgid "A scan type is required."
+msgstr "Απαιτείται τύπος σάρωσης."
+
+#: includes/class-segurium-scan-runner.php:424
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"Η ενεργοποίηση στην υπηρεσία cloud του Segurium εκκρεμεί ακόμη. Δοκιμάστε "
+"ξανά σε λίγο."
+
+#: includes/class-segurium-scan-runner.php:438
+#: includes/class-segurium.php:1117 includes/class-segurium.php:5076
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"Ο χώρος αποθήκευσης σαρώσεων δεν είναι έτοιμος. Απενεργοποιήστε και "
+"ενεργοποιήστε ξανά το πρόσθετο Segurium και δοκιμάστε ξανά."
+
+#: includes/class-segurium-scan-runner.php:448
+#: includes/class-segurium-scan-runner.php:486
+#: includes/class-segurium.php:1096
+msgid "A scan is already in progress."
+msgstr "Μια σάρωση βρίσκεται ήδη σε εξέλιξη."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:479
+#: includes/class-segurium-scan-runner.php:555
+#, php-format
+msgid "Unexpected error starting scan: %s"
+msgstr "Απροσδόκητο σφάλμα κατά την έναρξη της σάρωσης: %s"
+
+#: includes/class-segurium-scan-runner.php:507
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr ""
+"Ο χώρος αποθήκευσης σαρώσεων δεν ήταν έτοιμος. Επιδιορθώθηκε αυτόματα — "
+"πατήστε ξανά «Έναρξη σάρωσης»."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:516
+#, php-format
+msgid "Failed to initialize scan: %s"
+msgstr "Αποτυχία αρχικοποίησης της σάρωσης: %s"
+
+#: includes/class-segurium-scan-runner.php:1359
+#: includes/class-segurium.php:1100 includes/class-segurium.php:3792
+#: includes/class-segurium.php:3857 includes/class-segurium.php:3884
+#: includes/class-segurium.php:4721
+msgid "You do not have permission to manage scans."
+msgstr "Δεν έχετε δικαίωμα διαχείρισης σαρώσεων."
+
+#: includes/class-segurium-scan-runner.php:1389
+#: includes/class-segurium.php:4749
+msgid "Could not fetch scan status due to a server error."
+msgstr ""
+"Δεν ήταν δυνατή η ανάκτηση της κατάστασης σάρωσης λόγω σφάλματος διακομιστή."
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:2316
+#, php-format
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"Το max_execution_time της PHP είναι %ds — πολύ μικρό για αξιόπιστη σάρωση. "
+"Ζητήστε από τον πάροχο φιλοξενίας να το ανεβάσει σε τουλάχιστον 30s."
+
+#: includes/class-segurium-scan-runner.php:2327
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
+msgstr ""
+"Το cron του WordPress είναι απενεργοποιημένο (DISABLE_WP_CRON) και η "
+"εγκατάσταση PHP σας δεν έχει τρόπο να αποσπά μεγάλες εργασίες από τα "
+"αιτήματα σελίδας. Οι σαρώσεις παρασκηνίου θα προχωρούν μόνο όσο παραμένει "
+"ανοιχτή μια καρτέλα διαχείρισης του Segurium. Ζητήστε από τον πάροχο "
+"φιλοξενίας είτε να ενεργοποιήσει πραγματική εργασία cron συστήματος που "
+"καλεί το wp-cron.php κάθε λεπτό, είτε να περάσει από mod_php σε PHP-FPM / "
+"LiteSpeed."
+
+#: includes/class-segurium-scan-runner.php:2329
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"Το cron του WordPress είναι απενεργοποιημένο (DISABLE_WP_CRON). Οι "
+"προγραμματισμένες σαρώσεις εξαρτώνται από πραγματική εργασία cron συστήματος"
+" που καλεί το wp-cron.php κάθε λεπτό. Ζητήστε από τον πάροχο φιλοξενίας να "
+"τη ρυθμίσει."
+
+#: includes/class-segurium-scan-trigger-auth.php:93
+#: includes/class-segurium-scan-trigger-auth.php:135
+#: includes/class-segurium-scan-trigger-auth.php:143
+msgid "Scan trigger requires authentication."
+msgstr "Η ενεργοποίηση σάρωσης απαιτεί έλεγχο ταυτότητας."
+
+#: includes/class-segurium-scan-trigger-auth.php:122
+msgid "Scan trigger secret did not match."
+msgstr "Το μυστικό ενεργοποίησης σάρωσης δεν ταίριαξε."
+
+#: includes/class-segurium-scheduled-scan-settings.php:108
+msgid "Invalid settings payload."
+msgstr "Μη έγκυρο φορτίο ρυθμίσεων."
+
+#: includes/class-segurium-scheduled-scan-settings.php:127
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "Η συχνότητα πρέπει να είναι μία από: ανενεργή, ημερήσια, εβδομαδιαία."
+
+#: includes/class-segurium-scheduled-scan-settings.php:138
+msgid "Hour must be between 0 and 23."
+msgstr "Η ώρα πρέπει να είναι μεταξύ 0 και 23."
+
+#: includes/class-segurium-scheduled-scan-settings.php:149
+msgid "Minute must be between 0 and 59."
+msgstr "Το λεπτό πρέπει να είναι μεταξύ 0 και 59."
+
+#: includes/class-segurium-scheduled-scan-settings.php:160
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr ""
+"Η ημέρα της εβδομάδας πρέπει να είναι μεταξύ 0 (Κυριακή) και 6 (Σάββατο)."
+
+#: includes/class-segurium-self-check.php:401 includes/class-segurium.php:2924
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:404
+msgid "CSP is enforced."
+msgstr "Το CSP επιβάλλεται."
+
+#: includes/class-segurium-self-check.php:406
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr ""
+"Το CSP είναι μόνο για αναφορά. Αλλάξτε το σε επιβολή για πλήρη προστασία."
+
+#: includes/class-segurium-self-check.php:407
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr ""
+"Δεν υπάρχει κεφαλίδα Content-Security-Policy. Προστατεύει από XSS και "
+"ενθέσεις κώδικα."
+
+#: includes/class-segurium-self-check.php:422
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:425
+msgid "HSTS active with at least a one-year max-age."
+msgstr "Το HSTS είναι ενεργό με max-age τουλάχιστον ενός έτους."
+
+#: includes/class-segurium-self-check.php:427
+msgid "HSTS present but max-age is below one year."
+msgstr "Το HSTS υπάρχει αλλά το max-age είναι κάτω από ένα έτος."
+
+#: includes/class-segurium-self-check.php:428
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr ""
+"Δεν υπάρχει κεφαλίδα HSTS. Τα προγράμματα περιήγησης μπορεί να συνδεθούν με "
+"απλό HTTP."
+
+#: includes/class-segurium-self-check.php:440
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:443
+msgid "MIME sniffing prevented."
+msgstr "Η ανίχνευση τύπου MIME αποτρέπεται."
+
+#: includes/class-segurium-self-check.php:444
+msgid "Missing. Browsers may misinterpret file types."
+msgstr ""
+"Λείπει. Τα προγράμματα περιήγησης μπορεί να ερμηνεύσουν λάθος τους τύπους "
+"αρχείων."
+
+#: includes/class-segurium-self-check.php:456 includes/class-segurium.php:2793
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:459
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "Προστασία από clickjacking μέσω X-Frame-Options."
+
+#: includes/class-segurium-self-check.php:460
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr ""
+"Λείπει το X-Frame-Options. Ο ιστότοπος μπορεί να ενσωματωθεί σε πλαίσιο από "
+"επιτιθέμενους."
+
+#: includes/class-segurium-self-check.php:472 includes/class-segurium.php:2801
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:475
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr ""
+"Το Referrer-Policy περιορίζει τη διαρροή πληροφοριών κατά την πλοήγηση."
+
+#: includes/class-segurium-self-check.php:476
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr ""
+"Λείπει ή είναι επισφαλές το Referrer-Policy. Μπορεί να διαρρεύσουν πλήρεις "
+"διευθύνσεις URL."
+
+#: includes/class-segurium-self-check.php:487 includes/class-segurium.php:2889
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:490
+msgid "Permissions-Policy restricts access to browser features."
+msgstr ""
+"Το Permissions-Policy περιορίζει την πρόσβαση σε λειτουργίες του "
+"προγράμματος περιήγησης."
+
+#: includes/class-segurium-self-check.php:491
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr ""
+"Λείπει το Permissions-Policy. Οι λειτουργίες του προγράμματος περιήγησης δεν"
+" περιορίζονται."
+
+#: includes/class-segurium-self-check.php:503 includes/class-segurium.php:2821
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:506
+msgid "Legacy XSS filter directive present."
+msgstr "Υπάρχει παλαιά οδηγία φίλτρου XSS."
+
+#: includes/class-segurium-self-check.php:507
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"Λείπει το X-XSS-Protection. Ορίστε το σε 0 για να απενεργοποιήσετε με "
+"ασφάλεια τα παλαιά φίλτρα XSS του προγράμματος περιήγησης."
+
+#: includes/class-segurium-self-check.php:532
+msgid "X-Powered-By hidden"
+msgstr "Το X-Powered-By είναι κρυμμένο"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:537
+#, php-format
+msgid "X-Powered-By reveals: %s"
+msgstr "Το X-Powered-By αποκαλύπτει: %s"
+
+#: includes/class-segurium-self-check.php:540
+msgid "X-Powered-By header is not exposed."
+msgstr "Η κεφαλίδα X-Powered-By δεν εκτίθεται."
+
+#: includes/class-segurium-self-check.php:551
+msgid "WordPress version hidden"
+msgstr "Η έκδοση του WordPress είναι κρυμμένη"
+
+#: includes/class-segurium-self-check.php:554
+msgid "WordPress version exposed in HTML source."
+msgstr "Η έκδοση του WordPress εκτίθεται στον κώδικα HTML."
+
+#: includes/class-segurium-self-check.php:555
+msgid "WordPress version not visible in HTML."
+msgstr "Η έκδοση του WordPress δεν είναι ορατή στην HTML."
+
+#: includes/class-segurium-self-check.php:566
+msgid "Asset version query hidden"
+msgstr "Το ερώτημα έκδοσης πόρων είναι κρυμμένο"
+
+#: includes/class-segurium-self-check.php:569
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr ""
+"Η έκδοση πυρήνα/θέματος εμφάνισης/πρόσθετου εκτίθεται στο ?ver= των "
+"διευθύνσεων πόρων."
+
+#: includes/class-segurium-self-check.php:570
+msgid "Asset URLs do not expose version numbers."
+msgstr "Οι διευθύνσεις πόρων δεν εκθέτουν αριθμούς έκδοσης."
+
+#: includes/class-segurium-self-check.php:597
+msgid "XML-RPC disabled"
+msgstr "Το XML-RPC είναι απενεργοποιημένο"
+
+#: includes/class-segurium-self-check.php:600
+msgid "XML-RPC endpoint is disabled."
+msgstr "Το σημείο πρόσβασης XML-RPC είναι απενεργοποιημένο."
+
+#: includes/class-segurium-self-check.php:601
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr ""
+"Το XML-RPC είναι προσβάσιμο. Συχνός στόχος τυφλών επιθέσεων και ενίσχυσης "
+"pingback."
+
+#: includes/class-segurium-self-check.php:612
+msgid "REST API discovery disabled"
+msgstr "Η ανακάλυψη REST API είναι απενεργοποιημένη"
+
+#: includes/class-segurium-self-check.php:615
+msgid "REST API discovery link removed from <head>."
+msgstr "Ο σύνδεσμος ανακάλυψης REST API αφαιρέθηκε από το <head>."
+
+#: includes/class-segurium-self-check.php:616
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr ""
+"Ο σύνδεσμος ανακάλυψης REST API εκτίθεται — διευκολύνει την αναγνώριση."
+
+#: includes/class-segurium-self-check.php:627
+msgid "Brute-force protection"
+msgstr "Προστασία από τυφλές επιθέσεις"
+
+#: includes/class-segurium-self-check.php:630
+msgid "Login brute-force protection is active."
+msgstr "Η προστασία σύνδεσης από τυφλές επιθέσεις είναι ενεργή."
+
+#: includes/class-segurium-self-check.php:631
+msgid "Brute-force protection is disabled."
+msgstr "Η προστασία από τυφλές επιθέσεις είναι απενεργοποιημένη."
+
+#: includes/class-segurium-self-check.php:646
+msgid "Two-factor enforced for administrators"
+msgstr "Ο έλεγχος δύο παραγόντων επιβάλλεται στους διαχειριστές"
+
+#: includes/class-segurium-self-check.php:649
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr ""
+"Ο έλεγχος ταυτότητας δύο παραγόντων επιβάλλεται για τον ρόλο του "
+"διαχειριστή."
+
+#: includes/class-segurium-self-check.php:650
+msgid "Administrators can log in with a password alone."
+msgstr "Οι διαχειριστές μπορούν να συνδεθούν μόνο με συνθηματικό."
+
+#: includes/class-segurium-self-check.php:662 includes/class-segurium.php:2064
+msgid "Firewall"
+msgstr "Τείχος προστασίας"
+
+#: includes/class-segurium-self-check.php:665
+msgid "Firewall rules are active."
+msgstr "Οι κανόνες του τείχους προστασίας είναι ενεργοί."
+
+#: includes/class-segurium-self-check.php:666
+msgid "No firewall rules are active."
+msgstr "Δεν είναι ενεργός κανένας κανόνας τείχους προστασίας."
+
+#: includes/class-segurium-self-check.php:678
+msgid "HTTPS / SSL active"
+msgstr "HTTPS / SSL ενεργό"
+
+#: includes/class-segurium-self-check.php:681
+msgid "Site is served over HTTPS."
+msgstr "Ο ιστότοπος σερβίρεται μέσω HTTPS."
+
+#: includes/class-segurium-self-check.php:682
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr ""
+"Ο ιστότοπος δεν σερβίρεται μέσω HTTPS. Η κίνηση δεν είναι κρυπτογραφημένη."
+
+#: includes/class-segurium-self-check.php:722
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"Δεν υπάρχουν κεφαλίδες Set-Cookie στην αρχική σελίδα· δεν είναι δυνατή η "
+"αξιολόγηση των σημαιών cookie από έξω."
+
+#: includes/class-segurium-self-check.php:728
+#: includes/class-segurium-self-check.php:750
+msgid "Cookies — Secure"
+msgstr "Cookie — Secure"
+
+#: includes/class-segurium-self-check.php:739
+#: includes/class-segurium-self-check.php:846
+#: includes/class-segurium-self-check.php:860
+#: includes/class-segurium-self-check.php:878
+msgid "Cookies — SameSite"
+msgstr "Cookie — SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:782
+#, php-format
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "Και τα %1$d cookie ορίζουν το χαρακτηριστικό %2$s."
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
+#: includes/class-segurium-self-check.php:796
+#, php-format
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%1$d από %2$d cookie ορίζουν %3$s."
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:809
+#, php-format
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "Κανένα από τα %1$d cookie δεν ορίζει το χαρακτηριστικό %2$s."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:849
+#, php-format
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "Και τα %d cookie ορίζουν SameSite=Lax/Strict."
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:863
+#, php-format
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "%1$d από %2$d cookie ορίζουν SameSite=Lax/Strict."
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:871
+#, php-format
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "%1$d από %2$d cookie χρησιμοποιούν SameSite=None."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:873
+#, php-format
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "Κανένα cookie δεν ορίζει SameSite=Lax ή Strict (από %d)."
+
+#: includes/class-segurium-self-check.php:940 includes/class-segurium.php:3295
+msgid "Cloud-assisted malware detection"
+msgstr "Ανίχνευση κακόβουλου λογισμικού με τη βοήθεια του cloud"
+
+#: includes/class-segurium-self-check.php:943
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Η λειτουργία On-premise είναι ενεργοποιημένη: το περιεχόμενο των αρχείων "
+"παραμένει σε αυτόν τον διακομιστή και όποιο αρχείο δεν αναγνωρίζει το cloud "
+"από τη σύνοψή του μένει χωρίς ετυμηγορία. Ενεργοποιήστε την ανίχνευση με τη "
+"βοήθεια του cloud για πλήρη ακρίβεια."
+
+#: includes/class-segurium-self-check.php:944
+msgid "Cloud-assisted malware detection is active."
+msgstr ""
+"Η ανίχνευση κακόβουλου λογισμικού με τη βοήθεια του cloud είναι ενεργή."
+
+#: includes/class-segurium-self-check.php:956
+msgid "Scheduled malware scans"
+msgstr "Προγραμματισμένες σαρώσεις κακόβουλου λογισμικού"
+
+#: includes/class-segurium-self-check.php:959
+msgid "A recurring malware scan is scheduled."
+msgstr "Έχει προγραμματιστεί επαναλαμβανόμενη σάρωση κακόβουλου λογισμικού."
+
+#: includes/class-segurium-self-check.php:960
+msgid "No recurring malware scan is scheduled."
+msgstr ""
+"Δεν έχει προγραμματιστεί επαναλαμβανόμενη σάρωση κακόβουλου λογισμικού."
+
+#: includes/class-segurium-self-check.php:972
+msgid "Automatic malware cleanup"
+msgstr "Αυτόματος καθαρισμός κακόβουλου λογισμικού"
+
+#: includes/class-segurium-self-check.php:975
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr ""
+"Το κακόβουλο λογισμικό που εντοπίζεται καθαρίζεται αυτόματα μετά από κάθε "
+"σάρωση."
+
+#: includes/class-segurium-self-check.php:976
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr ""
+"Ο αυτόματος καθαρισμός είναι απενεργοποιημένος. Το κακόβουλο λογισμικό που "
+"εντοπίζεται χρειάζεται χειροκίνητο κλικ για να καθαριστεί."
+
+#: includes/class-segurium-self-check.php:990
+msgid "Malware scan up to date"
+msgstr "Η σάρωση κακόβουλου λογισμικού είναι ενημερωμένη"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:995
+#, php-format
+msgid "Last malware scan completed %s ago."
+msgstr "Η τελευταία σάρωση κακόβουλου λογισμικού ολοκληρώθηκε πριν από %s."
+
+#: includes/class-segurium-self-check.php:999
+msgid "Malware scan is older than 7 days."
+msgstr "Η σάρωση κακόβουλου λογισμικού είναι παλαιότερη των 7 ημερών."
+
+#: includes/class-segurium-self-check.php:1000
+msgid "No malware scan has been completed yet."
+msgstr "Δεν έχει ολοκληρωθεί ακόμη καμία σάρωση κακόβουλου λογισμικού."
+
+#: includes/class-segurium-self-check.php:1012
+msgid "No malware in the last 24 hours"
+msgstr "Κανένα κακόβουλο λογισμικό τις τελευταίες 24 ώρες"
+
+#: includes/class-segurium-self-check.php:1015
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr ""
+"Η πιο πρόσφατη σάρωση κακόβουλου λογισμικού εκτελέστηκε τις τελευταίες 24 "
+"ώρες και δεν βρήκε τίποτα."
+
+#: includes/class-segurium-self-check.php:1017
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"Δεν εκτελέστηκε σάρωση κακόβουλου λογισμικού τις τελευταίες 24 ώρες. Οι "
+"σαρώσεις είναι γρήγορες — εκτελέστε μία για να ανανεώσετε αυτή την "
+"ετυμηγορία."
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:1020
+#, php-format
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] ""
+"Η τελευταία σάρωση κακόβουλου λογισμικού επισήμανε %d απειλή. Δείτε την στην"
+" καρτέλα Σαρωτής κακόβουλου λογισμικού."
+msgstr[1] ""
+"Η τελευταία σάρωση κακόβουλου λογισμικού επισήμανε %d απειλές. Δείτε τις "
+"στην καρτέλα Σαρωτής κακόβουλου λογισμικού."
+
+#: includes/class-segurium-self-check.php:1044
+msgid "No integrity issues in the last 24 hours"
+msgstr "Κανένα πρόβλημα ακεραιότητας τις τελευταίες 24 ώρες"
+
+#: includes/class-segurium-self-check.php:1047
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr ""
+"Η πιο πρόσφατη σάρωση ακεραιότητας εκτελέστηκε τις τελευταίες 24 ώρες και "
+"δεν ανέφερε προβλήματα."
+
+#: includes/class-segurium-self-check.php:1049
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr ""
+"Δεν εκτελέστηκε σάρωση ακεραιότητας τις τελευταίες 24 ώρες. Οι σαρώσεις "
+"είναι γρήγορες — εκτελέστε μία για να ανανεώσετε αυτή την ετυμηγορία."
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:1052
+#, php-format
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] ""
+"%d ανοιχτό πρόβλημα ακεραιότητας παραμένει άλυτο. Δείτε το στην καρτέλα "
+"Σαρωτής ακεραιότητας."
+msgstr[1] ""
+"%d ανοιχτά προβλήματα ακεραιότητας παραμένουν άλυτα. Δείτε τα στην καρτέλα "
+"Σαρωτής ακεραιότητας."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+#, php-format
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "Το σημείο πρόσβασης έμπιστων διαμεσολαβητών επέστρεψε HTTP %d."
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "Η απάντηση για τους έμπιστους διαμεσολαβητές έχει μη έγκυρη μορφή."
+
+#: includes/class-segurium-upload-scan.php:93
+msgid "This file was identified as malware and has been blocked."
+msgstr ""
+"Αυτό το αρχείο αναγνωρίστηκε ως κακόβουλο λογισμικό και μπλοκαρίστηκε."
+
+#: includes/class-segurium.php:390
+msgid "Unknown or unsupported action."
+msgstr "Άγνωστη ή μη υποστηριζόμενη ενέργεια."
+
+#: includes/class-segurium.php:416
+msgid "This action is temporarily unavailable."
+msgstr "Αυτή η ενέργεια δεν είναι προσωρινά διαθέσιμη."
+
+#: includes/class-segurium.php:491 includes/segurium-admin-menu-shell.php:182
+msgid "Security score:"
+msgstr "Βαθμολογία ασφαλείας:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:501 includes/class-segurium.php:1349
+#: includes/segurium-admin-menu-shell.php:192
+#, php-format
+msgid "Last checked %s ago."
+msgstr "Τελευταίος έλεγχος πριν από %s."
+
+#: includes/class-segurium.php:508 includes/segurium-admin-menu-shell.php:199
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"Εκτελέστε Αυτοέλεγχο από τη σελίδα διαχείρισης του Segurium για να δείτε τη "
+"βαθμολογία ασφαλείας σας."
+
+#: includes/class-segurium.php:514 includes/segurium-admin-menu-shell.php:205
+msgid "Open Segurium"
+msgstr "Άνοιγμα του Segurium"
+
+#: includes/class-segurium.php:1060
+msgid "Malware"
+msgstr "Κακόβουλο λογισμικό"
+
+#: includes/class-segurium.php:1061
+msgid "Clean"
+msgstr "Καθαρισμός"
+
+#: includes/class-segurium.php:1062 includes/class-segurium.php:2147
+msgid "Cleaned"
+msgstr "Καθαρίστηκε"
+
+#: includes/class-segurium.php:1063
+msgid "Restored"
+msgstr "Επαναφέρθηκε"
+
+#: includes/class-segurium.php:1064
+msgid "Failed"
+msgstr "Απέτυχε"
+
+#: includes/class-segurium.php:1065
+msgid "Processing..."
+msgstr "Γίνεται επεξεργασία..."
+
+#: includes/class-segurium.php:1066
+msgid "Show malware"
+msgstr "Εμφάνιση κακόβουλου λογισμικού"
+
+#: includes/class-segurium.php:1067
+msgid "Report false positive"
+msgstr "Αναφορά ψευδώς θετικού"
+
+#: includes/class-segurium.php:1068 includes/class-segurium.php:3440
+msgid "Report False Positive"
+msgstr "Αναφορά ψευδώς θετικού"
+
+#: includes/class-segurium.php:1069 includes/class-segurium.php:3445
+msgid "File path"
+msgstr "Διαδρομή αρχείου"
+
+#: includes/class-segurium.php:1070 includes/class-segurium.php:3447
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:1071 includes/class-segurium.php:2225
+#: includes/class-segurium.php:3352 includes/class-segurium.php:3449
+msgid "Component"
+msgstr "Στοιχείο"
+
+#: includes/class-segurium.php:1072 includes/class-segurium.php:3451
+msgid "Current verdict"
+msgstr "Τρέχουσα ετυμηγορία"
+
+#: includes/class-segurium.php:1074 includes/class-segurium.php:3458
+msgid "Also ignore this file on this site"
+msgstr "Να αγνοηθεί αυτό το αρχείο και σε αυτόν τον ιστότοπο"
+
+#: includes/class-segurium.php:1075 includes/class-segurium.php:3462
+msgid "Submit report"
+msgstr "Υποβολή αναφοράς"
+
+#: includes/class-segurium.php:1077
+msgid "Submitting…"
+msgstr "Γίνεται υποβολή…"
+
+#: includes/class-segurium.php:1078
+msgid "Report submitted. Thank you."
+msgstr "Η αναφορά υποβλήθηκε. Ευχαριστούμε."
+
+#: includes/class-segurium.php:1079
+msgid "Could not submit the report."
+msgstr "Δεν ήταν δυνατή η υποβολή της αναφοράς."
+
+#: includes/class-segurium.php:1080 includes/class-segurium.php:1185
+msgid "Restore"
+msgstr "Επαναφορά"
+
+#: includes/class-segurium.php:1081
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr ""
+"Αυτό θα επαναφέρει το αρχικό μολυσμένο αρχείο από το αντίγραφο ασφαλείας. "
+"Συνέχεια;"
+
+#: includes/class-segurium.php:1082
+msgid "Restore file"
+msgstr "Επαναφορά αρχείου"
+
+#: includes/class-segurium.php:1083
+msgid "Checking…"
+msgstr "Γίνεται έλεγχος…"
+
+#: includes/class-segurium.php:1084
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"Το αρχείο στον δίσκο είναι ήδη η έκδοση του αντιγράφου ασφαλείας. Να γίνει "
+"ούτως ή άλλως επαναφορά για ενημέρωση των εγγραφών της βάσης δεδομένων;"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1086
+#, php-format
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"Το αρχείο στο %s τροποποιήθηκε μετά τον τελευταίο καθαρισμό. Η επαναφορά θα "
+"αντικαταστήσει το υπάρχον αρχείο με την έκδοση του αντιγράφου ασφαλείας. "
+"Αυτό δεν αναιρείται."
+
+#: includes/class-segurium.php:1087
+msgid "Overwrite & Restore"
+msgstr "Αντικατάσταση και επαναφορά"
+
+#: includes/class-segurium.php:1088
+msgid "No threats found."
+msgstr "Δεν βρέθηκαν απειλές."
+
+#: includes/class-segurium.php:1089
+msgid "Scan complete."
+msgstr "Η σάρωση ολοκληρώθηκε."
+
+#: includes/class-segurium.php:1090
+msgid "files"
+msgstr "αρχεία"
+
+#: includes/class-segurium.php:1091
+msgid "failed"
+msgstr "απέτυχαν"
+
+#: includes/class-segurium.php:1092
+msgid "skipped"
+msgstr "παραλείφθηκαν"
+
+#: includes/class-segurium.php:1093
+msgid "scanned"
+msgstr "σαρώθηκαν"
+
+#: includes/class-segurium.php:1094
+msgid "Starting scan..."
+msgstr "Γίνεται έναρξη σάρωσης..."
+
+#: includes/class-segurium.php:1095
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: includes/class-segurium.php:1097
+msgid "Scan in progress..."
+msgstr "Σάρωση σε εξέλιξη..."
+
+#: includes/class-segurium.php:1098
+msgid "Request failed"
+msgstr "Το αίτημα απέτυχε"
+
+#: includes/class-segurium.php:1099
+msgid "Your session has expired. Reload the page and try again."
+msgstr "Η συνεδρία σας έληξε. Φορτώστε ξανά τη σελίδα και δοκιμάστε πάλι."
+
+#: includes/class-segurium.php:1101 includes/class-segurium.php:3802
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Απαιτείται συγκατάθεση για το Segurium Cloud πριν από τη σάρωση."
+
+#: includes/class-segurium.php:1102
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr ""
+"Δεν ήταν δυνατή η αρχικοποίηση της σάρωσης. Ελέγξτε το αρχείο καταγραφής "
+"σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1103
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr ""
+"Η σάρωση ξεκίνησε αλλά δεν ήταν δυνατή η αποστολή της εργασίας παρασκηνίου. "
+"Δοκιμάστε ξανά."
+
+#: includes/class-segurium.php:1104
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Δεν ήταν δυνατή η έναρξη της σάρωσης λόγω σφάλματος διακομιστή. Ελέγξτε το "
+"αρχείο καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1105
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr ""
+"Δεν ήταν δυνατή η ανάκτηση της κατάστασης σάρωσης λόγω σφάλματος διακομιστή."
+" Ελέγξτε το αρχείο καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1106
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Δεν ήταν δυνατή η διακοπή της σάρωσης που εκτελείται λόγω σφάλματος "
+"διακομιστή. Ελέγξτε το αρχείο καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1107
+msgid "The server returned an error while processing the request."
+msgstr "Ο διακομιστής επέστρεψε σφάλμα κατά την επεξεργασία του αιτήματος."
+
+#: includes/class-segurium.php:1108
+msgid "Network error — the request could not reach the server."
+msgstr "Σφάλμα δικτύου — το αίτημα δεν έφτασε στον διακομιστή."
+
+#: includes/class-segurium.php:1109
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"Η ένδειξη προόδου συνάντησε σφάλμα σεναρίου και σταμάτησε να ενημερώνεται. "
+"Φορτώστε ξανά τη σελίδα για να δείτε την τρέχουσα κατάσταση — η ίδια η "
+"σάρωση δεν επηρεάζεται. Οι λεπτομέρειες βρίσκονται στην κονσόλα του "
+"προγράμματος περιήγησης."
+
+#: includes/class-segurium.php:1110
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr ""
+"Ο διακομιστής επέστρεψε απροσδόκητη απάντηση. Φορτώστε ξανά τη σελίδα και "
+"δοκιμάστε πάλι."
+
+#: includes/class-segurium.php:1111
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Το Segurium έλαβε κενή απάντηση από τον διακομιστή. Ο χειριστής PHP "
+"πιθανότατα κατέρρευσε πριν παραγάγει έξοδο — ελέγξτε το αρχείο καταγραφής "
+"σφαλμάτων της PHP για μοιραίο σφάλμα, εξάντληση μνήμης ή λήξη χρόνου."
+
+#: includes/class-segurium.php:1112
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"Οι δείκτες απάντησης του Segurium λείπουν από το σώμα. Ο χειριστής AJAX του "
+"Segurium δεν εκτελέστηκε ή κάποιο άλλο πρόσθετο αντικατέστησε ολόκληρη την "
+"απάντηση. Ελέγξτε το wp-content/mu-plugins, τα ενεργά πρόσθετα και το αρχείο"
+" καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1113
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Η απάντηση του Segurium κόπηκε στη μέση — ο δείκτης έναρξης έφτασε αλλά ο "
+"δείκτης λήξης όχι. Ο χειριστής PHP κατέρρευσε στη μέση της απάντησης "
+"(μοιραίο σφάλμα, εξάντληση μνήμης ή λήξη χρόνου). Ελέγξτε το αρχείο "
+"καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1114
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Το Segurium δεν μπόρεσε να αποτυλίξει την απάντηση του διακομιστή. Ελέγξτε "
+"το αρχείο καταγραφής σφαλμάτων της PHP για μοιραίο σφάλμα, εξάντληση μνήμης "
+"ή λήξη χρόνου στον χειριστή του Segurium."
+
+#: includes/class-segurium.php:1115
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Το Segurium έλαβε απάντηση τυλιγμένη σε έγκυρους δείκτες αλλά το JSON μέσα "
+"της δεν αναλύθηκε. Αυτό συνήθως υποδεικνύει μοιραίο σφάλμα PHP μέσα στον "
+"χειριστή του Segurium — ελέγξτε το αρχείο καταγραφής σφαλμάτων της PHP."
+
+#: includes/class-segurium.php:1116 includes/class-segurium.php:3866
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr ""
+"Αυτή η έκδοση της σελίδας διαχείρισης είναι παρωχημένη. Φορτώστε ξανά τη "
+"σελίδα για να συνεχίσετε."
+
+#: includes/class-segurium.php:1118
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr ""
+"Παρουσιάστηκε απροσδόκητο σφάλμα διακομιστή. Ελέγξτε το αρχείο καταγραφής "
+"σφαλμάτων της PHP και δοκιμάστε ξανά."
+
+#: includes/class-segurium.php:1119 includes/class-segurium.php:3391
+msgid "Frequency"
+msgstr "Συχνότητα"
+
+#: includes/class-segurium.php:1120 includes/class-segurium.php:2773
+#: includes/class-segurium.php:3394
+msgid "Off"
+msgstr "Ανενεργό"
+
+#: includes/class-segurium.php:1121 includes/class-segurium.php:3395
+msgid "Daily"
+msgstr "Ημερήσια"
+
+#: includes/class-segurium.php:1122 includes/class-segurium.php:3396
+msgid "Weekly"
+msgstr "Εβδομαδιαία"
+
+#: includes/class-segurium.php:1123 includes/class-segurium.php:3401
+msgid "Time of day"
+msgstr "Ώρα της ημέρας"
+
+#: includes/class-segurium.php:1124 includes/class-segurium.php:3408
+msgid "Day of week"
+msgstr "Ημέρα της εβδομάδας"
+
+#: includes/class-segurium.php:1125
+msgid "Next run:"
+msgstr "Επόμενη εκτέλεση:"
+
+#: includes/class-segurium.php:1126
+msgid "Schedule saved."
+msgstr "Το πρόγραμμα αποθηκεύτηκε."
+
+#: includes/class-segurium.php:1127
+msgid "Could not save schedule."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του προγράμματος."
+
+#: includes/class-segurium.php:1128
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr ""
+"Αποθηκεύεται σε UTC. Εμφανίζεται με τη γλώσσα του προγράμματος περιήγησής "
+"σας."
+
+#: includes/class-segurium.php:1129
+msgid "Scanned files"
+msgstr "Σαρωμένα αρχεία"
+
+#: includes/class-segurium.php:1130
+msgid "showing first"
+msgstr "εμφανίζονται τα πρώτα"
+
+#: includes/class-segurium.php:1131
+msgid "Original file content (malware)"
+msgstr "Αρχικό περιεχόμενο αρχείου (κακόβουλο λογισμικό)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1133
+#, php-format
+msgid "Current on-disk content (malware): %s"
+msgstr "Τρέχον περιεχόμενο στον δίσκο (κακόβουλο λογισμικό): %s"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:1136
+msgid "OK"
+msgstr "Εντάξει"
+
+#: includes/class-segurium.php:1137
+msgid "Delete failed"
+msgstr "Η διαγραφή απέτυχε"
+
+#: includes/class-segurium.php:1138
+msgid "Restore failed"
+msgstr "Η επαναφορά απέτυχε"
+
+#: includes/class-segurium.php:1139
+msgid "Fix failed"
+msgstr "Η διόρθωση απέτυχε"
+
+#: includes/class-segurium.php:1140
+msgid "Diff failed"
+msgstr "Η σύγκριση απέτυχε"
+
+#: includes/class-segurium.php:1141
+msgid "Diff decode error"
+msgstr "Σφάλμα αποκωδικοποίησης σύγκρισης"
+
+#: includes/class-segurium.php:1142
+msgid "View failed"
+msgstr "Η προβολή απέτυχε"
+
+#: includes/class-segurium.php:1143
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Δεν είναι δυνατή η επαναφορά — δεν έχει καταγραφεί αντίγραφο ασφαλείας για "
+"αυτό το αρχείο. Μπορεί να έχει αντικατασταθεί από νεότερα."
+
+#: includes/class-segurium.php:1144 includes/class-segurium.php:1186
+#: includes/class-segurium.php:2151
+msgid "Fixed"
+msgstr "Διορθώθηκε"
+
+#: includes/class-segurium.php:1145 includes/class-segurium.php:2155
+msgid "Ignored"
+msgstr "Αγνοήθηκε"
+
+#: includes/class-segurium.php:1146
+msgid "Ignore until file is the same"
+msgstr "Να αγνοηθεί όσο το αρχείο παραμένει ίδιο"
+
+#: includes/class-segurium.php:1147
+msgid "Always ignore"
+msgstr "Να αγνοείται πάντα"
+
+#: includes/class-segurium.php:1148
+msgid "Remove from ignore"
+msgstr "Αφαίρεση από τα αγνοημένα"
+
+#: includes/class-segurium.php:1149
+msgid "Connected"
+msgstr "Συνδεδεμένο"
+
+#: includes/class-segurium.php:1150
+msgid "Disconnected"
+msgstr "Αποσυνδεδεμένο"
+
+#: includes/class-segurium.php:1151
+msgid "No files found."
+msgstr "Δεν βρέθηκαν αρχεία."
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:1153 includes/class-segurium.php:1901
+#, php-format
+msgid "%d threats still need your attention"
+msgstr "%d απειλές χρειάζονται ακόμη την προσοχή σας"
+
+#: includes/class-segurium.php:1154
+msgid "No threats — you are clear."
+msgstr "Καμία απειλή — είστε εντάξει."
+
+#: includes/class-segurium.php:1155
+msgid "No scans yet — run your first scan."
+msgstr "Καμία σάρωση ακόμη — εκτελέστε την πρώτη σας σάρωση."
+
+#: includes/class-segurium.php:1156 includes/class-segurium.php:2120
+#: includes/class-segurium.php:2209
+msgid "Stop scan"
+msgstr "Διακοπή σάρωσης"
+
+#: includes/class-segurium.php:1157
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr ""
+"Να διακοπεί η σάρωση που εκτελείται; Η πρόοδος μέχρι τώρα θα απορριφθεί."
+
+#: includes/class-segurium.php:1158
+msgid "Could not stop the scan."
+msgstr "Δεν ήταν δυνατή η διακοπή της σάρωσης."
+
+#: includes/class-segurium.php:1159
+msgid "Scan stopped."
+msgstr "Η σάρωση διακόπηκε."
+
+#. translators: %1$d: files scanned before stop, %2$d: files discovered
+#: includes/class-segurium.php:1161
+#, php-format
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "Η σάρωση διακόπηκε — σαρώθηκαν %1$d από %2$d αρχεία."
+
+#. translators: %1$d: files scanned before abort, %2$d: files discovered
+#: includes/class-segurium.php:1163
+#, php-format
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "Η σάρωση ματαιώθηκε — σαρώθηκαν %1$d από %2$d αρχεία."
+
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
+#: includes/class-segurium.php:1165
+#, php-format
+msgid "no progress for %ds — waiting for worker"
+msgstr "καμία πρόοδος για %ds — αναμονή για την εργασία"
+
+#: includes/class-segurium.php:1166
+msgid "Hosting environment warnings"
+msgstr "Προειδοποιήσεις περιβάλλοντος φιλοξενίας"
+
+#: includes/class-segurium.php:1167
+msgid "No malicious files. All known threats have been handled."
+msgstr "Κανένα κακόβουλο αρχείο. Όλες οι γνωστές απειλές αντιμετωπίστηκαν."
+
+#: includes/class-segurium.php:1168
+msgid "No cleaned files yet."
+msgstr "Κανένα καθαρισμένο αρχείο ακόμη."
+
+#: includes/class-segurium.php:1169
+msgid "No files marked fixed."
+msgstr "Κανένα αρχείο δεν έχει σημανθεί ως διορθωμένο."
+
+#: includes/class-segurium.php:1170
+msgid "No ignored files."
+msgstr "Κανένα αγνοημένο αρχείο."
+
+#: includes/class-segurium.php:1171
+msgid "Recently processed in this session"
+msgstr "Επεξεργάστηκαν πρόσφατα σε αυτή τη συνεδρία"
+
+#: includes/class-segurium.php:1172 includes/class-segurium.php:1329
+msgid "Page"
+msgstr "Σελίδα"
+
+#: includes/class-segurium.php:1173 includes/class-segurium.php:1330
+msgid "of"
+msgstr "από"
+
+#: includes/class-segurium.php:1174
+msgid "items"
+msgstr "στοιχεία"
+
+#: includes/class-segurium.php:1175 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2646
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+#: includes/class-segurium.php:1176 includes/class-segurium.php:1328
+#: includes/class-segurium.php:2648
+msgid "Next"
+msgstr "Επόμενο"
+
+#: includes/class-segurium.php:1177 includes/class-segurium.php:1350
+msgid "Fix"
+msgstr "Διόρθωση"
+
+#: includes/class-segurium.php:1178
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: includes/class-segurium.php:1179
+msgid "Outdated"
+msgstr "Παρωχημένο"
+
+#: includes/class-segurium.php:1180
+msgid "Vulnerable"
+msgstr "Ευάλωτο"
+
+#: includes/class-segurium.php:1181
+msgid "No update available"
+msgstr "Δεν υπάρχει διαθέσιμη ενημέρωση"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+#: includes/class-segurium.php:1183
+#, php-format
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"Το %1$s μετακινείται από %2$s σε %3$s. Πρόκειται για αλλαγή κύριας έκδοσης "
+"και μπορεί να χαλάσει τον ιστότοπό σας."
+
+#: includes/class-segurium.php:1184
+msgid "Ignore"
+msgstr "Αγνόηση"
+
+#: includes/class-segurium.php:1187
+msgid "Deleted"
+msgstr "Διαγράφηκε"
+
+#: includes/class-segurium.php:1188
+msgid "Not found"
+msgstr "Δεν βρέθηκε"
+
+#: includes/class-segurium.php:1189
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"Αυτό το αρχείο δεν ανήκει στην αρχική εγκατάσταση και θα διαγραφεί. Θα "
+"δημιουργηθεί αντίγραφο ασφαλείας. Συνέχεια;"
+
+#: includes/class-segurium.php:1190
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"Ορισμένα αρχεία θα διαγραφούν (άγνωστα αρχεία) και ορισμένα θα "
+"αντικατασταθούν με τα πρωτότυπα (τροποποιημένα αρχεία). Θα δημιουργηθούν "
+"αντίγραφα ασφαλείας για όλα. Συνέχεια;"
+
+#: includes/class-segurium.php:1191
+msgid "Fixing files..."
+msgstr "Γίνεται διόρθωση αρχείων..."
+
+#: includes/class-segurium.php:1193
+msgid "Older backups will be rotated out"
+msgstr "Τα παλαιότερα αντίγραφα ασφαλείας θα αντικατασταθούν"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
+#: includes/class-segurium.php:1195
+#, php-format
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "Πρόκειται να διορθώσετε %1$d αρχεία (~%2$s)."
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
+#: includes/class-segurium.php:1197
+#, php-format
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr ""
+"%1$d παλαιότερα αντίγραφα ασφαλείας (~%2$s) θα αντικατασταθούν — πρόκειται "
+"για σημεία επαναφοράς αρχείων που διορθώθηκαν παλαιότερα."
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:1199
+#, php-format
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr ""
+"%d καρφιτσωμένα αντίγραφα ασφαλείας θα διατηρηθούν (χρησιμοποιούνται ακόμη "
+"από την Επαναφορά)."
+
+#: includes/class-segurium.php:1201
+msgid "Restoring files…"
+msgstr "Γίνεται επαναφορά αρχείων…"
+
+#: includes/class-segurium.php:1202
+msgid "Updating files…"
+msgstr "Γίνεται ενημέρωση αρχείων…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:1204
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d από %2$d"
+
+#: includes/class-segurium.php:1205
+msgid "Cancelling…"
+msgstr "Γίνεται ακύρωση…"
+
+#: includes/class-segurium.php:1206
+msgid "Clean all detected malware"
+msgstr "Καθαρισμός όλου του κακόβουλου λογισμικού που εντοπίστηκε"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:1208
+#, php-format
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr ""
+"Αυτό θα επιχειρήσει να καθαρίσει %d κακόβουλα αρχεία που εντοπίστηκαν. Για "
+"κάθε αρχείο δημιουργείται αντίγραφο ασφαλείας πριν από τον καθαρισμό."
+
+#: includes/class-segurium.php:1209
+msgid "Clean all"
+msgstr "Καθαρισμός όλων"
+
+#: includes/class-segurium.php:1210
+msgid "Cleaning malware..."
+msgstr "Γίνεται καθαρισμός κακόβουλου λογισμικού..."
+
+#: includes/class-segurium.php:1213 includes/class-segurium.php:1214
+#: includes/class-segurium.php:1226 includes/class-segurium.php:1870
+#: includes/class-segurium.php:1917 includes/class-segurium.php:3252
+msgid "Upgrade to Pro"
+msgstr "Αναβάθμιση σε Pro"
+
+#: includes/class-segurium.php:1216 includes/class-segurium.php:4193
+#: includes/class-segurium.php:7251
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"Συμπληρώθηκε το όριο καθαρισμών. Αναβαθμίστε σε Pro για απεριόριστο όριο "
+"καθαρισμών στο cloud."
+
+#: includes/class-segurium.php:1217 includes/class-segurium.php:1908
+msgid "Cleanup quota reached"
+msgstr "Συμπληρώθηκε το όριο καθαρισμών"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1219
+#, php-format
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr ""
+"Χρησιμοποιήσατε %1$d καθαρισμούς στο cloud τις τελευταίες %2$d ημέρες. "
+"Αναβαθμίστε σε Pro για απεριόριστο όριο καθαρισμών στο cloud."
+
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
+#: includes/class-segurium.php:1221
+#, php-format
+msgid "Next slot opens %s"
+msgstr "Η επόμενη θέση ανοίγει %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1223 includes/class-segurium.php:1842
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "%1$d από %2$d καθαρισμοί χρησιμοποιήθηκαν τις τελευταίες %3$d ημέρες"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
+#: includes/class-segurium.php:1225 includes/class-segurium.php:1833
+#, php-format
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"%1$d από %2$d καθαρισμοί χρησιμοποιήθηκαν τις τελευταίες %3$d ημέρες — η "
+"επόμενη θέση ανοίγει %4$s"
+
+#: includes/class-segurium.php:1227 includes/class-segurium.php:1920
+#: includes/class-segurium.php:2096 includes/class-segurium.php:3194
+msgid "Plans"
+msgstr "Πλάνα"
+
+#: includes/class-segurium.php:1228 includes/class-segurium.php:1923
+#: includes/class-segurium.php:3255
+msgid "14-day money-back guarantee."
+msgstr "Εγγύηση επιστροφής χρημάτων 14 ημερών."
+
+#: includes/class-segurium.php:1229 includes/class-segurium.php:3235
+#: includes/class-segurium.php:3476
+msgid "Pro"
+msgstr "Pro"
+
+#: includes/class-segurium.php:1230
+msgid "Diff"
+msgstr "Σύγκριση"
+
+#: includes/class-segurium.php:1231
+msgid "Delisted from official WordPress.org"
+msgstr "Διαγραμμένο από το επίσημο WordPress.org"
+
+#: includes/class-segurium.php:1232 includes/class-segurium.php:6061
+msgid "Abandoned (no updates >2 years)"
+msgstr "Εγκαταλελειμμένο (καμία ενημέρωση πάνω από 2 έτη)"
+
+#: includes/class-segurium.php:1233
+msgid "Not from official WordPress.org"
+msgstr "Δεν προέρχεται από το επίσημο WordPress.org"
+
+#: includes/class-segurium.php:1234
+msgid "ignored"
+msgstr "αγνοήθηκε"
+
+#: includes/class-segurium.php:1235
+msgid "Issues"
+msgstr "Προβλήματα"
+
+#: includes/class-segurium.php:1236
+msgid "issue"
+msgstr "πρόβλημα"
+
+#: includes/class-segurium.php:1237
+msgid "unrecognized file"
+msgstr "μη αναγνωρισμένο αρχείο"
+
+#: includes/class-segurium.php:1238
+msgid "(!) malware"
+msgstr "(!) κακόβουλο λογισμικό"
+
+#: includes/class-segurium.php:1239
+msgid "View"
+msgstr "Προβολή"
+
+#: includes/class-segurium.php:1240
+msgid "issues"
+msgstr "προβλήματα"
+
+#: includes/class-segurium.php:1241
+msgid "Checking"
+msgstr "Γίνεται έλεγχος"
+
+#: includes/class-segurium.php:1242
+msgid "Discovering components…"
+msgstr "Γίνεται εντοπισμός στοιχείων…"
+
+#: includes/class-segurium.php:1243
+msgid "Saved permanently."
+msgstr "Αποθηκεύτηκε μόνιμα."
+
+#: includes/class-segurium.php:1244
+msgid "Changes reverted."
+msgstr "Οι αλλαγές αναιρέθηκαν."
+
+#: includes/class-segurium.php:1245 includes/class-segurium.php:2319
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Blocked Countries"
+msgstr "Μπλοκαρισμένες χώρες"
+
+#: includes/class-segurium.php:1246
+msgid "Allowed Countries"
+msgstr "Επιτρεπόμενες χώρες"
+
+#: includes/class-segurium.php:1247 includes/class-segurium.php:2328
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr ""
+"Πληκτρολογήστε όνομα χώρας ή κωδικό ISO για να την προσθέσετε στη λίστα "
+"μπλοκαρίσματος."
+
+#: includes/class-segurium.php:1248
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr ""
+"Πληκτρολογήστε όνομα χώρας ή κωδικό ISO για να την προσθέσετε στη λίστα "
+"επιτρεπόμενων."
+
+#: includes/class-segurium.php:1249 includes/class-segurium.php:2407
+msgid "Blocked IPs / CIDRs"
+msgstr "Μπλοκαρισμένες IP / CIDR"
+
+#: includes/class-segurium.php:1250 includes/class-segurium.php:2408
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"Αυτές οι IP μπλοκάρονται πάντα. Μία καταχώριση ανά γραμμή. Δέχεται IPv4, "
+"IPv6 και εύρη CIDR."
+
+#: includes/class-segurium.php:1251
+msgid "Allowed IPs / CIDRs"
+msgstr "Επιτρεπόμενες IP / CIDR"
+
+#: includes/class-segurium.php:1252
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"Μόνο αυτές οι IP έχουν πρόσβαση στον ιστότοπο. Όλες οι υπόλοιπες "
+"μπλοκάρονται. Μία καταχώριση ανά γραμμή."
+
+#: includes/class-segurium.php:1253
+msgid "No supported security plugins detected."
+msgstr "Δεν εντοπίστηκαν υποστηριζόμενα πρόσθετα ασφαλείας."
+
+#: includes/class-segurium.php:1254
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#: includes/class-segurium.php:1255
+msgid "Apply Migration"
+msgstr "Εφαρμογή μετάβασης"
+
+#: includes/class-segurium.php:1257
+msgid "Migration complete."
+msgstr "Η μετάβαση ολοκληρώθηκε."
+
+#: includes/class-segurium.php:1258
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Import"
+msgstr "Εισαγωγή"
+
+#: includes/class-segurium.php:1260
+msgid "Planned feature"
+msgstr "Προγραμματισμένη λειτουργία"
+
+#: includes/class-segurium.php:1261
+msgid "Feature"
+msgstr "Λειτουργία"
+
+#: includes/class-segurium.php:1262
+msgid "Value"
+msgstr "Τιμή"
+
+#: includes/class-segurium.php:1263
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: includes/class-segurium.php:1264
+msgid "Note"
+msgstr "Σημείωση"
+
+#: includes/class-segurium.php:1265
+msgid "items imported"
+msgstr "στοιχεία εισήχθησαν"
+
+#: includes/class-segurium.php:1266
+msgid "features planned"
+msgstr "λειτουργίες σε σχεδιασμό"
+
+#: includes/class-segurium.php:1267
+msgid "Submitting\\u2026"
+msgstr "Γίνεται υποβολή\\u2026"
+
+#: includes/class-segurium.php:1268
+msgid "Ticket submitted successfully."
+msgstr "Το αίτημα υποβλήθηκε με επιτυχία."
+
+#: includes/class-segurium.php:1269
+msgid "Your ticket reference:"
+msgstr "Ο κωδικός του αιτήματός σας:"
+
+#: includes/class-segurium.php:1270
+msgid "Failed to submit ticket. Please try again."
+msgstr "Αποτυχία υποβολής αιτήματος. Δοκιμάστε ξανά."
+
+#: includes/class-segurium.php:1271
+msgid "Please attach a file before submitting."
+msgstr "Επισυνάψτε ένα αρχείο πριν από την υποβολή."
+
+#: includes/class-segurium.php:1272
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "Το επιλεγμένο αρχείο υπερβαίνει το όριο των 100 MB."
+
+#: includes/class-segurium.php:1273
+msgid "Please enter a valid reply-to email."
+msgstr "Εισαγάγετε έγκυρο email απάντησης."
+
+#: includes/class-segurium.php:1274
+msgid "Please enter your name."
+msgstr "Εισαγάγετε το όνομά σας."
+
+#: includes/class-segurium.php:1275
+msgid "Could not save your choice. Please try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της επιλογής σας. Δοκιμάστε ξανά."
+
+#: includes/class-segurium.php:1276
+msgid "Brute-Force Protection"
+msgstr "Προστασία από τυφλές επιθέσεις"
+
+#: includes/class-segurium.php:1277 includes/class-segurium.php:2433
+msgid "Enable brute-force protection"
+msgstr "Ενεργοποίηση προστασίας από τυφλές επιθέσεις"
+
+#: includes/class-segurium.php:1278 includes/class-segurium.php:2451
+msgid "Max failed attempts"
+msgstr "Μέγιστες αποτυχημένες προσπάθειες"
+
+#: includes/class-segurium.php:1279 includes/class-segurium.php:2453
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr ""
+"Πλήθος αποτυχημένων προσπαθειών σύνδεσης που επιτρέπονται πριν κλειδωθεί η "
+"IP."
+
+#: includes/class-segurium.php:1280 includes/class-segurium.php:2456
+msgid "Attempt window (seconds)"
+msgstr "Παράθυρο προσπαθειών (δευτερόλεπτα)"
+
+#: includes/class-segurium.php:1281 includes/class-segurium.php:2458
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr ""
+"Χρονικό παράθυρο στο οποίο οι αποτυχημένες προσπάθειες μετρούν στο κατώφλι."
+
+#: includes/class-segurium.php:1282 includes/class-segurium.php:2461
+msgid "Initial lockout duration (seconds)"
+msgstr "Αρχική διάρκεια κλειδώματος (δευτερόλεπτα)"
+
+#: includes/class-segurium.php:1283 includes/class-segurium.php:2465
+msgid "Lockouts before extended ban"
+msgstr "Κλειδώματα πριν από εκτεταμένο αποκλεισμό"
+
+#: includes/class-segurium.php:1284 includes/class-segurium.php:2470
+msgid "Extended lockout duration (seconds)"
+msgstr "Διάρκεια εκτεταμένου κλειδώματος (δευτερόλεπτα)"
+
+#: includes/class-segurium.php:1285 includes/class-segurium.php:2474
+msgid "History window (seconds)"
+msgstr "Παράθυρο ιστορικού (δευτερόλεπτα)"
+
+#: includes/class-segurium.php:1286 includes/class-segurium.php:2480
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "Να προστατεύεται και το XML-RPC (xmlrpc.php)"
+
+#: includes/class-segurium.php:1287 includes/class-segurium.php:2486
+msgid "Add honeypot field to login form"
+msgstr "Προσθήκη πεδίου honeypot στη φόρμα σύνδεσης"
+
+#: includes/class-segurium.php:1288 includes/class-segurium.php:2534
+msgid "Active Lockouts"
+msgstr "Ενεργά κλειδώματα"
+
+#: includes/class-segurium.php:1289 includes/class-segurium.php:2547
+msgid "No IPs are currently locked out."
+msgstr "Καμία IP δεν είναι κλειδωμένη αυτή τη στιγμή."
+
+#: includes/class-segurium.php:1290 includes/class-segurium.php:1334
+#: includes/class-segurium.php:2614
+msgid "Unlock"
+msgstr "Ξεκλείδωμα"
+
+#: includes/class-segurium.php:1291 includes/class-segurium.php:1324
+#: includes/class-segurium.php:2539 includes/class-segurium.php:2639
+msgid "Tier"
+msgstr "Επίπεδο"
+
+#: includes/class-segurium.php:1292 includes/class-segurium.php:1321
+#: includes/class-segurium.php:2538 includes/class-segurium.php:2581
+#: includes/class-segurium.php:2635
+msgid "IP"
+msgstr "IP"
+
+#: includes/class-segurium.php:1293 includes/class-segurium.php:2540
+msgid "Locked at"
+msgstr "Κλειδώθηκε στις"
+
+#: includes/class-segurium.php:1294 includes/class-segurium.php:2541
+msgid "Expires"
+msgstr "Λήγει"
+
+#: includes/class-segurium.php:1295 includes/class-segurium.php:1340
+msgid "Settings saved."
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν."
+
+#: includes/class-segurium.php:1296
+msgid "Unlock this IP?"
+msgstr "Να ξεκλειδωθεί αυτή η IP;"
+
+#: includes/class-segurium.php:1297 includes/class-segurium.php:2491
+msgid "Log retention (days)"
+msgstr "Διατήρηση αρχείου καταγραφής (ημέρες)"
+
+#: includes/class-segurium.php:1298 includes/class-segurium.php:2496
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1299 includes/class-segurium.php:2501
+msgid "Require hCaptcha after repeated failures"
+msgstr "Να απαιτείται hCaptcha μετά από επανειλημμένες αποτυχίες"
+
+#: includes/class-segurium.php:1300 includes/class-segurium.php:2509
+msgid "hCaptcha site key"
+msgstr "hCaptcha – κλειδί ιστότοπου"
+
+#: includes/class-segurium.php:1301 includes/class-segurium.php:2515
+msgid "hCaptcha secret key"
+msgstr "hCaptcha – μυστικό κλειδί"
+
+#: includes/class-segurium.php:1302 includes/class-segurium.php:2521
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "Εμφάνιση CAPTCHA μετά από N αποτυχημένες προσπάθειες"
+
+#: includes/class-segurium.php:1303
+msgid "Presets:"
+msgstr "Προκαθορισμένα:"
+
+#: includes/class-segurium.php:1304
+msgid "Light"
+msgstr "Ελαφρύ"
+
+#: includes/class-segurium.php:1305 includes/class-segurium.php:2442
+#: includes/class-segurium.php:2775 includes/class-segurium.php:3230
+msgid "Recommended"
+msgstr "Συνιστώμενο"
+
+#: includes/class-segurium.php:1306 includes/class-segurium.php:2776
+#: includes/class-segurium.php:2969
+msgid "Strict"
+msgstr "Αυστηρό"
+
+#: includes/class-segurium.php:1307
+msgid "Click a preset to fill the form, then Save."
+msgstr ""
+"Πατήστε ένα προκαθορισμένο σύνολο για να συμπληρωθεί η φόρμα και έπειτα "
+"Αποθήκευση."
+
+#: includes/class-segurium.php:1308 includes/class-segurium.php:2552
+msgid "Statistics"
+msgstr "Στατιστικά"
+
+#: includes/class-segurium.php:1309 includes/class-segurium.php:2555
+msgid "Active lockouts"
+msgstr "Ενεργά κλειδώματα"
+
+#: includes/class-segurium.php:1310 includes/class-segurium.php:2559
+msgid "Attempts (24h)"
+msgstr "Προσπάθειες (24ω)"
+
+#: includes/class-segurium.php:1311 includes/class-segurium.php:2563
+msgid "Lockouts (24h)"
+msgstr "Κλειδώματα (24ω)"
+
+#: includes/class-segurium.php:1312 includes/class-segurium.php:2567
+msgid "Honeypot hits (24h)"
+msgstr "Χτυπήματα honeypot (24ω)"
+
+#: includes/class-segurium.php:1313 includes/class-segurium.php:2571
+msgid "CAPTCHA failures (24h)"
+msgstr "Αποτυχίες CAPTCHA (24ω)"
+
+#: includes/class-segurium.php:1314 includes/class-segurium.php:2577
+msgid "Top attacking IPs (24h)"
+msgstr "Κορυφαίες επιτιθέμενες IP (24ω)"
+
+#: includes/class-segurium.php:1315 includes/class-segurium.php:2590
+msgid "Top targeted usernames (24h)"
+msgstr "Κορυφαία στοχευμένα ονόματα χρήστη (24ω)"
+
+#: includes/class-segurium.php:1316 includes/class-segurium.php:2587
+msgid "No attacking IPs in the last 24 hours."
+msgstr "Καμία επιτιθέμενη IP τις τελευταίες 24 ώρες."
+
+#: includes/class-segurium.php:1317 includes/class-segurium.php:2600
+msgid "No targeted usernames in the last 24 hours."
+msgstr "Κανένα στοχευμένο όνομα χρήστη τις τελευταίες 24 ώρες."
+
+#: includes/class-segurium.php:1318 includes/class-segurium.php:2606
+msgid "Event log"
+msgstr "Αρχείο καταγραφής συμβάντων"
+
+#: includes/class-segurium.php:1319 includes/class-segurium.php:2633
+#: includes/class-segurium.php:3351
+msgid "When"
+msgstr "Πότε"
+
+#: includes/class-segurium.php:1320 includes/class-segurium.php:2634
+msgid "Event"
+msgstr "Συμβάν"
+
+#: includes/class-segurium.php:1322 includes/class-segurium.php:2594
+#: includes/class-segurium.php:2637
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+#: includes/class-segurium.php:1323 includes/class-segurium.php:2638
+msgid "Surface"
+msgstr "Επιφάνεια"
+
+#: includes/class-segurium.php:1325 includes/class-segurium.php:2608
+msgid "All events"
+msgstr "Όλα τα συμβάντα"
+
+#: includes/class-segurium.php:1326 includes/class-segurium.php:2644
+msgid "No events recorded yet."
+msgstr "Δεν έχουν καταγραφεί συμβάντα ακόμη."
+
+#: includes/class-segurium.php:1331 includes/class-segurium.php:2611
+msgid "Attempt"
+msgstr "Προσπάθεια"
+
+#: includes/class-segurium.php:1332 includes/class-segurium.php:2612
+msgid "Lockout"
+msgstr "Κλείδωμα"
+
+#: includes/class-segurium.php:1333 includes/class-segurium.php:2613
+msgid "Honeypot"
+msgstr "Honeypot"
+
+#: includes/class-segurium.php:1335 includes/class-segurium.php:2615
+msgid "CAPTCHA failed"
+msgstr "Το CAPTCHA απέτυχε"
+
+#: includes/class-segurium.php:1336
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1337 includes/class-segurium.php:3116
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1338
+msgid "Loading settings..."
+msgstr "Γίνεται φόρτωση ρυθμίσεων..."
+
+#: includes/class-segurium.php:1339
+msgid "Saving..."
+msgstr "Γίνεται αποθήκευση..."
+
+#: includes/class-segurium.php:1341
+msgid "Failed to save settings."
+msgstr "Αποτυχία αποθήκευσης ρυθμίσεων."
+
+#: includes/class-segurium.php:1342
+msgid "Failed to load settings."
+msgstr "Αποτυχία φόρτωσης ρυθμίσεων."
+
+#: includes/class-segurium.php:1343
+msgid "All recommended settings enabled."
+msgstr "Ενεργοποιήθηκαν όλες οι συνιστώμενες ρυθμίσεις."
+
+#: includes/class-segurium.php:1344 includes/class-segurium.php:2032
+msgid "Self-Check"
+msgstr "Αυτοέλεγχος"
+
+#: includes/class-segurium.php:1345 includes/class-segurium.php:3149
+msgid "Run Self-Check"
+msgstr "Εκτέλεση αυτοελέγχου"
+
+#: includes/class-segurium.php:1346
+msgid "Running..."
+msgstr "Εκτελείται..."
+
+#: includes/class-segurium.php:1347
+msgid "Click Run Self-Check to grade your site."
+msgstr "Πατήστε Εκτέλεση αυτοελέγχου για να βαθμολογηθεί ο ιστότοπός σας."
+
+#: includes/class-segurium.php:1351
+msgid "How to fix"
+msgstr "Πώς διορθώνεται"
+
+#: includes/class-segurium.php:1352
+msgid "Hide details"
+msgstr "Απόκρυψη λεπτομερειών"
+
+#: includes/class-segurium.php:1353
+msgid "fail"
+msgstr "αποτυχία"
+
+#: includes/class-segurium.php:1354
+msgid "warn"
+msgstr "προειδοποίηση"
+
+#: includes/class-segurium.php:1355
+msgid "HTTP Security Headers"
+msgstr "Κεφαλίδες ασφαλείας HTTP"
+
+#: includes/class-segurium.php:1356
+msgid "Information Disclosure"
+msgstr "Διαρροή πληροφοριών"
+
+#: includes/class-segurium.php:1357
+msgid "WordPress Hardening"
+msgstr "Θωράκιση του WordPress"
+
+#: includes/class-segurium.php:1358
+msgid "Cookie Security"
+msgstr "Ασφάλεια cookie"
+
+#: includes/class-segurium.php:1359
+msgid "Malware Protection"
+msgstr "Προστασία από κακόβουλο λογισμικό"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1361
+#, php-format
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "%1$d επιτυχίες, %2$d προειδοποιήσεις, %3$d αποτυχίες"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1363
+#, php-format
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
+#: includes/class-segurium.php:1365
+#, php-format
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "Άλλαξε από %1$s (%2$d) σε %3$s (%4$d)."
+
+#: includes/class-segurium.php:1366
+msgid "No change since last run."
+msgstr "Καμία αλλαγή από την τελευταία εκτέλεση."
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1368
+#, php-format
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr ""
+"Ο αυτοέλεγχος δεν μπόρεσε να φτάσει στον ιστότοπό σας: %s. Τα αποτελέσματα "
+"είναι ελλιπή."
+
+#: includes/class-segurium.php:1369
+msgid "Verify with securityheaders.com"
+msgstr "Επαλήθευση με το securityheaders.com"
+
+#: includes/class-segurium.php:1370
+msgid "Verify with Mozilla Observatory"
+msgstr "Επαλήθευση με το Mozilla Observatory"
+
+#: includes/class-segurium.php:1661
+msgid "External Service Disclosure"
+msgstr "Γνωστοποίηση εξωτερικών υπηρεσιών"
+
+#: includes/class-segurium.php:1662
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Το Segurium προστατεύει τον ιστότοπό σας συνεργαζόμενο με το cloud του "
+"Segurium. Όταν το ενεργοποιείτε, το Segurium ανταλλάσσει δεδομένα με τους "
+"διακομιστές μας ώστε να εντοπίζει κακόβουλο λογισμικό, να επαληθεύει τα "
+"αρχεία σας και να προσαρμόζει την προστασία στις ενεργές απειλές."
+
+#: includes/class-segurium.php:1664
+msgid "What is sent:"
+msgstr "Τι στέλνεται:"
+
+#: includes/class-segurium.php:1666
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"Μεταδεδομένα αρχείου: σύνοψη SHA-256, διαδρομή σχετική με την εγκατάσταση "
+"WordPress σας, μέγεθος, χρόνος τροποποίησης."
+
+#: includes/class-segurium.php:1667
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"Περιεχόμενο αρχείου — μόνο όταν η ταξινόμηση με τη σύνοψη από μόνη της δεν "
+"είναι οριστική ή όταν παράγεται καθαρό αντικαταστάτης κατά τον καθαρισμό."
+
+#: includes/class-segurium.php:1668
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr ""
+"Ένα τυχαία παραγόμενο αναγνωριστικό εγκατάστασης και βασικές πληροφορίες "
+"ιστότοπου (διεύθυνση, όνομα, έκδοση WordPress) που χρησιμοποιούνται για να "
+"συσχετιστούν τα αιτήματα με αυτή την εγκατάσταση."
+
+#: includes/class-segurium.php:1669
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr ""
+"Συμβάντα σάρωσης, καθαρισμού και ρυθμίσεων ασφαλείας, ώστε το cloud να κρατά"
+" συγχρονισμένη την προστασία του ιστότοπού σας."
+
+#: includes/class-segurium.php:1670
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"Συμβάντα τείχους προστασίας (μπλοκαρισμένες IP, μοτίβα επιθέσεων) που "
+"χρησιμοποιούνται για την προσαρμογή της προστασίας σε όλους τους ιστότοπους "
+"που προστατεύει το Segurium."
+
+#: includes/class-segurium.php:1671
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"Η διεύθυνση email για ειδοποιήσεις ασφαλείας: το email διαχειριστή του "
+"WordPress ή αυτό που εισάγετε παρακάτω, μαζί με την επιλογή σας για τις "
+"ειδοποιήσεις email."
+
+#: includes/class-segurium.php:1674
+msgid "What is NOT sent:"
+msgstr "Τι ΔΕΝ στέλνεται:"
+
+#: includes/class-segurium.php:1676
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr ""
+"Στατιστικά επισκεπτών ή προσωπικά δεδομένα των χρηστών που επισκέπτονται τον"
+" ιστότοπό σας."
+
+#: includes/class-segurium.php:1677
+msgid "Database content, posts, comments, or media files."
+msgstr "Περιεχόμενο βάσης δεδομένων, άρθρα, σχόλια ή αρχεία πολυμέσων."
+
+#: includes/class-segurium.php:1678
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr ""
+"Αρχεία των οποίων η σύνοψη είναι ήδη γνωστή στο cloud — μόνο η σύνοψη φεύγει"
+" από τον διακομιστή σας."
+
+#: includes/class-segurium.php:1681
+msgid "Where it is sent:"
+msgstr "Πού στέλνεται:"
+
+#: includes/class-segurium.php:1681
+msgid "Segurium servers at cti.segurium.com."
+msgstr "Διακομιστές του Segurium στο cti.segurium.com."
+
+#: includes/class-segurium.php:1682
+msgid "Retention:"
+msgstr "Διατήρηση:"
+
+#: includes/class-segurium.php:1682
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Τα δείγματα αρχείων που ανεβαίνουν για ανάλυση φυλάσσονται έως 365 ημέρες "
+"και έπειτα αφαιρούνται από αυτόματη νυχτερινή εκκαθάριση. Ένα δείγμα μπορεί "
+"να αφαιρεθεί νωρίτερα μόλις εξεταστεί."
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium.php:1688
+#, php-format
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"Ενεργοποιώντας τη σάρωση, συμφωνείτε με τους %1$sΌρους χρήσης%2$s και την "
+"%3$sΠολιτική απορρήτου%4$s."
+
+#: includes/class-segurium.php:1700
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Να ειδοποιούμαι για ευρήματα κακόβουλου λογισμικού και απειλές ασφαλείας σε "
+"αυτόν τον ιστότοπο."
+
+#: includes/class-segurium.php:1702 includes/class-segurium.php:3306
+msgid "Alert email address"
+msgstr "Διεύθυνση email ειδοποιήσεων"
+
+#: includes/class-segurium.php:1710
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Το πολύ ένα email την ημέρα, από το support@segurium.com. Μπορείτε να το "
+"αλλάξετε αργότερα στις Ρυθμίσεις."
+
+#: includes/class-segurium.php:1711 includes/class-segurium.php:3314
+msgid "Leave blank to use the WordPress site admin email."
+msgstr ""
+"Αφήστε το κενό για να χρησιμοποιηθεί το email διαχειριστή του ιστότοπου "
+"WordPress."
+
+#: includes/class-segurium.php:1714
+msgid "I agree"
+msgstr "Συμφωνώ"
+
+#: includes/class-segurium.php:1963
+msgid "Up to date"
+msgstr "Ενημερωμένο"
+
+#: includes/class-segurium.php:1968
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "Παρωχημένο — η τελευταία ανανέωση ξεπέρασε το ημερήσιο παράθυρο"
+
+#: includes/class-segurium.php:1969
+msgid "Never updated on this site yet"
+msgstr "Δεν έχει ενημερωθεί ποτέ ακόμη σε αυτόν τον ιστότοπο"
+
+#: includes/class-segurium.php:2023
+msgid "WordPress Security"
+msgstr "Ασφάλεια WordPress"
+
+#: includes/class-segurium.php:2037
+msgid "Malware is waiting for you to act"
+msgstr "Κακόβουλο λογισμικό περιμένει να ενεργήσετε"
+
+#: includes/class-segurium.php:2039
+msgid "Malware Scanner"
+msgstr "Σαρωτής κακόβουλου λογισμικού"
+
+#: includes/class-segurium.php:2054
+msgid "A vulnerable component is installed"
+msgstr "Είναι εγκατεστημένο ένα ευάλωτο στοιχείο"
+
+#: includes/class-segurium.php:2056
+msgid "Integrity"
+msgstr "Ακεραιότητα"
+
+#: includes/class-segurium.php:2060
+msgid "GEO Blocking"
+msgstr "Γεωγραφικό μπλοκάρισμα"
+
+#: includes/class-segurium.php:2068
+msgid "Brute-Force"
+msgstr "Τυφλές επιθέσεις"
+
+#: includes/class-segurium.php:2072
+msgid "2FA"
+msgstr "2FA"
+
+#: includes/class-segurium.php:2076
+msgid "Headers"
+msgstr "Κεφαλίδες"
+
+#: includes/class-segurium.php:2080
+msgid "Info Shield"
+msgstr "Ασπίδα πληροφοριών"
+
+#: includes/class-segurium.php:2084
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: includes/class-segurium.php:2088
+msgid "Migration"
+msgstr "Μετάβαση"
+
+#: includes/class-segurium.php:2092 includes/class-segurium.php:2710
+msgid "Support"
+msgstr "Υποστήριξη"
+
+#: includes/class-segurium.php:2116 includes/class-segurium.php:2205
+msgid "Scan"
+msgstr "Σάρωση"
+
+#: includes/class-segurium.php:2129 includes/class-segurium.php:2213
+msgid "Fix all"
+msgstr "Διόρθωση όλων"
+
+#: includes/class-segurium.php:2139
+msgid "Malicious"
+msgstr "Κακόβουλα"
+
+#: includes/class-segurium.php:2143
+msgid "All"
+msgstr "Όλα"
+
+#: includes/class-segurium.php:2163
+msgid "File"
+msgstr "Αρχείο"
+
+#: includes/class-segurium.php:2164
+msgid "State"
+msgstr "Κατάσταση"
+
+#: includes/class-segurium.php:2165
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/class-segurium.php:2166 includes/class-segurium.php:2229
+msgid "Actions"
+msgstr "Ενέργειες"
+
+#: includes/class-segurium.php:2184
+msgid "Show recent only (14 days)"
+msgstr "Εμφάνιση μόνο των πρόσφατων (14 ημέρες)"
+
+#: includes/class-segurium.php:2194 includes/class-segurium.php:2255
+msgid "per page"
+msgstr "ανά σελίδα"
+
+#: includes/class-segurium.php:2227
+msgid "Files"
+msgstr "Αρχεία"
+
+#: includes/class-segurium.php:2228
+msgid "Last Scanned"
+msgstr "Τελευταία σάρωση"
+
+#: includes/class-segurium.php:2287 includes/class-segurium.php:2375
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr ""
+"Οι ρυθμίσεις εφαρμόστηκαν. Επιβεβαιώστε για να διατηρηθούν, αλλιώς οι "
+"αλλαγές αναιρούνται σε"
+
+#: includes/class-segurium.php:2288 includes/class-segurium.php:2376
+msgid "s."
+msgstr "δ."
+
+#: includes/class-segurium.php:2292 includes/class-segurium.php:2380
+msgid "Revert"
+msgstr "Αναίρεση"
+
+#: includes/class-segurium.php:2301
+msgid "Enable Geo-Blocking"
+msgstr "Ενεργοποίηση γεωγραφικού μπλοκαρίσματος"
+
+#: includes/class-segurium.php:2306
+msgid "Blocking Mode"
+msgstr "Λειτουργία μπλοκαρίσματος"
+
+#: includes/class-segurium.php:2310
+msgid "Block specific countries"
+msgstr "Μπλοκάρισμα συγκεκριμένων χωρών"
+
+#: includes/class-segurium.php:2314
+msgid "Allow only specific countries"
+msgstr "Να επιτρέπονται μόνο συγκεκριμένες χώρες"
+
+#: includes/class-segurium.php:2321
+msgid "EU"
+msgstr "ΕΕ"
+
+#: includes/class-segurium.php:2322
+msgid "Americas"
+msgstr "Αμερική"
+
+#: includes/class-segurium.php:2323
+msgid "Asia-Pacific"
+msgstr "Ασία-Ειρηνικός"
+
+#: includes/class-segurium.php:2324
+msgid "Africa"
+msgstr "Αφρική"
+
+#: includes/class-segurium.php:2325
+msgid "Middle East"
+msgstr "Μέση Ανατολή"
+
+#: includes/class-segurium.php:2326
+msgid "High-Risk"
+msgstr "Υψηλού κινδύνου"
+
+#: includes/class-segurium.php:2333
+msgid "Search countries…"
+msgstr "Αναζήτηση χωρών…"
+
+#: includes/class-segurium.php:2339
+msgid "Block Action"
+msgstr "Ενέργεια μπλοκαρίσματος"
+
+#: includes/class-segurium.php:2341
+msgid "Return 403 Forbidden"
+msgstr "Επιστροφή 403 Forbidden"
+
+#: includes/class-segurium.php:2342
+msgid "Redirect to URL"
+msgstr "Ανακατεύθυνση σε διεύθυνση URL"
+
+#: includes/class-segurium.php:2343
+msgid "Silent drop (no response)"
+msgstr "Σιωπηλή απόρριψη (καμία απάντηση)"
+
+#: includes/class-segurium.php:2351 includes/class-segurium.php:2421
+#: includes/class-segurium.php:2528 includes/class-segurium.php:2976
+#: includes/class-segurium.php:3127
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: includes/class-segurium.php:2357
+msgid "Blocked Requests"
+msgstr "Μπλοκαρισμένα αιτήματα"
+
+#: includes/class-segurium.php:2361 includes/class-segurium.php:2636
+msgid "Country"
+msgstr "Χώρα"
+
+#: includes/class-segurium.php:2362
+msgid "Requests"
+msgstr "Αιτήματα"
+
+#: includes/class-segurium.php:2389
+msgid "Enable Firewall"
+msgstr "Ενεργοποίηση τείχους προστασίας"
+
+#: includes/class-segurium.php:2394 includes/class-segurium.php:2934
+msgid "Mode"
+msgstr "Λειτουργία"
+
+#: includes/class-segurium.php:2398
+msgid "Allow everything except…"
+msgstr "Να επιτρέπονται όλα εκτός από…"
+
+#: includes/class-segurium.php:2402
+msgid "Deny everything except…"
+msgstr "Να απορρίπτονται όλα εκτός από…"
+
+#: includes/class-segurium.php:2412
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "Προσαρμοσμένες IP / CIDR έμπιστων διαμεσολαβητών"
+
+#: includes/class-segurium.php:2414
+msgid "Loading auto-detected proxy status..."
+msgstr ""
+"Γίνεται φόρτωση της κατάστασης των διαμεσολαβητών που εντοπίστηκαν "
+"αυτόματα..."
+
+#: includes/class-segurium.php:2416
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr ""
+"Πρόσθετες IP διαμεσολαβητών πέρα από τη λίστα αυτόματου εντοπισμού, μία ανά "
+"γραμμή. Αφήστε το κενό αν όλοι οι διαμεσολαβητές σας καλύπτονται παραπάνω."
+
+#: includes/class-segurium.php:2435
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"Παρακολουθεί τις αποτυχημένες προσπάθειες σύνδεσης και κλειδώνει τις IP μετά"
+" από ρυθμιζόμενο κατώφλι. Χρησιμοποιεί ξανά τη λίστα επιτρεπόμενων του "
+"τείχους προστασίας για τις έμπιστες IP."
+
+#: includes/class-segurium.php:2439
+msgid "Settings:"
+msgstr "Ρυθμίσεις:"
+
+#: includes/class-segurium.php:2442
+msgid "safe defaults; settings are locked."
+msgstr "ασφαλείς προεπιλογές· οι ρυθμίσεις είναι κλειδωμένες."
+
+#: includes/class-segurium.php:2446 includes/class-segurium.php:2777
+msgid "Custom"
+msgstr "Προσαρμοσμένο"
+
+#: includes/class-segurium.php:2446
+msgid "edit every setting yourself."
+msgstr "τροποποιήστε μόνοι σας κάθε ρύθμιση."
+
+#: includes/class-segurium.php:2467
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr ""
+"Μετά από τόσα κλειδώματα εντός του παραθύρου ιστορικού, το επόμενο κλείδωμα "
+"θα χρησιμοποιήσει την εκτεταμένη διάρκεια."
+
+#: includes/class-segurium.php:2488
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr ""
+"Προσθέτει ένα πεδίο εκτός οθόνης που οι νόμιμοι χρήστες δεν βλέπουν ποτέ. Η "
+"συμπλήρωσή του προκαλεί άμεσο κλείδωμα."
+
+#: includes/class-segurium.php:2497
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"Προαιρετικά, εμφανίστε μια πρόκληση hCaptcha στη φόρμα σύνδεσης μετά από "
+"ρυθμιζόμενο πλήθος αποτυχημένων προσπαθειών. Αποκτήστε δωρεάν κλειδιά στο "
+"hcaptcha.com."
+
+#: includes/class-segurium.php:2523
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"Πρέπει να είναι μικρότερο από τις μέγιστες αποτυχημένες προσπάθειες ώστε η "
+"πρόκληση να ενεργοποιηθεί πριν από το κλείδωμα."
+
+#: includes/class-segurium.php:2582 includes/class-segurium.php:2595
+msgid "Attempts"
+msgstr "Προσπάθειες"
+
+#: includes/class-segurium.php:2658
+msgid "Enable Two-Factor Authentication"
+msgstr "Ενεργοποίηση ελέγχου ταυτότητας δύο παραγόντων"
+
+#: includes/class-segurium.php:2660
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr ""
+"Να απαιτείται από τους χρήστες να επαληθεύουν την ταυτότητά τους με δεύτερο "
+"παράγοντα κατά τη σύνδεση."
+
+#: includes/class-segurium.php:2664
+msgid "Available Methods"
+msgstr "Διαθέσιμες μέθοδοι"
+
+#: includes/class-segurium.php:2665
+msgid "Select which 2FA methods users can choose from."
+msgstr "Επιλέξτε ποιες μεθόδους 2FA μπορούν να διαλέξουν οι χρήστες."
+
+#: includes/class-segurium.php:2670
+msgid "Enforced Roles"
+msgstr "Ρόλοι με επιβολή"
+
+#: includes/class-segurium.php:2671
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "Οι χρήστες με αυτούς τους ρόλους θα πρέπει να ρυθμίσουν 2FA."
+
+#: includes/class-segurium.php:2675
+msgid "Grace Period (days)"
+msgstr "Περίοδος χάριτος (ημέρες)"
+
+#: includes/class-segurium.php:2676
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"Ημέρες πριν η επιβολή μπλοκάρει τη σύνδεση για χρήστες που δεν έχουν "
+"ρυθμίσει 2FA. Ορίστε 0 για άμεση επιβολή."
+
+#: includes/class-segurium.php:2680
+msgid "Trusted Device Duration (days)"
+msgstr "Διάρκεια έμπιστης συσκευής (ημέρες)"
+
+#: includes/class-segurium.php:2681
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr ""
+"Πόσες ημέρες παραμένει έμπιστη μια συσκευή αφού ο χρήστης επιλέξει τη "
+"σχετική ρύθμιση."
+
+#: includes/class-segurium.php:2686 includes/class-segurium.php:3379
+msgid "Save Settings"
+msgstr "Αποθήκευση ρυθμίσεων"
+
+#: includes/class-segurium.php:2691
+msgid "User Statistics"
+msgstr "Στατιστικά χρηστών"
+
+#: includes/class-segurium.php:2695
+msgid "Method"
+msgstr "Μέθοδος"
+
+#: includes/class-segurium.php:2696
+msgid "Users"
+msgstr "Χρήστες"
+
+#: includes/class-segurium.php:2701
+msgid "Reset User 2FA"
+msgstr "Επαναφορά 2FA χρήστη"
+
+#: includes/class-segurium.php:2702
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr ""
+"Εισαγάγετε όνομα χρήστη ή αναγνωριστικό χρήστη για να επαναφέρετε τη "
+"διαμόρφωση 2FA του."
+
+#: includes/class-segurium.php:2703
+msgid "Username or ID"
+msgstr "Όνομα χρήστη ή αναγνωριστικό"
+
+#: includes/class-segurium.php:2704
+msgid "Reset 2FA"
+msgstr "Επαναφορά 2FA"
+
+#: includes/class-segurium.php:2711
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr ""
+"Υποβάλετε αίτημα υποστήριξης παρακάτω. Η ομάδα μας θα απαντήσει μέσω email."
+
+#: includes/class-segurium.php:2714
+msgid "Your name"
+msgstr "Το όνομά σας"
+
+#: includes/class-segurium.php:2718
+msgid "Reply-to email"
+msgstr "Email απάντησης"
+
+#: includes/class-segurium.php:2720
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr ""
+"Θα απαντήσουμε σε αυτή τη διεύθυνση. Αλλάξτε την αν θέλετε η απάντηση να "
+"πάει αλλού."
+
+#: includes/class-segurium.php:2723
+msgid "Website"
+msgstr "Ιστότοπος"
+
+#: includes/class-segurium.php:2725
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr ""
+"Περιλαμβάνεται αυτόματα ώστε η υποστήριξη να αναγνωρίζει τον ιστότοπό σας. "
+"Αλλάξτε το στις Ρυθμίσεις → Γενικά."
+
+#: includes/class-segurium.php:2728
+msgid "Type"
+msgstr "Τύπος"
+
+#: includes/class-segurium.php:2730 includes/class-segurium.php:7991
+msgid "Bug report"
+msgstr "Αναφορά σφάλματος"
+
+#: includes/class-segurium.php:2731 includes/class-segurium.php:7993
+msgid "Feature request"
+msgstr "Αίτημα λειτουργίας"
+
+#: includes/class-segurium.php:2732 includes/class-segurium.php:7995
+msgid "General question"
+msgstr "Γενική ερώτηση"
+
+#: includes/class-segurium.php:2733
+msgid "Report missed malware"
+msgstr "Αναφορά κακόβουλου λογισμικού που δεν εντοπίστηκε"
+
+#: includes/class-segurium.php:2738
+msgid "Suspicious file"
+msgstr "Ύποπτο αρχείο"
+
+#: includes/class-segurium.php:2740
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "Επισυνάψτε το αρχείο που θεωρείτε κακόβουλο λογισμικό. Έως 100 MB."
+
+#: includes/class-segurium.php:2743
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: includes/class-segurium.php:2749
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"Επισύναψη πληροφοριών συστήματος (έκδοση WP, έκδοση PHP, έκδοση πρόσθετου, "
+"ενεργά πρόσθετα, ημερομηνία τελευταίας σάρωσης)"
+
+#: includes/class-segurium.php:2753
+msgid "Submit Ticket"
+msgstr "Υποβολή αιτήματος"
+
+#: includes/class-segurium.php:2764
+msgid "Enable Security Headers"
+msgstr "Ενεργοποίηση κεφαλίδων ασφαλείας"
+
+#: includes/class-segurium.php:2766
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"Προσθέτει κεφαλίδες απόκρισης HTTP για την ασφάλεια σε όλες τις αποκρίσεις. "
+"Προστατεύει από clickjacking, ανίχνευση τύπου MIME, XSS και επιθέσεις "
+"υποβάθμισης πρωτοκόλλου."
+
+#: includes/class-segurium.php:2770
+msgid "Mode:"
+msgstr "Λειτουργία:"
+
+#: includes/class-segurium.php:2774
+msgid "Basic"
+msgstr "Βασικό"
+
+#: includes/class-segurium.php:2774
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+
+#: includes/class-segurium.php:2775
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "Βασικό + Referrer-Policy, Permissions-Policy, HSTS"
+
+#: includes/class-segurium.php:2776
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr "Συνιστώμενο + πολιτικές Cross-Origin, DNS prefetch, Cache-Control"
+
+#: includes/class-segurium.php:2777
+msgid "configure each header individually"
+msgstr "ρυθμίστε κάθε κεφαλίδα ξεχωριστά"
+
+#: includes/class-segurium.php:2788
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Αυτή η λειτουργία εκπέμπει σταθερές προκαθορισμένες τιμές. Αλλάξτε σε "
+"Προσαρμοσμένο για να παρακάμψετε μεμονωμένες κεφαλίδες."
+
+#: includes/class-segurium.php:2791
+msgid "Header Values"
+msgstr "Τιμές κεφαλίδων"
+
+#: includes/class-segurium.php:2795 includes/class-segurium.php:2809
+#: includes/class-segurium.php:2866 includes/class-segurium.php:2875
+#: includes/class-segurium.php:2885
+msgid "Same origin"
+msgstr "Ίδια προέλευση"
+
+#: includes/class-segurium.php:2796
+msgid "Deny all"
+msgstr "Απόρριψη όλων"
+
+#: includes/class-segurium.php:2798
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "Αποτρέπει την ενσωμάτωση του ιστότοπού σας σε iframe άλλων τομέων."
+
+#: includes/class-segurium.php:2805
+msgid "No referrer"
+msgstr "Χωρίς referrer"
+
+#: includes/class-segurium.php:2806
+msgid "No referrer when downgrade"
+msgstr "Χωρίς referrer σε υποβάθμιση"
+
+#: includes/class-segurium.php:2807
+msgid "Origin only"
+msgstr "Μόνο η προέλευση"
+
+#: includes/class-segurium.php:2808
+msgid "Origin when cross-origin"
+msgstr "Η προέλευση όταν είναι cross-origin"
+
+#: includes/class-segurium.php:2810
+msgid "Strict origin"
+msgstr "Αυστηρή προέλευση"
+
+#: includes/class-segurium.php:2811
+msgid "Strict origin when cross-origin"
+msgstr "Αυστηρή προέλευση όταν είναι cross-origin"
+
+#: includes/class-segurium.php:2812
+msgid "Unsafe URL"
+msgstr "Επισφαλής διεύθυνση URL"
+
+#: includes/class-segurium.php:2823 includes/class-segurium.php:2827
+msgid "Disabled (recommended)"
+msgstr "Απενεργοποιημένο (συνιστάται)"
+
+#: includes/class-segurium.php:2824 includes/class-segurium.php:2828
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#: includes/class-segurium.php:2825 includes/class-segurium.php:2829
+msgid "Enabled with block mode"
+msgstr "Ενεργοποιημένο με λειτουργία μπλοκαρίσματος"
+
+#: includes/class-segurium.php:2827
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Απενεργοποιεί ρητά το παλαιό φίλτρο XSS του IE και του παλιού Edge, που είχε"
+" σφάλματα universal-XSS τα οποία μπορούσαν να αξιοποιηθούν επιθετικά. Τα "
+"σύγχρονα προγράμματα περιήγησης αγνοούν αυτή την κεφαλίδα· η πραγματική "
+"άμυνα απέναντι στο XSS είναι το CSP."
+
+#: includes/class-segurium.php:2828
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Λέει στα παλαιά προγράμματα περιήγησης να εξυγιαίνουν τις ανακλάσεις. Το "
+"φίλτρο έχει ψευδώς θετικά που χαλούν σιωπηλά έγκυρες σελίδες, καθώς και "
+"γνωστές παρακάμψεις UXSS. Δεν συνιστάται."
+
+#: includes/class-segurium.php:2829
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Το ίδιο φίλτρο με παραπάνω, αλλά μπλοκάρει τελείως τη σελίδα σε υποψία "
+"ανάκλασης. Τα ίδια σφάλματα, συν ένα πλάγιο κανάλι χρονισμού που μπορεί να "
+"διαρρεύσει δεδομένα cross-origin. Δεν συνιστάται."
+
+#: includes/class-segurium.php:2831
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2835
+msgid "Enable HSTS"
+msgstr "Ενεργοποίηση HSTS"
+
+#: includes/class-segurium.php:2837
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr ""
+"Αναγκάζει τα προγράμματα περιήγησης να χρησιμοποιούν HTTPS. Στέλνεται μόνο "
+"όταν το SSL είναι ενεργό."
+
+#: includes/class-segurium.php:2841
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (δευτερόλεπτα)"
+
+#: includes/class-segurium.php:2847
+msgid "Include subdomains"
+msgstr "Να περιλαμβάνονται οι υποτομείς"
+
+#: includes/class-segurium.php:2853
+msgid "Preload"
+msgstr "Preload"
+
+#: includes/class-segurium.php:2855
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"Προσοχή: το preload αναιρείται δύσκολα. Απαιτεί max-age τουλάχιστον 1 έτους "
+"και να περιλαμβάνονται οι υποτομείς."
+
+#: includes/class-segurium.php:2859
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"Ο ιστότοπός σας φαίνεται να βρίσκεται σε υποτομέα. Η ενεργοποίηση του "
+"includeSubDomains στο HSTS θα επηρεάσει όλους τους υποτομείς του γονικού "
+"τομέα, ακόμη και όσους ίσως δεν ελέγχετε."
+
+#: includes/class-segurium.php:2861
+msgid "Cross-Origin Policies"
+msgstr "Πολιτικές Cross-Origin"
+
+#: includes/class-segurium.php:2863
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2865 includes/class-segurium.php:2874
+msgid "Not set"
+msgstr "Δεν έχει οριστεί"
+
+#: includes/class-segurium.php:2867
+msgid "Same origin, allow popups"
+msgstr "Ίδια προέλευση, να επιτρέπονται τα αναδυόμενα παράθυρα"
+
+#: includes/class-segurium.php:2868 includes/class-segurium.php:2886
+msgid "Unsafe none"
+msgstr "Επισφαλές none"
+
+#: includes/class-segurium.php:2872
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2876
+msgid "Same site"
+msgstr "Ίδιος ιστότοπος"
+
+#: includes/class-segurium.php:2877
+msgid "Cross origin"
+msgstr "Cross origin"
+
+#: includes/class-segurium.php:2881
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2883
+msgid "Not set (recommended)"
+msgstr "Δεν έχει οριστεί (συνιστάται)"
+
+#: includes/class-segurium.php:2884
+msgid "Require CORP"
+msgstr "Να απαιτείται CORP"
+
+#: includes/class-segurium.php:2890
+msgid "Control which browser features your site may use."
+msgstr ""
+"Ελέγξτε ποιες λειτουργίες του προγράμματος περιήγησης μπορεί να χρησιμοποιεί"
+" ο ιστότοπός σας."
+
+#: includes/class-segurium.php:2894
+msgid "Accelerometer"
+msgstr "Επιταχυνσιόμετρο"
+
+#: includes/class-segurium.php:2895
+msgid "Autoplay"
+msgstr "Αυτόματη αναπαραγωγή"
+
+#: includes/class-segurium.php:2896
+msgid "Camera"
+msgstr "Κάμερα"
+
+#: includes/class-segurium.php:2897
+msgid "Encrypted media"
+msgstr "Κρυπτογραφημένα πολυμέσα"
+
+#: includes/class-segurium.php:2898
+msgid "Fullscreen"
+msgstr "Πλήρης οθόνη"
+
+#: includes/class-segurium.php:2899
+msgid "Geolocation"
+msgstr "Γεωγραφική θέση"
+
+#: includes/class-segurium.php:2900
+msgid "Gyroscope"
+msgstr "Γυροσκόπιο"
+
+#: includes/class-segurium.php:2901
+msgid "Magnetometer"
+msgstr "Μαγνητόμετρο"
+
+#: includes/class-segurium.php:2902
+msgid "Microphone"
+msgstr "Μικρόφωνο"
+
+#: includes/class-segurium.php:2903
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2904
+msgid "Payment"
+msgstr "Πληρωμή"
+
+#: includes/class-segurium.php:2905
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2915
+msgid "Deny"
+msgstr "Άρνηση"
+
+#: includes/class-segurium.php:2916
+msgid "Self only"
+msgstr "Μόνο ο ίδιος ο ιστότοπος"
+
+#: includes/class-segurium.php:2917
+msgid "Allow all"
+msgstr "Να επιτρέπονται όλα"
+
+#: includes/class-segurium.php:2928
+msgid "Send Content-Security-Policy header"
+msgstr "Αποστολή κεφαλίδας Content-Security-Policy"
+
+#: includes/class-segurium.php:2930
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"Το CSP περιορίζει από πού μπορούν να φορτώνονται σενάρια, στυλ και άλλοι "
+"πόροι, μετριάζοντας το XSS και τις ενθέσεις κώδικα. Το CSP εξαρτάται από τον"
+" ιστότοπο και μπορεί να χαλάσει θέματα εμφάνισης ή κατασκευαστές σελίδων — "
+"ξεκινήστε σε λειτουργία μόνο αναφοράς για να δείτε τις παραβιάσεις πριν το "
+"επιβάλετε."
+
+#: includes/class-segurium.php:2936
+msgid "Report-only (recommended for first deploy)"
+msgstr "Μόνο αναφορά (συνιστάται για την πρώτη εφαρμογή)"
+
+#: includes/class-segurium.php:2937
+msgid "Enforce"
+msgstr "Επιβολή"
+
+#: includes/class-segurium.php:2939
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
+msgstr ""
+"Η λειτουργία μόνο αναφοράς στέλνει Content-Security-Policy-Report-Only — το "
+"πρόγραμμα περιήγησης καταγράφει τις παραβιάσεις αλλά φορτώνει ακόμη τους "
+"πόρους. Η επιβολή στέλνει Content-Security-Policy και τους μπλοκάρει."
+
+#: includes/class-segurium.php:2942
+msgid "Policy directives"
+msgstr "Οδηγίες πολιτικής"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr ""
+"Μία γραμμή οδηγιών χωρισμένων με ελληνικά ερωτηματικά. Η πολιτική εκκίνησης "
+"που ισχύει ως προεπιλογή επιτρέπει τον Gutenberg και τα περισσότερα θέματα "
+"εμφάνισης· σφίξτε την μόλις καθαρίσουν οι αναφορές σας."
+
+#: includes/class-segurium.php:2946
+msgid "CSP reference (MDN)"
+msgstr "Τεκμηρίωση CSP (MDN)"
+
+#: includes/class-segurium.php:2950
+msgid "Report URI (optional)"
+msgstr "Διεύθυνση URI αναφορών (προαιρετικά)"
+
+#: includes/class-segurium.php:2952
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"Όταν οριστεί, τα προγράμματα περιήγησης θα στέλνουν με POST τις αναφορές "
+"παραβιάσεων σε αυτή τη διεύθυνση. Προστίθεται αυτόματα ως report-uri, εκτός "
+"αν οι οδηγίες σας περιέχουν ήδη μία."
+
+#: includes/class-segurium.php:2956
+msgid "Cookie Hardening"
+msgstr "Θωράκιση cookie"
+
+#: includes/class-segurium.php:2960
+msgid "Add SameSite attribute to auth cookies"
+msgstr "Προσθήκη χαρακτηριστικού SameSite στα cookie ταυτοποίησης"
+
+#: includes/class-segurium.php:2962
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"Προσθέτει τη σημαία SameSite στα cookie συνεδρίας του WordPress. Προστατεύει"
+" από επιθέσεις CSRF. Το Mozilla Observatory βαθμολογεί αρνητικά την απουσία "
+"του SameSite."
+
+#: includes/class-segurium.php:2966
+msgid "SameSite value"
+msgstr "Τιμή SameSite"
+
+#: includes/class-segurium.php:2968
+msgid "Lax (recommended)"
+msgstr "Lax (συνιστάται)"
+
+#: includes/class-segurium.php:2971
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"Το Strict μπορεί να χαλάσει ροές σύνδεσης OAuth/SSO που ανακατευθύνουν πίσω "
+"στον ιστότοπό σας."
+
+#: includes/class-segurium.php:2982
+msgid "Headers Preview"
+msgstr "Προεπισκόπηση κεφαλίδων"
+
+#: includes/class-segurium.php:2994
+msgid "Enable Information Shield"
+msgstr "Ενεργοποίηση ασπίδας πληροφοριών"
+
+#: includes/class-segurium.php:2996
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"Μειώνει τη διαρροή πληροφοριών του WordPress αφαιρώντας αποτυπώματα έκδοσης,"
+" σημεία ανακάλυψης και περιττά μεταδεδομένα από τις κεφαλίδες HTTP και την "
+"έξοδο HTML."
+
+#: includes/class-segurium.php:2999
+msgid "Enable All Recommended"
+msgstr "Ενεργοποίηση όλων των συνιστώμενων"
+
+#: includes/class-segurium.php:3003
+msgid "HTTP Header Disclosure"
+msgstr "Διαρροή μέσω κεφαλίδων HTTP"
+
+#: includes/class-segurium.php:3007
+msgid "Remove X-Powered-By header"
+msgstr "Αφαίρεση κεφαλίδας X-Powered-By"
+
+#: includes/class-segurium.php:3009
+msgid "Removes the header that reveals your PHP version."
+msgstr "Αφαιρεί την κεφαλίδα που αποκαλύπτει την έκδοση PHP σας."
+
+#: includes/class-segurium.php:3015
+msgid "Remove Server header"
+msgstr "Αφαίρεση κεφαλίδας Server"
+
+#: includes/class-segurium.php:3017
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr ""
+"Αφαιρεί την κεφαλίδα που ταυτοποιεί το λογισμικό του διακομιστή ιστού σας. "
+"Κατά το δυνατόν."
+
+#: includes/class-segurium.php:3023
+msgid "Remove X-Pingback header"
+msgstr "Αφαίρεση κεφαλίδας X-Pingback"
+
+#: includes/class-segurium.php:3025
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr ""
+"Κρύβει τη διεύθυνση του σημείου πρόσβασης pingback/XML-RPC από τις κεφαλίδες"
+" απόκρισης."
+
+#: includes/class-segurium.php:3030
+msgid "Remove REST API Link: header"
+msgstr "Αφαίρεση κεφαλίδας Link: του REST API"
+
+#: includes/class-segurium.php:3032
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr ""
+"Αφαιρεί την κεφαλίδα HTTP Link που διαφημίζει το σημείο πρόσβασης του REST "
+"API."
+
+#: includes/class-segurium.php:3037
+msgid "Remove Shortlink Link: header"
+msgstr "Αφαίρεση κεφαλίδας Link: του σύντομου συνδέσμου"
+
+#: includes/class-segurium.php:3039
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "Αφαιρεί την κεφαλίδα HTTP rel=shortlink."
+
+#: includes/class-segurium.php:3042
+msgid "HTML Meta and Links"
+msgstr "Μεταδεδομένα και σύνδεσμοι HTML"
+
+#: includes/class-segurium.php:3046
+msgid "Remove WordPress generator tag"
+msgstr "Αφαίρεση ετικέτας generator του WordPress"
+
+#: includes/class-segurium.php:3048
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"Αφαιρεί την ετικέτα meta generator και τον generator του RSS που "
+"αποκαλύπτουν την έκδοση WordPress σας."
+
+#: includes/class-segurium.php:3053
+msgid "Remove RSD link"
+msgstr "Αφαίρεση συνδέσμου RSD"
+
+#: includes/class-segurium.php:3055
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr ""
+"Αφαιρεί τον σύνδεσμο του σημείου πρόσβασης Really Simple Discovery από την "
+"κεφαλή της HTML."
+
+#: includes/class-segurium.php:3060
+msgid "Remove WLW manifest link"
+msgstr "Αφαίρεση συνδέσμου μανιφέστου WLW"
+
+#: includes/class-segurium.php:3062
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr ""
+"Αφαιρεί τον σύνδεσμο μανιφέστου του Windows Live Writer. Χρειάζεται μόνο αν "
+"γράφετε άρθρα με το WLW."
+
+#: includes/class-segurium.php:3067
+msgid "Remove REST API discovery link"
+msgstr "Αφαίρεση συνδέσμου ανακάλυψης REST API"
+
+#: includes/class-segurium.php:3069
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"Αφαιρεί την ετικέτα συνδέσμου ανακάλυψης από την κεφαλή της HTML. Το ίδιο το"
+" REST API παραμένει λειτουργικό στο /wp-json/."
+
+#: includes/class-segurium.php:3074
+msgid "Remove oEmbed discovery links"
+msgstr "Αφαίρεση συνδέσμων ανακάλυψης oEmbed"
+
+#: includes/class-segurium.php:3076
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr ""
+"Αποτρέπει άλλους ιστότοπους από το να δείχνουν εμπλουτισμένες "
+"προεπισκοπήσεις όταν βάζουν σύνδεσμο προς το περιεχόμενό σας."
+
+#: includes/class-segurium.php:3081
+msgid "Remove shortlink meta tag"
+msgstr "Αφαίρεση ετικέτας meta σύντομου συνδέσμου"
+
+#: includes/class-segurium.php:3083
+msgid "Removes the shortlink link tag from HTML head."
+msgstr ""
+"Αφαιρεί την ετικέτα συνδέσμου του σύντομου συνδέσμου από την κεφαλή της "
+"HTML."
+
+#: includes/class-segurium.php:3088
+msgid "Remove emoji scripts and styles"
+msgstr "Αφαίρεση σεναρίων και στυλ emoji"
+
+#: includes/class-segurium.php:3090
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr ""
+"Αφαιρεί το JavaScript και το CSS του polyfill emoji του WordPress. Τα "
+"σύγχρονα προγράμματα περιήγησης υποστηρίζουν εγγενώς τα emoji."
+
+#: includes/class-segurium.php:3095
+msgid "Remove RSS/Atom feed links"
+msgstr "Αφαίρεση συνδέσμων ροών RSS/Atom"
+
+#: includes/class-segurium.php:3097
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr ""
+"Μπορεί να χαλάσει τους αναγνώστες RSS και τον Reader του WordPress.com. "
+"Ενεργοποιήστε το μόνο αν ο ιστότοπός σας δεν χρησιμοποιεί ροές RSS."
+
+#: includes/class-segurium.php:3102
+msgid "Remove adjacent post links"
+msgstr "Αφαίρεση συνδέσμων γειτονικών άρθρων"
+
+#: includes/class-segurium.php:3104
+msgid "Removes prev/next post rel links from HTML head."
+msgstr ""
+"Αφαιρεί τους συνδέσμους rel προηγούμενου/επόμενου άρθρου από την κεφαλή της "
+"HTML."
+
+#: includes/class-segurium.php:3107
+msgid "Asset Fingerprinting"
+msgstr "Αποτύπωμα πόρων"
+
+#: includes/class-segurium.php:3111
+msgid "Remove version query strings"
+msgstr "Αφαίρεση συμβολοσειρών ερωτήματος έκδοσης"
+
+#: includes/class-segurium.php:3113
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"Αφαιρεί το ?ver= από τις διευθύνσεις CSS και JavaScript. Οι πόροι στην "
+"προσωρινή μνήμη του προγράμματος περιήγησης μπορεί να παλιώσουν μετά από "
+"ενημερώσεις πρόσθετων ή θεμάτων εμφάνισης."
+
+#: includes/class-segurium.php:3120
+msgid "Disable XML-RPC entirely"
+msgstr "Πλήρης απενεργοποίηση του XML-RPC"
+
+#: includes/class-segurium.php:3122
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr ""
+"Ορισμένα πρόσθετα (Jetpack, εφαρμογή WordPress για κινητά) απαιτούν XML-RPC."
+" Απενεργοποιήστε το μόνο αν δεν τα χρησιμοποιείτε."
+
+#: includes/class-segurium.php:3134
+msgid "Security Self-Check"
+msgstr "Αυτοέλεγχος ασφαλείας"
+
+#: includes/class-segurium.php:3136
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Το Segurium εκτελεί τους ίδιους ελέγχους με τους κορυφαίους εξωτερικούς "
+"σαρωτές ασφαλείας, συν ελέγχους θωράκισης ειδικά για το WordPress, και "
+"βαθμολογεί τον ιστότοπό σας από A+ έως F. Τα αποτελέσματα αποθηκεύονται "
+"μέχρι την επόμενη εκτέλεση."
+
+#: includes/class-segurium.php:3155
+msgid "Check results"
+msgstr "Αποτελέσματα ελέγχων"
+
+#: includes/class-segurium.php:3157
+msgid "Independent verification"
+msgstr "Ανεξάρτητη επαλήθευση"
+
+#: includes/class-segurium.php:3159
+msgid "Cross-check results with these public scanners:"
+msgstr "Διασταυρώστε τα αποτελέσματα με αυτούς τους δημόσιους σαρωτές:"
+
+#: includes/class-segurium.php:3162
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:3163
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:3177
+msgid "Cleanup: 3 files / 30 days"
+msgstr "Καθαρισμός: 3 αρχεία / 30 ημέρες"
+
+#: includes/class-segurium.php:3178
+msgid "Full malware detection — same findings as Pro"
+msgstr "Πλήρης ανίχνευση κακόβουλου λογισμικού — τα ίδια ευρήματα με το Pro"
+
+#: includes/class-segurium.php:3179
+msgid "Auto-fix and Bulk Fix All"
+msgstr "Αυτόματη διόρθωση και μαζική Διόρθωση όλων"
+
+#: includes/class-segurium.php:3180
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr ""
+"Θωράκιση: 2FA, τυφλές επιθέσεις, γεωγραφικό μπλοκάρισμα, τείχος προστασίας, "
+"κεφαλίδες ασφαλείας"
+
+#: includes/class-segurium.php:3181
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr ""
+"Παρακολούθηση ακεραιότητας αρχείων (πυρήνας / πρόσθετα / θέματα εμφάνισης)"
+
+#: includes/class-segurium.php:3182
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Εισαγωγέας μετάβασης (Wordfence, AIOS, Solid Security)"
+
+#: includes/class-segurium.php:3183
+msgid "Community support"
+msgstr "Υποστήριξη από την κοινότητα"
+
+#: includes/class-segurium.php:3186
+msgid "Unlimited cleanup"
+msgstr "Απεριόριστος καθαρισμός"
+
+#: includes/class-segurium.php:3187
+msgid "Everything in Free"
+msgstr "Ό,τι περιλαμβάνει το Δωρεάν"
+
+#: includes/class-segurium.php:3188
+msgid "Email support, priority queue"
+msgstr "Υποστήριξη μέσω email, ουρά προτεραιότητας"
+
+#: includes/class-segurium.php:3196
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Κάθε λειτουργία διατίθεται σε κάθε εγκατάσταση. Το Pro ανεβάζει το μηνιαίο "
+"όριο καθαρισμών."
+
+#: includes/class-segurium.php:3203 includes/class-segurium.php:3228
+msgid "Current plan"
+msgstr "Τρέχον πλάνο"
+
+#: includes/class-segurium.php:3206 includes/class-segurium.php:3476
+msgid "Free"
+msgstr "Δωρεάν"
+
+#: includes/class-segurium.php:3208
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr ""
+"Κάθε λειτουργία, σε κάθε ιστότοπο. Οι καθαρισμοί περιορίζονται σε 3 ανά 30 "
+"ημέρες."
+
+#: includes/class-segurium.php:3213
+msgid "forever"
+msgstr "για πάντα"
+
+#: includes/class-segurium.php:3237
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr ""
+"Απεριόριστος καθαρισμός. Οι ίδιες λειτουργίες με το Δωρεάν, χωρίς μηνιαίο "
+"όριο."
+
+#: includes/class-segurium.php:3242
+msgid "/year per site"
+msgstr "/έτος ανά ιστότοπο"
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+#: includes/class-segurium.php:3266
+#, php-format
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"Πακέτα για 5 και 25 ιστότοπους, καθώς και προσφορές για 100+, στο "
+"%1$ssegurium.com/pricing/%2$s."
+
+#: includes/class-segurium.php:3284
+msgid "Scan Settings"
+msgstr "Ρυθμίσεις σάρωσης"
+
+#: includes/class-segurium.php:3287
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"Εξαίρεση από τη σάρωση των αρχείων που ταιριάζουν με αυτά τα μοτίβα "
+"μπαλαντέρ (ένα ανά γραμμή)"
+
+#: includes/class-segurium.php:3289
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr ""
+"Χρησιμοποιήστε το * ως μπαλαντέρ. Για παράδειγμα, το *.log θα εξαιρέσει όλα "
+"τα αρχεία καταγραφής. Το vendor/* θα εξαιρέσει τον κατάλογο vendor και όλα "
+"όσα περιέχει."
+
+#: includes/class-segurium.php:3297
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Όταν είναι ενεργοποιημένο, το περιεχόμενο των αρχείων μπορεί να μοιραστεί με"
+" το Segurium Cloud για προηγμένη ανίχνευση κακόβουλου λογισμικού και "
+"καθαρισμό με τη βοήθεια του cloud. Μεταδίδονται μόνο τα ύποπτα αρχεία. "
+"Απενεργοποιήστε το για λειτουργία On-premise: οι σαρώσεις στέλνουν τότε μόνο"
+" συνόψεις SHA-256, διαδρομές αρχείων και μεταδεδομένα, και ένα αρχείο που "
+"δεν αναγνωρίζει το cloud από τη σύνοψή του μένει χωρίς ετυμηγορία. Η αναφορά"
+" ψευδώς θετικού ή η επισύναψη αρχείου σε αίτημα υποστήριξης εξακολουθεί να "
+"στέλνει το αρχείο, επειδή το επιλέγετε εσείς."
+
+#: includes/class-segurium.php:3303
+msgid "Email me about findings"
+msgstr "Να λαμβάνω email για τα ευρήματα"
+
+#: includes/class-segurium.php:3305
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"Αποστολή ημερήσιας σύνοψης με τις ετυμηγορίες κακόβουλου λογισμικού και τους"
+" επιτυχείς καθαρισμούς, από το support@segurium.com. Το πολύ ένα email ανά "
+"ιστότοπο ανά 24 ώρες."
+
+#: includes/class-segurium.php:3319
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr ""
+"Διαγραφή των κρυπτογραφημένων αντιγράφων ασφαλείας κατά την απεγκατάσταση "
+"του πρόσθετου"
+
+#: includes/class-segurium.php:3321
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Ανενεργό (προεπιλογή): τα κρυπτογραφημένα αντίγραφα ασφαλείας των στοιχείων "
+"που διαγράφηκαν και των αρχείων που θεραπεύτηκαν διατηρούνται στον κατάλογο "
+"uploads/segurium-data μετά την απεγκατάσταση, ώστε μια επανεγκατάσταση να "
+"μπορεί ακόμη να τα επαναφέρει. Ενεργοποιήστε το μόνο αν θέλετε οριστική "
+"διαγραφή κατά την απεγκατάσταση."
+
+#: includes/class-segurium.php:3331
+msgid "Automatically clean detected malware"
+msgstr "Αυτόματος καθαρισμός του κακόβουλου λογισμικού που εντοπίζεται"
+
+#: includes/class-segurium.php:3333
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"Μετά από κάθε προγραμματισμένη σάρωση ή σάρωση πραγματικού χρόνου, τα αρχεία"
+" με γνωστή ετυμηγορία κακόβουλου λογισμικού ή ένθεσης καθαρίζονται χωρίς να "
+"χρειάζεται κλικ. Τα αρχεία που έχετε αγνοήσει (κατά διαδρομή ή κατά σύνοψη) "
+"παραλείπονται."
+
+#: includes/class-segurium.php:3339
+msgid "Let Segurium Cloud request component updates"
+msgstr "Να επιτρέπεται στο Segurium Cloud να ζητά ενημερώσεις στοιχείων"
+
+#: includes/class-segurium.php:3341
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Το Segurium Cloud μπορεί να ζητήσει από αυτόν τον ιστότοπο να ενημερώσει ένα"
+" πρόσθετο, ένα θέμα εμφάνισης ή το ίδιο το WordPress. Μπορεί να ονομάσει "
+"μόνο στοιχείο που έχετε ήδη εγκατεστημένο και μόνο όταν το WordPress.org "
+"προσφέρει ήδη αυτή την ενημέρωση· την ενημέρωση την κατεβάζει το WordPress "
+"από το WordPress.org, ποτέ από το Segurium. Ο πυρήνας του WordPress "
+"περιορίζεται σε εκδόσεις ασφαλείας και συντήρησης. Το Segurium δεν "
+"ενημερώνει ποτέ τον εαυτό του με αυτόν τον τρόπο. Απενεργοποιήστε το και ο "
+"ιστότοπος σταματά να ζητά και να δέχεται τέτοια αιτήματα."
+
+#: includes/class-segurium.php:3343
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr ""
+"Απενεργοποιήθηκε στο wp-config.php από το SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+#: includes/class-segurium.php:3347
+msgid "Recent cloud requests"
+msgstr "Πρόσφατα αιτήματα από το cloud"
+
+#: includes/class-segurium.php:3353
+msgid "Outcome"
+msgstr "Αποτέλεσμα"
+
+#: includes/class-segurium.php:3385
+msgid "Scheduled Scan"
+msgstr "Προγραμματισμένη σάρωση"
+
+#: includes/class-segurium.php:3387
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"Εκτελέστε αυτόματα πλήρη σάρωση κακόβουλου λογισμικού σε επαναλαμβανόμενο "
+"πρόγραμμα. Μια προγραμματισμένη σάρωση κάνει την ίδια δουλειά με μια "
+"χειροκίνητη, αλλά δεν απαιτεί να κρατάτε ανοιχτό το πρόγραμμα περιήγησής "
+"σας. Ένας προγραμματισμένος παλμός που ενεργοποιείται ενώ μια χειροκίνητη "
+"σάρωση βρίσκεται ήδη σε εξέλιξη παραλείπεται, δεν μπαίνει σε ουρά."
+
+#: includes/class-segurium.php:3414
+msgid "Save Schedule"
+msgstr "Αποθήκευση προγράμματος"
+
+#: includes/class-segurium.php:3422
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr ""
+"Εισαγάγετε ρυθμίσεις από άλλα πρόσθετα ασφαλείας στο Segurium. Οι υπάρχουσες"
+" ρυθμίσεις του Segurium διατηρούνται· τα δεδομένα που εισάγονται "
+"συγχωνεύονται."
+
+#: includes/class-segurium.php:3473
+msgid "Version"
+msgstr "Έκδοση"
+
+#: includes/class-segurium.php:3475
+msgid "Plan"
+msgstr "Πλάνο"
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3478
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/class-segurium.php:3480
+msgid "Geo DB updated"
+msgstr "Η γεωγραφική βάση δεδομένων ενημερώθηκε"
+
+#: includes/class-segurium.php:3487
+msgid "Proxies DB updated"
+msgstr "Η βάση δεδομένων διαμεσολαβητών ενημερώθηκε"
+
+#: includes/class-segurium.php:3497
+msgid "IID"
+msgstr "IID"
+
+#: includes/class-segurium.php:3503
+msgid "Copy IID to clipboard"
+msgstr "Αντιγραφή του IID στο πρόχειρο"
+
+#: includes/class-segurium.php:3507
+msgid "Your IP"
+msgstr "Η IP σας"
+
+#: includes/class-segurium.php:3617
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "Ένα σκέτο μοτίβο * αφαιρέθηκε επειδή θα εξαιρούσε όλα τα αρχεία."
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium.php:3634
+#, php-format
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"%d απόλυτη διαδρομή ξαναγράφτηκε ως διαδρομή σχετική με τη ρίζα εγκατάστασης"
+" του WordPress."
+msgstr[1] ""
+"%d απόλυτες διαδρομές ξαναγράφτηκαν ως διαδρομές σχετικές με τη ρίζα "
+"εγκατάστασης του WordPress."
+
+#: includes/class-segurium.php:3647
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "Η λίστα εξαιρέσεων σάρωσης περιορίζεται σε 500 καταχωρίσεις."
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium.php:3654
+#, php-format
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "%d καταχώριση μεγαλύτερη από 191 χαρακτήρες αφαιρέθηκε."
+msgstr[1] "%d καταχωρίσεις μεγαλύτερες από 191 χαρακτήρες αφαιρέθηκαν."
+
+#: includes/class-segurium.php:3703 includes/class-segurium.php:3736
+msgid "You do not have permission to manage scan settings."
+msgstr "Δεν έχετε δικαίωμα διαχείρισης των ρυθμίσεων σάρωσης."
+
+#: includes/class-segurium.php:3815
+msgid "The scan could not be started due to a server error."
+msgstr "Δεν ήταν δυνατή η έναρξη της σάρωσης λόγω σφάλματος διακομιστή."
+
+#: includes/class-segurium.php:3904
+msgid "Could not stop the running scan due to a server error."
+msgstr ""
+"Δεν ήταν δυνατή η διακοπή της σάρωσης που εκτελείται λόγω σφάλματος "
+"διακομιστή."
+
+#: includes/class-segurium.php:3952
+msgid "Check the PHP error log for details."
+msgstr "Ελέγξτε το αρχείο καταγραφής σφαλμάτων της PHP για λεπτομέρειες."
+
+#: includes/class-segurium.php:4083
+msgid "No scan results available"
+msgstr "Δεν υπάρχουν διαθέσιμα αποτελέσματα σάρωσης"
+
+#: includes/class-segurium.php:4154 includes/class-segurium.php:6346
+#: includes/class-segurium.php:6350 includes/class-segurium.php:6406
+#: includes/class-segurium.php:6495 includes/class-segurium.php:7099
+#: includes/class-segurium.php:7495
+msgid "Invalid parameters"
+msgstr "Μη έγκυρες παράμετροι"
+
+#: includes/class-segurium.php:4164 includes/class-segurium.php:4476
+#: includes/class-segurium.php:5583 includes/class-segurium.php:5631
+#: includes/class-segurium.php:5636 includes/class-segurium.php:7111
+#: includes/class-segurium.php:7440 includes/class-segurium.php:7502
+msgid "Invalid path"
+msgstr "Μη έγκυρη διαδρομή"
+
+#: includes/class-segurium.php:4168 includes/class-segurium.php:5640
+#: includes/class-segurium.php:7207 includes/class-segurium.php:7517
+msgid "File not found"
+msgstr "Το αρχείο δεν βρέθηκε"
+
+#: includes/class-segurium.php:4222 includes/class-segurium.php:7310
+msgid "File cleaned"
+msgstr "Το αρχείο καθαρίστηκε"
+
+#: includes/class-segurium.php:4283 includes/class-segurium.php:4356
+#: includes/class-segurium.php:4441
+msgid "Missing backup ID"
+msgstr "Λείπει το αναγνωριστικό του αντιγράφου ασφαλείας"
+
+#: includes/class-segurium.php:4294 includes/class-segurium.php:4367
+#: includes/class-segurium.php:4446
+msgid "Backup not found"
+msgstr "Το αντίγραφο ασφαλείας δεν βρέθηκε"
+
+#: includes/class-segurium.php:4310 includes/class-segurium.php:4321
+#: includes/class-segurium.php:7568
+msgid "Failed to restore file"
+msgstr "Αποτυχία επαναφοράς αρχείου"
+
+#: includes/class-segurium.php:4314 includes/class-segurium.php:4377
+msgid "Invalid restore path"
+msgstr "Μη έγκυρη διαδρομή επαναφοράς"
+
+#: includes/class-segurium.php:4336 includes/class-segurium.php:7472
+msgid "File restored from backup"
+msgstr "Το αρχείο επαναφέρθηκε από το αντίγραφο ασφαλείας"
+
+#: includes/class-segurium.php:4372
+msgid "Backup has no target path"
+msgstr "Το αντίγραφο ασφαλείας δεν έχει διαδρομή προορισμού"
+
+#: includes/class-segurium.php:4394
+msgid "Failed to read target file"
+msgstr "Αποτυχία ανάγνωσης του αρχείου προορισμού"
+
+#: includes/class-segurium.php:4484
+msgid "File is not an active malware entry."
+msgstr "Το αρχείο δεν είναι ενεργή καταχώριση κακόβουλου λογισμικού."
+
+#: includes/class-segurium.php:4491
+msgid "File is outside the WordPress root."
+msgstr "Το αρχείο βρίσκεται εκτός της ρίζας του WordPress."
+
+#: includes/class-segurium.php:4494
+msgid "File not found or not readable."
+msgstr "Το αρχείο δεν βρέθηκε ή δεν είναι αναγνώσιμο."
+
+#: includes/class-segurium.php:4502
+msgid "File is too large to preview."
+msgstr "Το αρχείο είναι πολύ μεγάλο για προεπισκόπηση."
+
+#: includes/class-segurium.php:4511 includes/class-segurium.php:6422
+msgid "Failed to read file."
+msgstr "Αποτυχία ανάγνωσης αρχείου."
+
+#: includes/class-segurium.php:4977
+msgid "No integrity scan is currently running."
+msgstr "Δεν εκτελείται αυτή τη στιγμή καμία σάρωση ακεραιότητας."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:5095
+#, php-format
+msgid "Unexpected error: %s"
+msgstr "Απροσδόκητο σφάλμα: %s"
+
+#: includes/class-segurium.php:5115
+msgid "Unexpected error."
+msgstr "Απροσδόκητο σφάλμα."
+
+#: includes/class-segurium.php:5143
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "Αυτό το σημείο πρόσβασης έχει αφαιρεθεί. Φορτώστε ξανά τη σελίδα."
+
+#: includes/class-segurium.php:5271 includes/class-segurium.php:5757
+#: includes/class-segurium.php:5761 includes/class-segurium.php:5788
+#: includes/class-segurium.php:5887 includes/class-segurium.php:5891
+#: includes/class-segurium.php:5904
+msgid "Invalid parameters."
+msgstr "Μη έγκυρες παράμετροι."
+
+#: includes/class-segurium.php:5521 includes/class-segurium.php:5548
+#: includes/class-segurium.php:5577 includes/class-segurium.php:5673
+#: includes/class-segurium.php:5715 includes/class-segurium.php:5883
+msgid "Missing parameters."
+msgstr "Λείπουν παράμετροι."
+
+#: includes/class-segurium.php:5603 includes/class-segurium.php:7447
+msgid "Failed to write restored file"
+msgstr "Αποτυχία εγγραφής του αρχείου που επαναφέρθηκε"
+
+#: includes/class-segurium.php:5645
+msgid "File too large to view (>2 MB)"
+msgstr "Το αρχείο είναι πολύ μεγάλο για προβολή (πάνω από 2 MB)"
+
+#: includes/class-segurium.php:5781
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr ""
+"Δεν είναι δυνατή η διαγραφή του ενεργού θέματος εμφάνισης. Αλλάξτε πρώτα σε "
+"άλλο θέμα εμφάνισης."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5858
+#, php-format
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "Το %1$s «%2$s» διαγράφηκε. Δημιουργήθηκε αντίγραφο ασφαλείας."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5963
+#, php-format
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "Το %1$s «%2$s» επαναφέρθηκε από το αντίγραφο ασφαλείας."
+
+#: includes/class-segurium.php:6022
+msgid "Cannot delete active theme. Switch first."
+msgstr ""
+"Δεν είναι δυνατή η διαγραφή του ενεργού θέματος εμφάνισης. Αλλάξτε πρώτα."
+
+#: includes/class-segurium.php:6029
+msgid "Delisted from WordPress.org"
+msgstr "Διαγράφηκε από το WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:6039
+#, php-format
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr ""
+"Το θέμα εμφάνισης «%s» είναι εγκαταλελειμμένο αλλά αυτή τη στιγμή ενεργό. Θα"
+" παραλειφθεί."
+
+#: includes/class-segurium.php:6045
+msgid "Active abandoned theme — switch manually."
+msgstr "Ενεργό εγκαταλελειμμένο θέμα εμφάνισης — αλλάξτε το χειροκίνητα."
+
+#: includes/class-segurium.php:6071
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr ""
+"Δεν προέρχεται από το WordPress.org — η ακεραιότητα δεν μπορεί να "
+"επαληθευτεί."
+
+#: includes/class-segurium.php:6092
+msgid "Protected file (exclusion list)."
+msgstr "Προστατευμένο αρχείο (λίστα εξαιρέσεων)."
+
+#. translators: %s: file verdict reported by the integrity check.
+#: includes/class-segurium.php:6132
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Δεν υπάρχει αυτόματη διόρθωση για την ετυμηγορία «%s»."
+
+#. translators: %d: number of files.
+#: includes/class-segurium.php:6144
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] ""
+"Η έκδοση του στοιχείου δεν αναγνωρίστηκε. %d αρχείο δεν μπορεί να "
+"επαληθευτεί."
+msgstr[1] ""
+"Η έκδοση του στοιχείου δεν αναγνωρίστηκε. %d αρχεία δεν μπορούν να "
+"επαληθευτούν."
+
+#: includes/class-segurium.php:6414
+msgid "File not found on disk."
+msgstr "Το αρχείο δεν βρέθηκε στον δίσκο."
+
+#: includes/class-segurium.php:6418
+msgid "File is too large to submit."
+msgstr "Το αρχείο είναι πολύ μεγάλο για υποβολή."
+
+#: includes/class-segurium.php:6425
+msgid "File contents changed since the scan."
+msgstr "Το περιεχόμενο του αρχείου άλλαξε μετά τη σάρωση."
+
+#: includes/class-segurium.php:6429 includes/class-segurium.php:8085
+msgid "Failed to compress file."
+msgstr "Αποτυχία συμπίεσης αρχείου."
+
+#: includes/class-segurium.php:6796 includes/class-segurium.php:6812
+#: includes/class-segurium.php:6847 includes/class-segurium.php:6868
+#: includes/class-segurium.php:6882 includes/class-segurium.php:6904
+#: includes/class-segurium.php:6927 includes/class-segurium.php:6994
+#: includes/class-segurium.php:7054 includes/class-segurium.php:7067
+#: includes/class-segurium.php:7637 includes/class-segurium.php:7659
+#: includes/class-segurium.php:7674 includes/class-segurium.php:7696
+#: includes/class-segurium.php:7712 includes/class-segurium.php:7734
+#: includes/class-segurium.php:7751 includes/class-segurium.php:7766
+#: includes/class-segurium.php:7781 includes/class-segurium.php:7799
+#: includes/class-segurium.php:7812 includes/class-segurium.php:7831
+#: includes/class-segurium.php:7844 includes/class-segurium.php:7868
+#: includes/class-segurium.php:8137 includes/class-segurium.php:8156
+#: includes/class-segurium.php:8171 includes/class-segurium.php:8205
+msgid "Unauthorized."
+msgstr "Μη εξουσιοδοτημένο."
+
+#: includes/class-segurium.php:6889 includes/class-segurium.php:6911
+msgid "Pending change not found or already expired."
+msgstr "Η εκκρεμής αλλαγή δεν βρέθηκε ή έχει ήδη λήξει."
+
+#. translators: %s: file path relative to the WordPress root.
+#: includes/class-segurium.php:7142
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Η διαγραφή απορρίφθηκε: το «%s» είναι προστατευμένο αρχείο. Μπορεί να το "
+"φορτώνει ο διακομιστής ιστού ή κάποιο άλλο πρόσθετο, και η αφαίρεσή του "
+"μπορεί να ρίξει ολόκληρο τον ιστότοπο. Διαγράψτε το χειροκίνητα αν είστε "
+"βέβαιοι ότι είναι ασφαλές."
+
+#: includes/class-segurium.php:7194
+msgid "Failed to create directory"
+msgstr "Αποτυχία δημιουργίας καταλόγου"
+
+#: includes/class-segurium.php:7197 includes/class-segurium.php:7349
+msgid "Failed to write file"
+msgstr "Αποτυχία εγγραφής αρχείου"
+
+#: includes/class-segurium.php:7212 includes/class-segurium.php:7320
+msgid "Failed to read file for backup"
+msgstr "Αποτυχία ανάγνωσης αρχείου για αντίγραφο ασφαλείας"
+
+#: includes/class-segurium.php:7335
+msgid "Failed to create backup"
+msgstr "Αποτυχία δημιουργίας αντιγράφου ασφαλείας"
+
+#: includes/class-segurium.php:7358
+msgid "Failed to delete file"
+msgstr "Αποτυχία διαγραφής αρχείου"
+
+#: includes/class-segurium.php:7522
+msgid "Failed to read file"
+msgstr "Αποτυχία ανάγνωσης αρχείου"
+
+#: includes/class-segurium.php:7554
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr ""
+"Το αντίγραφο ασφαλείας δεν είναι πλέον διαθέσιμο — αντικαταστάθηκε από "
+"νεότερα."
+
+#: includes/class-segurium.php:7556
+msgid "Backup metadata is missing or unreadable."
+msgstr ""
+"Τα μεταδεδομένα του αντιγράφου ασφαλείας λείπουν ή δεν είναι αναγνώσιμα."
+
+#: includes/class-segurium.php:7558
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Το αρχείο του αντιγράφου ασφαλείας δεν είναι αναγνώσιμο. Ελέγξτε τα "
+"δικαιώματα του συστήματος αρχείων στο uploads/segurium-data."
+
+#: includes/class-segurium.php:7560
+msgid "Backup file is corrupt — decryption failed."
+msgstr ""
+"Το αρχείο του αντιγράφου ασφαλείας είναι κατεστραμμένο — η αποκρυπτογράφηση "
+"απέτυχε."
+
+#: includes/class-segurium.php:7562
+msgid "Backup file is corrupt — decompression failed."
+msgstr ""
+"Το αρχείο του αντιγράφου ασφαλείας είναι κατεστραμμένο — η αποσυμπίεση "
+"απέτυχε."
+
+#: includes/class-segurium.php:7564
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"Ο έλεγχος ακεραιότητας του αντιγράφου ασφαλείας απέτυχε — η σύνοψη του "
+"περιεχομένου δεν ταιριάζει με τα μεταδεδομένα."
+
+#: includes/class-segurium.php:7566
+msgid "Invalid backup reference."
+msgstr "Μη έγκυρη αναφορά αντιγράφου ασφαλείας."
+
+#: includes/class-segurium.php:7785
+msgid "Invalid IP address."
+msgstr "Μη έγκυρη διεύθυνση IP."
+
+#: includes/class-segurium.php:7849 includes/class-segurium.php:7873
+msgid "Plugin not found or no data to migrate."
+msgstr "Το πρόσθετο δεν βρέθηκε ή δεν υπάρχουν δεδομένα προς μετάβαση."
+
+#: includes/class-segurium.php:7997
+msgid "Missed malware report"
+msgstr "Αναφορά κακόβουλου λογισμικού που δεν εντοπίστηκε"
+
+#: includes/class-segurium.php:7999
+msgid "Other request"
+msgstr "Άλλο αίτημα"
+
+#: includes/class-segurium.php:8028
+msgid "Permission denied."
+msgstr "Δεν επιτρέπεται η πρόσβαση."
+
+#: includes/class-segurium.php:8038
+msgid "Message is required."
+msgstr "Το μήνυμα είναι υποχρεωτικό."
+
+#: includes/class-segurium.php:8045
+msgid "A valid reply-to email is required."
+msgstr "Απαιτείται έγκυρο email απάντησης."
+
+#: includes/class-segurium.php:8063
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "Υποβάλατε πάρα πολλά αιτήματα σήμερα. Δοκιμάστε ξανά αύριο."
+
+#: includes/class-segurium.php:8069
+msgid "Failed to upload the file. Try again."
+msgstr "Αποτυχία αποστολής του αρχείου. Δοκιμάστε ξανά."
+
+#: includes/class-segurium.php:8073
+msgid "File is empty or too large (max 100 MB)."
+msgstr "Το αρχείο είναι κενό ή πολύ μεγάλο (έως 100 MB)."
+
+#: includes/class-segurium.php:8077
+msgid "Invalid upload."
+msgstr "Μη έγκυρη αποστολή."
+
+#: includes/class-segurium.php:8081
+msgid "Failed to read uploaded file."
+msgstr "Αποτυχία ανάγνωσης του αρχείου που στάλθηκε."
+
+#: includes/class-segurium.php:8210
+msgid "Please enter a username or user ID."
+msgstr "Εισαγάγετε όνομα χρήστη ή αναγνωριστικό χρήστη."
+
+#: includes/class-segurium.php:8215
+msgid "User not found."
+msgstr "Ο χρήστης δεν βρέθηκε."
+
+#. translators: %s: username
+#: includes/class-segurium.php:8223
+#, php-format
+msgid "2FA reset for user %s."
+msgstr "Το 2FA επαναφέρθηκε για τον χρήστη %s."
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "Λίστα επιτρεπόμενων IP"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"Η λίστα επιτρεπόμενων IP (παράκαμψη) του AIOS δεν έχει άμεσο αντίστοιχο στη "
+"λειτουργία τείχους προστασίας με λίστα άρνησης του Segurium. Ρυθμίστε την "
+"χειροκίνητα αν χρειάζεται."
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "Προστασία από τυφλές επιθέσεις"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "Προστασία του Segurium από τυφλές επιθέσεις (σε σχεδιασμό)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "Μπλοκάρισμα χωρών"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
+msgstr ""
+"Το μπλοκάρισμα χωρών του AIOS είναι πληρωμένη λειτουργία στο cloud και δεν "
+"εισάγεται τοπικά."
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Blocked IPs"
+msgstr "Μπλοκαρισμένες IP"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+msgid "No banned IPs configured in AIOS."
+msgstr "Δεν έχουν ρυθμιστεί αποκλεισμένες IP στο AIOS."
+
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Merge"
+msgstr "Συγχώνευση"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+msgid "Scan Exclusions"
+msgstr "Εξαιρέσεις σάρωσης"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+msgid "No file exclusions configured in AIOS."
+msgstr "Δεν έχουν ρυθμιστεί εξαιρέσεις αρχείων στο AIOS."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "2FA του Segurium (σε σχεδιασμό)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"Το Solid Security αποθηκεύει τα μπλοκαρίσματα χωρών στον πίνακα ελέγχου του "
+"στο cloud. Ρυθμίστε τα χειροκίνητα στην καρτέλα Γεωγραφικό μπλοκάρισμα."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+msgid "Banned IPs"
+msgstr "Αποκλεισμένες IP"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+msgid "No banned IPs found in Solid Security."
+msgstr "Δεν βρέθηκαν αποκλεισμένες IP στο Solid Security."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "Ρυθμίσεις που διαχειρίζεται το cloud"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"Το Sucuri Security αποθηκεύει τους κανόνες WAF, το γεωγραφικό μπλοκάρισμα "
+"και τις ρυθμίσεις σάρωσης κακόβουλου λογισμικού στον πίνακα ελέγχου του "
+"Sucuri στο cloud. Αυτά δεν εισάγονται τοπικά."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "Κανόνες WAF"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "Κανόνες WAF του Segurium (σε σχεδιασμό)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"Γεωγραφικό μπλοκάρισμα του Segurium (διαθέσιμο) — ρυθμίστε το χειροκίνητα "
+"στην καρτέλα Γεωγραφικό μπλοκάρισμα."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "Δεν έχουν ρυθμιστεί μοτίβα εξαίρεσης στο Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+msgid "No country blocks configured in Wordfence."
+msgstr "Δεν έχουν ρυθμιστεί μπλοκαρίσματα χωρών στο Wordfence."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+msgid "No manual IP blocks found in Wordfence."
+msgstr "Δεν βρέθηκαν χειροκίνητα μπλοκαρίσματα IP στο Wordfence."
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:279
+#, php-format
+msgid "Import %d user(s) with TOTP"
+msgstr "Εισαγωγή %d χρηστών με TOTP"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:282
+msgid "Import into Segurium 2FA"
+msgstr "Εισαγωγή στο 2FA του Segurium"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:292
+msgid "No Wordfence 2FA data found"
+msgstr "Δεν βρέθηκαν δεδομένα 2FA του Wordfence"
+
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Security issues need your attention"
+msgstr "Προβλήματα ασφαλείας χρειάζονται την προσοχή σας"
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+#, php-format
+msgid "Missing parameter: %s"
+msgstr "Λείπει η παράμετρος: %s"
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Δεν υπάρχει καθαρή έκδοση αυτού του αρχείου. Αφαιρέστε το ή αντικαταστήστε "
+"το με το χέρι."
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Το Segurium Cloud δεν μπόρεσε να καθαρίσει αυτό το αρχείο αυτή τη στιγμή. "
+"Δοκιμάστε ξανά αργότερα."
+
+#: includes/storage/class-segurium-storage.php:240
+msgid "Cleanup unavailable."
+msgstr "Ο καθαρισμός δεν είναι διαθέσιμος."
+
+#: includes/storage/class-segurium-storage.php:827
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Μη έγκυρη απάντηση καθαρισμού από το Segurium Cloud."
+
+#: includes/storage/class-segurium-storage.php:847
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr ""
+"Το Segurium Cloud επέστρεψε περιεχόμενο καθαρισμού που δεν είναι έγκυρο "
+"base64."
+
+#: includes/storage/class-segurium-storage.php:860
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr ""
+"Από την απάντηση καθαρισμού λείπει το άθροισμα ελέγχου του καθαρισμένου "
+"αρχείου."
+
+#: includes/storage/class-segurium-storage.php:864
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr ""
+"Το καθαρισμένο αρχείο δεν ταιριάζει με το άθροισμα ελέγχου της απάντησης "
+"καθαρισμού."
+
+#: includes/storage/class-segurium-storage.php:1093
+msgid "Invalid response from Segurium Cloud."
+msgstr "Μη έγκυρη απάντηση από το Segurium Cloud."
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1101
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Το Segurium Cloud επέστρεψε σφάλμα %d."
+
+#: includes/storage/class-segurium-storage.php:1109
+msgid "Segurium Cloud response is missing the file content."
+msgstr ""
+"Από την απάντηση του Segurium Cloud λείπει το περιεχόμενο του αρχείου."
+
+#: includes/storage/class-segurium-storage.php:1117
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr ""
+"Το Segurium Cloud επέστρεψε περιεχόμενο αρχείου που δεν είναι έγκυρο base64."
+
+#: includes/storage/class-segurium-storage.php:1124
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr ""
+"Από την απάντηση του Segurium Cloud λείπει το άθροισμα ελέγχου του αρχείου."
+
+#: includes/storage/class-segurium-storage.php:1131
+msgid "Downloaded file does not match the checksum in the response."
+msgstr ""
+"Το αρχείο που κατέβηκε δεν ταιριάζει με το άθροισμα ελέγχου της απάντησης."
+
+#: segurium.php:49 segurium.php:1236
+msgid "Plugin Activation Error"
+msgstr "Σφάλμα ενεργοποίησης πρόσθετου"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:1071
+#, php-format
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Το Segurium απαιτεί PHP %1$s ή νεότερη. Αυτός ο ιστότοπος εκτελεί PHP %2$s. "
+"Ζητήστε από τον πάροχο φιλοξενίας να αναβαθμίσει την PHP και δοκιμάστε ξανά "
+"να ενεργοποιήσετε το Segurium."
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:1079
+#, php-format
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Το Segurium απαιτεί WordPress %1$s ή νεότερο. Αυτός ο ιστότοπος εκτελεί "
+"WordPress %2$s. Ενημερώστε το WordPress και δοκιμάστε ξανά να ενεργοποιήσετε"
+" το Segurium."
+
+#: segurium.php:1081
+msgid "unknown"
+msgstr "άγνωστο"
+
+msgid "Cookies — HttpOnly"
+msgstr "Cookie — HttpOnly"

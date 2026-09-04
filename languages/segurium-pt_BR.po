@@ -5001,3 +5001,28 @@ msgid "One email per day at most, sent from support@segurium.com. You can change
 msgstr ""
 "No máximo um e-mail por dia, enviado por support@segurium.com. Você pode "
 "alterar isso depois em Configurações."
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Outdated"
+msgstr "Desatualizado"
+
+msgid "Vulnerable"
+msgstr "Vulnerável"
+
+msgid "No update available"
+msgstr "Nenhuma atualização disponível"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s passa de %2$s para %3$s. Esta é uma mudança de versão principal e pode quebrar o seu site."
+
+msgid "Malware is waiting for you to act"
+msgstr "Há malware aguardando a sua ação"
+
+msgid "A vulnerable component is installed"
+msgstr "Há um componente vulnerável instalado"
+
+msgid "Security issues need your attention"
+msgstr "Problemas de segurança precisam da sua atenção"

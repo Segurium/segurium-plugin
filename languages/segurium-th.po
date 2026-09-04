@@ -1,0 +1,4545 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-09-03T03:34:35+00:00\n"
+"PO-Revision-Date: 2026-09-03 12:00+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Thai <th@li.org>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: segurium\n"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr ""
+"Segurium – กำจัดมัลแวร์และสแกนไวรัสฟรี ล้างเว็บไซต์ที่ถูกแฮก ไฟร์วอลล์ 2FA"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr ""
+"เว็บไซต์ถูกแฮก? กำจัดมัลแวร์และสแกนไวรัสฟรีสำหรับ WordPress: "
+"ล้างไฟล์ที่ติดเชื้อและกู้คืนได้ พร้อมไฟร์วอลล์ ป้องกันการเดารหัสผ่าน และ 2FA"
+
+#. Author of the plugin
+#: segurium.php includes/class-segurium.php:473
+#: includes/class-segurium.php:530 includes/class-segurium.php:2022
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:63
+#: includes/segurium-admin-menu-shell.php:102
+#: includes/segurium-admin-menu-shell.php:159
+msgid "Segurium"
+msgstr "Segurium"
+
+#: includes/class-segurium-2fa.php:597
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr ""
+"ต้องใช้การยืนยันตัวตนสองชั้น โปรดเปิดใช้งาน JavaScript "
+"เพื่อเข้าสู่ระบบให้เสร็จ"
+
+#: includes/class-segurium-2fa.php:617
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr "บทบาทของคุณต้องตั้งค่าการยืนยันตัวตนสองชั้น โปรดติดต่อผู้ควบคุมของคุณ"
+
+#: includes/class-segurium-2fa.php:658
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr "ต้องใช้การยืนยันตัวตนสองชั้น ให้ต่อรหัส 2FA ไว้ท้ายรหัสผ่านของคุณ"
+
+#: includes/class-segurium-2fa.php:1000
+msgid "Verifying..."
+msgstr "กำลังตรวจสอบ..."
+
+#: includes/class-segurium-2fa.php:1001
+msgid "Logging in..."
+msgstr "กำลังเข้าสู่ระบบ..."
+
+#: includes/class-segurium-2fa.php:1002
+msgid "Enter the code from your authenticator app:"
+msgstr "ใส่รหัสจากแอปยืนยันตัวตนของคุณ:"
+
+#: includes/class-segurium-2fa.php:1003
+msgid "Enter the code sent to your email:"
+msgstr "ใส่รหัสที่ส่งไปยังอีเมลของคุณ:"
+
+#: includes/class-segurium-2fa.php:1004
+msgid "Verify"
+msgstr "ตรวจสอบ"
+
+#: includes/class-segurium-2fa.php:1005
+msgid "Resend code"
+msgstr "ส่งรหัสอีกครั้ง"
+
+#: includes/class-segurium-2fa.php:1006
+msgid "A new code has been sent to your email."
+msgstr "ส่งรหัสใหม่ไปยังอีเมลของคุณแล้ว"
+
+#: includes/class-segurium-2fa.php:1007
+msgid "Lost your device? Enter a backup code instead."
+msgstr "ทำอุปกรณ์หายใช่ไหม ใส่รหัสสำรองแทนได้"
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:1009
+msgid "Trust this device for %d days"
+msgstr "เชื่อถืออุปกรณ์นี้เป็นเวลา %d วัน"
+
+#: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1597
+#: includes/class-segurium-2fa.php:1675 includes/class-segurium-2fa.php:1733
+msgid "Too many failed attempts. Please try again later."
+msgstr "พยายามล้มเหลวมากเกินไป โปรดลองอีกครั้งภายหลัง"
+
+#: includes/class-segurium-2fa.php:1011
+msgid "Two-factor authentication setup is required for your role."
+msgstr "บทบาทของคุณต้องตั้งค่าการยืนยันตัวตนสองชั้น"
+
+#: includes/class-segurium-2fa.php:1035
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:274
+#: includes/migrations/class-segurium-migration-wordfence.php:288
+msgid "Two-Factor Authentication"
+msgstr "การยืนยันตัวตนสองชั้น"
+
+#: includes/class-segurium-2fa.php:1038 includes/class-segurium.php:2226
+#: includes/class-segurium.php:3471
+msgid "Status"
+msgstr "สถานะ"
+
+#: includes/class-segurium-2fa.php:1041
+msgid "JavaScript is required for 2FA setup."
+msgstr "การตั้งค่า 2FA ต้องใช้ JavaScript"
+
+#: includes/class-segurium-2fa.php:1079
+msgid "Not configured"
+msgstr "ยังไม่ได้ตั้งค่า"
+
+#: includes/class-segurium-2fa.php:1080
+msgid "Set up Authenticator App"
+msgstr "ตั้งค่าแอปยืนยันตัวตน"
+
+#: includes/class-segurium-2fa.php:1081
+msgid "Set up Email Verification"
+msgstr "ตั้งค่าการยืนยันทางอีเมล"
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Current method:"
+msgstr "วิธีที่ใช้อยู่:"
+
+#: includes/class-segurium-2fa.php:1083 includes/class-segurium.php:2666
+msgid "Authenticator App (TOTP)"
+msgstr "แอปยืนยันตัวตน (TOTP)"
+
+#: includes/class-segurium-2fa.php:1084 includes/class-segurium.php:2667
+msgid "Email Verification"
+msgstr "การยืนยันทางอีเมล"
+
+#: includes/class-segurium-2fa.php:1085
+msgid "Backup codes remaining:"
+msgstr "รหัสสำรองที่เหลือ:"
+
+#: includes/class-segurium-2fa.php:1086
+msgid "Regenerate Backup Codes"
+msgstr "สร้างรหัสสำรองใหม่"
+
+#: includes/class-segurium-2fa.php:1087
+msgid "Disable 2FA"
+msgstr "ปิดใช้งาน 2FA"
+
+#: includes/class-segurium-2fa.php:1088
+msgid "Scan this QR code with your authenticator app:"
+msgstr "สแกน QR โค้ดนี้ด้วยแอปยืนยันตัวตนของคุณ:"
+
+#: includes/class-segurium-2fa.php:1089
+msgid "Or enter this key manually:"
+msgstr "หรือใส่คีย์นี้ด้วยตัวเอง:"
+
+#: includes/class-segurium-2fa.php:1090
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "ใส่รหัส 6 หลักจากแอปของคุณเพื่อยืนยัน:"
+
+#: includes/class-segurium-2fa.php:1091 includes/class-segurium.php:2291
+#: includes/class-segurium.php:2379
+msgid "Confirm"
+msgstr "ยืนยัน"
+
+#: includes/class-segurium-2fa.php:1092 includes/class-segurium.php:1076
+#: includes/class-segurium.php:1211 includes/class-segurium.php:1256
+#: includes/class-segurium.php:2268 includes/class-segurium.php:3461
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+#: includes/class-segurium-2fa.php:1093
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr "เก็บรหัสสำรองเหล่านี้ไว้ในที่ปลอดภัย ระบบจะไม่แสดงอีก"
+
+#: includes/class-segurium-2fa.php:1094
+msgid "2FA has been set up successfully."
+msgstr "ตั้งค่า 2FA สำเร็จแล้ว"
+
+#: includes/class-segurium-2fa.php:1095 includes/class-segurium-2fa.php:1430
+msgid "2FA has been disabled."
+msgstr "ปิดใช้งาน 2FA แล้ว"
+
+#: includes/class-segurium-2fa.php:1096
+msgid "New backup codes generated."
+msgstr "สร้างรหัสสำรองชุดใหม่แล้ว"
+
+#: includes/class-segurium-2fa.php:1097
+msgid "Enter your current 2FA code to confirm:"
+msgstr "ใส่รหัส 2FA ปัจจุบันของคุณเพื่อยืนยัน:"
+
+#: includes/class-segurium-2fa.php:1098
+msgid "A verification code has been sent to your email."
+msgstr "ส่งรหัสยืนยันไปยังอีเมลของคุณแล้ว"
+
+#: includes/class-segurium-2fa.php:1099
+msgid "Your administrator requires 2FA for your role."
+msgstr "ผู้ควบคุมของคุณกำหนดให้บทบาทของคุณต้องใช้ 2FA"
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1133
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"ผู้ควบคุมของคุณกำหนดให้ใช้การยืนยันตัวตนสองชั้น คุณเหลือเวลาอีก %d "
+"วันในการตั้งค่า"
+
+#: includes/class-segurium-2fa.php:1138 includes/class-segurium-2fa.php:1145
+msgid "Set up now"
+msgstr "ตั้งค่าเดี๋ยวนี้"
+
+#: includes/class-segurium-2fa.php:1143
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr "บทบาทของคุณต้องใช้การยืนยันตัวตนสองชั้น โปรดตั้งค่าทันที"
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1180
+msgid "[%s] Your login verification code"
+msgstr "[%s] รหัสยืนยันการเข้าสู่ระบบของคุณ"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1186
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"รหัสยืนยันของคุณคือ: %1$s\n"
+"\n"
+"รหัสนี้จะหมดอายุใน %2$d นาที\n"
+"\n"
+"ถ้าคุณไม่ได้ร้องขอ ให้ละเว้นอีเมลฉบับนี้"
+
+#: includes/class-segurium-2fa.php:1229 includes/class-segurium-2fa.php:1265
+#: includes/class-segurium-2fa.php:1320 includes/class-segurium-2fa.php:1346
+#: includes/class-segurium-2fa.php:1387 includes/class-segurium-2fa.php:1441
+msgid "Not authenticated."
+msgstr "ยังไม่ได้ยืนยันตัวตน"
+
+#: includes/class-segurium-2fa.php:1235 includes/class-segurium-2fa.php:1271
+#: includes/class-segurium-2fa.php:1326 includes/class-segurium-2fa.php:1352
+#: includes/class-segurium-2fa.php:1393 includes/class-segurium-2fa.php:1447
+#: includes/class-segurium-2fa.php:1503 includes/class-segurium-2fa.php:1637
+#: includes/class-segurium-2fa.php:1760 includes/class-segurium.php:405
+#: includes/class-segurium.php:5135 includes/class-segurium.php:5258
+#: includes/class-segurium.php:5282 includes/segurium-ajax-envelope.php:125
+msgid "You do not have permission to perform this action."
+msgstr "คุณไม่มีสิทธิ์ทำการกระทำนี้"
+
+#: includes/class-segurium-2fa.php:1282
+msgid "Setup session expired. Please start again."
+msgstr "เซสชันการตั้งค่าหมดอายุ โปรดเริ่มใหม่"
+
+#: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
+msgid "Invalid code. Please try again."
+msgstr "รหัสไม่ถูกต้อง โปรดลองอีกครั้ง"
+
+#: includes/class-segurium-2fa.php:1292
+msgid "Encryption error."
+msgstr "การเข้ารหัสผิดพลาด"
+
+#: includes/class-segurium-2fa.php:1335
+msgid "Verification code sent to your email."
+msgstr "ส่งรหัสยืนยันไปยังอีเมลของคุณแล้ว"
+
+#: includes/class-segurium-2fa.php:1403
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "บทบาทของคุณต้องใช้ 2FA และปิดใช้งานไม่ได้"
+
+#: includes/class-segurium-2fa.php:1425 includes/class-segurium-2fa.php:1473
+msgid "Invalid verification code."
+msgstr "รหัสยืนยันไม่ถูกต้อง"
+
+#: includes/class-segurium-2fa.php:1520
+msgid "Please enter your username and password."
+msgstr "โปรดใส่ชื่อผู้ใช้และรหัสผ่านของคุณ"
+
+#: includes/class-segurium-2fa.php:1656
+msgid "Session expired. Please log in again."
+msgstr "เซสชันหมดอายุ โปรดเข้าสู่ระบบอีกครั้ง"
+
+#: includes/class-segurium-2fa.php:1662 includes/class-segurium-2fa.php:1775
+msgid "Invalid session."
+msgstr "เซสชันไม่ถูกต้อง"
+
+#: includes/class-segurium-2fa.php:1742
+msgid "Invalid verification code. Please try again."
+msgstr "รหัสยืนยันไม่ถูกต้อง โปรดลองอีกครั้ง"
+
+#: includes/class-segurium-2fa.php:1770
+msgid "Session expired."
+msgstr "เซสชันหมดอายุ"
+
+#: includes/class-segurium-2fa.php:1780
+msgid "Code sent."
+msgstr "ส่งรหัสแล้ว"
+
+#: includes/class-segurium-brute-force.php:503
+msgid "Login blocked."
+msgstr "การเข้าสู่ระบบถูกปิดกั้น"
+
+#: includes/class-segurium-brute-force.php:517
+msgid "Please complete the CAPTCHA challenge."
+msgstr "โปรดทำโจทย์ CAPTCHA ให้เสร็จ"
+
+#: includes/class-segurium-brute-force.php:1336
+msgid "Leave this field empty"
+msgstr "ปล่อยช่องนี้ว่างไว้"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1484
+#: includes/class-segurium-brute-force.php:1507
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "พยายามเข้าสู่ระบบล้มเหลวมากเกินไป ลองอีกครั้งใน %s"
+
+#: includes/class-segurium-brute-force.php:1488
+msgid "Login Locked"
+msgstr "การเข้าสู่ระบบถูกล็อก"
+
+#: includes/class-segurium-cleanup.php:89
+msgid "Verdict has no defined cleanup recipe."
+msgstr "คำตัดสินนี้ไม่มีสูตรการล้างที่กำหนดไว้"
+
+#: includes/class-segurium-cleanup.php:93
+msgid "File not found."
+msgstr "ไม่พบไฟล์"
+
+#: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:7220
+msgid "File has been modified since scan. Re-scan first."
+msgstr "ไฟล์ถูกแก้ไขหลังการสแกน ให้สแกนใหม่ก่อน"
+
+#: includes/class-segurium-cleanup.php:103
+msgid "Failed to read file for backup."
+msgstr "อ่านไฟล์เพื่อสำรองข้อมูลไม่สำเร็จ"
+
+#: includes/class-segurium-cleanup.php:121
+msgid "Failed to create backup."
+msgstr "สร้างข้อมูลสำรองไม่สำเร็จ"
+
+#: includes/class-segurium-cleanup.php:175
+msgid "Failed to clean file."
+msgstr "ล้างไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium-component-backup.php:50
+#: includes/class-segurium.php:5806
+msgid "Component directory not found."
+msgstr "ไม่พบไดเรกทอรีของส่วนประกอบ"
+
+#: includes/class-segurium-component-backup.php:53
+msgid "Invalid component type."
+msgstr "ประเภทส่วนประกอบไม่ถูกต้อง"
+
+#: includes/class-segurium-component-backup.php:56
+msgid "Invalid component slug."
+msgstr "ส่วนประกอบมี slug ไม่ถูกต้อง"
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "การสำรองข้อมูลส่วนประกอบต้องใช้ส่วนขยาย PHP Phar"
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+msgid "Backup failed: %s"
+msgstr "สำรองข้อมูลไม่สำเร็จ: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "ไม่ได้สร้างไฟล์เก็บถาวรของข้อมูลสำรอง"
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:104
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"ส่วนประกอบมีขนาด %1$.1f MB ซึ่งเกินขีดจำกัด %2$d MB "
+"ของข้อมูลสำรองแบบเข้ารหัส "
+"จึงข้ามการลบเพื่อไม่ให้เว็บของคุณเสียข้อมูลที่ไม่มีสำเนา"
+
+#: includes/class-segurium-component-backup.php:119
+msgid "Failed to read packed component archive."
+msgstr "อ่านไฟล์เก็บถาวรของส่วนประกอบที่แพ็กไว้ไม่สำเร็จ"
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:141
+msgid "Failed to encrypt component backup: %s"
+msgstr "เข้ารหัสข้อมูลสำรองของส่วนประกอบไม่สำเร็จ: %s"
+
+#: includes/class-segurium-component-backup.php:165
+msgid "Invalid backup identifier."
+msgstr "ตัวระบุข้อมูลสำรองไม่ถูกต้อง"
+
+#: includes/class-segurium-component-backup.php:175
+msgid "Backup archive not found or failed integrity check."
+msgstr "ไม่พบไฟล์เก็บถาวรของข้อมูลสำรอง หรือการตรวจสอบความสมบูรณ์ไม่ผ่าน"
+
+#: includes/class-segurium-component-backup.php:188
+msgid "Failed to stage backup for extraction."
+msgstr "เตรียมข้อมูลสำรองเพื่อแตกไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium-component-backup.php:193
+#: includes/class-segurium.php:5600
+msgid "Restore target directory is not writable."
+msgstr "ไดเรกทอรีปลายทางสำหรับกู้คืนเขียนไม่ได้"
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+msgid "Restore failed: %s"
+msgstr "กู้คืนไม่สำเร็จ: %s"
+
+#: includes/class-segurium-component-backup.php:243
+msgid "Secure randomness is unavailable on this host."
+msgstr "โฮสต์นี้ไม่มีแหล่งสุ่มที่ปลอดภัย"
+
+#: includes/class-segurium-cti-client.php:235
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr "ไม่มี ID การติดตั้ง โปรดตรวจสอบว่าเปิดใช้งานปลั๊กอินอย่างถูกต้องแล้ว"
+
+#: includes/class-segurium-cti-client.php:610
+msgid "Too many requests. Please try again later."
+msgstr "คำร้องขอมากเกินไป โปรดลองอีกครั้งภายหลัง"
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:616
+msgid "Support service error (HTTP %d)."
+msgstr "บริการสนับสนุนผิดพลาด (HTTP %d)"
+
+#: includes/class-segurium-cti-client.php:1445
+msgid "Cleanup quota reached."
+msgstr "ใช้โควตาการล้างครบแล้ว"
+
+#: includes/class-segurium-cti-client.php:1452
+msgid "Clean version not available for this file"
+msgstr "ไม่มีรุ่นที่สะอาดสำหรับไฟล์นี้"
+
+#: includes/class-segurium-cti-client.php:1854
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "การตอบกลับเรื่องการเรียกเก็บเงินจาก Segurium Cloud ไม่ถูกต้อง"
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:88
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): ไม่มีการตอบกลับให้ตรวจสอบ"
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:120
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): ไม่มีส่วนหัวลายเซ็น"
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:130
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): เซ็นด้วยคีย์ที่ไม่น่าเชื่อถือ \"%2$s\""
+
+#: includes/class-segurium-cti-signature.php:141
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "รายการคีย์ที่เชื่อถือได้เสียหาย — ถอดรหัสคีย์สาธารณะไม่สำเร็จ"
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:151
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): ส่วนหัวลายเซ็นมีรูปแบบผิด"
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:162
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): เวลาประทับของลายเซ็นมีรูปแบบผิด"
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:175
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium Cloud (%1$s): เวลาประทับของลายเซ็นอยู่นอกช่วง %2$d วินาที"
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:192
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium ปฏิเสธลายเซ็น (%2$s)"
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:204
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): ตรวจสอบลายเซ็นไม่ผ่าน"
+
+#: includes/class-segurium-deactivation-reason.php:247
+msgid "Why are you deactivating Segurium?"
+msgstr "ทำไมคุณจึงปิดการใช้งาน Segurium?"
+
+#: includes/class-segurium-deactivation-reason.php:248
+#: includes/class-segurium.php:1134 includes/class-segurium.php:2264
+#: includes/class-segurium.php:2278
+msgid "Close"
+msgstr "ปิด"
+
+#: includes/class-segurium-deactivation-reason.php:262
+#: includes/class-segurium.php:1073 includes/class-segurium.php:3454
+msgid "Note (optional, max 2000 chars)"
+msgstr "หมายเหตุ (ไม่บังคับ ไม่เกิน 2000 ตัวอักษร)"
+
+#: includes/class-segurium-deactivation-reason.php:267
+#: includes/class-segurium.php:1200
+msgid "Continue"
+msgstr "ดำเนินการต่อ"
+
+#: includes/class-segurium-deactivation-reason.php:268
+#: includes/class-segurium.php:1259
+msgid "Skip"
+msgstr "ข้าม"
+
+#: includes/class-segurium-deactivation-reason.php:336
+#: includes/class-segurium-paywall-telemetry.php:374
+#: includes/class-segurium-review-prompt.php:548
+#: includes/class-segurium.php:4067 includes/class-segurium.php:4145
+#: includes/class-segurium.php:4242 includes/class-segurium.php:4278
+#: includes/class-segurium.php:4351 includes/class-segurium.php:4436
+#: includes/class-segurium.php:4471 includes/class-segurium.php:4540
+#: includes/class-segurium.php:4604 includes/class-segurium.php:4681
+#: includes/class-segurium.php:4782 includes/class-segurium.php:4900
+#: includes/class-segurium.php:4958 includes/class-segurium.php:5008
+#: includes/class-segurium.php:5473 includes/class-segurium.php:5513
+#: includes/class-segurium.php:5540 includes/class-segurium.php:5568
+#: includes/class-segurium.php:5626 includes/class-segurium.php:5666
+#: includes/class-segurium.php:5708 includes/class-segurium.php:5750
+#: includes/class-segurium.php:5875 includes/class-segurium.php:5979
+#: includes/class-segurium.php:6338 includes/class-segurium.php:6395
+#: includes/class-segurium.php:6490 includes/class-segurium.php:7084
+#: includes/class-segurium.php:7406 includes/class-segurium.php:7483
+msgid "Unauthorized"
+msgstr "ไม่ได้รับอนุญาต"
+
+#: includes/class-segurium-deactivation-reason.php:391
+msgid "Missing feature"
+msgstr "ขาดคุณสมบัติที่ต้องการ"
+
+#: includes/class-segurium-deactivation-reason.php:393
+msgid "It is causing issues"
+msgstr "ทำให้เกิดปัญหา"
+
+#: includes/class-segurium-deactivation-reason.php:395
+msgid "No longer needed"
+msgstr "ไม่จำเป็นอีกแล้ว"
+
+#: includes/class-segurium-deactivation-reason.php:397
+msgid "Found better alternative"
+msgstr "เจอตัวเลือกที่ดีกว่า"
+
+#: includes/class-segurium-deactivation-reason.php:399
+msgid "Temporary deactivation"
+msgstr "ปิดการใช้งานชั่วคราว"
+
+#: includes/class-segurium-deactivation-reason.php:401
+#: includes/class-segurium.php:2734
+msgid "Other"
+msgstr "อื่นๆ"
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Downloaded geo DB has invalid format."
+msgstr "ฐานข้อมูลภูมิศาสตร์ที่ดาวน์โหลดมามีรูปแบบไม่ถูกต้อง"
+
+#: includes/class-segurium-geo-updater.php:148
+msgid "Failed to write geo DB to disk."
+msgstr "เขียนฐานข้อมูลภูมิศาสตร์ลงดิสก์ไม่สำเร็จ"
+
+#: includes/class-segurium-geo-updater.php:153
+msgid "Failed to install geo DB."
+msgstr "ติดตั้งฐานข้อมูลภูมิศาสตร์ไม่สำเร็จ"
+
+#: includes/class-segurium-iid.php:260
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium ตรวจพบว่าเว็บนี้ถูกย้ายหรือถูกโคลน "
+"และกำลังสร้างการเชื่อมต่อที่ปลอดภัยขึ้นใหม่อยู่เบื้องหลัง ถ้าคุณมีใบอนุญาต "
+"Pro โปรดเปิดใช้งานอีกครั้งที่หน้าจอบัญชี Segurium เพื่อให้คุณสมบัติของ Pro "
+"กลับมาทำงานบนตัวตนใหม่"
+
+#: includes/class-segurium-iid.php:319
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium เปิดใช้งานใบอนุญาต Pro บนเว็บนี้ไม่ได้ "
+"เพราะใบอนุญาตผูกอยู่กับการติดตั้งอื่น โปรดเปิดพอร์ทัลบัญชี Segurium "
+"บนการติดตั้งเดิมแล้วปิดการใช้งานใบอนุญาตที่นั่น การผูกจะถูกปลด "
+"และคุณสมบัติของ Pro จะกลับมาทำงานที่นี่ในการตรวจใบอนุญาตครั้งถัดไป"
+
+#: includes/class-segurium-info-shield.php:331
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"บน Nginx ต้องเอาส่วนหัว Server ออกที่ระดับเซิร์ฟเวอร์ (server_tokens off;) "
+"สวิตช์นี้จึงไม่มีผล"
+
+#: includes/class-segurium-info-shield.php:334
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"บน Apache ที่ใช้ FastCGI ส่วนหัว Server จะถูกเพิ่มหลัง PHP ทำงาน ให้ใช้ "
+"ServerTokens Prod ในการตั้งค่าของ Apache"
+
+#: includes/class-segurium-info-shield.php:338
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"บน IIS ให้ใช้แอตทริบิวต์ removeServerHeader ใน web.config "
+"สวิตช์นี้จึงมีผลจำกัด"
+
+#: includes/class-segurium-info-shield.php:352
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"เซิร์ฟเวอร์ของคุณใช้ FastCGI ซึ่งอาจเพิ่มส่วนหัว X-Powered-By กลับเข้ามา "
+"ให้ตรวจสอบการเอาออกโดยดูส่วนหัวการตอบกลับ"
+
+#: includes/class-segurium-info-shield.php:365
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr ""
+"Jetpack เปิดใช้งานอยู่และต้องใช้ XML-RPC การปิด XML-RPC จะทำให้การเชื่อมต่อ "
+"Jetpack เสีย"
+
+#: includes/class-segurium-integrity-chain.php:149
+#: includes/class-segurium.php:1212
+msgid "Running a quick malware scan first…"
+msgstr "กำลังสแกนมัลแวร์อย่างรวดเร็วก่อน…"
+
+#: includes/class-segurium-integrity-chain.php:203
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr "การสแกนมัลแวร์ที่ต่อกันถูกยกเลิก — ยังไม่ได้เริ่มการสแกนความสมบูรณ์"
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:227
+msgid "Could not start the chained integrity scan: %s"
+msgstr "เริ่มการสแกนความสมบูรณ์ที่ต่อกันไม่ได้: %s"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:173
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr ""
+"การสแกนแบบเรียลไทม์ของ Segurium (ทุก %d วินาที, ค่าแทนที่สำหรับนักพัฒนา)"
+
+#: includes/class-segurium-rest-actions-poke.php:79
+msgid "Remote actions are switched off for this site."
+msgstr "การสั่งงานจากระยะไกลถูกปิดไว้สำหรับเว็บนี้"
+
+#: includes/class-segurium-rest-actions-poke.php:95
+#: includes/class-segurium-rest-actions-poke.php:103
+msgid "Remote actions require authentication."
+msgstr "การสั่งงานจากระยะไกลต้องยืนยันตัวตน"
+
+#: includes/class-segurium-review-prompt.php:459
+msgid "Leave a review"
+msgstr "เขียนรีวิว"
+
+#: includes/class-segurium-review-prompt.php:461
+#: includes/class-segurium.php:1215
+msgid "Maybe later"
+msgstr "ไว้ทีหลัง"
+
+#: includes/class-segurium-review-prompt.php:463
+msgid "Don't ask again"
+msgstr "ไม่ต้องถามอีก"
+
+#: includes/class-segurium-review-prompt.php:479
+msgid "Segurium just cleaned your site."
+msgstr "Segurium เพิ่งล้างเว็บของคุณเสร็จ"
+
+#: includes/class-segurium-review-prompt.php:480
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"ดีใจที่ได้ช่วย ถ้า Segurium ช่วยคุณประหยัดเวลาหรือเงินในวันนี้ "
+"รีวิวตามจริงบน WordPress.org จะช่วยให้เจ้าของเว็บคนอื่นหามันเจอ "
+"และช่วยให้เราคงระดับการล้างแบบฟรีไว้ได้"
+
+#: includes/class-segurium-review-prompt.php:485
+msgid "Scan complete. Your site is clean."
+msgstr "สแกนเสร็จแล้ว เว็บของคุณสะอาด"
+
+#: includes/class-segurium-review-prompt.php:486
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"ถ้า Segurium ทำหน้าที่ได้ดี ช่วยเขียนรีวิวตามจริงบน WordPress.org ได้ไหม "
+"ใช้เวลาแค่นาทีเดียว"
+
+#: includes/class-segurium-review-prompt.php:556
+msgid "Unknown review prompt action."
+msgstr "ไม่รู้จักการกระทำของหน้าต่างขอรีวิว"
+
+#: includes/class-segurium-scan-runner.php:378
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "ทุก 60 วินาที (การกู้การสแกนของ Segurium)"
+
+#: includes/class-segurium-scan-runner.php:411
+msgid "A scan type is required."
+msgstr "ต้องระบุประเภทการสแกน"
+
+#: includes/class-segurium-scan-runner.php:424
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"การเปิดใช้งานกับบริการคลาวด์ของ Segurium ยังรออยู่ "
+"โปรดลองอีกครั้งในอีกสักครู่"
+
+#: includes/class-segurium-scan-runner.php:438
+#: includes/class-segurium.php:1117 includes/class-segurium.php:5076
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"ที่เก็บข้อมูลการสแกนยังไม่พร้อม โปรดปิดการใช้งานแล้วเปิดใช้งานปลั๊กอิน "
+"Segurium ใหม่ จากนั้นลองอีกครั้ง"
+
+#: includes/class-segurium-scan-runner.php:448
+#: includes/class-segurium-scan-runner.php:486
+#: includes/class-segurium.php:1096
+msgid "A scan is already in progress."
+msgstr "มีการสแกนกำลังทำงานอยู่แล้ว"
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:479
+#: includes/class-segurium-scan-runner.php:555
+msgid "Unexpected error starting scan: %s"
+msgstr "เริ่มการสแกนแล้วเกิดข้อผิดพลาดที่ไม่คาดคิด: %s"
+
+#: includes/class-segurium-scan-runner.php:507
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr ""
+"ที่เก็บข้อมูลการสแกนยังไม่พร้อม ระบบซ่อมให้อัตโนมัติแล้ว โปรดกด "
+"\"เริ่มสแกน\" อีกครั้ง"
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:516
+msgid "Failed to initialize scan: %s"
+msgstr "เริ่มต้นการสแกนไม่สำเร็จ: %s"
+
+#: includes/class-segurium-scan-runner.php:1359
+#: includes/class-segurium.php:1100 includes/class-segurium.php:3792
+#: includes/class-segurium.php:3857 includes/class-segurium.php:3884
+#: includes/class-segurium.php:4721
+msgid "You do not have permission to manage scans."
+msgstr "คุณไม่มีสิทธิ์จัดการการสแกน"
+
+#: includes/class-segurium-scan-runner.php:1389
+#: includes/class-segurium.php:4749
+msgid "Could not fetch scan status due to a server error."
+msgstr "ดึงสถานะการสแกนไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด"
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:2316
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"PHP max_execution_time คือ %ds ซึ่งสั้นเกินไปสำหรับการสแกนที่เชื่อถือได้ "
+"ขอให้โฮสต์ของคุณเพิ่มเป็นอย่างน้อย 30 วินาที"
+
+#: includes/class-segurium-scan-runner.php:2327
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
+msgstr ""
+"WordPress cron ถูกปิดอยู่ (DISABLE_WP_CRON) และการตั้งค่า PHP "
+"ของคุณไม่มีทางแยกงานยาวออกจากคำร้องขอหน้าเว็บ "
+"การสแกนเบื้องหลังจะเดินหน้าเฉพาะตอนที่แท็บผู้ควบคุมของ Segurium เปิดค้างไว้ "
+"ขอให้โฮสต์ของคุณเปิด system cron จริงที่เรียก wp-cron.php ทุกนาที "
+"หรือเปลี่ยนจาก mod_php ไปเป็น PHP-FPM / LiteSpeed"
+
+#: includes/class-segurium-scan-runner.php:2329
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"WordPress cron ถูกปิดอยู่ (DISABLE_WP_CRON) การสแกนตามกำหนดเวลาต้องพึ่ง "
+"system cron จริงที่เรียก wp-cron.php ทุกนาที ขอให้โฮสต์ของคุณตั้งให้"
+
+#: includes/class-segurium-scan-trigger-auth.php:93
+#: includes/class-segurium-scan-trigger-auth.php:135
+#: includes/class-segurium-scan-trigger-auth.php:143
+msgid "Scan trigger requires authentication."
+msgstr "การสั่งเริ่มสแกนต้องยืนยันตัวตน"
+
+#: includes/class-segurium-scan-trigger-auth.php:122
+msgid "Scan trigger secret did not match."
+msgstr "ความลับสำหรับสั่งเริ่มสแกนไม่ตรงกัน"
+
+#: includes/class-segurium-scheduled-scan-settings.php:108
+msgid "Invalid settings payload."
+msgstr "เพย์โหลดการตั้งค่าไม่ถูกต้อง"
+
+#: includes/class-segurium-scheduled-scan-settings.php:127
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "ความถี่ต้องเป็นหนึ่งใน: ปิด, รายวัน, รายสัปดาห์"
+
+#: includes/class-segurium-scheduled-scan-settings.php:138
+msgid "Hour must be between 0 and 23."
+msgstr "ชั่วโมงต้องอยู่ระหว่าง 0 ถึง 23"
+
+#: includes/class-segurium-scheduled-scan-settings.php:149
+msgid "Minute must be between 0 and 59."
+msgstr "นาทีต้องอยู่ระหว่าง 0 ถึง 59"
+
+#: includes/class-segurium-scheduled-scan-settings.php:160
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "วันในสัปดาห์ต้องอยู่ระหว่าง 0 (วันอาทิตย์) ถึง 6 (วันเสาร์)"
+
+#: includes/class-segurium-self-check.php:401 includes/class-segurium.php:2924
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:404
+msgid "CSP is enforced."
+msgstr "CSP ถูกบังคับใช้อยู่"
+
+#: includes/class-segurium-self-check.php:406
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr ""
+"CSP อยู่ในโหมดรายงานอย่างเดียว เปลี่ยนเป็นบังคับใช้เพื่อการป้องกันเต็มรูปแบบ"
+
+#: includes/class-segurium-self-check.php:407
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr ""
+"ไม่มีส่วนหัว Content-Security-Policy ส่วนหัวนี้ป้องกัน XSS และการฝังโค้ด"
+
+#: includes/class-segurium-self-check.php:422
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:425
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS ทำงานอยู่โดยมี max-age อย่างน้อยหนึ่งปี"
+
+#: includes/class-segurium-self-check.php:427
+msgid "HSTS present but max-age is below one year."
+msgstr "มี HSTS แต่ max-age ต่ำกว่าหนึ่งปี"
+
+#: includes/class-segurium-self-check.php:428
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr "ไม่มีส่วนหัว HSTS เบราว์เซอร์อาจเชื่อมต่อผ่าน HTTP ธรรมดา"
+
+#: includes/class-segurium-self-check.php:440
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:443
+msgid "MIME sniffing prevented."
+msgstr "ป้องกันการเดาชนิด MIME แล้ว"
+
+#: includes/class-segurium-self-check.php:444
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "ไม่มี เบราว์เซอร์อาจตีความชนิดไฟล์ผิด"
+
+#: includes/class-segurium-self-check.php:456 includes/class-segurium.php:2793
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:459
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "ป้องกันคลิกแจ็กกิงด้วย X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:460
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr "ไม่มี X-Frame-Options เว็บอาจถูกผู้โจมตีใส่ในเฟรม"
+
+#: includes/class-segurium-self-check.php:472 includes/class-segurium.php:2801
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:475
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "Referrer-Policy จำกัดการรั่วไหลของข้อมูลตอนเปลี่ยนหน้า"
+
+#: includes/class-segurium-self-check.php:476
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr "ไม่มีหรือใช้ Referrer-Policy ที่ไม่ปลอดภัย URL เต็มอาจรั่วไหล"
+
+#: includes/class-segurium-self-check.php:487 includes/class-segurium.php:2889
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:490
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "Permissions-Policy จำกัดการเข้าถึงคุณสมบัติของเบราว์เซอร์"
+
+#: includes/class-segurium-self-check.php:491
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "ไม่มี Permissions-Policy คุณสมบัติของเบราว์เซอร์จึงไม่ถูกจำกัด"
+
+#: includes/class-segurium-self-check.php:503 includes/class-segurium.php:2821
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:506
+msgid "Legacy XSS filter directive present."
+msgstr "มีคำสั่งตัวกรอง XSS แบบเดิมอยู่"
+
+#: includes/class-segurium-self-check.php:507
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"ไม่มี X-XSS-Protection ตั้งเป็น 0 เพื่อปิดตัวกรอง XSS "
+"แบบเดิมของเบราว์เซอร์อย่างปลอดภัย"
+
+#: includes/class-segurium-self-check.php:532
+msgid "X-Powered-By hidden"
+msgstr "ซ่อน X-Powered-By แล้ว"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:537
+msgid "X-Powered-By reveals: %s"
+msgstr "X-Powered-By เปิดเผย: %s"
+
+#: includes/class-segurium-self-check.php:540
+msgid "X-Powered-By header is not exposed."
+msgstr "ส่วนหัว X-Powered-By ไม่ถูกเปิดเผย"
+
+#: includes/class-segurium-self-check.php:551
+msgid "WordPress version hidden"
+msgstr "ซ่อนรุ่น WordPress แล้ว"
+
+#: includes/class-segurium-self-check.php:554
+msgid "WordPress version exposed in HTML source."
+msgstr "รุ่น WordPress ถูกเปิดเผยในซอร์ส HTML"
+
+#: includes/class-segurium-self-check.php:555
+msgid "WordPress version not visible in HTML."
+msgstr "ไม่เห็นรุ่น WordPress ใน HTML"
+
+#: includes/class-segurium-self-check.php:566
+msgid "Asset version query hidden"
+msgstr "ซ่อนคิวรีรุ่นของไฟล์ประกอบแล้ว"
+
+#: includes/class-segurium-self-check.php:569
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr "รุ่นของแกนหลัก/ธีม/ปลั๊กอินถูกเปิดเผยใน ?ver= บน URL ของไฟล์ประกอบ"
+
+#: includes/class-segurium-self-check.php:570
+msgid "Asset URLs do not expose version numbers."
+msgstr "URL ของไฟล์ประกอบไม่เปิดเผยหมายเลขรุ่น"
+
+#: includes/class-segurium-self-check.php:597
+msgid "XML-RPC disabled"
+msgstr "ปิด XML-RPC แล้ว"
+
+#: includes/class-segurium-self-check.php:600
+msgid "XML-RPC endpoint is disabled."
+msgstr "ปลายทาง XML-RPC ถูกปิดอยู่"
+
+#: includes/class-segurium-self-check.php:601
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr ""
+"XML-RPC เข้าถึงได้ "
+"ซึ่งเป็นเป้าหมายที่พบบ่อยของการเดารหัสผ่านและการขยายพิงก์แบ็ก"
+
+#: includes/class-segurium-self-check.php:612
+msgid "REST API discovery disabled"
+msgstr "ปิดการค้นพบ REST API แล้ว"
+
+#: includes/class-segurium-self-check.php:615
+msgid "REST API discovery link removed from <head>."
+msgstr "ลิงก์การค้นพบ REST API ถูกเอาออกจาก <head> แล้ว"
+
+#: includes/class-segurium-self-check.php:616
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr "ลิงก์การค้นพบ REST API ถูกเปิดเผย — ทำให้การสำรวจข้อมูลง่ายขึ้น"
+
+#: includes/class-segurium-self-check.php:627
+msgid "Brute-force protection"
+msgstr "การป้องกันการเดารหัสผ่าน"
+
+#: includes/class-segurium-self-check.php:630
+msgid "Login brute-force protection is active."
+msgstr "การป้องกันการเดารหัสผ่านตอนเข้าสู่ระบบทำงานอยู่"
+
+#: includes/class-segurium-self-check.php:631
+msgid "Brute-force protection is disabled."
+msgstr "การป้องกันการเดารหัสผ่านถูกปิดอยู่"
+
+#: includes/class-segurium-self-check.php:646
+msgid "Two-factor enforced for administrators"
+msgstr "บังคับใช้การยืนยันสองชั้นกับผู้ควบคุม"
+
+#: includes/class-segurium-self-check.php:649
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "บังคับใช้การยืนยันตัวตนสองชั้นกับบทบาทผู้ควบคุม"
+
+#: includes/class-segurium-self-check.php:650
+msgid "Administrators can log in with a password alone."
+msgstr "ผู้ควบคุมเข้าสู่ระบบด้วยรหัสผ่านอย่างเดียวได้"
+
+#: includes/class-segurium-self-check.php:662 includes/class-segurium.php:2064
+msgid "Firewall"
+msgstr "ไฟร์วอลล์"
+
+#: includes/class-segurium-self-check.php:665
+msgid "Firewall rules are active."
+msgstr "กฎไฟร์วอลล์ทำงานอยู่"
+
+#: includes/class-segurium-self-check.php:666
+msgid "No firewall rules are active."
+msgstr "ไม่มีกฎไฟร์วอลล์ที่ทำงานอยู่"
+
+#: includes/class-segurium-self-check.php:678
+msgid "HTTPS / SSL active"
+msgstr "HTTPS / SSL ทำงานอยู่"
+
+#: includes/class-segurium-self-check.php:681
+msgid "Site is served over HTTPS."
+msgstr "เว็บให้บริการผ่าน HTTPS"
+
+#: includes/class-segurium-self-check.php:682
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "เว็บไม่ได้ให้บริการผ่าน HTTPS ทราฟฟิกจึงไม่ถูกเข้ารหัส"
+
+#: includes/class-segurium-self-check.php:722
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"ไม่มีส่วนหัว Set-Cookie บนหน้าแรก จึงประเมินแฟล็กของคุกกี้จากภายนอกไม่ได้"
+
+#: includes/class-segurium-self-check.php:728
+#: includes/class-segurium-self-check.php:750
+msgid "Cookies — Secure"
+msgstr "คุกกี้ — Secure"
+
+#: includes/class-segurium-self-check.php:739
+#: includes/class-segurium-self-check.php:846
+#: includes/class-segurium-self-check.php:860
+#: includes/class-segurium-self-check.php:878
+msgid "Cookies — SameSite"
+msgstr "คุกกี้ — SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:782
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "คุกกี้ทั้ง %1$d รายการตั้งแอตทริบิวต์ %2$s"
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
+#: includes/class-segurium-self-check.php:796
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "คุกกี้ %1$d จาก %2$d รายการตั้ง %3$s"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:809
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "ไม่มีคุกกี้รายการใดใน %1$d รายการที่ตั้งแอตทริบิวต์ %2$s"
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:849
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "คุกกี้ทั้ง %d รายการตั้ง SameSite=Lax/Strict"
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:863
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "คุกกี้ %1$d จาก %2$d รายการตั้ง SameSite=Lax/Strict"
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:871
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "คุกกี้ %1$d จาก %2$d รายการใช้ SameSite=None"
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:873
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr ""
+"ไม่มีคุกกี้รายการใดตั้ง SameSite=Lax หรือ Strict (จากทั้งหมด %d รายการ)"
+
+#: includes/class-segurium-self-check.php:940 includes/class-segurium.php:3295
+msgid "Cloud-assisted malware detection"
+msgstr "การตรวจจับมัลแวร์ด้วยความช่วยเหลือจากคลาวด์"
+
+#: includes/class-segurium-self-check.php:943
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"โหมดออนพรีมิสเปิดอยู่ เนื้อไฟล์จะอยู่บนเซิร์ฟเวอร์นี้ "
+"และไฟล์ที่คลาวด์ระบุด้วยแฮชไม่ได้จะไม่มีคำตัดสิน "
+"เปิดการตรวจจับด้วยความช่วยเหลือจากคลาวด์เพื่อความแม่นยำเต็มที่"
+
+#: includes/class-segurium-self-check.php:944
+msgid "Cloud-assisted malware detection is active."
+msgstr "การตรวจจับมัลแวร์ด้วยความช่วยเหลือจากคลาวด์ทำงานอยู่"
+
+#: includes/class-segurium-self-check.php:956
+msgid "Scheduled malware scans"
+msgstr "การสแกนมัลแวร์ตามกำหนดเวลา"
+
+#: includes/class-segurium-self-check.php:959
+msgid "A recurring malware scan is scheduled."
+msgstr "มีการสแกนมัลแวร์แบบทำซ้ำตั้งเวลาไว้แล้ว"
+
+#: includes/class-segurium-self-check.php:960
+msgid "No recurring malware scan is scheduled."
+msgstr "ไม่มีการสแกนมัลแวร์แบบทำซ้ำตั้งเวลาไว้"
+
+#: includes/class-segurium-self-check.php:972
+msgid "Automatic malware cleanup"
+msgstr "การล้างมัลแวร์อัตโนมัติ"
+
+#: includes/class-segurium-self-check.php:975
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "มัลแวร์ที่ตรวจพบจะถูกล้างอัตโนมัติหลังการสแกนทุกครั้ง"
+
+#: includes/class-segurium-self-check.php:976
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr "การล้างอัตโนมัติถูกปิดอยู่ มัลแวร์ที่ตรวจพบต้องกดล้างเอง"
+
+#: includes/class-segurium-self-check.php:990
+msgid "Malware scan up to date"
+msgstr "ผลการสแกนมัลแวร์เป็นรุ่นล่าสุด"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:995
+msgid "Last malware scan completed %s ago."
+msgstr "การสแกนมัลแวร์ครั้งล่าสุดเสร็จเมื่อ %s ที่แล้ว"
+
+#: includes/class-segurium-self-check.php:999
+msgid "Malware scan is older than 7 days."
+msgstr "การสแกนมัลแวร์เก่ากว่า 7 วัน"
+
+#: includes/class-segurium-self-check.php:1000
+msgid "No malware scan has been completed yet."
+msgstr "ยังไม่มีการสแกนมัลแวร์ที่เสร็จสมบูรณ์"
+
+#: includes/class-segurium-self-check.php:1012
+msgid "No malware in the last 24 hours"
+msgstr "ไม่มีมัลแวร์ใน 24 ชั่วโมงที่ผ่านมา"
+
+#: includes/class-segurium-self-check.php:1015
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr "การสแกนมัลแวร์ครั้งล่าสุดทำงานใน 24 ชั่วโมงที่ผ่านมาและไม่พบอะไร"
+
+#: includes/class-segurium-self-check.php:1017
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"ไม่มีการสแกนมัลแวร์ใน 24 ชั่วโมงที่ผ่านมา การสแกนใช้เวลาไม่นาน "
+"สั่งสแกนสักครั้งเพื่อรีเฟรชคำตัดสินนี้"
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:1020
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] ""
+"การสแกนมัลแวร์ครั้งล่าสุดทำเครื่องหมายภัยคุกคามไว้ %d รายการ "
+"ตรวจดูได้ที่แท็บตัวสแกนมัลแวร์"
+
+#: includes/class-segurium-self-check.php:1044
+msgid "No integrity issues in the last 24 hours"
+msgstr "ไม่มีปัญหาความสมบูรณ์ใน 24 ชั่วโมงที่ผ่านมา"
+
+#: includes/class-segurium-self-check.php:1047
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr "การสแกนความสมบูรณ์ครั้งล่าสุดทำงานใน 24 ชั่วโมงที่ผ่านมาและไม่พบปัญหา"
+
+#: includes/class-segurium-self-check.php:1049
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr ""
+"ไม่มีการสแกนความสมบูรณ์ใน 24 ชั่วโมงที่ผ่านมา การสแกนใช้เวลาไม่นาน "
+"สั่งสแกนสักครั้งเพื่อรีเฟรชคำตัดสินนี้"
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:1052
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] ""
+"มีปัญหาความสมบูรณ์ที่ยังเปิดอยู่ %d รายการที่ยังไม่แก้ "
+"ตรวจดูได้ที่แท็บตัวสแกนความสมบูรณ์"
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "ปลายทางพร็อกซีที่เชื่อถือได้ตอบกลับ HTTP %d"
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "การตอบกลับรายการพร็อกซีที่เชื่อถือได้มีรูปแบบไม่ถูกต้อง"
+
+#: includes/class-segurium-upload-scan.php:93
+msgid "This file was identified as malware and has been blocked."
+msgstr "ไฟล์นี้ถูกระบุว่าเป็นมัลแวร์และถูกปิดกั้นแล้ว"
+
+#: includes/class-segurium.php:390
+msgid "Unknown or unsupported action."
+msgstr "การกระทำที่ไม่รู้จักหรือไม่รองรับ"
+
+#: includes/class-segurium.php:416
+msgid "This action is temporarily unavailable."
+msgstr "การกระทำนี้ใช้ไม่ได้ชั่วคราว"
+
+#: includes/class-segurium.php:491 includes/segurium-admin-menu-shell.php:182
+msgid "Security score:"
+msgstr "คะแนนความปลอดภัย:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:501 includes/class-segurium.php:1349
+#: includes/segurium-admin-menu-shell.php:192
+msgid "Last checked %s ago."
+msgstr "ตรวจครั้งล่าสุดเมื่อ %s ที่แล้ว"
+
+#: includes/class-segurium.php:508 includes/segurium-admin-menu-shell.php:199
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"สั่งตรวจสอบด้วยตัวเองจากหน้าผู้ควบคุมของ Segurium "
+"เพื่อดูคะแนนความปลอดภัยของคุณ"
+
+#: includes/class-segurium.php:514 includes/segurium-admin-menu-shell.php:205
+msgid "Open Segurium"
+msgstr "เปิด Segurium"
+
+#: includes/class-segurium.php:1060
+msgid "Malware"
+msgstr "มัลแวร์"
+
+#: includes/class-segurium.php:1061
+msgid "Clean"
+msgstr "ล้าง"
+
+#: includes/class-segurium.php:1062 includes/class-segurium.php:2147
+msgid "Cleaned"
+msgstr "ล้างแล้ว"
+
+#: includes/class-segurium.php:1063
+msgid "Restored"
+msgstr "กู้คืนแล้ว"
+
+#: includes/class-segurium.php:1064
+msgid "Failed"
+msgstr "ล้มเหลว"
+
+#: includes/class-segurium.php:1065
+msgid "Processing..."
+msgstr "กำลังประมวลผล..."
+
+#: includes/class-segurium.php:1066
+msgid "Show malware"
+msgstr "แสดงมัลแวร์"
+
+#: includes/class-segurium.php:1067
+msgid "Report false positive"
+msgstr "รายงานผลบวกลวง"
+
+#: includes/class-segurium.php:1068 includes/class-segurium.php:3440
+msgid "Report False Positive"
+msgstr "รายงานผลบวกลวง"
+
+#: includes/class-segurium.php:1069 includes/class-segurium.php:3445
+msgid "File path"
+msgstr "เส้นทางไฟล์"
+
+#: includes/class-segurium.php:1070 includes/class-segurium.php:3447
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:1071 includes/class-segurium.php:2225
+#: includes/class-segurium.php:3352 includes/class-segurium.php:3449
+msgid "Component"
+msgstr "ส่วนประกอบ"
+
+#: includes/class-segurium.php:1072 includes/class-segurium.php:3451
+msgid "Current verdict"
+msgstr "คำตัดสินปัจจุบัน"
+
+#: includes/class-segurium.php:1074 includes/class-segurium.php:3458
+msgid "Also ignore this file on this site"
+msgstr "ละเว้นไฟล์นี้บนเว็บนี้ด้วย"
+
+#: includes/class-segurium.php:1075 includes/class-segurium.php:3462
+msgid "Submit report"
+msgstr "ส่งรายงาน"
+
+#: includes/class-segurium.php:1077
+msgid "Submitting…"
+msgstr "กำลังส่ง…"
+
+#: includes/class-segurium.php:1078
+msgid "Report submitted. Thank you."
+msgstr "ส่งรายงานแล้ว ขอบคุณ"
+
+#: includes/class-segurium.php:1079
+msgid "Could not submit the report."
+msgstr "ส่งรายงานไม่สำเร็จ"
+
+#: includes/class-segurium.php:1080 includes/class-segurium.php:1185
+msgid "Restore"
+msgstr "กู้คืน"
+
+#: includes/class-segurium.php:1081
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr ""
+"การทำเช่นนี้จะกู้ไฟล์ต้นฉบับที่ติดเชื้อกลับมาจากข้อมูลสำรอง "
+"ดำเนินการต่อหรือไม่?"
+
+#: includes/class-segurium.php:1082
+msgid "Restore file"
+msgstr "กู้คืนไฟล์"
+
+#: includes/class-segurium.php:1083
+msgid "Checking…"
+msgstr "กำลังตรวจสอบ…"
+
+#: includes/class-segurium.php:1084
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"ไฟล์บนดิสก์เป็นรุ่นเดียวกับข้อมูลสำรองอยู่แล้ว "
+"จะกู้คืนต่อเพื่ออัปเดตระเบียนในฐานข้อมูลหรือไม่?"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1086
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"ไฟล์ที่ %s ถูกแก้ไขหลังการล้างครั้งล่าสุด "
+"การกู้คืนจะเขียนทับไฟล์ปัจจุบันด้วยรุ่นจากข้อมูลสำรอง และย้อนกลับไม่ได้"
+
+#: includes/class-segurium.php:1087
+msgid "Overwrite & Restore"
+msgstr "เขียนทับและกู้คืน"
+
+#: includes/class-segurium.php:1088
+msgid "No threats found."
+msgstr "ไม่พบภัยคุกคาม"
+
+#: includes/class-segurium.php:1089
+msgid "Scan complete."
+msgstr "สแกนเสร็จแล้ว"
+
+#: includes/class-segurium.php:1090
+msgid "files"
+msgstr "ไฟล์"
+
+#: includes/class-segurium.php:1091
+msgid "failed"
+msgstr "ล้มเหลว"
+
+#: includes/class-segurium.php:1092
+msgid "skipped"
+msgstr "ข้าม"
+
+#: includes/class-segurium.php:1093
+msgid "scanned"
+msgstr "สแกนแล้ว"
+
+#: includes/class-segurium.php:1094
+msgid "Starting scan..."
+msgstr "กำลังเริ่มสแกน..."
+
+#: includes/class-segurium.php:1095
+msgid "Error"
+msgstr "ผิดพลาด"
+
+#: includes/class-segurium.php:1097
+msgid "Scan in progress..."
+msgstr "กำลังสแกน..."
+
+#: includes/class-segurium.php:1098
+msgid "Request failed"
+msgstr "คำร้องขอล้มเหลว"
+
+#: includes/class-segurium.php:1099
+msgid "Your session has expired. Reload the page and try again."
+msgstr "เซสชันของคุณหมดอายุ โหลดหน้านี้ใหม่แล้วลองอีกครั้ง"
+
+#: includes/class-segurium.php:1101 includes/class-segurium.php:3802
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "ต้องยินยอมให้ใช้ Segurium Cloud ก่อนจึงจะสแกนได้"
+
+#: includes/class-segurium.php:1102
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr "เริ่มต้นการสแกนไม่ได้ ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1103
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr "การสแกนเริ่มแล้วแต่ส่งงานให้ตัวทำงานเบื้องหลังไม่ได้ ลองอีกครั้ง"
+
+#: includes/class-segurium.php:1104
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"เริ่มการสแกนไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1105
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr ""
+"ดึงสถานะการสแกนไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1106
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"หยุดการสแกนที่กำลังทำงานไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด "
+"ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1107
+msgid "The server returned an error while processing the request."
+msgstr "เซิร์ฟเวอร์ตอบกลับด้วยข้อผิดพลาดขณะประมวลผลคำร้องขอ"
+
+#: includes/class-segurium.php:1108
+msgid "Network error — the request could not reach the server."
+msgstr "เครือข่ายผิดพลาด — คำร้องขอไปไม่ถึงเซิร์ฟเวอร์"
+
+#: includes/class-segurium.php:1109
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"ส่วนแสดงความคืบหน้าเจอสคริปต์ผิดพลาดและหยุดอัปเดต "
+"โหลดหน้านี้ใหม่เพื่อดูสถานะปัจจุบัน ตัวการสแกนเองไม่ได้รับผลกระทบ "
+"รายละเอียดอยู่ในคอนโซลของเบราว์เซอร์"
+
+#: includes/class-segurium.php:1110
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr "เซิร์ฟเวอร์ตอบกลับมาแบบที่ไม่คาดคิด โหลดหน้านี้ใหม่แล้วลองอีกครั้ง"
+
+#: includes/class-segurium.php:1111
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium ได้รับการตอบกลับที่ว่างเปล่าจากเซิร์ฟเวอร์ ตัวจัดการ PHP "
+"น่าจะล่มก่อนสร้างผลลัพธ์ใดๆ ให้ดูบันทึกข้อผิดพลาดของ PHP ว่ามี fatal, OOM "
+"หรือหมดเวลาหรือไม่"
+
+#: includes/class-segurium.php:1112
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"ไม่มีเครื่องหมายการตอบกลับของ Segurium อยู่ในเนื้อหา ตัวจัดการ AJAX ของ "
+"Segurium ไม่ได้ทำงาน หรือมีปลั๊กอินอื่นแทนที่การตอบกลับทั้งหมด ให้ตรวจ wp-"
+"content/mu-plugins ปลั๊กอินที่เปิดใช้งานอยู่ และบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1113
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"การตอบกลับของ Segurium ถูกตัดกลางคัน "
+"เครื่องหมายเริ่มต้นมาถึงแต่เครื่องหมายปิดไม่มา ตัวจัดการ PHP "
+"ล่มระหว่างการตอบกลับ (fatal, OOM หรือหมดเวลา) ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1114
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium แกะการตอบกลับจากเซิร์ฟเวอร์ไม่ได้ ให้ดูบันทึกข้อผิดพลาดของ PHP "
+"ว่ามี fatal, OOM หรือหมดเวลาในตัวจัดการของ Segurium หรือไม่"
+
+#: includes/class-segurium.php:1115
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Segurium ได้รับการตอบกลับที่ห่อด้วยเครื่องหมายที่ถูกต้อง แต่ JSON "
+"ข้างในแปลงค่าไม่ได้ กรณีนี้มักหมายถึง PHP ผิดพลาดร้ายแรงในตัวจัดการของ "
+"Segurium ให้ดูบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:1116 includes/class-segurium.php:3866
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr "หน้าผู้ควบคุมรุ่นนี้เก่าเกินไป โหลดหน้านี้ใหม่เพื่อดำเนินการต่อ"
+
+#: includes/class-segurium.php:1118
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr ""
+"เกิดข้อผิดพลาดของเซิร์ฟเวอร์ที่ไม่คาดคิด ให้ดูบันทึกข้อผิดพลาดของ PHP "
+"แล้วลองอีกครั้ง"
+
+#: includes/class-segurium.php:1119 includes/class-segurium.php:3391
+msgid "Frequency"
+msgstr "ความถี่"
+
+#: includes/class-segurium.php:1120 includes/class-segurium.php:2773
+#: includes/class-segurium.php:3394
+msgid "Off"
+msgstr "ปิด"
+
+#: includes/class-segurium.php:1121 includes/class-segurium.php:3395
+msgid "Daily"
+msgstr "รายวัน"
+
+#: includes/class-segurium.php:1122 includes/class-segurium.php:3396
+msgid "Weekly"
+msgstr "รายสัปดาห์"
+
+#: includes/class-segurium.php:1123 includes/class-segurium.php:3401
+msgid "Time of day"
+msgstr "เวลาในแต่ละวัน"
+
+#: includes/class-segurium.php:1124 includes/class-segurium.php:3408
+msgid "Day of week"
+msgstr "วันในสัปดาห์"
+
+#: includes/class-segurium.php:1125
+msgid "Next run:"
+msgstr "รอบถัดไป:"
+
+#: includes/class-segurium.php:1126
+msgid "Schedule saved."
+msgstr "บันทึกกำหนดเวลาแล้ว"
+
+#: includes/class-segurium.php:1127
+msgid "Could not save schedule."
+msgstr "บันทึกกำหนดเวลาไม่สำเร็จ"
+
+#: includes/class-segurium.php:1128
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "เก็บเป็น UTC แสดงตามภาษาของเบราว์เซอร์คุณ"
+
+#: includes/class-segurium.php:1129
+msgid "Scanned files"
+msgstr "ไฟล์ที่สแกนแล้ว"
+
+#: includes/class-segurium.php:1130
+msgid "showing first"
+msgstr "แสดงลำดับแรก"
+
+#: includes/class-segurium.php:1131
+msgid "Original file content (malware)"
+msgstr "เนื้อหาไฟล์ต้นฉบับ (มัลแวร์)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1133
+msgid "Current on-disk content (malware): %s"
+msgstr "เนื้อหาบนดิสก์ปัจจุบัน (มัลแวร์): %s"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:1136
+msgid "OK"
+msgstr "ตกลง"
+
+#: includes/class-segurium.php:1137
+msgid "Delete failed"
+msgstr "ลบไม่สำเร็จ"
+
+#: includes/class-segurium.php:1138
+msgid "Restore failed"
+msgstr "กู้คืนไม่สำเร็จ"
+
+#: includes/class-segurium.php:1139
+msgid "Fix failed"
+msgstr "แก้ไขไม่สำเร็จ"
+
+#: includes/class-segurium.php:1140
+msgid "Diff failed"
+msgstr "เทียบความต่างไม่สำเร็จ"
+
+#: includes/class-segurium.php:1141
+msgid "Diff decode error"
+msgstr "ถอดรหัสผลเทียบความต่างผิดพลาด"
+
+#: includes/class-segurium.php:1142
+msgid "View failed"
+msgstr "แสดงไม่สำเร็จ"
+
+#: includes/class-segurium.php:1143
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"กู้คืนไม่ได้ — ไม่มีข้อมูลสำรองบันทึกไว้สำหรับไฟล์นี้ "
+"ข้อมูลสำรองอาจถูกหมุนออกไปแล้ว"
+
+#: includes/class-segurium.php:1144 includes/class-segurium.php:1186
+#: includes/class-segurium.php:2151
+msgid "Fixed"
+msgstr "แก้ไขแล้ว"
+
+#: includes/class-segurium.php:1145 includes/class-segurium.php:2155
+msgid "Ignored"
+msgstr "ละเว้นแล้ว"
+
+#: includes/class-segurium.php:1146
+msgid "Ignore until file is the same"
+msgstr "ละเว้นตราบใดที่ไฟล์ยังเหมือนเดิม"
+
+#: includes/class-segurium.php:1147
+msgid "Always ignore"
+msgstr "ละเว้นเสมอ"
+
+#: includes/class-segurium.php:1148
+msgid "Remove from ignore"
+msgstr "เอาออกจากรายการละเว้น"
+
+#: includes/class-segurium.php:1149
+msgid "Connected"
+msgstr "เชื่อมต่อแล้ว"
+
+#: includes/class-segurium.php:1150
+msgid "Disconnected"
+msgstr "ตัดการเชื่อมต่อแล้ว"
+
+#: includes/class-segurium.php:1151
+msgid "No files found."
+msgstr "ไม่พบไฟล์"
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:1153 includes/class-segurium.php:1901
+msgid "%d threats still need your attention"
+msgstr "ภัยคุกคาม %d รายการยังต้องการความสนใจจากคุณ"
+
+#: includes/class-segurium.php:1154
+msgid "No threats — you are clear."
+msgstr "ไม่มีภัยคุกคาม — คุณปลอดภัย"
+
+#: includes/class-segurium.php:1155
+msgid "No scans yet — run your first scan."
+msgstr "ยังไม่มีการสแกน — สั่งสแกนครั้งแรกของคุณ"
+
+#: includes/class-segurium.php:1156 includes/class-segurium.php:2120
+#: includes/class-segurium.php:2209
+msgid "Stop scan"
+msgstr "หยุดสแกน"
+
+#: includes/class-segurium.php:1157
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr "หยุดการสแกนที่กำลังทำงานหรือไม่? ความคืบหน้าที่ทำมาจะถูกทิ้ง"
+
+#: includes/class-segurium.php:1158
+msgid "Could not stop the scan."
+msgstr "หยุดการสแกนไม่สำเร็จ"
+
+#: includes/class-segurium.php:1159
+msgid "Scan stopped."
+msgstr "หยุดการสแกนแล้ว"
+
+#. translators: %1$d: files scanned before stop, %2$d: files discovered
+#: includes/class-segurium.php:1161
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "หยุดการสแกนแล้ว — สแกนไฟล์ไปแล้ว %1$d จาก %2$d"
+
+#. translators: %1$d: files scanned before abort, %2$d: files discovered
+#: includes/class-segurium.php:1163
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "การสแกนถูกยกเลิก — สแกนไฟล์ไปแล้ว %1$d จาก %2$d"
+
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
+#: includes/class-segurium.php:1165
+msgid "no progress for %ds — waiting for worker"
+msgstr "ไม่มีความคืบหน้ามา %d วินาที — กำลังรอตัวทำงาน"
+
+#: includes/class-segurium.php:1166
+msgid "Hosting environment warnings"
+msgstr "คำเตือนเกี่ยวกับสภาพแวดล้อมโฮสติ้ง"
+
+#: includes/class-segurium.php:1167
+msgid "No malicious files. All known threats have been handled."
+msgstr "ไม่มีไฟล์อันตราย ภัยคุกคามที่รู้จักทั้งหมดถูกจัดการแล้ว"
+
+#: includes/class-segurium.php:1168
+msgid "No cleaned files yet."
+msgstr "ยังไม่มีไฟล์ที่ล้างแล้ว"
+
+#: includes/class-segurium.php:1169
+msgid "No files marked fixed."
+msgstr "ไม่มีไฟล์ที่ทำเครื่องหมายว่าแก้ไขแล้ว"
+
+#: includes/class-segurium.php:1170
+msgid "No ignored files."
+msgstr "ไม่มีไฟล์ที่ละเว้น"
+
+#: includes/class-segurium.php:1171
+msgid "Recently processed in this session"
+msgstr "ประมวลผลล่าสุดในเซสชันนี้"
+
+#: includes/class-segurium.php:1172 includes/class-segurium.php:1329
+msgid "Page"
+msgstr "หน้า"
+
+#: includes/class-segurium.php:1173 includes/class-segurium.php:1330
+msgid "of"
+msgstr "จาก"
+
+#: includes/class-segurium.php:1174
+msgid "items"
+msgstr "รายการ"
+
+#: includes/class-segurium.php:1175 includes/class-segurium.php:1327
+#: includes/class-segurium.php:2646
+msgid "Previous"
+msgstr "ก่อนหน้า"
+
+#: includes/class-segurium.php:1176 includes/class-segurium.php:1328
+#: includes/class-segurium.php:2648
+msgid "Next"
+msgstr "ถัดไป"
+
+#: includes/class-segurium.php:1177 includes/class-segurium.php:1350
+msgid "Fix"
+msgstr "แก้ไข"
+
+#: includes/class-segurium.php:1178
+msgid "Update"
+msgstr "อัปเดต"
+
+#: includes/class-segurium.php:1179
+msgid "Outdated"
+msgstr "ล้าสมัย"
+
+#: includes/class-segurium.php:1180
+msgid "Vulnerable"
+msgstr "มีช่องโหว่"
+
+#: includes/class-segurium.php:1181
+msgid "No update available"
+msgstr "ไม่มีอัปเดต"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+#: includes/class-segurium.php:1183
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s จะเปลี่ยนจาก %2$s ไปเป็น %3$s "
+"นี่เป็นการเปลี่ยนรุ่นหลักและอาจทำให้เว็บของคุณเสียได้"
+
+#: includes/class-segurium.php:1184
+msgid "Ignore"
+msgstr "ละเว้น"
+
+#: includes/class-segurium.php:1187
+msgid "Deleted"
+msgstr "ลบแล้ว"
+
+#: includes/class-segurium.php:1188
+msgid "Not found"
+msgstr "ไม่พบ"
+
+#: includes/class-segurium.php:1189
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"ไฟล์นี้ไม่ได้เป็นส่วนหนึ่งของการติดตั้งดั้งเดิมและจะถูกลบ "
+"ระบบจะสร้างข้อมูลสำรองไว้ ดำเนินการต่อหรือไม่?"
+
+#: includes/class-segurium.php:1190
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"ไฟล์บางส่วนจะถูกลบ (ไฟล์ที่ไม่รู้จัก) และบางส่วนจะถูกแทนที่ด้วยไฟล์ต้นฉบับ "
+"(ไฟล์ที่ถูกแก้ไข) ระบบจะสร้างข้อมูลสำรองไว้ทั้งหมด ดำเนินการต่อหรือไม่?"
+
+#: includes/class-segurium.php:1191
+msgid "Fixing files..."
+msgstr "กำลังแก้ไขไฟล์..."
+
+#: includes/class-segurium.php:1193
+msgid "Older backups will be rotated out"
+msgstr "ข้อมูลสำรองที่เก่ากว่าจะถูกหมุนออก"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
+#: includes/class-segurium.php:1195
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "คุณกำลังจะแก้ไขไฟล์ %1$d ไฟล์ (~%2$s)"
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
+#: includes/class-segurium.php:1197
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr ""
+"ข้อมูลสำรองที่เก่ากว่า %1$d ชุด (~%2$s) จะถูกหมุนออก "
+"ชุดเหล่านี้คือจุดกู้คืนของไฟล์ที่แก้ไขไปก่อนหน้า"
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:1199
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr ""
+"ข้อมูลสำรองที่ปักหมุดไว้ %d ชุดจะถูกเก็บไว้ (ยังถูกอ้างถึงโดยการกู้คืน)"
+
+#: includes/class-segurium.php:1201
+msgid "Restoring files…"
+msgstr "กำลังกู้คืนไฟล์…"
+
+#: includes/class-segurium.php:1202
+msgid "Updating files…"
+msgstr "กำลังอัปเดตไฟล์…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:1204
+msgid "%1$d of %2$d"
+msgstr "%1$d จาก %2$d"
+
+#: includes/class-segurium.php:1205
+msgid "Cancelling…"
+msgstr "กำลังยกเลิก…"
+
+#: includes/class-segurium.php:1206
+msgid "Clean all detected malware"
+msgstr "ล้างมัลแวร์ที่ตรวจพบทั้งหมด"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:1208
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr ""
+"การทำเช่นนี้จะพยายามล้างไฟล์อันตรายที่ตรวจพบ %d ไฟล์ "
+"ทุกไฟล์จะถูกสำรองข้อมูลก่อนการล้าง"
+
+#: includes/class-segurium.php:1209
+msgid "Clean all"
+msgstr "ล้างทั้งหมด"
+
+#: includes/class-segurium.php:1210
+msgid "Cleaning malware..."
+msgstr "กำลังล้างมัลแวร์..."
+
+#: includes/class-segurium.php:1213 includes/class-segurium.php:1214
+#: includes/class-segurium.php:1226 includes/class-segurium.php:1870
+#: includes/class-segurium.php:1917 includes/class-segurium.php:3252
+msgid "Upgrade to Pro"
+msgstr "อัปเกรดเป็น Pro"
+
+#: includes/class-segurium.php:1216 includes/class-segurium.php:4193
+#: includes/class-segurium.php:7251
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"ใช้โควตาการล้างครบแล้ว อัปเกรดเป็น Pro "
+"เพื่อรับโควตาการล้างบนคลาวด์แบบไม่จำกัด"
+
+#: includes/class-segurium.php:1217 includes/class-segurium.php:1908
+msgid "Cleanup quota reached"
+msgstr "ใช้โควตาการล้างครบแล้ว"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1219
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr ""
+"คุณใช้การล้างบนคลาวด์ไปแล้ว %1$d ครั้งใน %2$d วันที่ผ่านมา อัปเกรดเป็น Pro "
+"เพื่อรับโควตาการล้างบนคลาวด์แบบไม่จำกัด"
+
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
+#: includes/class-segurium.php:1221
+msgid "Next slot opens %s"
+msgstr "ช่องถัดไปจะเปิด %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1223 includes/class-segurium.php:1842
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "ใช้การล้างไปแล้ว %1$d จาก %2$d ครั้งใน %3$d วันที่ผ่านมา"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
+#: includes/class-segurium.php:1225 includes/class-segurium.php:1833
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"ใช้การล้างไปแล้ว %1$d จาก %2$d ครั้งใน %3$d วันที่ผ่านมา — ช่องถัดไปจะเปิด "
+"%4$s"
+
+#: includes/class-segurium.php:1227 includes/class-segurium.php:1920
+#: includes/class-segurium.php:2096 includes/class-segurium.php:3194
+msgid "Plans"
+msgstr "แพ็กเกจ"
+
+#: includes/class-segurium.php:1228 includes/class-segurium.php:1923
+#: includes/class-segurium.php:3255
+msgid "14-day money-back guarantee."
+msgstr "รับประกันคืนเงินภายใน 14 วัน"
+
+#: includes/class-segurium.php:1229 includes/class-segurium.php:3235
+#: includes/class-segurium.php:3476
+msgid "Pro"
+msgstr "Pro"
+
+#: includes/class-segurium.php:1230
+msgid "Diff"
+msgstr "ความต่าง"
+
+#: includes/class-segurium.php:1231
+msgid "Delisted from official WordPress.org"
+msgstr "ถูกถอดออกจาก WordPress.org ทางการ"
+
+#: includes/class-segurium.php:1232 includes/class-segurium.php:6061
+msgid "Abandoned (no updates >2 years)"
+msgstr "ถูกทิ้งร้าง (ไม่มีอัปเดตเกิน 2 ปี)"
+
+#: includes/class-segurium.php:1233
+msgid "Not from official WordPress.org"
+msgstr "ไม่ได้มาจาก WordPress.org ทางการ"
+
+#: includes/class-segurium.php:1234
+msgid "ignored"
+msgstr "ละเว้นแล้ว"
+
+#: includes/class-segurium.php:1235
+msgid "Issues"
+msgstr "ปัญหา"
+
+#: includes/class-segurium.php:1236
+msgid "issue"
+msgstr "ปัญหา"
+
+#: includes/class-segurium.php:1237
+msgid "unrecognized file"
+msgstr "ไฟล์ที่ไม่รู้จัก"
+
+#: includes/class-segurium.php:1238
+msgid "(!) malware"
+msgstr "(!) มัลแวร์"
+
+#: includes/class-segurium.php:1239
+msgid "View"
+msgstr "ดู"
+
+#: includes/class-segurium.php:1240
+msgid "issues"
+msgstr "ปัญหา"
+
+#: includes/class-segurium.php:1241
+msgid "Checking"
+msgstr "กำลังตรวจสอบ"
+
+#: includes/class-segurium.php:1242
+msgid "Discovering components…"
+msgstr "กำลังค้นหาส่วนประกอบ…"
+
+#: includes/class-segurium.php:1243
+msgid "Saved permanently."
+msgstr "บันทึกถาวรแล้ว"
+
+#: includes/class-segurium.php:1244
+msgid "Changes reverted."
+msgstr "ย้อนการเปลี่ยนแปลงแล้ว"
+
+#: includes/class-segurium.php:1245 includes/class-segurium.php:2319
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Blocked Countries"
+msgstr "ประเทศที่ปิดกั้น"
+
+#: includes/class-segurium.php:1246
+msgid "Allowed Countries"
+msgstr "ประเทศที่อนุญาต"
+
+#: includes/class-segurium.php:1247 includes/class-segurium.php:2328
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr "พิมพ์ชื่อประเทศหรือรหัส ISO เพื่อเพิ่มลงในรายการปิดกั้น"
+
+#: includes/class-segurium.php:1248
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr "พิมพ์ชื่อประเทศหรือรหัส ISO เพื่อเพิ่มลงในรายการอนุญาต"
+
+#: includes/class-segurium.php:1249 includes/class-segurium.php:2407
+msgid "Blocked IPs / CIDRs"
+msgstr "IP / CIDR ที่ปิดกั้น"
+
+#: includes/class-segurium.php:1250 includes/class-segurium.php:2408
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"IP เหล่านี้จะถูกปิดกั้นเสมอ หนึ่งรายการต่อหนึ่งบรรทัด รองรับ IPv4, IPv6 "
+"และช่วง CIDR"
+
+#: includes/class-segurium.php:1251
+msgid "Allowed IPs / CIDRs"
+msgstr "IP / CIDR ที่อนุญาต"
+
+#: includes/class-segurium.php:1252
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"มีเพียง IP เหล่านี้ที่เข้าถึงเว็บได้ ที่เหลือทั้งหมดถูกปิดกั้น "
+"หนึ่งรายการต่อหนึ่งบรรทัด"
+
+#: includes/class-segurium.php:1253
+msgid "No supported security plugins detected."
+msgstr "ไม่พบปลั๊กอินความปลอดภัยที่รองรับ"
+
+#: includes/class-segurium.php:1254
+msgid "Preview"
+msgstr "ตัวอย่าง"
+
+#: includes/class-segurium.php:1255
+msgid "Apply Migration"
+msgstr "ใช้การย้ายข้อมูล"
+
+#: includes/class-segurium.php:1257
+msgid "Migration complete."
+msgstr "ย้ายข้อมูลเสร็จแล้ว"
+
+#: includes/class-segurium.php:1258
+#: includes/migrations/class-segurium-migration-wordfence.php:167
+msgid "Import"
+msgstr "นำเข้า"
+
+#: includes/class-segurium.php:1260
+msgid "Planned feature"
+msgstr "คุณสมบัติที่วางแผนไว้"
+
+#: includes/class-segurium.php:1261
+msgid "Feature"
+msgstr "คุณสมบัติ"
+
+#: includes/class-segurium.php:1262
+msgid "Value"
+msgstr "ค่า"
+
+#: includes/class-segurium.php:1263
+msgid "Action"
+msgstr "การกระทำ"
+
+#: includes/class-segurium.php:1264
+msgid "Note"
+msgstr "หมายเหตุ"
+
+#: includes/class-segurium.php:1265
+msgid "items imported"
+msgstr "รายการที่นำเข้า"
+
+#: includes/class-segurium.php:1266
+msgid "features planned"
+msgstr "คุณสมบัติที่วางแผนไว้"
+
+#: includes/class-segurium.php:1267
+msgid "Submitting\\u2026"
+msgstr "กำลังส่ง\\u2026"
+
+#: includes/class-segurium.php:1268
+msgid "Ticket submitted successfully."
+msgstr "ส่งคำร้องขอสำเร็จแล้ว"
+
+#: includes/class-segurium.php:1269
+msgid "Your ticket reference:"
+msgstr "เลขอ้างอิงคำร้องขอของคุณ:"
+
+#: includes/class-segurium.php:1270
+msgid "Failed to submit ticket. Please try again."
+msgstr "ส่งคำร้องขอไม่สำเร็จ โปรดลองอีกครั้ง"
+
+#: includes/class-segurium.php:1271
+msgid "Please attach a file before submitting."
+msgstr "โปรดแนบไฟล์ก่อนส่ง"
+
+#: includes/class-segurium.php:1272
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "ไฟล์ที่เลือกเกินขีดจำกัด 100 MB"
+
+#: includes/class-segurium.php:1273
+msgid "Please enter a valid reply-to email."
+msgstr "โปรดใส่อีเมลสำหรับตอบกลับที่ถูกต้อง"
+
+#: includes/class-segurium.php:1274
+msgid "Please enter your name."
+msgstr "โปรดใส่ชื่อของคุณ"
+
+#: includes/class-segurium.php:1275
+msgid "Could not save your choice. Please try again."
+msgstr "บันทึกตัวเลือกของคุณไม่สำเร็จ โปรดลองอีกครั้ง"
+
+#: includes/class-segurium.php:1276
+msgid "Brute-Force Protection"
+msgstr "การป้องกันการเดารหัสผ่าน"
+
+#: includes/class-segurium.php:1277 includes/class-segurium.php:2433
+msgid "Enable brute-force protection"
+msgstr "เปิดใช้งานการป้องกันการเดารหัสผ่าน"
+
+#: includes/class-segurium.php:1278 includes/class-segurium.php:2451
+msgid "Max failed attempts"
+msgstr "จำนวนครั้งที่ล้มเหลวสูงสุด"
+
+#: includes/class-segurium.php:1279 includes/class-segurium.php:2453
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr "จำนวนครั้งที่เข้าสู่ระบบล้มเหลวที่อนุญาตก่อนจะล็อก IP นั้น"
+
+#: includes/class-segurium.php:1280 includes/class-segurium.php:2456
+msgid "Attempt window (seconds)"
+msgstr "ช่วงเวลานับจำนวนครั้ง (วินาที)"
+
+#: includes/class-segurium.php:1281 includes/class-segurium.php:2458
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "ช่วงเวลาที่นับจำนวนครั้งที่ล้มเหลวเข้าสู่เกณฑ์"
+
+#: includes/class-segurium.php:1282 includes/class-segurium.php:2461
+msgid "Initial lockout duration (seconds)"
+msgstr "ระยะเวลาล็อกครั้งแรก (วินาที)"
+
+#: includes/class-segurium.php:1283 includes/class-segurium.php:2465
+msgid "Lockouts before extended ban"
+msgstr "จำนวนครั้งที่ถูกล็อกก่อนแบนแบบขยายเวลา"
+
+#: includes/class-segurium.php:1284 includes/class-segurium.php:2470
+msgid "Extended lockout duration (seconds)"
+msgstr "ระยะเวลาล็อกแบบขยาย (วินาที)"
+
+#: includes/class-segurium.php:1285 includes/class-segurium.php:2474
+msgid "History window (seconds)"
+msgstr "ช่วงเวลาย้อนหลังที่นับ (วินาที)"
+
+#: includes/class-segurium.php:1286 includes/class-segurium.php:2480
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "ป้องกัน XML-RPC (xmlrpc.php) ด้วย"
+
+#: includes/class-segurium.php:1287 includes/class-segurium.php:2486
+msgid "Add honeypot field to login form"
+msgstr "เพิ่มช่องกับดักหลุมน้ำผึ้งในแบบฟอร์มเข้าสู่ระบบ"
+
+#: includes/class-segurium.php:1288 includes/class-segurium.php:2534
+msgid "Active Lockouts"
+msgstr "การล็อกที่ทำงานอยู่"
+
+#: includes/class-segurium.php:1289 includes/class-segurium.php:2547
+msgid "No IPs are currently locked out."
+msgstr "ตอนนี้ไม่มี IP ใดถูกล็อก"
+
+#: includes/class-segurium.php:1290 includes/class-segurium.php:1334
+#: includes/class-segurium.php:2614
+msgid "Unlock"
+msgstr "ปลดล็อก"
+
+#: includes/class-segurium.php:1291 includes/class-segurium.php:1324
+#: includes/class-segurium.php:2539 includes/class-segurium.php:2639
+msgid "Tier"
+msgstr "ระดับ"
+
+#: includes/class-segurium.php:1292 includes/class-segurium.php:1321
+#: includes/class-segurium.php:2538 includes/class-segurium.php:2581
+#: includes/class-segurium.php:2635
+msgid "IP"
+msgstr "IP"
+
+#: includes/class-segurium.php:1293 includes/class-segurium.php:2540
+msgid "Locked at"
+msgstr "ล็อกเมื่อ"
+
+#: includes/class-segurium.php:1294 includes/class-segurium.php:2541
+msgid "Expires"
+msgstr "หมดอายุ"
+
+#: includes/class-segurium.php:1295 includes/class-segurium.php:1340
+msgid "Settings saved."
+msgstr "บันทึกการตั้งค่าแล้ว"
+
+#: includes/class-segurium.php:1296
+msgid "Unlock this IP?"
+msgstr "ปลดล็อก IP นี้หรือไม่?"
+
+#: includes/class-segurium.php:1297 includes/class-segurium.php:2491
+msgid "Log retention (days)"
+msgstr "ระยะเวลาเก็บบันทึก (วัน)"
+
+#: includes/class-segurium.php:1298 includes/class-segurium.php:2496
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1299 includes/class-segurium.php:2501
+msgid "Require hCaptcha after repeated failures"
+msgstr "บังคับใช้ hCaptcha หลังล้มเหลวซ้ำ"
+
+#: includes/class-segurium.php:1300 includes/class-segurium.php:2509
+msgid "hCaptcha site key"
+msgstr "คีย์เว็บของ hCaptcha"
+
+#: includes/class-segurium.php:1301 includes/class-segurium.php:2515
+msgid "hCaptcha secret key"
+msgstr "คีย์ลับของ hCaptcha"
+
+#: includes/class-segurium.php:1302 includes/class-segurium.php:2521
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "แสดง CAPTCHA หลังล้มเหลว N ครั้ง"
+
+#: includes/class-segurium.php:1303
+msgid "Presets:"
+msgstr "ค่าสำเร็จรูป:"
+
+#: includes/class-segurium.php:1304
+msgid "Light"
+msgstr "เบา"
+
+#: includes/class-segurium.php:1305 includes/class-segurium.php:2442
+#: includes/class-segurium.php:2775 includes/class-segurium.php:3230
+msgid "Recommended"
+msgstr "แนะนำ"
+
+#: includes/class-segurium.php:1306 includes/class-segurium.php:2776
+#: includes/class-segurium.php:2969
+msgid "Strict"
+msgstr "เข้มงวด"
+
+#: includes/class-segurium.php:1307
+msgid "Click a preset to fill the form, then Save."
+msgstr "กดค่าสำเร็จรูปเพื่อเติมแบบฟอร์ม แล้วบันทึก"
+
+#: includes/class-segurium.php:1308 includes/class-segurium.php:2552
+msgid "Statistics"
+msgstr "สถิติ"
+
+#: includes/class-segurium.php:1309 includes/class-segurium.php:2555
+msgid "Active lockouts"
+msgstr "การล็อกที่ทำงานอยู่"
+
+#: includes/class-segurium.php:1310 includes/class-segurium.php:2559
+msgid "Attempts (24h)"
+msgstr "จำนวนครั้งที่พยายาม (24 ชม.)"
+
+#: includes/class-segurium.php:1311 includes/class-segurium.php:2563
+msgid "Lockouts (24h)"
+msgstr "การล็อก (24 ชม.)"
+
+#: includes/class-segurium.php:1312 includes/class-segurium.php:2567
+msgid "Honeypot hits (24h)"
+msgstr "กับดักหลุมน้ำผึ้งถูกแตะ (24 ชม.)"
+
+#: includes/class-segurium.php:1313 includes/class-segurium.php:2571
+msgid "CAPTCHA failures (24h)"
+msgstr "CAPTCHA ล้มเหลว (24 ชม.)"
+
+#: includes/class-segurium.php:1314 includes/class-segurium.php:2577
+msgid "Top attacking IPs (24h)"
+msgstr "IP ที่โจมตีมากที่สุด (24 ชม.)"
+
+#: includes/class-segurium.php:1315 includes/class-segurium.php:2590
+msgid "Top targeted usernames (24h)"
+msgstr "ชื่อผู้ใช้ที่ถูกเล็งมากที่สุด (24 ชม.)"
+
+#: includes/class-segurium.php:1316 includes/class-segurium.php:2587
+msgid "No attacking IPs in the last 24 hours."
+msgstr "ไม่มี IP ที่โจมตีใน 24 ชั่วโมงที่ผ่านมา"
+
+#: includes/class-segurium.php:1317 includes/class-segurium.php:2600
+msgid "No targeted usernames in the last 24 hours."
+msgstr "ไม่มีชื่อผู้ใช้ที่ถูกเล็งใน 24 ชั่วโมงที่ผ่านมา"
+
+#: includes/class-segurium.php:1318 includes/class-segurium.php:2606
+msgid "Event log"
+msgstr "บันทึกเหตุการณ์"
+
+#: includes/class-segurium.php:1319 includes/class-segurium.php:2633
+#: includes/class-segurium.php:3351
+msgid "When"
+msgstr "เมื่อ"
+
+#: includes/class-segurium.php:1320 includes/class-segurium.php:2634
+msgid "Event"
+msgstr "เหตุการณ์"
+
+#: includes/class-segurium.php:1322 includes/class-segurium.php:2594
+#: includes/class-segurium.php:2637
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+#: includes/class-segurium.php:1323 includes/class-segurium.php:2638
+msgid "Surface"
+msgstr "จุดที่เกิด"
+
+#: includes/class-segurium.php:1325 includes/class-segurium.php:2608
+msgid "All events"
+msgstr "เหตุการณ์ทั้งหมด"
+
+#: includes/class-segurium.php:1326 includes/class-segurium.php:2644
+msgid "No events recorded yet."
+msgstr "ยังไม่มีเหตุการณ์ที่บันทึกไว้"
+
+#: includes/class-segurium.php:1331 includes/class-segurium.php:2611
+msgid "Attempt"
+msgstr "การพยายาม"
+
+#: includes/class-segurium.php:1332 includes/class-segurium.php:2612
+msgid "Lockout"
+msgstr "การล็อก"
+
+#: includes/class-segurium.php:1333 includes/class-segurium.php:2613
+msgid "Honeypot"
+msgstr "กับดักหลุมน้ำผึ้ง"
+
+#: includes/class-segurium.php:1335 includes/class-segurium.php:2615
+msgid "CAPTCHA failed"
+msgstr "CAPTCHA ล้มเหลว"
+
+#: includes/class-segurium.php:1336
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1337 includes/class-segurium.php:3116
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1338
+msgid "Loading settings..."
+msgstr "กำลังโหลดการตั้งค่า..."
+
+#: includes/class-segurium.php:1339
+msgid "Saving..."
+msgstr "กำลังบันทึก..."
+
+#: includes/class-segurium.php:1341
+msgid "Failed to save settings."
+msgstr "บันทึกการตั้งค่าไม่สำเร็จ"
+
+#: includes/class-segurium.php:1342
+msgid "Failed to load settings."
+msgstr "โหลดการตั้งค่าไม่สำเร็จ"
+
+#: includes/class-segurium.php:1343
+msgid "All recommended settings enabled."
+msgstr "เปิดใช้งานการตั้งค่าที่แนะนำทั้งหมดแล้ว"
+
+#: includes/class-segurium.php:1344 includes/class-segurium.php:2032
+msgid "Self-Check"
+msgstr "ตรวจสอบด้วยตัวเอง"
+
+#: includes/class-segurium.php:1345 includes/class-segurium.php:3149
+msgid "Run Self-Check"
+msgstr "สั่งตรวจสอบด้วยตัวเอง"
+
+#: includes/class-segurium.php:1346
+msgid "Running..."
+msgstr "กำลังทำงาน..."
+
+#: includes/class-segurium.php:1347
+msgid "Click Run Self-Check to grade your site."
+msgstr "กด สั่งตรวจสอบด้วยตัวเอง เพื่อให้คะแนนเว็บของคุณ"
+
+#: includes/class-segurium.php:1351
+msgid "How to fix"
+msgstr "วิธีแก้ไข"
+
+#: includes/class-segurium.php:1352
+msgid "Hide details"
+msgstr "ซ่อนรายละเอียด"
+
+#: includes/class-segurium.php:1353
+msgid "fail"
+msgstr "ล้มเหลว"
+
+#: includes/class-segurium.php:1354
+msgid "warn"
+msgstr "แจ้งเตือน"
+
+#: includes/class-segurium.php:1355
+msgid "HTTP Security Headers"
+msgstr "ส่วนหัวความปลอดภัย HTTP"
+
+#: includes/class-segurium.php:1356
+msgid "Information Disclosure"
+msgstr "การเปิดเผยข้อมูล"
+
+#: includes/class-segurium.php:1357
+msgid "WordPress Hardening"
+msgstr "การเสริมความแข็งแกร่งให้ WordPress"
+
+#: includes/class-segurium.php:1358
+msgid "Cookie Security"
+msgstr "ความปลอดภัยของคุกกี้"
+
+#: includes/class-segurium.php:1359
+msgid "Malware Protection"
+msgstr "การป้องกันมัลแวร์"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1361
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "ผ่าน %1$d แจ้งเตือน %2$d ล้มเหลว %3$d"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1363
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
+#: includes/class-segurium.php:1365
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "เปลี่ยนจาก %1$s (%2$d) เป็น %3$s (%4$d)"
+
+#: includes/class-segurium.php:1366
+msgid "No change since last run."
+msgstr "ไม่มีการเปลี่ยนแปลงตั้งแต่รอบที่แล้ว"
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1368
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr "การตรวจสอบด้วยตัวเองเข้าถึงเว็บของคุณไม่ได้: %s ผลลัพธ์จึงไม่ครบถ้วน"
+
+#: includes/class-segurium.php:1369
+msgid "Verify with securityheaders.com"
+msgstr "ตรวจสอบด้วย securityheaders.com"
+
+#: includes/class-segurium.php:1370
+msgid "Verify with Mozilla Observatory"
+msgstr "ตรวจสอบด้วย Mozilla Observatory"
+
+#: includes/class-segurium.php:1661
+msgid "External Service Disclosure"
+msgstr "การเปิดเผยข้อมูลบริการภายนอก"
+
+#: includes/class-segurium.php:1662
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Segurium ปกป้องเว็บของคุณด้วยการทำงานร่วมกับคลาวด์ของ Segurium "
+"เมื่อคุณเปิดใช้งาน Segurium จะแลกเปลี่ยนข้อมูลกับเซิร์ฟเวอร์ของเรา "
+"เพื่อให้ตรวจจับมัลแวร์ ตรวจสอบไฟล์ของคุณ "
+"และปรับการป้องกันให้เข้ากับภัยคุกคามที่กำลังเกิดขึ้นได้"
+
+#: includes/class-segurium.php:1664
+msgid "What is sent:"
+msgstr "สิ่งที่ถูกส่ง:"
+
+#: includes/class-segurium.php:1666
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"เมทาดาทาของไฟล์ ได้แก่ แฮช SHA-256 เส้นทางเทียบกับการติดตั้ง WordPress "
+"ของคุณ ขนาด และเวลาที่แก้ไข"
+
+#: includes/class-segurium.php:1667
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"เนื้อหาไฟล์ — เฉพาะเมื่อการจัดประเภทด้วยแฮชอย่างเดียวยังไม่ชี้ขาด "
+"หรือเมื่อต้องสร้างไฟล์สะอาดมาแทนระหว่างการล้าง"
+
+#: includes/class-segurium.php:1668
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr ""
+"ตัวระบุการติดตั้งที่สร้างแบบสุ่ม และข้อมูลพื้นฐานของเว็บ (URL ชื่อ รุ่น "
+"WordPress) ใช้เพื่อผูกคำร้องขอเข้ากับการติดตั้งนี้"
+
+#: includes/class-segurium.php:1669
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr ""
+"เหตุการณ์การสแกน การล้าง และการตั้งค่าความปลอดภัย "
+"เพื่อให้คลาวด์รักษาการป้องกันเว็บของคุณให้ตรงกัน"
+
+#: includes/class-segurium.php:1670
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"เหตุการณ์ของไฟร์วอลล์ (IP ที่ถูกปิดกั้น รูปแบบการโจมตี) "
+"ใช้เพื่อปรับการป้องกันให้ทุกเว็บที่ Segurium ดูแล"
+
+#: includes/class-segurium.php:1671
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"ที่อยู่อีเมลสำหรับแจ้งเตือนความปลอดภัย ได้แก่ อีเมลผู้ควบคุมของ WordPress "
+"หรืออีเมลที่คุณกรอกด้านล่าง พร้อมกับตัวเลือกการแจ้งเตือนทางอีเมลของคุณ"
+
+#: includes/class-segurium.php:1674
+msgid "What is NOT sent:"
+msgstr "สิ่งที่ไม่ถูกส่ง:"
+
+#: includes/class-segurium.php:1676
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr ""
+"ข้อมูลวิเคราะห์ผู้เข้าชม หรือข้อมูลส่วนตัวของผู้ใช้ที่เข้าชมเว็บของคุณ"
+
+#: includes/class-segurium.php:1677
+msgid "Database content, posts, comments, or media files."
+msgstr "เนื้อหาในฐานข้อมูล เรื่อง ความเห็น หรือไฟล์สื่อ"
+
+#: includes/class-segurium.php:1678
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr ""
+"ไฟล์ที่คลาวด์รู้จักแฮชอยู่แล้ว — "
+"มีเพียงแฮชเท่านั้นที่ออกจากเซิร์ฟเวอร์ของคุณ"
+
+#: includes/class-segurium.php:1681
+msgid "Where it is sent:"
+msgstr "ส่งไปที่ไหน:"
+
+#: includes/class-segurium.php:1681
+msgid "Segurium servers at cti.segurium.com."
+msgstr "เซิร์ฟเวอร์ของ Segurium ที่ cti.segurium.com"
+
+#: includes/class-segurium.php:1682
+msgid "Retention:"
+msgstr "ระยะเวลาเก็บข้อมูล:"
+
+#: includes/class-segurium.php:1682
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"ตัวอย่างไฟล์ที่อัปโหลดมาเพื่อวิเคราะห์จะถูกเก็บไว้ไม่เกิน 365 วัน "
+"แล้วถูกลบออกด้วยการล้างข้อมูลอัตโนมัติรายคืน "
+"ตัวอย่างอาจถูกลบออกเร็วกว่านั้นเมื่อได้รับการตรวจแล้ว"
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium.php:1688
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"การเปิดใช้งานการสแกนถือว่าคุณยอมรับ %1$sข้อกำหนดการให้บริการ%2$s และ "
+"%3$sนโยบายความเป็นส่วนตัว%4$s"
+
+#: includes/class-segurium.php:1700
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "แจ้งเตือนฉันเมื่อพบมัลแวร์และภัยคุกคามความปลอดภัยบนเว็บไซต์นี้"
+
+#: includes/class-segurium.php:1702 includes/class-segurium.php:3306
+msgid "Alert email address"
+msgstr "ที่อยู่อีเมลสำหรับแจ้งเตือน"
+
+#: includes/class-segurium.php:1710
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"ส่งได้มากที่สุดวันละหนึ่งอีเมล จาก support@segurium.com "
+"คุณเปลี่ยนค่านี้ภายหลังได้ในการตั้งค่า"
+
+#: includes/class-segurium.php:1711 includes/class-segurium.php:3314
+msgid "Leave blank to use the WordPress site admin email."
+msgstr "ปล่อยว่างไว้เพื่อใช้อีเมลผู้ควบคุมเว็บของ WordPress"
+
+#: includes/class-segurium.php:1714
+msgid "I agree"
+msgstr "ฉันยอมรับ"
+
+#: includes/class-segurium.php:1963
+msgid "Up to date"
+msgstr "รุ่นล่าสุด"
+
+#: includes/class-segurium.php:1968
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "เก่าเกินไป — การรีเฟรชครั้งล่าสุดเกินช่วงรายวัน"
+
+#: includes/class-segurium.php:1969
+msgid "Never updated on this site yet"
+msgstr "ยังไม่เคยอัปเดตบนเว็บนี้"
+
+#: includes/class-segurium.php:2023
+msgid "WordPress Security"
+msgstr "ความปลอดภัยของ WordPress"
+
+#: includes/class-segurium.php:2037
+msgid "Malware is waiting for you to act"
+msgstr "มัลแวร์กำลังรอให้คุณลงมือ"
+
+#: includes/class-segurium.php:2039
+msgid "Malware Scanner"
+msgstr "ตัวสแกนมัลแวร์"
+
+#: includes/class-segurium.php:2054
+msgid "A vulnerable component is installed"
+msgstr "มีส่วนประกอบที่มีช่องโหว่ติดตั้งอยู่"
+
+#: includes/class-segurium.php:2056
+msgid "Integrity"
+msgstr "ความสมบูรณ์"
+
+#: includes/class-segurium.php:2060
+msgid "GEO Blocking"
+msgstr "การปิดกั้นตามพื้นที่"
+
+#: includes/class-segurium.php:2068
+msgid "Brute-Force"
+msgstr "การเดารหัสผ่าน"
+
+#: includes/class-segurium.php:2072
+msgid "2FA"
+msgstr "2FA"
+
+#: includes/class-segurium.php:2076
+msgid "Headers"
+msgstr "ส่วนหัว"
+
+#: includes/class-segurium.php:2080
+msgid "Info Shield"
+msgstr "โล่ข้อมูล"
+
+#: includes/class-segurium.php:2084
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+#: includes/class-segurium.php:2088
+msgid "Migration"
+msgstr "ย้ายข้อมูล"
+
+#: includes/class-segurium.php:2092 includes/class-segurium.php:2710
+msgid "Support"
+msgstr "สนับสนุน"
+
+#: includes/class-segurium.php:2116 includes/class-segurium.php:2205
+msgid "Scan"
+msgstr "สแกน"
+
+#: includes/class-segurium.php:2129 includes/class-segurium.php:2213
+msgid "Fix all"
+msgstr "แก้ไขทั้งหมด"
+
+#: includes/class-segurium.php:2139
+msgid "Malicious"
+msgstr "อันตราย"
+
+#: includes/class-segurium.php:2143
+msgid "All"
+msgstr "ทั้งหมด"
+
+#: includes/class-segurium.php:2163
+msgid "File"
+msgstr "ไฟล์"
+
+#: includes/class-segurium.php:2164
+msgid "State"
+msgstr "สถานะ"
+
+#: includes/class-segurium.php:2165
+msgid "Date"
+msgstr "วันที่"
+
+#: includes/class-segurium.php:2166 includes/class-segurium.php:2229
+msgid "Actions"
+msgstr "การกระทำ"
+
+#: includes/class-segurium.php:2184
+msgid "Show recent only (14 days)"
+msgstr "แสดงเฉพาะรายการล่าสุด (14 วัน)"
+
+#: includes/class-segurium.php:2194 includes/class-segurium.php:2255
+msgid "per page"
+msgstr "ต่อหน้า"
+
+#: includes/class-segurium.php:2227
+msgid "Files"
+msgstr "ไฟล์"
+
+#: includes/class-segurium.php:2228
+msgid "Last Scanned"
+msgstr "สแกนล่าสุด"
+
+#: includes/class-segurium.php:2287 includes/class-segurium.php:2375
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr ""
+"ใช้การตั้งค่าแล้ว ยืนยันเพื่อเก็บไว้ มิฉะนั้นการเปลี่ยนแปลงจะย้อนกลับใน"
+
+#: includes/class-segurium.php:2288 includes/class-segurium.php:2376
+msgid "s."
+msgstr "วินาที"
+
+#: includes/class-segurium.php:2292 includes/class-segurium.php:2380
+msgid "Revert"
+msgstr "ย้อนกลับ"
+
+#: includes/class-segurium.php:2301
+msgid "Enable Geo-Blocking"
+msgstr "เปิดใช้งานการปิดกั้นตามพื้นที่"
+
+#: includes/class-segurium.php:2306
+msgid "Blocking Mode"
+msgstr "โหมดการปิดกั้น"
+
+#: includes/class-segurium.php:2310
+msgid "Block specific countries"
+msgstr "ปิดกั้นบางประเทศ"
+
+#: includes/class-segurium.php:2314
+msgid "Allow only specific countries"
+msgstr "อนุญาตเฉพาะบางประเทศ"
+
+#: includes/class-segurium.php:2321
+msgid "EU"
+msgstr "อียู"
+
+#: includes/class-segurium.php:2322
+msgid "Americas"
+msgstr "ทวีปอเมริกา"
+
+#: includes/class-segurium.php:2323
+msgid "Asia-Pacific"
+msgstr "เอเชียแปซิฟิก"
+
+#: includes/class-segurium.php:2324
+msgid "Africa"
+msgstr "แอฟริกา"
+
+#: includes/class-segurium.php:2325
+msgid "Middle East"
+msgstr "ตะวันออกกลาง"
+
+#: includes/class-segurium.php:2326
+msgid "High-Risk"
+msgstr "ความเสี่ยงสูง"
+
+#: includes/class-segurium.php:2333
+msgid "Search countries…"
+msgstr "ค้นหาประเทศ…"
+
+#: includes/class-segurium.php:2339
+msgid "Block Action"
+msgstr "การกระทำเมื่อปิดกั้น"
+
+#: includes/class-segurium.php:2341
+msgid "Return 403 Forbidden"
+msgstr "ตอบกลับ 403 ต้องห้าม"
+
+#: includes/class-segurium.php:2342
+msgid "Redirect to URL"
+msgstr "เปลี่ยนเส้นทางไปยัง URL"
+
+#: includes/class-segurium.php:2343
+msgid "Silent drop (no response)"
+msgstr "ตัดทิ้งเงียบๆ (ไม่ตอบกลับ)"
+
+#: includes/class-segurium.php:2351 includes/class-segurium.php:2421
+#: includes/class-segurium.php:2528 includes/class-segurium.php:2976
+#: includes/class-segurium.php:3127
+msgid "Save"
+msgstr "บันทึก"
+
+#: includes/class-segurium.php:2357
+msgid "Blocked Requests"
+msgstr "คำร้องขอที่ถูกปิดกั้น"
+
+#: includes/class-segurium.php:2361 includes/class-segurium.php:2636
+msgid "Country"
+msgstr "ประเทศ"
+
+#: includes/class-segurium.php:2362
+msgid "Requests"
+msgstr "คำร้องขอ"
+
+#: includes/class-segurium.php:2389
+msgid "Enable Firewall"
+msgstr "เปิดใช้งานไฟร์วอลล์"
+
+#: includes/class-segurium.php:2394 includes/class-segurium.php:2934
+msgid "Mode"
+msgstr "โหมด"
+
+#: includes/class-segurium.php:2398
+msgid "Allow everything except…"
+msgstr "อนุญาตทุกอย่างยกเว้น…"
+
+#: includes/class-segurium.php:2402
+msgid "Deny everything except…"
+msgstr "ปฏิเสธทุกอย่างยกเว้น…"
+
+#: includes/class-segurium.php:2412
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "IP / CIDR ของพร็อกซีที่เชื่อถือได้แบบกำหนดเอง"
+
+#: includes/class-segurium.php:2414
+msgid "Loading auto-detected proxy status..."
+msgstr "กำลังโหลดสถานะพร็อกซีที่ตรวจพบอัตโนมัติ..."
+
+#: includes/class-segurium.php:2416
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr ""
+"IP ของพร็อกซีเพิ่มเติมนอกเหนือจากรายการที่ตรวจพบอัตโนมัติ "
+"หนึ่งรายการต่อหนึ่งบรรทัด ปล่อยว่างไว้ถ้าพร็อกซีของคุณครอบคลุมอยู่ด้านบนแล้ว"
+
+#: includes/class-segurium.php:2435
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"ติดตามการเข้าสู่ระบบที่ล้มเหลวและล็อก IP เมื่อถึงเกณฑ์ที่ตั้งไว้ "
+"โดยใช้รายการอนุญาตของไฟร์วอลล์สำหรับ IP ที่เชื่อถือได้ซ้ำ"
+
+#: includes/class-segurium.php:2439
+msgid "Settings:"
+msgstr "การตั้งค่า:"
+
+#: includes/class-segurium.php:2442
+msgid "safe defaults; settings are locked."
+msgstr "ค่าเริ่มต้นที่ปลอดภัย การตั้งค่าถูกล็อกไว้"
+
+#: includes/class-segurium.php:2446 includes/class-segurium.php:2777
+msgid "Custom"
+msgstr "กำหนดเอง"
+
+#: includes/class-segurium.php:2446
+msgid "edit every setting yourself."
+msgstr "แก้ไขทุกการตั้งค่าเอง"
+
+#: includes/class-segurium.php:2467
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr ""
+"เมื่อถูกล็อกครบจำนวนนี้ภายในช่วงเวลาย้อนหลัง "
+"การล็อกครั้งถัดไปจะใช้ระยะเวลาแบบขยาย"
+
+#: includes/class-segurium.php:2488
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr ""
+"เพิ่มช่องกรอกนอกจอที่ผู้ใช้จริงไม่มีวันเห็น "
+"การกรอกช่องนี้จะทำให้ถูกล็อกทันที"
+
+#: includes/class-segurium.php:2497
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"เลือกแสดงโจทย์ hCaptcha "
+"บนแบบฟอร์มเข้าสู่ระบบหลังล้มเหลวครบจำนวนที่ตั้งไว้ได้ ขอคีย์ฟรีที่ "
+"hcaptcha.com"
+
+#: includes/class-segurium.php:2523
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"ต้องน้อยกว่าจำนวนครั้งที่ล้มเหลวสูงสุด เพื่อให้โจทย์ทดสอบทำงานก่อนการล็อก"
+
+#: includes/class-segurium.php:2582 includes/class-segurium.php:2595
+msgid "Attempts"
+msgstr "จำนวนครั้งที่พยายาม"
+
+#: includes/class-segurium.php:2658
+msgid "Enable Two-Factor Authentication"
+msgstr "เปิดใช้งานการยืนยันตัวตนสองชั้น"
+
+#: includes/class-segurium.php:2660
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr "กำหนดให้ผู้ใช้ยืนยันตัวตนด้วยปัจจัยที่สองตอนเข้าสู่ระบบ"
+
+#: includes/class-segurium.php:2664
+msgid "Available Methods"
+msgstr "วิธีที่ใช้ได้"
+
+#: includes/class-segurium.php:2665
+msgid "Select which 2FA methods users can choose from."
+msgstr "เลือกว่าผู้ใช้เลือกวิธี 2FA ใดได้บ้าง"
+
+#: includes/class-segurium.php:2670
+msgid "Enforced Roles"
+msgstr "บทบาทที่บังคับใช้"
+
+#: includes/class-segurium.php:2671
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "ผู้ใช้ในบทบาทเหล่านี้จะต้องตั้งค่า 2FA"
+
+#: includes/class-segurium.php:2675
+msgid "Grace Period (days)"
+msgstr "ช่วงผ่อนผัน (วัน)"
+
+#: includes/class-segurium.php:2676
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"จำนวนวันก่อนที่การบังคับใช้จะปิดกั้นการเข้าสู่ระบบของผู้ใช้ที่ยังไม่ตั้งค่า "
+"2FA ตั้งเป็น 0 เพื่อบังคับใช้ทันที"
+
+#: includes/class-segurium.php:2680
+msgid "Trusted Device Duration (days)"
+msgstr "ระยะเวลาที่เชื่อถืออุปกรณ์ (วัน)"
+
+#: includes/class-segurium.php:2681
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr "อุปกรณ์จะยังถูกเชื่อถือกี่วันหลังผู้ใช้ติ๊กตัวเลือกให้เชื่อถือ"
+
+#: includes/class-segurium.php:2686 includes/class-segurium.php:3379
+msgid "Save Settings"
+msgstr "บันทึกการตั้งค่า"
+
+#: includes/class-segurium.php:2691
+msgid "User Statistics"
+msgstr "สถิติผู้ใช้"
+
+#: includes/class-segurium.php:2695
+msgid "Method"
+msgstr "วิธี"
+
+#: includes/class-segurium.php:2696
+msgid "Users"
+msgstr "ผู้ใช้"
+
+#: includes/class-segurium.php:2701
+msgid "Reset User 2FA"
+msgstr "ล้างค่า 2FA ของผู้ใช้"
+
+#: includes/class-segurium.php:2702
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr "ใส่ชื่อผู้ใช้หรือ ID ผู้ใช้เพื่อล้างค่าการตั้งค่า 2FA ของคนนั้น"
+
+#: includes/class-segurium.php:2703
+msgid "Username or ID"
+msgstr "ชื่อผู้ใช้หรือ ID"
+
+#: includes/class-segurium.php:2704
+msgid "Reset 2FA"
+msgstr "ล้างค่า 2FA"
+
+#: includes/class-segurium.php:2711
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "ส่งคำร้องขอสนับสนุนด้านล่าง ทีมของเราจะตอบกลับทางอีเมล"
+
+#: includes/class-segurium.php:2714
+msgid "Your name"
+msgstr "ชื่อของคุณ"
+
+#: includes/class-segurium.php:2718
+msgid "Reply-to email"
+msgstr "อีเมลสำหรับตอบกลับ"
+
+#: includes/class-segurium.php:2720
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr "เราจะตอบกลับไปที่ที่อยู่นี้ เปลี่ยนได้ถ้าคุณต้องการให้คำตอบไปที่อื่น"
+
+#: includes/class-segurium.php:2723
+msgid "Website"
+msgstr "เว็บไซต์"
+
+#: includes/class-segurium.php:2725
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr ""
+"ใส่ให้อัตโนมัติเพื่อให้ฝ่ายสนับสนุนระบุเว็บของคุณได้ เปลี่ยนได้ที่ "
+"การตั้งค่า → ทั่วไป"
+
+#: includes/class-segurium.php:2728
+msgid "Type"
+msgstr "ประเภท"
+
+#: includes/class-segurium.php:2730 includes/class-segurium.php:7991
+msgid "Bug report"
+msgstr "รายงานข้อบกพร่อง"
+
+#: includes/class-segurium.php:2731 includes/class-segurium.php:7993
+msgid "Feature request"
+msgstr "ขอคุณสมบัติใหม่"
+
+#: includes/class-segurium.php:2732 includes/class-segurium.php:7995
+msgid "General question"
+msgstr "คำถามทั่วไป"
+
+#: includes/class-segurium.php:2733
+msgid "Report missed malware"
+msgstr "รายงานมัลแวร์ที่ตรวจไม่พบ"
+
+#: includes/class-segurium.php:2738
+msgid "Suspicious file"
+msgstr "ไฟล์ต้องสงสัย"
+
+#: includes/class-segurium.php:2740
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "แนบไฟล์ที่คุณเชื่อว่าเป็นมัลแวร์ ไม่เกิน 100 MB"
+
+#: includes/class-segurium.php:2743
+msgid "Message"
+msgstr "ข้อความ"
+
+#: includes/class-segurium.php:2749
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"แนบข้อมูลระบบ (รุ่น WP รุ่น PHP รุ่นปลั๊กอิน ปลั๊กอินที่เปิดใช้งาน "
+"วันที่สแกนล่าสุด)"
+
+#: includes/class-segurium.php:2753
+msgid "Submit Ticket"
+msgstr "ส่งคำร้องขอ"
+
+#: includes/class-segurium.php:2764
+msgid "Enable Security Headers"
+msgstr "เปิดใช้งานส่วนหัวความปลอดภัย"
+
+#: includes/class-segurium.php:2766
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"เพิ่มส่วนหัวตอบกลับด้านความปลอดภัยของ HTTP ให้ทุกการตอบกลับ "
+"ป้องกันคลิกแจ็กกิง การเดาชนิด MIME XSS และการโจมตีแบบปรับลดรุ่นโปรโตคอล"
+
+#: includes/class-segurium.php:2770
+msgid "Mode:"
+msgstr "โหมด:"
+
+#: includes/class-segurium.php:2774
+msgid "Basic"
+msgstr "พื้นฐาน"
+
+#: includes/class-segurium.php:2774
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+
+#: includes/class-segurium.php:2775
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "พื้นฐาน + Referrer-Policy, Permissions-Policy, HSTS"
+
+#: includes/class-segurium.php:2776
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr "แนะนำ + นโยบาย Cross-Origin, DNS prefetch, Cache-Control"
+
+#: includes/class-segurium.php:2777
+msgid "configure each header individually"
+msgstr "ตั้งค่าแต่ละส่วนหัวเอง"
+
+#: includes/class-segurium.php:2788
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"โหมดนี้ส่งค่าสำเร็จรูปที่ตายตัว "
+"เปลี่ยนเป็นกำหนดเองเพื่อแทนที่ส่วนหัวแต่ละตัว"
+
+#: includes/class-segurium.php:2791
+msgid "Header Values"
+msgstr "ค่าของส่วนหัว"
+
+#: includes/class-segurium.php:2795 includes/class-segurium.php:2809
+#: includes/class-segurium.php:2866 includes/class-segurium.php:2875
+#: includes/class-segurium.php:2885
+msgid "Same origin"
+msgstr "ต้นทางเดียวกัน"
+
+#: includes/class-segurium.php:2796
+msgid "Deny all"
+msgstr "ปฏิเสธทั้งหมด"
+
+#: includes/class-segurium.php:2798
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "ป้องกันไม่ให้เว็บของคุณถูกฝังใน iframe บนโดเมนอื่น"
+
+#: includes/class-segurium.php:2805
+msgid "No referrer"
+msgstr "ไม่ส่งผู้อ้างอิง"
+
+#: includes/class-segurium.php:2806
+msgid "No referrer when downgrade"
+msgstr "ไม่ส่งผู้อ้างอิงเมื่อปรับลดรุ่นโปรโตคอล"
+
+#: includes/class-segurium.php:2807
+msgid "Origin only"
+msgstr "ส่งเฉพาะต้นทาง"
+
+#: includes/class-segurium.php:2808
+msgid "Origin when cross-origin"
+msgstr "ส่งต้นทางเมื่อข้ามต้นทาง"
+
+#: includes/class-segurium.php:2810
+msgid "Strict origin"
+msgstr "ต้นทางแบบเข้มงวด"
+
+#: includes/class-segurium.php:2811
+msgid "Strict origin when cross-origin"
+msgstr "ต้นทางแบบเข้มงวดเมื่อข้ามต้นทาง"
+
+#: includes/class-segurium.php:2812
+msgid "Unsafe URL"
+msgstr "URL ที่ไม่ปลอดภัย"
+
+#: includes/class-segurium.php:2823 includes/class-segurium.php:2827
+msgid "Disabled (recommended)"
+msgstr "ปิดใช้งาน (แนะนำ)"
+
+#: includes/class-segurium.php:2824 includes/class-segurium.php:2828
+msgid "Enabled"
+msgstr "เปิดใช้งาน"
+
+#: includes/class-segurium.php:2825 includes/class-segurium.php:2829
+msgid "Enabled with block mode"
+msgstr "เปิดใช้งานพร้อมโหมดปิดกั้น"
+
+#: includes/class-segurium.php:2827
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"ปิดตัวกรอง XSS แบบเดิมของ IE และ Edge รุ่นเก่าอย่างชัดเจน "
+"ตัวกรองนั้นมีข้อบกพร่อง universal-XSS ที่ถูกนำไปใช้โจมตีได้ "
+"เบราว์เซอร์สมัยใหม่ไม่สนใจส่วนหัวนี้ และ CSP คือการป้องกัน XSS ที่ใช้จริง"
+
+#: includes/class-segurium.php:2828
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"บอกเบราว์เซอร์รุ่นเก่าให้กรองการสะท้อนกลับ "
+"ตัวกรองนี้มีผลบวกลวงที่ทำให้หน้าเว็บที่ถูกต้องเสียแบบเงียบๆ และมีวิธีเลี่ยง "
+"UXSS ที่รู้กันอยู่ ไม่แนะนำ"
+
+#: includes/class-segurium.php:2829
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"ตัวกรองเดียวกับด้านบน แต่จะปิดกั้นทั้งหน้าเมื่อสงสัยว่ามีการสะท้อนกลับ "
+"มีข้อบกพร่องเดียวกัน "
+"บวกกับช่องทางข้างเคียงเรื่องเวลาที่อาจทำให้ข้อมูลข้ามต้นทางรั่ว ไม่แนะนำ"
+
+#: includes/class-segurium.php:2831
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2835
+msgid "Enable HSTS"
+msgstr "เปิดใช้งาน HSTS"
+
+#: includes/class-segurium.php:2837
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "บังคับให้เบราว์เซอร์ใช้ HTTPS ส่งเฉพาะเมื่อ SSL ทำงานอยู่"
+
+#: includes/class-segurium.php:2841
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (วินาที)"
+
+#: includes/class-segurium.php:2847
+msgid "Include subdomains"
+msgstr "รวมซับโดเมน"
+
+#: includes/class-segurium.php:2853
+msgid "Preload"
+msgstr "พรีโหลด"
+
+#: includes/class-segurium.php:2855
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"คำเตือน: พรีโหลดย้อนกลับได้ยาก ต้องตั้ง max-age อย่างน้อย 1 ปี "
+"และรวมซับโดเมนด้วย"
+
+#: includes/class-segurium.php:2859
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"เว็บของคุณดูเหมือนอยู่บนซับโดเมน การเปิด includeSubDomains ใน HSTS "
+"จะมีผลกับซับโดเมนทั้งหมดของโดเมนแม่ รวมถึงที่คุณอาจไม่ได้ควบคุม"
+
+#: includes/class-segurium.php:2861
+msgid "Cross-Origin Policies"
+msgstr "นโยบาย Cross-Origin"
+
+#: includes/class-segurium.php:2863
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2865 includes/class-segurium.php:2874
+msgid "Not set"
+msgstr "ไม่ได้ตั้ง"
+
+#: includes/class-segurium.php:2867
+msgid "Same origin, allow popups"
+msgstr "ต้นทางเดียวกัน อนุญาตป๊อปอัป"
+
+#: includes/class-segurium.php:2868 includes/class-segurium.php:2886
+msgid "Unsafe none"
+msgstr "ไม่มีการป้องกัน"
+
+#: includes/class-segurium.php:2872
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2876
+msgid "Same site"
+msgstr "เว็บเดียวกัน"
+
+#: includes/class-segurium.php:2877
+msgid "Cross origin"
+msgstr "ข้ามต้นทาง"
+
+#: includes/class-segurium.php:2881
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2883
+msgid "Not set (recommended)"
+msgstr "ไม่ได้ตั้ง (แนะนำ)"
+
+#: includes/class-segurium.php:2884
+msgid "Require CORP"
+msgstr "บังคับใช้ CORP"
+
+#: includes/class-segurium.php:2890
+msgid "Control which browser features your site may use."
+msgstr "ควบคุมว่าเว็บของคุณใช้คุณสมบัติใดของเบราว์เซอร์ได้บ้าง"
+
+#: includes/class-segurium.php:2894
+msgid "Accelerometer"
+msgstr "มาตรความเร่ง"
+
+#: includes/class-segurium.php:2895
+msgid "Autoplay"
+msgstr "เล่นอัตโนมัติ"
+
+#: includes/class-segurium.php:2896
+msgid "Camera"
+msgstr "กล้อง"
+
+#: includes/class-segurium.php:2897
+msgid "Encrypted media"
+msgstr "สื่อที่เข้ารหัส"
+
+#: includes/class-segurium.php:2898
+msgid "Fullscreen"
+msgstr "เต็มจอ"
+
+#: includes/class-segurium.php:2899
+msgid "Geolocation"
+msgstr "ตำแหน่งทางภูมิศาสตร์"
+
+#: includes/class-segurium.php:2900
+msgid "Gyroscope"
+msgstr "ไจโรสโคป"
+
+#: includes/class-segurium.php:2901
+msgid "Magnetometer"
+msgstr "มาตรสนามแม่เหล็ก"
+
+#: includes/class-segurium.php:2902
+msgid "Microphone"
+msgstr "ไมโครโฟน"
+
+#: includes/class-segurium.php:2903
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2904
+msgid "Payment"
+msgstr "การชำระเงิน"
+
+#: includes/class-segurium.php:2905
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2915
+msgid "Deny"
+msgstr "ปฏิเสธ"
+
+#: includes/class-segurium.php:2916
+msgid "Self only"
+msgstr "เฉพาะตัวเอง"
+
+#: includes/class-segurium.php:2917
+msgid "Allow all"
+msgstr "อนุญาตทั้งหมด"
+
+#: includes/class-segurium.php:2928
+msgid "Send Content-Security-Policy header"
+msgstr "ส่งส่วนหัว Content-Security-Policy"
+
+#: includes/class-segurium.php:2930
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"CSP จำกัดว่าสคริปต์ สไตล์ และทรัพยากรอื่นโหลดมาจากที่ใดได้บ้าง ซึ่งช่วยลด "
+"XSS และการฝังโค้ด CSP ขึ้นกับแต่ละเว็บและอาจทำให้ธีมหรือตัวสร้างหน้าเสียได้ "
+"ให้เริ่มที่โหมดรายงานอย่างเดียวเพื่อดูการละเมิดก่อนบังคับใช้"
+
+#: includes/class-segurium.php:2936
+msgid "Report-only (recommended for first deploy)"
+msgstr "รายงานอย่างเดียว (แนะนำสำหรับการติดตั้งครั้งแรก)"
+
+#: includes/class-segurium.php:2937
+msgid "Enforce"
+msgstr "บังคับใช้"
+
+#: includes/class-segurium.php:2939
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
+msgstr ""
+"รายงานอย่างเดียวจะส่ง Content-Security-Policy-Report-Only "
+"เบราว์เซอร์จะบันทึกการละเมิดแต่ยังโหลดทรัพยากรที่ถูกปิดกั้นอยู่ "
+"ส่วนบังคับใช้จะส่ง Content-Security-Policy และปิดกั้นทรัพยากรเหล่านั้น"
+
+#: includes/class-segurium.php:2942
+msgid "Policy directives"
+msgstr "คำสั่งของนโยบาย"
+
+#: includes/class-segurium.php:2945
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr ""
+"คำสั่งบรรทัดเดียวคั่นด้วยเซมิโคลอน นโยบายเริ่มต้นอนุญาต Gutenberg "
+"และธีมส่วนใหญ่ ให้เข้มขึ้นเมื่อรายงานของคุณสะอาดแล้ว"
+
+#: includes/class-segurium.php:2946
+msgid "CSP reference (MDN)"
+msgstr "เอกสารอ้างอิง CSP (MDN)"
+
+#: includes/class-segurium.php:2950
+msgid "Report URI (optional)"
+msgstr "URI สำหรับรายงาน (ไม่บังคับ)"
+
+#: includes/class-segurium.php:2952
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"เมื่อตั้งค่าไว้ เบราว์เซอร์จะส่งรายงานการละเมิดแบบ POST ไปยัง URL นี้ "
+"ระบบจะต่อท้ายให้อัตโนมัติเป็น report-uri เว้นแต่คำสั่งของคุณมีอยู่แล้ว"
+
+#: includes/class-segurium.php:2956
+msgid "Cookie Hardening"
+msgstr "การเสริมความแข็งแกร่งของคุกกี้"
+
+#: includes/class-segurium.php:2960
+msgid "Add SameSite attribute to auth cookies"
+msgstr "เพิ่มแอตทริบิวต์ SameSite ให้คุกกี้ยืนยันตัวตน"
+
+#: includes/class-segurium.php:2962
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"เพิ่มแฟล็ก SameSite ให้คุกกี้เซสชันของ WordPress ป้องกันการโจมตีแบบ CSRF "
+"ทั้งนี้ Mozilla Observatory จะหักคะแนนถ้าไม่มี SameSite"
+
+#: includes/class-segurium.php:2966
+msgid "SameSite value"
+msgstr "ค่า SameSite"
+
+#: includes/class-segurium.php:2968
+msgid "Lax (recommended)"
+msgstr "Lax (แนะนำ)"
+
+#: includes/class-segurium.php:2971
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"Strict อาจทำให้กระบวนการเข้าสู่ระบบแบบ OAuth/SSO "
+"ที่เปลี่ยนเส้นทางกลับมาที่เว็บของคุณเสียได้"
+
+#: includes/class-segurium.php:2982
+msgid "Headers Preview"
+msgstr "ตัวอย่างส่วนหัว"
+
+#: includes/class-segurium.php:2994
+msgid "Enable Information Shield"
+msgstr "เปิดใช้งานโล่ข้อมูล"
+
+#: includes/class-segurium.php:2996
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"ลดการเปิดเผยข้อมูลของ WordPress ด้วยการเอาลายนิ้วมือรุ่น "
+"ปลายทางสำหรับการค้นพบ และเมทาดาทาที่ไม่จำเป็นออกจากส่วนหัว HTTP และผลลัพธ์ "
+"HTML"
+
+#: includes/class-segurium.php:2999
+msgid "Enable All Recommended"
+msgstr "เปิดใช้งานทั้งหมดที่แนะนำ"
+
+#: includes/class-segurium.php:3003
+msgid "HTTP Header Disclosure"
+msgstr "การเปิดเผยข้อมูลผ่านส่วนหัว HTTP"
+
+#: includes/class-segurium.php:3007
+msgid "Remove X-Powered-By header"
+msgstr "เอาส่วนหัว X-Powered-By ออก"
+
+#: includes/class-segurium.php:3009
+msgid "Removes the header that reveals your PHP version."
+msgstr "เอาส่วนหัวที่เปิดเผยรุ่น PHP ของคุณออก"
+
+#: includes/class-segurium.php:3015
+msgid "Remove Server header"
+msgstr "เอาส่วนหัว Server ออก"
+
+#: includes/class-segurium.php:3017
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr "เอาส่วนหัวที่ระบุซอฟต์แวร์เว็บเซิร์ฟเวอร์ของคุณออก ทำได้เท่าที่ทำได้"
+
+#: includes/class-segurium.php:3023
+msgid "Remove X-Pingback header"
+msgstr "เอาส่วนหัว X-Pingback ออก"
+
+#: includes/class-segurium.php:3025
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr "ซ่อน URL ของปลายทาง pingback/XML-RPC จากส่วนหัวการตอบกลับ"
+
+#: includes/class-segurium.php:3030
+msgid "Remove REST API Link: header"
+msgstr "เอาส่วนหัว Link: ของ REST API ออก"
+
+#: includes/class-segurium.php:3032
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr "เอาส่วนหัว HTTP Link ที่ประกาศปลายทางของ REST API ออก"
+
+#: includes/class-segurium.php:3037
+msgid "Remove Shortlink Link: header"
+msgstr "เอาส่วนหัว Link: ของลิงก์สั้นออก"
+
+#: includes/class-segurium.php:3039
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "เอาส่วนหัว HTTP rel=shortlink ออก"
+
+#: includes/class-segurium.php:3042
+msgid "HTML Meta and Links"
+msgstr "เมตาและลิงก์ใน HTML"
+
+#: includes/class-segurium.php:3046
+msgid "Remove WordPress generator tag"
+msgstr "เอาแท็ก generator ของ WordPress ออก"
+
+#: includes/class-segurium.php:3048
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"เอาแท็ก meta generator และ RSS generator ที่เปิดเผยรุ่น WordPress ของคุณออก"
+
+#: includes/class-segurium.php:3053
+msgid "Remove RSD link"
+msgstr "เอาลิงก์ RSD ออก"
+
+#: includes/class-segurium.php:3055
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr "เอาลิงก์ปลายทาง Really Simple Discovery ออกจากส่วนหัวของ HTML"
+
+#: includes/class-segurium.php:3060
+msgid "Remove WLW manifest link"
+msgstr "เอาลิงก์แถลงรายการของ WLW ออก"
+
+#: includes/class-segurium.php:3062
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr ""
+"เอาลิงก์แถลงรายการของ Windows Live Writer ออก จำเป็นเฉพาะเมื่อคุณใช้ WLW "
+"เขียนเรื่อง"
+
+#: includes/class-segurium.php:3067
+msgid "Remove REST API discovery link"
+msgstr "เอาลิงก์การค้นพบ REST API ออก"
+
+#: includes/class-segurium.php:3069
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"เอาแท็กลิงก์การค้นพบออกจากส่วนหัวของ HTML ตัว REST API เองยังทำงานได้ที่ "
+"/wp-json/"
+
+#: includes/class-segurium.php:3074
+msgid "Remove oEmbed discovery links"
+msgstr "เอาลิงก์การค้นพบ oEmbed ออก"
+
+#: includes/class-segurium.php:3076
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr ""
+"ป้องกันไม่ให้เว็บอื่นแสดงตัวอย่างแบบฝังเนื้อหาเมื่อลิงก์มาที่เนื้อหาของคุณ"
+
+#: includes/class-segurium.php:3081
+msgid "Remove shortlink meta tag"
+msgstr "เอาแท็ก meta ของลิงก์สั้นออก"
+
+#: includes/class-segurium.php:3083
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "เอาแท็กลิงก์ของลิงก์สั้นออกจากส่วนหัวของ HTML"
+
+#: includes/class-segurium.php:3088
+msgid "Remove emoji scripts and styles"
+msgstr "เอาสคริปต์และสไตล์อีโมจิออก"
+
+#: includes/class-segurium.php:3090
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr ""
+"เอาจาวาสคริปท์และ CSS สำหรับอีโมจิของ WordPress ออก "
+"เบราว์เซอร์สมัยใหม่รองรับอีโมจิอยู่แล้ว"
+
+#: includes/class-segurium.php:3095
+msgid "Remove RSS/Atom feed links"
+msgstr "เอาลิงก์ฟีด RSS/Atom ออก"
+
+#: includes/class-segurium.php:3097
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr ""
+"อาจทำให้โปรแกรมอ่าน RSS และการอ่านบน WordPress.com เสียได้ "
+"เปิดใช้เฉพาะเมื่อเว็บของคุณไม่ได้ใช้ฟีด RSS"
+
+#: includes/class-segurium.php:3102
+msgid "Remove adjacent post links"
+msgstr "เอาลิงก์เรื่องที่อยู่ติดกันออก"
+
+#: includes/class-segurium.php:3104
+msgid "Removes prev/next post rel links from HTML head."
+msgstr "เอาลิงก์ rel ของเรื่องก่อนหน้า/ถัดไปออกจากส่วนหัวของ HTML"
+
+#: includes/class-segurium.php:3107
+msgid "Asset Fingerprinting"
+msgstr "ลายนิ้วมือของไฟล์ประกอบ"
+
+#: includes/class-segurium.php:3111
+msgid "Remove version query strings"
+msgstr "เอาสตริงคิวรีของรุ่นออก"
+
+#: includes/class-segurium.php:3113
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"ตัด ?ver= ออกจาก URL ของ CSS และจาวาสคริปท์ "
+"ไฟล์ประกอบที่เบราว์เซอร์แคชไว้อาจเก่าค้างหลังอัปเดตปลั๊กอินหรือธีม"
+
+#: includes/class-segurium.php:3120
+msgid "Disable XML-RPC entirely"
+msgstr "ปิด XML-RPC ทั้งหมด"
+
+#: includes/class-segurium.php:3122
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr ""
+"ปลั๊กอินบางตัว (Jetpack, แอปมือถือของ WordPress) ต้องใช้ XML-RPC "
+"ปิดเฉพาะเมื่อคุณไม่ได้ใช้"
+
+#: includes/class-segurium.php:3134
+msgid "Security Self-Check"
+msgstr "การตรวจสอบความปลอดภัยด้วยตัวเอง"
+
+#: includes/class-segurium.php:3136
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Segurium ตรวจแบบเดียวกับตัวสแกนความปลอดภัยภายนอกชั้นนำ "
+"บวกกับการตรวจการเสริมความแข็งแกร่งเฉพาะของ WordPress "
+"แล้วให้เกรดเว็บของคุณตั้งแต่ A+ ถึง F ผลลัพธ์จะถูกเก็บไว้จนถึงรอบถัดไป"
+
+#: includes/class-segurium.php:3155
+msgid "Check results"
+msgstr "ผลการตรวจ"
+
+#: includes/class-segurium.php:3157
+msgid "Independent verification"
+msgstr "การตรวจสอบโดยอิสระ"
+
+#: includes/class-segurium.php:3159
+msgid "Cross-check results with these public scanners:"
+msgstr "ตรวจทานผลกับตัวสแกนสาธารณะเหล่านี้:"
+
+#: includes/class-segurium.php:3162
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:3163
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:3177
+msgid "Cleanup: 3 files / 30 days"
+msgstr "การล้าง: 3 ไฟล์ / 30 วัน"
+
+#: includes/class-segurium.php:3178
+msgid "Full malware detection — same findings as Pro"
+msgstr "การตรวจจับมัลแวร์เต็มรูปแบบ — พบเหมือนกับ Pro"
+
+#: includes/class-segurium.php:3179
+msgid "Auto-fix and Bulk Fix All"
+msgstr "แก้ไขอัตโนมัติและแก้ไขทั้งหมดพร้อมกัน"
+
+#: includes/class-segurium.php:3180
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr ""
+"การเสริมความแข็งแกร่ง: 2FA, การเดารหัสผ่าน, การปิดกั้นตามพื้นที่, ไฟร์วอลล์,"
+" ส่วนหัวความปลอดภัย"
+
+#: includes/class-segurium.php:3181
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "การเฝ้าดูความสมบูรณ์ของไฟล์ (แกนหลัก / ปลั๊กอิน / ธีม)"
+
+#: includes/class-segurium.php:3182
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "ตัวนำเข้าสำหรับการย้าย (Wordfence, AIOS, Solid Security)"
+
+#: includes/class-segurium.php:3183
+msgid "Community support"
+msgstr "การสนับสนุนจากชุมชน"
+
+#: includes/class-segurium.php:3186
+msgid "Unlimited cleanup"
+msgstr "ล้างได้ไม่จำกัด"
+
+#: includes/class-segurium.php:3187
+msgid "Everything in Free"
+msgstr "ทุกอย่างในแพ็กเกจฟรี"
+
+#: includes/class-segurium.php:3188
+msgid "Email support, priority queue"
+msgstr "สนับสนุนทางอีเมล คิวลำดับความสำคัญ"
+
+#: includes/class-segurium.php:3196
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"คุณสมบัติทุกอย่างมาพร้อมทุกการติดตั้ง ส่วน Pro จะยกเพดานการล้างรายเดือนออก"
+
+#: includes/class-segurium.php:3203 includes/class-segurium.php:3228
+msgid "Current plan"
+msgstr "แพ็กเกจปัจจุบัน"
+
+#: includes/class-segurium.php:3206 includes/class-segurium.php:3476
+msgid "Free"
+msgstr "ฟรี"
+
+#: includes/class-segurium.php:3208
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr "คุณสมบัติทุกอย่าง บนทุกเว็บ โดยจำกัดการล้างไว้ที่ 3 ครั้งต่อ 30 วัน"
+
+#: includes/class-segurium.php:3213
+msgid "forever"
+msgstr "ตลอดไป"
+
+#: includes/class-segurium.php:3237
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr "ล้างได้ไม่จำกัด คุณสมบัติเหมือนแพ็กเกจฟรี แต่ไม่มีเพดานรายเดือน"
+
+#: includes/class-segurium.php:3242
+msgid "/year per site"
+msgstr "/ปี ต่อเว็บ"
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+#: includes/class-segurium.php:3266
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"แพ็กรวมสำหรับ 5 และ 25 เว็บ พร้อมใบเสนอราคาสำหรับ 100 เว็บขึ้นไป ดูที่ "
+"%1$ssegurium.com/pricing/%2$s"
+
+#: includes/class-segurium.php:3284
+msgid "Scan Settings"
+msgstr "การตั้งค่าการสแกน"
+
+#: includes/class-segurium.php:3287
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"ยกเว้นไฟล์ที่ตรงกับรูปแบบไวลด์การ์ดเหล่านี้จากการสแกน "
+"(หนึ่งรายการต่อหนึ่งบรรทัด)"
+
+#: includes/class-segurium.php:3289
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr ""
+"ใช้ * เป็นไวลด์การ์ด ตัวอย่างเช่น *.log จะยกเว้นไฟล์บันทึกทั้งหมด ส่วน "
+"vendor/* จะยกเว้นไดเรกทอรี vendor และทุกอย่างข้างใน"
+
+#: includes/class-segurium.php:3297
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"เมื่อเปิดใช้งาน เนื้อหาไฟล์อาจถูกแบ่งปันกับ Segurium Cloud "
+"เพื่อการตรวจจับมัลแวร์ขั้นสูงและการล้างด้วยพลังคลาวด์ "
+"ระบบจะส่งเฉพาะไฟล์ต้องสงสัย ปิดเพื่อใช้โหมดออนพรีมิส "
+"แล้วการสแกนจะส่งเฉพาะแฮช SHA-256 เส้นทางไฟล์ และเมทาดาทา "
+"ไฟล์ที่คลาวด์ระบุด้วยแฮชไม่ได้จะยังไม่มีคำตัดสิน "
+"การรายงานผลบวกลวงหรือการแนบไฟล์ไปกับคำร้องขอสนับสนุนยังคงส่งไฟล์นั้น "
+"เพราะคุณเป็นคนเลือกเอง"
+
+#: includes/class-segurium.php:3303
+msgid "Email me about findings"
+msgstr "ส่งอีเมลแจ้งฉันเมื่อพบสิ่งผิดปกติ"
+
+#: includes/class-segurium.php:3305
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"ส่งสรุปรายวันของคำตัดสินมัลแวร์และการล้างที่สำเร็จ จาก support@segurium.com "
+"มากที่สุดหนึ่งอีเมลต่อเว็บต่อ 24 ชั่วโมง"
+
+#: includes/class-segurium.php:3319
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "ล้างข้อมูลสำรองที่เข้ารหัสเมื่อถอนการติดตั้งปลั๊กอิน"
+
+#: includes/class-segurium.php:3321
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"ปิด (ค่าเริ่มต้น) "
+"ข้อมูลสำรองที่เข้ารหัสของส่วนประกอบที่ถูกลบและไฟล์ที่รักษาแล้วจะยังอยู่ในไดเรกทอรี"
+" uploads/segurium-data หลังถอนการติดตั้ง การติดตั้งใหม่จึงยังกู้คืนได้ "
+"เปิดเฉพาะเมื่อคุณต้องการให้ลบถาวรตอนถอนการติดตั้ง"
+
+#: includes/class-segurium.php:3331
+msgid "Automatically clean detected malware"
+msgstr "ล้างมัลแวร์ที่ตรวจพบอัตโนมัติ"
+
+#: includes/class-segurium.php:3333
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"หลังการสแกนตามกำหนดเวลาหรือแบบเรียลไทม์ทุกครั้ง "
+"ไฟล์ที่มีคำตัดสินว่าเป็นมัลแวร์หรือถูกฝังโค้ดจะถูกล้างโดยไม่ต้องกด "
+"ไฟล์ที่คุณละเว้นไว้ (ตามเส้นทางหรือตามแฮช) จะถูกข้าม"
+
+#: includes/class-segurium.php:3339
+msgid "Let Segurium Cloud request component updates"
+msgstr "ให้ Segurium Cloud ร้องขอการอัปเดตส่วนประกอบได้"
+
+#: includes/class-segurium.php:3341
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium Cloud ขอให้เว็บนี้อัปเดตปลั๊กอิน ธีม หรือตัว WordPress เองได้ "
+"โดยระบุได้เฉพาะส่วนประกอบที่คุณติดตั้งไว้แล้ว และเฉพาะเมื่อ WordPress.org "
+"มีอัปเดตนั้นให้อยู่แล้ว ตัวอัปเดตจะถูกดาวน์โหลดโดย WordPress จาก "
+"WordPress.org ไม่ใช่จาก Segurium สำหรับแกนหลักของ WordPress "
+"จำกัดไว้เฉพาะรุ่นด้านความปลอดภัยและการบำรุงรักษา และ Segurium "
+"ไม่อัปเดตตัวเองด้วยวิธีนี้ "
+"ปิดตัวเลือกนี้แล้วเว็บจะเลิกขอและเลิกรับคำร้องขอเหล่านี้"
+
+#: includes/class-segurium.php:3343
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "ถูกปิดไว้ใน wp-config.php โดย SEGURIUM_DISABLE_REMOTE_ACTIONS"
+
+#: includes/class-segurium.php:3347
+msgid "Recent cloud requests"
+msgstr "คำร้องขอจากคลาวด์ล่าสุด"
+
+#: includes/class-segurium.php:3353
+msgid "Outcome"
+msgstr "ผลลัพธ์"
+
+#: includes/class-segurium.php:3385
+msgid "Scheduled Scan"
+msgstr "การสแกนตามกำหนดเวลา"
+
+#: includes/class-segurium.php:3387
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"สั่งสแกนมัลแวร์เต็มรูปแบบอัตโนมัติตามกำหนดเวลาที่ทำซ้ำ "
+"การสแกนตามกำหนดเวลาทำงานเหมือนการสแกนด้วยมือ "
+"แต่ไม่ต้องเปิดเบราว์เซอร์ค้างไว้ "
+"ถ้าจังหวะตามกำหนดเวลาตรงกับตอนที่มีการสแกนด้วยมือทำงานอยู่ ระบบจะข้ามไป "
+"ไม่ใช่เข้าคิว"
+
+#: includes/class-segurium.php:3414
+msgid "Save Schedule"
+msgstr "บันทึกกำหนดเวลา"
+
+#: includes/class-segurium.php:3422
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr ""
+"นำเข้าการตั้งค่าจากปลั๊กอินความปลอดภัยอื่นเข้าสู่ Segurium การตั้งค่าเดิมของ"
+" Segurium จะถูกเก็บไว้ ส่วนข้อมูลที่นำเข้าจะถูกผสานเข้าด้วยกัน"
+
+#: includes/class-segurium.php:3473
+msgid "Version"
+msgstr "รุ่น"
+
+#: includes/class-segurium.php:3475
+msgid "Plan"
+msgstr "แพ็กเกจ"
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3478
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/class-segurium.php:3480
+msgid "Geo DB updated"
+msgstr "อัปเดตฐานข้อมูลภูมิศาสตร์เมื่อ"
+
+#: includes/class-segurium.php:3487
+msgid "Proxies DB updated"
+msgstr "อัปเดตฐานข้อมูลพร็อกซีเมื่อ"
+
+#: includes/class-segurium.php:3497
+msgid "IID"
+msgstr "IID"
+
+#: includes/class-segurium.php:3503
+msgid "Copy IID to clipboard"
+msgstr "คัดลอก IID ไปยังคลิปบอร์ด"
+
+#: includes/class-segurium.php:3507
+msgid "Your IP"
+msgstr "IP ของคุณ"
+
+#: includes/class-segurium.php:3617
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "รูปแบบ * เปล่าๆ ถูกลบออก เพราะจะยกเว้นไฟล์ทั้งหมด"
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium.php:3634
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"เส้นทางแบบสัมบูรณ์ %d รายการถูกเขียนใหม่เป็นเส้นทางเทียบกับรากการติดตั้ง "
+"WordPress"
+
+#: includes/class-segurium.php:3647
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "รายการยกเว้นการสแกนจำกัดไว้ที่ 500 รายการ"
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium.php:3654
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "รายการที่ยาวเกิน 191 ตัวอักษร %d รายการถูกลบออก"
+
+#: includes/class-segurium.php:3703 includes/class-segurium.php:3736
+msgid "You do not have permission to manage scan settings."
+msgstr "คุณไม่มีสิทธิ์จัดการการตั้งค่าการสแกน"
+
+#: includes/class-segurium.php:3815
+msgid "The scan could not be started due to a server error."
+msgstr "เริ่มการสแกนไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด"
+
+#: includes/class-segurium.php:3904
+msgid "Could not stop the running scan due to a server error."
+msgstr "หยุดการสแกนที่กำลังทำงานไม่ได้เพราะเซิร์ฟเวอร์ผิดพลาด"
+
+#: includes/class-segurium.php:3952
+msgid "Check the PHP error log for details."
+msgstr "ดูรายละเอียดได้ในบันทึกข้อผิดพลาดของ PHP"
+
+#: includes/class-segurium.php:4083
+msgid "No scan results available"
+msgstr "ไม่มีผลการสแกน"
+
+#: includes/class-segurium.php:4154 includes/class-segurium.php:6346
+#: includes/class-segurium.php:6350 includes/class-segurium.php:6406
+#: includes/class-segurium.php:6495 includes/class-segurium.php:7099
+#: includes/class-segurium.php:7495
+msgid "Invalid parameters"
+msgstr "พารามิเตอร์ไม่ถูกต้อง"
+
+#: includes/class-segurium.php:4164 includes/class-segurium.php:4476
+#: includes/class-segurium.php:5583 includes/class-segurium.php:5631
+#: includes/class-segurium.php:5636 includes/class-segurium.php:7111
+#: includes/class-segurium.php:7440 includes/class-segurium.php:7502
+msgid "Invalid path"
+msgstr "เส้นทางไม่ถูกต้อง"
+
+#: includes/class-segurium.php:4168 includes/class-segurium.php:5640
+#: includes/class-segurium.php:7207 includes/class-segurium.php:7517
+msgid "File not found"
+msgstr "ไม่พบไฟล์"
+
+#: includes/class-segurium.php:4222 includes/class-segurium.php:7310
+msgid "File cleaned"
+msgstr "ล้างไฟล์แล้ว"
+
+#: includes/class-segurium.php:4283 includes/class-segurium.php:4356
+#: includes/class-segurium.php:4441
+msgid "Missing backup ID"
+msgstr "ไม่มี ID ของข้อมูลสำรอง"
+
+#: includes/class-segurium.php:4294 includes/class-segurium.php:4367
+#: includes/class-segurium.php:4446
+msgid "Backup not found"
+msgstr "ไม่พบข้อมูลสำรอง"
+
+#: includes/class-segurium.php:4310 includes/class-segurium.php:4321
+#: includes/class-segurium.php:7568
+msgid "Failed to restore file"
+msgstr "กู้คืนไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:4314 includes/class-segurium.php:4377
+msgid "Invalid restore path"
+msgstr "เส้นทางสำหรับกู้คืนไม่ถูกต้อง"
+
+#: includes/class-segurium.php:4336 includes/class-segurium.php:7472
+msgid "File restored from backup"
+msgstr "กู้คืนไฟล์จากข้อมูลสำรองแล้ว"
+
+#: includes/class-segurium.php:4372
+msgid "Backup has no target path"
+msgstr "ข้อมูลสำรองไม่มีเส้นทางปลายทาง"
+
+#: includes/class-segurium.php:4394
+msgid "Failed to read target file"
+msgstr "อ่านไฟล์ปลายทางไม่สำเร็จ"
+
+#: includes/class-segurium.php:4484
+msgid "File is not an active malware entry."
+msgstr "ไฟล์นี้ไม่ใช่รายการมัลแวร์ที่ยังทำงานอยู่"
+
+#: includes/class-segurium.php:4491
+msgid "File is outside the WordPress root."
+msgstr "ไฟล์อยู่นอกรากของ WordPress"
+
+#: includes/class-segurium.php:4494
+msgid "File not found or not readable."
+msgstr "ไม่พบไฟล์หรืออ่านไฟล์ไม่ได้"
+
+#: includes/class-segurium.php:4502
+msgid "File is too large to preview."
+msgstr "ไฟล์ใหญ่เกินกว่าจะแสดงตัวอย่าง"
+
+#: includes/class-segurium.php:4511 includes/class-segurium.php:6422
+msgid "Failed to read file."
+msgstr "อ่านไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:4977
+msgid "No integrity scan is currently running."
+msgstr "ตอนนี้ไม่มีการสแกนความสมบูรณ์ที่กำลังทำงาน"
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:5095
+msgid "Unexpected error: %s"
+msgstr "ข้อผิดพลาดที่ไม่คาดคิด: %s"
+
+#: includes/class-segurium.php:5115
+msgid "Unexpected error."
+msgstr "ข้อผิดพลาดที่ไม่คาดคิด"
+
+#: includes/class-segurium.php:5143
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "ปลายทางนี้ถูกลบออกแล้ว โปรดโหลดหน้านี้ใหม่"
+
+#: includes/class-segurium.php:5271 includes/class-segurium.php:5757
+#: includes/class-segurium.php:5761 includes/class-segurium.php:5788
+#: includes/class-segurium.php:5887 includes/class-segurium.php:5891
+#: includes/class-segurium.php:5904
+msgid "Invalid parameters."
+msgstr "พารามิเตอร์ไม่ถูกต้อง"
+
+#: includes/class-segurium.php:5521 includes/class-segurium.php:5548
+#: includes/class-segurium.php:5577 includes/class-segurium.php:5673
+#: includes/class-segurium.php:5715 includes/class-segurium.php:5883
+msgid "Missing parameters."
+msgstr "ไม่มีพารามิเตอร์"
+
+#: includes/class-segurium.php:5603 includes/class-segurium.php:7447
+msgid "Failed to write restored file"
+msgstr "เขียนไฟล์ที่กู้คืนไม่สำเร็จ"
+
+#: includes/class-segurium.php:5645
+msgid "File too large to view (>2 MB)"
+msgstr "ไฟล์ใหญ่เกินกว่าจะดูได้ (เกิน 2 MB)"
+
+#: includes/class-segurium.php:5781
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr "ลบธีมที่เปิดใช้งานอยู่ไม่ได้ ให้เปลี่ยนไปใช้ธีมอื่นก่อน"
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5858
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "%1$s \"%2$s\" ถูกลบแล้ว และสร้างข้อมูลสำรองไว้"
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5963
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "%1$s \"%2$s\" ถูกกู้คืนจากข้อมูลสำรองแล้ว"
+
+#: includes/class-segurium.php:6022
+msgid "Cannot delete active theme. Switch first."
+msgstr "ลบธีมที่เปิดใช้งานอยู่ไม่ได้ ให้เปลี่ยนก่อน"
+
+#: includes/class-segurium.php:6029
+msgid "Delisted from WordPress.org"
+msgstr "ถูกถอดออกจาก WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:6039
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr "ธีม \"%s\" ถูกทิ้งร้างแต่ยังเปิดใช้งานอยู่ ระบบจะข้ามไป"
+
+#: includes/class-segurium.php:6045
+msgid "Active abandoned theme — switch manually."
+msgstr "ธีมที่ถูกทิ้งร้างและเปิดใช้งานอยู่ — ให้เปลี่ยนเอง"
+
+#: includes/class-segurium.php:6071
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "ไม่ได้มาจาก WordPress.org — ตรวจสอบความสมบูรณ์ไม่ได้"
+
+#: includes/class-segurium.php:6092
+msgid "Protected file (exclusion list)."
+msgstr "ไฟล์ที่ได้รับการปกป้อง (รายการยกเว้น)"
+
+#. translators: %s: file verdict reported by the integrity check.
+#: includes/class-segurium.php:6132
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "ไม่มีการแก้ไขอัตโนมัติสำหรับคำตัดสิน \"%s\""
+
+#. translators: %d: number of files.
+#: includes/class-segurium.php:6144
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "ไม่รู้จักรุ่นของส่วนประกอบ ตรวจสอบไฟล์ไม่ได้ %d ไฟล์"
+
+#: includes/class-segurium.php:6414
+msgid "File not found on disk."
+msgstr "ไม่พบไฟล์บนดิสก์"
+
+#: includes/class-segurium.php:6418
+msgid "File is too large to submit."
+msgstr "ไฟล์ใหญ่เกินกว่าจะส่งได้"
+
+#: includes/class-segurium.php:6425
+msgid "File contents changed since the scan."
+msgstr "เนื้อหาไฟล์เปลี่ยนไปหลังการสแกน"
+
+#: includes/class-segurium.php:6429 includes/class-segurium.php:8085
+msgid "Failed to compress file."
+msgstr "บีบอัดไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:6796 includes/class-segurium.php:6812
+#: includes/class-segurium.php:6847 includes/class-segurium.php:6868
+#: includes/class-segurium.php:6882 includes/class-segurium.php:6904
+#: includes/class-segurium.php:6927 includes/class-segurium.php:6994
+#: includes/class-segurium.php:7054 includes/class-segurium.php:7067
+#: includes/class-segurium.php:7637 includes/class-segurium.php:7659
+#: includes/class-segurium.php:7674 includes/class-segurium.php:7696
+#: includes/class-segurium.php:7712 includes/class-segurium.php:7734
+#: includes/class-segurium.php:7751 includes/class-segurium.php:7766
+#: includes/class-segurium.php:7781 includes/class-segurium.php:7799
+#: includes/class-segurium.php:7812 includes/class-segurium.php:7831
+#: includes/class-segurium.php:7844 includes/class-segurium.php:7868
+#: includes/class-segurium.php:8137 includes/class-segurium.php:8156
+#: includes/class-segurium.php:8171 includes/class-segurium.php:8205
+msgid "Unauthorized."
+msgstr "ไม่ได้รับอนุญาต"
+
+#: includes/class-segurium.php:6889 includes/class-segurium.php:6911
+msgid "Pending change not found or already expired."
+msgstr "ไม่พบการเปลี่ยนแปลงที่รออยู่ หรือหมดอายุแล้ว"
+
+#. translators: %s: file path relative to the WordPress root.
+#: includes/class-segurium.php:7142
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"ปฏิเสธการลบ: \"%s\" เป็นไฟล์ที่ได้รับการปกป้อง "
+"เว็บเซิร์ฟเวอร์หรือปลั๊กอินอื่นอาจโหลดไฟล์นี้ "
+"และการเอาออกอาจทำให้ทั้งเว็บล่มได้ ให้ลบเองถ้าคุณแน่ใจว่าปลอดภัย"
+
+#: includes/class-segurium.php:7194
+msgid "Failed to create directory"
+msgstr "สร้างไดเรกทอรีไม่สำเร็จ"
+
+#: includes/class-segurium.php:7197 includes/class-segurium.php:7349
+msgid "Failed to write file"
+msgstr "เขียนไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:7212 includes/class-segurium.php:7320
+msgid "Failed to read file for backup"
+msgstr "อ่านไฟล์เพื่อสำรองข้อมูลไม่สำเร็จ"
+
+#: includes/class-segurium.php:7335
+msgid "Failed to create backup"
+msgstr "สร้างข้อมูลสำรองไม่สำเร็จ"
+
+#: includes/class-segurium.php:7358
+msgid "Failed to delete file"
+msgstr "ลบไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:7522
+msgid "Failed to read file"
+msgstr "อ่านไฟล์ไม่สำเร็จ"
+
+#: includes/class-segurium.php:7554
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr "ข้อมูลสำรองนี้ไม่มีแล้ว — ถูกหมุนออกโดยข้อมูลสำรองที่ใหม่กว่า"
+
+#: includes/class-segurium.php:7556
+msgid "Backup metadata is missing or unreadable."
+msgstr "เมทาดาทาของข้อมูลสำรองหายไปหรืออ่านไม่ได้"
+
+#: includes/class-segurium.php:7558
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"อ่านไฟล์ข้อมูลสำรองไม่ได้ ให้ตรวจสิทธิ์ของระบบไฟล์บน uploads/segurium-data"
+
+#: includes/class-segurium.php:7560
+msgid "Backup file is corrupt — decryption failed."
+msgstr "ไฟล์ข้อมูลสำรองเสียหาย — ถอดรหัสไม่สำเร็จ"
+
+#: includes/class-segurium.php:7562
+msgid "Backup file is corrupt — decompression failed."
+msgstr "ไฟล์ข้อมูลสำรองเสียหาย — คลายการบีบอัดไม่สำเร็จ"
+
+#: includes/class-segurium.php:7564
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"ตรวจสอบความสมบูรณ์ของข้อมูลสำรองไม่ผ่าน — แฮชของเนื้อหาไม่ตรงกับเมทาดาทา"
+
+#: includes/class-segurium.php:7566
+msgid "Invalid backup reference."
+msgstr "การอ้างอิงข้อมูลสำรองไม่ถูกต้อง"
+
+#: includes/class-segurium.php:7785
+msgid "Invalid IP address."
+msgstr "หมายเลขไอพีไม่ถูกต้อง"
+
+#: includes/class-segurium.php:7849 includes/class-segurium.php:7873
+msgid "Plugin not found or no data to migrate."
+msgstr "ไม่พบปลั๊กอิน หรือไม่มีข้อมูลให้ย้าย"
+
+#: includes/class-segurium.php:7997
+msgid "Missed malware report"
+msgstr "รายงานมัลแวร์ที่ตรวจไม่พบ"
+
+#: includes/class-segurium.php:7999
+msgid "Other request"
+msgstr "คำร้องขออื่น"
+
+#: includes/class-segurium.php:8028
+msgid "Permission denied."
+msgstr "ไม่ได้รับอนุญาต"
+
+#: includes/class-segurium.php:8038
+msgid "Message is required."
+msgstr "ต้องกรอกข้อความ"
+
+#: includes/class-segurium.php:8045
+msgid "A valid reply-to email is required."
+msgstr "ต้องมีอีเมลสำหรับตอบกลับที่ถูกต้อง"
+
+#: includes/class-segurium.php:8063
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "คุณส่งคำร้องขอมากเกินไปในวันนี้ โปรดลองใหม่พรุ่งนี้"
+
+#: includes/class-segurium.php:8069
+msgid "Failed to upload the file. Try again."
+msgstr "อัปโหลดไฟล์ไม่สำเร็จ ลองอีกครั้ง"
+
+#: includes/class-segurium.php:8073
+msgid "File is empty or too large (max 100 MB)."
+msgstr "ไฟล์ว่างเปล่าหรือใหญ่เกินไป (ไม่เกิน 100 MB)"
+
+#: includes/class-segurium.php:8077
+msgid "Invalid upload."
+msgstr "การอัปโหลดไม่ถูกต้อง"
+
+#: includes/class-segurium.php:8081
+msgid "Failed to read uploaded file."
+msgstr "อ่านไฟล์ที่อัปโหลดไม่สำเร็จ"
+
+#: includes/class-segurium.php:8210
+msgid "Please enter a username or user ID."
+msgstr "โปรดใส่ชื่อผู้ใช้หรือ ID ผู้ใช้"
+
+#: includes/class-segurium.php:8215
+msgid "User not found."
+msgstr "ไม่พบผู้ใช้"
+
+#. translators: %s: username
+#: includes/class-segurium.php:8223
+msgid "2FA reset for user %s."
+msgstr "ล้างค่า 2FA ของผู้ใช้ %s แล้ว"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "รายการ IP ที่อนุญาต"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"รายการ IP ที่อนุญาต (ข้ามการตรวจ) ของ AIOS "
+"ไม่มีสิ่งที่เทียบเท่าโดยตรงในโหมดไฟร์วอลล์แบบรายการปฏิเสธของ Segurium "
+"ตั้งค่าเองถ้าจำเป็น"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "การป้องกันการเดารหัสผ่าน"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "การป้องกันการเดารหัสผ่านของ Segurium (วางแผนไว้)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "การปิดกั้นตามประเทศ"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
+msgstr ""
+"การปิดกั้นตามประเทศของ AIOS เป็นคุณสมบัติบนคลาวด์แบบเสียเงิน "
+"จึงนำเข้าจากในเครื่องไม่ได้"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Blocked IPs"
+msgstr "IP ที่ถูกปิดกั้น"
+
+#: includes/migrations/class-segurium-migration-aios.php:128
+msgid "No banned IPs configured in AIOS."
+msgstr "ไม่มี IP ที่ถูกแบนตั้งไว้ใน AIOS"
+
+#: includes/migrations/class-segurium-migration-aios.php:130
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+#: includes/migrations/class-segurium-migration-wordfence.php:180
+msgid "Merge"
+msgstr "ผสาน"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+#: includes/migrations/class-segurium-migration-aios.php:143
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+#: includes/migrations/class-segurium-migration-wordfence.php:154
+msgid "Scan Exclusions"
+msgstr "รายการยกเว้นการสแกน"
+
+#: includes/migrations/class-segurium-migration-aios.php:141
+msgid "No file exclusions configured in AIOS."
+msgstr "ไม่มีการยกเว้นไฟล์ตั้งไว้ใน AIOS"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "2FA ของ Segurium (วางแผนไว้)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"Solid Security เก็บการปิดกั้นตามประเทศไว้ในหน้าควบคุมบนคลาวด์ "
+"ให้ตั้งค่าเองในแท็บการปิดกั้นตามพื้นที่"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+#: includes/migrations/class-segurium-migration-solid-security.php:127
+msgid "Banned IPs"
+msgstr "IP ที่ถูกแบน"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:125
+msgid "No banned IPs found in Solid Security."
+msgstr "ไม่พบ IP ที่ถูกแบนใน Solid Security"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "การตั้งค่าที่จัดการบนคลาวด์"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"Sucuri Security เก็บกฎ WAF การปิดกั้นตามพื้นที่ "
+"และการตั้งค่าการสแกนมัลแวร์ไว้ในหน้าควบคุมบนคลาวด์ของ Sucuri "
+"จึงนำเข้าจากในเครื่องไม่ได้"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "กฎ WAF"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "กฎ WAF ของ Segurium (วางแผนไว้)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"การปิดกั้นตามพื้นที่ของ Segurium (ใช้ได้) — "
+"ให้ตั้งค่าเองในแท็บการปิดกั้นตามพื้นที่"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:152
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "ไม่มีรูปแบบการยกเว้นตั้งไว้ใน Wordfence"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:165
+msgid "No country blocks configured in Wordfence."
+msgstr "ไม่มีการปิดกั้นตามประเทศตั้งไว้ใน Wordfence"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:178
+msgid "No manual IP blocks found in Wordfence."
+msgstr "ไม่พบการปิดกั้น IP แบบตั้งเองใน Wordfence"
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:279
+msgid "Import %d user(s) with TOTP"
+msgstr "นำเข้าผู้ใช้ที่มี TOTP %d คน"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:282
+msgid "Import into Segurium 2FA"
+msgstr "นำเข้าสู่ 2FA ของ Segurium"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:292
+msgid "No Wordfence 2FA data found"
+msgstr "ไม่พบข้อมูล 2FA ของ Wordfence"
+
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Security issues need your attention"
+msgstr "มีปัญหาความปลอดภัยที่ต้องการความสนใจจากคุณ"
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+msgid "Missing parameter: %s"
+msgstr "ไม่มีพารามิเตอร์: %s"
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "ไม่มีไฟล์นี้รุ่นที่สะอาดอยู่ ให้ลบออกหรือแทนที่ด้วยตัวเอง"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "ตอนนี้ Segurium Cloud ล้างไฟล์นี้ไม่ได้ ลองอีกครั้งภายหลัง"
+
+#: includes/storage/class-segurium-storage.php:240
+msgid "Cleanup unavailable."
+msgstr "การล้างใช้ไม่ได้"
+
+#: includes/storage/class-segurium-storage.php:827
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "การตอบกลับเรื่องการล้างจาก Segurium Cloud ไม่ถูกต้อง"
+
+#: includes/storage/class-segurium-storage.php:847
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud ส่งเนื้อหาการล้างที่ไม่ใช่ base64 ที่ถูกต้อง"
+
+#: includes/storage/class-segurium-storage.php:860
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "การตอบกลับเรื่องการล้างไม่มีค่าตรวจสอบของไฟล์ที่ล้างแล้ว"
+
+#: includes/storage/class-segurium-storage.php:864
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "ไฟล์ที่ล้างแล้วไม่ตรงกับค่าตรวจสอบในการตอบกลับเรื่องการล้าง"
+
+#: includes/storage/class-segurium-storage.php:1093
+msgid "Invalid response from Segurium Cloud."
+msgstr "การตอบกลับจาก Segurium Cloud ไม่ถูกต้อง"
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1101
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud ตอบกลับด้วยข้อผิดพลาด %d"
+
+#: includes/storage/class-segurium-storage.php:1109
+msgid "Segurium Cloud response is missing the file content."
+msgstr "การตอบกลับจาก Segurium Cloud ไม่มีเนื้อหาไฟล์"
+
+#: includes/storage/class-segurium-storage.php:1117
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud ส่งเนื้อหาไฟล์ที่ไม่ใช่ base64 ที่ถูกต้อง"
+
+#: includes/storage/class-segurium-storage.php:1124
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "การตอบกลับจาก Segurium Cloud ไม่มีค่าตรวจสอบของไฟล์"
+
+#: includes/storage/class-segurium-storage.php:1131
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "ไฟล์ที่ดาวน์โหลดมาไม่ตรงกับค่าตรวจสอบในการตอบกลับ"
+
+#: segurium.php:49 segurium.php:1236
+msgid "Plugin Activation Error"
+msgstr "การเปิดใช้งานปลั๊กอินผิดพลาด"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:1071
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Segurium ต้องใช้ PHP %1$s ขึ้นไป เว็บนี้ใช้ PHP %2$s อยู่ "
+"โปรดขอให้โฮสต์ของคุณอัปเกรด PHP แล้วลองเปิดใช้งาน Segurium อีกครั้ง"
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:1079
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Segurium ต้องใช้ WordPress %1$s ขึ้นไป เว็บนี้ใช้ WordPress %2$s อยู่ "
+"โปรดอัปเดต WordPress แล้วลองเปิดใช้งาน Segurium อีกครั้ง"
+
+#: segurium.php:1081
+msgid "unknown"
+msgstr "ไม่ทราบ"
+
+msgid "Cookies — HttpOnly"
+msgstr "คุกกี้ — HttpOnly"

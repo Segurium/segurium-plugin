@@ -634,7 +634,7 @@ class Segurium_Remote_Actions {
 	 * @return string
 	 */
 	private static function pending_plugin_package( string $slug ): string {
-		$file = self::plugin_file_for_slug( $slug );
+		$file = Segurium_Component_Updates::plugin_file_for_slug( $slug );
 		if ( '' === $file ) {
 			return '';
 		}
@@ -688,24 +688,6 @@ class Segurium_Remote_Actions {
 	}
 
 	/**
-	 * Resolve a plugin slug to its `dir/file.php` entry.
-	 *
-	 * @param string $slug Plugin directory name.
-	 * @return string Plugin file, or '' when not installed.
-	 */
-	private static function plugin_file_for_slug( string $slug ): string {
-		if ( ! function_exists( 'get_plugins' ) ) {
-			Segurium_Path_Helpers::wp_admin_include( 'plugin.php' );
-		}
-		foreach ( array_keys( get_plugins() ) as $file ) {
-			if ( dirname( (string) $file ) === $slug ) {
-				return (string) $file;
-			}
-		}
-		return '';
-	}
-
-	/**
 	 * Snapshot a component so a bad update can be rolled back.
 	 *
 	 * @param string $component_type plugin|theme.
@@ -739,51 +721,12 @@ class Segurium_Remote_Actions {
 	 * @return bool
 	 */
 	private static function apply_update( string $component_type, string $slug ): bool {
-		Segurium_Path_Helpers::wp_admin_include( 'file.php' );
-		Segurium_Path_Helpers::wp_admin_include( 'misc.php' );
-		Segurium_Path_Helpers::wp_admin_include( 'class-wp-upgrader.php' );
-
-		if ( ! class_exists( 'Automatic_Upgrader_Skin' ) ) {
+		$result = Segurium_Component_Updates::apply( $component_type, $slug, Segurium_Component_Updates::TRIGGER_REMOTE_ACTION );
+		if ( is_wp_error( $result ) ) {
+			Segurium_Debug::log( '[segurium] remote action upgrader failed: ' . $result->get_error_code() );
 			return false;
 		}
-
-		$ob_level = ob_get_level();
-		$result   = false;
-
-		try {
-			$skin = new Automatic_Upgrader_Skin();
-
-			if ( 'plugin' === $component_type ) {
-				$file = self::plugin_file_for_slug( $slug );
-				if ( '' === $file ) {
-					return false;
-				}
-				$upgrader = new Plugin_Upgrader( $skin );
-				$result   = $upgrader->upgrade( $file );
-			} elseif ( 'theme' === $component_type ) {
-				$upgrader = new Theme_Upgrader( $skin );
-				$result   = $upgrader->upgrade( $slug );
-			} else {
-				$offer = get_preferred_from_update_core();
-				if ( ! is_object( $offer ) ) {
-					return false;
-				}
-				$upgrader = new Core_Upgrader( $skin );
-				$result   = $upgrader->upgrade( $offer );
-			}
-		} catch ( Throwable $e ) {
-			Segurium_Debug::log( '[segurium] remote action upgrader threw: ' . $e->getMessage() );
-			$result = false;
-		} finally {
-			// The upgrader skin opens an output buffer and does not always
-			// close it again on a failure path. Left open, it would swallow
-			// whatever this request still had to emit.
-			while ( ob_get_level() > $ob_level ) {
-				ob_end_clean();
-			}
-		}
-
-		return true === $result || ( ! is_wp_error( $result ) && ! empty( $result ) );
+		return true;
 	}
 
 	/**

@@ -80,6 +80,15 @@ class Segurium_Integrity_Scan_State {
 	private $workspace = null;
 
 	/**
+	 * Trigger the runner handed down for this run, forwarded to CTI on
+	 * every chunk. Set before initialize(); ignored on a resumed scan,
+	 * which reads the trigger back from persisted state.
+	 *
+	 * @var string
+	 */
+	private $pending_trigger = 'manual';
+
+	/**
 	 * Per-request memoization of the saved status map. Loaded lazily on the
 	 * first chunk and reused across subsequent chunks within the same HTTP
 	 * request, even though most chunks today live in their own request.
@@ -137,6 +146,18 @@ class Segurium_Integrity_Scan_State {
 	}
 
 	/**
+	 * Declare where this run came from before initialize() persists it.
+	 * Callers that skip it get 'manual', which is what an operator pressing
+	 * the button produces.
+	 *
+	 * @param string $trigger One of scheduled|manual|post_update|unspecified.
+	 * @return void
+	 */
+	public function set_trigger( $trigger ) {
+		$this->pending_trigger = (string) $trigger;
+	}
+
+	/**
 	 * Discover all components, persist the queue, and return the initial
 	 * progress shape. Does NOT collect file hashes — that happens lazily
 	 * inside process_chunk so start() stays fast.
@@ -156,6 +177,12 @@ class Segurium_Integrity_Scan_State {
 
 		$allowed_triggers = array( 'scheduled', 'manual', 'post_update', 'unspecified' );
 		if ( ! in_array( $trigger, $allowed_triggers, true ) ) {
+			Segurium_Debug::log(
+				sprintf(
+					'[segurium-integrity] unknown scan trigger %s reported as unspecified',
+					wp_json_encode( $trigger )
+				)
+			);
 			$trigger = 'unspecified';
 		}
 
@@ -217,7 +244,7 @@ class Segurium_Integrity_Scan_State {
 	 * @return void
 	 */
 	public function initialize( $scan_id, $scan_type = 'integrity' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		$this->start( $scan_id );
+		$this->start( $scan_id, $this->pending_trigger );
 	}
 
 	/**
@@ -320,6 +347,7 @@ class Segurium_Integrity_Scan_State {
 				'component_status' => $component_status,
 				'last_updated'     => $cti_row['last_updated'] ?? null,
 				'latest_version'   => $cti_row['latest_version'] ?? null,
+				'vulnerable'       => self::has_vulnerable_file( $cti_row ),
 			);
 
 			// Unknown components (not from WP.org) — skip file-level issues.
@@ -677,6 +705,26 @@ class Segurium_Integrity_Scan_State {
 				return 'wp-content/themes/' . $component['slug'];
 		}
 		return '';
+	}
+
+	/**
+	 * Whether the cloud flagged any file of this component as belonging to a
+	 * release with a known vulnerability.
+	 *
+	 * The flag rides on pristine files, which never become findings, so it is
+	 * read here rather than from the issue list. A build talking to a service
+	 * that does not send it sees no flag and behaves as before.
+	 *
+	 * @param array $cti_row One component row from the integrity response.
+	 * @return bool
+	 */
+	private static function has_vulnerable_file( $cti_row ) {
+		foreach ( $cti_row['files'] ?? array() as $file ) {
+			if ( ! empty( $file['vulnerable'] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

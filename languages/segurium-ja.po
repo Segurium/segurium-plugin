@@ -4715,3 +4715,29 @@ msgstr "メールは1日あたり最大1通、support@segurium.com から送信�
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "無料ティアの修復枠を超過しました。無制限の修正には Pro にアップグレードしてください。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Outdated"
+msgstr "古い"
+
+msgid "Vulnerable"
+msgstr "脆弱"
+
+msgid "No update available"
+msgstr "利用可能な更新はありません"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#, php-format
+msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
+msgstr "%1$s は %2$s から %3$s に移行します。これはメジャーバージョンの変更であり、サイトが動作しなくなる可能性があります。"
+
+msgid "Malware is waiting for you to act"
+msgstr "マルウェアがあなたの対応を待っています"
+
+msgid "A vulnerable component is installed"
+msgstr "脆弱なコンポーネントがインストールされています"
+
+msgid "Security issues need your attention"
+msgstr "セキュリティの問題に対応が必要です"
