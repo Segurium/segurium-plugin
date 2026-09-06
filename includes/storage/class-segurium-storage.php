@@ -31,18 +31,6 @@ class Segurium_Storage {
 	const SCHEMA_FINGERPRINT_OPTION = 'segurium_schema_fingerprint';
 
 	/**
-	 * `/v1/cleanup` result code: the cloud saw the real bytes and could
-	 * produce no clean version. Permanent — retrying changes nothing.
-	 */
-	const CLEANUP_ERR_NO_CLEAN_VERSION = 6;
-
-	/**
-	 * `/v1/cleanup` result code: the cure engine did not answer. Transient
-	 * — the same request may succeed later.
-	 */
-	const CLEANUP_ERR_CURE_UNAVAILABLE = 7;
-
-	/**
 	 * Whether boot() has registered the schema registry.
 	 *
 	 * @var bool
@@ -217,30 +205,6 @@ class Segurium_Storage {
 	}
 
 	/**
-	 * Translate a non-zero cleanup result code into something a site owner
-	 * can act on.
-	 *
-	 * Two of the codes are worth telling apart in the UI: the cloud looked
-	 * at the real bytes and could not produce a clean version, which no
-	 * amount of retrying changes, versus the cure engine not answering,
-	 * which is worth another go later. Everything else falls back to the
-	 * server's own wording.
-	 *
-	 * @param int   $error_code Wire-level code from `/v1/cleanup`.
-	 * @param array $result     Decoded response body.
-	 * @return string Human-readable, translated where we own the wording.
-	 */
-	private static function cleanup_error_message( int $error_code, array $result ): string {
-		if ( self::CLEANUP_ERR_NO_CLEAN_VERSION === $error_code ) {
-			return __( 'No clean version of this file exists. Remove or replace it by hand.', 'segurium' );
-		}
-		if ( self::CLEANUP_ERR_CURE_UNAVAILABLE === $error_code ) {
-			return __( 'Segurium Cloud could not clean this file right now. Try again later.', 'segurium' );
-		}
-		return isset( $result['error'] ) ? (string) $result['error'] : __( 'Cleanup unavailable.', 'segurium' );
-	}
-
-	/**
 	 * Whether file bodies must stay on this server.
 	 *
 	 * Lives on the storage façade rather than on `Segurium` because the
@@ -257,7 +221,7 @@ class Segurium_Storage {
 	 * @return bool True when file bodies must not leave the server.
 	 */
 	public static function on_premise_mode(): bool {
-		return ! self::setting_get_bool( 'segurium_cloud_detection_enabled', false );
+		return ! (bool) Segurium_Settings::get_field( 'general', 'cloud_detection_enabled' );
 	}
 
 	/**
@@ -699,9 +663,10 @@ class Segurium_Storage {
 	 * @param string $list_type List type.
 	 * @param int    $limit     Rows per page.
 	 * @param int    $offset    Offset.
+	 * @param string $source    Narrow to one source tag.
 	 */
-	public static function ip_list( string $list_type, int $limit = 100, int $offset = 0 ): array {
-		return Segurium_Storage_IP_List::list_rows( $list_type, $limit, $offset );
+	public static function ip_list( string $list_type, int $limit = 100, int $offset = 0, ?string $source = null ): array {
+		return Segurium_Storage_IP_List::list_rows( $list_type, $limit, $offset, $source );
 	}
 
 	/**
@@ -836,7 +801,7 @@ class Segurium_Storage {
 		if ( 0 !== $error_code ) {
 			return new WP_Error(
 				'cti_cleanup_error_' . $error_code,
-				self::cleanup_error_message( $error_code, $result ),
+				__( 'Cleanup unavailable.', 'segurium' ),
 				array( 'error_code' => $error_code )
 			);
 		}
@@ -963,21 +928,20 @@ class Segurium_Storage {
 	}
 
 	/**
-	 * Standard settings-snapshot emission. Every settings module should use
-	 * this instead of hand-rolling the message payload so the CTI side can
-	 * rely on a stable contract.
+	 * The only place a settings snapshot payload is built. Segurium_Settings_Writer
+	 * is its only caller; features shape the `settings` object through their
+	 * registry row, never the envelope around it.
 	 *
-	 * @param string $area     Settings area identifier (`geo`, `firewall`, `bf`, …).
-	 * @param array  $settings Full settings snapshot.
+	 * @param string $feature  Registry slug (`geo`, `firewall`, `brute_force`, …).
+	 * @param array  $settings Full settings snapshot for that feature.
 	 * @return bool
 	 */
-	public static function cti_send_settings_snapshot( string $area, array $settings ): bool {
+	public static function cti_send_settings_snapshot( string $feature, array $settings ): bool {
 		return self::cti_send_message(
 			'settings_snapshot',
 			array(
-				'area'     => $area,
+				'feature'  => $feature,
 				'settings' => $settings,
-				'at'       => time(),
 			)
 		);
 	}

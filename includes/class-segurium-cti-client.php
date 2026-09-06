@@ -97,7 +97,8 @@ class Segurium_CTI_Client {
 	// Replaces the bind/unbind pair. CTI proves
 	// install ownership by comparing fs_install_secret_key to the install's
 	// secret in Freemius — the plugin sends a tuple, never a verdict.
-	const BILLING_SYNC_ENDPOINT = 'https://cti.segurium.com:8901/v1/billing/sync';
+	const BILLING_SYNC_ENDPOINT  = 'https://cti.segurium.com:8901/v1/billing/sync';
+	const BILLING_CLAIM_ENDPOINT = 'https://cti.segurium.com:8901/v1/billing/claim';
 
 	/**
 	 * Maximum number of HTTP attempts the scan-pipeline
@@ -816,9 +817,16 @@ class Segurium_CTI_Client {
 	 * @param string $client_batch_id Idempotency key for this POST. Same
 	 *                                value + same iid within 24 h yields
 	 *                                the same accept/reject decision.
-	 * @param array  $files           List of `{sha256, path, body}`. `body`
-	 *                                is the raw bytes; `path` rides into
-	 *                                the meta JSON and CTI's analytics.
+	 * @param array  $files           List of `{sha256, path, body, action_id}`.
+	 *                                `body` is the raw bytes; `path` rides
+	 *                                into the meta JSON and CTI's analytics.
+	 *                                `action_id` is optional and names the
+	 *                                remote `upload_file` action this file
+	 *                                answers, so the cloud retains the
+	 *                                sample whatever the verdict says. It
+	 *                                is resolved server-side against this
+	 *                                install's own action queue, so an
+	 *                                id we invent buys nothing.
 	 * @return array|WP_Error `{accepted, rejected, next_seq}` on 200,
 	 *                       WP_Error on transport / HTTP / decode failure.
 	 */
@@ -871,12 +879,17 @@ class Segurium_CTI_Client {
 			if ( $size > Segurium_Async_Scan_Submitter::MAX_SINGLE_FILE_SIZE ) {
 				return new WP_Error( 'cti_file_too_large', 'scan_submit single-file cap is 100 MiB' );
 			}
-			$path           = isset( $f['path'] ) ? (string) $f['path'] : '';
-			$meta_files[]   = array(
+			$path      = isset( $f['path'] ) ? (string) $f['path'] : '';
+			$meta_file = array(
 				'hash' => 'sha256:' . $sha,
 				'path' => $path,
 				'size' => $size,
 			);
+			$action_id = isset( $f['action_id'] ) ? (string) $f['action_id'] : '';
+			if ( '' !== $action_id ) {
+				$meta_file['action_id'] = $action_id;
+			}
+			$meta_files[]   = $meta_file;
 			$normal_files[] = array(
 				'sha256' => $sha,
 				'body'   => $body,
@@ -1801,16 +1814,40 @@ class Segurium_CTI_Client {
 			'fs_license_id'         => (string) $license_id,
 			'fs_license_key'        => (string) $license_key,
 		);
-		// Identify which Freemius product this install
-		// belongs to, so the multi-tenant CTI deployment can route
-		// developer-API validation to the right product. Defaults to
-		// the prod product (26814) in production builds; DDEV/test
-		// installs override `SEGURIUM_FS_PRODUCT_ID` in wp-config.php
-		// to drive the test product (29175) end-to-end.
+		// Identify which Freemius product this install belongs to, so
+		// CTI routes developer-API validation to the right product.
 		if ( defined( 'SEGURIUM_FS_PRODUCT_ID' ) ) {
 			$body['fs_plugin_id'] = (string) SEGURIUM_FS_PRODUCT_ID;
 		}
 		return $this->billing_call( self::BILLING_SYNC_ENDPOINT, $body );
+	}
+
+	/**
+	 * Bind this install to a purchase the checkout return described but
+	 * the SDK cannot prove: Freemius keeps the install credentials until
+	 * the buyer confirms an email it already knows, so no tuple exists
+	 * for `billing_sync()`. CTI re-reads the install, the license and the
+	 * subscription from the Freemius developer API and binds only when
+	 * they agree with each other, with this site's registered host, and
+	 * with the gateway reference only the checkout browser saw.
+	 *
+	 * @param string $install_id          Freemius install id from the return.
+	 * @param string $license_id          Freemius license id from the return.
+	 * @param string $subscription_id     Freemius subscription id from the return.
+	 * @param string $gateway_external_id Gateway subscription reference from the return.
+	 * @return array|WP_Error Decoded envelope, or the refusal.
+	 */
+	public function billing_claim( $install_id, $license_id, $subscription_id, $gateway_external_id ) {
+		$body = array(
+			'fs_install_id'          => (string) $install_id,
+			'fs_license_id'          => (string) $license_id,
+			'fs_subscription_id'     => (string) $subscription_id,
+			'fs_gateway_external_id' => (string) $gateway_external_id,
+		);
+		if ( defined( 'SEGURIUM_FS_PRODUCT_ID' ) ) {
+			$body['fs_plugin_id'] = (string) SEGURIUM_FS_PRODUCT_ID;
+		}
+		return $this->billing_call( self::BILLING_CLAIM_ENDPOINT, $body );
 	}
 
 	/**

@@ -5069,3 +5069,35 @@ msgstr "Problemi di sicurezza richiedono la tua attenzione"
 #~ msgstr ""
 #~ "Quota di correzioni del piano gratuito superata. Passare a Pro per "
 #~ "correzioni illimitate."
+
+#: includes/class-segurium-self-check.php:514
+msgid "This item cannot be switched on from here."
+msgstr "Questo elemento non può essere attivato da qui."
+
+#: includes/class-segurium-self-check.php:522
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Questo server aggiunge nuovamente l'header dopo che il plugin lo rimuove. Apri la scheda della funzionalità per la correzione a livello di server."
+
+#: includes/class-segurium-self-check.php:670
+msgid "That feature is not available on this installation."
+msgstr "Questa funzionalità non è disponibile in questa installazione."
+
+#: includes/class-segurium-self-check.php:687
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Impossibile salvare l'impostazione. Apri la scheda della funzionalità e attivala da lì."
+
+#: includes/class-segurium.php:1352
+msgid "Applying..."
+msgstr "Applicazione in corso..."
+
+#: includes/class-segurium.php:1353
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Impostazione salvata. La cache della pagina sta ancora fornendo la vecchia risposta, quindi questa riga verrà rimossa al prossimo aggiornamento della cache."
+
+#: includes/class-segurium.php:1354
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Impossibile applicare la correzione. Apri la scheda della funzionalità e attivala da lì."
+
+#: includes/class-segurium.php:1714
+msgid "You can change this later under Settings."
+msgstr "Puoi modificarlo in seguito in Impostazioni."

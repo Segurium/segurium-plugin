@@ -135,3 +135,6 @@ class Segurium_CLI {
 WP_CLI::add_command( 'segurium', 'Segurium_CLI' );
 
 require_once __DIR__ . '/class-segurium-cli-iid.php';
+require_once __DIR__ . '/class-segurium-cli-consent.php';
+require_once __DIR__ . '/class-segurium-cli-license.php';
+require_once __DIR__ . '/class-segurium-cli-settings.php';

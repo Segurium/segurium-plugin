@@ -49,6 +49,23 @@ class Segurium_Fs {
 	}
 
 	/**
+	 * Read the first `$length` bytes of a file. Memory cost is bounded by
+	 * `$length` whatever the file weighs, so callers can judge a body
+	 * before deciding whether to pay for the whole of it.
+	 *
+	 * @param string $path   Absolute path.
+	 * @param int    $length Prefix length in bytes.
+	 * @return string|false Bytes read (shorter for a smaller file), or
+	 *                      false when missing/unreadable/length < 1.
+	 */
+	public static function read_prefix( string $path, int $length ) {
+		if ( $length < 1 || ! is_file( $path ) || ! is_readable( $path ) ) {
+			return false;
+		}
+		return @file_get_contents( $path, false, null, 0, $length );
+	}
+
+	/**
 	 * Write a whole file. Truncates by default; pass FILE_APPEND / LOCK_EX
 	 * via $flags for append or exclusive-lock semantics.
 	 *

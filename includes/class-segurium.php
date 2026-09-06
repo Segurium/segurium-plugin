@@ -194,11 +194,11 @@ class Segurium {
 		Segurium_Self_Check::register_hooks();
 		Segurium_Integrity_Chain::register_hooks();
 		Segurium_Realtime_Scan::register_hooks();
-		// Alerts opt-in syncs to CTI on every settings change.
+		// Backfills the timezone of an install that opted in before the
+		// field existed. The save path reports every other change.
 		Segurium_Alerts_Settings::register_hooks();
 		// Unattended auto-fix listens after the default scan-
 		// completion handler so canonical scan_findings rows are persisted.
-		Segurium_Auto_Fix_Settings::register_hooks();
 		Segurium_Auto_Fix::register_hooks();
 		// Review ask. Listens after auto-fix so a scan that
 		// auto-cleaned is judged on the cleanup, not on the scan that
@@ -1351,7 +1351,6 @@ class Segurium {
 						'scFix'                   => __( 'Fix', 'segurium' ),
 						'scFixing'                => __( 'Applying...', 'segurium' ),
 						'scFixNotVisible'         => __( 'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.', 'segurium' ),
-						'scFixFailed'             => __( 'The fix could not be applied. Open the feature tab and switch it on there.', 'segurium' ),
 						'scHowToFix'              => __( 'How to fix', 'segurium' ),
 						'scHideFix'               => __( 'Hide details', 'segurium' ),
 						'scFail'                  => __( 'fail', 'segurium' ),
@@ -1417,27 +1416,7 @@ class Segurium {
 	 * @return string Normalized line.
 	 */
 	public static function normalize_scan_exclude_pattern( $line ) {
-		$trimmed = trim( (string) $line );
-		if ( '' === $trimmed ) {
-			return $line;
-		}
-		// Only rewrite absolute paths. Linux: leading "/", Windows: "C:\" or "C:/".
-		$is_abs = ( '/' === $trimmed[0] )
-			|| (bool) preg_match( '#^[A-Za-z]:[\\\\/]#', $trimmed );
-		if ( ! $is_abs ) {
-			return $line;
-		}
-		$wp_root   = Segurium_Path_Helpers::wp_root();
-		$abspath   = function_exists( 'wp_normalize_path' ) ? wp_normalize_path( $wp_root ) : $wp_root;
-		$abspath   = rtrim( $abspath, '/' ) . '/';
-		$candidate = function_exists( 'wp_normalize_path' ) ? wp_normalize_path( $trimmed ) : $trimmed;
-		if ( 0 === strpos( $candidate, $abspath ) ) {
-			$relative = substr( $candidate, strlen( $abspath ) );
-			if ( '' !== $relative ) {
-				return $relative;
-			}
-		}
-		return $line;
+		return Segurium_Scan_Exclusions::normalize_pattern( $line );
 	}
 
 	/**
@@ -1446,8 +1425,7 @@ class Segurium {
 	 * @return array List of exclusion patterns.
 	 */
 	public function get_scan_exclusions() {
-		// segurium_scan_exclude stays in wp_options per plan (small settings-array, capped/validated).
-		$raw = Segurium_Storage::setting_get( 'segurium_scan_exclude', '' );
+		$raw = (string) Segurium_Settings::get_field( 'general', 'scan_exclude' );
 		if ( empty( $raw ) ) {
 			return array();
 		}
@@ -1469,7 +1447,7 @@ class Segurium {
 	 * @return bool True if CTI consent is given.
 	 */
 	public function has_cti_consent() {
-		return Segurium_Storage::setting_get_bool( 'segurium_cti_consent' );
+		return Segurium_Consent::given();
 	}
 
 	/**
@@ -1662,45 +1640,38 @@ class Segurium {
 		?>
 		<div class="wrap segurium-wrap">
 			<div id="segurium-consent-panel" class="segurium-consent-panel">
-				<h2><?php esc_html_e( 'External Service Disclosure', 'segurium' ); ?></h2>
-				<p><?php esc_html_e( 'Segurium protects your site by working together with the Segurium cloud. When you enable it, Segurium exchanges data with our servers so it can detect malware, verify your files, and adapt protection to active threats.', 'segurium' ); ?></p>
+				<?php $segurium_disclosure = Segurium_Consent::disclosure(); ?>
+				<h2><?php echo esc_html( $segurium_disclosure['title'] ); ?></h2>
+				<p><?php echo esc_html( $segurium_disclosure['intro'] ); ?></p>
 
-				<p><strong><?php esc_html_e( 'What is sent:', 'segurium' ); ?></strong></p>
-				<ul>
-					<li><?php esc_html_e( 'File metadata: SHA-256 hash, path relative to your WordPress installation, size, modification time.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'File content — only when classification by hash alone is not conclusive, or when generating a clean replacement during cleanup.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'A randomly-generated installation identifier and basic site info (URL, name, WordPress version) used to associate requests with this install.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'Scan, cleanup, and security-settings events, so the cloud can keep your site protection in sync.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'Firewall events (blocked IPs, attack patterns) used to adapt protection across all Segurium-protected sites.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'The email address for security alerts: the WordPress admin email, or the one you enter below, together with your email alerts choice.', 'segurium' ); ?></li>
-				</ul>
+				<?php foreach ( $segurium_disclosure['lists'] as $segurium_list ) : ?>
+					<p><strong><?php echo esc_html( $segurium_list['heading'] ); ?></strong></p>
+					<ul>
+						<?php foreach ( $segurium_list['items'] as $segurium_item ) : ?>
+							<li><?php echo esc_html( $segurium_item ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endforeach; ?>
 
-				<p><strong><?php esc_html_e( 'What is NOT sent:', 'segurium' ); ?></strong></p>
-				<ul>
-					<li><?php esc_html_e( 'Visitor analytics or personal data of users who visit your site.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'Database content, posts, comments, or media files.', 'segurium' ); ?></li>
-					<li><?php esc_html_e( 'Files whose hash is already known to the cloud — only the hash leaves your server.', 'segurium' ); ?></li>
-				</ul>
-
-				<p><strong><?php esc_html_e( 'Where it is sent:', 'segurium' ); ?></strong> <?php esc_html_e( 'Segurium servers at cti.segurium.com.', 'segurium' ); ?></p>
-				<p><strong><?php esc_html_e( 'Retention:', 'segurium' ); ?></strong> <?php esc_html_e( 'File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed.', 'segurium' ); ?></p>
+				<?php foreach ( $segurium_disclosure['facts'] as $segurium_fact ) : ?>
+					<p><strong><?php echo esc_html( $segurium_fact['label'] ); ?></strong> <?php echo esc_html( $segurium_fact['value'] ); ?></p>
+				<?php endforeach; ?>
 
 				<p>
 					<?php
 					printf(
-						/* translators: 1: opening link tag for Terms of Service, 2: closing link tag, 3: opening link tag for Privacy Policy, 4: closing link tag */
-						esc_html__( 'By enabling scanning, you agree to the %1$sTerms of Service%2$s and %3$sPrivacy Policy%4$s.', 'segurium' ),
-						'<a href="https://segurium.com/terms" target="_blank" rel="noopener noreferrer">',
+						esc_html( $segurium_disclosure['legal']['format'] ),
+						'<a href="' . esc_url( $segurium_disclosure['legal']['terms_url'] ) . '" target="_blank" rel="noopener noreferrer">',
 						'</a>',
-						'<a href="https://segurium.com/privacy" target="_blank" rel="noopener noreferrer">',
+						'<a href="' . esc_url( $segurium_disclosure['legal']['privacy_url'] ) . '" target="_blank" rel="noopener noreferrer">',
 						'</a>'
 					);
 					?>
 				</p>
-				<?php $segurium_alerts_stored = Segurium_Storage::setting_get( Segurium_Alerts_Settings::OPTION_ENABLED, null ); ?>
+				<?php $segurium_alerts_answered = Segurium_Settings::has_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ); ?>
 				<div class="segurium-setting-row segurium-consent-alerts">
 					<label>
-						<input type="checkbox" id="segurium_consent_alerts_enabled" <?php checked( null === $segurium_alerts_stored || (bool) $segurium_alerts_stored ); ?>>
+						<input type="checkbox" id="segurium_consent_alerts_enabled" <?php checked( ! $segurium_alerts_answered || (bool) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ) ); ?>>
 						<strong><?php esc_html_e( 'Notify me on malware findings and security threats on this website.', 'segurium' ); ?></strong>
 					</label>
 					<label for="segurium_consent_alerts_email" class="screen-reader-text"><?php esc_html_e( 'Alert email address', 'segurium' ); ?></label>
@@ -1709,7 +1680,7 @@ class Segurium {
 						id="segurium_consent_alerts_email"
 						class="regular-text"
 						placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
-						value="<?php echo esc_attr( (string) Segurium_Storage::setting_get_string( Segurium_Alerts_Settings::OPTION_EMAIL ) ); ?>"
+						value="<?php echo esc_attr( (string) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'email' ) ); ?>"
 					/>
 					<p class="description"><?php esc_html_e( 'You can change this later under Settings.', 'segurium' ); ?></p>
 					<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
@@ -3291,11 +3262,11 @@ class Segurium {
 								<strong><?php esc_html_e( 'Exclude files from scan that match these wildcard patterns (one per line)', 'segurium' ); ?></strong>
 							</label>
 							<p class="description"><?php esc_html_e( 'Use * as a wildcard. For example, *.log will exclude all log files. vendor/* will exclude the vendor directory and everything inside it.', 'segurium' ); ?></p>
-							<textarea id="segurium_scan_exclude" class="segurium-textarea-code" rows="8"><?php echo esc_textarea( Segurium_Storage::setting_get( 'segurium_scan_exclude', '' ) ); ?></textarea>
+							<textarea id="segurium_scan_exclude" class="segurium-textarea-code" rows="8"><?php echo esc_textarea( (string) Segurium_Settings::get_field( 'general', 'scan_exclude' ) ); ?></textarea>
 						</div>
 						<div class="segurium-setting-row">
 							<label>
-								<input type="checkbox" id="segurium_cloud_detection" <?php checked( Segurium_Storage::setting_get_bool( 'segurium_cloud_detection_enabled', false ) ); ?>>
+								<input type="checkbox" id="segurium_cloud_detection" <?php checked( (bool) Segurium_Settings::get_field( 'general', 'cloud_detection_enabled' ) ); ?>>
 								<strong><?php esc_html_e( 'Cloud-assisted malware detection', 'segurium' ); ?></strong>
 							</label>
 							<p class="description"><?php esc_html_e( 'When enabled, file contents may be shared with Segurium Cloud for advanced malware detection and cloud-powered cleanup. Only suspicious files are transmitted. Turn it off for On-premise mode: scans then send SHA-256 hashes, file paths, and metadata only, and a file the cloud cannot identify by hash stays unresolved. Reporting a false positive or attaching a file to a support ticket still sends that file, because you pick it yourself.', 'segurium' ); ?></p>
@@ -3303,7 +3274,7 @@ class Segurium {
 						<?php // Opt-in for the server-side daily security digest. ?>
 						<div class="segurium-setting-row">
 							<label>
-								<input type="checkbox" id="segurium_alerts_email_enabled" <?php checked( Segurium_Storage::setting_get_bool( Segurium_Alerts_Settings::OPTION_ENABLED, false ) ); ?>>
+								<input type="checkbox" id="segurium_alerts_email_enabled" <?php checked( (bool) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ) ); ?>>
 								<strong><?php esc_html_e( 'Email me about findings', 'segurium' ); ?></strong>
 							</label>
 							<p class="description"><?php esc_html_e( 'Send a daily digest of malware verdicts and successful cleanups, delivered from support@segurium.com. At most one email per site per 24 hours.', 'segurium' ); ?></p>
@@ -3313,13 +3284,13 @@ class Segurium {
 								id="segurium_alerts_email_address"
 								class="regular-text"
 								placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
-								value="<?php echo esc_attr( (string) Segurium_Storage::setting_get_string( Segurium_Alerts_Settings::OPTION_EMAIL ) ); ?>"
+								value="<?php echo esc_attr( (string) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'email' ) ); ?>"
 							/>
 							<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
 						</div>
 						<div class="segurium-setting-row segurium-danger-zone">
 							<label>
-								<input type="checkbox" id="segurium_uninstall_wipe_data" <?php checked( Segurium_Storage::setting_get_bool( 'segurium_uninstall_wipe_data', false ) ); ?>>
+								<input type="checkbox" id="segurium_uninstall_wipe_data" <?php checked( (bool) Segurium_Settings::get_field( 'general', 'uninstall_wipe_data' ) ); ?>>
 								<strong><?php esc_html_e( 'Wipe encrypted backups when the plugin is uninstalled', 'segurium' ); ?></strong>
 							</label>
 							<p class="description"><?php esc_html_e( 'Off (default): encrypted backups of deleted components and cured files are kept in the uploads/segurium-data directory after uninstall, so a reinstall can still restore them. Turn on only if you want a hard deletion on uninstall.', 'segurium' ); ?></p>
@@ -3339,43 +3310,11 @@ class Segurium {
 						<?php // Consent for CTI-addressed component updates. ?>
 						<div class="segurium-setting-row">
 							<label>
-								<input type="checkbox" id="segurium_remote_actions_enabled" <?php checked( Segurium_Remote_Actions::enabled() ); ?><?php disabled( Segurium_Remote_Actions::killed() ); ?>>
+								<input type="checkbox" id="segurium_remote_actions_enabled" <?php checked( Segurium_Remote_Actions::component_updates_enabled() ); ?><?php disabled( Segurium_Remote_Actions::killed() ); ?>>
 								<strong><?php esc_html_e( 'Let Segurium Cloud request component updates', 'segurium' ); ?></strong>
 							</label>
-							<p class="description"><?php esc_html_e( 'Segurium Cloud can ask this site to update a plugin, theme, or WordPress itself. It can only name a component you already have installed, and only when WordPress.org already offers that update; the update is downloaded by WordPress from WordPress.org, never from Segurium. WordPress core is limited to security and maintenance releases. Segurium never updates itself this way. Turn this off and the site stops asking for and accepting these requests.', 'segurium' ); ?></p>
 							<?php if ( Segurium_Remote_Actions::killed() ) : ?>
 								<p class="segurium-is-warning"><?php esc_html_e( 'Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS.', 'segurium' ); ?></p>
-							<?php endif; ?>
-							<?php $segurium_action_log = array_slice( array_reverse( Segurium_Remote_Actions::log_entries() ), 0, 10 ); ?>
-							<?php if ( ! empty( $segurium_action_log ) ) : ?>
-								<p><strong><?php esc_html_e( 'Recent cloud requests', 'segurium' ); ?></strong></p>
-								<table class="widefat striped segurium-remote-actions-log">
-									<thead>
-										<tr>
-											<th scope="col"><?php esc_html_e( 'When', 'segurium' ); ?></th>
-											<th scope="col"><?php esc_html_e( 'Component', 'segurium' ); ?></th>
-											<th scope="col"><?php esc_html_e( 'Outcome', 'segurium' ); ?></th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php foreach ( $segurium_action_log as $segurium_action_entry ) : ?>
-										<tr>
-											<td><?php echo esc_html( wp_date( 'Y-m-d H:i', (int) ( $segurium_action_entry['at'] ?? 0 ) ) ); ?></td>
-											<td>
-												<?php
-												$segurium_action_slug = (string) ( $segurium_action_entry['slug'] ?? '' );
-												echo esc_html(
-													'' === $segurium_action_slug
-														? (string) ( $segurium_action_entry['ctype'] ?? '' )
-														: ( $segurium_action_entry['ctype'] ?? '' ) . ': ' . $segurium_action_slug
-												);
-												?>
-											</td>
-											<td><code><?php echo esc_html( (string) ( $segurium_action_entry['code'] ?? '' ) ); ?></code></td>
-										</tr>
-									<?php endforeach; ?>
-									</tbody>
-								</table>
 							<?php endif; ?>
 						</div>
 						<p>
@@ -3535,13 +3474,11 @@ class Segurium {
 	 * @return void
 	 */
 	private static function save_alerts_from_request() {
-		if ( ! self::request_has( INPUT_POST, 'alerts_email_address' ) && ! self::request_has( INPUT_POST, 'alerts_email_enabled' ) ) {
+		$args = self::alerts_args_from_request();
+		if ( array() === $args ) {
 			return;
 		}
-		Segurium_Alerts_Settings::set(
-			self::request_bool( INPUT_POST, 'alerts_email_enabled' ),
-			self::request_scalar( INPUT_POST, 'alerts_email_address' )
-		);
+		Segurium_Alerts_Settings::set( $args['alerts']['enabled'], $args['alerts']['email'] );
 	}
 
 	/**
@@ -3571,30 +3508,36 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => 'Unauthorized' ), 403 );
 		}
 
-		Segurium_Storage::setting_set( 'segurium_cti_consent', 1 );
-		Segurium_Storage::setting_set( 'segurium_cloud_detection_enabled', 1 );
-
-		// Written before any CTI call so the register body carries the
-		// contact the user just chose.
-		self::save_alerts_from_request();
-
-		// Defer IID registration off the AJAX path —
-		// {@see Segurium_IID::register()} makes a 15s blocking POST.
-		// {@see self::maybe_schedule_missing_data()} retries on init
-		// if the cron event misses for any reason.
-		if ( ! wp_next_scheduled( self::IID_REGISTER_CRON_HOOK ) ) {
-			wp_schedule_single_event( time(), self::IID_REGISTER_CRON_HOOK );
+		$result = Segurium_Consent::accept( Segurium_Consent::SOURCE_UI, self::alerts_args_from_request() );
+		if ( ! $result['accepted'] ) {
+			// Consent is already on record, so the accept did nothing. A
+			// second screen left open still posted a contact, and it was
+			// saved before the sequence moved behind one method.
+			self::save_alerts_from_request();
 		}
 
-		Segurium_Storage::cti_send_message( 'plugin_activated' );
-		Segurium_Storage::cti_send_message( 'consent' );
-
-		// Piggyback a fresh platform snapshot so the
-		// installation-base dashboard populates without waiting for
-		// the daily cron tick.
-		Segurium_Platform_Snapshot::send_on_consent();
-
 		segurium_send_json_success();
+	}
+
+	/**
+	 * Alerts contact the accept sequence should store, read off the
+	 * request. Absent when the screen posted neither field, which leaves
+	 * the stored settings alone.
+	 *
+	 * The caller verifies the nonce.
+	 *
+	 * @return array
+	 */
+	private static function alerts_args_from_request() {
+		if ( ! self::request_has( INPUT_POST, 'alerts_email_address' ) && ! self::request_has( INPUT_POST, 'alerts_email_enabled' ) ) {
+			return array();
+		}
+		return array(
+			'alerts' => array(
+				'enabled' => self::request_bool( INPUT_POST, 'alerts_email_enabled' ),
+				'email'   => self::request_scalar( INPUT_POST, 'alerts_email_address' ),
+			),
+		);
 	}
 
 	/**
@@ -3610,65 +3553,22 @@ class Segurium {
 
 		$scan_exclude = isset( $_POST['scan_exclude'] ) ? sanitize_textarea_field( wp_unslash( $_POST['scan_exclude'] ) ) : '';
 
-		$warnings   = array();
-		$lines      = explode( "\n", $scan_exclude );
-		$clean      = array();
-		$rejected   = 0;
-		$normalized = 0;
-		foreach ( $lines as $line ) {
-			$trimmed = trim( $line );
-			if ( '*' === $trimmed ) {
-				$warnings[] = __( 'A bare * pattern was removed because it would exclude all files.', 'segurium' );
-				continue;
-			}
-			if ( strlen( $trimmed ) > 191 ) {
-				++$rejected;
-				continue;
-			}
-			$rewritten = self::normalize_scan_exclude_pattern( $line );
-			if ( $rewritten !== $line ) {
-				++$normalized;
-				$line = $rewritten;
-			}
-			$clean[] = $line;
-		}
-		if ( $normalized > 0 ) {
-			$warnings[] = sprintf(
-				/* translators: %d: number of rewritten lines */
-				_n(
-					'%d absolute path was rewritten to a path relative to the WordPress install root.',
-					'%d absolute paths were rewritten to paths relative to the WordPress install root.',
-					$normalized,
-					'segurium'
-				),
-				$normalized
-			);
-		}
-		if ( count( $clean ) > 500 ) {
+		$general = Segurium_Settings_Writer::save(
+			'general',
+			array(
+				'scan_exclude'            => $scan_exclude,
+				'cloud_detection_enabled' => self::request_bool( INPUT_POST, 'cloud_detection' ),
+				'uninstall_wipe_data'     => self::request_bool( INPUT_POST, 'uninstall_wipe_data' ),
+			)
+		);
+		if ( ! $general['ok'] ) {
 			segurium_send_json_error(
 				array(
-					'code'    => 'scan_exclude_too_large',
-					'message' => __( 'Scan exclusion list is limited to 500 entries.', 'segurium' ),
+					'code'    => $general['errors'][0]['code'],
+					'message' => Segurium_Settings_Writer::error_message( $general['errors'][0] ),
 				)
 			);
 		}
-		if ( $rejected > 0 ) {
-			$warnings[] = sprintf(
-				/* translators: %d: number of rejected lines */
-				_n( '%d entry longer than 191 characters was removed.', '%d entries longer than 191 characters were removed.', $rejected, 'segurium' ),
-				$rejected
-			);
-		}
-		$scan_exclude = implode( "\n", $clean );
-
-		// segurium_scan_exclude stays in wp_options per plan.
-		Segurium_Storage::setting_set( 'segurium_scan_exclude', $scan_exclude, true );
-
-		$cloud_detection = self::request_bool( INPUT_POST, 'cloud_detection' );
-		Segurium_Storage::setting_set( 'segurium_cloud_detection_enabled', $cloud_detection ? 1 : 0 );
-
-		$wipe_on_uninstall = self::request_bool( INPUT_POST, 'uninstall_wipe_data' );
-		Segurium_Storage::setting_set( 'segurium_uninstall_wipe_data', $wipe_on_uninstall ? 1 : 0 );
 
 		self::save_alerts_from_request();
 
@@ -3678,14 +3578,14 @@ class Segurium {
 			Segurium_Auto_Fix_Settings::set( self::request_bool( INPUT_POST, 'auto_fix_enabled' ) );
 		}
 
-		// Consent for CTI-addressed component updates. The
-		// wp-config kill switch outranks the checkbox, so a site pinned off
-		// there cannot be re-opened from the admin screen.
-		if ( self::request_has( INPUT_POST, 'remote_actions_enabled' ) && ! Segurium_Remote_Actions::killed() ) {
+		// Consent for CTI-addressed component updates. The writer refuses
+		// the change when the wp-config kill switch outranks the checkbox,
+		// so a site pinned off there cannot be re-opened from here.
+		if ( self::request_has( INPUT_POST, 'remote_actions_enabled' ) ) {
 			Segurium_Remote_Actions::set_consent( self::request_bool( INPUT_POST, 'remote_actions_enabled' ) );
 		}
 
-		segurium_send_json_success( array( 'warnings' => $warnings ) );
+		segurium_send_json_success( array( 'warnings' => $general['warnings'] ) );
 	}
 
 	/**
@@ -3771,6 +3671,9 @@ class Segurium {
 			);
 		}
 
+		// The registry re-arms on a change; an unchanged save still has to,
+		// because an operator re-saving the same schedule is usually repairing
+		// a cron that went missing, and the reply reports a next run.
 		Segurium_Scheduled_Scan::reschedule();
 
 		segurium_send_json_success(
@@ -3974,7 +3877,7 @@ class Segurium {
 		$row = Segurium_Storage::table_get_row(
 			'scan_history',
 			"SELECT scan_uuid, scan_type, started_at, finished_at, files_found, files_scanned, files_failed, files_skipped, threats_found, threats_cleaned
-			 FROM {{table}} WHERE status = %s AND scan_type IN ('manual','scheduled')
+			 FROM {{table}} WHERE status = %s AND scan_type IN ('manual','scheduled','rescan')
 			 ORDER BY started_at DESC LIMIT 1",
 			array( 'completed' ),
 			ARRAY_A
@@ -4075,7 +3978,7 @@ class Segurium {
 
 		$latest_id = (string) Segurium_Storage::table_get_var(
 			'scan_history',
-			"SELECT scan_uuid FROM {{table}} WHERE scan_type IN ('manual','scheduled','realtime','upload') ORDER BY started_at DESC LIMIT 1"
+			"SELECT scan_uuid FROM {{table}} WHERE scan_type IN ('manual','scheduled','rescan','realtime','upload') ORDER BY started_at DESC LIMIT 1"
 		);
 		$is_latest = ( '' !== $scan_id && $latest_id === $scan_id );
 
@@ -6002,6 +5905,8 @@ class Segurium {
 
 		$active_theme = wp_get_theme();
 
+		$user_excluder = new Segurium_Integrity( Segurium_Path_Helpers::wp_root(), $this->get_scan_exclusions() );
+
 		foreach ( $state->get_all_active_components() as $comp ) {
 			$is_known  = 'not_in_repository' !== ( $comp['component_status'] ?? 'listed' );
 			$is_plugin = 'plugin' === $comp['type'];
@@ -6087,8 +5992,10 @@ class Segurium {
 				// Defense-in-depth. The walker never submits
 				// excluded paths and CTI only echoes verdicts for submitted
 				// files, so an open row on a protected path can only be stale
-				// state or a future verdict source. Never queue one.
-				if ( Segurium_Integrity::is_excluded( $f['path'] ) ) {
+				// state or a future verdict source. Never queue one. The
+				// walker gates on the builtin list and on the user's own
+				// patterns, so both halves apply here.
+				if ( Segurium_Integrity::is_excluded( $f['path'] ) || $user_excluder->is_user_excluded( $f['path'] ) ) {
 					$preview['skipped'][] = array(
 						'slug'   => $comp['slug'],
 						'type'   => $comp['type'],
@@ -6886,14 +6793,18 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized.', 'segurium' ) ), 403 );
 		}
 
-		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
-		$data  = Segurium_Pending_Changes::confirm( $token );
+		$token  = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+		$result = Segurium_Settings_Writer::confirm( $token );
 
-		if ( false === $data ) {
-			segurium_send_json_error( array( 'message' => __( 'Pending change not found or already expired.', 'segurium' ) ) );
+		if ( ! $result['ok'] ) {
+			segurium_send_json_error(
+				array(
+					'code'    => $result['errors'][0]['code'],
+					'message' => __( 'Pending change not found or already expired.', 'segurium' ),
+				)
+			);
 		}
 
-		do_action( 'segurium_pending_confirmed', $data['context'], $data['old'], $data['new'] );
 		segurium_send_json_success();
 	}
 
@@ -6931,14 +6842,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized.', 'segurium' ) ), 403 );
 		}
 
-		segurium_send_json_success(
-			array(
-				'enabled'         => Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ),
-				'mode'            => Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' ),
-				'ip_list'         => self::firewall_rules_read(),
-				'trusted_proxies' => self::trusted_proxies_manual_read(),
-			)
-		);
+		segurium_send_json_success( Segurium_Settings::get( Segurium_Firewall_Rules::SETTINGS_SLUG, true ) );
 	}
 
 	/**
@@ -6998,51 +6902,23 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized.', 'segurium' ) ), 403 );
 		}
 
-		$data    = self::request_array( INPUT_POST, 'settings' );
-		$enabled = ! empty( $data['enabled'] );
-		$mode    = ( 'allow_list' === ( $data['mode'] ?? '' ) ) ? 'allow_list' : 'deny_list';
-
-		$ip_list         = $this->sanitize_ip_list( (array) ( $data['ip_list'] ?? array() ) );
-		$trusted_proxies = $this->sanitize_ip_list( (array) ( $data['trusted_proxies'] ?? array() ) );
-
-		$old = array(
-			'enabled'         => Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ),
-			'mode'            => Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' ),
-			'ip_list'         => self::firewall_rules_read(),
-			'trusted_proxies' => self::trusted_proxies_manual_read(),
+		$result = Segurium_Settings_Writer::save(
+			Segurium_Firewall_Rules::SETTINGS_SLUG,
+			self::request_array( INPUT_POST, 'settings' )
 		);
-
-		Segurium_Storage::setting_set( 'segurium_firewall_enabled', $enabled );
-		Segurium_Storage::setting_set( 'segurium_firewall_mode', $mode );
-		self::firewall_rules_save( $mode, $ip_list );
-		self::trusted_proxies_manual_save( $trusted_proxies );
-
-		if ( ! $enabled ) {
-			$existing = Segurium_Storage::setting_get( 'segurium_pending_ctx_firewall' );
-			if ( $existing ) {
-				Segurium_Pending_Changes::cancel( $existing );
-			}
-			segurium_send_json_success(
+		if ( ! $result['ok'] ) {
+			segurium_send_json_error(
 				array(
-					'token'      => null,
-					'expires_in' => 0,
+					'code'    => $result['errors'][0]['code'],
+					'message' => Segurium_Settings_Writer::error_message( $result['errors'][0] ),
 				)
 			);
-			return;
 		}
-
-		$new   = array(
-			'enabled'         => true,
-			'mode'            => $mode,
-			'ip_list'         => $ip_list,
-			'trusted_proxies' => $trusted_proxies,
-		);
-		$token = Segurium_Pending_Changes::stage( 'firewall', $old, $new );
 
 		segurium_send_json_success(
 			array(
-				'token'      => $token,
-				'expires_in' => Segurium_Pending_Changes::DEFAULT_TTL,
+				'token'      => $result['token'],
+				'expires_in' => $result['expires_in'],
 			)
 		);
 	}
@@ -7603,32 +7479,6 @@ class Segurium {
 		);
 	}
 
-	/**
-	 * Sanitize a list of IP addresses and CIDR ranges.
-	 *
-	 * @param array $raw Raw IP list.
-	 * @return array Sanitized IP list in CIDR notation.
-	 */
-	private function sanitize_ip_list( array $raw ) {
-		$clean = array();
-		foreach ( $raw as $entry ) {
-			$entry = trim( sanitize_text_field( $entry ) );
-			if ( '' === $entry ) {
-				continue;
-			}
-			if ( false !== strpos( $entry, '/' ) ) {
-				$parts = explode( '/', $entry, 2 );
-				// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-				if ( false !== @inet_pton( $parts[0] ) && ctype_digit( $parts[1] ) ) {
-					$clean[] = $entry;
-				}
-				// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-			} elseif ( false !== @inet_pton( $entry ) ) {
-				$clean[] = $entry . ( strpos( $entry, ':' ) !== false ? '/128' : '/32' );
-			}
-		}
-		return $clean;
-	}
 
 	/**
 	 * AJAX handler for getting brute-force settings.

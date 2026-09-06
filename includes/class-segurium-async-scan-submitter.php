@@ -541,20 +541,47 @@ class Segurium_Async_Scan_Submitter {
 	 * @return int Estimated wire length in bytes.
 	 */
 	private function estimate_wire_size( $body ) {
-		$size = strlen( $body );
+		return self::wire_size_from_sample( strlen( $body ), substr( $body, 0, self::WIRE_SAMPLE_BYTES ) );
+	}
+
+	/**
+	 * The estimate proper, over a size and a prefix of the body. Split out
+	 * so a caller holding only the file on disk reaches the same verdict
+	 * from a {@see WIRE_SAMPLE_BYTES} read, without materialising the body
+	 * to sample it.
+	 *
+	 * @param int    $size   Full body length in bytes.
+	 * @param string $sample First {@see WIRE_SAMPLE_BYTES} of the body.
+	 * @return int Estimated wire length in bytes.
+	 */
+	public static function wire_size_from_sample( $size, $sample ) {
+		$size = (int) $size;
 		if ( $size <= self::WIRE_ESTIMATE_MIN_BYTES || ! function_exists( 'gzencode' ) ) {
 			return $size;
 		}
 		if ( '0' === (string) Segurium_Storage::setting_get( Segurium_CTI_Client::OPTION_NEO_RAY_GZIP, '1' ) ) {
 			return $size;
 		}
-		$sample = substr( $body, 0, self::WIRE_SAMPLE_BYTES );
 		$packed = gzencode( $sample, 6 );
 		if ( ! is_string( $packed ) || '' === $packed ) {
 			return $size;
 		}
 		$ratio = strlen( $packed ) / max( 1, strlen( $sample ) );
 		return (int) min( $size, ceil( $size * $ratio ) );
+	}
+
+	/**
+	 * Ask the ceiling about a file still on disk. Same verdict {@see add()}
+	 * would reach, taken before the body is read, so a body the link
+	 * refuses is never paid for in memory.
+	 *
+	 * @param int    $size   Full file size in bytes.
+	 * @param string $sample First {@see WIRE_SAMPLE_BYTES} of the file.
+	 * @param string $path   Site-relative path, for the skip event.
+	 * @return WP_Error|null WP_Error when the file must be skipped.
+	 */
+	public function refuse_before_read( $size, $sample, $path ) {
+		return $this->refuse_for_ceiling( (int) $size, self::wire_size_from_sample( $size, $sample ), (string) $path );
 	}
 
 	/**

@@ -4827,3 +4827,27 @@ msgstr "άγνωστο"
 
 msgid "Cookies — HttpOnly"
 msgstr "Cookie — HttpOnly"
+
+msgid "This item cannot be switched on from here."
+msgstr "Αυτό το στοιχείο δεν μπορεί να ενεργοποιηθεί από εδώ."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Αυτός ο διακομιστής προσθέτει ξανά την κεφαλίδα αφού το πρόσθετο την αφαιρέσει. Ανοίξτε την καρτέλα της λειτουργίας για τη διόρθωση σε επίπεδο διακομιστή."
+
+msgid "That feature is not available on this installation."
+msgstr "Αυτή η λειτουργία δεν είναι διαθέσιμη σε αυτήν την εγκατάσταση."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Η ρύθμιση δεν μπόρεσε να αποθηκευτεί. Ανοίξτε την καρτέλα της λειτουργίας και ενεργοποιήστε την από εκεί."
+
+msgid "Applying..."
+msgstr "Εφαρμογή..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Η ρύθμιση αποθηκεύτηκε. Η προσωρινή μνήμη σελίδας εξακολουθεί να σερβίρει την παλιά απόκριση, οπότε αυτή η γραμμή θα καθαρίσει μόλις ανανεωθεί η προσωρινή μνήμη."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Η διόρθωση δεν μπόρεσε να εφαρμοστεί. Ανοίξτε την καρτέλα της λειτουργίας και ενεργοποιήστε την από εκεί."
+
+msgid "You can change this later under Settings."
+msgstr "Μπορείτε να το αλλάξετε αργότερα στις Ρυθμίσεις."

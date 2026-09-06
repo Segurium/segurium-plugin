@@ -358,6 +358,11 @@
 		if (nav) { nav.click(); }
 	}
 
+	function resetFixButton (btn) {
+		btn.disabled = false;
+		btn.textContent = t('scFix', 'Fix');
+	}
+
 	function applyFix (checkId, btn) {
 		showStatus('');
 		delete rowNotices[checkId];
@@ -374,12 +379,8 @@
 			.then(window.seguriumParseResponse)
 			.then(function (res) {
 				if (!res || !res.success || !res.data || !res.data.result) {
-					var msg = (res && res.data && res.data.message)
-						? res.data.message
-						: t('scFixFailed', 'The fix could not be applied. Open the feature tab and switch it on there.');
-					showStatus(msg);
-					btn.disabled = false;
-					btn.textContent = t('scFix', 'Fix');
+					if (res && res.data && res.data.message) { showStatus(res.data.message); }
+					resetFixButton(btn);
 					return;
 				}
 
@@ -402,9 +403,7 @@
 				renderResult(boot.last, boot.history);
 			})
 			.catch(function () {
-				showStatus(t('scFixFailed', 'The fix could not be applied. Open the feature tab and switch it on there.'));
-				btn.disabled = false;
-				btn.textContent = t('scFix', 'Fix');
+				resetFixButton(btn);
 			});
 	}
 

@@ -2,15 +2,15 @@
 /**
  * Persisted settings + CTI sync for the auto-fix feature.
  *
- * Single boolean option:
- *   - segurium_auto_fix_enabled (bool, default false)
+ * Single boolean field under the registry's `auto_fix` row:
+ *   - enabled (bool, default false)
  *
  * Auto-fix runs on every install. Plan-tier rate limits
  * are enforced per-cleanup by CTI's quota service: Free sites get the
  * first N findings cleaned in a 30-day window and quota_exceeded for
  * the rest, Pro sites are effectively unbounded.
  *
- * On any change to the option we push a `settings_snapshot` CTI message
+ * On any change to the row we push a `settings_snapshot` CTI message
  * so the server has the latest user preference for diagnostics / support.
  *
  * @package Segurium
@@ -25,21 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class Segurium_Auto_Fix_Settings {
 
-	const OPTION_ENABLED = 'segurium_auto_fix_enabled';
-	const FEATURE_KEY    = 'auto_fix';
-	const CTI_MSG_TYPE   = 'settings_snapshot';
-
-	/**
-	 * Wire `update_option` / `add_option` listeners so a settings change
-	 * immediately flows to CTI. Idempotent — safe to call from the plugin
-	 * bootstrap on every request.
-	 *
-	 * @return void
-	 */
-	public static function register_hooks() {
-		add_action( 'update_option_' . self::OPTION_ENABLED, array( __CLASS__, 'on_change' ), 10, 2 );
-		add_action( 'add_option_' . self::OPTION_ENABLED, array( __CLASS__, 'on_added' ), 10, 2 );
-	}
+	const SETTINGS_SLUG = 'auto_fix';
 
 	/**
 	 * Whether the user has opted in to unattended auto-fix.
@@ -50,7 +36,18 @@ final class Segurium_Auto_Fix_Settings {
 	 * @return bool
 	 */
 	public static function is_enabled() {
-		return (bool) Segurium_Storage::setting_get_bool( self::OPTION_ENABLED, false );
+		return (bool) Segurium_Settings::get_field( self::SETTINGS_SLUG, 'enabled' );
+	}
+
+	/**
+	 * Reduce raw input to the single stored field.
+	 *
+	 * @param array $input Raw settings input.
+	 * @return array{enabled:bool}
+	 */
+	public static function validate_settings( $input ) {
+		$input = is_array( $input ) ? $input : array();
+		return array( 'enabled' => ! empty( $input['enabled'] ) );
 	}
 
 	/**
@@ -61,51 +58,22 @@ final class Segurium_Auto_Fix_Settings {
 	 * @return bool
 	 */
 	public static function set( $enabled ) {
-		return (bool) Segurium_Storage::setting_set( self::OPTION_ENABLED, (bool) $enabled );
+		$result = Segurium_Settings_Writer::save( self::SETTINGS_SLUG, array( 'enabled' => $enabled ) );
+		return (bool) $result['changed'];
 	}
 
 	/**
-	 * Hook callback for `update_option_*`.
+	 * The `settings` object CTI reads to pick the mail footer a Pro site
+	 * gets. It owns the `enabled` field and nothing else.
 	 *
-	 * @param mixed $old       Old value (unused).
-	 * @param mixed $new_value New value (unused — we re-read on emit).
-	 * @return void
+	 * @param array $applied Stored settings after the write.
+	 * @return array
 	 */
-	public static function on_change( $old, $new_value ) {
-		unset( $old, $new_value );
-		self::push_to_cti();
-	}
-
-	/**
-	 * Hook callback for `add_option_*` (first-time write of an option that
-	 * never existed). Same payload shape as on_change.
-	 *
-	 * @param string $option Option name (unused).
-	 * @param mixed  $value  New value (unused).
-	 * @return void
-	 */
-	public static function on_added( $option, $value ) {
-		unset( $option, $value );
-		self::push_to_cti();
-	}
-
-	/**
-	 * Build the `settings_snapshot` payload and emit it via the CTI client.
-	 *
-	 * @return void
-	 */
-	public static function push_to_cti() {
-		if ( ! class_exists( 'Segurium_Storage' ) ) {
-			return;
-		}
-		$payload = array(
-			'feature'  => self::FEATURE_KEY,
-			'settings' => array(
-				'enabled' => self::is_enabled(),
-				'tier'    => self::current_tier(),
-			),
+	public static function snapshot_settings( array $applied ) {
+		return array(
+			'enabled' => ! empty( $applied['enabled'] ),
+			'tier'    => self::current_tier(),
 		);
-		Segurium_Storage::cti_send_message( self::CTI_MSG_TYPE, (string) wp_json_encode( $payload ) );
 	}
 
 	/**

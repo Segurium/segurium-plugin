@@ -14,7 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_Geo_Blocker {
 
-	const CONTEXT = 'geo_blocking';
+	const CONTEXT       = 'geo_blocking';
+	const SETTINGS_SLUG = 'geo';
 
 	/**
 	 * Singleton instance.
@@ -102,7 +103,7 @@ class Segurium_Geo_Blocker {
 			return;
 		}
 
-		if ( ! Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ) ) {
+		if ( ! Segurium_Settings::get_field( 'firewall', 'enabled' ) ) {
 			return;
 		}
 
@@ -114,7 +115,7 @@ class Segurium_Geo_Blocker {
 			return;
 		}
 
-		$mode      = Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' );
+		$mode      = Segurium_Settings::get_field( 'firewall', 'mode' );
 		$list_type = 'allow_list' === $mode ? 'allow' : 'block';
 		// Hot path → opcached in-memory match.
 		if ( class_exists( 'Segurium_Storage_IP_List_Cache' ) ) {
@@ -139,7 +140,7 @@ class Segurium_Geo_Blocker {
 			return;
 		}
 
-		if ( ! Segurium_Storage::setting_get_bool( 'segurium_geo_blocking_enabled' ) ) {
+		if ( ! Segurium_Settings::get_field( self::SETTINGS_SLUG, 'enabled' ) ) {
 			return;
 		}
 
@@ -166,8 +167,9 @@ class Segurium_Geo_Blocker {
 			return true;
 		}
 
-		$list    = Segurium_Storage::setting_get_array( 'segurium_geo_blocked_countries' );
-		$mode    = Segurium_Storage::setting_get_string( 'segurium_geo_block_mode', 'block' );
+		$geo     = Segurium_Settings::get( self::SETTINGS_SLUG );
+		$list    = $geo['blocked_countries'];
+		$mode    = $geo['block_mode'];
 		$in_list = in_array( $country, $list, true );
 
 		$blocked = ( 'allow' === $mode ) ? ! $in_list : $in_list;
@@ -325,23 +327,8 @@ class Segurium_Geo_Blocker {
 			}
 		}
 
-		foreach ( array( 'trusted_proxies' ) as $key ) {
-			if ( ! array_key_exists( $key, $data ) ) {
-				continue;
-			}
-			$clean[ $key ] = array();
-			foreach ( (array) $data[ $key ] as $entry ) {
-				$entry = trim( sanitize_text_field( $entry ) );
-				if ( false !== strpos( $entry, '/' ) ) {
-					$parts = explode( '/', $entry, 2 );
-					if ( false !== @inet_pton( $parts[0] ) && ctype_digit( $parts[1] ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors
-						$clean[ $key ][] = $entry;
-					}
-				} elseif ( false !== @inet_pton( $entry ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors
-					$bits            = ( false !== strpos( $entry, ':' ) ) ? 128 : 32;
-					$clean[ $key ][] = $entry . '/' . $bits;
-				}
-			}
+		if ( array_key_exists( 'trusted_proxies', $data ) ) {
+			$clean['trusted_proxies'] = Segurium_Trusted_Proxies::sanitize_cidr_list( (array) $data['trusted_proxies'] );
 		}
 
 		$allowed_actions       = array( 'deny_403', 'redirect', 'silent_drop' );
@@ -362,19 +349,15 @@ class Segurium_Geo_Blocker {
 	 * @param array $settings Validated settings array.
 	 */
 	public function apply_settings( $settings ) {
-		Segurium_Storage::setting_set( 'segurium_geo_blocking_enabled', ! empty( $settings['enabled'] ) );
-		Segurium_Storage::setting_set( 'segurium_geo_block_mode', ( 'allow' === ( $settings['block_mode'] ?? '' ) ) ? 'allow' : 'block' );
-		Segurium_Storage::setting_set( 'segurium_geo_blocked_countries', $settings['blocked_countries'] ?? array() );
-		if ( array_key_exists( 'trusted_proxies', $settings ) ) {
-			// Must call the firewall-group helper, NOT the
-			// main Segurium class. This path runs from light tiers
-			// (visitor/login/admin_other/ajax_other) when an expired
-			// pending revert fires, and the main class is not loaded
-			// there. Calling Segurium:: here previously fataled wp-admin.
-			Segurium_Trusted_Proxies::manual_save( (array) $settings['trusted_proxies'] );
-		}
-		Segurium_Storage::setting_set( 'segurium_geo_block_action', $settings['block_action'] ?? 'deny_403' );
-		Segurium_Storage::setting_set( 'segurium_geo_block_redirect_url', $settings['block_redirect_url'] ?? '' );
+		// Restoring a reverted value must not arm a fresh fuse, so staging
+		// is off here. Runs from light tiers (visitor / login /
+		// admin_other / ajax_other) when an expired pending revert fires,
+		// which is why the writer and the registry load on every tier.
+		Segurium_Settings_Writer::save(
+			self::SETTINGS_SLUG,
+			$settings,
+			array( 'stage' => false )
+		);
 	}
 
 	/**
@@ -385,24 +368,12 @@ class Segurium_Geo_Blocker {
 	 * @return string|null|WP_Error Token, null (direct save), or error.
 	 */
 	public function save_settings( $data ) {
-		$clean = $this->validate_settings( $data );
-		if ( is_wp_error( $clean ) ) {
-			return $clean;
+		$result = Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $data );
+		if ( ! $result['ok'] ) {
+			$error = $result['errors'][0];
+			return new WP_Error( $error['code'], Segurium_Settings_Writer::error_message( $error ) );
 		}
-
-		$old = $this->get_settings();
-		$this->apply_settings( $clean );
-
-		if ( empty( $clean['enabled'] ) ) {
-			// segurium_pending_ctx_* lookups are handled by Segurium_Pending_Changes.
-			$existing = Segurium_Storage::setting_get( 'segurium_pending_ctx_' . self::CONTEXT );
-			if ( $existing ) {
-				Segurium_Pending_Changes::cancel( $existing );
-			}
-			return null;
-		}
-
-		return Segurium_Pending_Changes::stage( self::CONTEXT, $old, $clean );
+		return $result['token'];
 	}
 
 	/**
@@ -411,14 +382,7 @@ class Segurium_Geo_Blocker {
 	 * @return array Current persisted settings.
 	 */
 	public function get_settings() {
-		return array(
-			'enabled'            => Segurium_Storage::setting_get_bool( 'segurium_geo_blocking_enabled' ),
-			'block_mode'         => Segurium_Storage::setting_get_string( 'segurium_geo_block_mode', 'block' ),
-			'blocked_countries'  => Segurium_Storage::setting_get_array( 'segurium_geo_blocked_countries' ),
-			'trusted_proxies'    => Segurium_Trusted_Proxies::manual_read(),
-			'block_action'       => Segurium_Storage::setting_get_string( 'segurium_geo_block_action', 'deny_403' ),
-			'block_redirect_url' => Segurium_Storage::setting_get_string( 'segurium_geo_block_redirect_url' ),
-		);
+		return Segurium_Settings::get( self::SETTINGS_SLUG, true );
 	}
 
 	/**
@@ -476,10 +440,10 @@ class Segurium_Geo_Blocker {
 	 * @return void
 	 */
 	private function send_block_response() {
-		$action = Segurium_Storage::setting_get_string( 'segurium_geo_block_action', 'deny_403' );
+		$action = Segurium_Settings::get_field( self::SETTINGS_SLUG, 'block_action' );
 
 		if ( 'redirect' === $action ) {
-			$url = Segurium_Storage::setting_get_string( 'segurium_geo_block_redirect_url' );
+			$url = Segurium_Settings::get_field( self::SETTINGS_SLUG, 'block_redirect_url' );
 			if ( $url ) {
 				wp_safe_redirect( $url );
 				exit;

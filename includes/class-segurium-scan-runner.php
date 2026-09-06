@@ -306,6 +306,7 @@ final class Segurium_Scan_Runner {
 	const REASON_RUNNING                    = 'RUNNING';
 	const REASON_COMPLETED                  = 'COMPLETED';
 	const REASON_USER_CANCEL                = 'USER_CANCEL';
+	const REASON_REMOTE_CANCEL              = 'REMOTE_CANCEL';
 	const REASON_ABORTED_STUCK_NO_PROGRESS  = 'ABORTED_STUCK_NO_PROGRESS';
 	const REASON_ABORTED_HEARTBEAT_STALE    = 'ABORTED_HEARTBEAT_STALE';
 	const REASON_ABORTED_WATCHDOG_SWEEP     = 'ABORTED_WATCHDOG_SWEEP';
@@ -1038,7 +1039,7 @@ final class Segurium_Scan_Runner {
 			'scan_history',
 			"SELECT scan_uuid, scan_type, status, started_at, finished_at, files_found, files_scanned, files_failed, files_skipped, threats_found, threats_cleaned
 			 FROM {{table}} WHERE status IN ('completed','cancelled','aborted')
-			   AND scan_type IN ('manual','scheduled')
+			   AND scan_type IN ('manual','scheduled','rescan')
 			 ORDER BY started_at DESC LIMIT 1",
 			array(),
 			ARRAY_A
@@ -1204,7 +1205,7 @@ final class Segurium_Scan_Runner {
 					: 0,
 			);
 			if ( 'cancelled' === $status ) {
-				$payload['cancelled_by'] = self::REASON_USER_CANCEL === $reason_code ? 'user' : 'system';
+				$payload['cancelled_by'] = self::cancelled_by( $reason_code );
 				Segurium_Storage::cti_send_message( 'scan_cancelled', $payload );
 			} else {
 				Segurium_Storage::cti_send_message( 'scan_aborted', $payload );
@@ -1276,6 +1277,27 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
+	 * Who ended the scan, for the `scan_cancelled` message.
+	 *
+	 * Three answers, because analytics has to tell them apart: the site
+	 * admin pressing Stop scan, an analyst ending it over the CTI action
+	 * channel, and the watchdog reclaiming a scan nobody is driving.
+	 *
+	 * @param string $reason_code One of the `REASON_*` constants.
+	 * @return string
+	 */
+	public static function cancelled_by( $reason_code ) {
+		switch ( $reason_code ) {
+			case self::REASON_USER_CANCEL:
+				return 'user';
+			case self::REASON_REMOTE_CANCEL:
+				return 'analyst';
+			default:
+				return 'system';
+		}
+	}
+
+	/**
 	 * Map a `REASON_*` code to its scan_history.status value. The binary
 	 * status remains the source of truth for dashboards; the reason code is
 	 * the additional "why" surfaced in `error_code`.
@@ -1290,6 +1312,7 @@ final class Segurium_Scan_Runner {
 			case self::REASON_COMPLETED:
 				return 'completed';
 			case self::REASON_USER_CANCEL:
+			case self::REASON_REMOTE_CANCEL:
 				return 'cancelled';
 			case self::REASON_ABORTED_STUCK_NO_PROGRESS:
 			case self::REASON_ABORTED_HEARTBEAT_STALE:

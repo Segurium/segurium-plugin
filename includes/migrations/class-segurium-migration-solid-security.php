@@ -105,10 +105,21 @@ class Segurium_Migration_Solid_Security extends Segurium_Migration_Source {
 
 				$existing = Segurium::firewall_rules_read();
 				$merged   = $this->merge_ip_list( $existing, $ips );
-				Segurium::firewall_rules_save( Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' ), $merged );
-				if ( ! Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ) ) {
-					Segurium_Storage::setting_set( 'segurium_firewall_enabled', true );
-					Segurium_Storage::setting_set( 'segurium_firewall_mode', 'deny_list' );
+				$saved    = Segurium_Settings_Writer::save(
+					'firewall',
+					array( 'ip_list' => $merged ),
+					array( 'stage' => false )
+				);
+				if ( ! $saved['ok'] ) {
+					Segurium_Debug::log( '[segurium] migration_ip_list_failed: ' . $saved['errors'][0]['code'] );
+				}
+				if ( ! Segurium_Settings::get_field( 'firewall', 'enabled' ) ) {
+					Segurium_Firewall_Rules::apply_settings(
+						array(
+							'enabled' => true,
+							'mode'    => 'deny_list',
+						)
+					);
 				}
 			}
 		}

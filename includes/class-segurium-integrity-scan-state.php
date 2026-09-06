@@ -830,9 +830,7 @@ class Segurium_Integrity_Scan_State {
 			'scan_cancelled',
 			$this->terminal_message_payload(
 				(string) $reason_code,
-				array(
-					'cancelled_by' => Segurium_Scan_Runner::REASON_USER_CANCEL === $reason_code ? 'user' : 'system',
-				)
+				array( 'cancelled_by' => Segurium_Scan_Runner::cancelled_by( $reason_code ) )
 			)
 		);
 		if ( $cleanup ) {

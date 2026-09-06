@@ -29,6 +29,12 @@ final class Segurium_Rest_Actions_Poke {
 	const ROUTE        = '/actions-poke';
 
 	/**
+	 * Denial text for an unsigned or badly signed poke. Only CTI reads
+	 * it, so it is not translated.
+	 */
+	const DENY_UNAUTHORIZED = 'Remote actions require authentication.';
+
+	/**
 	 * Wire the rest_api_init hook. Idempotent.
 	 *
 	 * @return void
@@ -76,7 +82,7 @@ final class Segurium_Rest_Actions_Poke {
 		if ( '' !== Segurium_Remote_Actions::closed_reason() ) {
 			return new WP_Error(
 				'segurium_actions_channel_closed',
-				__( 'Remote actions are switched off for this site.', 'segurium' ),
+				'Remote actions are switched off for this site.',
 				array( 'status' => 403 )
 			);
 		}
@@ -92,7 +98,7 @@ final class Segurium_Rest_Actions_Poke {
 	 */
 	private static function verify_signature( $request ) {
 		if ( ! ( $request instanceof WP_REST_Request ) || ! class_exists( 'Segurium_CTI_Signature' ) ) {
-			return self::deny( 'segurium_actions_unauthorized', __( 'Remote actions require authentication.', 'segurium' ) );
+			return self::deny( 'segurium_actions_unauthorized', self::DENY_UNAUTHORIZED );
 		}
 
 		$sig_b64 = (string) $request->get_header( Segurium_CTI_Signature::HEADER_SIG );
@@ -100,7 +106,7 @@ final class Segurium_Rest_Actions_Poke {
 		$key_id  = (string) $request->get_header( Segurium_CTI_Signature::HEADER_KEY_ID );
 
 		if ( '' === $sig_b64 && '' === $ts_str && '' === $key_id ) {
-			return self::deny( 'segurium_actions_unauthorized', __( 'Remote actions require authentication.', 'segurium' ) );
+			return self::deny( 'segurium_actions_unauthorized', self::DENY_UNAUTHORIZED );
 		}
 
 		$verified = Segurium_CTI_Signature::verify_signature(

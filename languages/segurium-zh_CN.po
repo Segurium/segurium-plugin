@@ -4623,3 +4623,33 @@ msgstr "安全问题需要您关注"
 #~ msgid ""
 #~ "Free-tier remediation quota exceeded. Upgrade to Pro for unlimited fixes."
 #~ msgstr "免费版修复配额已用尽。升级至 Pro 可获得无限次修复。"
+
+msgid "This item cannot be switched on from here."
+msgstr "无法从此处启用此项目。"
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the "
+"feature tab for the server-level fix."
+msgstr "此服务器在插件移除该标头后会重新添加。请打开功能标签页以进行服务器级修复。"
+
+msgid "That feature is not available on this installation."
+msgstr "此安装环境不支持该功能。"
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "无法保存该设置。请打开功能标签页并在其中启用。"
+
+msgid "Applying..."
+msgstr "正在应用……"
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr "设置已保存。您的页面缓存仍在提供旧响应，因此该行将在缓存刷新后清除。"
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "无法应用该修复。请打开功能标签页并在其中启用。"
+
+msgid "You can change this later under Settings."
+msgstr "您可以稍后在「设置」中更改此项。"

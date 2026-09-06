@@ -4648,3 +4648,27 @@ msgstr "Komponen rentan terpasang"
 
 msgid "Security issues need your attention"
 msgstr "Masalah keamanan memerlukan perhatian Anda"
+
+msgid "This item cannot be switched on from here."
+msgstr "Item ini tidak dapat diaktifkan dari sini."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Server ini menambahkan kembali header setelah plugin menghapusnya. Buka tab fitur untuk perbaikan di tingkat server."
+
+msgid "That feature is not available on this installation."
+msgstr "Fitur tersebut tidak tersedia pada instalasi ini."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Pengaturan tidak dapat disimpan. Buka tab fitur dan aktifkan di sana."
+
+msgid "Applying..."
+msgstr "Menerapkan..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Pengaturan disimpan. Cache halaman Anda masih menyajikan respons lama, sehingga baris ini akan hilang setelah cache disegarkan."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Perbaikan tidak dapat diterapkan. Buka tab fitur dan aktifkan di sana."
+
+msgid "You can change this later under Settings."
+msgstr "Anda dapat mengubahnya nanti di Pengaturan."

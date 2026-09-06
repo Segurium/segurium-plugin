@@ -402,11 +402,10 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * Mark the current scan as user-cancelled. Accepts the
-	 * reason code so `scan_history.error_code` reflects which path called us
-	 * (today only USER_CANCEL, kept as a parameter for symmetry with
-	 * `mark_aborted()` and to make the runner's `terminate()` dispatcher
-	 * uniform).
+	 * Mark the current scan as cancelled. The reason code decides both
+	 * `scan_history.error_code` and the `cancelled_by` the message
+	 * carries: a site admin pressing Stop scan, or an analyst ending it
+	 * over the CTI action channel.
 	 *
 	 * @param string $reason_code Reason code from `Segurium_Scan_Runner::REASON_*`.
 	 * @param bool   $cleanup     When false, skip
@@ -427,9 +426,7 @@ class Segurium_Scan {
 			'scan_cancelled',
 			$this->terminal_message_payload(
 				(string) $reason_code,
-				array(
-					'cancelled_by' => Segurium_Scan_Runner::REASON_USER_CANCEL === $reason_code ? 'user' : 'system',
-				)
+				array( 'cancelled_by' => Segurium_Scan_Runner::cancelled_by( $reason_code ) )
 			)
 		);
 		if ( $cleanup ) {

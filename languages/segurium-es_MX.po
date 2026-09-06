@@ -5010,3 +5010,27 @@ msgstr "Hay un componente vulnerable instalado"
 #: includes/segurium-admin-menu-shell.php:72
 msgid "Security issues need your attention"
 msgstr "Hay problemas de seguridad que requieren tu atención"
+
+msgid "This item cannot be switched on from here."
+msgstr "Este elemento no se puede activar desde aquí."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Este servidor vuelve a agregar el encabezado después de que el plugin lo elimina. Abre la pestaña de la función para aplicar la corrección a nivel de servidor."
+
+msgid "That feature is not available on this installation."
+msgstr "Esa función no está disponible en esta instalación."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "No se pudo guardar el ajuste. Abre la pestaña de la función y actívalo desde ahí."
+
+msgid "Applying..."
+msgstr "Aplicando..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Ajuste guardado. Tu caché de página aún entrega la respuesta anterior, por lo que esta fila desaparecerá cuando la caché se actualice."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "No se pudo aplicar la corrección. Abre la pestaña de la función y actívala desde ahí."
+
+msgid "You can change this later under Settings."
+msgstr "Puedes cambiar esto más tarde en Ajustes."

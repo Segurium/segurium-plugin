@@ -162,11 +162,33 @@ class Segurium_Storage_IP_List {
 	 * @param string $list_type List type.
 	 * @param int    $limit     Rows per page (max 500).
 	 * @param int    $offset    Offset.
+	 * @param string $source    Narrow to one source tag. Without it the newest
+	 *                          rows of the whole list_type come back, and a
+	 *                          feed sharing the type crowds the rest out.
 	 * @return array
 	 */
-	public static function list_rows( string $list_type, int $limit = 100, int $offset = 0 ): array {
+	public static function list_rows( string $list_type, int $limit = 100, int $offset = 0, ?string $source = null ): array {
 		$limit  = max( 1, min( 500, $limit ) );
 		$offset = max( 0, $offset );
+
+		// Without the source filter the newest 500 rows of the whole list_type
+		// come back and the caller filters in PHP. A feed sharing the
+		// list_type and refreshing its own created_at then pushes the
+		// operator's own entries out of the window, and the caller reads an
+		// empty list rather than a truncated one.
+		if ( null !== $source ) {
+			return Segurium_Storage::table_get_results(
+				'ip_list',
+				'SELECT id, HEX(ip) AS ip_hex, cidr_bits, list_type, reason, source, hits, created_at, expires_at
+				 FROM {{table}}
+				 WHERE list_type = %s AND source = %s AND (expires_at IS NULL OR expires_at > %d)
+				 ORDER BY created_at DESC, id DESC
+				 LIMIT %d OFFSET %d',
+				array( self::sanitize_list_type( $list_type ), self::sanitize_source( $source ), time(), $limit, $offset ),
+				ARRAY_A
+			);
+		}
+
 		return Segurium_Storage::table_get_results(
 			'ip_list',
 			'SELECT id, HEX(ip) AS ip_hex, cidr_bits, list_type, reason, source, hits, created_at, expires_at

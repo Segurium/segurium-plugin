@@ -4741,3 +4741,35 @@ msgstr "脆弱なコンポーネントがインストールされています"
 
 msgid "Security issues need your attention"
 msgstr "セキュリティの問題に対応が必要です"
+
+#: includes/class-segurium-self-check.php:514
+msgid "This item cannot be switched on from here."
+msgstr "この項目はここから有効にすることはできません。"
+
+#: includes/class-segurium-self-check.php:522
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "このサーバーは、プラグインが削除したヘッダーを再度追加します。サーバーレベルの修正については、機能タブを開いてください。"
+
+#: includes/class-segurium-self-check.php:670
+msgid "That feature is not available on this installation."
+msgstr "この機能はこのインストール環境では利用できません。"
+
+#: includes/class-segurium-self-check.php:687
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "設定を保存できませんでした。機能タブを開いて、そこで有効にしてください。"
+
+#: includes/class-segurium.php:1352
+msgid "Applying..."
+msgstr "適用中..."
+
+#: includes/class-segurium.php:1353
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "設定を保存しました。ページキャッシュはまだ古いレスポンスを返しているため、キャッシュが更新されるとこの行はクリアされます。"
+
+#: includes/class-segurium.php:1354
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "修正を適用できませんでした。機能タブを開いて、そこで有効にしてください。"
+
+#: includes/class-segurium.php:1714
+msgid "You can change this later under Settings."
+msgstr "この設定は後で設定画面から変更できます。"

@@ -5000,6 +5000,43 @@ msgstr "Un composant vulnérable est installé"
 msgid "Security issues need your attention"
 msgstr "Des problèmes de sécurité requièrent votre attention"
 
+msgid "This item cannot be switched on from here."
+msgstr "Cet élément ne peut pas être activé depuis cet endroit."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the "
+"feature tab for the server-level fix."
+msgstr ""
+"Ce serveur rajoute l’en-tête après que l’extension l’a supprimé. Ouvrez "
+"l’onglet de la fonctionnalité pour appliquer le correctif au niveau du "
+"serveur."
+
+msgid "That feature is not available on this installation."
+msgstr "Cette fonctionnalité n’est pas disponible sur cette installation."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr ""
+"Le réglage n’a pas pu être enregistré. Ouvrez l’onglet de la "
+"fonctionnalité et activez-le depuis cet endroit."
+
+msgid "Applying..."
+msgstr "Application en cours…"
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Réglage enregistré. Votre cache de page renvoie encore l’ancienne "
+"réponse ; cette ligne disparaîtra une fois le cache actualisé."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"Le correctif n’a pas pu être appliqué. Ouvrez l’onglet de la "
+"fonctionnalité et activez-le depuis cet endroit."
+
+msgid "You can change this later under Settings."
+msgstr "Vous pourrez modifier ce choix ultérieurement dans les Réglages."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Extension Segurium pour WordPress."
 

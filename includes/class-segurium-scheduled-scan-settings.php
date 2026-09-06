@@ -19,9 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class Segurium_Scheduled_Scan_Settings {
 
-	const OPTION_KEY   = 'segurium_scheduled_scan';
-	const FEATURE_KEY  = 'scheduled_scan';
-	const CTI_MSG_TYPE = 'settings_snapshot';
+	const OPTION_KEY    = 'segurium_settings_scheduled_scan';
+	const SETTINGS_SLUG = 'scheduled_scan';
 
 	const MODE_OFF    = 'off';
 	const MODE_DAILY  = 'daily';
@@ -46,22 +45,11 @@ final class Segurium_Scheduled_Scan_Settings {
 	 * @return array
 	 */
 	public static function get() {
-		$raw = Segurium_Storage::setting_get_array( self::OPTION_KEY );
-		if ( ! is_array( $raw ) ) {
-			$raw = array();
+		$settings = Segurium_Settings::get( self::SETTINGS_SLUG );
+		if ( ! in_array( $settings['mode'], self::VALID_MODES, true ) ) {
+			$settings['mode'] = self::MODE_OFF;
 		}
-
-		$mode = isset( $raw['mode'] ) && in_array( $raw['mode'], self::VALID_MODES, true )
-			? (string) $raw['mode']
-			: self::MODE_OFF;
-
-		return array(
-			'mode'         => $mode,
-			'hour'         => isset( $raw['hour'] ) ? (int) $raw['hour'] : 0,
-			'minute'       => isset( $raw['minute'] ) ? (int) $raw['minute'] : 0,
-			'day_of_week'  => isset( $raw['day_of_week'] ) ? (int) $raw['day_of_week'] : 0,
-			'generated_at' => isset( $raw['generated_at'] ) ? (int) $raw['generated_at'] : 0,
-		);
+		return $settings;
 	}
 
 	/**
@@ -78,19 +66,20 @@ final class Segurium_Scheduled_Scan_Settings {
 	 * @return void
 	 */
 	public static function ensure_pregenerated() {
-		$raw = Segurium_Storage::setting_get_array( self::OPTION_KEY );
-		if ( is_array( $raw ) && ! empty( $raw['generated_at'] ) ) {
+		if ( ! empty( self::get()['generated_at'] ) ) {
 			return;
 		}
 
-		$payload = array(
-			'mode'         => self::DEFAULT_MODE,
-			'hour'         => self::random_hour(),
-			'minute'       => self::random_minute(),
-			'day_of_week'  => self::random_weekend_day(),
-			'generated_at' => time(),
+		Segurium_Settings_Writer::save(
+			self::SETTINGS_SLUG,
+			array(
+				'mode'         => self::DEFAULT_MODE,
+				'hour'         => self::random_hour(),
+				'minute'       => self::random_minute(),
+				'day_of_week'  => self::random_weekend_day(),
+				'generated_at' => time(),
+			)
 		);
-		Segurium_Storage::setting_set( self::OPTION_KEY, $payload );
 	}
 
 	/**
@@ -102,6 +91,23 @@ final class Segurium_Scheduled_Scan_Settings {
 	 * @return true|WP_Error True on success, WP_Error on validation failure.
 	 */
 	public static function save( $input ) {
+		$result = Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $input );
+		if ( ! $result['ok'] ) {
+			$error = $result['errors'][0];
+			return new WP_Error( $error['code'], Segurium_Settings_Writer::error_message( $error ) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Validate a (possibly partial) settings update against the persisted
+	 * values, without writing anything.
+	 *
+	 * @param array $input Subset of {mode, hour, minute, day_of_week}.
+	 * @return array|WP_Error Storable settings, or the first validation error.
+	 */
+	public static function validate_settings( $input ) {
 		if ( ! is_array( $input ) ) {
 			return new WP_Error(
 				'invalid_settings',
@@ -163,10 +169,7 @@ final class Segurium_Scheduled_Scan_Settings {
 			$current['day_of_week'] = $dow;
 		}
 
-		Segurium_Storage::setting_set( self::OPTION_KEY, $current );
-		self::report_to_cti( $current );
-
-		return true;
+		return $current;
 	}
 
 	/**
@@ -246,21 +249,5 @@ final class Segurium_Scheduled_Scan_Settings {
 		} catch ( Throwable $e ) {
 			return ( (int) ( microtime( true ) * 1000 ) % 2 ) ? 6 : 0;
 		}
-	}
-
-	/**
-	 * Emit a settings_snapshot CTI message for the current state.
-	 * Mirrors the pattern used by Segurium_Security_Headers and the
-	 * geo blocker.
-	 *
-	 * @param array $settings Current settings payload.
-	 * @return void
-	 */
-	private static function report_to_cti( $settings ) {
-		$payload = array(
-			'feature'  => self::FEATURE_KEY,
-			'settings' => $settings,
-		);
-		Segurium_Storage::cti_send_message( self::CTI_MSG_TYPE, wp_json_encode( $payload ) );
 	}
 }

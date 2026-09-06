@@ -25,12 +25,15 @@ class Segurium_Storage_Settings {
 	 * autoload=yes. Every other Segurium option is stored with autoload=no.
 	 */
 	const HOT_AUTOLOAD_KEYS = array(
-		'segurium_firewall_enabled',
-		'segurium_firewall_mode',
+		'segurium_settings_firewall',
+		'segurium_settings_layout',
 		'segurium_cti_consent',
 		'segurium_iid_token',
 		'segurium_schema_versions',
 		'segurium_issue_flags',
+		// Read on `init` on every tier, including `visitor`, to decide
+		// whether the wp-config consent constant still has work to do.
+		'segurium_consent_constant_applied',
 	);
 
 	/**
@@ -166,21 +169,17 @@ class Segurium_Storage_Settings {
 	}
 
 	/**
-	 * Delete every Segurium-owned option, including the schema-version map.
+	 * Delete every Segurium-owned option.
 	 *
-	 * Reads the manifest of known settings + custom table versions rather than
-	 * doing a `LIKE segurium_%` scan — multisite uses `wp_N_options` per blog
-	 * and we don't want to reach across those boundaries here.
+	 * Reads the manifest rather than doing a `LIKE segurium_%` scan — multisite
+	 * uses `wp_N_options` per blog and we don't want to reach across those
+	 * boundaries here.
 	 *
 	 * @return int Number of options removed.
 	 */
 	public static function delete_all(): int {
 		$removed = 0;
-		$keys    = array_merge(
-			self::known_keys(),
-			array( 'segurium_schema_versions' )
-		);
-		foreach ( array_unique( $keys ) as $key ) {
+		foreach ( self::known_keys() as $key ) {
 			if ( self::delete( $key ) ) {
 				++$removed;
 			}
@@ -191,61 +190,30 @@ class Segurium_Storage_Settings {
 	/**
 	 * Canonical list of every wp_options key owned by the plugin.
 	 *
-	 * Stage 1 includes both "small, migrated" keys and "deferred blob" keys
-	 * so uninstall still wipes them. Later stages update this list as they
-	 * move data out of wp_options into custom tables.
+	 * Derived from the settings registry — one entry per feature, plus the
+	 * keys earlier layouts used for the same settings — and the registry's
+	 * list of plugin-owned runtime keys. Nothing here is hand-maintained per
+	 * option, so a feature that ships a registry row is wiped on uninstall
+	 * without a second edit.
 	 *
 	 * @return array<string>
 	 */
 	public static function known_keys(): array {
-		return array(
-			// Stage-1 migrated keys.
-			'segurium_cti_consent',
-			'segurium_cloud_detection_enabled',
-			'segurium_firewall_enabled',
-			'segurium_firewall_mode',
-			'segurium_geo_blocking_enabled',
-			'segurium_geo_block_mode',
-			'segurium_geo_block_action',
-			'segurium_geo_blocked_countries',
-			'segurium_geo_block_redirect_url',
-			'segurium_geo_updated_at',
-			'segurium_geo_etag',
-			'segurium_iid_seed',
-			'segurium_iid_token',
-			'segurium_bf_settings',
-			'segurium_sh_settings',
-			'segurium_info_shield_settings',
-			'segurium_2fa_settings',
-			'segurium_support_rate',
-
-			// Deferred blobs (remaining).
-			'segurium_scan_exclude',
-
-			// Other Segurium keys that live in wp_options for now.
-			'segurium_last_scan_time',
-			'segurium_scan_lock',
-			'segurium_scheduled_scan',
-			'segurium_bf_db_version',
-			'segurium_geo_whitelist_ips',
-			'segurium_schema_fingerprint',
-
-			// Stage 5/6 settings still in wp_options (small, not log/blob).
-			'segurium_scheduled_scan_settings',
-			'segurium_trusted_proxies_etag',
-			'segurium_trusted_proxies_updated_at',
-
-			// Review-ask state + install date.
-			'segurium_review_prompt',
-			'segurium_first_activation_at',
-			// Last cleanup-quota refusal, mutes the ask.
-			'segurium_review_paywall_at',
-
-			// Open-issue flags behind the admin attention markers.
-			'segurium_issue_flags',
-
-			// Danger zone: opt-in wipe of encrypted backups on uninstall.
-			'segurium_uninstall_wipe_data',
+		if ( ! class_exists( 'Segurium_Settings' ) ) {
+			return array( 'segurium_schema_versions', 'segurium_schema_fingerprint' );
+		}
+		return array_values(
+			array_unique(
+				array_merge(
+					Segurium_Settings::option_keys(),
+					Segurium_Settings::legacy_keys(),
+					Segurium_Settings::pending_keys(),
+					Segurium_Settings::RUNTIME_KEYS,
+					class_exists( 'Segurium_Storage_IP_List_Cache' )
+						? Segurium_Storage_IP_List_Cache::version_options()
+						: array()
+				)
+			)
 		);
 	}
 

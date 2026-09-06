@@ -5043,3 +5043,41 @@ msgstr "Beveiligingsproblemen vragen je aandacht"
 #~ msgstr ""
 #~ "Hersteldquotum van het gratis niveau overschreden. Upgrade naar Pro voor "
 #~ "onbeperkte reparaties."
+
+msgid "This item cannot be switched on from here."
+msgstr "Dit item kan hier niet worden ingeschakeld."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Deze server voegt de header opnieuw toe nadat de plugin die heeft "
+"verwijderd. Open het functietabblad voor de oplossing op serverniveau."
+
+msgid "That feature is not available on this installation."
+msgstr "Die functie is niet beschikbaar op deze installatie."
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr ""
+"De instelling kon niet worden opgeslagen. Open het functietabblad en "
+"schakel het daar in."
+
+msgid "Applying..."
+msgstr "Toepassen..."
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Instelling opgeslagen. Je paginacache serveert nog steeds de oude "
+"reactie, dus deze rij verdwijnt zodra de cache wordt vernieuwd."
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"De oplossing kon niet worden toegepast. Open het functietabblad en schakel "
+"het daar in."
+
+msgid "You can change this later under Settings."
+msgstr "Je kunt dit later wijzigen onder Instellingen."

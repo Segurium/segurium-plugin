@@ -195,12 +195,9 @@ class Segurium_Trusted_Proxies {
 	 * @return string[]
 	 */
 	public static function manual_read() {
-		$rows = Segurium_Storage::ip_list( 'trusted_proxy', 500, 0 );
+		$rows = Segurium_Storage::ip_list( 'trusted_proxy', 500, 0, 'manual' );
 		$out  = array();
 		foreach ( $rows as $r ) {
-			if ( 'manual' !== ( $r['source'] ?? '' ) ) {
-				continue;
-			}
 			$bin = isset( $r['ip_hex'] ) && '' !== $r['ip_hex'] ? hex2bin( (string) $r['ip_hex'] ) : '';
 			$ip  = $bin ? (string) Segurium_IP::unpack( $bin ) : '';
 			if ( '' === $ip ) {
@@ -213,6 +210,38 @@ class Segurium_Trusted_Proxies {
 			$out[] = $ip . '/' . $bits;
 		}
 		return $out;
+	}
+
+	/**
+	 * Reduce operator input to storable `<ip>/<bits>` entries, dropping
+	 * anything that is not an address or a network. Shared by every settings
+	 * validator that accepts an address list, so the firewall and the geo
+	 * blocker cannot drift apart on what they accept.
+	 *
+	 * @param array $raw Raw entries as typed.
+	 * @return string[]
+	 */
+	public static function sanitize_cidr_list( array $raw ) {
+		$clean = array();
+		foreach ( $raw as $entry ) {
+			$entry = trim( sanitize_text_field( (string) $entry ) );
+			if ( '' === $entry ) {
+				continue;
+			}
+			if ( false !== strpos( $entry, '/' ) ) {
+				$parts = explode( '/', $entry, 2 );
+				// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- inet_pton warns on malformed input we are rejecting anyway.
+				if ( false !== @inet_pton( $parts[0] ) && ctype_digit( $parts[1] ) ) {
+					$clean[] = $entry;
+				}
+				continue;
+			}
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- inet_pton warns on malformed input we are rejecting anyway.
+			if ( false !== @inet_pton( $entry ) ) {
+				$clean[] = $entry . ( false !== strpos( $entry, ':' ) ? '/128' : '/32' );
+			}
+		}
+		return $clean;
 	}
 
 	/**

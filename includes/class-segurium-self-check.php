@@ -94,10 +94,11 @@ class Segurium_Self_Check {
 	/**
 	 * Features a failing row can switch on without leaving this tab.
 	 */
-	const FIX_INFO_SHIELD  = 'info_shield';
-	const FIX_HEADERS      = 'security_headers';
-	const FIX_BRUTE_FORCE  = 'brute_force';
-	const FIX_AUTO_CLEANUP = 'auto_cleanup';
+	const FIX_INFO_SHIELD     = 'info_shield';
+	const FIX_HEADERS         = 'security_headers';
+	const FIX_BRUTE_FORCE     = 'brute_force';
+	const FIX_AUTO_CLEANUP    = 'auto_cleanup';
+	const FIX_SCHEDULED_SCANS = 'scheduled_scans';
 
 	/**
 	 * Check ids whose failure is one settings write away, mapped to the
@@ -110,8 +111,10 @@ class Segurium_Self_Check {
 	 * must then enrol), XML-RPC (Jetpack, the mobile app and several
 	 * backup plugins stop working), the firewall (staged behind a
 	 * confirm-or-auto-revert of its own), HSTS (a browser pins it for a
-	 * year) and CSP (enforcing it breaks third-party assets on most
-	 * sites). Those keep the tab-switch button.
+	 * year), CSP (enforcing it breaks third-party assets on most sites)
+	 * and on-premise mode (switching it off sends file contents to the
+	 * cloud, which is the administrator's call). Those keep the
+	 * tab-switch button.
 	 *
 	 * This map is also the renderer's source of truth — `make_check()`
 	 * projects it onto every row as `fix_action`, so the JS never carries
@@ -129,6 +132,7 @@ class Segurium_Self_Check {
 		'permissions_policy' => self::FIX_HEADERS,
 		'bruteforce'         => self::FIX_BRUTE_FORCE,
 		'auto_cleanup'       => self::FIX_AUTO_CLEANUP,
+		'scheduled_scans'    => self::FIX_SCHEDULED_SCANS,
 	);
 
 	/**
@@ -507,7 +511,7 @@ class Segurium_Self_Check {
 		if ( ! self::is_fixable( $check_id ) ) {
 			return new WP_Error(
 				'segurium_self_check_unknown_fix',
-				__( 'This item cannot be switched on from here.', 'segurium' ),
+				'',
 				array( 'status' => 400 )
 			);
 		}
@@ -529,7 +533,7 @@ class Segurium_Self_Check {
 		$previous     = $this->get_last_result();
 		$score_before = ( is_array( $previous ) && isset( $previous['score'] ) ) ? (int) $previous['score'] : null;
 
-		// No history row: eleven presses would otherwise flush the whole
+		// No history row: twelve presses would otherwise flush the whole
 		// ten-entry trend the delta messaging exists to show.
 		$result = $this->run_checks( true, false );
 
@@ -603,6 +607,26 @@ class Segurium_Self_Check {
 				}
 				Segurium_Auto_Fix_Settings::set( true );
 				return Segurium_Auto_Fix_Settings::is_enabled() ? true : $this->fix_not_persisted( $feature );
+
+			case self::FIX_SCHEDULED_SCANS:
+				if ( ! class_exists( 'Segurium_Scheduled_Scan_Settings' ) || ! class_exists( 'Segurium_Scheduled_Scan' ) ) {
+					return $this->fix_unavailable( $feature );
+				}
+				$previous_mode = Segurium_Scheduled_Scan_Settings::get()['mode'];
+				$saved         = Segurium_Scheduled_Scan_Settings::save(
+					array( 'mode' => Segurium_Scheduled_Scan_Settings::DEFAULT_MODE )
+				);
+				if ( is_wp_error( $saved ) ) {
+					return $saved;
+				}
+				Segurium_Scheduled_Scan::reschedule();
+				// A host that refuses to queue cron events would otherwise leave the
+				// row green with no run scheduled, so the mode goes back.
+				if ( ! wp_next_scheduled( Segurium_Scheduled_Scan::CRON_HOOK ) ) {
+					Segurium_Scheduled_Scan_Settings::save( array( 'mode' => $previous_mode ) );
+					return $this->fix_not_persisted( $feature );
+				}
+				return true;
 		}
 
 		return $this->fix_unavailable( $feature );
@@ -643,7 +667,7 @@ class Segurium_Self_Check {
 	private function fix_unavailable( $feature ) {
 		return new WP_Error(
 			'segurium_self_check_fix_unavailable',
-			__( 'That feature is not available on this installation.', 'segurium' ),
+			'',
 			array(
 				'status'  => 500,
 				'feature' => $feature,
@@ -660,7 +684,7 @@ class Segurium_Self_Check {
 	private function fix_not_persisted( $feature ) {
 		return new WP_Error(
 			'segurium_self_check_fix_not_persisted',
-			__( 'The setting could not be saved. Open the feature tab and switch it on there.', 'segurium' ),
+			'',
 			array(
 				'status'  => 500,
 				'feature' => $feature,
@@ -940,7 +964,7 @@ class Segurium_Self_Check {
 		);
 
 		// A follow-up splits WAF from firewall; self-check will move to that option when it lands.
-		$waf_on   = Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' );
+		$waf_on   = (bool) Segurium_Settings::get_field( 'firewall', 'enabled' );
 		$checks[] = $this->make_check(
 			array(
 				'id'       => 'waf',
@@ -1347,21 +1371,26 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * Count `integrity_issues` rows that the integrity scanner UI would
-	 * still surface to the user. Restricted to rows touched by the
-	 * latest scan (so stale `open` rows from earlier scans whose
-	 * components are no longer flagged are excluded), and to components
-	 * whose state isn't on the inactive list (mirroring the integrity
-	 * tab's bucket_for() — the user has already acted on those).
+	 * Everything the integrity scanner UI still counts as an issue: open
+	 * file findings, plus the components whose release the cloud flags as
+	 * vulnerable.
 	 *
-	 * The query lives on Segurium_Integrity_Server_State so
-	 * the posture score and the MainWP fleet table read one number.
+	 * Both halves come from Segurium_Integrity_Server_State, which mirrors
+	 * the tab. File findings are restricted to rows touched by the latest
+	 * scan, so a stale `open` row from an earlier scan cannot keep a clean
+	 * site red. Components the user has already acted on drop out of both.
+	 * A component carrying both counts once.
+	 *
+	 * The flagged releases have to be added separately because their files
+	 * match the vendor's own hashes and so never become findings — the
+	 * whole reason a site with two flagged plugins used to score a clean
+	 * 100 while the tab showed them in red.
 	 *
 	 * @param int $scan_ts Timestamp of the most recent integrity scan.
 	 * @return int
 	 */
 	private function count_open_integrity_issues( $scan_ts ) {
-		return Segurium_Integrity_Server_State::count_open_issues( $scan_ts );
+		return Segurium_Integrity_Server_State::count_open_tab_issues( $scan_ts );
 	}
 
 	/**

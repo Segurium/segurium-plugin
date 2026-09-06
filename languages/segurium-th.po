@@ -4543,3 +4543,27 @@ msgstr "ไม่ทราบ"
 
 msgid "Cookies — HttpOnly"
 msgstr "คุกกี้ — HttpOnly"
+
+msgid "This item cannot be switched on from here."
+msgstr "เปิดใช้งานรายการนี้จากที่นี่ไม่ได้"
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "เซิร์ฟเวอร์นี้จะเพิ่มส่วนหัวกลับเข้ามาหลังจากที่ปลั๊กอินเอาออกไปแล้ว เปิดแท็บของคุณสมบัตินี้เพื่อดูวิธีแก้ที่ระดับเซิร์ฟเวอร์"
+
+msgid "That feature is not available on this installation."
+msgstr "คุณสมบัตินี้ไม่มีให้ใช้บนการติดตั้งนี้"
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "บันทึกการตั้งค่าไม่สำเร็จ เปิดแท็บของคุณสมบัตินี้แล้วเปิดใช้งานที่นั่น"
+
+msgid "Applying..."
+msgstr "กำลังปรับใช้..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "บันทึกการตั้งค่าแล้ว แคชหน้าเว็บของคุณยังส่งคำตอบเดิมอยู่ แถวนี้จะหายไปเมื่อแคชถูกรีเฟรช"
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "ปรับใช้การแก้ไขไม่สำเร็จ เปิดแท็บของคุณสมบัตินี้แล้วเปิดใช้งานที่นั่น"
+
+msgid "You can change this later under Settings."
+msgstr "คุณเปลี่ยนค่านี้ได้ภายหลังในการตั้งค่า"

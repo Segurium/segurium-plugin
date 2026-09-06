@@ -110,18 +110,30 @@ class Segurium_Migration_Wordfence extends Segurium_Migration_Source {
 		if ( 'scan_exclusions' === $feature ) {
 			$new_patterns = $this->get_scan_exclusions();
 			if ( ! empty( $new_patterns ) ) {
-				// segurium_scan_exclude stays in wp_options (small settings-array, kept per plan).
-				$existing = (string) Segurium_Storage::setting_get( 'segurium_scan_exclude', '' );
-				Segurium_Storage::setting_set( 'segurium_scan_exclude', $this->merge_scan_exclusions( $existing, $new_patterns ), true );
+				$existing = (string) Segurium_Settings::get_field( 'general', 'scan_exclude' );
+				$saved    = Segurium_Settings_Writer::save(
+					'general',
+					array( 'scan_exclude' => $this->merge_scan_exclusions( $existing, $new_patterns ) )
+				);
+				if ( ! $saved['ok'] ) {
+					Segurium_Debug::log( '[segurium] migration_scan_exclude_failed: ' . $saved['errors'][0]['code'] );
+				}
 			}
 		} elseif ( 'geo_countries' === $feature ) {
 			$countries = $this->get_blocked_countries();
 			if ( ! empty( $countries ) ) {
-				$existing = Segurium_Storage::setting_get_array( 'segurium_geo_blocked_countries' );
-				Segurium_Storage::setting_set( 'segurium_geo_blocked_countries', array_values( array_unique( array_merge( $existing, $countries ) ) ) );
-				Segurium_Storage::setting_set( 'segurium_geo_blocking_enabled', true );
-				if ( 'block' !== Segurium_Storage::setting_get_string( 'segurium_geo_block_mode' ) ) {
-					Segurium_Storage::setting_set( 'segurium_geo_block_mode', 'block' );
+				$existing = (array) Segurium_Settings::get_field( 'geo', 'blocked_countries', array() );
+				$saved    = Segurium_Settings_Writer::save(
+					'geo',
+					array(
+						'blocked_countries' => array_values( array_unique( array_merge( $existing, $countries ) ) ),
+						'enabled'           => true,
+						'block_mode'        => 'block',
+					),
+					array( 'stage' => false )
+				);
+				if ( ! $saved['ok'] ) {
+					Segurium_Debug::log( '[segurium] migration_geo_failed: ' . $saved['errors'][0]['code'] );
 				}
 			}
 		} elseif ( '2fa' === $feature ) {
@@ -132,10 +144,21 @@ class Segurium_Migration_Wordfence extends Segurium_Migration_Source {
 
 				$existing = Segurium::firewall_rules_read();
 				$merged   = $this->merge_ip_list( $existing, $ips );
-				Segurium::firewall_rules_save( Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' ), $merged );
-				if ( ! Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ) ) {
-					Segurium_Storage::setting_set( 'segurium_firewall_enabled', true );
-					Segurium_Storage::setting_set( 'segurium_firewall_mode', 'deny_list' );
+				$saved    = Segurium_Settings_Writer::save(
+					'firewall',
+					array( 'ip_list' => $merged ),
+					array( 'stage' => false )
+				);
+				if ( ! $saved['ok'] ) {
+					Segurium_Debug::log( '[segurium] migration_ip_list_failed: ' . $saved['errors'][0]['code'] );
+				}
+				if ( ! Segurium_Settings::get_field( 'firewall', 'enabled' ) ) {
+					Segurium_Firewall_Rules::apply_settings(
+						array(
+							'enabled' => true,
+							'mode'    => 'deny_list',
+						)
+					);
 				}
 			}
 		}

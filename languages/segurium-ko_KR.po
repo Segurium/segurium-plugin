@@ -4617,6 +4617,30 @@ msgstr "취약한 구성 요소가 설치되어 있습니다"
 msgid "Security issues need your attention"
 msgstr "보안 문제에 대한 조치가 필요합니다"
 
+msgid "This item cannot be switched on from here."
+msgstr "이 항목은 여기에서 켤 수 없습니다."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "이 서버는 플러그인이 헤더를 제거한 후 다시 추가합니다. 서버 수준의 해결 방법을 확인하려면 기능 탭을 여세요."
+
+msgid "That feature is not available on this installation."
+msgstr "이 설치에서는 해당 기능을 사용할 수 없습니다."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "설정을 저장할 수 없습니다. 기능 탭을 열고 거기에서 켜세요."
+
+msgid "Applying..."
+msgstr "적용 중..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "설정이 저장되었습니다. 페이지 캐시가 여전히 이전 응답을 제공하고 있으므로 캐시가 새로 고쳐지면 이 행이 사라집니다."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "복구를 적용할 수 없습니다. 기능 탭을 열고 거기에서 켜세요."
+
+msgid "You can change this later under Settings."
+msgstr "나중에 설정에서 변경할 수 있습니다."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress용 Segurium 플러그인입니다."
 

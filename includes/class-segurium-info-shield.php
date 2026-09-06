@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_Info_Shield {
 
-	const OPTION_SETTINGS = 'segurium_info_shield_settings';
-	const CTI_MSG_TYPE    = 'settings_snapshot';
+	const SETTINGS_SLUG   = 'info_shield';
+	const OPTION_SETTINGS = 'segurium_settings_info_shield';
 
 	/**
 	 * Singleton instance.
@@ -111,11 +111,7 @@ class Segurium_Info_Shield {
 	 * Load settings from DB and merge with defaults.
 	 */
 	private function load_settings() {
-		$persisted      = Segurium_Storage::setting_get_array( self::OPTION_SETTINGS );
-		$this->settings = wp_parse_args(
-			$persisted,
-			self::default_settings()
-		);
+		$this->settings = Segurium_Settings::get( self::SETTINGS_SLUG );
 	}
 
 	/**
@@ -125,11 +121,17 @@ class Segurium_Info_Shield {
 	 * @return array Cleaned and persisted settings.
 	 */
 	public function save_settings( $raw ) {
-		$clean = $this->validate_settings( $raw );
-		Segurium_Storage::setting_set( self::OPTION_SETTINGS, $clean );
-		$this->settings = $clean;
-		$this->send_cti_snapshot( $clean );
-		return $clean;
+		Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $raw );
+		return $this->get_settings();
+	}
+
+	/**
+	 * Post-write hook driven by the settings registry.
+	 *
+	 * @return void
+	 */
+	public function refresh_settings() {
+		$this->load_settings();
 	}
 
 	/**
@@ -365,25 +367,5 @@ class Segurium_Info_Shield {
 			$conflicts['jetpack_xmlrpc'] = __( 'Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the Jetpack connection.', 'segurium' );
 		}
 		return $conflicts;
-	}
-
-	/**
-	 * Send a CTI settings snapshot message.
-	 *
-	 * @param array $settings Current settings to report.
-	 */
-	private function send_cti_snapshot( $settings ) {
-		if ( ! class_exists( 'Segurium_CTI_Client' ) ) {
-			return;
-		}
-		Segurium_Storage::cti_send_message(
-			self::CTI_MSG_TYPE,
-			wp_json_encode(
-				array(
-					'feature'  => 'info_shield',
-					'settings' => $settings,
-				)
-			)
-		);
 	}
 }

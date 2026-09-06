@@ -4645,3 +4645,39 @@ msgstr "Er is een kwetsbaar component geïnstalleerd"
 
 msgid "Security issues need your attention"
 msgstr "Beveiligingsproblemen vereisen je aandacht"
+
+msgid "This item cannot be switched on from here."
+msgstr "Dit item kan niet vanaf hier worden ingeschakeld."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Deze server voegt de header opnieuw toe nadat de plugin die verwijdert. Open"
+" de functietab voor de oplossing op serverniveau."
+
+msgid "That feature is not available on this installation."
+msgstr "Die functie is niet beschikbaar op deze installatie."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr ""
+"De instelling kon niet worden opgeslagen. Open de functietab en schakel het "
+"daar in."
+
+msgid "Applying..."
+msgstr "Aan het toepassen..."
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Instelling opgeslagen. Je pagina cache levert nog de oude reactie, dus deze "
+"regel verdwijnt zodra de cache is ververst."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"De oplossing kon niet worden toegepast. Open de functietab en schakel het "
+"daar in."
+
+msgid "You can change this later under Settings."
+msgstr "Je kan dit later wijzigen bij Instellingen."

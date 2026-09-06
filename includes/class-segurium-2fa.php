@@ -17,7 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_2FA {
 
-	const OPTION_SETTINGS = 'segurium_2fa_settings';
+	const SETTINGS_SLUG   = '2fa';
+	const OPTION_SETTINGS = 'segurium_settings_2fa';
 	const NONCE_ACTION    = 'segurium_2fa';
 
 	const USER_META_SECRET  = '_segurium_2fa_secret';
@@ -145,8 +146,7 @@ class Segurium_2FA {
 		if ( null !== $this->settings ) {
 			return $this->settings;
 		}
-		$saved          = Segurium_Storage::setting_get_array( self::OPTION_SETTINGS );
-		$this->settings = wp_parse_args( $saved, self::default_settings() );
+		$this->settings = Segurium_Settings::get( self::SETTINGS_SLUG );
 		return $this->settings;
 	}
 
@@ -392,15 +392,21 @@ class Segurium_2FA {
 	 * @return array Sanitized settings that were persisted.
 	 */
 	public function save_settings( $input ) {
-		$old   = $this->get_settings();
-		$clean = $this->validate_settings( $input );
-		Segurium_Storage::setting_set( self::OPTION_SETTINGS, $clean );
-		$this->settings = $clean;
+		Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $input );
+		return $this->get_settings();
+	}
 
-		$this->send_settings_to_cti( $clean );
-		$this->update_grace_periods_on_role_change( $old, $clean );
-
-		return $clean;
+	/**
+	 * Post-write hook driven by the settings registry: refresh the cached
+	 * copy and re-base the grace periods the new role set implies.
+	 *
+	 * @param array $applied Settings after the write.
+	 * @param array $old     Settings before it.
+	 * @return void
+	 */
+	public function on_settings_saved( $applied, $old ) {
+		$this->settings = Segurium_Settings::get( self::SETTINGS_SLUG );
+		$this->update_grace_periods_on_role_change( $old, $applied );
 	}
 
 	/**
@@ -457,7 +463,7 @@ class Segurium_2FA {
 	 * @param array $input Raw input.
 	 * @return array Sanitized settings.
 	 */
-	private function validate_settings( $input ) {
+	public function validate_settings( $input ) {
 		$defaults = self::default_settings();
 		$input    = is_array( $input ) ? $input : array();
 		$clean    = array();
@@ -498,27 +504,6 @@ class Segurium_2FA {
 		$clean['email_code_length'] = in_array( $length, array( 6, 8 ), true ) ? $length : 6;
 
 		return $clean;
-	}
-
-	/**
-	 * Report 2FA settings to CTI.
-	 *
-	 * @param array $settings Settings to report.
-	 * @return void
-	 */
-	private function send_settings_to_cti( $settings ) {
-		if ( ! class_exists( 'Segurium_CTI_Client' ) ) {
-			return;
-		}
-		Segurium_Storage::cti_send_message(
-			'settings_snapshot',
-			wp_json_encode(
-				array(
-					'feature'  => '2fa',
-					'settings' => $settings,
-				)
-			)
-		);
 	}
 
 	// =========================================================================

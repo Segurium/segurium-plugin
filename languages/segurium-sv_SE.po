@@ -4608,3 +4608,27 @@ msgstr "En sårbar komponent är installerad"
 #: includes/segurium-admin-menu-shell.php:72
 msgid "Security issues need your attention"
 msgstr "Säkerhetsproblem kräver din uppmärksamhet"
+
+msgid "This item cannot be switched on from here."
+msgstr "Detta objekt kan inte aktiveras härifrån."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Denna server lägger tillbaka rubriken efter att tillägget tar bort den. Öppna funktionsfliken för åtgärden på serversidan."
+
+msgid "That feature is not available on this installation."
+msgstr "Den funktionen är inte tillgänglig i denna installation."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Inställningen kunde inte sparas. Öppna funktionsfliken och aktivera den där."
+
+msgid "Applying..."
+msgstr "Tillämpar …"
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Inställningen sparades. Din sidcache levererar fortfarande det gamla svaret, så denna rad försvinner när cachen uppdateras."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Åtgärden kunde inte tillämpas. Öppna funktionsfliken och aktivera den där."
+
+msgid "You can change this later under Settings."
+msgstr "Du kan ändra detta senare under Inställningar."

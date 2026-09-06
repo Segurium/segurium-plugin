@@ -4633,3 +4633,27 @@ msgstr "Một thành phần có lỗ hổng đang được cài đặt"
 
 msgid "Security issues need your attention"
 msgstr "Các vấn đề bảo mật cần bạn lưu ý"
+
+msgid "This item cannot be switched on from here."
+msgstr "Không thể bật mục này từ đây."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Máy chủ này thêm lại tiêu đề sau khi plugin gỡ bỏ. Hãy mở tab tính năng để xem cách khắc phục ở cấp máy chủ."
+
+msgid "That feature is not available on this installation."
+msgstr "Tính năng đó không khả dụng trên bản cài đặt này."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Không thể lưu cài đặt. Hãy mở tab tính năng và bật nó ở đó."
+
+msgid "Applying..."
+msgstr "Đang áp dụng..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Đã lưu cài đặt. Bộ nhớ đệm trang của bạn vẫn đang trả về phản hồi cũ, vì vậy dòng này sẽ được xóa khi bộ nhớ đệm được làm mới."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Không thể áp dụng bản vá. Hãy mở tab tính năng và bật nó ở đó."
+
+msgid "You can change this later under Settings."
+msgstr "Bạn có thể thay đổi điều này sau trong phần Cài đặt."

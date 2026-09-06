@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_Security_Headers {
 
-	const OPTION_SETTINGS = 'segurium_sh_settings';
-	const CTI_MSG_TYPE    = 'settings_snapshot';
+	const SETTINGS_SLUG   = 'security_headers';
+	const OPTION_SETTINGS = 'segurium_settings_security_headers';
 
 	const VALID_MODES = array( 'off', 'basic', 'recommended', 'strict', 'custom' );
 
@@ -230,27 +230,7 @@ class Segurium_Security_Headers {
 	 * Load settings from DB and merge with defaults.
 	 */
 	private function load_settings() {
-		$persisted = Segurium_Storage::setting_get_array( self::OPTION_SETTINGS );
-		$defaults  = self::default_settings();
-
-		$this->settings = $persisted;
-
-		$this->settings = wp_parse_args( $this->settings, $defaults );
-
-		if ( ! isset( $this->settings['custom'] ) || ! is_array( $this->settings['custom'] ) ) {
-			$this->settings['custom'] = $defaults['custom'];
-		} else {
-			$this->settings['custom'] = wp_parse_args( $this->settings['custom'], $defaults['custom'] );
-		}
-
-		if ( ! isset( $this->settings['custom']['permissions_policy'] ) || ! is_array( $this->settings['custom']['permissions_policy'] ) ) {
-			$this->settings['custom']['permissions_policy'] = $defaults['custom']['permissions_policy'];
-		} else {
-			$this->settings['custom']['permissions_policy'] = wp_parse_args(
-				$this->settings['custom']['permissions_policy'],
-				$defaults['custom']['permissions_policy']
-			);
-		}
+		$this->settings = Segurium_Settings::get( self::SETTINGS_SLUG );
 	}
 
 	/**
@@ -405,11 +385,17 @@ class Segurium_Security_Headers {
 	 * @return array Saved (validated) settings.
 	 */
 	public function save_settings( $input ) {
-		$clean = $this->validate_settings( $input );
-		Segurium_Storage::setting_set( self::OPTION_SETTINGS, $clean );
-		$this->settings = $clean;
-		$this->report_to_cti( $clean );
-		return $clean;
+		Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $input );
+		return $this->get_settings();
+	}
+
+	/**
+	 * Post-write hook driven by the settings registry.
+	 *
+	 * @return void
+	 */
+	public function refresh_settings() {
+		$this->load_settings();
 	}
 
 	/**
@@ -705,18 +691,5 @@ class Segurium_Security_Headers {
 			$cookie .= '; SameSite=' . $samesite;
 			header( 'Set-Cookie: ' . $cookie, false );
 		}
-	}
-
-	/**
-	 * Report full settings snapshot to CTI.
-	 *
-	 * @param array $settings Current settings.
-	 */
-	private function report_to_cti( $settings ) {
-		$payload = array(
-			'feature'  => 'security_headers',
-			'settings' => $settings,
-		);
-		Segurium_Storage::cti_send_message( self::CTI_MSG_TYPE, wp_json_encode( $payload ) );
 	}
 }

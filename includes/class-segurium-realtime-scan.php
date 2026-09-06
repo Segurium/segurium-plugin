@@ -14,6 +14,15 @@
  * after each run); scan history / findings land in the scan_history +
  * scan_findings tables.
  *
+ * Each row also carries an adaptive check interval. The walk stats every file
+ * anyway, so how often a file changes costs nothing to measure: a file that
+ * moved since the previous walk scores a churn point, one that did not loses
+ * one, and the score picks a wait off CHURN_LADDER. A throttled file is still
+ * observed, scored and generation-stamped every tick — it is only spared the
+ * hash, the inspect and the deep-scan escalation until its wait elapses. The
+ * ladder tops out at a day (six hours for anything a webserver might execute),
+ * a threat verdict clears it, and full scans ignore it entirely.
+ *
  * @package Segurium
  */
 
@@ -44,6 +53,21 @@ class Segurium_Realtime_Scan {
 	const WALK_CHUNK   = 1000;
 	const UPSERT_CHUNK = 500;
 	const DELETE_CHUNK = 5000;
+
+	// Adaptive check interval. A file that changes between two consecutive
+	// walks scores one point, a file that does not loses one. The score picks
+	// an interval off CHURN_LADDER; until it elapses the file is observed but
+	// not hashed. The ladder never reaches "never" — the slowest file is still
+	// inspected once a day, and full scans ignore the score entirely.
+	const CHURN_MAX            = 7;
+	const CHURN_CEILING_EXEC   = 21600;
+	const CHURN_JITTER_PERCENT = 10;
+	const CHURN_LADDER         = array( 0, 0, 7200, 14400, 28800, 43200, 64800, 86400 );
+
+	// Paths a webserver may execute. They ride the lower ceiling: the worst
+	// churner on the fleet is another plugin's PHP state file, so refusing to
+	// throttle executables outright would forfeit most of the saving.
+	const EXEC_EXTENSIONS = array( 'php', 'phtml', 'phtm', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'phps', 'phar', 'shtml', 'js', 'cgi', 'pl' );
 
 	/**
 	 * WordPress installation root path.
@@ -197,11 +221,13 @@ class Segurium_Realtime_Scan {
 	 * @return array Summary with files_checked and threats_found counts.
 	 */
 	public function run() {
+		$started = microtime( true );
 		if ( class_exists( 'Segurium_Scan_Lock' ) && Segurium_Scan_Lock::is_running() ) {
 			return array(
-				'files_checked' => 0,
-				'threats_found' => 0,
-				'skipped'       => 'scan_running',
+				'files_checked'   => 0,
+				'threats_found'   => 0,
+				'files_throttled' => 0,
+				'skipped'         => 'scan_running',
 			);
 		}
 
@@ -213,9 +239,10 @@ class Segurium_Realtime_Scan {
 		// the entire purpose of the gate.
 		if ( null === Segurium_IID::get_iid() ) {
 			return array(
-				'files_checked' => 0,
-				'threats_found' => 0,
-				'skipped'       => 'no_iid',
+				'files_checked'   => 0,
+				'threats_found'   => 0,
+				'files_throttled' => 0,
+				'skipped'         => 'no_iid',
 			);
 		}
 
@@ -223,18 +250,41 @@ class Segurium_Realtime_Scan {
 
 		if ( $reconcile['first_run'] ) {
 			return array(
-				'files_checked' => 0,
-				'threats_found' => 0,
+				'files_checked'   => 0,
+				'threats_found'   => 0,
+				'files_throttled' => 0,
 			);
+		}
+
+		if ( $reconcile['throttled'] > 0 ) {
+			Segurium_Debug::log( '[segurium-realtime] throttled ' . (int) $reconcile['throttled'] . ' changed file(s) this tick' );
 		}
 
 		$changed_files = array_merge( $reconcile['new'], $reconcile['modified'] );
 		if ( empty( $changed_files ) ) {
 			return array(
-				'files_checked' => 0,
-				'threats_found' => 0,
+				'files_checked'   => 0,
+				'threats_found'   => 0,
+				'files_throttled' => (int) $reconcile['throttled'],
 			);
 		}
+
+		// Rarely-changing files are the interesting ones, so they reach the
+		// tick budget first. Without this a site full of churning logs can
+		// spend the whole budget before a first-time-changed file is reached.
+		$churn_map = $reconcile['churn'];
+		$rank      = $reconcile['priority'];
+		usort(
+			$changed_files,
+			static function ( $a, $b ) use ( $rank ) {
+				$ca = isset( $rank[ $a ] ) ? $rank[ $a ] : 0;
+				$cb = isset( $rank[ $b ] ) ? $rank[ $b ] : 0;
+				if ( $ca === $cb ) {
+					return 0;
+				}
+				return $ca < $cb ? -1 : 1;
+			}
+		);
 
 		$scan_id = wp_generate_uuid4();
 		$now     = time();
@@ -245,50 +295,96 @@ class Segurium_Realtime_Scan {
 			$workspace = null;
 		}
 
-		$files = array();
-		foreach ( $changed_files as $path ) {
-			if ( ! file_exists( $path ) ) {
+		// Same per-tick wall-clock budget as the scheduled scan. Files are
+		// hashed one chunk at a time inside it; whatever is left over stays
+		// changed in the snapshot and rides the next tick.
+		$budget     = (float) apply_filters( 'segurium_scan_tick_budget', Segurium_Scan_Runner::tick_budget() );
+		$generation = $reconcile['generation'];
+		$sent       = array();
+		$checked    = 0;
+		$threats    = 0;
+		$skipped    = 0;
+		foreach ( array_chunk( $changed_files, Segurium_Verdict_Queue::BATCH_SIZE ) as $paths ) {
+			if ( $checked > 0 && ( microtime( true ) - $started ) >= $budget ) {
+				break;
+			}
+			$chunk  = array();
+			$commit = array();
+			$rows   = array();
+			foreach ( $paths as $path ) {
+				if ( ! file_exists( $path ) ) {
+					continue;
+				}
+				$stat   = Segurium_Fs::stat( $path );
+				$mtime  = $stat ? $stat['mtime'] : 0;
+				$size   = $stat ? $stat['size'] : 0;
+				$churn  = isset( $churn_map[ $path ] ) ? (int) $churn_map[ $path ] : 0;
+				$row    = $this->snapshot_row(
+					$path,
+					$mtime,
+					$size,
+					$generation,
+					$now,
+					$mtime,
+					$churn,
+					self::throttle_until( $churn, $path, $now )
+				);
+				$sha256 = Segurium_Fs::hash_file( 'sha256', $path );
+				if ( false === $sha256 ) {
+					$commit[] = $row;
+					continue;
+				}
+				$rel          = $this->make_relative_path( $path );
+				$chunk[]      = array(
+					'path'   => $rel,
+					'sha256' => $sha256,
+					'size'   => $size,
+					'mtime'  => $mtime,
+				);
+				$rows[ $rel ] = $row;
+			}
+			if ( empty( $chunk ) ) {
+				$this->commit_snapshot( $commit );
 				continue;
 			}
-			$sha256 = Segurium_Fs::hash_file( 'sha256', $path );
-			if ( false === $sha256 ) {
-				continue;
-			}
-			$stat    = Segurium_Fs::stat( $path );
-			$files[] = array(
-				'path'   => $this->make_relative_path( $path ),
-				'sha256' => $sha256,
-				'size'   => $stat ? $stat['size'] : 0,
-				'mtime'  => $stat ? $stat['mtime'] : 0,
+			$stats    = Segurium_Verdict_Queue::resolve_and_record(
+				$scan_id,
+				'realtime',
+				$chunk,
+				$this->base_path
 			);
+			$checked += count( $chunk );
+			$threats += (int) $stats['threats'];
+			$skipped += (int) $stats['neoray_skipped'];
+			$sent     = array_merge( $sent, $chunk );
+			foreach ( $stats['failed_paths'] as $rel ) {
+				unset( $rows[ $rel ] );
+			}
+			$this->commit_snapshot( array_merge( $commit, array_values( $rows ) ) );
+			if ( count( $stats['failed_paths'] ) === count( $chunk ) ) {
+				break;
+			}
 		}
 
 		if ( $workspace ) {
-			Segurium_Storage::tmp_write( $workspace, 'ingress.jsonl', $this->encode_jsonl( $files ) );
+			Segurium_Storage::tmp_write( $workspace, 'ingress.jsonl', $this->encode_jsonl( $sent ) );
 		}
 
-		if ( empty( $files ) ) {
+		if ( 0 === $checked ) {
 			if ( $workspace ) {
 				Segurium_Storage::tmp_destroy( $workspace );
 			}
 			return array(
-				'files_checked' => 0,
-				'threats_found' => 0,
+				'files_checked'   => 0,
+				'threats_found'   => 0,
+				'files_throttled' => (int) $reconcile['throttled'],
 			);
 		}
-
-		$stats   = Segurium_Verdict_Queue::resolve_and_record(
-			$scan_id,
-			'realtime',
-			$files,
-			$this->base_path
-		);
-		$threats = (int) $stats['threats'];
 
 		// On-premise leaves every unknown hash unresolved.
 		// Without this the history row is byte-identical to a pass where
 		// every file came back clean.
-		$this->record_history( $scan_id, $now, count( $files ), $threats, (int) $stats['neoray_skipped'] );
+		$this->record_history( $scan_id, $now, $checked, $threats, $skipped );
 
 		if ( $threats > 0 ) {
 			Segurium_Storage::cti_send_message(
@@ -296,7 +392,7 @@ class Segurium_Realtime_Scan {
 				wp_json_encode(
 					array(
 						'scan_id'       => $scan_id,
-						'files_checked' => count( $files ),
+						'files_checked' => $checked,
 						'threats_found' => $threats,
 					)
 				)
@@ -310,9 +406,29 @@ class Segurium_Realtime_Scan {
 		}
 
 		return array(
-			'files_checked' => count( $files ),
-			'threats_found' => $threats,
+			'files_checked'   => $checked,
+			'threats_found'   => $threats,
+			'files_throttled' => (int) $reconcile['throttled'],
 		);
+	}
+
+	/**
+	 * Move the snapshot rows of the files this chunk settled: a verdict
+	 * arrived, or the file cannot be hashed and will never get one. A file
+	 * left out keeps its stale row (or none) and reads as changed on the
+	 * next run.
+	 *
+	 * @param array $rows Snapshot rows to upsert.
+	 */
+	private function commit_snapshot( array $rows ) {
+		if ( empty( $rows ) ) {
+			return;
+		}
+		try {
+			Segurium_Storage::table_upsert_bulk( self::SNAPSHOT_TABLE, $rows, array( 'file_path_hash' ), self::UPSERT_CHUNK );
+		} catch ( Segurium_Storage_Exception $e ) {
+			Segurium_Debug::log( '[segurium-realtime] snapshot commit failed: ' . $e->getMessage() );
+		}
 	}
 
 	/**
@@ -365,6 +481,40 @@ class Segurium_Realtime_Scan {
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium-realtime] auto-fix failed: ' . $e->getMessage() );
 		}
+
+		// Last: this is one round trip per finding, and the tick budget is
+		// already spent by the time we get here. The cure must not queue
+		// behind it.
+		$this->clear_throttle( $threat_paths );
+	}
+
+	/**
+	 * Drop the churn score and the throttle deadline for paths that came back
+	 * anything but clean. A file that has ever carried a threat rides the fast
+	 * lane no matter how often it changes.
+	 *
+	 * @param array $relative_paths Paths relative to base_path.
+	 * @return void
+	 */
+	private function clear_throttle( array $relative_paths ) {
+		foreach ( $relative_paths as $rel ) {
+			$rel = ltrim( (string) $rel, '/' );
+			if ( '' === $rel ) {
+				continue;
+			}
+			try {
+				Segurium_Storage::table_update(
+					self::SNAPSHOT_TABLE,
+					array(
+						'churn'         => 0,
+						'next_check_at' => 0,
+					),
+					array( 'file_path_hash' => hash( 'sha256', $this->base_path . '/' . $rel ) )
+				);
+			} catch ( Segurium_Storage_Exception $e ) {
+				Segurium_Debug::log( '[segurium-realtime] throttle clear failed: ' . $e->getMessage() );
+			}
+		}
 	}
 
 	/**
@@ -399,7 +549,7 @@ class Segurium_Realtime_Scan {
 	 * not-yet-persisted file as "new" and flood CTI. The flag restores the old
 	 * atomic-first-run guarantee while keeping the streaming writes.
 	 *
-	 * @return array{new: string[], modified: string[], first_run: bool}
+	 * @return array{new: string[], modified: string[], churn: array<string,int>, priority: array<string,int>, throttled: int, first_run: bool, generation: int}
 	 */
 	private function reconcile_snapshot() {
 		$first_run  = ! $this->baseline_complete();
@@ -407,9 +557,13 @@ class Segurium_Realtime_Scan {
 		$now        = time();
 
 		$result = array(
-			'new'       => array(),
-			'modified'  => array(),
-			'first_run' => $first_run,
+			'new'        => array(),
+			'modified'   => array(),
+			'churn'      => array(),
+			'priority'   => array(),
+			'throttled'  => 0,
+			'first_run'  => $first_run,
+			'generation' => $generation,
 		);
 
 		// Buffer maps an absolute path to its mtime and size for the chunk.
@@ -428,16 +582,66 @@ class Segurium_Realtime_Scan {
 			}
 			$existing = $first_run ? array() : $this->select_existing( array_keys( $by_hash ) );
 
+			// A changed file keeps its previous row until a verdict lands
+			// (see commit_snapshot), so a rejected inspect is re-offered on
+			// the next run instead of vanishing into the baseline.
 			$rows = array();
 			foreach ( $by_hash as $h => $info ) {
-				if ( ! $first_run ) {
-					if ( ! isset( $existing[ $h ] ) ) {
-						$result['new'][] = $info['abs'];
-					} elseif ( $existing[ $h ]['mtime'] !== $info['mtime'] || $existing[ $h ]['size'] !== $info['size'] ) {
-						$result['modified'][] = $info['abs'];
+				if ( $first_run ) {
+					$rows[] = $this->snapshot_row( $info['abs'], $info['mtime'], $info['size'], $generation, $now );
+					continue;
+				}
+				if ( ! isset( $existing[ $h ] ) ) {
+					$result['new'][]                    = $info['abs'];
+					$result['churn'][ $info['abs'] ]    = 0;
+					$result['priority'][ $info['abs'] ] = 0;
+					continue;
+				}
+				$prev = $existing[ $h ];
+
+				// seen_mtime 0 is a row dbDelta carried over from before the
+				// column existed: no walk has observed this file yet, so there
+				// is nothing to compare and no point to score.
+				$moved = 0 !== $prev['seen_mtime'] && $prev['seen_mtime'] !== $info['mtime'];
+				$churn = $moved
+					? min( $prev['churn'] + 1, self::CHURN_MAX )
+					: max( $prev['churn'] - 1, 0 );
+
+				// A deadline set at a higher score must not outlive that score,
+				// otherwise a file that goes quiet stays parked for the wait it
+				// earned while it was still busy.
+				$deadline = $prev['next_check_at'];
+				if ( $deadline > $now ) {
+					$allowed = self::churn_interval( $churn, $info['abs'] );
+					if ( $allowed < 1 ) {
+						$deadline = 0;
+					} elseif ( ( $deadline - $now ) > $allowed ) {
+						$deadline = $now + $allowed;
 					}
 				}
-				$rows[] = $this->snapshot_row( $info['abs'], $info['mtime'], $info['size'], $generation, $now );
+
+				if ( $prev['mtime'] === $info['mtime'] && $prev['size'] === $info['size'] ) {
+					$rows[] = $this->snapshot_row( $info['abs'], $info['mtime'], $info['size'], $generation, $now, $info['mtime'], $churn, $deadline );
+					continue;
+				}
+
+				// Throttled: observed, scored, generation-stamped, but not
+				// offered for hashing. The verdicted mtime/size stay put so
+				// the file is still a candidate once the deadline passes.
+				if ( $deadline > $now ) {
+					++$result['throttled'];
+					$rows[] = $this->snapshot_row( $info['abs'], $prev['mtime'], $prev['size'], $generation, $now, $info['mtime'], $churn, $deadline );
+					continue;
+				}
+
+				$result['modified'][]            = $info['abs'];
+				$result['churn'][ $info['abs'] ] = $churn;
+				// A file released from the throttle has already waited its
+				// whole interval. Sorting it behind every fresh change would
+				// let a budget-bound site starve it tick after tick, which is
+				// a longer gap than the ladder ever asks for.
+				$result['priority'][ $info['abs'] ] = $prev['next_check_at'] > 0 ? 0 : $churn;
+				$rows[]                             = $this->snapshot_row( $info['abs'], $prev['mtime'], $prev['size'], $generation, $now, $info['mtime'], $churn, $deadline );
 			}
 			Segurium_Storage::table_upsert_bulk( self::SNAPSHOT_TABLE, $rows, array( 'file_path_hash' ), self::UPSERT_CHUNK );
 			$buffer = array();
@@ -622,11 +826,29 @@ class Segurium_Realtime_Scan {
 				}
 				continue;
 			}
-			if ( ! $in_db
+			$content_moved = ! $in_db
 				|| $existing[ $hash ]['mtime'] !== $info['mtime']
-				|| $existing[ $hash ]['size'] !== $info['size'] ) {
-				$to_upsert[] = $this->snapshot_row( $info['abs'], $info['mtime'], $info['size'], $generation, $now );
-				++$changed;
+				|| $existing[ $hash ]['size'] !== $info['size'];
+			// A row that already matches disk still needs writing when it is
+			// parked, otherwise the scan verdicts the file and the stale
+			// deadline keeps realtime off it anyway.
+			if ( $content_moved || ( $in_db && 0 !== $existing[ $hash ]['next_check_at'] ) ) {
+				// A full scan just verdicted this content, so the throttle
+				// clock restarts. The score survives: the file is no less
+				// churny for having been scanned.
+				$to_upsert[] = $this->snapshot_row(
+					$info['abs'],
+					$info['mtime'],
+					$info['size'],
+					$generation,
+					$now,
+					$info['mtime'],
+					$in_db ? $existing[ $hash ]['churn'] : 0,
+					0
+				);
+				if ( $content_moved ) {
+					++$changed;
+				}
 			}
 		}
 		if ( ! empty( $to_upsert ) ) {
@@ -642,41 +864,124 @@ class Segurium_Realtime_Scan {
 	 * Fetch mtime/size for a chunk of path hashes in one indexed SELECT.
 	 *
 	 * @param array $hashes file_path_hash values.
-	 * @return array<string, array{mtime:int, size:int}> Keyed by file_path_hash.
+	 * @return array<string, array{mtime:int, size:int, seen_mtime:int, churn:int, next_check_at:int}> Keyed by file_path_hash.
+	 * @throws Segurium_Storage_Exception When the lookup itself failed, which
+	 *         must not be confused with "none of these paths are known".
 	 */
 	private function select_existing( array $hashes ) {
 		if ( empty( $hashes ) ) {
 			return array();
 		}
+		global $wpdb;
+		$wpdb->last_error = '';
+
 		$placeholders = implode( ',', array_fill( 0, count( $hashes ), '%s' ) );
 		$rows         = Segurium_Storage::table_get_results(
 			self::SNAPSHOT_TABLE,
 			// $placeholders is a hard-coded list of %s marks, not user data.
-			'SELECT file_path_hash, mtime, size FROM {{table}} WHERE file_path_hash IN (' . $placeholders . ')', // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- only %s placeholders interpolated; values bound via prepare().
+			'SELECT file_path_hash, mtime, size, seen_mtime, churn, next_check_at FROM {{table}} WHERE file_path_hash IN (' . $placeholders . ')', // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- only %s placeholders interpolated; values bound via prepare().
 			$hashes,
 			ARRAY_A
 		);
+		// The storage layer answers a failed SELECT with an empty array. Left
+		// alone that reads as "none of these paths are known", which would
+		// classify the whole tree as new, sweep the baseline out from under it
+		// and resubmit every file. Fail the tick instead.
+		if ( '' !== (string) $wpdb->last_error ) {
+			throw new Segurium_Storage_Exception( 'realtime snapshot lookup failed: ' . esc_html( $wpdb->last_error ) );
+		}
+
 		$out = array();
 		foreach ( $rows as $row ) {
 			$out[ $row['file_path_hash'] ] = array(
-				'mtime' => (int) $row['mtime'],
-				'size'  => (int) $row['size'],
+				'mtime'         => (int) $row['mtime'],
+				'size'          => (int) $row['size'],
+				'seen_mtime'    => (int) $row['seen_mtime'],
+				'churn'         => (int) $row['churn'],
+				'next_check_at' => (int) $row['next_check_at'],
 			);
 		}
 		return $out;
 	}
 
 	/**
+	 * Seconds a file at this churn score waits between realtime checks.
+	 * Zero means every tick.
+	 *
+	 * @param int    $churn Churn score.
+	 * @param string $path  File path, used only to pick the ceiling.
+	 * @return int
+	 */
+	public static function churn_interval( $churn, $path ) {
+		$churn    = max( 0, min( (int) $churn, self::CHURN_MAX ) );
+		$ladder   = self::CHURN_LADDER;
+		$interval = isset( $ladder[ $churn ] ) ? (int) $ladder[ $churn ] : 0;
+		if ( $interval > 0 && self::is_executable_path( $path ) ) {
+			$interval = min( $interval, self::CHURN_CEILING_EXEC );
+		}
+		return $interval;
+	}
+
+	/**
+	 * Whether a webserver could be talked into executing this path.
+	 *
+	 * @param string $path File path.
+	 * @return bool
+	 */
+	private static function is_executable_path( $path ) {
+		$base = strtolower( basename( (string) $path ) );
+		if ( '.htaccess' === $base || '.user.ini' === $base ) {
+			return true;
+		}
+		$dot = strrpos( $base, '.' );
+		if ( false === $dot || 0 === $dot ) {
+			return false;
+		}
+		return in_array( substr( $base, $dot + 1 ), self::EXEC_EXTENSIONS, true );
+	}
+
+	/**
+	 * Deadline before which this file is observed but not hashed. Jittered so
+	 * a site's throttled files do not all come due on the same tick.
+	 *
+	 * @param int    $churn Churn score.
+	 * @param string $path  File path.
+	 * @param int    $now   Timestamp.
+	 * @return int Absolute timestamp, or 0 when the file runs every tick.
+	 */
+	private static function throttle_until( $churn, $path, $now ) {
+		$interval = self::churn_interval( $churn, $path );
+		if ( $interval < 1 ) {
+			return 0;
+		}
+		$jitter = (int) round( $interval * self::CHURN_JITTER_PERCENT / 100 );
+		if ( $jitter > 0 ) {
+			// wp_rand() absint()s its result, so a negative lower bound never
+			// produces a negative offset. Draw the full width and re-centre.
+			$interval += wp_rand( 0, 2 * $jitter ) - $jitter;
+		}
+		return (int) $now + max( MINUTE_IN_SECONDS, $interval );
+	}
+
+	/**
 	 * Build a snapshot-table row for one file.
 	 *
+	 * `mtime`/`size` record the state we last obtained a verdict for;
+	 * `seen_mtime` records the state the last walk observed. Splitting them is
+	 * what lets a throttled file keep reading as "needs a verdict" while its
+	 * churn score still tracks whether it is actually still changing.
+	 *
 	 * @param string $abs        Absolute path.
-	 * @param int    $mtime      Modification time.
-	 * @param int    $size       File size in bytes.
+	 * @param int    $mtime      Modification time carried by the verdict.
+	 * @param int    $size       File size in bytes carried by the verdict.
 	 * @param int    $generation Generation marker.
 	 * @param int    $now        Timestamp.
+	 * @param int    $seen_mtime Modification time observed by this walk.
+	 * @param int    $churn      Churn score.
+	 * @param int    $next_check Throttle deadline, 0 for every tick.
 	 * @return array<string, mixed>
 	 */
-	private function snapshot_row( $abs, $mtime, $size, $generation, $now ) {
+	private function snapshot_row( $abs, $mtime, $size, $generation, $now, $seen_mtime = null, $churn = 0, $next_check = 0 ) {
 		return array(
 			'file_path_hash' => hash( 'sha256', (string) $abs ),
 			'file_path'      => (string) $abs,
@@ -684,6 +989,9 @@ class Segurium_Realtime_Scan {
 			'size'           => (int) $size,
 			'generation'     => (int) $generation,
 			'updated_at'     => (int) $now,
+			'seen_mtime'     => null === $seen_mtime ? (int) $mtime : (int) $seen_mtime,
+			'churn'          => max( 0, min( (int) $churn, self::CHURN_MAX ) ),
+			'next_check_at'  => max( 0, (int) $next_check ),
 		);
 	}
 

@@ -4675,3 +4675,27 @@ msgstr "Este instalată o componentă vulnerabilă"
 
 msgid "Security issues need your attention"
 msgstr "Problemele de securitate necesită atenția ta"
+
+msgid "This item cannot be switched on from here."
+msgstr "Acest element nu poate fi activat de aici."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Acest server readaugă antetul după ce modulul îl înlătură. Deschide fila funcționalității pentru remedierea la nivel de server."
+
+msgid "That feature is not available on this installation."
+msgstr "Această funcționalitate nu este disponibilă pe această instalare."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Setarea nu a putut fi salvată. Deschide fila funcționalității și activeaz-o de acolo."
+
+msgid "Applying..."
+msgstr "Se aplică..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Setare salvată. Cache-ul paginii încă servește răspunsul vechi, așa că acest rând va dispărea după ce cache-ul se reîmprospătează."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Remedierea nu a putut fi aplicată. Deschide fila funcționalității și activeaz-o de acolo."
+
+msgid "You can change this later under Settings."
+msgstr "Poți schimba asta mai târziu în Setări."

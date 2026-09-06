@@ -4650,3 +4650,35 @@ msgstr "En sårbar komponent er installeret"
 
 msgid "Security issues need your attention"
 msgstr "Sikkerhedsproblemer kræver din opmærksomhed"
+
+msgid "This item cannot be switched on from here."
+msgstr "Dette element kan ikke slås til herfra."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Denne server tilføjer headeren igen, efter at pluginet fjerner den. Åbn "
+"funktionsfanen for at få rettelsen på serverniveau."
+
+msgid "That feature is not available on this installation."
+msgstr "Den funktion er ikke tilgængelig på denne installation."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Indstillingen kunne ikke gemmes. Åbn funktionsfanen, og slå den til der."
+
+msgid "Applying..."
+msgstr "Anvender…"
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Indstillingen er gemt. Din sidecache leverer stadig det gamle svar, så denne"
+" række forsvinder, når cachen opdateres."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Rettelsen kunne ikke anvendes. Åbn funktionsfanen, og slå den til der."
+
+msgid "You can change this later under Settings."
+msgstr "Du kan ændre dette senere under Indstillinger."

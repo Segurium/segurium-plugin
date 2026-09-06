@@ -4995,3 +4995,41 @@ msgstr "Проблеми безпеки потребують вашої уваг
 #~ msgstr ""
 #~ "Квоту усунення для безкоштовного тарифу вичерпано. Перейдіть на Pro для "
 #~ "необмежених виправлень."
+
+msgid "This item cannot be switched on from here."
+msgstr "Цей елемент не можна ввімкнути звідси."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the "
+"feature tab for the server-level fix."
+msgstr ""
+"Цей сервер знову додає заголовок після того, як плагін його видаляє. "
+"Відкрийте вкладку функції, щоб виправити це на рівні сервера."
+
+msgid "That feature is not available on this installation."
+msgstr "Ця функція недоступна на цьому встановленні."
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr ""
+"Не вдалося зберегти налаштування. Відкрийте вкладку функції та ввімкніть "
+"його там."
+
+msgid "Applying..."
+msgstr "Застосування…"
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Налаштування збережено. Кеш сторінок ще віддає стару відповідь, тож цей "
+"рядок зникне після оновлення кешу."
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"Не вдалося застосувати виправлення. Відкрийте вкладку функції та ввімкніть "
+"його там."
+
+msgid "You can change this later under Settings."
+msgstr "Пізніше це можна змінити в розділі «Налаштування»."

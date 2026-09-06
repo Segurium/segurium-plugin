@@ -5005,6 +5005,46 @@ msgstr "Hay instalado un componente vulnerable"
 msgid "Security issues need your attention"
 msgstr "Hay problemas de seguridad que necesitan tu atención"
 
+msgid "This item cannot be switched on from here."
+msgstr "Este elemento no se puede activar desde aquí."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the "
+"feature tab for the server-level fix."
+msgstr ""
+"Este servidor vuelve a añadir la cabecera después de que el plugin la "
+"elimine. Abre la pestaña de la función para aplicar la corrección a nivel "
+"de servidor."
+
+msgid "That feature is not available on this installation."
+msgstr "Esa función no está disponible en esta instalación."
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on "
+"there."
+msgstr ""
+"No se pudo guardar el ajuste. Abre la pestaña de la función y actívalo "
+"desde allí."
+
+msgid "Applying..."
+msgstr "Aplicando..."
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Ajuste guardado. Tu caché de página aún sirve la respuesta anterior, así "
+"que esta fila desaparecerá cuando se refresque la caché."
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"No se pudo aplicar la corrección. Abre la pestaña de la función y actívala "
+"desde allí."
+
+msgid "You can change this later under Settings."
+msgstr "Puedes cambiar esto más tarde en Ajustes."
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
 

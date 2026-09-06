@@ -16,6 +16,12 @@
  *                            happens naturally on the next entitlement
  *                            check.
  *
+ * A checkout that ends in Freemius pending activation (the buyer's email
+ * already owns a Freemius account) never gives the SDK a license, so the
+ * hook above never fires. For that case the listener keeps the purchase
+ * pointer from the checkout return and asks CTI to verify and bind it
+ * (`capture_checkout_return()`, `safe_billing_claim()`).
+ *
  * Idempotency is keyed off the post-transition entitlement state stored
  * in `segurium_pro_state`: if the recomputed `is_pro` matches what we
  * already persisted, the handler is a no-op. This collapses duplicate
@@ -36,6 +42,27 @@ final class Segurium_Pro_Transition {
 	const OPTION_STATE          = 'segurium_pro_state';
 	const EVENT_PRO_ACTIVATED   = 'pro_activated';
 	const EVENT_PRO_DEACTIVATED = 'pro_deactivated';
+
+	/**
+	 * Purchase pointer captured from the Freemius checkout return, kept
+	 * until CTI binds it or refuses it for good. An option rather than a
+	 * transient: on a host with a persistent object cache a transient can
+	 * be evicted between the checkout return and the next page load,
+	 * which is the exact gap the pointer bridges. Seven days covers a CTI
+	 * outage spanning a weekend without turning stale.
+	 */
+	const OPTION_PURCHASE_POINTER = 'segurium_purchase_pointer';
+	const PURCHASE_POINTER_TTL    = 604800;
+
+	/**
+	 * After a claim attempt CTI could not answer, the pointer carries a
+	 * `hold_until` so a CTI outage does not turn every Segurium page load
+	 * into a claim. Kept inside the pointer record: one row, one expiry,
+	 * nothing an object cache can evict on its own.
+	 */
+	const CLAIM_HOLD_AFTER_FAILURE = 300;
+
+	const CHANGE_CLAIMED = 'claimed';
 
 	/**
 	 * Process-wide singleton.
@@ -167,8 +194,140 @@ final class Segurium_Pro_Transition {
 			Segurium_Debug::log( '[segurium-pro-transition] add_action failed: ' . $e->getMessage() );
 			return false;
 		}
+		add_action( 'admin_init', array( $this, 'capture_checkout_return' ) );
 		add_action( 'load-toplevel_page_segurium', array( $this, 'reconcile_on_admin_load' ) );
 		return true;
+	}
+
+	/**
+	 * Keep the purchase pointer the Freemius checkout hands back.
+	 *
+	 * The SDK's `process_redirect` page receives `_fs_checkout_data`, a
+	 * JSON blob whose `purchaseData.purchase` names the install, the
+	 * license and the subscription Freemius created, plus the gateway's
+	 * own reference for that subscription. On a `pending_activation`
+	 * return this is all the site ever learns about its purchase: the
+	 * credentials stay with Freemius until the buyer clicks the email.
+	 * The request is authenticated by the SDK's own
+	 * `<affix>_checkout_redirect` nonce, which `FS_Checkout_Manager`
+	 * minted for this admin when the checkout opened.
+	 */
+	public function capture_checkout_return() {
+		if ( ! isset( $_GET['process_redirect'], $_GET['_fs_checkout_data'], $_GET['_wpnonce'] )
+			|| ! is_string( $_GET['process_redirect'] ) || ! is_string( $_GET['_fs_checkout_data'] ) || ! is_string( $_GET['_wpnonce'] )
+			|| ! in_array( strtolower( sanitize_text_field( wp_unslash( $_GET['process_redirect'] ) ) ), array( '1', 'true' ), true )
+		) {
+			return;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			Segurium_Debug::log( '[segurium-pro-transition] checkout return ignored: code=capability_missing' );
+			return;
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) );
+		if ( ! wp_verify_nonce( $nonce, $this->checkout_redirect_nonce_action() ) ) {
+			Segurium_Debug::log( '[segurium-pro-transition] checkout return ignored: code=nonce_rejected' );
+			return;
+		}
+		$pointer = self::pointer_from_checkout_data( sanitize_text_field( wp_unslash( $_GET['_fs_checkout_data'] ) ) );
+		if ( null === $pointer ) {
+			Segurium_Debug::log( '[segurium-pro-transition] checkout return carried no verifiable purchase pointer: code=pointer_missing' );
+			return;
+		}
+		$stored = $this->load_purchase_pointer();
+		if ( null !== $stored && $stored['subscription_id'] === $pointer['subscription_id'] ) {
+			return;
+		}
+		Segurium_Storage::setting_set( self::OPTION_PURCHASE_POINTER, $pointer, false );
+		Segurium_IID::clear_billing_conflict_pending();
+	}
+
+	/**
+	 * Pointer waiting for a claim, or null once it expired or was spent.
+	 *
+	 * @return array|null
+	 */
+	private function load_purchase_pointer() {
+		$pointer = Segurium_Storage::setting_get_array( self::OPTION_PURCHASE_POINTER );
+		if ( empty( $pointer ) ) {
+			return null;
+		}
+		$captured_at = isset( $pointer['captured_at'] ) ? (int) $pointer['captured_at'] : 0;
+		if ( time() - $captured_at > self::PURCHASE_POINTER_TTL ) {
+			$this->drop_purchase_pointer();
+			return null;
+		}
+		$pointer['hold_until'] = isset( $pointer['hold_until'] ) ? (int) $pointer['hold_until'] : 0;
+		return $pointer;
+	}
+
+	/**
+	 * Forget the pointer: bound, expired, or refused for good.
+	 */
+	private function drop_purchase_pointer() {
+		Segurium_Storage::setting_delete( self::OPTION_PURCHASE_POINTER );
+	}
+
+	/**
+	 * Purchase pointer out of the checkout return's `_fs_checkout_data`.
+	 *
+	 * Only a subscription purchase yields one: the object Freemius sends
+	 * for it is the subscription itself (`id` is the subscription id and
+	 * `billing_cycle` is set), and its gateway `external_id` is what CTI
+	 * verifies possession against. A one-off payment has no subscription
+	 * and no such reference, so it yields nothing.
+	 *
+	 * @param string $raw JSON as received.
+	 * @return array{install_id:string,license_id:string,subscription_id:string,external_id:string,captured_at:int,hold_until:int}|null
+	 */
+	public static function pointer_from_checkout_data( $raw ) {
+		$data = json_decode( (string) $raw, true );
+		if ( ! is_array( $data ) || ! isset( $data['purchaseData']['purchase'] ) || ! is_array( $data['purchaseData']['purchase'] ) ) {
+			return null;
+		}
+		$purchase        = $data['purchaseData']['purchase'];
+		$install_id      = self::id_string( isset( $purchase['install_id'] ) ? $purchase['install_id'] : '' );
+		$license_id      = self::id_string( isset( $purchase['license_id'] ) ? $purchase['license_id'] : '' );
+		$subscription_id = self::id_string( isset( $purchase['subscription_id'] ) ? $purchase['subscription_id'] : '' );
+		if ( '' === $subscription_id && ! empty( $purchase['billing_cycle'] ) ) {
+			$subscription_id = self::id_string( isset( $purchase['id'] ) ? $purchase['id'] : '' );
+		}
+		$external_id = isset( $purchase['external_id'] ) && is_string( $purchase['external_id'] )
+			? sanitize_text_field( $purchase['external_id'] )
+			: '';
+		if ( '' === $install_id || '' === $license_id || '' === $subscription_id || '' === $external_id ) {
+			return null;
+		}
+		return array(
+			'install_id'      => $install_id,
+			'license_id'      => $license_id,
+			'subscription_id' => $subscription_id,
+			'external_id'     => $external_id,
+			'captured_at'     => time(),
+			'hold_until'      => 0,
+		);
+	}
+
+	/**
+	 * Freemius ids are decimal strings; anything else is not an id.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string Digits, or '' when the value is not an id.
+	 */
+	private static function id_string( $value ) {
+		if ( is_int( $value ) ) {
+			$value = (string) $value;
+		}
+		return is_string( $value ) && preg_match( '/^[0-9]{1,20}\\z/', $value ) ? $value : '';
+	}
+
+	/**
+	 * Nonce action `FS_Checkout_Manager::get_checkout_redirect_return_url()`
+	 * signed the return with.
+	 *
+	 * @return string
+	 */
+	private function checkout_redirect_nonce_action() {
+		return ( defined( 'SEGURIUM_FS_SLUG' ) ? SEGURIUM_FS_SLUG : 'segurium' ) . '_checkout_redirect';
 	}
 
 	/**
@@ -198,14 +357,159 @@ final class Segurium_Pro_Transition {
 		}
 
 		try {
-			if ( ! $this->is_pro_from_sdk() ) {
-				return;
-			}
+			$paying = $this->is_pro_from_sdk();
 		} catch ( Throwable $e ) {
+			$paying = false;
+		}
+		if ( $paying ) {
+			$this->safe_billing_sync();
 			return;
 		}
 
-		$this->safe_billing_sync();
+		$this->safe_billing_claim();
+	}
+
+	/**
+	 * Bind a purchase the SDK cannot prove, through `POST /v1/billing/claim`.
+	 *
+	 * Runs only when the SDK is not paying: a paying SDK holds the install
+	 * secret, and sync with that secret is the stronger proof. The
+	 * transition state stays untouched on purpose, so the SDK's own
+	 * `after_license_change` after the email click still runs that sync
+	 * once and CTI ends up holding the secret-backed binding.
+	 *
+	 * @return bool True when the envelope was cached.
+	 */
+	private function safe_billing_claim() {
+		if ( ! $this->sdk_pending_activation() ) {
+			return false;
+		}
+		$pointer = $this->load_purchase_pointer();
+		if ( null === $pointer ) {
+			return false;
+		}
+		if ( (int) $pointer['hold_until'] > time() ) {
+			return false;
+		}
+		try {
+			$client = $this->load_cti();
+			if ( null === $client || ! method_exists( $client, 'billing_claim' ) ) {
+				Segurium_Debug::log( '[segurium-pro-transition] billing_claim skipped: code=cti_client_unavailable' );
+				$this->hold_claims();
+				return false;
+			}
+			$resp = $client->billing_claim(
+				$pointer['install_id'],
+				$pointer['license_id'],
+				$pointer['subscription_id'],
+				$pointer['external_id']
+			);
+			if ( ! is_array( $resp ) ) {
+				$this->handle_claim_refusal( $resp );
+				return false;
+			}
+			if ( ! $this->cache_billing_envelope( $resp, 'billing_claim' ) ) {
+				$this->hold_claims();
+				return false;
+			}
+			$this->append_activity_log( self::EVENT_PRO_ACTIVATED, self::CHANGE_CLAIMED, '' );
+			$this->safe_send_cti( self::EVENT_PRO_ACTIVATED, self::CHANGE_CLAIMED, '' );
+			return true;
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-pro-transition] billing_claim failed: code=exception — ' . $e->getMessage() );
+			$this->hold_claims();
+			return false;
+		}
+	}
+
+	/**
+	 * Whether the SDK is waiting for the buyer's email click. The flag
+	 * lives in the autoloaded `fs_accounts` option, so this costs no
+	 * query, and only a checkout that ended there leaves a pointer to
+	 * claim.
+	 *
+	 * @return bool
+	 */
+	private function sdk_pending_activation() {
+		$fs = $this->load_sdk();
+		if ( ! is_object( $fs ) || ! method_exists( $fs, 'is_pending_activation' ) ) {
+			return false;
+		}
+		try {
+			return (bool) $fs->is_pending_activation();
+		} catch ( Throwable $e ) {
+			return false;
+		}
+	}
+
+	/**
+	 * Block the next claims for a while; the pointer stays.
+	 */
+	private function hold_claims() {
+		$pointer = $this->load_purchase_pointer();
+		if ( null === $pointer ) {
+			return;
+		}
+		$pointer['hold_until'] = time() + self::CLAIM_HOLD_AFTER_FAILURE;
+		Segurium_Storage::setting_set( self::OPTION_PURCHASE_POINTER, $pointer, false );
+	}
+
+	/**
+	 * Sort a refused `billing_claim()` into drop, conflict, or hold.
+	 *
+	 * @param WP_Error $resp `billing_claim()` refusal.
+	 */
+	private function handle_claim_refusal( WP_Error $resp ) {
+		$scope = $this->binding_conflict_scope( $resp );
+		if ( null !== $scope ) {
+			$this->handle_binding_conflict( $scope, 'billing_claim' );
+			return;
+		}
+		$data   = $resp->get_error_data();
+		$status = is_array( $data ) && isset( $data['status'] ) ? (int) $data['status'] : 0;
+		$reason = $resp->get_error_code() . ' ' . $resp->get_error_message();
+		if ( in_array( $status, array( 400, 403 ), true ) ) {
+			$this->drop_purchase_pointer();
+			Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_claim refused: code=claim_refused status=%d — %s; pointer dropped', $status, $reason ) );
+			return;
+		}
+		$this->hold_claims();
+		Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_claim failed: code=claim_unavailable status=%d — %s; retry held', $status, $reason ) );
+	}
+
+	/**
+	 * CTI refused the bind because the license or install is Pro-bound
+	 * to another IID: arm the recovery banner and its one-hour hold.
+	 *
+	 * @param string $scope `install` or `license` (or '' when CTI sent none).
+	 * @param string $label Calling route, for the log line.
+	 */
+	private function handle_binding_conflict( $scope, $label ) {
+		Segurium_IID::mark_billing_conflict_pending();
+		Segurium_Debug::log( sprintf( '[segurium-pro-transition] %s failed: code=binding_conflict scope=%s — CTI holds this license on another install identity; recovery banner armed, admin-load retry held', $label, $scope ) );
+	}
+
+	/**
+	 * Land a 2xx sync or claim envelope in the quota cache.
+	 *
+	 * @param array  $resp  Decoded CTI response.
+	 * @param string $label Calling route, for the log line.
+	 * @return bool True when the envelope was cached.
+	 */
+	private function cache_billing_envelope( array $resp, $label ) {
+		Segurium_IID::clear_billing_conflict_pending();
+		$quota = $this->load_quota();
+		if ( null === $quota || ! method_exists( $quota, 'apply_billing_sync_envelope' ) ) {
+			Segurium_Debug::log( sprintf( '[segurium-pro-transition] %s failed: code=quota_unavailable — Segurium_Quota missing apply_billing_sync_envelope method', $label ) );
+			return false;
+		}
+		$applied = (bool) $quota->apply_billing_sync_envelope( $resp );
+		if ( ! $applied ) {
+			Segurium_Debug::log( sprintf( '[segurium-pro-transition] %s failed: code=envelope_rejected — CTI returned 200 but apply_billing_sync_envelope refused the payload', $label ) );
+			return false;
+		}
+		$this->drop_purchase_pointer();
+		return true;
 	}
 
 	/**
@@ -267,14 +571,7 @@ final class Segurium_Pro_Transition {
 			$this->safe_send_cti( self::EVENT_PRO_DEACTIVATED, (string) $plan_change, $plan_slug );
 		}
 
-		$this->save_state(
-			array(
-				'is_pro'      => $is_pro_now,
-				'updated_at'  => time(),
-				'last_change' => (string) $plan_change,
-				'plan_slug'   => $plan_slug,
-			)
-		);
+		$this->save_state( $is_pro_now, (string) $plan_change, $plan_slug );
 	}
 
 	/**
@@ -282,10 +579,11 @@ final class Segurium_Pro_Transition {
 	 * current entitlement read. Used by the WP-CLI command in support
 	 * triage ("did Pro actually flip on this site?").
 	 *
-	 * @return array{persisted:array,is_pro_now:bool,sdk_loaded:bool}
+	 * @return array{persisted:array,is_pro_now:bool,sdk_loaded:bool,purchase_pointer:bool,claim_held:bool}
 	 */
 	public function dump() {
 		$persisted = $this->load_state();
+		$pointer   = $this->load_purchase_pointer();
 		$fs        = $this->load_sdk();
 		$loaded    = is_object( $fs );
 		$is_pro    = false;
@@ -297,9 +595,11 @@ final class Segurium_Pro_Transition {
 			}
 		}
 		return array(
-			'persisted'  => $persisted,
-			'is_pro_now' => $is_pro,
-			'sdk_loaded' => $loaded,
+			'persisted'        => $persisted,
+			'is_pro_now'       => $is_pro,
+			'sdk_loaded'       => $loaded,
+			'purchase_pointer' => null !== $pointer,
+			'claim_held'       => null !== $pointer && $pointer['hold_until'] > time(),
 		);
 	}
 
@@ -356,24 +656,13 @@ final class Segurium_Pro_Transition {
 			if ( ! is_array( $resp ) ) {
 				$scope = $this->binding_conflict_scope( $resp );
 				if ( null !== $scope ) {
-					Segurium_IID::mark_billing_conflict_pending();
-					Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_sync failed: code=binding_conflict scope=%s — CTI holds this license on another install identity; recovery banner armed, admin-load retry held', $scope ) );
+					$this->handle_binding_conflict( $scope, 'billing_sync' );
 					return false;
 				}
 				Segurium_Debug::log( sprintf( '[segurium-pro-transition] billing_sync failed: code=cti_response_invalid type=%s — CTI /v1/billing/sync returned non-array (HTTP non-2xx, transport error, or malformed JSON)', gettype( $resp ) ) );
 				return false;
 			}
-			Segurium_IID::clear_billing_conflict_pending();
-			$quota = $this->load_quota();
-			if ( null === $quota || ! method_exists( $quota, 'apply_billing_sync_envelope' ) ) {
-				Segurium_Debug::log( '[segurium-pro-transition] billing_sync failed: code=quota_unavailable — Segurium_Quota missing apply_billing_sync_envelope method' );
-				return false;
-			}
-			$applied = (bool) $quota->apply_billing_sync_envelope( $resp );
-			if ( ! $applied ) {
-				Segurium_Debug::log( '[segurium-pro-transition] billing_sync failed: code=envelope_rejected — CTI returned 200 but apply_billing_sync_envelope refused the payload' );
-			}
-			return $applied;
+			return $this->cache_billing_envelope( $resp, 'billing_sync' );
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium-pro-transition] billing_sync failed: code=exception — ' . $e->getMessage() );
 			return false;
@@ -382,9 +671,9 @@ final class Segurium_Pro_Transition {
 
 	/**
 	 * Pick the CTI 409 `binding_conflict` refusal out of a failed
-	 * `billing_sync()` result.
+	 * `billing_sync()` or `billing_claim()` result.
 	 *
-	 * @param mixed $resp `billing_sync()` return value.
+	 * @param mixed $resp `billing_sync()` / `billing_claim()` return value.
 	 * @return string|null Conflict scope (`install` or `license`, '' when
 	 *                     the body carries none); null for any other outcome.
 	 */
@@ -527,10 +816,21 @@ final class Segurium_Pro_Transition {
 	/**
 	 * Persist the new transition state via the storage façade.
 	 *
-	 * @param array $state The state record.
+	 * @param bool   $is_pro      Post-transition Pro state.
+	 * @param string $last_change Freemius plan_change tag, or `claimed`.
+	 * @param string $plan_slug   Resolved plan slug, if any.
 	 */
-	private function save_state( array $state ) {
-		Segurium_Storage::setting_set( self::OPTION_STATE, $state, false );
+	private function save_state( $is_pro, $last_change, $plan_slug ) {
+		Segurium_Storage::setting_set(
+			self::OPTION_STATE,
+			array(
+				'is_pro'      => (bool) $is_pro,
+				'updated_at'  => time(),
+				'last_change' => (string) $last_change,
+				'plan_slug'   => (string) $plan_slug,
+			),
+			false
+		);
 	}
 
 	/**

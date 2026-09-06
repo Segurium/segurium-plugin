@@ -1,0 +1,3176 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.3.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-09-04T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-09-04 01:05+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Chinese (Taiwan) <zh_TW@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: segurium\n"
+
+msgid "Security issues need your attention"
+msgstr "安全性問題需要你注意"
+
+msgid "A vulnerable component is installed"
+msgstr "已安裝存在漏洞的元件"
+
+msgid "Malware is waiting for you to act"
+msgstr "惡意軟體正等你處理"
+
+msgid "You can change this later under Settings."
+msgstr "你之後可以在 [設定] 中變更這項選擇。"
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "無法套用這項修正。請開啟該功能的分頁並在該處開啟它。"
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr "設定已儲存。你的頁面快取仍在提供舊的回應，這一列會在快取重新整理後清除。"
+
+msgid "Applying..."
+msgstr "正在套用..."
+
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr "%1$s 將從 %2$s 更新至 %3$s。這是主要版本變更，可能導致網站無法運作。"
+
+msgid "No update available"
+msgstr "沒有可用的更新"
+
+msgid "Vulnerable"
+msgstr "存在漏洞"
+
+msgid "Outdated"
+msgstr "已過期"
+
+msgid "Update"
+msgstr "更新"
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "無法儲存這項設定。請開啟該功能的分頁並在該處開啟它。"
+
+msgid "That feature is not available on this installation."
+msgstr "這項功能在這個安裝上無法使用。"
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr "這部伺服器會在外掛移除標頭後重新加上它。請開啟該功能的分頁，套用伺服器層級的修正。"
+
+msgid "This item cannot be switched on from here."
+msgstr "這個項目無法從這裡開啟。"
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr "這個網站出現惡意軟體及安全性威脅時通知我。"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr "接收安全性通知的電子郵件地址：WordPress 網站管理員的電子郵件地址，或你在下方輸入的地址，並依你的電子郵件通知選擇而定。"
+
+msgid "Temporary deactivation"
+msgstr "暫時停用"
+
+msgid "Found better alternative"
+msgstr "找到更好的替代方案"
+
+msgid "No longer needed"
+msgstr "已經不需要"
+
+msgid "It is causing issues"
+msgstr "它造成問題"
+
+msgid "Missing feature"
+msgstr "缺少需要的功能"
+
+msgid "Why are you deactivating Segurium?"
+msgstr "你為什麼要停用 Segurium？"
+
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr "Segurium 雲端目前無法清理這個檔案。請稍後再試。"
+
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr "這個檔案沒有乾淨的版本。請手動移除或取代它。"
+
+msgid "Outcome"
+msgstr "結果"
+
+msgid "Recent cloud requests"
+msgstr "最近的雲端要求"
+
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "已由 wp-config.php 中的 SEGURIUM_DISABLE_REMOTE_ACTIONS 關閉。"
+
+msgid ""
+"Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
+"itself. It can only name a component you already have installed, and only "
+"when WordPress.org already offers that update; the update is downloaded by "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
+"requests."
+msgstr ""
+"Segurium 雲端可以要求這個網站更新外掛、佈景主題或 WordPress 本身。它只能指名你已經安裝的元件，而且僅限 WordPress.org "
+"已提供該更新時；更新由 WordPress 從 WordPress.org 下載，絕不會從 Segurium 下載。WordPress "
+"核心程式僅限安全性及維護版本。Segurium 絕不會用這種方式更新自己。關閉這項設定後，這個網站就會停止提出及接受這類要求。"
+
+msgid "Let Segurium Cloud request component updates"
+msgstr "允許 Segurium 雲端要求更新元件"
+
+msgid "Remote actions require authentication."
+msgstr "遠端動作需要驗證。"
+
+msgid "Remote actions are switched off for this site."
+msgstr "這個網站的遠端動作已關閉。"
+
+msgid ""
+"Website hacked? Free malware removal and antivirus scan for WordPress: clean"
+" infected files, restore them. Firewall, brute force, 2FA included."
+msgstr "網站被駭？WordPress 免費惡意軟體清除與病毒掃描：清理受感染的檔案並還原。內含防火牆、暴力密碼破解防護與兩步驟驗證。"
+
+msgid ""
+"Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup,"
+" Firewall, 2FA"
+msgstr "Segurium – 免費惡意軟體清除與病毒掃描器、被駭網站清理、防火牆、兩步驟驗證"
+
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr "已拒絕刪除：「%s」是受保護的檔案。網頁伺服器或另一個外掛可能會載入它，移除它可能導致整個網站無法運作。如果你確定安全無虞，請手動刪除。"
+
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "無法辨識元件版本。%d 個檔案無法驗證。"
+
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "判定結果「%s」沒有自動修正方式。"
+
+msgid "Could not save your choice. Please try again."
+msgstr "無法儲存你的選擇。請再試一次。"
+
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr "進度顯示發生指令碼錯誤並停止更新。請重新載入頁面以查看目前狀態 — 掃描本身不受影響。詳細資料位於瀏覽器主控台。"
+
+msgid "Scan in progress..."
+msgstr "掃描進行中..."
+
+msgid "Unknown review prompt action."
+msgstr "無法辨識的評論提示動作。"
+
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr "如果 Segurium 有做好它的工作，你願意在 WordPress.org 留下誠實的評論嗎？只需要一分鐘。"
+
+msgid "Scan complete. Your site is clean."
+msgstr "掃描完成。你的網站是乾淨的。"
+
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"很高興我們幫得上忙。如果 Segurium 今天為你省下時間或金錢，在 WordPress.org "
+"留下誠實的評論可以幫助其他網站擁有者找到它，也幫助我們維持清理方案免費。"
+
+msgid "Segurium just cleaned your site."
+msgstr "Segurium 剛剛清理了你的網站。"
+
+msgid "Don't ask again"
+msgstr "不要再詢問"
+
+msgid "Leave a review"
+msgstr "留下評論"
+
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "下載的檔案與回應中的總和檢查碼不符。"
+
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "Segurium 雲端的回應缺少檔案總和檢查碼。"
+
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium 雲端傳回的檔案內容不是有效的 base64。"
+
+msgid "Segurium Cloud response is missing the file content."
+msgstr "Segurium 雲端的回應缺少檔案內容。"
+
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium 雲端傳回錯誤 %d。"
+
+msgid "Invalid response from Segurium Cloud."
+msgstr "Segurium 雲端傳回無效的回應。"
+
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "清理後的檔案與清理回應中的總和檢查碼不符。"
+
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "清理回應缺少清理後檔案的總和檢查碼。"
+
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium 雲端傳回的清理內容不是有效的 base64。"
+
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Segurium 雲端傳回無效的清理回應。"
+
+msgid "Segurium Cloud"
+msgstr "Segurium 雲端"
+
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"啟用後，檔案內容可能會分享給 Segurium 雲端，以進行進階惡意軟體偵測及雲端清理。只有可疑檔案會傳送。關閉它即進入自架模式：掃描屆時只會傳送 "
+"SHA-256 "
+"雜湊值、檔案路徑及中繼資料，雲端無法憑雜湊值識別的檔案則維持未判定狀態。回報誤判或在技術支援單附加檔案時仍會傳送該檔案，因為檔案是由你自己挑選的。"
+
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr "為了分析而上傳的檔案樣本最多保留 365 天，之後由每晚自動執行的清除工作移除。樣本經過審閱後可能提早移除。"
+
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "掃描前必須先取得 Segurium 雲端的同意。"
+
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr "自架模式已啟用：檔案內容留在這部伺服器上，雲端無法憑雜湊值識別的檔案則維持未判定狀態。請開啟雲端輔助偵測以取得完整準確度。"
+
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium 雲端 (%s)：簽章未通過驗證。"
+
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium 雲端 (%1$s)：libsodium 拒絕了這個簽章 (%2$s)。"
+
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr "Segurium 雲端 (%1$s)：簽章時間戳記超出範圍 %2$d 秒。"
+
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium 雲端 (%s)：簽章時間戳記格式錯誤。"
+
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium 雲端 (%s)：簽章標頭格式錯誤。"
+
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium 雲端 (%1$s)：以未受信任的金鑰「%2$s」簽署。"
+
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium 雲端 (%s)：缺少簽章標頭。"
+
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium 雲端 (%s)：沒有可驗證的回應。"
+
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Segurium 雲端傳回無效的帳單回應。"
+
+msgid "unknown"
+msgstr "不明"
+
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Segurium 需要 WordPress %1$s 以上版本。這個網站執行的是 WordPress %2$s。請更新 "
+"WordPress，然後再次嘗試啟用 Segurium。"
+
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Segurium 需要 PHP %1$s 以上版本。這個網站執行的是 PHP %2$s。請要求你的主機商升級 PHP，然後再次嘗試啟用 "
+"Segurium。"
+
+msgid "Plugin Activation Error"
+msgstr "外掛啟用錯誤"
+
+msgid "Cleanup unavailable."
+msgstr "無法進行清理。"
+
+msgid "Missing parameter: %s"
+msgstr "缺少參數：%s"
+
+msgid "No Wordfence 2FA data found"
+msgstr "找不到 Wordfence 的兩步驟驗證資料"
+
+msgid "Import into Segurium 2FA"
+msgstr "匯入 Segurium 兩步驟驗證"
+
+msgid "Import %d user(s) with TOTP"
+msgstr "匯入 %d 位使用 TOTP 的使用者"
+
+msgid "No manual IP blocks found in Wordfence."
+msgstr "在 Wordfence 中找不到手動封鎖的 IP 位址。"
+
+msgid "No country blocks configured in Wordfence."
+msgstr "Wordfence 中未設定國家/地區封鎖。"
+
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "Wordfence 中未設定排除模式。"
+
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr "Segurium 地區封鎖 (可使用) — 請在 [地區封鎖] 分頁手動設定。"
+
+msgid "Segurium WAF rules (planned)"
+msgstr "Segurium WAF 規則 (規劃中)"
+
+msgid "WAF Rules"
+msgstr "WAF 規則"
+
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr "Sucuri Security 將它的 WAF 規則、地區封鎖及惡意軟體掃描設定存放在 Sucuri 雲端控制台，這些設定無法在本機匯入。"
+
+msgid "Cloud-Managed Settings"
+msgstr "雲端管理的設定"
+
+msgid "No banned IPs found in Solid Security."
+msgstr "在 Solid Security 中找不到封鎖的 IP 位址。"
+
+msgid "Banned IPs"
+msgstr "已封鎖的 IP 位址"
+
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr "Solid Security 將國家/地區封鎖存放在雲端控制台。請在 [地區封鎖] 分頁手動設定。"
+
+msgid "Segurium 2FA (planned)"
+msgstr "Segurium 兩步驟驗證 (規劃中)"
+
+msgid "No file exclusions configured in AIOS."
+msgstr "AIOS 中未設定檔案排除項目。"
+
+msgid "Scan Exclusions"
+msgstr "掃描排除項目"
+
+msgid "Merge"
+msgstr "合併"
+
+msgid "No banned IPs configured in AIOS."
+msgstr "AIOS 中未設定封鎖的 IP 位址。"
+
+msgid "Blocked IPs"
+msgstr "已封鎖的 IP 位址"
+
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
+msgstr "AIOS 的國家/地區封鎖是付費雲端功能，無法在本機匯入。"
+
+msgid "Country Blocking"
+msgstr "國家/地區封鎖"
+
+msgid "Segurium brute force protection (planned)"
+msgstr "Segurium 暴力密碼破解防護 (規劃中)"
+
+msgid "Brute Force Protection"
+msgstr "暴力密碼破解防護"
+
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr "AIOS 的 IP 允許清單 (略過) 在 Segurium 的拒絕清單防火牆模式中沒有直接對應項目。如有需要請手動設定。"
+
+msgid "IP Whitelist"
+msgstr "IP 允許清單"
+
+msgid "2FA reset for user %s."
+msgstr "已重設使用者 %s 的兩步驟驗證。"
+
+msgid "User not found."
+msgstr "找不到使用者。"
+
+msgid "Please enter a username or user ID."
+msgstr "請輸入使用者名稱或使用者 ID。"
+
+msgid "Failed to read uploaded file."
+msgstr "無法讀取上傳的檔案。"
+
+msgid "Invalid upload."
+msgstr "無效的上傳。"
+
+msgid "File is empty or too large (max 100 MB)."
+msgstr "檔案是空的或過大 (上限 100 MB)。"
+
+msgid "Failed to upload the file. Try again."
+msgstr "無法上傳檔案。請再試一次。"
+
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "你今天送出的技術支援單過多。請明天再試。"
+
+msgid "A valid reply-to email is required."
+msgstr "必須提供有效的回覆電子郵件地址。"
+
+msgid "Message is required."
+msgstr "必須填寫訊息。"
+
+msgid "Permission denied."
+msgstr "沒有權限。"
+
+msgid "Other request"
+msgstr "其他要求"
+
+msgid "Missed malware report"
+msgstr "漏偵測惡意軟體回報"
+
+msgid "Plugin not found or no data to migrate."
+msgstr "找不到外掛，或沒有可移轉的資料。"
+
+msgid "Invalid IP address."
+msgstr "無效的 IP 位址。"
+
+msgid "Invalid backup reference."
+msgstr "無效的備份參照。"
+
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr "備份完整性檢查失敗 — 內容雜湊值與中繼資料不符。"
+
+msgid "Backup file is corrupt — decompression failed."
+msgstr "備份檔案已損毀 — 解壓縮失敗。"
+
+msgid "Backup file is corrupt — decryption failed."
+msgstr "備份檔案已損毀 — 解密失敗。"
+
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr "無法讀取備份檔案。請檢查 uploads/segurium-data 的檔案系統權限。"
+
+msgid "Backup metadata is missing or unreadable."
+msgstr "備份中繼資料遺失或無法讀取。"
+
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr "備份已不存在 — 較新的備份已將它輪替移除。"
+
+msgid "Failed to read file"
+msgstr "無法讀取檔案"
+
+msgid "Failed to delete file"
+msgstr "無法刪除檔案"
+
+msgid "Failed to create backup"
+msgstr "無法建立備份"
+
+msgid "Failed to read file for backup"
+msgstr "無法讀取要備份的檔案"
+
+msgid "Failed to write file"
+msgstr "無法寫入檔案"
+
+msgid "Failed to create directory"
+msgstr "無法建立目錄"
+
+msgid "Pending change not found or already expired."
+msgstr "找不到待處理的變更，或它已過期。"
+
+msgid "Unauthorized."
+msgstr "未授權。"
+
+msgid "Failed to compress file."
+msgstr "無法壓縮檔案。"
+
+msgid "File contents changed since the scan."
+msgstr "檔案內容在掃描後已變更。"
+
+msgid "File is too large to submit."
+msgstr "檔案過大，無法送出。"
+
+msgid "File not found on disk."
+msgstr "在磁碟上找不到這個檔案。"
+
+msgid "Protected file (exclusion list)."
+msgstr "受保護的檔案 (排除清單)。"
+
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "並非來自 WordPress.org — 無法驗證完整性。"
+
+msgid "Active abandoned theme — switch manually."
+msgstr "使用中的已停止維護佈景主題 — 請手動切換。"
+
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr "佈景主題「%s」已停止維護，但目前使用中，因此會略過。"
+
+msgid "Delisted from WordPress.org"
+msgstr "已從 WordPress.org 下架"
+
+msgid "Cannot delete active theme. Switch first."
+msgstr "無法刪除使用中的佈景主題。請先切換。"
+
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "已從備份還原 %1$s「%2$s」。"
+
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "已刪除 %1$s「%2$s」，並建立備份。"
+
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr "無法刪除目前使用中的佈景主題。請先切換至其他佈景主題。"
+
+msgid "Invalid parameters."
+msgstr "無效的參數。"
+
+msgid "File too large to view (>2 MB)"
+msgstr "檔案過大，無法檢視 (超過 2 MB)"
+
+msgid "Failed to write restored file"
+msgstr "無法寫入還原的檔案"
+
+msgid "Missing parameters."
+msgstr "缺少參數。"
+
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "這個端點已移除。請重新載入頁面。"
+
+msgid "Unexpected error."
+msgstr "非預期的錯誤。"
+
+msgid "Unexpected error: %s"
+msgstr "非預期的錯誤：%s"
+
+msgid "No integrity scan is currently running."
+msgstr "目前沒有正在執行的完整性掃描。"
+
+msgid "Failed to read file."
+msgstr "無法讀取檔案。"
+
+msgid "File is too large to preview."
+msgstr "檔案過大，無法預覽。"
+
+msgid "File not found or not readable."
+msgstr "找不到檔案或無法讀取。"
+
+msgid "File is outside the WordPress root."
+msgstr "檔案位於 WordPress 根目錄之外。"
+
+msgid "File is not an active malware entry."
+msgstr "這個檔案不是使用中的惡意軟體項目。"
+
+msgid "Failed to read target file"
+msgstr "無法讀取目標檔案"
+
+msgid "Backup has no target path"
+msgstr "備份沒有目標路徑"
+
+msgid "File restored from backup"
+msgstr "已從備份還原檔案"
+
+msgid "Invalid restore path"
+msgstr "無效的還原路徑"
+
+msgid "Failed to restore file"
+msgstr "無法還原檔案"
+
+msgid "Backup not found"
+msgstr "找不到備份"
+
+msgid "Missing backup ID"
+msgstr "缺少備份 ID"
+
+msgid "File cleaned"
+msgstr "檔案已清理"
+
+msgid "File not found"
+msgstr "找不到檔案"
+
+msgid "Invalid path"
+msgstr "無效的路徑"
+
+msgid "Invalid parameters"
+msgstr "無效的參數"
+
+msgid "No scan results available"
+msgstr "沒有可用的掃描結果"
+
+msgid "Unauthorized"
+msgstr "未授權"
+
+msgid "Check the PHP error log for details."
+msgstr "詳細資料請檢視 PHP 錯誤記錄檔。"
+
+msgid "Could not stop the running scan due to a server error."
+msgstr "因伺服器錯誤，無法停止執行中的掃描。"
+
+msgid "The scan could not be started due to a server error."
+msgstr "因伺服器錯誤，無法開始掃描。"
+
+msgid "You do not have permission to manage scan settings."
+msgstr "你沒有管理掃描設定的權限。"
+
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "已移除 %d 個超過 191 個字元的項目。"
+
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "掃描排除清單上限為 500 個項目。"
+
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] "已將 %d 個絕對路徑改寫為相對於 WordPress 安裝根目錄的路徑。"
+
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "已移除單獨的 * 模式，因為它會排除所有檔案。"
+
+msgid "Your IP"
+msgstr "你的 IP 位址"
+
+msgid "Copy IID to clipboard"
+msgstr "複製 IID 至剪貼簿"
+
+msgid "IID"
+msgstr "IID"
+
+msgid "Proxies DB updated"
+msgstr "Proxy 資料庫已更新"
+
+msgid "Geo DB updated"
+msgstr "地理位置資料庫已更新"
+
+msgid "Plan"
+msgstr "方案"
+
+msgid "Version"
+msgstr "版本"
+
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr "將其他安全性外掛的設定匯入 Segurium。現有的 Segurium 設定會保留，匯入的資料則會合併。"
+
+msgid "Save Schedule"
+msgstr "儲存排程"
+
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"依重複排程自動執行完整的惡意軟體掃描。排程掃描做的工作與手動掃描相同，但不需要你一直開著瀏覽器。如果排程時間點觸發時已有手動掃描進行中，這次排程會略過，不會排入佇列。"
+
+msgid "Scheduled Scan"
+msgstr "排程掃描"
+
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr "每次排程掃描或即時掃描之後，已判定為惡意軟體或注入的檔案不需點擊即會清理。你已忽略的檔案 (依路徑或依雜湊值) 則會略過。"
+
+msgid "Automatically clean detected malware"
+msgstr "自動清理偵測到的惡意軟體"
+
+msgid "Leave blank to use the WordPress site admin email."
+msgstr "留空即使用 WordPress 網站管理員的電子郵件地址。"
+
+msgid "Alert email address"
+msgstr "通知用電子郵件地址"
+
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr "傳送惡意軟體判定結果及成功清理的每日摘要，寄件地址為 support@segurium.com。每個網站每 24 小時最多一封電子郵件。"
+
+msgid "Email me about findings"
+msgstr "以電子郵件通知我相關發現"
+
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"關閉 (預設值)：已刪除元件及已修復檔案的加密備份，在解除安裝後仍會保留於 uploads/segurium-data "
+"目錄，因此重新安裝後仍可還原。只有在你希望解除安裝時徹底刪除，才需要開啟。"
+
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "解除安裝這個外掛時抹除加密備份"
+
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr "請使用 * 作為萬用字元。舉例來說，*.log 會排除所有記錄檔，vendor/* 則會排除 vendor 目錄及其中的所有內容。"
+
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr "將符合下列萬用字元模式的檔案排除於掃描之外 (一行一個)"
+
+msgid "Scan Settings"
+msgstr "掃描設定"
+
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr "5 個及 25 個網站的組合方案，以及 100 個以上網站的報價，請見 %1$ssegurium.com/pricing/%2$s。"
+
+msgid "14-day money-back guarantee."
+msgstr "14 天退款保證。"
+
+msgid "/year per site"
+msgstr "/每個網站每年"
+
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr "無限次清理。功能與免費方案相同，但沒有每月上限。"
+
+msgid "forever"
+msgstr "永久"
+
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr "每個網站都有全部功能。清理次數上限為每 30 天 3 次。"
+
+msgid "Free"
+msgstr "免費"
+
+msgid "Current plan"
+msgstr "目前的方案"
+
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr "每個安裝都隨附全部功能。Pro 方案提高每月清理上限。"
+
+msgid "Email support, priority queue"
+msgstr "電子郵件技術支援，優先處理"
+
+msgid "Everything in Free"
+msgstr "免費方案的所有內容"
+
+msgid "Unlimited cleanup"
+msgstr "無限次清理"
+
+msgid "Community support"
+msgstr "社群技術支援"
+
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "移轉匯入工具 (Wordfence、AIOS、Solid Security)"
+
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "檔案完整性監控 (核心程式/外掛/佈景主題)"
+
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr "強化：兩步驟驗證、暴力密碼破解防護、地區封鎖、防火牆、安全性標頭"
+
+msgid "Auto-fix and Bulk Fix All"
+msgstr "自動修正與批次全部修正"
+
+msgid "Full malware detection — same findings as Pro"
+msgstr "完整的惡意軟體偵測 — 發現內容與 Pro 方案相同"
+
+msgid "Cleanup: 3 files / 30 days"
+msgstr "清理：每 30 天 3 個檔案"
+
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+msgid "Cross-check results with these public scanners:"
+msgstr "以下列公開掃描器交叉比對結果："
+
+msgid "Independent verification"
+msgstr "獨立驗證"
+
+msgid "Check results"
+msgstr "檢查結果"
+
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Segurium 執行的檢查與主要的外部安全性掃描器相同，另加 WordPress 專屬的強化檢查，並為你的網站評等 A+ 到 "
+"F。結果會保存至下次執行為止。"
+
+msgid "Security Self-Check"
+msgstr "安全性自我檢查"
+
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr "部分外掛 (Jetpack、WordPress 行動應用程式) 需要 XML-RPC。只有在你不使用它們時才停用。"
+
+msgid "Disable XML-RPC entirely"
+msgstr "完全停用 XML-RPC"
+
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr "從 CSS 及 JavaScript 網址中移除 ?ver=。瀏覽器快取的資源在外掛或佈景主題更新後可能過時。"
+
+msgid "Remove version query strings"
+msgstr "移除版本查詢字串"
+
+msgid "Asset Fingerprinting"
+msgstr "資源特徵"
+
+msgid "Removes prev/next post rel links from HTML head."
+msgstr "從 HTML head 移除上一篇/下一篇文章的 rel 連結。"
+
+msgid "Remove adjacent post links"
+msgstr "移除相鄰文章連結"
+
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr "可能導致 RSS 閱讀器及 WordPress.com Reader 無法運作。只有在你的網站不使用 RSS 資訊提供時才啟用。"
+
+msgid "Remove RSS/Atom feed links"
+msgstr "移除 RSS/Atom 資訊提供連結"
+
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr "移除 WordPress Emoji 表情符號 polyfill 的 JavaScript 及 CSS。新式瀏覽器原生支援 Emoji。"
+
+msgid "Remove emoji scripts and styles"
+msgstr "移除 Emoji 表情符號指令碼及樣式"
+
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "從 HTML head 移除 shortlink 連結標籤。"
+
+msgid "Remove shortlink meta tag"
+msgstr "移除 shortlink meta 標籤"
+
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr "避免其他網站連結到你的內容時顯示豐富的內嵌預覽。"
+
+msgid "Remove oEmbed discovery links"
+msgstr "移除 oEmbed 探索連結"
+
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr "從 HTML head 移除探索連結標籤。REST API 本身在 /wp-json/ 仍可正常運作。"
+
+msgid "Remove REST API discovery link"
+msgstr "移除 REST API 探索連結"
+
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr "移除 Windows Live Writer 資訊清單連結。只有在你使用 WLW 撰寫文章時才需要。"
+
+msgid "Remove WLW manifest link"
+msgstr "移除 WLW 資訊清單連結"
+
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr "從 HTML head 移除 Really Simple Discovery 端點連結。"
+
+msgid "Remove RSD link"
+msgstr "移除 RSD 連結"
+
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr "移除洩漏你 WordPress 版本的 meta generator 標籤及 RSS generator。"
+
+msgid "Remove WordPress generator tag"
+msgstr "移除 WordPress generator 標籤"
+
+msgid "HTML Meta and Links"
+msgstr "HTML Meta 與連結"
+
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "移除 rel=shortlink HTTP 標頭。"
+
+msgid "Remove Shortlink Link: header"
+msgstr "移除 Shortlink Link: 標頭"
+
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr "移除公告 REST API 端點的 HTTP Link 標頭。"
+
+msgid "Remove REST API Link: header"
+msgstr "移除 REST API Link: 標頭"
+
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr "在回應標頭中隱藏 pingback/XML-RPC 端點網址。"
+
+msgid "Remove X-Pingback header"
+msgstr "移除 X-Pingback 標頭"
+
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr "移除識別你網頁伺服器軟體的標頭。盡力而為。"
+
+msgid "Remove Server header"
+msgstr "移除 Server 標頭"
+
+msgid "Removes the header that reveals your PHP version."
+msgstr "移除洩漏你 PHP 版本的標頭。"
+
+msgid "Remove X-Powered-By header"
+msgstr "移除 X-Powered-By 標頭"
+
+msgid "HTTP Header Disclosure"
+msgstr "HTTP 標頭資訊洩漏"
+
+msgid "Enable All Recommended"
+msgstr "啟用所有建議項目"
+
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr "從 HTTP 標頭及 HTML 輸出中移除版本特徵、探索端點及非必要的中繼資料，減少 WordPress 洩漏的資訊。"
+
+msgid "Enable Information Shield"
+msgstr "啟用資訊防護罩"
+
+msgid "Headers Preview"
+msgstr "標頭預覽"
+
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr "Strict 可能導致會轉回你網站的 OAuth/SSO 登入流程無法運作。"
+
+msgid "Lax (recommended)"
+msgstr "Lax (建議)"
+
+msgid "SameSite value"
+msgstr "SameSite 值"
+
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"為 WordPress 工作階段 Cookie 加上 SameSite 旗標，防範 CSRF 攻擊。Mozilla Observatory 會扣缺少 "
+"SameSite 的分數。"
+
+msgid "Add SameSite attribute to auth cookies"
+msgstr "為驗證 Cookie 加上 SameSite 屬性"
+
+msgid "Cookie Hardening"
+msgstr "Cookie 強化"
+
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr "設定後，瀏覽器會以 POST 將違規報告送至這個網址。除非你的指示詞已包含 report-uri，否則會自動附加。"
+
+msgid "Report URI (optional)"
+msgstr "報告 URI (選用)"
+
+msgid "CSP reference (MDN)"
+msgstr "CSP 參考資料 (MDN)"
+
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr "以分號分隔的單行指示詞。預設的起始政策允許 Gutenberg 及多數佈景主題；等你的報告乾淨之後再收緊。"
+
+msgid "Policy directives"
+msgstr "政策指示詞"
+
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
+msgstr ""
+"僅報告會送出 Content-Security-Policy-Report-Only — 瀏覽器記錄違規，但仍會載入遭封鎖的資源。強制執行則送出 "
+"Content-Security-Policy 並加以封鎖。"
+
+msgid "Enforce"
+msgstr "強制執行"
+
+msgid "Report-only (recommended for first deploy)"
+msgstr "僅報告 (建議在首次部署時使用)"
+
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"CSP 限制指令碼、樣式及其他資源可從何處載入，藉此減輕 XSS 及注入攻擊。CSP 因網站而異，可能導致佈景主題或頁面建置工具無法運作 — "
+"請先以僅報告模式開始，在強制執行前找出違規項目。"
+
+msgid "Send Content-Security-Policy header"
+msgstr "送出 Content-Security-Policy 標頭"
+
+msgid "Allow all"
+msgstr "全部允許"
+
+msgid "Self only"
+msgstr "僅限自身"
+
+msgid "Deny"
+msgstr "拒絕"
+
+msgid "USB"
+msgstr "USB"
+
+msgid "Payment"
+msgstr "付款"
+
+msgid "MIDI"
+msgstr "MIDI"
+
+msgid "Microphone"
+msgstr "麥克風"
+
+msgid "Magnetometer"
+msgstr "磁力計"
+
+msgid "Gyroscope"
+msgstr "陀螺儀"
+
+msgid "Geolocation"
+msgstr "地理位置"
+
+msgid "Fullscreen"
+msgstr "全螢幕"
+
+msgid "Encrypted media"
+msgstr "加密媒體"
+
+msgid "Camera"
+msgstr "相機"
+
+msgid "Autoplay"
+msgstr "自動播放"
+
+msgid "Accelerometer"
+msgstr "加速度計"
+
+msgid "Control which browser features your site may use."
+msgstr "控制你的網站可以使用哪些瀏覽器功能。"
+
+msgid "Require CORP"
+msgstr "需要 CORP"
+
+msgid "Not set (recommended)"
+msgstr "未設定 (建議)"
+
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+msgid "Cross origin"
+msgstr "跨來源"
+
+msgid "Same site"
+msgstr "同一網站"
+
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+msgid "Unsafe none"
+msgstr "不安全 (unsafe-none)"
+
+msgid "Same origin, allow popups"
+msgstr "同源，允許彈出式視窗"
+
+msgid "Not set"
+msgstr "未設定"
+
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+msgid "Cross-Origin Policies"
+msgstr "跨來源政策"
+
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"你的網站似乎位於子網域上。在 HSTS 中啟用 includeSubDomains 會影響上層網域的所有子網域，包含你可能無法控制的子網域。"
+
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr "警告：preload 難以復原。它需要 max-age 至少一年並包含子網域。"
+
+msgid "Preload"
+msgstr "Preload"
+
+msgid "Include subdomains"
+msgstr "包含子網域"
+
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (秒)"
+
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "強制瀏覽器使用 HTTPS。只有在 SSL 啟用時才會送出。"
+
+msgid "Enable HSTS"
+msgstr "啟用 HSTS"
+
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr "與上一項使用相同的篩選器，但在疑似反射時完全封鎖頁面。缺陷相同，另加一個可能洩漏跨來源資料的時間差側通道。不建議使用。"
+
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr "要求舊版瀏覽器清理反射內容。這個篩選器有誤判，會在無聲無息中破壞正常頁面，並有已知的 UXSS 繞過手法。不建議使用。"
+
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"明確關閉舊版 IE 及舊版 Edge 的 XSS 篩選器，該篩選器有可遭武器化的 universal XSS 缺陷。新式瀏覽器會忽略這個標頭；CSP "
+"才是真正的 XSS 防禦。"
+
+msgid "Enabled with block mode"
+msgstr "啟用並使用封鎖模式"
+
+msgid "Enabled"
+msgstr "已啟用"
+
+msgid "Disabled (recommended)"
+msgstr "已停用 (建議)"
+
+msgid "Unsafe URL"
+msgstr "不安全的網址 (unsafe-url)"
+
+msgid "Strict origin when cross-origin"
+msgstr "跨來源時使用 strict-origin"
+
+msgid "Strict origin"
+msgstr "嚴格來源 (strict-origin)"
+
+msgid "Origin when cross-origin"
+msgstr "跨來源時使用 origin"
+
+msgid "Origin only"
+msgstr "僅限來源"
+
+msgid "No referrer when downgrade"
+msgstr "降級時不送出參照網址"
+
+msgid "No referrer"
+msgstr "不送出參照網址"
+
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "避免你的網站遭嵌入其他網域的 iframe 中。"
+
+msgid "Deny all"
+msgstr "全部拒絕"
+
+msgid "Same origin"
+msgstr "同源"
+
+msgid "Header Values"
+msgstr "標頭值"
+
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr "這個模式會送出固定的預設值。請切換至 [自訂] 以逐一覆寫個別標頭。"
+
+msgid "configure each header individually"
+msgstr "逐一設定每個標頭。"
+
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr "建議項目 + 跨來源政策、DNS 預先擷取、Cache-Control"
+
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "基本項目 + Referrer-Policy、Permissions-Policy、HSTS"
+
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type、X-Frame-Options、X-XSS-Protection"
+
+msgid "Basic"
+msgstr "基本"
+
+msgid "Mode:"
+msgstr "模式:"
+
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr "為所有回應加上 HTTP 安全性回應標頭，防範點擊劫持、MIME 探測、XSS 及通訊協定降級攻擊。"
+
+msgid "Enable Security Headers"
+msgstr "啟用安全性標頭"
+
+msgid "Submit Ticket"
+msgstr "送出技術支援單"
+
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr "附上系統資訊 (WordPress 版本、PHP 版本、外掛版本、使用中的外掛、上次掃描日期)"
+
+msgid "Message"
+msgstr "訊息"
+
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "請附上你認為是惡意軟體的檔案。上限 100 MB。"
+
+msgid "Suspicious file"
+msgstr "可疑檔案"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Report missed malware"
+msgstr "回報漏偵測的惡意軟體"
+
+msgid "General question"
+msgstr "一般問題"
+
+msgid "Feature request"
+msgstr "功能建議"
+
+msgid "Bug report"
+msgstr "錯誤回報"
+
+msgid "Type"
+msgstr "類型"
+
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr "自動附上，讓技術支援得以識別你的網站。請在 [設定] → [一般] 中變更。"
+
+msgid "Website"
+msgstr "網站"
+
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr "我們會回覆至這個地址。如果你希望回覆寄到別處，請加以變更。"
+
+msgid "Reply-to email"
+msgstr "回覆用電子郵件地址"
+
+msgid "Your name"
+msgstr "你的名稱"
+
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "請在下方送出技術支援單。我們的團隊會以電子郵件回覆。"
+
+msgid "Reset 2FA"
+msgstr "重設兩步驟驗證"
+
+msgid "Username or ID"
+msgstr "使用者名稱或 ID"
+
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr "請輸入使用者名稱或使用者 ID，以重設該使用者的兩步驟驗證設定。"
+
+msgid "Reset User 2FA"
+msgstr "重設使用者的兩步驟驗證"
+
+msgid "Users"
+msgstr "使用者"
+
+msgid "Method"
+msgstr "方式"
+
+msgid "User Statistics"
+msgstr "使用者統計資料"
+
+msgid "Save Settings"
+msgstr "儲存設定"
+
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr "使用者勾選信任選項後，裝置保持信任狀態的天數。"
+
+msgid "Trusted Device Duration (days)"
+msgstr "信任裝置期間 (天)"
+
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr "強制執行封鎖尚未設定兩步驟驗證的使用者登入前的天數。設為 0 即立即強制執行。"
+
+msgid "Grace Period (days)"
+msgstr "寬限期 (天)"
+
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "這些角色的使用者必須設定兩步驟驗證。"
+
+msgid "Enforced Roles"
+msgstr "強制執行的角色"
+
+msgid "Select which 2FA methods users can choose from."
+msgstr "選擇使用者可以採用哪些兩步驟驗證方式。"
+
+msgid "Available Methods"
+msgstr "可用的驗證方式"
+
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr "要求使用者在登入時以第二種要素驗證身分。"
+
+msgid "Enable Two-Factor Authentication"
+msgstr "啟用兩步驟驗證"
+
+msgid "Attempts"
+msgstr "嘗試次數"
+
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr "這個數值必須小於失敗嘗試次數上限，挑戰才會在鎖定之前出現。"
+
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr "可選擇在失敗嘗試達到指定次數後，於登入表單顯示 hCaptcha 挑戰。請至 hcaptcha.com 取得免費金鑰。"
+
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr "加入一個畫面外的輸入欄位，合法使用者永遠看不到它。一旦填寫就會立即觸發鎖定。"
+
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr "在歷程記錄期間內達到這個鎖定次數後，下一次鎖定會採用延長時間。"
+
+msgid "edit every setting yourself."
+msgstr "自行編輯每一項設定。"
+
+msgid "Custom"
+msgstr "自訂"
+
+msgid "safe defaults; settings are locked."
+msgstr "安全的預設值；設定已鎖定。"
+
+msgid "Settings:"
+msgstr "設定:"
+
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr "追蹤失敗的登入嘗試，並在達到指定臨界值後鎖定 IP 位址。信任的 IP 位址沿用防火牆的允許清單。"
+
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr "自動偵測清單之外的額外 Proxy IP 位址，一行一個。如果上方已涵蓋你所有的 Proxy，請留空。"
+
+msgid "Loading auto-detected proxy status..."
+msgstr "正在載入自動偵測的 Proxy 狀態..."
+
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "自訂信任 Proxy 的 IP 位址/CIDR"
+
+msgid "Deny everything except…"
+msgstr "全部拒絕，但下列除外…"
+
+msgid "Allow everything except…"
+msgstr "全部允許，但下列除外…"
+
+msgid "Mode"
+msgstr "模式"
+
+msgid "Enable Firewall"
+msgstr "啟用防火牆"
+
+msgid "Requests"
+msgstr "要求"
+
+msgid "Country"
+msgstr "國家/地區"
+
+msgid "Blocked Requests"
+msgstr "已封鎖的要求"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Silent drop (no response)"
+msgstr "靜默丟棄 (不回應)"
+
+msgid "Redirect to URL"
+msgstr "轉址至網址"
+
+msgid "Return 403 Forbidden"
+msgstr "傳回 403 Forbidden"
+
+msgid "Block Action"
+msgstr "封鎖動作"
+
+msgid "Search countries…"
+msgstr "搜尋國家/地區…"
+
+msgid "High-Risk"
+msgstr "高風險"
+
+msgid "Middle East"
+msgstr "中東"
+
+msgid "Africa"
+msgstr "非洲"
+
+msgid "Asia-Pacific"
+msgstr "亞太"
+
+msgid "Americas"
+msgstr "美洲"
+
+msgid "EU"
+msgstr "歐盟"
+
+msgid "Allow only specific countries"
+msgstr "僅允許特定國家/地區"
+
+msgid "Block specific countries"
+msgstr "封鎖特定國家/地區"
+
+msgid "Blocking Mode"
+msgstr "封鎖模式"
+
+msgid "Enable Geo-Blocking"
+msgstr "啟用地區封鎖"
+
+msgid "Revert"
+msgstr "還原"
+
+msgid "s."
+msgstr "秒後還原。"
+
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr "設定已套用。請確認以保留變更，否則變更將在"
+
+msgid "Last Scanned"
+msgstr "上次掃描時間"
+
+msgid "Files"
+msgstr "檔案"
+
+msgid "per page"
+msgstr "每頁"
+
+msgid "Show recent only (14 days)"
+msgstr "僅顯示最近項目 (14 天)"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "State"
+msgstr "狀態"
+
+msgid "File"
+msgstr "檔案"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Malicious"
+msgstr "惡意"
+
+msgid "Fix all"
+msgstr "全部修正"
+
+msgid "Scan"
+msgstr "掃描"
+
+msgid "Plans"
+msgstr "方案"
+
+msgid "Support"
+msgstr "技術支援"
+
+msgid "Migration"
+msgstr "移轉"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Info Shield"
+msgstr "資訊防護罩"
+
+msgid "Headers"
+msgstr "標頭"
+
+msgid "2FA"
+msgstr "兩步驟驗證"
+
+msgid "Brute-Force"
+msgstr "暴力密碼破解"
+
+msgid "GEO Blocking"
+msgstr "地區封鎖"
+
+msgid "Integrity"
+msgstr "完整性"
+
+msgid "Malware Scanner"
+msgstr "惡意軟體掃描器"
+
+msgid "WordPress Security"
+msgstr "WordPress 安全性"
+
+msgid "Never updated on this site yet"
+msgstr "這個網站尚未更新過"
+
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "過時 — 上次重新整理已超過每日期間"
+
+msgid "Up to date"
+msgstr "已是最新狀態"
+
+msgid "I agree"
+msgstr "我同意"
+
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr "啟用掃描即表示你同意 %1$s服務條款%2$s 及 %3$s隱私權政策%4$s。"
+
+msgid "Retention:"
+msgstr "保留期間:"
+
+msgid "Segurium servers at cti.segurium.com."
+msgstr "位於 cti.segurium.com 的 Segurium 伺服器。"
+
+msgid "Where it is sent:"
+msgstr "傳送目的地:"
+
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr "雲端已知其雜湊值的檔案 — 只有雜湊值會離開你的伺服器。"
+
+msgid "Database content, posts, comments, or media files."
+msgstr "資料庫內容、文章、留言或媒體檔案。"
+
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr "造訪你網站的使用者的分析資料或個人資料。"
+
+msgid "What is NOT sent:"
+msgstr "不會傳送的內容:"
+
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr "防火牆事件 (遭封鎖的 IP 位址、攻擊模式)，用於調整所有受 Segurium 保護網站的防護。"
+
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr "掃描、清理及安全性設定事件，讓雲端得以同步你的網站防護。"
+
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr "隨機產生的安裝識別碼及基本網站資訊 (網址、名稱、WordPress 版本)，用於將要求對應至這個安裝。"
+
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr "檔案內容 — 只有在僅憑雜湊值無法確定分類時，或在清理過程中產生乾淨的替代內容時才會傳送。"
+
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr "檔案中繼資料：SHA-256 雜湊值、相對於 WordPress 安裝位置的路徑、大小、修改時間。"
+
+msgid "What is sent:"
+msgstr "會傳送的內容:"
+
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Segurium 與 Segurium 雲端協同運作來保護你的網站。啟用後，Segurium "
+"會與我們的伺服器交換資料，以便偵測惡意軟體、驗證你的檔案，並依現行威脅調整防護。"
+
+msgid "External Service Disclosure"
+msgstr "外部服務揭露聲明"
+
+msgid "Verify with Mozilla Observatory"
+msgstr "以 Mozilla Observatory 驗證"
+
+msgid "Verify with securityheaders.com"
+msgstr "以 securityheaders.com 驗證"
+
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr "自我檢查無法連線至你的網站：%s。結果並不完整。"
+
+msgid "No change since last run."
+msgstr "自上次執行後沒有變更。"
+
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "已從 %1$s (%2$d) 變更為 %3$s (%4$d)。"
+
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "%1$d 項通過、%2$d 項警告、%3$d 項失敗"
+
+msgid "Malware Protection"
+msgstr "惡意軟體防護"
+
+msgid "Cookie Security"
+msgstr "Cookie 安全性"
+
+msgid "WordPress Hardening"
+msgstr "WordPress 強化"
+
+msgid "Information Disclosure"
+msgstr "資訊洩漏"
+
+msgid "HTTP Security Headers"
+msgstr "HTTP 安全性標頭"
+
+msgid "warn"
+msgstr "警告"
+
+msgid "fail"
+msgstr "失敗"
+
+msgid "Hide details"
+msgstr "隱藏詳細資料"
+
+msgid "How to fix"
+msgstr "修正方式"
+
+msgid "Click Run Self-Check to grade your site."
+msgstr "請點擊 [執行自我檢查] 為你的網站評等。"
+
+msgid "Running..."
+msgstr "執行中..."
+
+msgid "Run Self-Check"
+msgstr "執行自我檢查"
+
+msgid "Self-Check"
+msgstr "自我檢查"
+
+msgid "All recommended settings enabled."
+msgstr "已啟用所有建議設定。"
+
+msgid "Failed to load settings."
+msgstr "無法載入設定。"
+
+msgid "Failed to save settings."
+msgstr "無法儲存設定。"
+
+msgid "Saving..."
+msgstr "正在儲存..."
+
+msgid "Loading settings..."
+msgstr "正在載入設定..."
+
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+msgid "CAPTCHA failed"
+msgstr "CAPTCHA 失敗"
+
+msgid "Honeypot"
+msgstr "蜜罐"
+
+msgid "Lockout"
+msgstr "鎖定"
+
+msgid "Attempt"
+msgstr "嘗試"
+
+msgid "No events recorded yet."
+msgstr "尚未記錄任何事件。"
+
+msgid "All events"
+msgstr "所有事件"
+
+msgid "Surface"
+msgstr "介面"
+
+msgid "Username"
+msgstr "使用者名稱"
+
+msgid "Event"
+msgstr "事件"
+
+msgid "When"
+msgstr "時間"
+
+msgid "Event log"
+msgstr "事件記錄"
+
+msgid "No targeted usernames in the last 24 hours."
+msgstr "過去 24 小時內沒有遭鎖定的目標使用者名稱。"
+
+msgid "No attacking IPs in the last 24 hours."
+msgstr "過去 24 小時內沒有攻擊來源 IP 位址。"
+
+msgid "Top targeted usernames (24h)"
+msgstr "遭鎖定最多的使用者名稱 (24 小時)"
+
+msgid "Top attacking IPs (24h)"
+msgstr "攻擊次數最多的 IP 位址 (24 小時)"
+
+msgid "CAPTCHA failures (24h)"
+msgstr "CAPTCHA 失敗次數 (24 小時)"
+
+msgid "Honeypot hits (24h)"
+msgstr "蜜罐命中次數 (24 小時)"
+
+msgid "Lockouts (24h)"
+msgstr "鎖定次數 (24 小時)"
+
+msgid "Attempts (24h)"
+msgstr "嘗試次數 (24 小時)"
+
+msgid "Active lockouts"
+msgstr "使用中的鎖定"
+
+msgid "Statistics"
+msgstr "統計資料"
+
+msgid "Click a preset to fill the form, then Save."
+msgstr "點擊預設組合以填入表單，然後儲存。"
+
+msgid "Strict"
+msgstr "嚴格"
+
+msgid "Recommended"
+msgstr "建議"
+
+msgid "Light"
+msgstr "寬鬆"
+
+msgid "Presets:"
+msgstr "預設組合:"
+
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "失敗 N 次後顯示 CAPTCHA"
+
+msgid "hCaptcha secret key"
+msgstr "hCaptcha 密鑰"
+
+msgid "hCaptcha site key"
+msgstr "hCaptcha 網站金鑰"
+
+msgid "Require hCaptcha after repeated failures"
+msgstr "重複失敗後要求 hCaptcha"
+
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+msgid "Log retention (days)"
+msgstr "記錄保留期間 (天)"
+
+msgid "Unlock this IP?"
+msgstr "要解除這個 IP 位址的鎖定嗎？"
+
+msgid "Settings saved."
+msgstr "設定已儲存。"
+
+msgid "Expires"
+msgstr "到期時間"
+
+msgid "Locked at"
+msgstr "鎖定時間"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Tier"
+msgstr "層級"
+
+msgid "Unlock"
+msgstr "解除鎖定"
+
+msgid "No IPs are currently locked out."
+msgstr "目前沒有遭鎖定的 IP 位址。"
+
+msgid "Active Lockouts"
+msgstr "使用中的鎖定"
+
+msgid "Add honeypot field to login form"
+msgstr "在登入表單加入蜜罐欄位"
+
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "同時保護 XML-RPC (xmlrpc.php)"
+
+msgid "History window (seconds)"
+msgstr "歷程記錄期間 (秒)"
+
+msgid "Extended lockout duration (seconds)"
+msgstr "延長鎖定時間 (秒)"
+
+msgid "Lockouts before extended ban"
+msgstr "延長封鎖前的鎖定次數"
+
+msgid "Initial lockout duration (seconds)"
+msgstr "初始鎖定時間 (秒)"
+
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "計入臨界值的失敗嘗試所採計的時間範圍。"
+
+msgid "Attempt window (seconds)"
+msgstr "嘗試期間 (秒)"
+
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr "IP 位址遭鎖定前允許的登入失敗次數。"
+
+msgid "Max failed attempts"
+msgstr "失敗嘗試次數上限"
+
+msgid "Enable brute-force protection"
+msgstr "啟用暴力密碼破解防護"
+
+msgid "Brute-Force Protection"
+msgstr "暴力密碼破解防護"
+
+msgid "Please enter your name."
+msgstr "請輸入你的名稱。"
+
+msgid "Please enter a valid reply-to email."
+msgstr "請輸入有效的回覆電子郵件地址。"
+
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "選取的檔案超過 100 MB 上限。"
+
+msgid "Please attach a file before submitting."
+msgstr "請先附上檔案再送出。"
+
+msgid "Failed to submit ticket. Please try again."
+msgstr "無法送出技術支援單。請再試一次。"
+
+msgid "Your ticket reference:"
+msgstr "你的技術支援單編號:"
+
+msgid "Ticket submitted successfully."
+msgstr "技術支援單已成功送出。"
+
+msgid "Submitting\\u2026"
+msgstr "正在送出…"
+
+msgid "features planned"
+msgstr "項規劃中的功能"
+
+msgid "items imported"
+msgstr "個項目已匯入"
+
+msgid "Note"
+msgstr "備註"
+
+msgid "Action"
+msgstr "動作"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Feature"
+msgstr "功能"
+
+msgid "Planned feature"
+msgstr "規劃中的功能"
+
+msgid "Skip"
+msgstr "略過"
+
+msgid "Import"
+msgstr "匯入"
+
+msgid "Migration complete."
+msgstr "移轉完成。"
+
+msgid "Apply Migration"
+msgstr "套用移轉"
+
+msgid "Preview"
+msgstr "預覽"
+
+msgid "No supported security plugins detected."
+msgstr "未偵測到支援的安全性外掛。"
+
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr "只有這些 IP 位址可以存取這個網站，其餘一律封鎖。一行一個項目。"
+
+msgid "Allowed IPs / CIDRs"
+msgstr "允許的 IP 位址/CIDR"
+
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr "這些 IP 位址一律封鎖。一行一個項目。接受 IPv4、IPv6 及 CIDR 位址範圍。"
+
+msgid "Blocked IPs / CIDRs"
+msgstr "封鎖的 IP 位址/CIDR"
+
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr "輸入國家/地區名稱或 ISO 代碼，即可將它加入允許清單。"
+
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr "輸入國家/地區名稱或 ISO 代碼，即可將它加入封鎖清單。"
+
+msgid "Allowed Countries"
+msgstr "允許的國家/地區"
+
+msgid "Blocked Countries"
+msgstr "封鎖的國家/地區"
+
+msgid "Changes reverted."
+msgstr "變更已還原。"
+
+msgid "Saved permanently."
+msgstr "已永久儲存。"
+
+msgid "Discovering components…"
+msgstr "正在探索元件…"
+
+msgid "Checking"
+msgstr "檢查中"
+
+msgid "issues"
+msgstr "個問題"
+
+msgid "View"
+msgstr "檢視"
+
+msgid "(!) malware"
+msgstr "(!) 惡意軟體"
+
+msgid "unrecognized file"
+msgstr "無法辨識的檔案"
+
+msgid "issue"
+msgstr "問題"
+
+msgid "Issues"
+msgstr "問題"
+
+msgid "ignored"
+msgstr "已忽略"
+
+msgid "Not from official WordPress.org"
+msgstr "並非來自官方 WordPress.org"
+
+msgid "Abandoned (no updates >2 years)"
+msgstr "已停止維護 (超過 2 年沒有更新)"
+
+msgid "Delisted from official WordPress.org"
+msgstr "已從官方 WordPress.org 下架"
+
+msgid "Diff"
+msgstr "差異"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr "過去 %3$d 天內已使用 %2$d 次中的 %1$d 次清理 — 下一個名額於 %4$s 開放"
+
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "過去 %3$d 天內已使用 %2$d 次中的 %1$d 次清理"
+
+msgid "Next slot opens %s"
+msgstr "下一個名額於 %s 開放"
+
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr "過去 %2$d 天內你已使用 %1$d 次雲端清理。升級至 Pro 方案即可取得不設上限的雲端清理配額。"
+
+msgid "Cleanup quota reached"
+msgstr "已達清理配額上限"
+
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr "已達清理配額上限。升級至 Pro 方案即可取得不設上限的雲端清理配額。"
+
+msgid "Maybe later"
+msgstr "稍後再說"
+
+msgid "Upgrade to Pro"
+msgstr "升級至 Pro 方案"
+
+msgid "Cleaning malware..."
+msgstr "正在清理惡意軟體..."
+
+msgid "Clean all"
+msgstr "全部清理"
+
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr "這項操作會嘗試清理 %d 個偵測到的惡意檔案。每個檔案在清理前都會先備份。"
+
+msgid "Clean all detected malware"
+msgstr "清理所有偵測到的惡意軟體"
+
+msgid "Cancelling…"
+msgstr "正在取消…"
+
+msgid "%1$d of %2$d"
+msgstr "%2$d 個中的 %1$d 個"
+
+msgid "Updating files…"
+msgstr "正在更新檔案…"
+
+msgid "Restoring files…"
+msgstr "正在還原檔案…"
+
+msgid "Continue"
+msgstr "繼續"
+
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr "會保留 %d 個已釘選的備份 (仍由 [還原] 參照)。"
+
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr "%1$d 個較舊的備份 (約 %2$s) 會輪替移除 — 這些是先前已修正檔案的還原點。"
+
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "你即將修正 %1$d 個檔案 (約 %2$s)。"
+
+msgid "Older backups will be rotated out"
+msgstr "較舊的備份會輪替移除"
+
+msgid "Fixing files..."
+msgstr "正在修正檔案..."
+
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr "部分檔案會遭刪除 (無法辨識的檔案)，部分則會以原始內容取代 (已修改的檔案)。所有檔案都會建立備份。要繼續嗎？"
+
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr "這個檔案不屬於原始安裝內容，將會刪除，並建立備份。要繼續嗎？"
+
+msgid "Not found"
+msgstr "找不到"
+
+msgid "Deleted"
+msgstr "已刪除"
+
+msgid "Ignore"
+msgstr "忽略"
+
+msgid "Fix"
+msgstr "修正"
+
+msgid "Next"
+msgstr "下一頁"
+
+msgid "Previous"
+msgstr "上一頁"
+
+msgid "items"
+msgstr "個項目"
+
+msgid "of"
+msgstr "共"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Recently processed in this session"
+msgstr "這個工作階段中最近處理的項目"
+
+msgid "No ignored files."
+msgstr "沒有已忽略的檔案。"
+
+msgid "No files marked fixed."
+msgstr "沒有標示為已修正的檔案。"
+
+msgid "No cleaned files yet."
+msgstr "尚未有已清理的檔案。"
+
+msgid "No malicious files. All known threats have been handled."
+msgstr "沒有惡意檔案。所有已知威脅都已處理。"
+
+msgid "Hosting environment warnings"
+msgstr "主機環境警告"
+
+msgid "no progress for %ds — waiting for worker"
+msgstr "已有 %d 秒沒有進度 — 正在等待背景工作處理程序"
+
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "掃描已中止 — 已掃描 %2$d 個檔案中的 %1$d 個。"
+
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "掃描已停止 — 已掃描 %2$d 個檔案中的 %1$d 個。"
+
+msgid "Scan stopped."
+msgstr "掃描已停止。"
+
+msgid "Could not stop the scan."
+msgstr "無法停止掃描。"
+
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr "要停止執行中的掃描嗎？目前的進度將會捨棄。"
+
+msgid "Stop scan"
+msgstr "停止掃描"
+
+msgid "No scans yet — run your first scan."
+msgstr "尚未進行掃描 — 請執行第一次掃描。"
+
+msgid "No threats — you are clear."
+msgstr "沒有威脅 — 你的網站是安全的。"
+
+msgid "%d threats still need your attention"
+msgstr "仍有 %d 項威脅需要你注意"
+
+msgid "No files found."
+msgstr "找不到檔案。"
+
+msgid "Disconnected"
+msgstr "未連線"
+
+msgid "Connected"
+msgstr "已連線"
+
+msgid "Remove from ignore"
+msgstr "從忽略清單移除"
+
+msgid "Always ignore"
+msgstr "一律忽略"
+
+msgid "Ignore until file is the same"
+msgstr "在檔案內容相同期間忽略"
+
+msgid "Ignored"
+msgstr "已忽略"
+
+msgid "Fixed"
+msgstr "已修正"
+
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr "無法還原 — 這個檔案沒有記錄備份。備份可能已輪替移除。"
+
+msgid "View failed"
+msgstr "檢視失敗"
+
+msgid "Diff decode error"
+msgstr "差異解碼錯誤"
+
+msgid "Diff failed"
+msgstr "差異比對失敗"
+
+msgid "Fix failed"
+msgstr "修正失敗"
+
+msgid "Restore failed"
+msgstr "還原失敗"
+
+msgid "Delete failed"
+msgstr "刪除失敗"
+
+msgid "OK"
+msgstr "確定"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Current on-disk content (malware): %s"
+msgstr "目前磁碟上的內容 (惡意軟體)：%s"
+
+msgid "Original file content (malware)"
+msgstr "原始檔案內容 (惡意軟體)"
+
+msgid "showing first"
+msgstr "顯示前"
+
+msgid "Scanned files"
+msgstr "已掃描的檔案"
+
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "以 UTC 儲存，並以你瀏覽器的地區語言顯示。"
+
+msgid "Could not save schedule."
+msgstr "無法儲存排程。"
+
+msgid "Schedule saved."
+msgstr "排程已儲存。"
+
+msgid "Next run:"
+msgstr "下次執行時間:"
+
+msgid "Day of week"
+msgstr "星期"
+
+msgid "Time of day"
+msgstr "時間"
+
+msgid "Weekly"
+msgstr "每週"
+
+msgid "Daily"
+msgstr "每日"
+
+msgid "Off"
+msgstr "關閉"
+
+msgid "Frequency"
+msgstr "頻率"
+
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr "發生非預期的伺服器錯誤。請檢視 PHP 錯誤記錄檔後再試一次。"
+
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr "這個版本的管理頁面已過時。請重新載入頁面以繼續。"
+
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Segurium 收到以有效標記包裝的回應，但其中的 JSON 無法解析。這通常表示 Segurium 處理常式內發生 PHP 嚴重錯誤 — 請檢視 "
+"PHP 錯誤記錄檔。"
+
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium 無法拆解伺服器回應的包裝。請檢視 PHP 錯誤記錄檔，查看 Segurium 處理常式是否發生嚴重錯誤、記憶體不足或逾時。"
+
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Segurium 的回應在傳輸途中中斷 — 起始標記已送達，結束標記則沒有。PHP 處理常式在回應途中損毀 (嚴重錯誤、記憶體不足或逾時)。請檢視 "
+"PHP 錯誤記錄檔。"
+
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"回應內容中缺少 Segurium 的回應標記。Segurium 的 AJAX 處理常式並未執行，或是另一個外掛取代了整個回應。請檢查 wp-"
+"content/mu-plugins、使用中的外掛及 PHP 錯誤記錄檔。"
+
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium 從伺服器收到空白回應。PHP 處理常式可能在產生任何輸出之前就已損毀 — 請檢視 PHP "
+"錯誤記錄檔，查看是否發生嚴重錯誤、記憶體不足或逾時。"
+
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr "伺服器傳回非預期的回應。請重新載入頁面後再試一次。"
+
+msgid "Network error — the request could not reach the server."
+msgstr "網路錯誤 — 要求無法送達伺服器。"
+
+msgid "The server returned an error while processing the request."
+msgstr "伺服器在處理要求時傳回錯誤。"
+
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr "因伺服器錯誤，無法停止執行中的掃描。請檢視 PHP 錯誤記錄檔。"
+
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr "因伺服器錯誤，無法取得掃描狀態。請檢視 PHP 錯誤記錄檔。"
+
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr "因伺服器錯誤，無法開始掃描。請檢視 PHP 錯誤記錄檔。"
+
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr "掃描已開始，但無法派送背景工作處理程序。請再試一次。"
+
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr "無法初始化掃描。請檢視 PHP 錯誤記錄檔。"
+
+msgid "Your session has expired. Reload the page and try again."
+msgstr "你的工作階段已過期。請重新載入頁面後再試一次。"
+
+msgid "Request failed"
+msgstr "要求失敗"
+
+msgid "Error"
+msgstr "錯誤"
+
+msgid "Starting scan..."
+msgstr "正在開始掃描..."
+
+msgid "scanned"
+msgstr "已掃描"
+
+msgid "skipped"
+msgstr "已略過"
+
+msgid "failed"
+msgstr "失敗"
+
+msgid "files"
+msgstr "個檔案"
+
+msgid "Scan complete."
+msgstr "掃描完成。"
+
+msgid "No threats found."
+msgstr "未發現威脅。"
+
+msgid "Overwrite & Restore"
+msgstr "覆寫並還原"
+
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr "位於 %s 的檔案在上次清理後已修改。還原會以備份的版本覆寫現有檔案，且無法復原。"
+
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr "磁碟上的檔案已經是備份的版本。仍要還原以更新資料庫記錄嗎？"
+
+msgid "Checking…"
+msgstr "正在檢查…"
+
+msgid "Restore file"
+msgstr "還原檔案"
+
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr "這項操作會從備份還原原始的受感染檔案。要繼續嗎？"
+
+msgid "Restore"
+msgstr "還原"
+
+msgid "Could not submit the report."
+msgstr "無法送出回報。"
+
+msgid "Report submitted. Thank you."
+msgstr "回報已送出，謝謝你。"
+
+msgid "Submitting…"
+msgstr "正在送出…"
+
+msgid "Submit report"
+msgstr "送出回報"
+
+msgid "Also ignore this file on this site"
+msgstr "同時在這個網站上忽略這個檔案"
+
+msgid "Note (optional, max 2000 chars)"
+msgstr "備註 (選用，上限 2000 個字元)"
+
+msgid "Current verdict"
+msgstr "目前的判定結果"
+
+msgid "Component"
+msgstr "元件"
+
+msgid "SHA-256"
+msgstr "SHA-256"
+
+msgid "File path"
+msgstr "檔案路徑"
+
+msgid "Report False Positive"
+msgstr "回報誤判"
+
+msgid "Report false positive"
+msgstr "回報誤判"
+
+msgid "Show malware"
+msgstr "顯示惡意軟體"
+
+msgid "Processing..."
+msgstr "處理中..."
+
+msgid "Failed"
+msgstr "失敗"
+
+msgid "Restored"
+msgstr "已還原"
+
+msgid "Cleaned"
+msgstr "已清理"
+
+msgid "Clean"
+msgstr "清理"
+
+msgid "Malware"
+msgstr "惡意軟體"
+
+msgid "Open Segurium"
+msgstr "開啟 Segurium"
+
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr "請從 Segurium 管理頁面執行自我檢查，以查看你的安全性分數。"
+
+msgid "Last checked %s ago."
+msgstr "上次檢查於 %s 前。"
+
+msgid "Security score:"
+msgstr "安全性分數:"
+
+msgid "This action is temporarily unavailable."
+msgstr "這項操作暫時無法使用。"
+
+msgid "Unknown or unsupported action."
+msgstr "無法辨識或不支援的操作。"
+
+msgid "This file was identified as malware and has been blocked."
+msgstr "這個檔案已判定為惡意軟體並遭到封鎖。"
+
+msgid "Trusted proxies response has invalid format."
+msgstr "信任 Proxy 的回應格式無效。"
+
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "信任 Proxy 端點傳回 HTTP %d。"
+
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] "有 %d 項未解決的完整性問題。請在 [完整性掃描器] 分頁檢視。"
+
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr "過去 24 小時內未執行完整性掃描。掃描很快 — 執行一次即可重新整理這項判定。"
+
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr "最近一次完整性掃描於過去 24 小時內執行，未回報任何問題。"
+
+msgid "No integrity issues in the last 24 hours"
+msgstr "過去 24 小時內沒有完整性問題"
+
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] "上次惡意軟體掃描標示了 %d 項威脅。請在 [惡意軟體掃描器] 分頁檢視。"
+
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr "過去 24 小時內未執行惡意軟體掃描。掃描很快 — 執行一次即可重新整理這項判定。"
+
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr "最近一次惡意軟體掃描於過去 24 小時內執行，未發現任何問題。"
+
+msgid "No malware in the last 24 hours"
+msgstr "過去 24 小時內沒有惡意軟體"
+
+msgid "No malware scan has been completed yet."
+msgstr "尚未完成任何惡意軟體掃描。"
+
+msgid "Malware scan is older than 7 days."
+msgstr "惡意軟體掃描已超過 7 天。"
+
+msgid "Last malware scan completed %s ago."
+msgstr "上次惡意軟體掃描於 %s 前完成。"
+
+msgid "Malware scan up to date"
+msgstr "惡意軟體掃描已是最新狀態"
+
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr "自動清理已停用。偵測到的惡意軟體需要手動點擊才會清理。"
+
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "每次掃描後都會自動清理偵測到的惡意軟體。"
+
+msgid "Automatic malware cleanup"
+msgstr "自動清理惡意軟體"
+
+msgid "No recurring malware scan is scheduled."
+msgstr "未排定重複執行的惡意軟體掃描。"
+
+msgid "A recurring malware scan is scheduled."
+msgstr "已排定重複執行的惡意軟體掃描。"
+
+msgid "Scheduled malware scans"
+msgstr "排程惡意軟體掃描"
+
+msgid "Cloud-assisted malware detection is active."
+msgstr "雲端輔助惡意軟體偵測已啟用。"
+
+msgid "Cloud-assisted malware detection"
+msgstr "雲端輔助惡意軟體偵測"
+
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "沒有任何 Cookie 設定 SameSite=Lax 或 Strict (共 %d 個)。"
+
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "%2$d 個 Cookie 中有 %1$d 個使用 SameSite=None。"
+
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "%2$d 個 Cookie 中有 %1$d 個設定 SameSite=Lax/Strict。"
+
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "全部 %d 個 Cookie 都設定 SameSite=Lax/Strict。"
+
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "%1$d 個 Cookie 都沒有設定 %2$s 屬性。"
+
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%2$d 個 Cookie 中有 %1$d 個設定 %3$s。"
+
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "全部 %1$d 個 Cookie 都設定 %2$s 屬性。"
+
+msgid "Cookies — SameSite"
+msgstr "Cookie — SameSite"
+
+msgid "Cookies — Secure"
+msgstr "Cookie — Secure"
+
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr "首頁沒有 Set-Cookie 標頭，無法從外部評估 Cookie 旗標。"
+
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "這個網站並未以 HTTPS 提供服務，流量未加密。"
+
+msgid "Site is served over HTTPS."
+msgstr "這個網站以 HTTPS 提供服務。"
+
+msgid "HTTPS / SSL active"
+msgstr "HTTPS/SSL 已啟用"
+
+msgid "No firewall rules are active."
+msgstr "沒有使用中的防火牆規則。"
+
+msgid "Firewall rules are active."
+msgstr "防火牆規則已啟用。"
+
+msgid "Firewall"
+msgstr "防火牆"
+
+msgid "Administrators can log in with a password alone."
+msgstr "網站管理員只憑密碼即可登入。"
+
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "網站管理員角色已強制使用兩步驟驗證。"
+
+msgid "Two-factor enforced for administrators"
+msgstr "已對網站管理員強制使用兩步驟驗證"
+
+msgid "Brute-force protection is disabled."
+msgstr "暴力密碼破解防護已停用。"
+
+msgid "Login brute-force protection is active."
+msgstr "登入的暴力密碼破解防護已啟用。"
+
+msgid "Brute-force protection"
+msgstr "暴力密碼破解防護"
+
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr "REST API 探索連結對外公開 — 這會讓偵察變得容易。"
+
+msgid "REST API discovery link removed from <head>."
+msgstr "已從 <head> 移除 REST API 探索連結。"
+
+msgid "REST API discovery disabled"
+msgstr "已停用 REST API 探索"
+
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr "XML-RPC 可以連線。它是常見的暴力密碼破解及 自動引用通知 (pingback) 放大攻擊目標。"
+
+msgid "XML-RPC endpoint is disabled."
+msgstr "XML-RPC 端點已停用。"
+
+msgid "XML-RPC disabled"
+msgstr "已停用 XML-RPC"
+
+msgid "Asset URLs do not expose version numbers."
+msgstr "資源網址未公開版本編號。"
+
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr "資源網址的 ?ver= 中公開了核心程式/佈景主題/外掛版本。"
+
+msgid "Asset version query hidden"
+msgstr "已隱藏資源版本查詢字串"
+
+msgid "WordPress version not visible in HTML."
+msgstr "HTML 中看不到 WordPress 版本。"
+
+msgid "WordPress version exposed in HTML source."
+msgstr "HTML 原始碼中公開了 WordPress 版本。"
+
+msgid "WordPress version hidden"
+msgstr "已隱藏 WordPress 版本"
+
+msgid "X-Powered-By header is not exposed."
+msgstr "未公開 X-Powered-By 標頭。"
+
+msgid "X-Powered-By reveals: %s"
+msgstr "X-Powered-By 洩漏了：%s"
+
+msgid "X-Powered-By hidden"
+msgstr "已隱藏 X-Powered-By"
+
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr "缺少 X-XSS-Protection。設為 0 即可安全地停用舊版瀏覽器的 XSS 篩選器。"
+
+msgid "Legacy XSS filter directive present."
+msgstr "存在舊版 XSS 篩選器指示詞。"
+
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "缺少 Permissions-Policy，未限制瀏覽器功能。"
+
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "Permissions-Policy 限制了對瀏覽器功能的存取。"
+
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr "缺少 Referrer-Policy 或設定不安全，完整網址可能外洩。"
+
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "Referrer-Policy 限制了瀏覽時的資訊外洩。"
+
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr "缺少 X-Frame-Options，網站可能遭攻擊者嵌入框架。"
+
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "已透過 X-Frame-Options 防範點擊劫持。"
+
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "缺少這個標頭，瀏覽器可能誤判檔案類型。"
+
+msgid "MIME sniffing prevented."
+msgstr "已防範 MIME 探測。"
+
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr "沒有 HSTS 標頭，瀏覽器可能以純 HTTP 連線。"
+
+msgid "HSTS present but max-age is below one year."
+msgstr "已有 HSTS，但 max-age 不到一年。"
+
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS 已啟用，max-age 至少一年。"
+
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr "沒有 Content-Security-Policy 標頭。這個標頭可防範 XSS 及注入攻擊。"
+
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr "CSP 目前為僅報告模式。請切換為強制執行以取得完整防護。"
+
+msgid "CSP is enforced."
+msgstr "CSP 已強制執行。"
+
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "星期必須介於 0 (星期日) 至 6 (星期六) 之間。"
+
+msgid "Minute must be between 0 and 59."
+msgstr "分鐘必須介於 0 至 59 之間。"
+
+msgid "Hour must be between 0 and 23."
+msgstr "小時必須介於 0 至 23 之間。"
+
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "頻率必須是下列其中之一：off、daily、weekly。"
+
+msgid "Invalid settings payload."
+msgstr "無效的設定內容。"
+
+msgid "Scan trigger secret did not match."
+msgstr "掃描觸發密鑰不符。"
+
+msgid "Scan trigger requires authentication."
+msgstr "掃描觸發需要驗證。"
+
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"WordPress cron 已停用 (DISABLE_WP_CRON)。排程掃描仰賴真正的系統 cron 工作每分鐘呼叫 wp-"
+"cron.php。請要求你的主機商設定一個。"
+
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
+msgstr ""
+"WordPress cron 已停用 (DISABLE_WP_CRON)，而且你的 PHP 環境無法將長時間工作與頁面要求分離。背景掃描只有在 "
+"Segurium 管理分頁保持開啟時才會推進。請要求你的主機商啟用每分鐘呼叫 wp-cron.php 的真正系統 cron 工作，或是從 mod_php"
+" 改為 PHP-FPM/LiteSpeed。"
+
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr "PHP 的 max_execution_time 為 %d 秒 — 對可靠的掃描而言太短。請要求你的主機商將它提高到至少 30 秒。"
+
+msgid "Could not fetch scan status due to a server error."
+msgstr "因伺服器錯誤，無法取得掃描狀態。"
+
+msgid "You do not have permission to manage scans."
+msgstr "你沒有管理掃描的權限。"
+
+msgid "Unexpected error starting scan: %s"
+msgstr "開始掃描時發生非預期的錯誤：%s"
+
+msgid "Failed to initialize scan: %s"
+msgstr "無法初始化掃描：%s"
+
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr "掃描儲存空間尚未就緒，現已自動修復 — 請再次點擊 [開始掃描]。"
+
+msgid "A scan is already in progress."
+msgstr "已有掃描進行中。"
+
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr "掃描儲存空間尚未就緒。請停用 Segurium 外掛後重新啟用，然後再試一次。"
+
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr "與 Segurium 雲端服務的啟用作業仍在處理中。請稍候再試。"
+
+msgid "A scan type is required."
+msgstr "必須指定掃描類型。"
+
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "每 60 秒 (Segurium 掃描救援)"
+
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr "Segurium 即時掃描 (每 %d 秒，開發用覆寫設定)"
+
+msgid "Could not start the chained integrity scan: %s"
+msgstr "無法開始接續的完整性掃描：%s"
+
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr "接續的惡意軟體掃描已取消 — 完整性掃描並未開始。"
+
+msgid "Running a quick malware scan first…"
+msgstr "正在先執行快速惡意軟體掃描…"
+
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr "Jetpack 使用中，而它需要 XML-RPC。停用 XML-RPC 會讓 Jetpack 連線無法運作。"
+
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr "你的伺服器使用 FastCGI，可能會重新加上 X-Powered-By 標頭。請檢視回應標頭以驗證是否已移除。"
+
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr "在 IIS 上，請使用 web.config 中的 removeServerHeader 屬性。這個開關的效果有限。"
+
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"在搭配 FastCGI 的 Apache 上，Server 標頭會在 PHP 執行後才加上。請在 Apache 設定中使用 ServerTokens "
+"Prod。"
+
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr "在 Nginx 上，Server 標頭必須在伺服器層級移除 (server_tokens off;)。這個開關沒有作用。"
+
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium 無法在這個網站啟用 Pro 授權，因為它目前繫結至另一個安裝。請在原本的安裝上開啟 Segurium "
+"帳號入口網站並在該處停用授權；繫結解除後，Pro 功能會在下次授權檢查時於這裡重新啟用。"
+
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium 偵測到這個網站已搬移或複製，正在背景重新建立安全連線。如果你持有 Pro 授權，請在 Segurium 帳號畫面重新啟用它，讓 Pro"
+" 功能在新的識別身分上恢復。"
+
+msgid "Failed to install geo DB."
+msgstr "無法安裝地理位置資料庫。"
+
+msgid "Failed to write geo DB to disk."
+msgstr "無法將地理位置資料庫寫入磁碟。"
+
+msgid "Downloaded geo DB has invalid format."
+msgstr "下載的地理位置資料庫格式無效。"
+
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr "簽章信任清單已損毀 — 公開金鑰解碼失敗。"
+
+msgid "Clean version not available for this file"
+msgstr "這個檔案沒有可用的乾淨版本"
+
+msgid "Cleanup quota reached."
+msgstr "已達清理配額上限。"
+
+msgid "Support service error (HTTP %d)."
+msgstr "技術支援服務錯誤 (HTTP %d)。"
+
+msgid "Too many requests. Please try again later."
+msgstr "要求次數過多。請稍後再試。"
+
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr "無法取得安裝 ID。請確認這個外掛已正確啟用。"
+
+msgid "Secure randomness is unavailable on this host."
+msgstr "這部主機無法提供安全的亂數。"
+
+msgid "Restore failed: %s"
+msgstr "還原失敗：%s"
+
+msgid "Restore target directory is not writable."
+msgstr "還原的目標目錄無法寫入。"
+
+msgid "Failed to stage backup for extraction."
+msgstr "無法暫存備份以供取出。"
+
+msgid "Backup archive not found or failed integrity check."
+msgstr "找不到備份封存檔，或它未通過完整性檢查。"
+
+msgid "Invalid backup identifier."
+msgstr "無效的備份識別碼。"
+
+msgid "Failed to encrypt component backup: %s"
+msgstr "無法加密元件備份：%s"
+
+msgid "Failed to read packed component archive."
+msgstr "無法讀取封裝後的元件封存檔。"
+
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr "這個元件為 %1$.1f MB，超過 %2$d MB 的加密備份上限。已略過刪除，避免你的網站失去未受保護的資料。"
+
+msgid "Backup archive was not created."
+msgstr "並未建立備份封存檔。"
+
+msgid "Backup failed: %s"
+msgstr "備份失敗：%s"
+
+msgid "The PHP Phar extension is required for component backups."
+msgstr "元件備份需要 PHP 的 Phar 擴充功能。"
+
+msgid "Invalid component slug."
+msgstr "無效的元件代稱。"
+
+msgid "Invalid component type."
+msgstr "無效的元件類型。"
+
+msgid "Component directory not found."
+msgstr "找不到元件目錄。"
+
+msgid "Failed to clean file."
+msgstr "無法清理檔案。"
+
+msgid "Failed to create backup."
+msgstr "無法建立備份。"
+
+msgid "Failed to read file for backup."
+msgstr "無法讀取要備份的檔案。"
+
+msgid "File has been modified since scan. Re-scan first."
+msgstr "檔案在掃描後已修改。請先重新掃描。"
+
+msgid "File not found."
+msgstr "找不到檔案。"
+
+msgid "Verdict has no defined cleanup recipe."
+msgstr "這項判定結果沒有定義清理方式。"
+
+msgid "Login Locked"
+msgstr "登入已鎖定"
+
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "登入失敗次數過多。請於 %s 後再試。"
+
+msgid "Leave this field empty"
+msgstr "請將這個欄位留空"
+
+msgid "Please complete the CAPTCHA challenge."
+msgstr "請完成 CAPTCHA 挑戰。"
+
+msgid "Login blocked."
+msgstr "登入遭封鎖。"
+
+msgid "Code sent."
+msgstr "驗證碼已寄出。"
+
+msgid "Session expired."
+msgstr "工作階段已過期。"
+
+msgid "Invalid verification code. Please try again."
+msgstr "無效的驗證碼。請再試一次。"
+
+msgid "Invalid session."
+msgstr "無效的工作階段。"
+
+msgid "Session expired. Please log in again."
+msgstr "工作階段已過期。請重新登入。"
+
+msgid "Please enter your username and password."
+msgstr "請輸入你的使用者名稱及密碼。"
+
+msgid "Invalid verification code."
+msgstr "無效的驗證碼。"
+
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "你的角色必須使用兩步驟驗證，因此無法停用。"
+
+msgid "Verification code sent to your email."
+msgstr "驗證碼已寄至你的電子郵件地址。"
+
+msgid "Encryption error."
+msgstr "加密錯誤。"
+
+msgid "Invalid code. Please try again."
+msgstr "無效的驗證碼。請再試一次。"
+
+msgid "Setup session expired. Please start again."
+msgstr "設定工作階段已過期。請重新開始。"
+
+msgid "You do not have permission to perform this action."
+msgstr "你沒有執行這項操作的權限。"
+
+msgid "Not authenticated."
+msgstr "尚未通過驗證。"
+
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"你的驗證碼是：%1$s\n"
+"\n"
+"這組驗證碼會在 %2$d 分鐘後失效。\n"
+"\n"
+"如果這不是你要求的，請忽略這封電子郵件。"
+
+msgid "[%s] Your login verification code"
+msgstr "[%s] 你的登入驗證碼"
+
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr "你的角色必須使用兩步驟驗證。請立即完成設定。"
+
+msgid "Set up now"
+msgstr "立即設定"
+
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr "你的網站管理員要求使用兩步驟驗證。你還有 %d 天可以完成設定。"
+
+msgid "Your administrator requires 2FA for your role."
+msgstr "你的網站管理員要求你的角色使用兩步驟驗證。"
+
+msgid "A verification code has been sent to your email."
+msgstr "驗證碼已寄至你的電子郵件地址。"
+
+msgid "Enter your current 2FA code to confirm:"
+msgstr "請輸入你目前的兩步驟驗證碼以確認:"
+
+msgid "New backup codes generated."
+msgstr "已產生新的備用驗證碼。"
+
+msgid "2FA has been disabled."
+msgstr "兩步驟驗證已停用。"
+
+msgid "2FA has been set up successfully."
+msgstr "兩步驟驗證已設定完成。"
+
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr "請將這些備用驗證碼保存在安全的地方，它們不會再次顯示。"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "請輸入應用程式中的 6 位數驗證碼以確認:"
+
+msgid "Or enter this key manually:"
+msgstr "或手動輸入這組金鑰:"
+
+msgid "Scan this QR code with your authenticator app:"
+msgstr "請以你的驗證碼產生器應用程式掃描這個 QR 圖碼:"
+
+msgid "Disable 2FA"
+msgstr "停用兩步驟驗證"
+
+msgid "Regenerate Backup Codes"
+msgstr "重新產生備用驗證碼"
+
+msgid "Backup codes remaining:"
+msgstr "剩餘的備用驗證碼:"
+
+msgid "Email Verification"
+msgstr "電子郵件驗證"
+
+msgid "Authenticator App (TOTP)"
+msgstr "驗證碼產生器應用程式 (TOTP)"
+
+msgid "Current method:"
+msgstr "目前的驗證方式:"
+
+msgid "Set up Email Verification"
+msgstr "設定電子郵件驗證"
+
+msgid "Set up Authenticator App"
+msgstr "設定驗證碼產生器應用程式"
+
+msgid "Not configured"
+msgstr "尚未設定"
+
+msgid "JavaScript is required for 2FA setup."
+msgstr "設定兩步驟驗證需要 JavaScript。"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Two-Factor Authentication"
+msgstr "兩步驟驗證"
+
+msgid "Two-factor authentication setup is required for your role."
+msgstr "你的角色必須設定兩步驟驗證。"
+
+msgid "Too many failed attempts. Please try again later."
+msgstr "失敗次數過多。請稍後再試。"
+
+msgid "Trust this device for %d days"
+msgstr "在這部裝置上信任 %d 天"
+
+msgid "Lost your device? Enter a backup code instead."
+msgstr "遺失裝置了嗎？請改為輸入備用驗證碼。"
+
+msgid "A new code has been sent to your email."
+msgstr "新的驗證碼已寄至你的電子郵件地址。"
+
+msgid "Resend code"
+msgstr "重新傳送驗證碼"
+
+msgid "Verify"
+msgstr "驗證"
+
+msgid "Enter the code sent to your email:"
+msgstr "請輸入寄至你電子郵件地址的驗證碼:"
+
+msgid "Enter the code from your authenticator app:"
+msgstr "請輸入你的驗證碼產生器應用程式中的驗證碼:"
+
+msgid "Logging in..."
+msgstr "正在登入..."
+
+msgid "Verifying..."
+msgstr "正在驗證..."
+
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr "需要兩步驟驗證。請將你的兩步驟驗證碼接在密碼之後。"
+
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr "你的角色必須設定兩步驟驗證。請聯絡你的網站管理員。"
+
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr "需要兩步驟驗證。請啟用 JavaScript 以完成登入。"
+
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+msgid "Segurium"
+msgstr "Segurium"

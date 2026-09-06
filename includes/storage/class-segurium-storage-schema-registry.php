@@ -102,7 +102,7 @@ class Segurium_Storage_Schema_Registry {
 		self::register( 'stats_daily', self::sql_stats_daily(), 1, 'day' );
 		self::register( 'runtime_kv', self::sql_runtime_kv(), 1, 'updated_at' );
 		self::register( 'async_pending', self::sql_async_pending(), 1, 'created_at' );
-		self::register( 'realtime_snapshot', self::sql_realtime_snapshot(), 1, 'updated_at' );
+		self::register( 'realtime_snapshot', self::sql_realtime_snapshot(), 2, 'updated_at' );
 		self::register( 'self_check_history', self::sql_self_check_history(), 1, 'created_at' );
 		self::register( 'scheduled_scan_log', self::sql_scheduled_scan_log(), 1, 'created_at' );
 	}
@@ -324,6 +324,9 @@ class Segurium_Storage_Schema_Registry {
 			size BIGINT UNSIGNED NOT NULL DEFAULT 0,
 			generation INT UNSIGNED NOT NULL,
 			updated_at INT UNSIGNED NOT NULL,
+			seen_mtime INT UNSIGNED NOT NULL DEFAULT 0,
+			churn TINYINT UNSIGNED NOT NULL DEFAULT 0,
+			next_check_at INT UNSIGNED NOT NULL DEFAULT 0,
 			PRIMARY KEY  (file_path_hash),
 			KEY idx_generation (generation)
 		)';

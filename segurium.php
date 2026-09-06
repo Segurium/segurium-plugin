@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA
+ * Plugin Name: Segurium – Free Website Protection: Antivirus, Malware Removal & Auto Cleanup, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
- * Description: Website hacked? Free malware removal and antivirus scan for WordPress: clean infected files, restore them. Firewall, brute force, 2FA included.
- * Version:     1.3.2
+ * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
+ * Version:     1.4.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.3.2' );
+define( 'SEGURIUM_VERSION', '1.4.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -466,10 +466,14 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-text-helpers.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-entitlements.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-pro-transition.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license-vendor-error.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings-profile.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cli.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scanner.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-iid.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-alerts-settings.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-consent.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix-settings.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-signature.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-client.php';
@@ -488,6 +492,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-tick.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-spawn.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-component-updates.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-action-paths.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-actions.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-actions-poke.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan-settings.php';
@@ -622,6 +627,16 @@ require_once SEGURIUM_PLUGIN_DIR . 'includes/storage/class-segurium-storage-ip-l
 require_once SEGURIUM_PLUGIN_DIR . 'includes/storage/class-segurium-storage-gc.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/storage/class-segurium-storage.php';
 
+// The settings registry sits directly on top of storage and is read on every
+// tier: the firewall, the geo blocker, the security headers and 2FA all resolve
+// settings on a plain visitor request.
+require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings.php';
+require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-exclusions.php';
+
+// The one save path. Loaded on every tier because an expired geo-blocking or
+// firewall fuse reverts from a plain visitor request.
+require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings-writer.php';
+
 // CTI access layer ships with storage: every lightweight tier funnels
 // settings + security events through Segurium_Storage::cti_send_message,
 // so loading storage without the CTI client fatals on first call.
@@ -630,6 +645,13 @@ require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-signature.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-client.php';
 
 Segurium_Storage::boot();
+
+// Carry a pre-registry site onto the `segurium_settings_*` layout before any
+// feature reads a setting. Runs inline rather than on `plugins_loaded` so the
+// order cannot depend on hook registration, and short-circuits on an autoloaded
+// flag once the site is current.
+Segurium_Settings::upgrade();
+
 // integrity_issues stores a backup_id alongside each fixed file
 // and the UI offers Restore for as long as that row exists, so rotation must
 // never silently drop those envelopes. The byte cap is the meaningful limit;
@@ -696,7 +718,6 @@ if ( in_array( segurium_request_tier(), $segurium_self_heal_tiers, true ) ) {
 					'[segurium] plugins_loaded ensure_schema failed: ' . $e->getMessage()
 				);
 			}
-			segurium_migrate_on_premise_to_cloud_detection();
 			segurium_migrate_scan_tick_cron_rescue();
 			segurium_migrate_async_scan_retry_after_kv();
 			segurium_migrate_drop_async_submit_deprecated_options();
@@ -729,29 +750,6 @@ function segurium_migrate_close_orphaned_scan_history() {
 	} catch ( Throwable $e ) {
 		Segurium_Debug::log(
 			'[segurium] orphaned scan_history sweep failed: ' . $e->getMessage()
-		);
-	}
-}
-
-/**
- * One-shot rename of `segurium_on_premise` to
- * `segurium_cloud_detection_enabled` (semantically inverted: cloud_on
- * = ! on_premise). Idempotent — once the legacy option has been
- * removed, this is a single get_option call per request.
- */
-function segurium_migrate_on_premise_to_cloud_detection() {
-	$sentinel = '__segurium_missing__';
-	$legacy   = Segurium_Storage::setting_get( 'segurium_on_premise', $sentinel );
-	if ( $sentinel === $legacy ) {
-		return;
-	}
-	try {
-		$on_premise = (bool) (int) $legacy;
-		Segurium_Storage::setting_set( 'segurium_cloud_detection_enabled', $on_premise ? 0 : 1 );
-		Segurium_Storage::setting_delete( 'segurium_on_premise' );
-	} catch ( Throwable $e ) {
-		Segurium_Debug::log(
-			'[segurium] cloud-detection migration failed: ' . $e->getMessage()
 		);
 	}
 }
@@ -870,12 +868,24 @@ function segurium_migrate_drop_async_submit_deprecated_options() {
  * (none of which apply to Segurium). The Account submenu stays visible
  * so users can activate licenses, sync, and deactivate via the FS UI.
  *
+ * The Upgrade submenu follows the cached cloud tier, not the SDK's own
+ * license read: a purchase the cloud already bound while the SDK still
+ * waits for the buyer's email would otherwise keep an Upgrade link in
+ * the sidebar of a site that reads Plan: Pro. The pricing page stays
+ * registered, only its menu entry and the plugins-list action link go.
+ *
  * @param bool   $visible Default visibility.
  * @param string $id      Submenu identifier.
  * @return bool
  */
 function segurium_hide_unused_freemius_submenus( $visible, $id ) {
 	if ( in_array( $id, array( 'contact', 'affiliation', 'addons' ), true ) ) {
+		return false;
+	}
+	if ( 'pricing' === $id
+		&& class_exists( 'Segurium_Quota' )
+		&& Segurium_Quota::PLAN_TIER_PRO === Segurium_Quota::plan_tier()
+	) {
 		return false;
 	}
 	return $visible;
@@ -1042,7 +1052,9 @@ function segurium_lightweight_bootstrap( $tier ) {
 		// the configurator never renders and enforced users never see
 		// the grace-period notice. Load the slice + run init() only
 		// when the feature is on; init() short-circuits otherwise.
-		$segurium_tfa_settings = Segurium_Storage::setting_get_array( 'segurium_2fa_settings' );
+		// Stored row, not the merged read: this tier deliberately leaves the
+		// 2FA class unloaded, so its default set cannot be resolved yet.
+		$segurium_tfa_settings = Segurium_Settings::get_stored( '2fa' );
 		if ( ! empty( $segurium_tfa_settings['enabled'] ) ) {
 			require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-2fa-crypto.php';
 			require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-qr-svg.php';
@@ -1219,6 +1231,39 @@ function segurium_ensure_all_crons_scheduled() {
 if ( in_array( segurium_request_tier(), segurium_cron_self_heal_tiers(), true ) ) {
 	add_action( 'admin_init', 'segurium_maybe_ensure_all_crons_scheduled' );
 }
+
+/**
+ * Apply the wp-config consent constant on the first request that sees it.
+ *
+ * Registered on every tier, because an unattended rollout has no admin
+ * page load to wait for and a fresh site may not tick cron for hours. The
+ * two guards run before anything is loaded: sites that never define
+ * `SEGURIUM_CTI_CONSENT` pay one `defined()`, and sites that do read an
+ * autoloaded marker already in memory. Only a site that is both asking
+ * and unstamped loads the include graph. The marker name is spelled out
+ * rather than read off `Segurium_Consent::OPTION_CONSTANT_APPLIED`,
+ * because the class this guard decides whether to load is where that
+ * constant lives; a test pins the two together.
+ */
+function segurium_maybe_apply_consent_constant() {
+	if ( ! defined( 'SEGURIUM_CTI_CONSENT' ) || ! SEGURIUM_CTI_CONSENT ) {
+		return;
+	}
+	if ( Segurium_Storage::setting_get_bool( 'segurium_consent_constant_applied' ) ) {
+		return;
+	}
+
+	segurium_load_full_plugin();
+
+	try {
+		Segurium_Consent::maybe_apply_constant();
+	} catch ( Throwable $e ) {
+		Segurium_Debug::log(
+			'[segurium] wp-config consent could not be applied: ' . $e->getMessage()
+		);
+	}
+}
+add_action( 'init', 'segurium_maybe_apply_consent_constant' );
 
 /**
  * Handle plugin activation.

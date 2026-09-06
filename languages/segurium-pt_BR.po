@@ -5026,3 +5026,27 @@ msgstr "Há um componente vulnerável instalado"
 
 msgid "Security issues need your attention"
 msgstr "Problemas de segurança precisam da sua atenção"
+
+msgid "This item cannot be switched on from here."
+msgstr "Este item não pode ser ativado a partir daqui."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Este servidor readiciona o cabeçalho após o plugin removê-lo. Abra a aba do recurso para aplicar a correção em nível de servidor."
+
+msgid "That feature is not available on this installation."
+msgstr "Esse recurso não está disponível nesta instalação."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "A configuração não pôde ser salva. Abra a aba do recurso e ative-a por lá."
+
+msgid "Applying..."
+msgstr "Aplicando..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Configuração salva. O seu cache de página ainda está entregando a resposta antiga, então esta linha será limpa assim que o cache for atualizado."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "A correção não pôde ser aplicada. Abra a aba do recurso e ative-a por lá."
+
+msgid "You can change this later under Settings."
+msgstr "Você pode alterar isto depois em Configurações."

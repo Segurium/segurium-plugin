@@ -58,6 +58,25 @@ class Segurium_Storage_IP_List_Cache {
 	}
 
 	/**
+	 * Every list type the plugin mutates. A type outside the set never gets
+	 * a counter written, so the uninstall manifest can be derived from here.
+	 */
+	const LIST_TYPES = array( 'allow', 'block', 'trusted_proxy', 'bf_lockout' );
+
+	/**
+	 * The version-counter option for every list type.
+	 *
+	 * @return array<int,string>
+	 */
+	public static function version_options(): array {
+		$out = array();
+		foreach ( self::LIST_TYPES as $list_type ) {
+			$out[] = self::version_option( $list_type );
+		}
+		return $out;
+	}
+
+	/**
 	 * The autoloaded option name carrying the version counter.
 	 *
 	 * @param string $list_type List type name.

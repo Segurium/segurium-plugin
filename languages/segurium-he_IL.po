@@ -4534,3 +4534,27 @@ msgstr "מותקן רכיב פגיע"
 
 msgid "Security issues need your attention"
 msgstr "בעיות אבטחה דורשות את תשומת ליבך"
+
+msgid "This item cannot be switched on from here."
+msgstr "לא ניתן להפעיל פריט זה מכאן."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "השרת מוסיף מחדש את הכותרת לאחר שהתוסף מסיר אותה. פתח את לשונית התכונה לתיקון ברמת השרת."
+
+msgid "That feature is not available on this installation."
+msgstr "תכונה זו אינה זמינה בהתקנה זו."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "לא ניתן היה לשמור את ההגדרה. פתח את לשונית התכונה והפעל אותה שם."
+
+msgid "Applying..."
+msgstr "מחיל..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "ההגדרה נשמרה. מטמון העמוד עדיין מגיש את התגובה הישנה, ולכן שורה זו תתנקה לאחר רענון המטמון."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "לא ניתן היה להחיל את התיקון. פתח את לשונית התכונה והפעל אותה שם."
+
+msgid "You can change this later under Settings."
+msgstr "ניתן לשנות זאת מאוחר יותר תחת הגדרות."

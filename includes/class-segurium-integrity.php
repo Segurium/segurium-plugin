@@ -29,6 +29,20 @@ class Segurium_Integrity {
 	private $exclude_patterns = array();
 
 	/**
+	 * Cached result of the case-folding probe on the install root.
+	 *
+	 * @var bool|null
+	 */
+	private static $folds_case = null;
+
+	/**
+	 * Lowercased copies of the two name lists, built on first use.
+	 *
+	 * @var array|null
+	 */
+	private static $folded_lists = null;
+
+	/**
 	 * Files and paths excluded from integrity checks by default.
 	 *
 	 * @var array
@@ -154,21 +168,79 @@ class Segurium_Integrity {
 	}
 
 	/**
+	 * Whether a WordPress root sits on a case-insensitive filesystem.
+	 *
+	 * Checks whether the uppercase spelling of wp-settings.php stats to
+	 * the same inode as the real file. A planted file under that name
+	 * on a case-sensitive host has its own inode, so it cannot switch
+	 * the mode. Without a root the install root is probed once per
+	 * request and the `segurium_integrity_case_insensitive_fs` filter
+	 * overrides the answer.
+	 *
+	 * @param string|null $root Directory to probe; null for the install root.
+	 * @return bool
+	 */
+	public static function filesystem_folds_case( $root = null ) {
+		if ( null !== $root ) {
+			return self::probe_case_folding( $root );
+		}
+		if ( null === self::$folds_case ) {
+			self::$folds_case = self::probe_case_folding( Segurium_Path_Helpers::wp_root() );
+		}
+		return (bool) apply_filters( 'segurium_integrity_case_insensitive_fs', self::$folds_case );
+	}
+
+	/**
+	 * Stat both spellings of wp-settings.php under a root.
+	 *
+	 * @param string $root Directory holding wp-settings.php.
+	 * @return bool
+	 */
+	private static function probe_case_folding( $root ) {
+		$root  = rtrim( $root, '/\\' );
+		$lower = $root . '/wp-settings.php';
+		$upper = $root . '/WP-SETTINGS.PHP';
+
+		return is_file( $lower )
+			&& is_file( $upper )
+			&& fileinode( $lower ) === fileinode( $upper );
+	}
+
+	/**
 	 * Check if a relative path is in the exclusion list.
+	 *
+	 * On a case-insensitive filesystem every spelling of a protected name
+	 * opens the same file, so the comparison folds both sides. On a
+	 * case-sensitive one a differently-cased name is a separate file that
+	 * WordPress never loads, so it stays visible.
 	 *
 	 * @param string $relative_path Relative file path.
 	 * @return bool
 	 */
 	public static function is_excluded( $relative_path ) {
+		$excludes      = self::$builtin_excludes;
+		$root_excludes = self::$builtin_root_excludes;
+
+		if ( self::filesystem_folds_case() ) {
+			if ( null === self::$folded_lists ) {
+				self::$folded_lists = array(
+					array_map( 'strtolower', self::$builtin_excludes ),
+					array_map( 'strtolower', self::$builtin_root_excludes ),
+				);
+			}
+			list( $excludes, $root_excludes ) = self::$folded_lists;
+			$relative_path                    = strtolower( $relative_path );
+		}
+
 		$basename = basename( $relative_path );
 
-		if ( in_array( $relative_path, self::$builtin_excludes, true ) ) {
+		if ( in_array( $relative_path, $excludes, true ) ) {
 			return true;
 		}
-		if ( in_array( $basename, self::$builtin_excludes, true ) ) {
+		if ( in_array( $basename, $excludes, true ) ) {
 			return true;
 		}
-		if ( in_array( $relative_path, self::$builtin_root_excludes, true ) ) {
+		if ( in_array( $relative_path, $root_excludes, true ) ) {
 			return true;
 		}
 
@@ -308,7 +380,7 @@ class Segurium_Integrity {
 	 * @param string $relative Relative file path.
 	 * @return bool
 	 */
-	private function is_user_excluded( $relative ) {
+	public function is_user_excluded( $relative ) {
 		foreach ( $this->exclude_patterns as $regex ) {
 			if ( preg_match( $regex, $relative ) ) {
 				return true;

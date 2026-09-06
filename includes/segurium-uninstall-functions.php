@@ -4,7 +4,7 @@
  *
  * By default the encrypted backup envelopes are preserved across uninstall
  * so a reinstall can still restore components and cured files. Only when
- * the user opts in via the `segurium_uninstall_wipe_data` setting do we
+ * the user opts in via the general settings' `uninstall_wipe_data` field do we
  * wipe `backups/`. Tables and all Segurium options are always dropped so
  * a reinstall lands on clean schema.
  *
@@ -39,30 +39,22 @@ if ( ! class_exists( 'Segurium_Storage' ) ) {
 	require_once __DIR__ . '/storage/class-segurium-storage-tmp.php';
 	require_once __DIR__ . '/storage/class-segurium-storage-backup.php';
 	require_once __DIR__ . '/storage/class-segurium-storage-ip-list.php';
+	require_once __DIR__ . '/storage/class-segurium-storage-ip-list-cache.php';
 	require_once __DIR__ . '/storage/class-segurium-storage-gc.php';
 	require_once __DIR__ . '/storage/class-segurium-storage.php';
 }
 
-/**
- * Name of the setting that opts into a destructive uninstall.
- *
- * Default: absent/false → backups are preserved across uninstall.
- */
-if ( ! defined( 'SEGURIUM_UNINSTALL_WIPE_OPTION' ) ) {
-	define( 'SEGURIUM_UNINSTALL_WIPE_OPTION', 'segurium_uninstall_wipe_data' );
+if ( ! class_exists( 'Segurium_Settings' ) ) {
+	require_once __DIR__ . '/class-segurium-settings.php';
 }
 
 /**
- * Whether the user opted into wiping encrypted backups on uninstall. Falls
- * back to `get_option` if the storage façade can't boot — we must not fail
- * closed on a preserve-by-default semantic and accidentally delete data.
+ * Whether the user opted into wiping encrypted backups on uninstall. Absent
+ * means preserve: the default must never delete data the operator did not ask
+ * to lose.
  */
 function segurium_uninstall_should_wipe(): bool {
-	if ( class_exists( 'Segurium_Storage' ) ) {
-		return Segurium_Storage::setting_get_bool( SEGURIUM_UNINSTALL_WIPE_OPTION, false );
-	}
-	// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
-	return (bool) get_option( SEGURIUM_UNINSTALL_WIPE_OPTION, false );
+	return (bool) Segurium_Settings::get_field( 'general', 'uninstall_wipe_data', false );
 }
 
 /**
@@ -119,20 +111,10 @@ function segurium_remove_data_dir( $dir ) {
  * in the plugin source.
  */
 function segurium_delete_options() {
-	$wipe = segurium_uninstall_should_wipe();
-
 	if ( class_exists( 'Segurium_Storage' ) ) {
 		Segurium_Storage::boot();
 		Segurium_Storage::table_drop_all();
 		Segurium_Storage::setting_delete_all();
-	}
-
-	foreach ( array( 'geo_blocking', 'firewall', 'brute_force' ) as $context ) {
-		delete_option( 'segurium_pending_ctx_' . $context ); // phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
-	}
-
-	if ( $wipe ) {
-		delete_option( SEGURIUM_UNINSTALL_WIPE_OPTION ); // phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
 	}
 
 	if ( function_exists( 'wp_clear_scheduled_hook' ) ) {

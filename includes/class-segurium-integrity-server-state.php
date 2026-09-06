@@ -457,18 +457,18 @@ class Segurium_Integrity_Server_State {
 	}
 
 	/**
-	 * Count the open integrity findings the Integrity tab would still show.
+	 * Count the open file findings the Integrity tab would still show.
 	 *
 	 * Scoped to rows touched by the latest scan, so an `open` row left by an
 	 * earlier scan whose component is no longer flagged cannot keep a clean
 	 * site red forever. Components the user has already acted on (deleted /
 	 * not_found / ignored) drop out, mirroring `bucket_for()`.
 	 *
-	 * Aggregates in SQL: a core-compromised site can carry thousands of open
-	 * rows, and the count only needs one row per component.
-	 *
-	 * Shared with the MainWP bridge so a fleet dashboard and
-	 * the site's own posture score never disagree about the same number.
+	 * File findings only. A component the cloud flags as vulnerable is an
+	 * issue on the tab and produces no row here, so callers that need the
+	 * tab's whole picture read {@see self::count_open_tab_issues()} instead.
+	 * The MainWP bridge deliberately does not: it pairs this total with a
+	 * list of file paths, and a flagged release has none to send.
 	 *
 	 * @param int        $scan_ts  Timestamp of the most recent integrity scan.
 	 * @param array|null $inactive Pre-loaded inactive component key set;
@@ -476,9 +476,38 @@ class Segurium_Integrity_Server_State {
 	 * @return int
 	 */
 	public static function count_open_issues( $scan_ts, $inactive = null ) {
+		$map = self::open_findings_by_component( $scan_ts );
+		if ( empty( $map ) ) {
+			return 0;
+		}
+
+		if ( null === $inactive ) {
+			$inactive = self::inactive_key_set();
+		}
+
+		$count = 0;
+		foreach ( $map as $key => $n ) {
+			if ( isset( $inactive[ $key ] ) ) {
+				continue;
+			}
+			$count += $n;
+		}
+		return $count;
+	}
+
+	/**
+	 * Open file findings from the latest scan, as "{type}:{slug}" => count.
+	 *
+	 * Aggregates in SQL: a core-compromised site can carry thousands of open
+	 * rows, and every caller works one row per component.
+	 *
+	 * @param int $scan_ts Timestamp of the most recent integrity scan.
+	 * @return array<string,int>
+	 */
+	private static function open_findings_by_component( $scan_ts ) {
 		$scan_ts = (int) $scan_ts;
 		if ( $scan_ts <= 0 ) {
-			return 0;
+			return array();
 		}
 
 		$rows = Segurium_Storage::table_get_results(
@@ -489,22 +518,12 @@ class Segurium_Integrity_Server_State {
 			array( 'open', $scan_ts ),
 			ARRAY_A
 		);
-		if ( empty( $rows ) ) {
-			return 0;
-		}
 
-		if ( null === $inactive ) {
-			$inactive = self::inactive_key_set();
+		$map = array();
+		foreach ( (array) $rows as $row ) {
+			$map[ $row['comp_type'] . ':' . $row['comp_slug'] ] = (int) $row['n'];
 		}
-
-		$count = 0;
-		foreach ( $rows as $row ) {
-			if ( isset( $inactive[ $row['comp_type'] . ':' . $row['comp_slug'] ] ) ) {
-				continue;
-			}
-			$count += (int) $row['n'];
-		}
-		return $count;
+		return $map;
 	}
 
 	/**
@@ -518,22 +537,25 @@ class Segurium_Integrity_Server_State {
 	 * @return int
 	 */
 	public static function count_vulnerable_components() {
-		$json = Segurium_Storage::table_get_var(
-			'runtime_kv',
-			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
-			array( 'integrity:comp_meta' )
-		);
-		if ( ! $json ) {
-			return 0;
-		}
-		$meta = json_decode( (string) $json, true );
-		if ( ! is_array( $meta ) ) {
-			return 0;
-		}
+		$state = new self();
+		$state->load();
+		return $state->count_flagged_components();
+	}
 
+	/**
+	 * Flagged components in the loaded metadata.
+	 *
+	 * @param array $skip Components to leave out, as array keys
+	 *                    ("{type}:{slug}"). Values are ignored.
+	 * @return int
+	 */
+	public function count_flagged_components( array $skip = array() ) {
 		$count = 0;
-		foreach ( $meta as $entry ) {
+		foreach ( $this->comp_meta as $key => $entry ) {
 			if ( ! is_array( $entry ) || empty( $entry['vulnerable'] ) ) {
+				continue;
+			}
+			if ( isset( $skip[ $key ] ) ) {
 				continue;
 			}
 			if ( in_array( $entry['state'] ?? 'active', self::INACTIVE_COMPONENT_STATES, true ) ) {
@@ -542,6 +564,41 @@ class Segurium_Integrity_Server_State {
 			++$count;
 		}
 		return $count;
+	}
+
+	/**
+	 * Everything the Integrity tab still counts as an issue: the open file
+	 * findings from the latest scan, plus the flagged releases that produce
+	 * no finding of their own because their files match the vendor hashes.
+	 *
+	 * A flagged component that also carries an open file finding is badged
+	 * as an issue there and shows its file count instead, so it counts once
+	 * through the findings half and drops out of the other.
+	 *
+	 * One aggregate query and one metadata decode serve both halves.
+	 *
+	 * @param int $scan_ts Timestamp of the most recent integrity scan.
+	 * @return int
+	 */
+	public static function count_open_tab_issues( $scan_ts ) {
+		$scan_ts = (int) $scan_ts;
+		if ( $scan_ts <= 0 ) {
+			return 0;
+		}
+
+		$state = new self();
+		$state->load();
+		$inactive = $state->get_inactive_component_key_set();
+		$findings = self::open_findings_by_component( $scan_ts );
+
+		$count = 0;
+		foreach ( $findings as $key => $n ) {
+			if ( isset( $inactive[ $key ] ) ) {
+				continue;
+			}
+			$count += $n;
+		}
+		return $count + $state->count_flagged_components( $findings );
 	}
 
 	/**

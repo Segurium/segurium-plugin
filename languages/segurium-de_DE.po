@@ -5121,3 +5121,27 @@ msgstr "Eine verwundbare Komponente ist installiert"
 
 msgid "Security issues need your attention"
 msgstr "Sicherheitsprobleme brauchen deine Aufmerksamkeit"
+
+msgid "This item cannot be switched on from here."
+msgstr "Dieser Eintrag kann nicht von hier aus aktiviert werden."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "Dieser Server fügt den Header wieder hinzu, nachdem das Plugin ihn entfernt hat. Öffne den Funktions-Tab für die Lösung auf Server-Ebene."
+
+msgid "That feature is not available on this installation."
+msgstr "Diese Funktion ist in dieser Installation nicht verfügbar."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Die Einstellung konnte nicht gespeichert werden. Öffne den Funktions-Tab und aktiviere sie dort."
+
+msgid "Applying..."
+msgstr "Wird angewendet …"
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "Einstellung gespeichert. Dein Seiten-Cache liefert noch die alte Antwort aus, daher verschwindet diese Zeile, sobald der Cache aktualisiert wird."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Die Korrektur konnte nicht angewendet werden. Öffne den Funktions-Tab und aktiviere sie dort."
+
+msgid "You can change this later under Settings."
+msgstr "Du kannst dies später unter Einstellungen ändern."

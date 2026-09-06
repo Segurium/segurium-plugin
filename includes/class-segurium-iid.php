@@ -18,10 +18,6 @@ class Segurium_IID {
 	const OPTION_TOKEN  = 'segurium_iid_token';
 	const REGISTER_PATH = '/v1/iid/register';
 
-	/** Alerts opt-in option keys. */
-	const OPTION_ALERTS_EMAIL_ENABLED = 'segurium_alerts_email_enabled';
-	const OPTION_ALERTS_EMAIL_ADDRESS = 'segurium_alerts_email_address';
-
 	/**
 	 * Set when CTI returns HTTP 409 `re_register` so the next
 	 * `admin_init` can re-register asynchronously instead of paying the
@@ -404,11 +400,9 @@ class Segurium_IID {
 	 * @return array<string,mixed>|null
 	 */
 	public static function alerts_payload() {
-		$opt_in = (bool) Segurium_Storage::setting_get_bool( self::OPTION_ALERTS_EMAIL_ENABLED );
-		$email  = (string) Segurium_Storage::setting_get_string( self::OPTION_ALERTS_EMAIL_ADDRESS );
-		if ( '' === $email ) {
-			$email = (string) Segurium_Storage::setting_get( 'admin_email', '' );
-		}
+		$alerts = Segurium_Alerts_Settings::get();
+		$opt_in = (bool) $alerts['enabled'];
+		$email  = (string) $alerts['email'];
 		if ( '' === $email || false === strpos( $email, '@' ) ) {
 			return null;
 		}

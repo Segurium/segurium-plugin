@@ -4909,3 +4909,27 @@ msgstr "مشكلات أمنية تحتاج إلى انتباهك"
 #~ msgstr ""
 #~ "تم تجاوز حصة المعالجة للفئة المجانية. قم بالترقية إلى الإصدار الاحترافي "
 #~ "للحصول على إصلاحات غير محدودة."
+
+msgid "This item cannot be switched on from here."
+msgstr "لا يمكن تفعيل هذا العنصر من هنا."
+
+msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
+msgstr "يعيد هذا الخادم إضافة الترويسة بعد أن يزيلها الإضافة. افتح علامة تبويب الميزة للحصول على الإصلاح على مستوى الخادم."
+
+msgid "That feature is not available on this installation."
+msgstr "هذه الميزة غير متاحة على هذا التثبيت."
+
+msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "تعذّر حفظ الإعداد. افتح علامة تبويب الميزة وقم بتفعيله من هناك."
+
+msgid "Applying..."
+msgstr "جارٍ التطبيق..."
+
+msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
+msgstr "تم حفظ الإعداد. لا تزال ذاكرة التخزين المؤقت للصفحة تُقدّم الاستجابة القديمة، لذا سيُمسح هذا الصف بمجرد تحديث ذاكرة التخزين المؤقت."
+
+msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "تعذّر تطبيق الإصلاح. افتح علامة تبويب الميزة وقم بتفعيله من هناك."
+
+msgid "You can change this later under Settings."
+msgstr "يمكنك تغيير هذا لاحقًا ضمن الإعدادات."

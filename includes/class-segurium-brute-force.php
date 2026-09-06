@@ -18,7 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_Brute_Force {
 
-	const OPTION_SETTINGS   = 'segurium_bf_settings';
+	const SETTINGS_SLUG     = 'brute_force';
+	const OPTION_SETTINGS   = 'segurium_settings_brute_force';
 	const OPTION_DB_VERSION = 'segurium_bf_db_version';
 	const DB_VERSION        = 3;
 	const CRON_PRUNE        = 'segurium_bf_prune';
@@ -296,8 +297,7 @@ class Segurium_Brute_Force {
 	 * @return void
 	 */
 	private function load_settings() {
-		$persisted      = Segurium_Storage::setting_get_array( self::OPTION_SETTINGS );
-		$this->settings = wp_parse_args( $persisted, self::default_settings() );
+		$this->settings = Segurium_Settings::get( self::SETTINGS_SLUG );
 	}
 
 	/**
@@ -329,7 +329,7 @@ class Segurium_Brute_Force {
 		}
 		$clean['honeypot_field_name'] = $field_name;
 
-		$existing                  = Segurium_Storage::setting_get_array( self::OPTION_SETTINGS );
+		$existing                  = Segurium_Settings::get( self::SETTINGS_SLUG );
 		$clean['hcaptcha_enabled'] = ! empty( $input['hcaptcha_enabled'] );
 
 		$site_key                   = isset( $input['hcaptcha_site_key'] ) ? sanitize_text_field( (string) $input['hcaptcha_site_key'] ) : '';
@@ -365,10 +365,17 @@ class Segurium_Brute_Force {
 	 * @return array Sanitized settings that were persisted.
 	 */
 	public function save_settings( $input ) {
-		$clean = $this->validate_settings( $input );
-		Segurium_Storage::setting_set( self::OPTION_SETTINGS, $clean );
-		$this->settings = $clean;
-		return $clean;
+		Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $input );
+		return $this->get_settings();
+	}
+
+	/**
+	 * Post-write hook driven by the settings registry.
+	 *
+	 * @return void
+	 */
+	public function refresh_settings() {
+		$this->load_settings();
 	}
 
 	/*
@@ -1267,8 +1274,8 @@ class Segurium_Brute_Force {
 			return $this->firewall_verdict_cache[ $ip ];
 		}
 		$verdict = 'pass';
-		if ( Segurium_Storage::setting_get_bool( 'segurium_firewall_enabled' ) ) {
-			$mode      = Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' );
+		if ( Segurium_Settings::get_field( 'firewall', 'enabled' ) ) {
+			$mode      = Segurium_Settings::get_field( 'firewall', 'mode' );
 			$list_type = 'allow_list' === $mode ? 'allow' : 'block';
 			$in_list   = null !== Segurium_Storage::ip_match( $ip, $list_type );
 			if ( 'allow_list' === $mode ) {
@@ -1307,7 +1314,7 @@ class Segurium_Brute_Force {
 		if ( 'block' === $this->firewall_verdict( $ip ) ) {
 			return true;
 		}
-		if ( Segurium_Storage::setting_get_bool( 'segurium_geo_blocking_enabled' ) ) {
+		if ( Segurium_Settings::get_field( 'geo', 'enabled' ) ) {
 			if ( ! Segurium_Geo_Blocker::get_instance()->is_ip_allowed( $ip ) ) {
 				return true;
 			}

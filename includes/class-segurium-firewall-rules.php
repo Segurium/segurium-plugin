@@ -24,7 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Segurium_Firewall_Rules {
 
-	const CONTEXT = 'firewall';
+	const CONTEXT       = 'firewall';
+	const SETTINGS_SLUG = 'firewall';
 
 	/**
 	 * Register the pending-revert handler. Idempotent — WordPress dedupes
@@ -42,14 +43,11 @@ class Segurium_Firewall_Rules {
 	 * @return string[] Array of `<ip>/<bits>` strings.
 	 */
 	public static function read() {
-		$mode      = Segurium_Storage::setting_get_string( 'segurium_firewall_mode', 'deny_list' );
+		$mode      = Segurium_Settings::get_field( self::SETTINGS_SLUG, 'mode' );
 		$list_type = 'allow_list' === $mode ? 'allow' : 'block';
-		$rows      = Segurium_Storage::ip_list( $list_type, 500, 0 );
+		$rows      = Segurium_Storage::ip_list( $list_type, 500, 0, 'firewall_rule' );
 		$out       = array();
 		foreach ( $rows as $r ) {
-			if ( 'firewall_rule' !== ( $r['source'] ?? '' ) ) {
-				continue;
-			}
 			$bin = isset( $r['ip_hex'] ) && '' !== $r['ip_hex'] ? hex2bin( (string) $r['ip_hex'] ) : '';
 			$ip  = $bin ? (string) Segurium_IP::unpack( $bin ) : '';
 			if ( '' === $ip ) {
@@ -105,10 +103,49 @@ class Segurium_Firewall_Rules {
 		if ( self::CONTEXT !== $context ) {
 			return;
 		}
-		$restored_mode = $old_value['mode'] ?? 'deny_list';
-		Segurium_Storage::setting_set( 'segurium_firewall_enabled', ! empty( $old_value['enabled'] ) );
-		Segurium_Storage::setting_set( 'segurium_firewall_mode', $restored_mode );
-		self::save( $restored_mode, (array) ( $old_value['ip_list'] ?? array() ) );
-		Segurium_Trusted_Proxies::manual_save( (array) ( $old_value['trusted_proxies'] ?? array() ) );
+		self::apply_settings( $old_value );
+	}
+
+	/**
+	 * The firewall's own settings, without the two address lists. Callers that
+	 * want the lists too read them through the settings registry.
+	 *
+	 * @return array{enabled:bool,mode:string}
+	 */
+	public static function get_settings() {
+		return Segurium_Settings::get( self::SETTINGS_SLUG );
+	}
+
+	/**
+	 * Reduce raw input to the two stored fields.
+	 *
+	 * @param array $input Raw settings input.
+	 * @return array{enabled:bool,mode:string}
+	 */
+	public static function validate_settings( $input ) {
+		$input = is_array( $input ) ? $input : array();
+		$clean = array(
+			'enabled' => ! empty( $input['enabled'] ),
+			'mode'    => ( 'allow_list' === ( $input['mode'] ?? '' ) ) ? 'allow_list' : 'deny_list',
+		);
+
+		foreach ( array( 'ip_list', 'trusted_proxies' ) as $field ) {
+			if ( array_key_exists( $field, $input ) ) {
+				$clean[ $field ] = Segurium_Trusted_Proxies::sanitize_cidr_list( (array) $input[ $field ] );
+			}
+		}
+
+		return $clean;
+	}
+
+	/**
+	 * Persist the firewall settings and both address lists. Restoring a
+	 * reverted value must not arm a fresh fuse, so staging is off here.
+	 *
+	 * @param array $settings Settings, address lists included.
+	 * @return void
+	 */
+	public static function apply_settings( array $settings ) {
+		Segurium_Settings_Writer::save( self::SETTINGS_SLUG, $settings, array( 'stage' => false ) );
 	}
 }
