@@ -4942,7 +4942,7 @@ msgid "Why are you deactivating Segurium?"
 msgstr "¿Por qué desactivas Segurium?"
 
 msgid "Missing feature"
-msgstr "Falta una función"
+msgstr "Le falta alguna característica"
 
 msgid "It is causing issues"
 msgstr "Está causando problemas"
@@ -4986,7 +4986,7 @@ msgid "Vulnerable"
 msgstr "Vulnerable"
 
 msgid "No update available"
-msgstr "No hay actualización disponible"
+msgstr "No hay actualizaciones disponibles"
 
 #. translators: 1: component name, 2: installed version, 3: version WordPress would install
 msgid ""
@@ -5043,7 +5043,7 @@ msgstr ""
 "desde allí."
 
 msgid "You can change this later under Settings."
-msgstr "Puedes cambiar esto más tarde en Ajustes."
+msgstr "Puedes cambiarlo más adelante en los ajustes."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "Plugin Segurium para WordPress."
@@ -5130,3 +5130,20 @@ msgstr "Puedes cambiar esto más tarde en Ajustes."
 #~ msgstr ""
 #~ "Cuota de remediación del nivel gratuito superada. Actualice a Pro para "
 #~ "obtener correcciones ilimitadas."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"¿Sitio web hackeado? Eliminación gratuita de malware y limpieza automática "
+"en cada sitio, más avisos de vulnerabilidades, cortafuegos y 2FA."
+
+msgid "The setting could not be saved."
+msgstr "No se pudo guardar el ajuste."

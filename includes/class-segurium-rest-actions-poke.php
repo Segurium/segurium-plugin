@@ -3,10 +3,21 @@
  * Public REST endpoint /wp-json/segurium/v1/actions-poke.
  *
  * CTI calls this to wake the hourly action pull early. The request carries
- * no instructions of its own — the handler only schedules the pull, which
+ * no instructions of its own — the handler only starts the pull, which
  * then fetches and verifies the queue over the normal signed channel. A
  * replayed poke therefore costs one extra pull and nothing else, which is
  * why the body needs no replay defence.
+ *
+ * WP-Cron is not on the path. On any host that can detach a response —
+ * PHP-FPM and LiteSpeed, which is nearly every install — the handler
+ * answers 202, closes the connection, and runs the pull itself on
+ * shutdown. spawn_cron() was too quiet to depend on: it refuses on a POST
+ * under ALTERNATE_WP_CRON, returns false while the doing_cron transient
+ * holds its 60-second lock, and fires its loopback to wp-cron.php
+ * non-blocking, so a host that blocks that file reports nothing. Hosts
+ * with neither detach function keep the schedule-plus-spawn path, which
+ * is also what a site running with DISABLE_WP_CRON and a system crontab
+ * collects on its next tick.
  *
  * XML-RPC was the original proposal and was rejected: the plugin ships
  * `disable_xmlrpc` in Info Shield and brute-force gating on xmlrpc.php, so
@@ -27,6 +38,16 @@ final class Segurium_Rest_Actions_Poke {
 
 	const NAMESPACE_V1 = 'segurium/v1';
 	const ROUTE        = '/actions-poke';
+
+	/**
+	 * Which path the site took. CTI records the value, so the set is
+	 * closed.
+	 */
+	const REASON_DETACHED = 'detached';
+	const REASON_QUEUED   = 'queued';
+	const REASON_RUNNING  = 'already_queued';
+
+	const REASONS = array( self::REASON_DETACHED, self::REASON_QUEUED, self::REASON_RUNNING );
 
 	/**
 	 * Denial text for an unsigned or badly signed poke. Only CTI reads
@@ -124,24 +145,99 @@ final class Segurium_Rest_Actions_Poke {
 	}
 
 	/**
-	 * Schedule the pull and answer immediately. The pull itself can end in
-	 * an upgrader run, which is far too slow to hold a request open.
+	 * Answer immediately, then pull. The pull can end in an upgrader run,
+	 * which is far too slow to hold a request open, so the work happens
+	 * on shutdown once the connection is detached.
 	 *
-	 * WordPress refuses a duplicate single event inside a 10-minute window,
-	 * so report what actually happened rather than claiming every poke
-	 * landed. `already_queued` is not a failure — a pull is coming either
-	 * way — but CTI should not be told a new one was booked when it wasn't.
+	 * A host with no way to detach falls back to a scheduled event.
+	 * WordPress refuses a duplicate single event inside a 10-minute
+	 * window there, so report what actually happened rather than claiming
+	 * every poke booked a new one. `already_queued` is not a failure: a
+	 * pull is coming either way.
 	 *
 	 * @return WP_REST_Response
 	 */
 	public static function handle() {
+		if ( self::detach_available() ) {
+			add_action( 'shutdown', array( __CLASS__, 'run_detached' ), 1 );
+			return self::answer( true, self::REASON_DETACHED );
+		}
+
 		$scheduled = wp_schedule_single_event( time(), Segurium_Remote_Actions::HOOK, array( 'poke' ) );
 		spawn_cron();
 
+		return self::answer(
+			true === $scheduled,
+			true === $scheduled ? self::REASON_QUEUED : self::REASON_RUNNING
+		);
+	}
+
+	/**
+	 * Shutdown callback for the detached path. Closes the connection
+	 * first so the caller is not held for the length of the work, then
+	 * runs the same pull the scheduled event would have run.
+	 *
+	 * Public because it is a hook callback. Never throws: a fatal here
+	 * would land after the response was sent, where nothing can report
+	 * it.
+	 *
+	 * @return void
+	 */
+	public static function run_detached() {
+		self::detach_response();
+
+		try {
+			Segurium_Remote_Actions::run( 'poke' );
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium] detached action pull failed: ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Whether this host can close the response and keep running.
+	 *
+	 * Filterable so a host whose FPM build misbehaves under a detached
+	 * request can force the scheduled-event path back on without editing
+	 * the plugin.
+	 *
+	 * @return bool
+	 */
+	public static function detach_available() {
+		$available = function_exists( 'fastcgi_finish_request' )
+			|| function_exists( 'litespeed_finish_request' );
+
+		return (bool) apply_filters( 'segurium_actions_poke_can_detach', $available );
+	}
+
+	/**
+	 * Close the connection to the caller. Mirrors the scan runner's
+	 * detach: PHP-FPM and LSAPI each expose their own call, and bare
+	 * mod_php has no portable equivalent.
+	 *
+	 * @return void
+	 */
+	private static function detach_response() {
+		if ( function_exists( 'fastcgi_finish_request' ) ) {
+			@fastcgi_finish_request(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort detach
+			return;
+		}
+		if ( function_exists( 'litespeed_finish_request' ) ) {
+			@litespeed_finish_request(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort detach
+		}
+	}
+
+	/**
+	 * Build the 202 body CTI reads.
+	 *
+	 * @param bool   $scheduled Whether a pull is now coming.
+	 * @param string $reason    One of self::REASONS.
+	 * @return WP_REST_Response
+	 */
+	private static function answer( $scheduled, $reason ) {
 		return new WP_REST_Response(
 			array(
-				'scheduled' => true === $scheduled,
-				'reason'    => true === $scheduled ? 'queued' : 'already_queued',
+				'scheduled' => (bool) $scheduled,
+				'reason'    => $reason,
 			),
 			202
 		);

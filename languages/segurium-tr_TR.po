@@ -65,23 +65,22 @@ msgid ""
 "Two-factor authentication is required. Please enable JavaScript to complete "
 "login."
 msgstr ""
-"İki faktörlü kimlik doğrulama gereklidir. Lütfen oturum açmayı tamamlamak "
-"için JavaScript'i etkinleştirin."
+"İki adımlı doğrulama gereklidir. Lütfen oturum açmayı tamamlamak için "
+"JavaScript'i etkinleştirin."
 
 #: includes/class-segurium-2fa.php:609
 msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
 msgstr ""
-"Rolünüz için iki faktörlü kimlik doğrulama kurulumu gereklidir. Lütfen "
-"yöneticinizle iletişime geçin."
+"Rolünüz için iki adımlı doğrulama kurulumu gereklidir. Lütfen yöneticinizle "
+"iletişime geçin."
 
 #: includes/class-segurium-2fa.php:650
 msgid ""
 "Two-factor authentication required. Append your 2FA code to your password."
 msgstr ""
-"İki faktörlü kimlik doğrulama gereklidir. 2FA kodunuzu parolanızın sonuna "
-"ekleyin."
+"İki adımlı doğrulama gereklidir. 2FA kodunuzu parolanızın sonuna ekleyin."
 
 #: includes/class-segurium-2fa.php:993
 msgid "Verifying..."
@@ -128,14 +127,14 @@ msgstr "Çok fazla başarısız deneme. Lütfen daha sonra yeniden deneyin."
 
 #: includes/class-segurium-2fa.php:1004
 msgid "Two-factor authentication setup is required for your role."
-msgstr "Rolünüz için iki faktörlü kimlik doğrulama kurulumu gereklidir."
+msgstr "Rolünüz için iki adımlı doğrulama kurulumu gereklidir."
 
 #: includes/class-segurium-2fa.php:1028
 #: includes/migrations/class-segurium-migration-solid-security.php:60
 #: includes/migrations/class-segurium-migration-wordfence.php:273
 #: includes/migrations/class-segurium-migration-wordfence.php:287
 msgid "Two-Factor Authentication"
-msgstr "İki Faktörlü Kimlik Doğrulama"
+msgstr "İki Adımlı Doğrulama"
 
 #: includes/class-segurium-2fa.php:1031 includes/class-segurium.php:1541
 #: includes/class-segurium.php:2796
@@ -172,11 +171,11 @@ msgstr "E-posta Doğrulama"
 
 #: includes/class-segurium-2fa.php:1078
 msgid "Backup codes remaining:"
-msgstr "Kalan yedek kodlar:"
+msgstr "Kalan yedekleme kodları:"
 
 #: includes/class-segurium-2fa.php:1079
 msgid "Regenerate Backup Codes"
-msgstr "Yedek Kodları Yeniden Oluştur"
+msgstr "Yedekleme Kodlarını Yeniden Oluştur"
 
 #: includes/class-segurium-2fa.php:1080
 msgid "Disable 2FA"
@@ -221,7 +220,7 @@ msgstr "2FA devre dışı bırakıldı."
 
 #: includes/class-segurium-2fa.php:1089
 msgid "New backup codes generated."
-msgstr "Yeni yedek kodlar oluşturuldu."
+msgstr "Yeni yedekleme kodları oluşturuldu."
 
 #: includes/class-segurium-2fa.php:1090
 msgid "Enter your current 2FA code to confirm:"
@@ -242,8 +241,8 @@ msgid ""
 "Your administrator requires two-factor authentication. You have %d day(s) "
 "remaining to set it up."
 msgstr ""
-"Yöneticiniz iki faktörlü kimlik doğrulama zorunlu kılmıştır. Kurmak için %d "
-"gününüz kaldı."
+"Yöneticiniz iki adımlı doğrulama zorunlu kılmıştır. Kurmak için %d gününüz "
+"kaldı."
 
 #: includes/class-segurium-2fa.php:1131 includes/class-segurium-2fa.php:1138
 msgid "Set up now"
@@ -253,8 +252,7 @@ msgstr "Şimdi kur"
 msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
-msgstr ""
-"Rolünüz için iki faktörlü kimlik doğrulama gereklidir. Lütfen hemen kurun."
+msgstr "Rolünüz için iki adımlı doğrulama gereklidir. Lütfen hemen kurun."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1173
@@ -815,7 +813,7 @@ msgstr "Referrer-Policy, gezinmede bilgi sızıntısını kısıtlar."
 
 #: includes/class-segurium-self-check.php:339
 msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
-msgstr "Eksik veya güvensiz Referrer-Policy. Tam URL'ler sızdırılabilir."
+msgstr "Eksik veya güvensiz Referrer-Policy. Tam adresler sızdırılabilir."
 
 #: includes/class-segurium-self-check.php:350 includes/class-segurium.php:2198
 msgid "Permissions-Policy"
@@ -842,7 +840,7 @@ msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
 msgstr ""
-"X-XSS-Protection eksik. Eski tarayıcı XSS filtrelerini güvenli şekilde devre"
+"X-XSS-Protection eksik. Eski tarayıcı XSS süzgeçlerini güvenli şekilde devre"
 " dışı bırakmak için 0 olarak ayarlayın."
 
 #: includes/class-segurium-self-check.php:395
@@ -878,12 +876,12 @@ msgstr "Varlık sürüm sorgusu gizli"
 #: includes/class-segurium-self-check.php:432
 msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
 msgstr ""
-"Çekirdek/tema/eklenti sürümü, varlık URL'lerindeki ?ver= ile açığa "
+"Çekirdek/tema/eklenti sürümü, varlık adreslerindeki ?ver= ile açığa "
 "çıkarılmış."
 
 #: includes/class-segurium-self-check.php:433
 msgid "Asset URLs do not expose version numbers."
-msgstr "Varlık URL'leri sürüm numaralarını açığa çıkarmıyor."
+msgstr "Varlık adresleri sürüm numaralarını açığa çıkarmıyor."
 
 #: includes/class-segurium-self-check.php:460
 msgid "XML-RPC disabled"
@@ -929,11 +927,11 @@ msgstr "Kaba kuvvet koruması devre dışı."
 
 #: includes/class-segurium-self-check.php:509
 msgid "Two-factor enforced for administrators"
-msgstr "Yöneticiler için iki faktörlü kimlik doğrulama zorunlu"
+msgstr "Yöneticiler için iki adımlı doğrulama zorunlu"
 
 #: includes/class-segurium-self-check.php:512
 msgid "Two-factor authentication is enforced for the administrator role."
-msgstr "Yönetici rolü için iki faktörlü kimlik doğrulama zorunlu kılınmıştır."
+msgstr "Yönetici rolü için iki adımlı doğrulama zorunlu kılınmıştır."
 
 #: includes/class-segurium-self-check.php:513
 msgid "Administrators can log in with a password alone."
@@ -1159,11 +1157,11 @@ msgstr[1] ""
 #: includes/class-segurium-trusted-proxies.php:92
 #, php-format
 msgid "Trusted proxies endpoint returned HTTP %d."
-msgstr "Güvenilir proxy uç noktası HTTP %d döndürdü."
+msgstr "Güvenilir vekil sunucu uç noktası HTTP %d döndürdü."
 
 #: includes/class-segurium-trusted-proxies.php:113
 msgid "Trusted proxies response has invalid format."
-msgstr "Güvenilir proxy yanıtı geçersiz biçime sahip."
+msgstr "Güvenilir vekil sunucu yanıtı geçersiz biçime sahip."
 
 #: includes/class-segurium-upload-scan.php:90
 msgid "This file was identified as malware and has been blocked."
@@ -1632,8 +1630,8 @@ msgid ""
 "Some files will be deleted (unknown files) and some will be replaced with "
 "originals (modified files). Backups will be created for all. Continue?"
 msgstr ""
-"Bazı dosyalar silinecek (bilinmeyen dosyalar) ve bazıları orijinalleriyle "
-"değiştirilecek (değiştirilmiş dosyalar). Tüm dosyalar için yedek "
+"Bazı dosyalar silinecek (bilinmeyen dosyalar) ve bazıları özgün dosyalarıyla"
+" değiştirilecek (değiştirilmiş dosyalar). Tüm dosyalar için yedek "
 "oluşturulacak. Devam edilsin mi?"
 
 #: includes/class-segurium.php:905
@@ -2610,19 +2608,19 @@ msgstr "Şunlar dışında her şeyi reddet…"
 
 #: includes/class-segurium.php:1727
 msgid "Custom Trusted Proxy IPs / CIDRs"
-msgstr "Özel Güvenilir Proxy IP'leri / CIDR'leri"
+msgstr "Özel Güvenilir Vekil Sunucu IP'leri / CIDR'leri"
 
 #: includes/class-segurium.php:1729
 msgid "Loading auto-detected proxy status..."
-msgstr "Otomatik algılanan proxy durumu yükleniyor..."
+msgstr "Otomatik algılanan vekil sunucu durumu yükleniyor..."
 
 #: includes/class-segurium.php:1731
 msgid ""
 "Additional proxy IPs beyond the auto-detected list, one per line. Leave "
 "empty if all your proxies are covered above."
 msgstr ""
-"Otomatik algılanan listenin ötesindeki ek proxy IP'leri, her satıra bir "
-"tane. Tüm proxy'leriniz yukarıda kapsanıyorsa boş bırakın."
+"Otomatik algılanan listenin ötesindeki ek vekil sunucu IP'leri, her satıra "
+"bir tane. Tüm vekil sunucularınız yukarıda kapsanıyorsa boş bırakın."
 
 #: includes/class-segurium.php:1750
 msgid ""
@@ -2688,7 +2686,7 @@ msgstr "Denemeler"
 
 #: includes/class-segurium.php:1973
 msgid "Enable Two-Factor Authentication"
-msgstr "İki Faktörlü Kimlik Doğrulamayı Etkinleştir"
+msgstr "İki Adımlı Doğrulamayı Etkinleştir"
 
 #: includes/class-segurium.php:1975
 msgid ""
@@ -2904,7 +2902,7 @@ msgstr "Tümünü reddet"
 
 #: includes/class-segurium.php:2110
 msgid "Prevents your site from being embedded in iframes on other domains."
-msgstr "Sitenizin diğer alan adlarındaki iframe'lere gömülmesini engeller."
+msgstr "Sitenizin diğer etki alanlarındaki iframe'lere gömülmesini engeller."
 
 #: includes/class-segurium.php:2117
 msgid "No referrer"
@@ -2966,7 +2964,7 @@ msgstr "Max-Age (saniye)"
 
 #: includes/class-segurium.php:2156
 msgid "Include subdomains"
-msgstr "Alt alan adlarını dahil et"
+msgstr "Alt etki alanlarını dahil et"
 
 #: includes/class-segurium.php:2162
 msgid "Preload"
@@ -2977,8 +2975,8 @@ msgid ""
 "Warning: preload is difficult to undo. Requires max-age at least 1 year and "
 "subdomains included."
 msgstr ""
-"Uyarı: ön yüklemeyi geri almak zordur. En az 1 yıl max-age ve alt alan "
-"adlarının dahil edilmesini gerektirir."
+"Uyarı: ön yüklemeyi geri almak zordur. En az 1 yıl max-age ve alt etki "
+"alanlarının dahil edilmesini gerektirir."
 
 #: includes/class-segurium.php:2168
 msgid ""
@@ -2986,9 +2984,9 @@ msgid ""
 "will affect all subdomains of the parent domain, including ones you may not "
 "control."
 msgstr ""
-"Siteniz bir alt alan adında görünüyor. HSTS'te includeSubDomains'i "
-"etkinleştirmek, kontrol etmediğiniz olanlar dahil olmak üzere üst alan "
-"adının tüm alt alan adlarını etkiler."
+"Siteniz bir alt etki alanında görünüyor. HSTS'te includeSubDomains'i "
+"etkinleştirmek, kontrol etmediğiniz olanlar dahil olmak üzere üst etki "
+"alanının tüm alt etki alanlarını etkiler."
 
 #: includes/class-segurium.php:2170
 msgid "Cross-Origin Policies"
@@ -3110,7 +3108,7 @@ msgid ""
 "page builders — start in report-only mode to surface violations before "
 "enforcing."
 msgstr ""
-"CSP, betiklerin, stillerin ve diğer kaynakların nereden yüklenebileceğini "
+"CSP, betiklerin, biçemlerin ve diğer kaynakların nereden yüklenebileceğini "
 "kısıtlayarak XSS ve enjeksiyonu azaltır. CSP siteye özeldir ve temaları veya"
 " sayfa oluşturucuları bozabilir — zorunlu kılmadan önce ihlalleri ortaya "
 "çıkarmak için yalnızca raporlama kipinde başlayın."
@@ -3334,7 +3332,7 @@ msgstr "Shortlink bağlantı etiketini HTML başlığından kaldırır."
 
 #: includes/class-segurium.php:2397
 msgid "Remove emoji scripts and styles"
-msgstr "Emoji betiklerini ve stillerini kaldır"
+msgstr "Emoji betiklerini ve biçemlerini kaldır"
 
 #: includes/class-segurium.php:2399
 msgid ""
@@ -3354,7 +3352,7 @@ msgid ""
 "does not use RSS feeds."
 msgstr ""
 "RSS okuyucularını ve WordPress.com Reader'ı bozabilir. Yalnızca siteniz RSS "
-"beslemeleri kullanmıyorsa etkinleştirin."
+"akışları kullanmıyorsa etkinleştirin."
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
@@ -3370,15 +3368,15 @@ msgstr "Varlık Parmak İzi"
 
 #: includes/class-segurium.php:2420
 msgid "Remove version query strings"
-msgstr "Sürüm sorgu dizilerini kaldır"
+msgstr "Sürüm sorgu dizgelerini kaldır"
 
 #: includes/class-segurium.php:2422
 msgid ""
 "Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
 "stale after plugin or theme updates."
 msgstr ""
-"CSS ve JavaScript URL'lerinden ?ver= bölümünü çıkarır. Tarayıcıda önbelleğe "
-"alınmış varlıklar, eklenti veya tema güncellemelerinden sonra eski hâle "
+"CSS ve JavaScript adreslerinden ?ver= bölümünü çıkarır. Tarayıcıda önbelleğe"
+" alınmış varlıklar, eklenti veya tema güncellemelerinden sonra eski hâle "
 "gelebilir."
 
 #: includes/class-segurium.php:2429
@@ -3440,7 +3438,7 @@ msgid ""
 "Two-factor authentication (TOTP, email fallback, backup codes, trusted "
 "devices)"
 msgstr ""
-"İki faktörlü kimlik doğrulama (TOTP, e-posta yedeklemesi, yedek kodlar, "
+"İki adımlı doğrulama (TOTP, e-posta yedeklemesi, yedekleme kodları, "
 "güvenilir cihazlar)"
 
 #: includes/class-segurium.php:2496
@@ -3682,7 +3680,7 @@ msgstr "Coğrafi VT güncellendi"
 
 #: includes/class-segurium.php:2811
 msgid "Proxies DB updated"
-msgstr "Proxy VT güncellendi"
+msgstr "Vekil sunucu VT güncellendi"
 
 #: includes/class-segurium.php:2819
 msgid "Your IP"
@@ -3709,7 +3707,7 @@ msgstr[1] ""
 
 #: includes/class-segurium.php:2923
 msgid "Scan exclusion list is limited to 500 entries."
-msgstr "Tarama hariç tutma listesi 500 girişle sınırlıdır."
+msgstr "Tarama hariç tutma listesi 500 kayıtla sınırlıdır."
 
 #. translators: %d: number of rejected lines
 #: includes/class-segurium.php:2930
@@ -4117,7 +4115,7 @@ msgstr "Engellenen IP'ler"
 
 #: includes/migrations/class-segurium-migration-aios.php:128
 msgid "No banned IPs configured in AIOS."
-msgstr "AIOS'ta yapılandırılmış yasaklı IP yok."
+msgstr "AIOS'te yapılandırılmış yasaklı IP yok."
 
 #: includes/migrations/class-segurium-migration-aios.php:130
 #: includes/migrations/class-segurium-migration-aios.php:143
@@ -4136,7 +4134,7 @@ msgstr "Tarama Hariç Tutmaları"
 
 #: includes/migrations/class-segurium-migration-aios.php:141
 msgid "No file exclusions configured in AIOS."
-msgstr "AIOS'ta yapılandırılmış dosya hariç tutması yok."
+msgstr "AIOS'te yapılandırılmış dosya hariç tutması yok."
 
 #: includes/migrations/class-segurium-migration-solid-security.php:60
 msgid "Segurium 2FA (planned)"
@@ -4526,11 +4524,11 @@ msgstr ""
 
 #: includes/class-segurium.php:351
 msgid "Unknown or unsupported action."
-msgstr "Bilinmeyen veya desteklenmeyen işlem."
+msgstr "Bilinmeyen veya desteklenmeyen eylem."
 
 #: includes/class-segurium.php:386
 msgid "This action is temporarily unavailable."
-msgstr "Bu işlem geçici olarak kullanılamıyor."
+msgstr "Bu eylem geçici olarak kullanılamıyor."
 
 #: includes/class-segurium-component-backup.php:59
 #: includes/class-segurium-component-backup.php:168
@@ -4573,7 +4571,7 @@ msgid ""
 "Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication"
 msgstr ""
 "Segurium – Kötü Amaçlı Yazılım Kaldırma ve Temizleme, Güvenlik Duvarı, İki "
-"Faktörlü Kimlik Doğrulama"
+"Adımlı Doğrulama"
 
 #. Description of the plugin
 msgid ""
@@ -4808,13 +4806,13 @@ msgid ""
 "Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
 "itself. It can only name a component you already have installed, and only "
 "when WordPress.org already offers that update; the update is downloaded by "
-"WordPress from WordPress.org, never from Segurium. WordPress core is "
-"limited to security and maintenance releases. Segurium never updates itself"
-" this way. Turn this off and the site stops asking for and accepting these "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
 "requests."
 msgstr ""
-"Segurium Cloud bu siteden bir eklentiyi, temayı veya WordPress'in kendisini"
-" güncellemesini isteyebilir. Yalnızca zaten kurulu olan bir bileşeni "
+"Segurium Cloud bu siteden bir eklentiyi, temayı veya WordPress'in kendisini "
+"güncellemesini isteyebilir. Yalnızca zaten kurulu olan bir bileşeni "
 "belirtebilir ve yalnızca WordPress.org o güncellemeyi zaten sunuyorsa; "
 "güncelleme WordPress tarafından WordPress.org'dan indirilir, hiçbir zaman "
 "Segurium'dan indirilmez. WordPress çekirdeği yalnızca güvenlik ve bakım "
@@ -4829,6 +4827,135 @@ msgstr "Son bulut istekleri"
 
 msgid "Outcome"
 msgstr "Sonuç"
+
+#: includes/storage/class-segurium-storage.php:238
+msgid "Segurium Cloud could not clean this file right now. Try again later."
+msgstr ""
+"Segurium Cloud bu dosyayı şu anda temizleyemedi. Lütfen daha sonra yeniden "
+"deneyin."
+
+#: includes/storage/class-segurium-storage.php:235
+msgid "No clean version of this file exists. Remove or replace it by hand."
+msgstr ""
+"Bu dosyanın temiz bir sürümü yok. Dosyayı elle kaldırın veya değiştirin."
+
+msgid "Why are you deactivating Segurium?"
+msgstr "Segurium'u neden etkisizleştiriyorsunuz?"
+
+msgid "Missing feature"
+msgstr "Eksik özellik"
+
+msgid "It is causing issues"
+msgstr "Sorunlara yol açıyor"
+
+msgid "No longer needed"
+msgstr "Artık gerekli değil"
+
+msgid "Found better alternative"
+msgstr "Daha iyi bir alternatif buldum"
+
+msgid "Temporary deactivation"
+msgstr "Geçici etkisizleştirme"
+
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"Güvenlik uyarıları için e-posta adresi: WordPress yönetici e-postası veya "
+"aşağıda gireceğiniz adres, e-posta uyarısı tercihinizle birlikte kullanılır."
+
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Bu web sitesindeki kötü amaçlı yazılım bulguları ve güvenlik tehditleri "
+"hakkında beni bilgilendir."
+
+msgid ""
+"One email per day at most, sent from support@segurium.com. You can change "
+"this later under Settings."
+msgstr ""
+"Günde en fazla bir e-posta, support@segurium.com adresinden gönderilir. Bu "
+"tercihi daha sonra Ayarlar altında değiştirebilirsiniz."
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Outdated"
+msgstr "Güncel değil"
+
+msgid "Vulnerable"
+msgstr "Güvenlik açığı var"
+
+msgid "No update available"
+msgstr "Güncelleme yok"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s, %2$s sürümünden %3$s sürümüne geçiyor. Bu bir ana sürüm değişikliğidir"
+" ve sitenizi bozabilir."
+
+msgid "Malware is waiting for you to act"
+msgstr "Kötü amaçlı yazılım harekete geçmenizi bekliyor"
+
+msgid "A vulnerable component is installed"
+msgstr "Güvenlik açığı olan bir bileşen kurulu"
+
+msgid "Security issues need your attention"
+msgstr "Güvenlik sorunları ilginizi bekliyor"
+
+msgid "This item cannot be switched on from here."
+msgstr "Bu öğe buradan açılamaz."
+
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Bu sunucu, eklenti başlığı kaldırdıktan sonra onu yeniden ekliyor. Sunucu "
+"düzeyinde düzeltme için özellik sekmesini açın."
+
+msgid "That feature is not available on this installation."
+msgstr "Bu özellik bu kurulumda kullanılamıyor."
+
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr "Ayar kaydedilemedi. Özellik sekmesini açın ve oradan açın."
+
+msgid "Applying..."
+msgstr "Uygulanıyor..."
+
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Ayar kaydedildi. Sayfa önbelleğiniz hâlâ eski yanıtı sunuyor; bu nedenle "
+"önbellek yenilendiğinde bu satır temizlenecek."
+
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr "Düzeltme uygulanamadı. Özellik sekmesini açın ve oradan açın."
+
+msgid "You can change this later under Settings."
+msgstr "Bunu daha sonra Ayarlar altında değiştirebilirsiniz."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Ücretsiz Site Koruması: Antivirüs, Kötü Amaçlı Yazılım Kaldırma "
+"ve Otomatik Temizleme, Güvenlik Açığı Uyarıları"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Site saldırıya mı uğradı? Yürüttüğünüz her sitede ücretsiz kötü amaçlı "
+"yazılım kaldırma ve otomatik temizleme, güvenlik açığı uyarıları, 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Ayar kaydedilemedi."
 
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "WordPress için Segurium eklentisi."
@@ -4917,100 +5044,3 @@ msgstr "Sonuç"
 #~ msgstr ""
 #~ "Ücretsiz katman onarım kotası aşıldı. Sınırsız düzeltme için Pro'ya "
 #~ "yükseltin."
-
-#: includes/storage/class-segurium-storage.php:238
-msgid "Segurium Cloud could not clean this file right now. Try again later."
-msgstr ""
-"Segurium Cloud bu dosyayı şu anda temizleyemedi. Lütfen daha sonra yeniden "
-"deneyin."
-
-#: includes/storage/class-segurium-storage.php:235
-msgid "No clean version of this file exists. Remove or replace it by hand."
-msgstr ""
-"Bu dosyanın temiz bir sürümü yok. Dosyayı elle kaldırın veya değiştirin."
-
-msgid "Why are you deactivating Segurium?"
-msgstr "Segurium'u neden devre dışı bırakıyorsunuz?"
-
-msgid "Missing feature"
-msgstr "Eksik özellik"
-
-msgid "It is causing issues"
-msgstr "Sorunlara yol açıyor"
-
-msgid "No longer needed"
-msgstr "Artık gerekli değil"
-
-msgid "Found better alternative"
-msgstr "Daha iyi bir alternatif buldum"
-
-msgid "Temporary deactivation"
-msgstr "Geçici devre dışı bırakma"
-
-msgid ""
-"The email address for security alerts: the WordPress admin email, or the "
-"one you enter below, together with your email alerts choice."
-msgstr ""
-"Güvenlik uyarıları için e-posta adresi: WordPress yönetici e-postası veya "
-"aşağıda gireceğiniz adres, e-posta uyarısı tercihinizle birlikte kullanılır."
-
-msgid "Notify me on malware findings and security threats on this website."
-msgstr ""
-"Bu web sitesindeki kötü amaçlı yazılım bulguları ve güvenlik tehditleri "
-"hakkında beni bilgilendir."
-
-msgid ""
-"One email per day at most, sent from support@segurium.com. You can change "
-"this later under Settings."
-msgstr ""
-"Günde en fazla bir e-posta, support@segurium.com adresinden gönderilir. Bu "
-"tercihi daha sonra Ayarlar altında değiştirebilirsiniz."
-
-msgid "Update"
-msgstr "Güncelle"
-
-msgid "Outdated"
-msgstr "Güncel değil"
-
-msgid "Vulnerable"
-msgstr "Güvenlik açığı var"
-
-msgid "No update available"
-msgstr "Güncelleme yok"
-
-#. translators: 1: component name, 2: installed version, 3: version WordPress would install
-msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
-msgstr "%1$s, %2$s sürümünden %3$s sürümüne geçiyor. Bu bir ana sürüm değişikliğidir ve sitenizi bozabilir."
-
-msgid "Malware is waiting for you to act"
-msgstr "Kötü amaçlı yazılım harekete geçmenizi bekliyor"
-
-msgid "A vulnerable component is installed"
-msgstr "Güvenlik açığı olan bir bileşen kurulu"
-
-msgid "Security issues need your attention"
-msgstr "Güvenlik sorunları ilginizi bekliyor"
-
-msgid "This item cannot be switched on from here."
-msgstr "Bu öğe buradan açılamaz."
-
-msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
-msgstr "Bu sunucu, eklenti başlığı kaldırdıktan sonra onu yeniden ekliyor. Sunucu düzeyinde düzeltme için özellik sekmesini açın."
-
-msgid "That feature is not available on this installation."
-msgstr "Bu özellik bu kurulumda kullanılamıyor."
-
-msgid "The setting could not be saved. Open the feature tab and switch it on there."
-msgstr "Ayar kaydedilemedi. Özellik sekmesini açın ve oradan açın."
-
-msgid "Applying..."
-msgstr "Uygulanıyor..."
-
-msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
-msgstr "Ayar kaydedildi. Sayfa önbelleğiniz hâlâ eski yanıtı sunuyor; bu nedenle önbellek yenilendiğinde bu satır temizlenecek."
-
-msgid "The fix could not be applied. Open the feature tab and switch it on there."
-msgstr "Düzeltme uygulanamadı. Özellik sekmesini açın ve oradan açın."
-
-msgid "You can change this later under Settings."
-msgstr "Bunu daha sonra Ayarlar altında değiştirebilirsiniz."

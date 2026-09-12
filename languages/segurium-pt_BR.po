@@ -5050,3 +5050,20 @@ msgstr "A correção não pôde ser aplicada. Abra a aba do recurso e ative-a po
 
 msgid "You can change this later under Settings."
 msgstr "Você pode alterar isto depois em Configurações."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Proteção gratuita do site: antivírus, remoção de malware & "
+"limpeza automática, alertas de vulnerabilidade"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Site hackeado? Remoção gratuita de malware e limpeza automática em cada site"
+" que você cuida, com alertas de vulnerabilidade, firewall e 2FA."
+
+msgid "The setting could not be saved."
+msgstr "A configuração não pôde ser salva."

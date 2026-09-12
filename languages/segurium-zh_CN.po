@@ -4653,3 +4653,16 @@ msgstr "无法应用该修复。请打开功能标签页并在其中启用。"
 
 msgid "You can change this later under Settings."
 msgstr "您可以稍后在「设置」中更改此项。"
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr "Segurium – 免费网站防护：防病毒、恶意软件清除与自动清理、漏洞提醒"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr "网站被黑？在您运营的每个站点上免费清除恶意软件并自动清理，还有漏洞提醒、防火墙与 2FA。"
+
+msgid "The setting could not be saved."
+msgstr "无法保存该设置。"

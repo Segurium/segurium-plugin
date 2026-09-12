@@ -4681,3 +4681,20 @@ msgstr ""
 
 msgid "You can change this later under Settings."
 msgstr "Je kan dit later wijzigen bij Instellingen."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Website gehackt? Gratis malware verwijderen en automatisch opschonen op elke"
+" website die je beheert, plus kwetsbaarheidsmeldingen, firewall en 2FA."
+
+msgid "The setting could not be saved."
+msgstr "De instelling kon niet worden opgeslagen."

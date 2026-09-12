@@ -5034,3 +5034,20 @@ msgstr "No se pudo aplicar la corrección. Abre la pestaña de la función y act
 
 msgid "You can change this later under Settings."
 msgstr "Puedes cambiar esto más tarde en Ajustes."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"¿Sitio web hackeado? Eliminación gratuita de malware y limpieza automática "
+"en cada sitio, más avisos de vulnerabilidades, cortafuegos y 2FA."
+
+msgid "The setting could not be saved."
+msgstr "No se pudo guardar el ajuste."

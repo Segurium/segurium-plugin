@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,18 +194,15 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.4.1 - 2026-09-13 =
+* Faster response.
+* Integrity scan no longer flags empty files as new.
+
 = 1.4.0 - 2026-09-07 =
 * Extends WP-CLI capabilities: Manage licences. export and import settings.
 * Score flagged vulnerable components in Self-Check.
 * Self-Check form capable auto-resolve simple issues.
 * Minor scanner improvements.
 * Minor UI improvements.
-
-= 1.3.2 - 2026-09-04 =
-* Some Self-Check fixes apply in place.
-* Show a red mark on the Segurium menu and tab when malware or a vulnerable component is present.
-* Badge components whose installed release is known vulnerable.
-* Show Outdated status and an Update button on the Integrity tab.
-* Stop assessing the cookie HttpOnly flag in Self-Check.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

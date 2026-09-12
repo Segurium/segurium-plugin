@@ -4657,3 +4657,20 @@ msgstr "Không thể áp dụng bản vá. Hãy mở tab tính năng và bật n
 
 msgid "You can change this later under Settings."
 msgstr "Bạn có thể thay đổi điều này sau trong phần Cài đặt."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Bảo vệ trang web miễn phí: chống virus, gỡ mã độc và dọn dẹp tự "
+"động, cảnh báo lỗ hổng"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Trang web bị hack? Diệt mã độc và dọn dẹp tự động miễn phí trên mọi trang "
+"web bạn quản lý, kèm cảnh báo lỗ hổng, tường lửa và 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Không thể lưu cài đặt."

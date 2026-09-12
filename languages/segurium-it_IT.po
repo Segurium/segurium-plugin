@@ -5101,3 +5101,20 @@ msgstr "Impossibile applicare la correzione. Apri la scheda della funzionalità 
 #: includes/class-segurium.php:1714
 msgid "You can change this later under Settings."
 msgstr "Puoi modificarlo in seguito in Impostazioni."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – protezione gratuita del sito web: antivirus, rimozione di malware"
+" e pulizia automatica, avvisi di vulnerabilità"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Sito web violato? Rimozione gratuita di malware e pulizia automatica su ogni"
+" sito, avvisi di vulnerabilità e 2FA. Stessa configurazione ovunque."
+
+msgid "The setting could not be saved."
+msgstr "Impossibile salvare l'impostazione."

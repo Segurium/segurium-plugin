@@ -5033,3 +5033,20 @@ msgstr ""
 
 msgid "You can change this later under Settings."
 msgstr "Пізніше це можна змінити в розділі «Налаштування»."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – безкоштовний захист сайту: антивірус, видалення шкідливого ПЗ та "
+"автоматичне очищення, сповіщення про вразливості"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Сайт зламано? Безкоштовне видалення шкідливого ПЗ й автоматичне очищення на "
+"кожному вашому сайті, сповіщення про вразливості й 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Не вдалося зберегти налаштування."

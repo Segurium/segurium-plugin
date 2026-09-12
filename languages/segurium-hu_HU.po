@@ -4668,3 +4668,20 @@ msgstr "A javítást nem sikerült alkalmazni. Nyissa meg a funkció fület, és
 
 msgid "You can change this later under Settings."
 msgstr "Ezt később a Beállításokban módosíthatja."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Ingyenes webhelyvédelem: vírusirtó, kártevőirtás és automatikus "
+"tisztítás, sebezhetőségi riasztások"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Feltört a webhely? Ingyenes kártevőirtás és automatikus tisztítás minden "
+"webhelyen, sebezhetőségi riasztásokkal, tűzfallal és 2FA-val."
+
+msgid "The setting could not be saved."
+msgstr "A beállítást nem sikerült menteni."

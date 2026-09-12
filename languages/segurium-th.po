@@ -4567,3 +4567,20 @@ msgstr "ปรับใช้การแก้ไขไม่สำเร็จ
 
 msgid "You can change this later under Settings."
 msgstr "คุณเปลี่ยนค่านี้ได้ภายหลังในการตั้งค่า"
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – ปกป้องเว็บไซต์ฟรี: แอนตี้ไวรัส กำจัดมัลแวร์และล้างอัตโนมัติ "
+"แจ้งเตือนช่องโหว่"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"เว็บไซต์ถูกแฮก? กำจัดมัลแวร์ฟรีและล้างอัตโนมัติในทุกเว็บไซต์ที่คุณดูแล "
+"พร้อมแจ้งเตือนช่องโหว่ ไฟร์วอลล์ และ 2FA"
+
+msgid "The setting could not be saved."
+msgstr "บันทึกการตั้งค่าไม่สำเร็จ"

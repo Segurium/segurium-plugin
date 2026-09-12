@@ -4851,3 +4851,20 @@ msgstr "Η διόρθωση δεν μπόρεσε να εφαρμοστεί. Α�
 
 msgid "You can change this later under Settings."
 msgstr "Μπορείτε να το αλλάξετε αργότερα στις Ρυθμίσεις."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Δωρεάν προστασία ιστότοπου: antivirus, αφαίρεση κακόβουλου "
+"λογισμικού & αυτόματος καθαρισμός, ειδοποιήσεις ευπαθειών"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Παραβιάστηκε ο ιστότοπός σας; Δωρεάν αφαίρεση κακόβουλου λογισμικού και "
+"αυτόματος καθαρισμός σε κάθε ιστότοπο, με ειδοποιήσεις ευπαθειών."
+
+msgid "The setting could not be saved."
+msgstr "Η ρύθμιση δεν μπόρεσε να αποθηκευτεί."

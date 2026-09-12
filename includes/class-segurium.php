@@ -5580,8 +5580,9 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Missing parameters.', 'segurium' ) ) );
 		}
 
-		$t0    = microtime( true );
-		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
+		$version = $this->lookup_component_version( $type, $slug );
+		$t0      = microtime( true );
+		$state   = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
 		$state->update_component_state( $slug, $type, 'ignored' );
 		$state->save();
@@ -5590,7 +5591,7 @@ class Segurium {
 			array(
 				'component_type' => $type,
 				'slug'           => $slug,
-				'version'        => '',
+				'version'        => $version,
 				'action'         => 'ignore',
 				'files_count'    => 0,
 				'bytes'          => 0,
@@ -5622,8 +5623,9 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Missing parameters.', 'segurium' ) ) );
 		}
 
-		$t0    = microtime( true );
-		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
+		$version = $this->lookup_component_version( $type, $slug );
+		$t0      = microtime( true );
+		$state   = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
 		$state->update_component_state( $slug, $type, 'active' );
 		$state->save();
@@ -5632,7 +5634,7 @@ class Segurium {
 			array(
 				'component_type' => $type,
 				'slug'           => $slug,
-				'version'        => '',
+				'version'        => $version,
 				'action'         => 'unignore',
 				'files_count'    => 0,
 				'bytes'          => 0,
@@ -7323,6 +7325,7 @@ class Segurium {
 		if ( ! is_dir( $restore_dir ) ) {
 			wp_mkdir_p( $restore_dir );
 		}
+		$sha256_before = file_exists( $abs_path ) ? (string) Segurium_Fs::hash_file( 'sha256', $abs_path ) : '';
 		if ( ! $this->write_in_place( $abs_path, $restored_content ) ) {
 			segurium_send_json_error( array( 'message' => __( 'Failed to write restored file', 'segurium' ) ) );
 		}
@@ -7338,11 +7341,11 @@ class Segurium {
 			array(
 				'component_type' => $comp_type,
 				'name'           => $comp_slug,
-				'version'        => '',
+				'version'        => $this->lookup_component_version( $comp_type, $comp_slug ),
 				'file_path'      => $file_path,
 				'action'         => 'restore',
-				'sha256_before'  => '',
-				'sha256_after'   => '',
+				'sha256_before'  => $sha256_before,
+				'sha256_after'   => hash( 'sha256', $restored_content ),
 				'backup_id'      => $backup_id,
 				'success'        => 1,
 				'error'          => '',

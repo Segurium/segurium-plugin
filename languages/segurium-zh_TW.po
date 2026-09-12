@@ -3174,3 +3174,16 @@ msgstr "https://segurium.com"
 
 msgid "Segurium"
 msgstr "Segurium"
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr "Segurium – 免費網站防護：防毒、惡意軟體清除與自動清理、漏洞提醒"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr "網站被駭？在你經營的每個網站上免費清除惡意軟體並自動清理，還有漏洞提醒、防火牆與兩步驟驗證。"
+
+msgid "The setting could not be saved."
+msgstr "無法儲存這項設定。"

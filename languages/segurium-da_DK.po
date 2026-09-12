@@ -4682,3 +4682,20 @@ msgstr "Rettelsen kunne ikke anvendes. Åbn funktionsfanen, og slå den til der.
 
 msgid "You can change this later under Settings."
 msgstr "Du kan ændre dette senere under Indstillinger."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Hacket websted? Gratis fjernelse af malware og automatisk rensning på hvert "
+"websted, du driver, plus sårbarhedsvarsler, firewall og 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Indstillingen kunne ikke gemmes."

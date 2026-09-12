@@ -43,6 +43,8 @@ class Segurium_Integrity_Scan_State {
 	 */
 	const MAX_CHUNK_RETRIES = 3;
 
+	const EMPTY_FILE_SHA256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+
 	/**
 	 * Effective per-request byte cap. Defaults to MAX_CHUNK_BYTES; tests lower
 	 * it to exercise splitting without allocating megabytes.
@@ -365,6 +367,9 @@ class Segurium_Integrity_Scan_State {
 					}
 					if ( ! isset( $f['sha256'] ) && isset( $hash_map[ $f['path'] ] ) ) {
 						$f['sha256'] = $hash_map[ $f['path'] ];
+					}
+					if ( 'unknown' === $verdict && self::EMPTY_FILE_SHA256 === ( $f['sha256'] ?? '' ) ) {
+						continue;
 					}
 					$ui_entry['issues'][] = $this->merge_saved_status( $key, $f, $saved_status_map );
 				}

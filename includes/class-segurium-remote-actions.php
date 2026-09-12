@@ -159,6 +159,20 @@ class Segurium_Remote_Actions {
 	const LOCK_KEY = 'segurium_actions_run_lock';
 	const LOCK_TTL = 900;
 
+	/**
+	 * Set by a poke that arrived while a pull was already running, and
+	 * cleared by the pull that honours it. Without it the lock swallows
+	 * the knock and the instruction it announced waits for the next
+	 * scheduled pull.
+	 */
+	const REPOLL_KEY = 'segurium_actions_repoll';
+
+	/**
+	 * Ceiling on pulls one run may make. A site that keeps re-flagging
+	 * itself stops here rather than looping until max_execution_time.
+	 */
+	const MAX_PULLS_PER_RUN = 5;
+
 	/** Component statuses that are never updatable over this channel. */
 	const DENIED_STATUSES = array( 'must_use', 'dropin' );
 
@@ -357,26 +371,62 @@ class Segurium_Remote_Actions {
 		// upgrader. Without this, both would pull the same envelope and
 		// re-enter the upgrader on the directory the other is unpacking.
 		if ( get_transient( self::LOCK_KEY ) ) {
+			self::defer_pull();
 			return array();
 		}
 		set_transient( self::LOCK_KEY, time(), self::LOCK_TTL );
 
 		try {
 			$client   = new Segurium_CTI_Client();
-			$envelope = $client->get_actions( self::last_seq(), self::pending_acks() );
+			$outcomes = array();
 
-			if ( is_wp_error( $envelope ) ) {
-				Segurium_Debug::log( '[segurium] remote actions pull error: ' . $envelope->get_error_code() );
-				return array();
+			for ( $pull = 0; $pull < self::MAX_PULLS_PER_RUN; $pull++ ) {
+				delete_transient( self::REPOLL_KEY );
+
+				$envelope = $client->get_actions( self::last_seq(), self::pending_acks() );
+				if ( is_wp_error( $envelope ) ) {
+					Segurium_Debug::log( '[segurium] remote actions pull error: ' . $envelope->get_error_code() );
+					break;
+				}
+
+				$outcomes = array_merge( $outcomes, self::consume_envelope( $envelope, $trigger ) );
+
+				if ( ! get_transient( self::REPOLL_KEY ) ) {
+					break;
+				}
 			}
 
-			return self::consume_envelope( $envelope, $trigger );
+			// Either the cap stopped the loop with work still announced,
+			// or a knock landed after the last check. Both leave a row
+			// nobody is coming for, so hand it to cron.
+			if ( get_transient( self::REPOLL_KEY ) ) {
+				self::defer_pull();
+			}
+
+			return $outcomes;
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium] remote actions run failed: ' . $e->getMessage() );
 			return array();
 		} finally {
 			delete_transient( self::LOCK_KEY );
 		}
+	}
+
+	/**
+	 * Record that a pull is owed and book a fallback for it.
+	 *
+	 * The flag is what a pull already in flight reads before it ends. The
+	 * scheduled event is what covers the cases where nothing reads it: a
+	 * lock left behind by a worker that died mid-upgrade, and a knock
+	 * that lands in the gap between the last check and the lock's
+	 * release. Without it the announced instruction waits for the hourly
+	 * event.
+	 *
+	 * @return void
+	 */
+	private static function defer_pull(): void {
+		set_transient( self::REPOLL_KEY, 1, self::LOCK_TTL );
+		wp_schedule_single_event( time(), self::HOOK, array( 'poke' ) );
 	}
 
 	/**

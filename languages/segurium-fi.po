@@ -4760,3 +4760,20 @@ msgstr "Korjausta ei voitu ottaa käyttöön. Avaa ominaisuusvälilehti ja ota s
 #: includes/class-segurium.php:1714
 msgid "You can change this later under Settings."
 msgstr "Voit muuttaa tätä myöhemmin Asetukset-kohdassa."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Maksuton sivuston suojaus: virustorjunta, haittaohjelmien poisto "
+"& automaattinen puhdistus, haavoittuvuusilmoitukset"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Sivusto hakkeroitu? Maksuton haittaohjelmien poisto ja automaattinen "
+"puhdistus jokaisella sivustollasi, haavoittuvuusilmoitukset ja 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Asetusta ei voitu tallentaa."

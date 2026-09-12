@@ -5145,3 +5145,20 @@ msgstr "Die Korrektur konnte nicht angewendet werden. Öffne den Funktions-Tab u
 
 msgid "You can change this later under Settings."
 msgstr "Du kannst dies später unter Einstellungen ändern."
+
+msgid ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+msgstr ""
+"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
+"Cleanup, Vulnerability Alerts"
+
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Website gehackt? Malware kostenlos entfernen und automatisch bereinigen auf "
+"jeder Website, dazu Schwachstellen-Warnungen, Firewall und 2FA."
+
+msgid "The setting could not be saved."
+msgstr "Die Einstellung konnte nicht gespeichert werden."
