@@ -3,9 +3,11 @@
  * Whether the site is carrying a security problem the user has not dealt
  * with yet, in a form cheap enough to read on every wp-admin page.
  *
- * Two signals, kept apart because they lead to different tabs:
+ * Three signals, kept apart because each leads to its own tab or tooltip:
  *  - malware    open malware findings (Malware Scanner tab)
  *  - vulnerable installed components whose release the cloud flags
+ *    (Integrity tab)
+ *  - delisted   installed components removed from WordPress.org
  *    (Integrity tab)
  *
  * The answer is stored as one small option. The lightweight admin tier
@@ -30,6 +32,9 @@ class Segurium_Issue_Indicator {
 
 	const SIGNAL_MALWARE    = 'malware';
 	const SIGNAL_VULNERABLE = 'vulnerable';
+	const SIGNAL_DELISTED   = 'delisted';
+
+	const SIGNALS = array( self::SIGNAL_MALWARE, self::SIGNAL_VULNERABLE, self::SIGNAL_DELISTED );
 
 	/**
 	 * Whether a recount is already queued for this request.
@@ -39,21 +44,23 @@ class Segurium_Issue_Indicator {
 	private static $queued = false;
 
 	/**
-	 * Count both signals, store the result, and return it.
+	 * Count every signal, store the result, and return it.
 	 *
 	 * A storage failure yields a clean verdict rather than a mark nobody
 	 * measured: an unexplained red dot on the sidebar is worse than a
 	 * missing one, because the user has no tab to open to clear it.
 	 *
-	 * @return array{malware:bool,vulnerable:bool}
+	 * @return array{malware:bool,vulnerable:bool,delisted:bool}
 	 */
 	public static function recount() {
 		if ( ! self::can_count() ) {
 			return self::flags();
 		}
-		$flags = array(
+		$components = self::count_escalated_components();
+		$flags      = array(
 			self::SIGNAL_MALWARE    => self::count_open_malware() > 0,
-			self::SIGNAL_VULNERABLE => self::count_vulnerable_components() > 0,
+			self::SIGNAL_VULNERABLE => $components['vulnerable'] > 0,
+			self::SIGNAL_DELISTED   => $components['delisted'] > 0,
 		);
 		self::store( $flags );
 		return $flags;
@@ -62,7 +69,7 @@ class Segurium_Issue_Indicator {
 	/**
 	 * Stored flags. Never queries a table.
 	 *
-	 * @return array{malware:bool,vulnerable:bool}
+	 * @return array{malware:bool,vulnerable:bool,delisted:bool}
 	 */
 	public static function flags() {
 		$stored = class_exists( 'Segurium_Storage' )
@@ -71,9 +78,27 @@ class Segurium_Issue_Indicator {
 		if ( ! is_array( $stored ) ) {
 			$stored = array();
 		}
+		$flags = array();
+		foreach ( self::SIGNALS as $signal ) {
+			$flags[ $signal ] = ! empty( $stored[ $signal ] );
+		}
+		return $flags;
+	}
+
+	/**
+	 * Visibility and tooltip of the Integrity tab mark.
+	 *
+	 * @param array $reasons Truthy `vulnerable` and `delisted` entries: stored flags or live counts.
+	 * @return array{raised:bool,label:string}
+	 */
+	public static function integrity_mark( array $reasons ) {
+		$vulnerable = ! empty( $reasons[ self::SIGNAL_VULNERABLE ] );
+		$delisted   = ! empty( $reasons[ self::SIGNAL_DELISTED ] );
 		return array(
-			self::SIGNAL_MALWARE    => ! empty( $stored[ self::SIGNAL_MALWARE ] ),
-			self::SIGNAL_VULNERABLE => ! empty( $stored[ self::SIGNAL_VULNERABLE ] ),
+			'raised' => $vulnerable || $delisted,
+			'label'  => ( $delisted && ! $vulnerable )
+				? __( 'Delisted from official WordPress.org', 'segurium' )
+				: __( 'A vulnerable component is installed', 'segurium' ),
 		);
 	}
 
@@ -89,13 +114,12 @@ class Segurium_Issue_Indicator {
 	}
 
 	/**
-	 * Whether either signal is raised.
+	 * Whether any signal is raised.
 	 *
 	 * @return bool
 	 */
 	public static function has_any() {
-		$flags = self::flags();
-		return $flags[ self::SIGNAL_MALWARE ] || $flags[ self::SIGNAL_VULNERABLE ];
+		return in_array( true, self::flags(), true );
 	}
 
 	/**
@@ -129,14 +153,11 @@ class Segurium_Issue_Indicator {
 		if ( ! class_exists( 'Segurium_Storage' ) ) {
 			return;
 		}
-		Segurium_Storage::setting_set(
-			self::FLAG_OPTION,
-			array(
-				self::SIGNAL_MALWARE    => ! empty( $flags[ self::SIGNAL_MALWARE ] ) ? 1 : 0,
-				self::SIGNAL_VULNERABLE => ! empty( $flags[ self::SIGNAL_VULNERABLE ] ) ? 1 : 0,
-			),
-			true
-		);
+		$stored = array();
+		foreach ( self::SIGNALS as $signal ) {
+			$stored[ $signal ] = ! empty( $flags[ $signal ] ) ? 1 : 0;
+		}
+		Segurium_Storage::setting_set( self::FLAG_OPTION, $stored, true );
 	}
 
 	/**
@@ -174,19 +195,25 @@ class Segurium_Issue_Indicator {
 	}
 
 	/**
-	 * Installed components carrying a release the cloud flags.
+	 * Vulnerable and delisted components still installed.
 	 *
-	 * @return int
+	 * @return array{vulnerable:int,delisted:int}
 	 */
-	private static function count_vulnerable_components() {
+	private static function count_escalated_components() {
+		$none = array(
+			'vulnerable' => 0,
+			'delisted'   => 0,
+		);
 		if ( ! class_exists( 'Segurium_Integrity_Server_State' ) ) {
-			return 0;
+			return $none;
 		}
 		try {
-			return Segurium_Integrity_Server_State::count_vulnerable_components();
+			$state = new Segurium_Integrity_Server_State();
+			$state->load();
+			return $state->count_escalated();
 		} catch ( Throwable $e ) {
-			Segurium_Debug::log( '[segurium-issue-indicator] vulnerable count failed: ' . $e->getMessage() );
-			return 0;
+			Segurium_Debug::log( '[segurium-issue-indicator] component count failed: ' . $e->getMessage() );
+			return $none;
 		}
 	}
 }

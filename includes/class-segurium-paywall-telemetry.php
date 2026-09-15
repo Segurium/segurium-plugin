@@ -37,6 +37,8 @@ final class Segurium_Paywall_Telemetry {
 	const SURFACE_READOUT = 'readout';
 	const SURFACE_PRICING = 'pricing';
 
+	const SOURCE_MAIL = 'mail';
+
 	/**
 	 * Submenu slug of the embedded pricing page, as the tail of a WP
 	 * screen id. WordPress builds a submenu screen id from the sanitised
@@ -74,6 +76,7 @@ final class Segurium_Paywall_Telemetry {
 	const ERR_UNKNOWN_EVENT   = 'paywall_cta_unknown_event';
 	const ERR_UNKNOWN_SURFACE = 'paywall_cta_unknown_surface';
 	const ERR_UNKNOWN_ACTION  = 'paywall_cta_unknown_action';
+	const ERR_UNKNOWN_SOURCE  = 'paywall_cta_unknown_source';
 	const ERR_NO_CONSENT      = 'paywall_cta_no_consent';
 	const ERR_NO_IID          = 'paywall_cta_no_iid';
 	const ERR_QUEUE_FAILED    = 'paywall_cta_queue_failed';
@@ -97,12 +100,84 @@ final class Segurium_Paywall_Telemetry {
 	}
 
 	/**
+	 * How the reader reached the pricing page; only the alert mail tags its link.
+	 *
+	 * @return array<int, string>
+	 */
+	public static function sources() {
+		return array( '', self::SOURCE_MAIL );
+	}
+
+	/**
 	 * Wire the pricing-page impression. Idempotent.
 	 *
 	 * @return void
 	 */
 	public static function register_hooks() {
 		add_action( 'current_screen', array( __CLASS__, 'on_current_screen' ), 10, 1 );
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core WP hook
+		add_filter( 'removable_query_args', array( __CLASS__, 'removable_query_args' ), 10, 1 );
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core WP hook
+		add_action( 'admin_page_access_denied', array( __CLASS__, 'on_admin_page_access_denied' ) );
+	}
+
+	/**
+	 * The alert mail links the embedded pricing page, which the billing SDK
+	 * does not register on every install. Core refuses an unregistered page,
+	 * so send the reader to the offer the plugin would have shown instead.
+	 *
+	 * @return void
+	 */
+	public static function on_admin_page_access_denied() {
+		$url = self::pricing_fallback_url();
+		if ( '' === $url ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- destination is the plugin's own upgrade URL, never request input.
+		wp_redirect( $url );
+		exit;
+	}
+
+	/**
+	 * Where a refused pricing page should send an administrator, or '' to
+	 * let core refuse it.
+	 *
+	 * @return string
+	 */
+	public static function pricing_fallback_url() {
+		global $plugin_page;
+		if ( ! is_string( $plugin_page ) || Segurium_Entitlements::PRICING_PAGE_SLUG !== $plugin_page ) {
+			return '';
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return '';
+		}
+		$url = self::upgrade_url();
+		if ( '' === $url || Segurium_Entitlements::is_embedded_pricing_url( $url ) ) {
+			return '';
+		}
+		if ( self::SOURCE_MAIL === self::landing_source() ) {
+			$url = add_query_arg(
+				array(
+					'utm_source' => 'alert-mail',
+					'utm_medium' => 'email',
+				),
+				$url
+			);
+		}
+		return $url;
+	}
+
+	/**
+	 * Core strips the marker after first paint, so a reload records a plain impression.
+	 *
+	 * @param array<int, string> $args Query keys core already strips.
+	 * @return array<int, string>
+	 */
+	public static function removable_query_args( $args ) {
+		$args   = is_array( $args ) ? $args : array();
+		$args[] = 'src';
+		return $args;
 	}
 
 	/**
@@ -123,7 +198,18 @@ final class Segurium_Paywall_Telemetry {
 		if ( ! self::is_pricing_screen( (string) $screen->id ) ) {
 			return;
 		}
-		self::record( self::EVENT_SHOWN, self::SURFACE_PRICING, '' );
+		self::record( self::EVENT_SHOWN, self::SURFACE_PRICING, '', self::landing_source() );
+	}
+
+	/**
+	 * The marker only tags an impression the page records anyway.
+	 *
+	 * @return string
+	 */
+	private static function landing_source() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Link marker set by an emailed URL, which cannot carry a nonce; it only tags an impression this page records regardless, and anything but the literal mail is dropped.
+		$src = isset( $_GET['src'] ) ? sanitize_key( wp_unslash( $_GET['src'] ) ) : '';
+		return self::SOURCE_MAIL === $src ? self::SOURCE_MAIL : '';
 	}
 
 	/**
@@ -170,12 +256,14 @@ final class Segurium_Paywall_Telemetry {
 	 * @param string $event       One of events().
 	 * @param string $surface     One of surfaces().
 	 * @param string $action_type One of action_types().
+	 * @param string $source      One of sources().
 	 * @return true|WP_Error
 	 */
-	public static function record( $event, $surface, $action_type ) {
+	public static function record( $event, $surface, $action_type, $source = '' ) {
 		$event       = (string) $event;
 		$surface     = (string) $surface;
 		$action_type = (string) $action_type;
+		$source      = (string) $source;
 
 		if ( ! in_array( $event, self::events(), true ) ) {
 			return new WP_Error( self::ERR_UNKNOWN_EVENT );
@@ -185,6 +273,9 @@ final class Segurium_Paywall_Telemetry {
 		}
 		if ( ! in_array( $action_type, self::action_types(), true ) ) {
 			return new WP_Error( self::ERR_UNKNOWN_ACTION );
+		}
+		if ( ! in_array( $source, self::sources(), true ) ) {
+			return new WP_Error( self::ERR_UNKNOWN_SOURCE );
 		}
 
 		if ( ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
@@ -199,18 +290,20 @@ final class Segurium_Paywall_Telemetry {
 		// different destinations in one payload.
 		$upgrade_url = self::upgrade_url();
 
+		$payload = array(
+			'event'         => $event,
+			'surface'       => $surface,
+			'action_type'   => $action_type,
+			'cta_available' => '' === $upgrade_url ? 0 : 1,
+			'cta_embedded'  => self::cta_embedded( $upgrade_url ),
+		);
+		if ( '' !== $source ) {
+			$payload['source'] = $source;
+		}
+
 		$sent = Segurium_Storage::cti_send_message(
 			self::CTI_MESSAGE_TYPE,
-			array_merge(
-				array(
-					'event'         => $event,
-					'surface'       => $surface,
-					'action_type'   => $action_type,
-					'cta_available' => '' === $upgrade_url ? 0 : 1,
-					'cta_embedded'  => self::cta_embedded( $upgrade_url ),
-				),
-				self::quota_snapshot()
-			)
+			array_merge( $payload, self::quota_snapshot() )
 		);
 
 		// The message queue posts non-blocking, so this catches a request

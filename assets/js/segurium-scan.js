@@ -63,6 +63,13 @@
         });
     }
 
+    // The settings writer merges a save over the stored row, so a list
+    // posted with no key keeps its old entries.
+    function appendList(params, name, values) {
+        if (!values.length) params.append(name, '');
+        values.forEach(function (v) { params.append(name + '[]', v); });
+    }
+
     // Map a structured error payload to a human-readable message. Falls
     // back to the server's own message, then to a raw-body excerpt, then
     // to a generic hint — but NEVER to a bare "Unknown".
@@ -154,6 +161,23 @@
     function seguriumNoticeFromError(data, fallbackMessage) {
         var msg = (data && data.message) || fallbackMessage || (((typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {}).errGeneric) || 'Request failed';
         seguriumNotice(msg, data && data.code);
+    }
+
+    function syncNavAlert(feature, raised, label) {
+        var mark = document.querySelector('.segurium-nav-item[data-feature="' + feature + '"] .segurium-nav-alert');
+        if (mark) {
+            mark.hidden = !raised;
+            if (label) {
+                mark.title = label;
+                var srText = mark.querySelector('.screen-reader-text');
+                if (srText) srText.textContent = label;
+            }
+        }
+        // The sidebar bubble answers for every tab; only a page load adds it.
+        if (raised || document.querySelector('.segurium-nav-alert:not([hidden])')) return;
+        document.querySelectorAll('.segurium-menu-alert').forEach(function (bubble) {
+            bubble.remove();
+        });
     }
 
     function escHtml(str) {
@@ -1651,15 +1675,7 @@
         function updateIssueMarkers(counts) {
             if (!ssRecentOnly) return;
             var n = (counts && typeof counts.malicious === 'number') ? counts.malicious : 0;
-            var mark = document.querySelector('.segurium-nav-item[data-feature="scanner"] .segurium-nav-alert');
-            if (mark) mark.hidden = (n === 0);
-            if (n > 0) return;
-            // The sidebar bubble answers for the Integrity tab too, so it
-            // clears only once no tab is marked.
-            if (document.querySelector('.segurium-nav-alert:not([hidden])')) return;
-            document.querySelectorAll('.segurium-menu-alert').forEach(function (bubble) {
-                bubble.remove();
-            });
+            syncNavAlert('scanner', n > 0);
         }
 
         function updateThreatBanner(counts) {
@@ -2825,6 +2841,7 @@
         }
 
         function renderIntegrityState(data) {
+            if (data.issue_mark) syncNavAlert('integrity-scanner', data.issue_mark.raised, data.issue_mark.label);
             isTbody.innerHTML = '';
             if (!data.items || data.items.length === 0) {
                 isTbody.innerHTML = '<tr><td colspan="6">' +
@@ -4143,7 +4160,7 @@
                            'CF','SS','SD','ER','DJ','SO','MW','BI','RW','MU','SC','CV','ST','KM',
                            'LS','SZ','NA','BW','GA','CG','CD','GQ'],
             middle_east:  ['SA','AE','IL','TR','IR','IQ','JO','LB','SY','KW','QA','BH','OM','YE','PS'],
-            high_risk:    ['CN','RU','KP','IR','NG','PK','BD','VN','IN','ID','TH']
+            high_risk:    ['CN','RU','BY','KP','IR','NG','PK','BD','VN','IN','ID','TH']
         };
 
         // ─ state
@@ -4287,10 +4304,19 @@
 
         regionBtns.forEach(function (btn) {
             btn.addEventListener('click', function () {
-                var codes = REGIONS[this.getAttribute('data-region')] || [];
-                var allPresent = codes.every(function (c) { return selectedCodes.indexOf(c) !== -1; });
-                if (allPresent) {
-                    selectedCodes = selectedCodes.filter(function (c) { return codes.indexOf(c) === -1; });
+                var region = this.getAttribute('data-region');
+                var codes = REGIONS[region] || [];
+                var isSelected = function (c) { return selectedCodes.indexOf(c) !== -1; };
+                if (codes.every(isSelected)) {
+                    var kept = [];
+                    Object.keys(REGIONS).forEach(function (other) {
+                        if (other !== region && REGIONS[other].every(isSelected)) {
+                            kept = kept.concat(REGIONS[other]);
+                        }
+                    });
+                    selectedCodes = selectedCodes.filter(function (c) {
+                        return codes.indexOf(c) === -1 || kept.indexOf(c) !== -1;
+                    });
                 } else {
                     codes.forEach(function (c) { if (selectedCodes.indexOf(c) === -1) selectedCodes.push(c); });
                 }
@@ -4347,7 +4373,7 @@
             p.append('nonce', seguriumScan.settingsNonce);
             p.append('settings[enabled]', settings.enabled ? '1' : '');
             p.append('settings[block_mode]', settings.block_mode || 'block');
-            (settings.blocked_countries || []).forEach(function (cc) { p.append('settings[blocked_countries][]', cc); });
+            appendList(p, 'settings[blocked_countries]', settings.blocked_countries || []);
             p.append('settings[block_action]', settings.block_action || 'deny_403');
             p.append('settings[block_redirect_url]', settings.block_redirect_url || '');
             return fetch(seguriumScan.ajaxUrl, {
@@ -4358,9 +4384,12 @@
         }
 
         function loadSettings() {
+            // An unloaded form posts empty lists, which would clear the stored ones.
+            saveBtn.disabled = true;
             post({action: 'segurium_get_geo_settings', nonce: seguriumScan.settingsNonce})
                 .then(function (response) {
                     if (!response.success) return;
+                    saveBtn.disabled = false;
                     baselineSettings = response.data;
                     populateForm(response.data);
                 });
@@ -4571,9 +4600,11 @@
         }
 
         function loadSettings() {
+            saveBtn.disabled = true;
             post({action: 'segurium_get_firewall_settings', nonce: seguriumScan.settingsNonce})
                 .then(function (r) {
                     if (!r.success) return;
+                    saveBtn.disabled = false;
                     baselineSettings = r.data;
                     populateForm(r.data);
                 });
@@ -4585,8 +4616,8 @@
             p.append('nonce', seguriumScan.settingsNonce);
             p.append('settings[enabled]', settings.enabled ? '1' : '');
             p.append('settings[mode]', settings.mode);
-            settings.ip_list.forEach(function (ip) { p.append('settings[ip_list][]', ip); });
-            settings.trusted_proxies.forEach(function (ip) { p.append('settings[trusted_proxies][]', ip); });
+            appendList(p, 'settings[ip_list]', settings.ip_list);
+            appendList(p, 'settings[trusted_proxies]', settings.trusted_proxies);
             return fetch(seguriumScan.ajaxUrl, {
                 method: 'POST', credentials: 'same-origin',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -5536,11 +5567,14 @@
         }
 
         function loadSettings() {
+            var saveButton = document.getElementById('sgm-2fa-save');
+            if (saveButton) saveButton.disabled = true;
             return post({
                 action: 'segurium_get_2fa_settings',
                 nonce: seguriumScan.tfaNonce,
             }).then(function (r) {
                 if (!r.success) return;
+                if (saveButton) saveButton.disabled = false;
                 var s = r.data.settings;
                 var el = document.getElementById('sgm-2fa-enabled');
                 if (el) el.checked = !!s.enabled;
@@ -5611,7 +5645,9 @@
 
             Object.keys(s).forEach(function (k) {
                 var v = s[k];
-                if (Array.isArray(v)) {
+                if ('enforced_roles' === k) {
+                    appendList(p, 'settings[enforced_roles]', v);
+                } else if (Array.isArray(v)) {
                     v.forEach(function (item) { p.append('settings[' + k + '][]', item); });
                 } else {
                     p.append('settings[' + k + ']', v);

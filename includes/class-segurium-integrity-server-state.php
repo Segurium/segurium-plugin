@@ -527,19 +527,32 @@ class Segurium_Integrity_Server_State {
 	}
 
 	/**
-	 * Installed components whose stored release carries a vulnerability
-	 * the cloud flagged, excluding the ones the user already acted on.
+	 * Vulnerable and delisted components in the loaded metadata, excluding
+	 * the ones the user already acted on.
 	 *
 	 * Independent of {@see self::count_open_issues()}: a flagged release
 	 * with every file matching the vendor's own hashes produces no issue
 	 * row, and is still the thing an attacker walks in through.
 	 *
-	 * @return int
+	 * @return array{vulnerable:int,delisted:int}
 	 */
-	public static function count_vulnerable_components() {
-		$state = new self();
-		$state->load();
-		return $state->count_flagged_components();
+	public function count_escalated() {
+		$counts = array(
+			'vulnerable' => 0,
+			'delisted'   => 0,
+		);
+		foreach ( $this->comp_meta as $entry ) {
+			if ( ! is_array( $entry ) || in_array( $entry['state'] ?? 'active', self::INACTIVE_COMPONENT_STATES, true ) ) {
+				continue;
+			}
+			if ( ! empty( $entry['vulnerable'] ) ) {
+				++$counts['vulnerable'];
+			}
+			if ( 'delisted' === ( $entry['component_status'] ?? '' ) ) {
+				++$counts['delisted'];
+			}
+		}
+		return $counts;
 	}
 
 	/**

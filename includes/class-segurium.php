@@ -1982,6 +1982,7 @@ class Segurium {
 		// open, so the scanner JS can raise or clear it after a cleanup
 		// without a reload.
 		$issue_flags        = Segurium_Issue_Indicator::flags();
+		$integrity_mark     = Segurium_Issue_Indicator::integrity_mark( $issue_flags );
 		$segurium_nav_alert = function ( $raised, $label ) {
 			printf(
 				'<span class="segurium-nav-alert" title="%1$s"%3$s><span aria-hidden="true">!</span><span class="screen-reader-text">%2$s</span></span>',
@@ -2026,7 +2027,7 @@ class Segurium {
 						<a href="<?php echo esc_url( self::admin_tab_url( 'integrity-scanner' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'integrity-scanner' ) ); ?>" data-feature="integrity-scanner">
 							<span class="segurium-nav-icon-wrap">
 								<span class="segurium-nav-icon">&#x1F9E9;</span>
-								<?php $segurium_nav_alert( $issue_flags[ Segurium_Issue_Indicator::SIGNAL_VULNERABLE ], __( 'A vulnerable component is installed', 'segurium' ) ); ?>
+								<?php $segurium_nav_alert( $integrity_mark['raised'], $integrity_mark['label'] ); ?>
 							</span>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Integrity', 'segurium' ); ?></span>
 						</a>
@@ -5405,6 +5406,7 @@ class Segurium {
 				'page'        => $page,
 				'per_page'    => $per_page,
 				'total_pages' => max( 1, (int) ceil( $total / $per_page ) ),
+				'issue_mark'  => Segurium_Issue_Indicator::integrity_mark( $state->count_escalated() ),
 			)
 		);
 	}

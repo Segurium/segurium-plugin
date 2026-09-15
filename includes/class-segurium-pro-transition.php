@@ -190,6 +190,7 @@ final class Segurium_Pro_Transition {
 		}
 		try {
 			$fs->add_action( 'after_license_change', array( $this, 'on_license_change' ) );
+			$fs->add_action( 'after_license_activation', array( $this, 'on_license_activation' ) );
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium-pro-transition] add_action failed: ' . $e->getMessage() );
 			return false;
@@ -510,6 +511,15 @@ final class Segurium_Pro_Transition {
 		}
 		$this->drop_purchase_pointer();
 		return true;
+	}
+
+	/**
+	 * Freemius `after_license_activation` callback; the opt-in branch never fires `after_license_change`.
+	 */
+	public function on_license_activation() {
+		$fs   = $this->load_sdk();
+		$plan = null !== $fs && method_exists( $fs, 'get_plan' ) ? $fs->get_plan() : null;
+		$this->on_license_change( 'activated', $plan );
 	}
 
 	/**

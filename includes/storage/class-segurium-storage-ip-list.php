@@ -253,12 +253,15 @@ class Segurium_Storage_IP_List {
 		$table = Segurium_Storage::table_name( 'ip_list' );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query( 'START TRANSACTION' );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE list_type = %s AND source = %s', $table, self::sanitize_list_type( $list_type ), self::sanitize_source( $source ) ) );
 		// Feed imports can upsert thousands of rows.
 		// Defer the cache version bump until the loop finishes so we
 		// write the autoloaded option once instead of once per row.
 		Segurium_Storage_IP_List_Cache::suspend_bumps();
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$deleted = $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE list_type = %s AND source = %s', $table, self::sanitize_list_type( $list_type ), self::sanitize_source( $source ) ) );
+		if ( $deleted > 0 ) {
+			Segurium_Storage_IP_List_Cache::bump_version( $list_type );
+		}
 		$n = 0;
 		foreach ( $entries as $entry ) {
 			$ip   = (string) ( $entry['ip'] ?? '' );

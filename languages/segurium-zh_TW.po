@@ -3176,9 +3176,9 @@ msgid "Segurium"
 msgstr "Segurium"
 
 msgid ""
-"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
-"Cleanup, Vulnerability Alerts"
-msgstr "Segurium – 免費網站防護：防毒、惡意軟體清除與自動清理、漏洞提醒"
+"Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
+"Antivirus Scanner, Vulnerability Alerts"
+msgstr "Segurium – 遭入侵網站的免費惡意軟體清除與自動清理、防毒掃描器、漏洞提醒"
 
 msgid ""
 "Website hacked? Free malware removal and auto cleanup on every site you run,"

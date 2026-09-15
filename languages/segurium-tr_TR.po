@@ -151,11 +151,11 @@ msgstr "Yapılandırılmadı"
 
 #: includes/class-segurium-2fa.php:1073
 msgid "Set up Authenticator App"
-msgstr "Kimlik Doğrulayıcı Uygulamayı Kur"
+msgstr "Kimlik doğrulayıcı uygulamayı kur"
 
 #: includes/class-segurium-2fa.php:1074
 msgid "Set up Email Verification"
-msgstr "E-posta Doğrulamasını Kur"
+msgstr "E-posta doğrulamasını kur"
 
 #: includes/class-segurium-2fa.php:1075
 msgid "Current method:"
@@ -163,11 +163,11 @@ msgstr "Geçerli yöntem:"
 
 #: includes/class-segurium-2fa.php:1076 includes/class-segurium.php:1981
 msgid "Authenticator App (TOTP)"
-msgstr "Kimlik Doğrulayıcı Uygulama (TOTP)"
+msgstr "Kimlik doğrulayıcı uygulama (TOTP)"
 
 #: includes/class-segurium-2fa.php:1077 includes/class-segurium.php:1982
 msgid "Email Verification"
-msgstr "E-posta Doğrulama"
+msgstr "E-posta doğrulama"
 
 #: includes/class-segurium-2fa.php:1078
 msgid "Backup codes remaining:"
@@ -175,11 +175,11 @@ msgstr "Kalan yedekleme kodları:"
 
 #: includes/class-segurium-2fa.php:1079
 msgid "Regenerate Backup Codes"
-msgstr "Yedekleme Kodlarını Yeniden Oluştur"
+msgstr "Yedekleme kodlarını yeniden oluştur"
 
 #: includes/class-segurium-2fa.php:1080
 msgid "Disable 2FA"
-msgstr "2FA'yı Devre Dışı Bırak"
+msgstr "2FA'yı etkisizleştir"
 
 #: includes/class-segurium-2fa.php:1081
 msgid "Scan this QR code with your authenticator app:"
@@ -216,7 +216,7 @@ msgstr "2FA başarıyla kuruldu."
 
 #: includes/class-segurium-2fa.php:1088 includes/class-segurium-2fa.php:1379
 msgid "2FA has been disabled."
-msgstr "2FA devre dışı bırakıldı."
+msgstr "2FA etkisizleştirildi."
 
 #: includes/class-segurium-2fa.php:1089
 msgid "New backup codes generated."
@@ -241,8 +241,8 @@ msgid ""
 "Your administrator requires two-factor authentication. You have %d day(s) "
 "remaining to set it up."
 msgstr ""
-"Yöneticiniz iki adımlı doğrulama zorunlu kılmıştır. Kurmak için %d gününüz "
-"kaldı."
+"Yöneticiniz iki adımlı doğrulamayı zorunlu kılmıştır. Kurmak için %d gününüz"
+" kaldı."
 
 #: includes/class-segurium-2fa.php:1131 includes/class-segurium-2fa.php:1138
 msgid "Set up now"
@@ -390,7 +390,7 @@ msgstr "Ücretsiz hesap"
 #: includes/class-segurium.php:940 includes/class-segurium.php:1327
 #: includes/class-segurium.php:2640
 msgid "Upgrade to Pro"
-msgstr "Pro'ya Yükselt"
+msgstr "Pro sürüme yükselt"
 
 #: includes/class-segurium-account-page.php:477
 msgid ""
@@ -438,7 +438,7 @@ msgstr "Çok fazla başarısız oturum açma denemesi. %s sonra yeniden deneyin.
 
 #: includes/class-segurium-brute-force.php:1373
 msgid "Login Locked"
-msgstr "Oturum Açma Kilitli"
+msgstr "Oturum açma kilitli"
 
 #: includes/class-segurium-cleanup.php:83
 msgid "Verdict has no defined cleanup recipe."
@@ -634,8 +634,8 @@ msgstr "Zincirleme bütünlük taraması başlatılamadı: %s"
 #, php-format
 msgid "Segurium realtime scan (every %d seconds, dev override)"
 msgstr ""
-"Segurium gerçek zamanlı tarama (her %d saniyede bir, geliştirici geçersiz "
-"kılma)"
+"Segurium gerçek zamanlı tarama (her %d saniyede bir, geliştirici "
+"değiştirmesi)"
 
 #: includes/class-segurium-scan-runner.php:193
 msgid "A scan type is required."
@@ -840,8 +840,8 @@ msgid ""
 "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
 "safely."
 msgstr ""
-"X-XSS-Protection eksik. Eski tarayıcı XSS süzgeçlerini güvenli şekilde devre"
-" dışı bırakmak için 0 olarak ayarlayın."
+"X-XSS-Protection eksik. Eski tarayıcı XSS süzgeçlerini güvenli şekilde "
+"etkisizleştirmek için 0 olarak ayarlayın."
 
 #: includes/class-segurium-self-check.php:395
 msgid "X-Powered-By hidden"
@@ -896,8 +896,8 @@ msgid ""
 "XML-RPC is reachable. A frequent brute-force and pingback-amplification "
 "target."
 msgstr ""
-"XML-RPC erişilebilir durumda. Sık görülen bir kaba kuvvet ve geri bağlantı "
-"yükseltme hedefidir."
+"XML-RPC erişilebilir durumda. Kaba kuvvet ve geri bağlantı güçlendirme "
+"saldırıları için sık görülen bir hedeftir."
 
 #: includes/class-segurium-self-check.php:475
 msgid "REST API discovery disabled"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #: includes/class-segurium.php:301 includes/segurium-admin-menu-shell.php:118
 msgid "Open Segurium"
-msgstr "Segurium'u Aç"
+msgstr "Segurium'u aç"
 
 #: includes/class-segurium.php:802
 msgid "Malware"
@@ -1224,7 +1224,7 @@ msgstr "Yanlış pozitif bildir"
 
 #: includes/class-segurium.php:810 includes/class-segurium.php:2765
 msgid "Report False Positive"
-msgstr "Yanlış Pozitif Bildir"
+msgstr "Yanlış pozitif bildir"
 
 #: includes/class-segurium.php:811 includes/class-segurium.php:2770
 msgid "File path"
@@ -1249,7 +1249,7 @@ msgstr "Not (isteğe bağlı, en fazla 2000 karakter)"
 
 #: includes/class-segurium.php:816 includes/class-segurium.php:2783
 msgid "Also ignore this file on this site"
-msgstr "Bu siteye ait bu dosyayı da yok say"
+msgstr "Bu dosyayı bu sitede de yok say"
 
 #: includes/class-segurium.php:817 includes/class-segurium.php:2787
 msgid "Submit report"
@@ -1306,7 +1306,7 @@ msgstr ""
 
 #: includes/class-segurium.php:829
 msgid "Overwrite & Restore"
-msgstr "Üzerine Yaz ve Geri Yükle"
+msgstr "Üzerine yaz ve geri yükle"
 
 #: includes/class-segurium.php:830
 msgid "No threats found."
@@ -1345,7 +1345,7 @@ msgid ""
 "The scan started but the background worker could not be dispatched. Try "
 "again."
 msgstr ""
-"Tarama başlatıldı ancak arka plan çalışanı sevk edilemedi. Yeniden deneyin."
+"Tarama başlatıldı ancak arka plan görevi çalıştırılamadı. Yeniden deneyin."
 
 #: includes/class-segurium.php:843
 msgid ""
@@ -1589,7 +1589,7 @@ msgstr "/"
 
 #: includes/class-segurium.php:894
 msgid "items"
-msgstr "öğe"
+msgstr "ögeler"
 
 #: includes/class-segurium.php:895 includes/class-segurium.php:1039
 #: includes/class-segurium.php:1961
@@ -1683,7 +1683,7 @@ msgstr "Dosyalar güncelleniyor…"
 #: includes/class-segurium.php:918
 #, php-format
 msgid "%1$d of %2$d"
-msgstr "%2$d / %1$d"
+msgstr "%1$d / %2$d"
 
 #: includes/class-segurium.php:919
 msgid "Cancelling…"
@@ -1701,7 +1701,7 @@ msgid ""
 "backed up before cleanup."
 msgstr ""
 "Bu işlem, tespit edilen %d kötü amaçlı dosyayı temizlemeye çalışacak. Her "
-"dosya temizlemeden önce yedeklenir."
+"dosya, temizlenmeden önce yedeklenir."
 
 #: includes/class-segurium.php:923
 msgid "Clean all"
@@ -1743,7 +1743,7 @@ msgstr ""
 #: includes/class-segurium.php:935
 #, php-format
 msgid "Next slot opens %s"
-msgstr "Sonraki yuva %s tarihinde açılır"
+msgstr "Sonraki temizleme hakkı %s tarihinde açılacak"
 
 #. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
 #. rolling window length in days (e.g., 30)
@@ -1760,8 +1760,8 @@ msgstr "Son %3$d gün içinde %2$d temizlemenin %1$d tanesi kullanıldı"
 msgid ""
 "%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
 msgstr ""
-"Son %3$d gün içinde %2$d temizlemenin %1$d tanesi kullanıldı — sonraki yuva "
-"%4$s tarihinde açılır"
+"Son %3$d gün içinde %2$d temizlemenin %1$d tanesi kullanıldı — sonraki "
+"temizleme hakkı %4$s tarihinde açılır"
 
 #: includes/class-segurium.php:941 includes/class-segurium.php:2612
 #: includes/class-segurium.php:2801
@@ -1876,11 +1876,11 @@ msgstr "Desteklenen güvenlik eklentisi tespit edilmedi."
 
 #: includes/class-segurium.php:967
 msgid "Preview"
-msgstr "Önizle"
+msgstr "Ön izle"
 
 #: includes/class-segurium.php:968
 msgid "Apply Migration"
-msgstr "Geçişi Uygula"
+msgstr "Geçişi uygula"
 
 #: includes/class-segurium.php:970
 msgid "Migration complete."
@@ -1933,7 +1933,7 @@ msgstr "Bilet başarıyla gönderildi."
 
 #: includes/class-segurium.php:982
 msgid "Your ticket reference:"
-msgstr "Bilet başvurunuz:"
+msgstr "Bilet referansınız:"
 
 #: includes/class-segurium.php:983
 msgid "Failed to submit ticket. Please try again."
@@ -2209,7 +2209,7 @@ msgstr "Öz Denetim"
 
 #: includes/class-segurium.php:1057 includes/class-segurium.php:2458
 msgid "Run Self-Check"
-msgstr "Öz Denetim Çalıştır"
+msgstr "Öz denetimi çalıştır"
 
 #: includes/class-segurium.php:1058
 msgid "Running..."
@@ -2217,7 +2217,8 @@ msgstr "Çalışıyor..."
 
 #: includes/class-segurium.php:1059
 msgid "Click Run Self-Check to grade your site."
-msgstr "Sitenizi derecelendirmek için Öz Denetim Çalıştır'a tıklayın."
+msgstr ""
+"Sitenizi derecelendirmek için Öz denetimi çalıştır düğmesine tıklayın."
 
 #: includes/class-segurium.php:1063
 msgid "How to fix"
@@ -2249,7 +2250,7 @@ msgstr "WordPress Sertleştirme"
 
 #: includes/class-segurium.php:1070
 msgid "Cookie Security"
-msgstr "Çerez Güvenliği"
+msgstr "Çerez bilgisi güvenliği"
 
 #: includes/class-segurium.php:1071
 msgid "Malware Protection"
@@ -2333,7 +2334,7 @@ msgid ""
 " WordPress version) used to associate requests with this install."
 msgstr ""
 "İsteklerin bu kurulumla ilişkilendirilmesi için kullanılan, rastgele "
-"oluşturulmuş bir kurulum tanımlayıcısı ve temel site bilgileri (adres, ad, "
+"oluşturulmuş bir kurulum belirteci ve temel site bilgileri (adres, ad, "
 "WordPress sürümü)."
 
 #: includes/class-segurium.php:1215
@@ -2341,7 +2342,7 @@ msgid ""
 "Scan, cleanup, and security-settings events, so the cloud can keep your site"
 " protection in sync."
 msgstr ""
-"Bulutun site korumanızı eşitli tutabilmesi için tarama, temizleme ve "
+"Bulutun site korumanızı eşitlenmiş tutabilmesi için tarama, temizleme ve "
 "güvenlik ayarları olayları."
 
 #: includes/class-segurium.php:1216
@@ -2364,7 +2365,7 @@ msgstr ""
 
 #: includes/class-segurium.php:1222
 msgid "Database content, posts, comments, or media files."
-msgstr "Veritabanı içeriği, gönderiler, yorumlar veya ortam dosyaları."
+msgstr "Veritabanı içeriği, yazılar, yorumlar veya ortam dosyaları."
 
 #: includes/class-segurium.php:1223
 msgid ""
@@ -2484,7 +2485,7 @@ msgstr "Eylemler"
 
 #: includes/class-segurium.php:1500
 msgid "Show recent only (14 days)"
-msgstr "Yalnızca yakın zamanlıyı göster (14 gün)"
+msgstr "Yalnızca yakın zamanlı olanları göster (14 gün)"
 
 #: includes/class-segurium.php:1510 includes/class-segurium.php:1570
 msgid "per page"
@@ -2514,7 +2515,7 @@ msgstr "Geri al"
 
 #: includes/class-segurium.php:1616
 msgid "Enable Geo-Blocking"
-msgstr "Coğrafi Engellemeyi Etkinleştir"
+msgstr "Coğrafi engellemeyi etkinleştir"
 
 #: includes/class-segurium.php:1621
 msgid "Blocking Mode"
@@ -2570,7 +2571,7 @@ msgstr "Adrese yönlendir"
 
 #: includes/class-segurium.php:1658
 msgid "Silent drop (no response)"
-msgstr "Sessiz bırakma (yanıt yok)"
+msgstr "Sessizce düşür (yanıt yok)"
 
 #: includes/class-segurium.php:1666 includes/class-segurium.php:1736
 #: includes/class-segurium.php:1843 includes/class-segurium.php:2285
@@ -2592,7 +2593,7 @@ msgstr "İstekler"
 
 #: includes/class-segurium.php:1704
 msgid "Enable Firewall"
-msgstr "Güvenlik Duvarını Etkinleştir"
+msgstr "Güvenlik duvarını etkinleştir"
 
 #: includes/class-segurium.php:1709 includes/class-segurium.php:2243
 msgid "Mode"
@@ -2686,7 +2687,7 @@ msgstr "Denemeler"
 
 #: includes/class-segurium.php:1973
 msgid "Enable Two-Factor Authentication"
-msgstr "İki Adımlı Doğrulamayı Etkinleştir"
+msgstr "İki adımlı doğrulamayı etkinleştir"
 
 #: includes/class-segurium.php:1975
 msgid ""
@@ -2713,7 +2714,7 @@ msgstr "Bu rollerdeki kullanıcıların 2FA kurması zorunlu olacaktır."
 
 #: includes/class-segurium.php:1990
 msgid "Grace Period (days)"
-msgstr "Yararlanma Süresi (gün)"
+msgstr "Ek süre (gün)"
 
 #: includes/class-segurium.php:1991
 msgid ""
@@ -2736,7 +2737,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2001 includes/class-segurium.php:2704
 msgid "Save Settings"
-msgstr "Ayarları Kaydet"
+msgstr "Ayarları kaydet"
 
 #: includes/class-segurium.php:2006
 msgid "User Statistics"
@@ -2752,7 +2753,7 @@ msgstr "Kullanıcılar"
 
 #: includes/class-segurium.php:2016
 msgid "Reset User 2FA"
-msgstr "Kullanıcı 2FA'sını Sıfırla"
+msgstr "Kullanıcı 2FA'sını sıfırla"
 
 #: includes/class-segurium.php:2017
 msgid "Enter a username or user ID to reset their 2FA configuration."
@@ -2766,7 +2767,7 @@ msgstr "Kullanıcı adı veya kimlik"
 
 #: includes/class-segurium.php:2019
 msgid "Reset 2FA"
-msgstr "2FA'yı Sıfırla"
+msgstr "2FA'yı sıfırla"
 
 #: includes/class-segurium.php:2026
 msgid "Submit a support ticket below. Our team will respond via email."
@@ -2848,11 +2849,11 @@ msgstr ""
 
 #: includes/class-segurium.php:2068
 msgid "Submit Ticket"
-msgstr "Bilet Gönder"
+msgstr "Bilet gönder"
 
 #: includes/class-segurium.php:2079
 msgid "Enable Security Headers"
-msgstr "Güvenlik Üst Bilgilerini Etkinleştir"
+msgstr "Güvenlik üst bilgilerini etkinleştir"
 
 #: includes/class-segurium.php:2081
 msgid ""
@@ -2884,7 +2885,7 @@ msgstr "Önerilen + Cross-Origin politikaları, DNS prefetch, Cache-Control"
 
 #: includes/class-segurium.php:2092
 msgid "configure each header individually"
-msgstr "her başlığı ayrı ayrı yapılandır"
+msgstr "her üst bilgiyi ayrı ayrı yapılandır"
 
 #: includes/class-segurium.php:2103
 msgid "Header Values"
@@ -2950,7 +2951,7 @@ msgstr "HSTS (Strict-Transport-Security)"
 
 #: includes/class-segurium.php:2144
 msgid "Enable HSTS"
-msgstr "HSTS'yi Etkinleştir"
+msgstr "HSTS'yi etkinleştir"
 
 #: includes/class-segurium.php:2146
 msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
@@ -3108,7 +3109,7 @@ msgid ""
 "page builders — start in report-only mode to surface violations before "
 "enforcing."
 msgstr ""
-"CSP, betiklerin, biçemlerin ve diğer kaynakların nereden yüklenebileceğini "
+"CSP, betiklerin, stillerin ve diğer kaynakların nereden yüklenebileceğini "
 "kısıtlayarak XSS ve enjeksiyonu azaltır. CSP siteye özeldir ve temaları veya"
 " sayfa oluşturucuları bozabilir — zorunlu kılmadan önce ihlalleri ortaya "
 "çıkarmak için yalnızca raporlama kipinde başlayın."
@@ -3147,7 +3148,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2255
 msgid "CSP reference (MDN)"
-msgstr "CSP başvurusu (MDN)"
+msgstr "CSP referansı (MDN)"
 
 #: includes/class-segurium.php:2259
 msgid "Report URI (optional)"
@@ -3195,11 +3196,11 @@ msgstr ""
 
 #: includes/class-segurium.php:2291
 msgid "Headers Preview"
-msgstr "Üst Bilgilerin Önizlemesi"
+msgstr "Üst bilgiler ön izlemesi"
 
 #: includes/class-segurium.php:2303
 msgid "Enable Information Shield"
-msgstr "Bilgi Kalkanını Etkinleştir"
+msgstr "Bilgi kalkanını etkinleştir"
 
 #: includes/class-segurium.php:2305
 msgid ""
@@ -3213,7 +3214,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2308
 msgid "Enable All Recommended"
-msgstr "Önerilen Tümünü Etkinleştir"
+msgstr "Önerilenlerin tümünü etkinleştir"
 
 #: includes/class-segurium.php:2312
 msgid "HTTP Header Disclosure"
@@ -3235,7 +3236,8 @@ msgstr "Server başlığını kaldır"
 msgid ""
 "Removes the header that identifies your web server software. Best-effort."
 msgstr ""
-"Site sunucusu yazılımınızı tanımlayan üst bilgisini kaldırır. En iyi çaba."
+"Site sunucusu yazılımınızı tanımlayan üst bilgiyi kaldırır. Sonuç garanti "
+"edilmez."
 
 #: includes/class-segurium.php:2332
 msgid "Remove X-Pingback header"
@@ -3243,7 +3245,8 @@ msgstr "X-Pingback başlığını kaldır"
 
 #: includes/class-segurium.php:2334
 msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
-msgstr "Pingback/XML-RPC uç nokta adresini yanıt üst bilgilerinden gizler."
+msgstr ""
+"Geri bağlantı/XML-RPC uç noktası adresini yanıt üst bilgilerinden gizler."
 
 #: includes/class-segurium.php:2339
 msgid "Remove REST API Link: header"
@@ -3295,7 +3298,7 @@ msgid ""
 "Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
 " write posts."
 msgstr ""
-"Windows Live Writer manifest bağlantısını kaldırır. Yalnızca gönderi yazmak "
+"Windows Live Writer manifest bağlantısını kaldırır. Yalnızca yazı yazmak "
 "için WLW kullanıyorsanız gereklidir."
 
 #: includes/class-segurium.php:2376
@@ -3324,15 +3327,15 @@ msgstr ""
 
 #: includes/class-segurium.php:2390
 msgid "Remove shortlink meta tag"
-msgstr "Shortlink üst veri etiketini kaldır"
+msgstr "Kısa bağlantı üst veri etiketini kaldır"
 
 #: includes/class-segurium.php:2392
 msgid "Removes the shortlink link tag from HTML head."
-msgstr "Shortlink bağlantı etiketini HTML başlığından kaldırır."
+msgstr "Kısa bağlantı etiketini HTML başlığından kaldırır."
 
 #: includes/class-segurium.php:2397
 msgid "Remove emoji scripts and styles"
-msgstr "Emoji betiklerini ve biçemlerini kaldır"
+msgstr "Emoji betiklerini ve stillerini kaldır"
 
 #: includes/class-segurium.php:2399
 msgid ""
@@ -3356,11 +3359,11 @@ msgstr ""
 
 #: includes/class-segurium.php:2411
 msgid "Remove adjacent post links"
-msgstr "Bitişik gönderi bağlantılarını kaldır"
+msgstr "Bitişik yazı bağlantılarını kaldır"
 
 #: includes/class-segurium.php:2413
 msgid "Removes prev/next post rel links from HTML head."
-msgstr "Önceki/sonraki gönderi rel bağlantılarını HTML başlığından kaldırır."
+msgstr "Önceki/sonraki yazı rel bağlantılarını HTML başlığından kaldırır."
 
 #: includes/class-segurium.php:2416
 msgid "Asset Fingerprinting"
@@ -3381,7 +3384,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2429
 msgid "Disable XML-RPC entirely"
-msgstr "XML-RPC'yi tamamen devre dışı bırak"
+msgstr "XML-RPC'yi tamamen etkisizleştir"
 
 #: includes/class-segurium.php:2431
 msgid ""
@@ -3389,7 +3392,7 @@ msgid ""
 "if you do not use them."
 msgstr ""
 "Bazı eklentiler (Jetpack, WordPress mobil uygulaması) XML-RPC gerektirir. "
-"Yalnızca onları kullanmıyorsanız devre dışı bırakın."
+"Yalnızca onları kullanmıyorsanız etkisizleştirin."
 
 #: includes/class-segurium.php:2443
 msgid "Security Self-Check"
@@ -3660,7 +3663,7 @@ msgstr ""
 
 #: includes/class-segurium.php:2739
 msgid "Save Schedule"
-msgstr "Zamanlamayı Kaydet"
+msgstr "Zamanlamayı kaydet"
 
 #: includes/class-segurium.php:2747
 msgid ""
@@ -3676,11 +3679,11 @@ msgstr "Sürüm"
 
 #: includes/class-segurium.php:2804
 msgid "Geo DB updated"
-msgstr "Coğrafi VT güncellendi"
+msgstr "Coğrafi veritabanı güncellendi"
 
 #: includes/class-segurium.php:2811
 msgid "Proxies DB updated"
-msgstr "Vekil sunucu VT güncellendi"
+msgstr "Vekil sunucu veritabanı güncellendi"
 
 #: includes/class-segurium.php:2819
 msgid "Your IP"
@@ -3822,7 +3825,7 @@ msgstr "Dosya bulunamadı veya okunabilir değil."
 
 #: includes/class-segurium.php:3749
 msgid "File is too large to preview."
-msgstr "Dosya önizlenemeyecek kadar büyük."
+msgstr "Dosya ön izlenemeyecek kadar büyük."
 
 #: includes/class-segurium.php:3759 includes/class-segurium.php:5395
 msgid "Failed to read file."
@@ -3858,7 +3861,7 @@ msgstr "Geri yüklenen dosya yazılamadı"
 
 #: includes/class-segurium.php:4644
 msgid "File too large to view (>2 MB)"
-msgstr "Görüntülenemeyecek kadar büyük dosya (>2 MB)"
+msgstr "Dosya görüntülenemeyecek kadar büyük (>2 MB)"
 
 #: includes/class-segurium.php:4763 includes/class-segurium.php:4767
 #: includes/class-segurium.php:4794 includes/class-segurium.php:4895
@@ -3973,8 +3976,7 @@ msgstr "Dosya okunamadı"
 #: includes/class-segurium.php:6475
 msgid "Backup is no longer available — it was rotated out by newer backups."
 msgstr ""
-"Yedek artık kullanılamıyor — daha yeni yedekler tarafından döndürülerek "
-"çıkarıldı."
+"Yedek artık kullanılamıyor — daha yeni yedekler alındığı için silindi."
 
 #: includes/class-segurium.php:6477
 msgid "Backup metadata is missing or unreadable."
@@ -4035,7 +4037,8 @@ msgstr "Geçerli bir yanıt e-postası gereklidir."
 
 #: includes/class-segurium.php:7010
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "Bugün çok fazla bilet gönderdiniz. Lütfen yarın yeniden deneyin."
+msgstr ""
+"Bugün çok fazla destek talebi gönderdiniz. Lütfen yarın yeniden deneyin."
 
 #: includes/class-segurium.php:7019
 msgid "Failed to upload the file. Try again."
@@ -4069,7 +4072,7 @@ msgstr "%s kullanıcısı için 2FA sıfırlandı."
 
 #: includes/migrations/class-segurium-migration-aios.php:55
 msgid "IP Whitelist"
-msgstr "IP Beyaz Listesi"
+msgstr "IP beyaz listesi"
 
 #: includes/migrations/class-segurium-migration-aios.php:55
 msgid ""
@@ -4084,7 +4087,7 @@ msgstr ""
 #: includes/migrations/class-segurium-migration-solid-security.php:59
 #: includes/migrations/class-segurium-migration-wordfence.php:67
 msgid "Brute Force Protection"
-msgstr "Kaba Kuvvet Koruması"
+msgstr "Kaba kuvvet koruması"
 
 #: includes/migrations/class-segurium-migration-aios.php:56
 #: includes/migrations/class-segurium-migration-solid-security.php:59
@@ -4221,7 +4224,7 @@ msgstr ""
 
 #: segurium.php:49 segurium.php:608
 msgid "Plugin Activation Error"
-msgstr "Eklenti Etkinleştirme Hatası"
+msgstr "Eklenti etkinleştirme hatası"
 
 #. translators: 1: required PHP version, 2: detected PHP version
 #: segurium.php:579
@@ -4770,9 +4773,9 @@ msgid ""
 "plugin may load it, and removing it can take the whole site down. Delete it "
 "manually if you are certain it is safe."
 msgstr ""
-"Silme reddedildi: \"%s\" korumalı bir dosyadır. Web sunucusu veya başka bir "
-"eklenti onu yükleyebilir ve kaldırılması tüm siteyi çökertebilir. Güvenli "
-"olduğundan eminsen elle sil."
+"Silme reddedildi: \"%s\" korumalı bir dosyadır. Site sunucusu veya başka bir"
+" eklenti onu yükleyebilir ve kaldırılması tüm siteyi çökertebilir. Güvenli "
+"olduğundan eminseniz elle silin."
 
 #. Plugin Name of the plugin
 #: segurium.php
@@ -4930,8 +4933,8 @@ msgid ""
 "Setting saved. Your page cache is still serving the old response, so this "
 "row will clear once the cache refreshes."
 msgstr ""
-"Ayar kaydedildi. Sayfa önbelleğiniz hâlâ eski yanıtı sunuyor; bu nedenle "
-"önbellek yenilendiğinde bu satır temizlenecek."
+"Ayar kaydedildi. Sayfa ön belleğiniz hâlâ eski yanıtı sunuyor; bu nedenle ön"
+" bellek yenilendiğinde bu satır temizlenecek."
 
 msgid ""
 "The fix could not be applied. Open the feature tab and switch it on there."
@@ -4941,18 +4944,19 @@ msgid "You can change this later under Settings."
 msgstr "Bunu daha sonra Ayarlar altında değiştirebilirsiniz."
 
 msgid ""
-"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
-"Cleanup, Vulnerability Alerts"
+"Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
+"Antivirus Scanner, Vulnerability Alerts"
 msgstr ""
-"Segurium – Ücretsiz Site Koruması: Antivirüs, Kötü Amaçlı Yazılım Kaldırma "
-"ve Otomatik Temizleme, Güvenlik Açığı Uyarıları"
+"Segurium – Hacklenen Siteler için Ücretsiz Kötü Amaçlı Yazılım Kaldırma ve "
+"Otomatik Temizleme, Antivirüs Tarayıcı, Güvenlik Açığı Uyarıları"
 
 msgid ""
 "Website hacked? Free malware removal and auto cleanup on every site you run,"
 " plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
 msgstr ""
 "Site saldırıya mı uğradı? Yürüttüğünüz her sitede ücretsiz kötü amaçlı "
-"yazılım kaldırma ve otomatik temizleme, güvenlik açığı uyarıları, 2FA."
+"yazılım kaldırma ve otomatik temizleme, ayrıca güvenlik açığı uyarıları, "
+"güvenlik duvarı ve 2FA. Her yerde aynı kurulum."
 
 msgid "The setting could not be saved."
 msgstr "Ayar kaydedilemedi."

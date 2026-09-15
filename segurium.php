@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
- * Version:     1.4.1
+ * Version:     1.4.2
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.4.1' );
+define( 'SEGURIUM_VERSION', '1.4.2' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -468,6 +468,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-pro-transition.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license-vendor-error.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license-menu.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings-profile.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cli.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scanner.php';
@@ -945,6 +946,10 @@ if ( null === $segurium_groups ) {
 		Segurium_Pro_Transition::instance()->register_hooks();
 	}
 
+	if ( 'testing' !== $segurium_tier && is_admin() && class_exists( 'Segurium_License_Menu' ) ) {
+		Segurium_License_Menu::instance()->register_hooks();
+	}
+
 	add_filter( 'fs_is_submenu_visible_segurium', 'segurium_hide_unused_freemius_submenus', 10, 2 );
 
 	if ( class_exists( 'Segurium_Pricing' ) ) {
@@ -1034,6 +1039,9 @@ function segurium_lightweight_bootstrap( $tier ) {
 		$segurium_script = isset( $_SERVER['SCRIPT_NAME'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- routing only.
 		if ( segurium_admin_other_needs_fs( $segurium_script ) ) {
 			segurium_fs();
+			require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-quota.php';
+			require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-license-menu.php';
+			Segurium_License_Menu::instance()->register_hooks();
 		}
 
 		// The exit ask hangs off the Deactivate row action on that same

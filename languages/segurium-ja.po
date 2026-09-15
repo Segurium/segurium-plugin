@@ -4775,9 +4775,9 @@ msgid "You can change this later under Settings."
 msgstr "この設定は後で設定画面から変更できます。"
 
 msgid ""
-"Segurium – Free Website Protection: Antivirus, Malware Removal & Auto "
-"Cleanup, Vulnerability Alerts"
-msgstr "Segurium – 無料のサイト保護: ウイルス対策、マルウェア駆除と自動クリーンアップ、脆弱性の通知"
+"Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
+"Antivirus Scanner, Vulnerability Alerts"
+msgstr "Segurium – ハッキングされたサイト向けの無料マルウェア駆除と自動クリーンアップ、ウイルス対策スキャナー、脆弱性の通知"
 
 msgid ""
 "Website hacked? Free malware removal and auto cleanup on every site you run,"
