@@ -17,6 +17,8 @@ class Segurium_Geo_Blocker {
 	const CONTEXT       = 'geo_blocking';
 	const SETTINGS_SLUG = 'geo';
 
+	const CTI_INBOUND_ROUTES = array( 'actions-poke', 'scan-tick' );
+
 	/**
 	 * Singleton instance.
 	 *
@@ -30,6 +32,13 @@ class Segurium_Geo_Blocker {
 	 * @var bool|null
 	 */
 	private static $cli_override = null;
+
+	/**
+	 * Request body to judge instead of php://input, or null to read it.
+	 *
+	 * @var string|null
+	 */
+	private static $raw_body_override = null;
 
 	/**
 	 * Force or release the CLI-context answer.
@@ -49,6 +58,67 @@ class Segurium_Geo_Blocker {
 			return;
 		}
 		self::$cli_override = ( null === $value ) ? null : (bool) $value;
+	}
+
+	/**
+	 * Force or release the request body is_signed_cti_call() verifies.
+	 * Inert without SEGURIUM_TESTING, like set_cli_override().
+	 *
+	 * @param string|null $body Body bytes, or null to read php://input.
+	 * @return void
+	 */
+	public static function set_raw_body_override( $body ) {
+		if ( ! defined( 'SEGURIUM_TESTING' ) ) {
+			return;
+		}
+		self::$raw_body_override = ( null === $body ) ? null : (string) $body;
+	}
+
+	/**
+	 * Whether this request is a CTI-signed call to a route CTI drives.
+	 *
+	 * @return bool
+	 */
+	public static function is_signed_cti_call() {
+		if ( ! class_exists( 'Segurium_CTI_Signature' ) ) {
+			return false;
+		}
+
+		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+		if ( 'POST' !== strtoupper( $method ) ) {
+			return false;
+		}
+
+		// Exact match on the whole raw URI. A query string, PATH_INFO under
+		// another script, or a `//host` request line all fail, because the
+		// signature covers neither the site nor the URL.
+		$home     = rtrim( (string) wp_parse_url( home_url(), PHP_URL_PATH ), '/' );
+		$prefix   = trim( rest_get_url_prefix(), '/' );
+		$expected = array();
+		foreach ( array( '', '/index.php' ) as $front ) {
+			foreach ( self::CTI_INBOUND_ROUTES as $route ) {
+				$uri        = $home . $front . '/' . $prefix . '/segurium/v1/' . $route;
+				$expected[] = $uri;
+				$expected[] = $uri . '/';
+			}
+		}
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) || ! in_array( wp_unslash( $_SERVER['REQUEST_URI'] ), $expected, true ) ) {
+			return false;
+		}
+
+		$sig    = isset( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE'] ) ) : '';
+		$ts     = isset( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE_TIMESTAMP'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE_TIMESTAMP'] ) ) : '';
+		$key_id = isset( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE_KEY_ID'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_SEGURIUM_SIGNATURE_KEY_ID'] ) ) : '';
+		if ( '' === $sig || '' === $ts || '' === $key_id ) {
+			return false;
+		}
+
+		$body = self::$raw_body_override;
+		if ( null === $body ) {
+			$body = (string) file_get_contents( 'php://input' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- raw request body, not a remote URL
+		}
+
+		return Segurium_CTI_Signature::is_valid( $sig, $ts, $key_id, $body );
 	}
 
 	/**
@@ -107,6 +177,10 @@ class Segurium_Geo_Blocker {
 			return;
 		}
 
+		if ( self::is_signed_cti_call() ) {
+			return;
+		}
+
 		$ip = $this->get_real_ip();
 		// No remote IP → not a real HTTP request (WP-CLI, internal hand-offs).
 		// Nothing to evaluate; nothing to block. wp-cron.php IS reachable
@@ -141,6 +215,10 @@ class Segurium_Geo_Blocker {
 		}
 
 		if ( ! Segurium_Settings::get_field( self::SETTINGS_SLUG, 'enabled' ) ) {
+			return;
+		}
+
+		if ( self::is_signed_cti_call() ) {
 			return;
 		}
 

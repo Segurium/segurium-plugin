@@ -772,8 +772,8 @@ msgid ""
 "real system cron job hitting wp-cron.php every minute, or to switch from "
 "mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
-"Sarcina WordPress este dezactivată (DISABLE_WP_CRON) și configurația ta PHP "
-"nu poate să separe sarcinile de lungă durată de cererile de pagină. "
+"Sarcina WordPress este dezactivată (DISABLE_WP_CRON) și inițializarea ta PHP"
+" nu poate să separe sarcinile de lungă durată de cererile de pagină. "
 "Scanările în fundal vor avansa numai cât timp o filă de administrare "
 "Segurium rămâne deschisă. Cere-i serviciului tău de găzduire fie să activeze"
 " o sarcină planificată reală în sistem care accesează wp-cron.php în fiecare"
@@ -1293,6 +1293,11 @@ msgid "Malware"
 msgstr "Malware"
 
 #: includes/class-segurium.php:1017
+msgid "Clean"
+msgstr "Curat"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
 msgid "Clean"
 msgstr "Curăță"
 

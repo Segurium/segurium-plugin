@@ -1116,6 +1116,11 @@ msgstr "恶意软件"
 
 #: includes/class-segurium.php:803
 msgid "Clean"
+msgstr "正常"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
 msgstr "清理"
 
 #: includes/class-segurium.php:804 includes/class-segurium.php:1463

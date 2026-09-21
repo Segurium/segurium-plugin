@@ -77,16 +77,15 @@ class Segurium_Async_Scan_Submitter {
 		'cti_scan_submit_payload_too_large',
 	);
 
-	/**
-	 * Error codes from add() that mean "the link, not the
-	 * content": the file is a skip for the caller's accounting.
-	 *
-	 * @var string[]
-	 */
-	const CEILING_SKIP_ERROR_CODES = array(
-		'cti_file_exceeds_batch_ceiling',
-		'cti_upload_ceiling_floor',
+	const SKIP_REASONS = array(
+		'cti_file_exceeds_batch_ceiling'   => 'batch_ceiling',
+		'cti_upload_ceiling_floor'         => 'ceiling_floor',
+		'cti_file_exceeds_memory_headroom' => 'low_memory',
 	);
+
+	// Measured at 2.3 per buffered byte: the multipart copy and the gzip copy coexist.
+	const FLUSH_MEMORY_FACTOR  = 2.5;
+	const MEMORY_RESERVE_BYTES = 4194304;
 
 	/**
 	 * Legacy runtime_kv key prefix under which the per-scan pending-verdicts
@@ -499,7 +498,8 @@ class Segurium_Async_Scan_Submitter {
 		if ( ! empty( $this->buffer )
 			&& ( $this->buffer_wire_bytes + $wire > $this->ceiling_bytes
 				|| $this->buffer_raw_bytes + $size > self::MAX_BATCH_BYTES
-				|| count( $this->buffer ) >= $this->batch_file_cap() )
+				|| count( $this->buffer ) >= $this->batch_file_cap()
+				|| ! self::memory_allows( $this->buffer_raw_bytes + $size ) )
 		) {
 			$flushed = $this->flush( true );
 			if ( is_wp_error( $flushed ) ) {
@@ -510,6 +510,13 @@ class Segurium_Async_Scan_Submitter {
 			if ( null !== $refused ) {
 				return $refused;
 			}
+		}
+		if ( ! self::memory_allows( $this->buffer_raw_bytes + $size ) ) {
+			return new WP_Error(
+				'cti_file_exceeds_memory_headroom',
+				'not enough free memory to upload this file',
+				array( 'size' => $size )
+			);
 		}
 
 		$this->buffer[]           = array(
@@ -1272,5 +1279,51 @@ class Segurium_Async_Scan_Submitter {
 	 */
 	public function buffer_wire_bytes() {
 		return $this->buffer_wire_bytes;
+	}
+
+	/**
+	 * Paths currently buffered, in order.
+	 *
+	 * @return string[]
+	 */
+	public function buffered_paths() {
+		return array_column( $this->buffer, 'path' );
+	}
+
+	/**
+	 * Halve the batch ceiling after a worker died holding a batch.
+	 *
+	 * @return void
+	 */
+	public function shrink_after_worker_death() {
+		$this->clean_submits = 0;
+		$this->ceiling_bytes = max( self::BATCH_CEILING_FLOOR_BYTES, (int) floor( $this->ceiling_bytes / 2 ) );
+		$this->save_ceiling();
+	}
+
+	/**
+	 * Whether memory_limit leaves room to upload the given bytes.
+	 *
+	 * @param int $buffered_bytes Body bytes already held in memory.
+	 * @param int $unread_bytes   Body bytes the caller is about to read.
+	 * @return bool
+	 */
+	public static function memory_allows( $buffered_bytes, $unread_bytes = 0 ) {
+		$limit = self::memory_limit_bytes();
+		if ( $limit <= 0 ) {
+			return true;
+		}
+		$needed = memory_get_usage( true ) + $unread_bytes + self::MEMORY_RESERVE_BYTES
+			+ ( $buffered_bytes + $unread_bytes ) * self::FLUSH_MEMORY_FACTOR;
+		return $needed <= $limit;
+	}
+
+	/**
+	 * The live memory_limit in bytes; -1 when unlimited.
+	 *
+	 * @return int
+	 */
+	public static function memory_limit_bytes() {
+		return wp_convert_hr_to_bytes( (string) ini_get( 'memory_limit' ) );
 	}
 }

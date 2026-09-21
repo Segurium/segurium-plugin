@@ -1272,6 +1272,11 @@ msgstr "Mã độc"
 
 #: includes/class-segurium.php:1017
 msgid "Clean"
+msgstr "Sạch"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
 msgstr "Làm sạch"
 
 #: includes/class-segurium.php:1018 includes/class-segurium.php:1924
@@ -4586,8 +4591,8 @@ msgid "Temporary deactivation"
 msgstr "Tắt tạm thời"
 
 msgid ""
-"The email address for security alerts: the WordPress admin email, or the "
-"one you enter below, together with your email alerts choice."
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
 msgstr ""
 "Địa chỉ email nhận cảnh báo bảo mật: email quản trị WordPress, hoặc email "
 "bạn nhập bên dưới, kèm lựa chọn nhận email cảnh báo của bạn."
@@ -4616,7 +4621,8 @@ msgstr "Có lỗ hổng"
 msgid "No update available"
 msgstr "Không có bản cập nhật"
 
-#. translators: 1: component name, 2: installed version, 3: version WordPress would install
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
 #, php-format
 msgid ""
 "%1$s moves from %2$s to %3$s. This is a major version change and can break "
@@ -4637,22 +4643,32 @@ msgstr "Các vấn đề bảo mật cần bạn lưu ý"
 msgid "This item cannot be switched on from here."
 msgstr "Không thể bật mục này từ đây."
 
-msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
-msgstr "Máy chủ này thêm lại tiêu đề sau khi plugin gỡ bỏ. Hãy mở tab tính năng để xem cách khắc phục ở cấp máy chủ."
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Máy chủ này thêm lại tiêu đề sau khi plugin gỡ bỏ. Hãy mở tab tính năng để "
+"xem cách khắc phục ở cấp máy chủ."
 
 msgid "That feature is not available on this installation."
 msgstr "Tính năng đó không khả dụng trên bản cài đặt này."
 
-msgid "The setting could not be saved. Open the feature tab and switch it on there."
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
 msgstr "Không thể lưu cài đặt. Hãy mở tab tính năng và bật nó ở đó."
 
 msgid "Applying..."
 msgstr "Đang áp dụng..."
 
-msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
-msgstr "Đã lưu cài đặt. Bộ nhớ đệm trang của bạn vẫn đang trả về phản hồi cũ, vì vậy dòng này sẽ được xóa khi bộ nhớ đệm được làm mới."
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Đã lưu cài đặt. Bộ nhớ đệm trang (page cache) của bạn vẫn đang trả về phản "
+"hồi cũ, vì vậy dòng này sẽ được xóa khi bộ nhớ đệm được làm mới."
 
-msgid "The fix could not be applied. Open the feature tab and switch it on there."
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
 msgstr "Không thể áp dụng bản vá. Hãy mở tab tính năng và bật nó ở đó."
 
 msgid "You can change this later under Settings."
@@ -4662,8 +4678,8 @@ msgid ""
 "Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
 "Antivirus Scanner, Vulnerability Alerts"
 msgstr ""
-"Segurium – Gỡ mã độc và dọn dẹp tự động miễn phí cho trang web bị hack, "
-"trình quét chống virus, cảnh báo lỗ hổng"
+"Segurium – Gỡ mã độc và tự động dọn dẹp miễn phí cho trang web bị hack, "
+"trình quét diệt virus, cảnh báo lỗ hổng bảo mật"
 
 msgid ""
 "Website hacked? Free malware removal and auto cleanup on every site you run,"

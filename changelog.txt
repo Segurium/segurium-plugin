@@ -2,6 +2,10 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.4.1 - 2026-09-13 =
+* Faster response.
+* Integrity scan no longer flags empty files as new.
+
 = 1.4.0 - 2026-09-07 =
 * Extends WP-CLI capabilities: Manage licences. export and import settings.
 * Score flagged vulnerable components in Self-Check.

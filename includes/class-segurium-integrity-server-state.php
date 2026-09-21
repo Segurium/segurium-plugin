@@ -243,6 +243,10 @@ class Segurium_Integrity_Server_State {
 
 		// Files that were open in the DB but are no longer flagged by CTI
 		// (i.e. the issue was resolved by a plugin/WP update) → mark fixed.
+		// A file CTI returned without a verdict was never checked, so it keeps its row.
+		foreach ( $scan_component['unverified_paths'] ?? array() as $unverified_path ) {
+			$new_file_hashes[] = hash( 'sha256', (string) $unverified_path );
+		}
 		if ( ! empty( $new_file_hashes ) ) {
 			global $wpdb;
 			$table        = Segurium_Storage::table_name( 'integrity_issues' );

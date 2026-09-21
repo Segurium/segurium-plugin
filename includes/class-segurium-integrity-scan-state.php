@@ -361,7 +361,12 @@ class Segurium_Integrity_Scan_State {
 					$hash_map[ $h['path'] ] = $h['sha256'];
 				}
 				foreach ( $cti_row['files'] as $f ) {
-					$verdict = $f['verdict'] ?? '';
+					$f       = (array) $f;
+					$verdict = self::file_verdict( $f, $key );
+					if ( null === $verdict ) {
+						$ui_entry['unverified_paths'][] = (string) ( $f['path'] ?? '' );
+						continue;
+					}
 					if ( 'ok' === $verdict ) {
 						continue;
 					}
@@ -649,6 +654,9 @@ class Segurium_Integrity_Scan_State {
 
 		foreach ( $this->state['results'] as $comp ) {
 			foreach ( $comp['issues'] as $issue ) {
+				if ( ! is_string( $issue['verdict'] ?? null ) || '' === $issue['verdict'] ) {
+					continue;
+				}
 				$file_sha256 = (string) ( $issue['sha256'] ?? '' );
 				Segurium_Storage::table_upsert(
 					'integrity_issues',
@@ -730,6 +738,28 @@ class Segurium_Integrity_Scan_State {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Read one file row's verdict, logging a row that carries none.
+	 *
+	 * @param array  $file          One file row from the integrity response.
+	 * @param string $component_key `<type>:<slug>` of the owning component.
+	 * @return string|null Null when the verdict is absent, empty or not a string.
+	 */
+	public static function file_verdict( array $file, $component_key ) {
+		$verdict = $file['verdict'] ?? null;
+		if ( is_string( $verdict ) && '' !== $verdict ) {
+			return $verdict;
+		}
+		Segurium_Debug::log(
+			sprintf(
+				'[segurium] integrity_verdict_missing: CTI returned no verdict for %s in %s, file dropped',
+				(string) ( $file['path'] ?? '' ),
+				(string) $component_key
+			)
+		);
+		return null;
 	}
 
 	/**

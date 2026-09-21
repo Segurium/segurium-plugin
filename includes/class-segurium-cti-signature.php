@@ -113,101 +113,132 @@ class Segurium_CTI_Signature {
 	 * @return true|WP_Error
 	 */
 	public static function verify_signature( string $sig_b64, string $ts_str, string $key_id, string $body, string $label = 'service' ) {
-		if ( '' === $sig_b64 || '' === $ts_str || '' === $key_id ) {
-			return new WP_Error(
-				'cti_signature_missing',
-				/* translators: %s: endpoint label */
-				sprintf( __( 'Segurium Cloud (%s): missing signature headers.', 'segurium' ), $label )
-			);
-		}
+		$detail = '';
+		$code   = self::failure_code( $sig_b64, $ts_str, $key_id, $body, $detail );
 
-		$trust = self::trust_list();
-		if ( ! isset( $trust[ $key_id ] ) ) {
-			return new WP_Error(
-				'cti_signature_untrusted_key',
-				sprintf(
+		switch ( $code ) {
+			case '':
+				return true;
+			case 'cti_signature_missing':
+				/* translators: %s: endpoint label */
+				$message = sprintf( __( 'Segurium Cloud (%s): missing signature headers.', 'segurium' ), $label );
+				break;
+			case 'cti_signature_untrusted_key':
+				$message = sprintf(
 					/* translators: 1: endpoint label, 2: key id from the signature header */
 					__( 'Segurium Cloud (%1$s): signed with an untrusted key "%2$s".', 'segurium' ),
 					$label,
 					$key_id
-				)
-			);
+				);
+				break;
+			case 'cti_signature_bad_trust_list':
+				$message = __( 'Signature trust list is corrupt — public key failed to decode.', 'segurium' );
+				break;
+			case 'cti_signature_bad_signature':
+				$message = sprintf(
+					/* translators: %s: endpoint label */
+					__( 'Segurium Cloud (%s): signature header malformed.', 'segurium' ),
+					$label
+				);
+				break;
+			case 'cti_signature_bad_timestamp':
+				$message = sprintf(
+					/* translators: %s: endpoint label */
+					__( 'Segurium Cloud (%s): signature timestamp malformed.', 'segurium' ),
+					$label
+				);
+				break;
+			case 'cti_signature_stale':
+				$message = sprintf(
+					/* translators: 1: endpoint label, 2: skew in seconds */
+					__( 'Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range.', 'segurium' ),
+					$label,
+					(int) $detail
+				);
+				break;
+			case 'cti_signature_sodium_error':
+				$message = sprintf(
+					/* translators: 1: endpoint label, 2: error message */
+					__( 'Segurium Cloud (%1$s): libsodium rejected the signature (%2$s).', 'segurium' ),
+					$label,
+					$detail
+				);
+				break;
+			default:
+				$message = sprintf(
+					/* translators: %s: endpoint label */
+					__( 'Segurium Cloud (%s): signature did not verify.', 'segurium' ),
+					$label
+				);
+		}
+
+		return new WP_Error( $code, $message );
+	}
+
+	/**
+	 * {@see self::verify_signature()} without translation calls, for code
+	 * that runs before the text domain may load.
+	 *
+	 * @param string $sig_b64 Base64 (padded or no-pad) signature.
+	 * @param string $ts_str  Decimal unix-seconds timestamp string.
+	 * @param string $key_id  Signing key id (must be in the trust list).
+	 * @param string $body    Exact body bytes the signature covers.
+	 * @return bool
+	 */
+	public static function is_valid( string $sig_b64, string $ts_str, string $key_id, string $body ): bool {
+		$detail = '';
+		return '' === self::failure_code( $sig_b64, $ts_str, $key_id, $body, $detail );
+	}
+
+	/**
+	 * Run every check and name the first one that fails.
+	 *
+	 * @param string $sig_b64 Base64 (padded or no-pad) signature.
+	 * @param string $ts_str  Decimal unix-seconds timestamp string.
+	 * @param string $key_id  Signing key id (must be in the trust list).
+	 * @param string $body    Exact body bytes the signature covers.
+	 * @param string $detail  Out: clock skew in seconds, or the libsodium error text.
+	 * @return string Error code, or '' when the signature verifies.
+	 */
+	private static function failure_code( string $sig_b64, string $ts_str, string $key_id, string $body, string &$detail ): string {
+		if ( '' === $sig_b64 || '' === $ts_str || '' === $key_id ) {
+			return 'cti_signature_missing';
+		}
+
+		$trust = self::trust_list();
+		if ( ! isset( $trust[ $key_id ] ) ) {
+			return 'cti_signature_untrusted_key';
 		}
 
 		$pub = self::b64_decode( $trust[ $key_id ] );
 		if ( false === $pub || SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES !== strlen( $pub ) ) {
-			return new WP_Error(
-				'cti_signature_bad_trust_list',
-				__( 'Signature trust list is corrupt — public key failed to decode.', 'segurium' )
-			);
+			return 'cti_signature_bad_trust_list';
 		}
 
 		$sig = self::b64_decode( $sig_b64 );
 		if ( false === $sig || SODIUM_CRYPTO_SIGN_BYTES !== strlen( $sig ) ) {
-			return new WP_Error(
-				'cti_signature_bad_signature',
-				sprintf(
-					/* translators: %s: endpoint label */
-					__( 'Segurium Cloud (%s): signature header malformed.', 'segurium' ),
-					$label
-				)
-			);
+			return 'cti_signature_bad_signature';
 		}
 
 		if ( ! preg_match( '/^[0-9]+$/', $ts_str ) ) {
-			return new WP_Error(
-				'cti_signature_bad_timestamp',
-				sprintf(
-					/* translators: %s: endpoint label */
-					__( 'Segurium Cloud (%s): signature timestamp malformed.', 'segurium' ),
-					$label
-				)
-			);
+			return 'cti_signature_bad_timestamp';
 		}
-		$ts   = (int) $ts_str;
-		$now  = time();
-		$skew = abs( $now - $ts );
+		$skew = abs( time() - (int) $ts_str );
 		if ( $skew > self::TIMESTAMP_SKEW_SECS ) {
-			return new WP_Error(
-				'cti_signature_stale',
-				sprintf(
-					/* translators: 1: endpoint label, 2: skew in seconds */
-					__( 'Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range.', 'segurium' ),
-					$label,
-					$skew
-				)
-			);
+			$detail = (string) $skew;
+			return 'cti_signature_stale';
 		}
 
 		$canonical = self::CANONICAL_PREFIX . $ts_str . "\n" . hash( 'sha256', $body );
 
-		$ok = false;
 		try {
 			$ok = sodium_crypto_sign_verify_detached( $sig, $canonical, $pub );
 		} catch ( \SodiumException $e ) {
-			return new WP_Error(
-				'cti_signature_sodium_error',
-				sprintf(
-					/* translators: 1: endpoint label, 2: error message */
-					__( 'Segurium Cloud (%1$s): libsodium rejected the signature (%2$s).', 'segurium' ),
-					$label,
-					$e->getMessage()
-				)
-			);
+			$detail = $e->getMessage();
+			return 'cti_signature_sodium_error';
 		}
 
-		if ( ! $ok ) {
-			return new WP_Error(
-				'cti_signature_invalid',
-				sprintf(
-					/* translators: %s: endpoint label */
-					__( 'Segurium Cloud (%s): signature did not verify.', 'segurium' ),
-					$label
-				)
-			);
-		}
-
-		return true;
+		return $ok ? '' : 'cti_signature_invalid';
 	}
 
 	/**

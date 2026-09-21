@@ -1222,6 +1222,11 @@ msgstr "Malware"
 msgid "Clean"
 msgstr "Pulito"
 
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "Pulisci"
+
 #: includes/class-segurium.php:804 includes/class-segurium.php:1463
 msgid "Cleaned"
 msgstr "Pulito"

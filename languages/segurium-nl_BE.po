@@ -1261,6 +1261,11 @@ msgstr "Malware"
 
 #: includes/class-segurium.php:1017
 msgid "Clean"
+msgstr "Schoon"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
 msgstr "Opschonen"
 
 #: includes/class-segurium.php:1018 includes/class-segurium.php:1924

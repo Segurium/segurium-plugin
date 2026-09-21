@@ -1,4 +1,5 @@
-#
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
@@ -1206,6 +1207,11 @@ msgstr "Malware"
 #: includes/class-segurium.php:803
 msgid "Clean"
 msgstr "Limpo"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "Limpar"
 
 #: includes/class-segurium.php:804 includes/class-segurium.php:1463
 msgid "Cleaned"

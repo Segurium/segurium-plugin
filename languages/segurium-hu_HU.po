@@ -8,7 +8,7 @@ msgstr ""
 "PO-Revision-Date: 2026-08-23 12:00+0000\n"
 "Last-Translator: Segurium <hello@segurium.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
-"Language: hu\n"
+"Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,8 +57,8 @@ msgid ""
 "Two-factor authentication setup is required for your role. Please contact "
 "your administrator."
 msgstr ""
-"Ehhez a szerepkörhöz kötelező a kétlépcsős hitelesítés beállítása. Kérjük, "
-"forduljunk a rendszergazdához."
+"Ehhez a szerepkörhöz kötelező a kétlépcsős hitelesítés beállítása. "
+"Forduljunk a rendszergazdához."
 
 #: includes/class-segurium-2fa.php:658
 msgid ""
@@ -106,7 +106,7 @@ msgstr "Eszköz megjegyzése %d napra"
 #: includes/class-segurium-2fa.php:1010 includes/class-segurium-2fa.php:1598
 #: includes/class-segurium-2fa.php:1677 includes/class-segurium-2fa.php:1735
 msgid "Too many failed attempts. Please try again later."
-msgstr "Túl sok sikertelen kísérlet. Kérjük, próbáljuk meg később."
+msgstr "Túl sok sikertelen kísérlet. Próbáljuk meg később."
 
 #: includes/class-segurium-2fa.php:1011
 msgid "Two-factor authentication setup is required for your role."
@@ -235,8 +235,7 @@ msgid ""
 "Two-factor authentication is required for your role. Please set it up "
 "immediately."
 msgstr ""
-"Ehhez a szerepkörhöz kötelező a kétlépcsős hitelesítés. Kérjük, állítsuk be "
-"azonnal."
+"Ehhez a szerepkörhöz kötelező a kétlépcsős hitelesítés. Állítsuk be azonnal."
 
 #. translators: %s: site name
 #: includes/class-segurium-2fa.php:1180
@@ -275,11 +274,11 @@ msgstr "Nincs jogosultság a művelet végrehajtásához."
 
 #: includes/class-segurium-2fa.php:1282
 msgid "Setup session expired. Please start again."
-msgstr "A beállítási munkamenet lejárt. Kérjük, kezdjük elölről."
+msgstr "A beállítási munkamenet lejárt. Kezdjük elölről."
 
 #: includes/class-segurium-2fa.php:1286 includes/class-segurium-2fa.php:1362
 msgid "Invalid code. Please try again."
-msgstr "Érvénytelen kód. Kérjük, próbáljuk meg újra."
+msgstr "Érvénytelen kód. Próbáljuk meg újra."
 
 #: includes/class-segurium-2fa.php:1292
 msgid "Encryption error."
@@ -299,11 +298,11 @@ msgstr "Érvénytelen ellenőrző kód."
 
 #: includes/class-segurium-2fa.php:1520
 msgid "Please enter your username and password."
-msgstr "Kérjük, adjuk meg a felhasználónevet és a jelszót."
+msgstr "Adjuk meg a felhasználónevet és a jelszót."
 
 #: includes/class-segurium-2fa.php:1657
 msgid "Session expired. Please log in again."
-msgstr "A munkamenet lejárt. Kérjük, jelentkezzünk be újra."
+msgstr "A munkamenet lejárt. Jelentkezzünk be újra."
 
 #: includes/class-segurium-2fa.php:1663 includes/class-segurium-2fa.php:1777
 msgid "Invalid session."
@@ -311,7 +310,7 @@ msgstr "Érvénytelen munkamenet."
 
 #: includes/class-segurium-2fa.php:1744
 msgid "Invalid verification code. Please try again."
-msgstr "Érvénytelen ellenőrző kód. Kérjük, próbáljuk meg újra."
+msgstr "Érvénytelen ellenőrző kód. Próbáljuk meg újra."
 
 #: includes/class-segurium-2fa.php:1772
 msgid "Session expired."
@@ -327,7 +326,7 @@ msgstr "A bejelentkezés blokkolva."
 
 #: includes/class-segurium-brute-force.php:517
 msgid "Please complete the CAPTCHA challenge."
-msgstr "Kérjük, oldjuk meg a CAPTCHA-feladványt."
+msgstr "Oldjuk meg a CAPTCHA-feladványt."
 
 #: includes/class-segurium-brute-force.php:1336
 msgid "Leave this field empty"
@@ -446,12 +445,12 @@ msgstr "Ezen a kiszolgálón nem érhető el biztonságos véletlenszám-forrás
 msgid ""
 "Installation ID unavailable. Please ensure the plugin is properly activated."
 msgstr ""
-"A telepítésazonosító nem érhető el. Kérjük, győződjünk meg róla, hogy a "
-"bővítmény megfelelően be van kapcsolva."
+"A telepítésazonosító nem érhető el. Győződjünk meg róla, hogy a bővítmény "
+"megfelelően be van kapcsolva."
 
 #: includes/class-segurium-cti-client.php:555
 msgid "Too many requests. Please try again later."
-msgstr "Túl sok kérés. Kérjük, próbáljuk meg később."
+msgstr "Túl sok kérés. Próbáljuk meg később."
 
 #. translators: %d: HTTP status code
 #: includes/class-segurium-cti-client.php:561
@@ -539,9 +538,9 @@ msgid ""
 "the new identity."
 msgstr ""
 "A Segurium észlelte, hogy ez a webhely át lett helyezve vagy klónozva, és a "
-"háttérben újraépíti a biztonságos kapcsolatot. Pro licenc esetén kérjük, "
-"kapcsoljuk be újra a Segurium fiókképernyőjén, hogy a Pro funkciók az új "
-"azonosságon is működjenek."
+"háttérben újraépíti a biztonságos kapcsolatot. Pro licenc esetén kapcsoljuk "
+"be újra a Segurium fiókképernyőjén, hogy a Pro funkciók az új azonosságon is"
+" működjenek."
 
 #: includes/class-segurium-iid.php:298
 msgid ""
@@ -552,7 +551,7 @@ msgid ""
 "license check."
 msgstr ""
 "A Segurium nem tudta bekapcsolni a Pro licencet ezen a webhelyen, mert az "
-"jelenleg egy másik telepítéshez van kötve. Kérjük, nyissuk meg a Segurium "
+"jelenleg egy másik telepítéshez van kötve. Nyissuk meg a Segurium "
 "fiókportálját az eredeti telepítésen, és ott kapcsoljuk ki a licencet; a "
 "kötés feloldódik, és a Pro funkciók a következő licencellenőrzéskor itt "
 "bekapcsolnak."
@@ -695,8 +694,8 @@ msgid ""
 "Activation with the Segurium cloud service is still pending. Please try "
 "again in a moment."
 msgstr ""
-"A Segurium felhőszolgáltatásában az aktiválás még folyamatban van. Kérjük, "
-"próbáljuk meg kicsit később."
+"A Segurium felhőszolgáltatásában az aktiválás még folyamatban van. Próbáljuk"
+" meg kicsit később."
 
 #: includes/class-segurium-scan-runner.php:414
 #: includes/class-segurium.php:1073 includes/class-segurium.php:4770
@@ -704,8 +703,8 @@ msgid ""
 "Scan storage is not ready. Please deactivate and reactivate the Segurium "
 "plugin, then try again."
 msgstr ""
-"A vizsgálati tároló nem áll készen. Kérjük, kapcsoljuk ki, majd újra be a "
-"Segurium bővítményt, aztán próbáljuk meg újra."
+"A vizsgálati tároló nem áll készen. Kapcsoljuk ki, majd újra be a Segurium "
+"bővítményt, aztán próbáljuk meg újra."
 
 #: includes/class-segurium-scan-runner.php:424
 #: includes/class-segurium-scan-runner.php:459
@@ -724,7 +723,7 @@ msgid ""
 "Scan storage was not ready. It has been repaired automatically — please "
 "click \"Start scan\" again."
 msgstr ""
-"A vizsgálati tároló nem állt készen. Automatikusan megjavítottuk – kérjük, "
+"A vizsgálati tároló nem állt készen. Automatikusan megjavítottuk – "
 "kattintsunk újra a „Vizsgálat indítása” gombra."
 
 #. translators: %s: underlying exception message
@@ -1267,6 +1266,11 @@ msgid "Malware"
 msgstr "Kártevő"
 
 #: includes/class-segurium.php:1017
+msgid "Clean"
+msgstr "Tiszta"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
 msgid "Clean"
 msgstr "Tisztítás"
 
@@ -2106,11 +2110,11 @@ msgstr "A jegy hivatkozási száma:"
 
 #: includes/class-segurium.php:1218
 msgid "Failed to submit ticket. Please try again."
-msgstr "A jegyet nem sikerült elküldeni. Kérjük, próbáljuk meg újra."
+msgstr "A jegyet nem sikerült elküldeni. Próbáljuk meg újra."
 
 #: includes/class-segurium.php:1219
 msgid "Please attach a file before submitting."
-msgstr "Kérjük, küldés előtt csatoljunk egy fájlt."
+msgstr "Küldés előtt csatoljunk egy fájlt."
 
 #: includes/class-segurium.php:1220
 msgid "Selected file exceeds the 100 MB limit."
@@ -2118,15 +2122,15 @@ msgstr "A kiválasztott fájl meghaladja a 100 MB-os korlátot."
 
 #: includes/class-segurium.php:1221
 msgid "Please enter a valid reply-to email."
-msgstr "Kérjük, adjunk meg érvényes válaszcímet."
+msgstr "Adjunk meg érvényes válaszcímet."
 
 #: includes/class-segurium.php:1222
 msgid "Please enter your name."
-msgstr "Kérjük, adjuk meg a nevünket."
+msgstr "Adjuk meg a nevünket."
 
 #: includes/class-segurium.php:1223
 msgid "Could not save your choice. Please try again."
-msgstr "A választást nem sikerült elmenteni. Kérjük, próbáljuk meg újra."
+msgstr "A választást nem sikerült elmenteni. Próbáljuk meg újra."
 
 #: includes/class-segurium.php:1224
 msgid "Brute-Force Protection"
@@ -3237,7 +3241,7 @@ msgstr "Azonos eredet, felugró ablakok engedélyezve"
 
 #: includes/class-segurium.php:2645 includes/class-segurium.php:2663
 msgid "Unsafe none"
-msgstr "Unsafe none"
+msgstr "Nem biztonságos"
 
 #: includes/class-segurium.php:2649
 msgid "Cross-Origin-Resource-Policy"
@@ -3684,7 +3688,7 @@ msgstr "Fájlintegritás figyelése (alapfájlok / bővítmények / sablonok)"
 
 #: includes/class-segurium.php:2959
 msgid "Migration importer (Wordfence, AIOS, Solid Security)"
-msgstr "Migrálásimportáló (Wordfence, AIOS, Solid Security)"
+msgstr "Migrálási importáló (Wordfence, AIOS, Solid Security)"
 
 #: includes/class-segurium.php:2960
 msgid "Community support"
@@ -4043,7 +4047,7 @@ msgstr "Váratlan hiba."
 
 #: includes/class-segurium.php:4837
 msgid "This endpoint has been removed. Please reload the page."
-msgstr "Ez a végpont megszűnt. Kérjük, töltsük újra az oldalt."
+msgstr "Ez a végpont megszűnt. Töltsük újra az oldalt."
 
 #: includes/class-segurium.php:4985 includes/class-segurium.php:5012
 #: includes/class-segurium.php:5041 includes/class-segurium.php:5137
@@ -4257,7 +4261,7 @@ msgstr "Érvényes válaszcím megadása kötelező."
 
 #: includes/class-segurium.php:7523
 msgid "You have submitted too many tickets today. Please try again tomorrow."
-msgstr "Ma már túl sok jegy ment el. Kérjük, próbáljuk meg holnap."
+msgstr "Ma már túl sok jegy ment el. Próbáljuk meg holnap."
 
 #: includes/class-segurium.php:7529
 msgid "Failed to upload the file. Try again."
@@ -4277,7 +4281,7 @@ msgstr "A feltöltött fájl beolvasása nem sikerült."
 
 #: includes/class-segurium.php:7670
 msgid "Please enter a username or user ID."
-msgstr "Kérjük, adjunk meg egy felhasználónevet vagy felhasználóazonosítót."
+msgstr "Adjunk meg egy felhasználónevet vagy felhasználóazonosítót."
 
 #: includes/class-segurium.php:7675
 msgid "User not found."
@@ -4501,8 +4505,8 @@ msgid ""
 "ask your host to upgrade PHP, then try activating Segurium again."
 msgstr ""
 "A Seguriumhoz PHP %1$s vagy újabb szükséges. Ezen a webhelyen PHP %2$s fut. "
-"Kérjük, kérjük meg a tárhelyszolgáltatót a PHP frissítésére, majd próbáljuk "
-"meg újra bekapcsolni a Seguriumot."
+"Kérjük meg a tárhelyszolgáltatót a PHP frissítésére, majd próbáljuk meg újra"
+" bekapcsolni a Seguriumot."
 
 #. translators: 1: required WordPress version, 2: detected WordPress version
 #: segurium.php:1022
@@ -4511,8 +4515,8 @@ msgid ""
 "%2$s. Please update WordPress, then try activating Segurium again."
 msgstr ""
 "A Seguriumhoz WordPress %1$s vagy újabb szükséges. Ezen a webhelyen "
-"WordPress %2$s fut. Kérjük, frissítsük a WordPresst, majd próbáljuk meg újra"
-" bekapcsolni a Seguriumot."
+"WordPress %2$s fut. Frissítsük a WordPresst, majd próbáljuk meg újra "
+"bekapcsolni a Seguriumot."
 
 #: segurium.php:1024
 msgid "unknown"
@@ -4550,21 +4554,22 @@ msgid ""
 "Segurium Cloud can ask this site to update a plugin, theme, or WordPress "
 "itself. It can only name a component you already have installed, and only "
 "when WordPress.org already offers that update; the update is downloaded by "
-"WordPress from WordPress.org, never from Segurium. WordPress core is "
-"limited to security and maintenance releases. Segurium never updates itself"
-" this way. Turn this off and the site stops asking for and accepting these "
+"WordPress from WordPress.org, never from Segurium. WordPress core is limited"
+" to security and maintenance releases. Segurium never updates itself this "
+"way. Turn this off and the site stops asking for and accepting these "
 "requests."
 msgstr ""
 "A Segurium Cloud megkérheti ezt a webhelyet, hogy frissítsen egy bővítményt,"
 " sablont vagy magát a WordPresst. Csak olyan komponenst nevezhet meg, "
-"amelyet már telepített, és csak akkor, amikor a WordPress.org már kínálja "
-"az adott frissítést; a frissítést a WordPress a WordPress.org-ról tölti le,"
-" soha nem a Seguriumtól. A WordPress mag csak biztonsági és karbantartási "
+"amelyet már telepített, és csak akkor, amikor a WordPress.org már kínálja az"
+" adott frissítést; a frissítést a WordPress a WordPress.org-ról tölti le, "
+"soha nem a Seguriumtól. A WordPress mag csak biztonsági és karbantartási "
 "kiadásokra korlátozódik. A Segurium soha nem frissíti magát ilyen módon. "
 "Kapcsolja ki, és a webhely nem kér és nem fogad el ilyen kéréseket."
 
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "A wp-config.php SEGURIUM_DISABLE_REMOTE_ACTIONS beállítása kapcsolta ki."
+msgstr ""
+"A wp-config.php SEGURIUM_DISABLE_REMOTE_ACTIONS beállítása kapcsolta ki."
 
 msgid "Recent cloud requests"
 msgstr "Legutóbbi felhőkérések"
@@ -4575,8 +4580,8 @@ msgstr "Eredmény"
 #: includes/storage/class-segurium-storage.php:238
 msgid "Segurium Cloud could not clean this file right now. Try again later."
 msgstr ""
-"A Segurium felhő most nem tudta megtisztítani ezt a fájlt. Kérjük, próbáljuk"
-" meg később."
+"A Segurium felhő most nem tudta megtisztítani ezt a fájlt. Próbáljuk meg "
+"később."
 
 #: includes/storage/class-segurium-storage.php:235
 msgid "No clean version of this file exists. Remove or replace it by hand."
@@ -4603,11 +4608,11 @@ msgid "Temporary deactivation"
 msgstr "Ideiglenes kikapcsolás"
 
 msgid ""
-"The email address for security alerts: the WordPress admin email, or the "
-"one you enter below, together with your email alerts choice."
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
 msgstr ""
-"A biztonsági riasztások e-mail-címe: a WordPress adminisztrátor e-mail-"
-"címe, vagy az alább megadott, az e-mail értesítési beállítással együtt."
+"A biztonsági riasztások e-mail-címe: a WordPress adminisztrátor e-mail-címe,"
+" vagy az alább megadott, az e-mail értesítési beállítással együtt."
 
 msgid "Notify me on malware findings and security threats on this website."
 msgstr ""
@@ -4632,9 +4637,14 @@ msgstr "Sebezhető"
 msgid "No update available"
 msgstr "Nincs elérhető frissítés"
 
-#. translators: 1: component name, 2: installed version, 3: version WordPress would install
-msgid "%1$s moves from %2$s to %3$s. This is a major version change and can break your site."
-msgstr "%1$s a(z) %2$s verzióról a(z) %3$s verzióra frissül. Ez fő verzióváltás, és megtörheti a webhelyét."
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s a(z) %2$s verzióról a(z) %3$s verzióra frissül. Ez fő verzióváltás, és "
+"megtörheti a webhelyét."
 
 msgid "Malware is waiting for you to act"
 msgstr "Kártevő várja a beavatkozását"
@@ -4648,23 +4658,37 @@ msgstr "Biztonsági problémák igénylik a figyelmét"
 msgid "This item cannot be switched on from here."
 msgstr "Ez az elem innen nem kapcsolható be."
 
-msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
-msgstr "A kiszolgáló újra hozzáadja a fejlécet, miután a bővítmény eltávolítja. Nyissa meg a funkció fület a kiszolgálószintű javításért."
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"A kiszolgáló újra hozzáadja a fejlécet, miután a bővítmény eltávolítja. "
+"Nyissa meg a funkció fület a kiszolgálószintű javításért."
 
 msgid "That feature is not available on this installation."
 msgstr "Ez a funkció nem érhető el ezen a telepítésen."
 
-msgid "The setting could not be saved. Open the feature tab and switch it on there."
-msgstr "A beállítást nem sikerült menteni. Nyissa meg a funkció fület, és ott kapcsolja be."
+msgid ""
+"The setting could not be saved. Open the feature tab and switch it on there."
+msgstr ""
+"A beállítást nem sikerült menteni. Nyissa meg a funkció fület, és ott "
+"kapcsolja be."
 
 msgid "Applying..."
 msgstr "Alkalmazás..."
 
-msgid "Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes."
-msgstr "A beállítás elmentve. Az oldal-gyorsítótár még a régi választ szolgálja ki, így ez a sor a gyorsítótár frissülésekor tűnik el."
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"A beállítás elmentve. Az oldal-gyorsítótár még a régi választ szolgálja ki, "
+"így ez a sor a gyorsítótár frissülésekor tűnik el."
 
-msgid "The fix could not be applied. Open the feature tab and switch it on there."
-msgstr "A javítást nem sikerült alkalmazni. Nyissa meg a funkció fület, és ott kapcsolja be."
+msgid ""
+"The fix could not be applied. Open the feature tab and switch it on there."
+msgstr ""
+"A javítást nem sikerült alkalmazni. Nyissa meg a funkció fület, és ott "
+"kapcsolja be."
 
 msgid "You can change this later under Settings."
 msgstr "Ezt később a Beállításokban módosíthatja."

@@ -1258,6 +1258,11 @@ msgstr "Skadlig kod"
 msgid "Clean"
 msgstr "Ren"
 
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "Rensa"
+
 #: includes/class-segurium.php:1018 includes/class-segurium.php:1924
 msgid "Cleaned"
 msgstr "Rensad"
@@ -4577,7 +4582,7 @@ msgstr ""
 
 #: includes/class-segurium.php:1178
 msgid "Update"
-msgstr "Uppdatering"
+msgstr "Uppdatera"
 
 #: includes/class-segurium.php:1179
 msgid "Outdated"
@@ -4645,7 +4650,8 @@ msgid ""
 " plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
 msgstr ""
 "Webbplatsen hackad? Kostnadsfri borttagning av skadlig kod och automatisk "
-"rensning på varje webbplats, plus sårbarhetsvarningar och 2FA."
+"rensning på alla dina webbplatser, plus sårbarhetsvarningar, brandvägg och "
+"2FA. Samma konfiguration överallt."
 
 msgid "The setting could not be saved."
 msgstr "Inställningen kunde inte sparas."

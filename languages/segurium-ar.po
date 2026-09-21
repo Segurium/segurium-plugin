@@ -1189,6 +1189,11 @@ msgstr "برمجيات ضارة"
 msgid "Clean"
 msgstr "نظيف"
 
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "تنظيف"
+
 #: includes/class-segurium.php:804 includes/class-segurium.php:1463
 msgid "Cleaned"
 msgstr "تم التنظيف"

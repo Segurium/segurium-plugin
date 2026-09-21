@@ -2721,12 +2721,12 @@ final class Segurium_Scan_Runner {
 	 * Reset the per-scan attempt counter. Called on every successful
 	 * process_chunk() return inside the chunk loop — a return carrying
 	 * `engine_load_failed` is not one, so those ticks accumulate toward
-	 * ENGINE_LOAD_MAX_ATTEMPTS instead.
+	 * ENGINE_LOAD_MAX_ATTEMPTS instead. Also called when a dead upload batch is recovered.
 	 *
 	 * @param string $scan_id Scan UUID.
 	 * @return void
 	 */
-	private static function reset_stuck_counter( $scan_id ) {
+	public static function reset_stuck_counter( $scan_id ) {
 		Segurium_Storage::table_delete(
 			'runtime_kv',
 			array( 'kv_key' => self::STUCK_COUNTER_KV_PREFIX . $scan_id )

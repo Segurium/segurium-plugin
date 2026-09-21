@@ -958,6 +958,13 @@ class Segurium_2FA {
 	 * @return void
 	 */
 	public function enqueue_login_scripts() {
+		global $reauth;
+		if ( ! empty( $reauth ) ) {
+			// wp-login.php deletes the auth cookies on a reauth load, so the AJAX login arrives anonymous and without this session token.
+			unset( $_COOKIE[ LOGGED_IN_COOKIE ] );
+			wp_set_current_user( 0 );
+		}
+
 		wp_enqueue_script(
 			'segurium-ajax',
 			SEGURIUM_PLUGIN_URL . 'assets/js/segurium-ajax.js',

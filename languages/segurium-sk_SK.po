@@ -1,0 +1,4684 @@
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts 1.4.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
+"POT-Creation-Date: 2026-09-16T03:33:34+00:00\n"
+"PO-Revision-Date: 2026-09-17 12:00+0000\n"
+"Last-Translator: Segurium <hello@segurium.com>\n"
+"Language-Team: Slovak <sk@li.org>\n"
+"Language: sk_SK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n >= 2 && n <= 4) ? 1 : 2);\n"
+"X-Domain: segurium\n"
+
+#. Plugin Name of the plugin
+#: segurium.php
+msgid ""
+"Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
+"Antivirus Scanner, Vulnerability Alerts"
+msgstr ""
+"Segurium – Bezplatné odstránenie malvéru a automatické vyčistenie hacknutých"
+" webových stránok, antivírusový skener, upozornenia na zraniteľnosti"
+
+#. Plugin URI of the plugin
+#: segurium.php
+msgid "https://segurium.com"
+msgstr "https://segurium.com"
+
+#. Description of the plugin
+#: segurium.php
+msgid ""
+"Website hacked? Free malware removal and auto cleanup on every site you run,"
+" plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
+msgstr ""
+"Hacknutá webová stránka? Bezplatné odstránenie malvéru a automatické "
+"čistenie, upozornenia na zraniteľnosti, firewall a 2FA. Všade rovnaké "
+"nastavenie."
+
+#. Author of the plugin
+#: segurium.php includes/class-segurium.php:474
+#: includes/class-segurium.php:531 includes/class-segurium.php:1998
+#: includes/segurium-admin-menu-shell.php:39
+#: includes/segurium-admin-menu-shell.php:63
+#: includes/segurium-admin-menu-shell.php:102
+#: includes/segurium-admin-menu-shell.php:159
+msgid "Segurium"
+msgstr "Segurium"
+
+#: includes/class-segurium-2fa.php:582
+msgid ""
+"Two-factor authentication is required. Please enable JavaScript to complete "
+"login."
+msgstr ""
+"Vyžaduje sa dvojfaktorové overenie. Na dokončenie prihlásenia povoľte "
+"JavaScript."
+
+#: includes/class-segurium-2fa.php:602
+msgid ""
+"Two-factor authentication setup is required for your role. Please contact "
+"your administrator."
+msgstr ""
+"Pre vašu rolu je potrebné nastaviť dvojfaktorové overenie. Obráťte sa na "
+"svojho administrátora."
+
+#: includes/class-segurium-2fa.php:643
+msgid ""
+"Two-factor authentication required. Append your 2FA code to your password."
+msgstr "Vyžaduje sa dvojfaktorové overenie. Pripojte kód 2FA k svojmu heslu."
+
+#: includes/class-segurium-2fa.php:985
+msgid "Verifying..."
+msgstr "Overuje sa..."
+
+#: includes/class-segurium-2fa.php:986
+msgid "Logging in..."
+msgstr "Prihlasuje sa..."
+
+#: includes/class-segurium-2fa.php:987
+msgid "Enter the code from your authenticator app:"
+msgstr "Zadajte kód z overovacej aplikácie:"
+
+#: includes/class-segurium-2fa.php:988
+msgid "Enter the code sent to your email:"
+msgstr "Zadajte kód, ktorý sme vám poslali e-mailom:"
+
+#: includes/class-segurium-2fa.php:989
+msgid "Verify"
+msgstr "Overiť"
+
+#: includes/class-segurium-2fa.php:990
+msgid "Resend code"
+msgstr "Znova poslať kód"
+
+#: includes/class-segurium-2fa.php:991
+msgid "A new code has been sent to your email."
+msgstr "Na váš e-mail sme poslali nový kód."
+
+#: includes/class-segurium-2fa.php:992
+msgid "Lost your device? Enter a backup code instead."
+msgstr "Stratili ste zariadenie? Zadajte namiesto toho záložný kód."
+
+#. translators: %d: number of days
+#: includes/class-segurium-2fa.php:994
+#, php-format
+msgid "Trust this device for %d days"
+msgstr "Dôverovať tomuto zariadeniu %d dní"
+
+#: includes/class-segurium-2fa.php:995 includes/class-segurium-2fa.php:1582
+#: includes/class-segurium-2fa.php:1660 includes/class-segurium-2fa.php:1718
+msgid "Too many failed attempts. Please try again later."
+msgstr "Príliš veľa neúspešných pokusov. Skúste to znova neskôr."
+
+#: includes/class-segurium-2fa.php:996
+msgid "Two-factor authentication setup is required for your role."
+msgstr "Pre vašu rolu je potrebné nastaviť dvojfaktorové overenie."
+
+#: includes/class-segurium-2fa.php:1020
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+#: includes/migrations/class-segurium-migration-wordfence.php:297
+#: includes/migrations/class-segurium-migration-wordfence.php:311
+msgid "Two-Factor Authentication"
+msgstr "Dvojfaktorové overenie"
+
+#: includes/class-segurium-2fa.php:1023 includes/class-segurium.php:2202
+#: includes/class-segurium.php:3415
+msgid "Status"
+msgstr "Stav"
+
+#: includes/class-segurium-2fa.php:1026
+msgid "JavaScript is required for 2FA setup."
+msgstr "Na nastavenie 2FA je potrebný JavaScript."
+
+#: includes/class-segurium-2fa.php:1064
+msgid "Not configured"
+msgstr "Nenastavené"
+
+#: includes/class-segurium-2fa.php:1065
+msgid "Set up Authenticator App"
+msgstr "Nastaviť overovaciu aplikáciu"
+
+#: includes/class-segurium-2fa.php:1066
+msgid "Set up Email Verification"
+msgstr "Nastaviť overenie e-mailom"
+
+#: includes/class-segurium-2fa.php:1067
+msgid "Current method:"
+msgstr "Aktuálna metóda:"
+
+#: includes/class-segurium-2fa.php:1068 includes/class-segurium.php:2642
+msgid "Authenticator App (TOTP)"
+msgstr "Overovacia aplikácia (TOTP)"
+
+#: includes/class-segurium-2fa.php:1069 includes/class-segurium.php:2643
+msgid "Email Verification"
+msgstr "Overenie e-mailom"
+
+#: includes/class-segurium-2fa.php:1070
+msgid "Backup codes remaining:"
+msgstr "Zostávajúce záložné kódy:"
+
+#: includes/class-segurium-2fa.php:1071
+msgid "Regenerate Backup Codes"
+msgstr "Znova vygenerovať záložné kódy"
+
+#: includes/class-segurium-2fa.php:1072
+msgid "Disable 2FA"
+msgstr "Vypnúť 2FA"
+
+#: includes/class-segurium-2fa.php:1073
+msgid "Scan this QR code with your authenticator app:"
+msgstr "Naskenujte tento QR kód overovacou aplikáciou:"
+
+#: includes/class-segurium-2fa.php:1074
+msgid "Or enter this key manually:"
+msgstr "Alebo zadajte tento kľúč ručne:"
+
+#: includes/class-segurium-2fa.php:1075
+msgid "Enter the 6-digit code from your app to confirm:"
+msgstr "Na potvrdenie zadajte 6-miestny kód z aplikácie:"
+
+#: includes/class-segurium-2fa.php:1076 includes/class-segurium.php:2267
+#: includes/class-segurium.php:2355
+msgid "Confirm"
+msgstr "Potvrdiť"
+
+#: includes/class-segurium-2fa.php:1077 includes/class-segurium.php:1077
+#: includes/class-segurium.php:1212 includes/class-segurium.php:1257
+#: includes/class-segurium.php:2244 includes/class-segurium.php:3405
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: includes/class-segurium-2fa.php:1078
+msgid "Save these backup codes in a safe place. They will not be shown again."
+msgstr ""
+"Uložte si tieto záložné kódy na bezpečné miesto. Znova sa už nezobrazia."
+
+#: includes/class-segurium-2fa.php:1079
+msgid "2FA has been set up successfully."
+msgstr "2FA je úspešne nastavené."
+
+#: includes/class-segurium-2fa.php:1080 includes/class-segurium-2fa.php:1415
+msgid "2FA has been disabled."
+msgstr "2FA je vypnuté."
+
+#: includes/class-segurium-2fa.php:1081
+msgid "New backup codes generated."
+msgstr "Vygenerovali sa nové záložné kódy."
+
+#: includes/class-segurium-2fa.php:1082
+msgid "Enter your current 2FA code to confirm:"
+msgstr "Na potvrdenie zadajte svoj aktuálny kód 2FA:"
+
+#: includes/class-segurium-2fa.php:1083
+msgid "A verification code has been sent to your email."
+msgstr "Na váš e-mail sme poslali overovací kód."
+
+#: includes/class-segurium-2fa.php:1084
+msgid "Your administrator requires 2FA for your role."
+msgstr "Váš administrátor vyžaduje pre vašu rolu 2FA."
+
+#. translators: %d: number of days remaining
+#: includes/class-segurium-2fa.php:1118
+#, php-format
+msgid ""
+"Your administrator requires two-factor authentication. You have %d day(s) "
+"remaining to set it up."
+msgstr ""
+"Váš administrátor vyžaduje dvojfaktorové overenie. Na jeho nastavenie vám "
+"zostáva dní: %d."
+
+#: includes/class-segurium-2fa.php:1123 includes/class-segurium-2fa.php:1130
+msgid "Set up now"
+msgstr "Nastaviť teraz"
+
+#: includes/class-segurium-2fa.php:1128
+msgid ""
+"Two-factor authentication is required for your role. Please set it up "
+"immediately."
+msgstr "Pre vašu rolu sa vyžaduje dvojfaktorové overenie. Nastavte ho ihneď."
+
+#. translators: %s: site name
+#: includes/class-segurium-2fa.php:1165
+#, php-format
+msgid "[%s] Your login verification code"
+msgstr "[%s] Váš overovací kód na prihlásenie"
+
+#. translators: 1: verification code, 2: TTL in minutes
+#: includes/class-segurium-2fa.php:1171
+#, php-format
+msgid ""
+"Your verification code is: %1$s\n"
+"\n"
+"This code expires in %2$d minutes.\n"
+"\n"
+"If you did not request this, ignore this email."
+msgstr ""
+"Váš overovací kód je: %1$s\n"
+"\n"
+"Platnosť kódu vyprší o %2$d min.\n"
+"\n"
+"Ak ste oň nežiadali, tento e-mail ignorujte."
+
+#: includes/class-segurium-2fa.php:1214 includes/class-segurium-2fa.php:1250
+#: includes/class-segurium-2fa.php:1305 includes/class-segurium-2fa.php:1331
+#: includes/class-segurium-2fa.php:1372 includes/class-segurium-2fa.php:1426
+msgid "Not authenticated."
+msgstr "Neoverené."
+
+#: includes/class-segurium-2fa.php:1220 includes/class-segurium-2fa.php:1256
+#: includes/class-segurium-2fa.php:1311 includes/class-segurium-2fa.php:1337
+#: includes/class-segurium-2fa.php:1378 includes/class-segurium-2fa.php:1432
+#: includes/class-segurium-2fa.php:1488 includes/class-segurium-2fa.php:1622
+#: includes/class-segurium-2fa.php:1745 includes/class-segurium.php:406
+#: includes/class-segurium.php:5043 includes/class-segurium.php:5166
+#: includes/class-segurium.php:5190 includes/segurium-ajax-envelope.php:125
+msgid "You do not have permission to perform this action."
+msgstr "Nemáte oprávnenie na vykonanie tejto akcie."
+
+#: includes/class-segurium-2fa.php:1267
+msgid "Setup session expired. Please start again."
+msgstr "Platnosť relácie nastavenia vypršala. Začnite znova."
+
+#: includes/class-segurium-2fa.php:1271 includes/class-segurium-2fa.php:1347
+msgid "Invalid code. Please try again."
+msgstr "Neplatný kód. Skúste to znova."
+
+#: includes/class-segurium-2fa.php:1277
+msgid "Encryption error."
+msgstr "Chyba šifrovania."
+
+#: includes/class-segurium-2fa.php:1320
+msgid "Verification code sent to your email."
+msgstr "Overovací kód bol odoslaný na váš e-mail."
+
+#: includes/class-segurium-2fa.php:1388
+msgid "2FA is required for your role and cannot be disabled."
+msgstr "Pre vašu rolu sa vyžaduje 2FA a nedá sa vypnúť."
+
+#: includes/class-segurium-2fa.php:1410 includes/class-segurium-2fa.php:1458
+msgid "Invalid verification code."
+msgstr "Neplatný overovací kód."
+
+#: includes/class-segurium-2fa.php:1505
+msgid "Please enter your username and password."
+msgstr "Zadajte svoje používateľské meno a heslo."
+
+#: includes/class-segurium-2fa.php:1641
+msgid "Session expired. Please log in again."
+msgstr "Platnosť relácie vypršala. Prihláste sa znova."
+
+#: includes/class-segurium-2fa.php:1647 includes/class-segurium-2fa.php:1760
+msgid "Invalid session."
+msgstr "Neplatná relácia."
+
+#: includes/class-segurium-2fa.php:1727
+msgid "Invalid verification code. Please try again."
+msgstr "Neplatný overovací kód. Skúste to znova."
+
+#: includes/class-segurium-2fa.php:1755
+msgid "Session expired."
+msgstr "Platnosť relácie vypršala."
+
+#: includes/class-segurium-2fa.php:1765
+msgid "Code sent."
+msgstr "Kód bol odoslaný."
+
+#: includes/class-segurium-brute-force.php:510
+msgid "Login blocked."
+msgstr "Prihlásenie je zablokované."
+
+#: includes/class-segurium-brute-force.php:524
+msgid "Please complete the CAPTCHA challenge."
+msgstr "Vyriešte úlohu CAPTCHA."
+
+#: includes/class-segurium-brute-force.php:1343
+msgid "Leave this field empty"
+msgstr "Toto pole nechajte prázdne"
+
+#. translators: %s: human-readable time remaining
+#: includes/class-segurium-brute-force.php:1491
+#: includes/class-segurium-brute-force.php:1514
+#, php-format
+msgid "Too many failed login attempts. Try again in %s."
+msgstr "Príliš veľa neúspešných pokusov o prihlásenie. Skúste to znova o %s."
+
+#: includes/class-segurium-brute-force.php:1495
+msgid "Login Locked"
+msgstr "Prihlásenie je uzamknuté"
+
+#: includes/class-segurium-cleanup.php:89
+msgid "Verdict has no defined cleanup recipe."
+msgstr "Pre tento verdikt nie je definovaný postup vyčistenia."
+
+#: includes/class-segurium-cleanup.php:93
+msgid "File not found."
+msgstr "Súbor sa nenašiel."
+
+#: includes/class-segurium-cleanup.php:98 includes/class-segurium.php:7104
+msgid "File has been modified since scan. Re-scan first."
+msgstr "Súbor sa od skenovania zmenil. Najprv ho znova preskenujte."
+
+#: includes/class-segurium-cleanup.php:103
+msgid "Failed to read file for backup."
+msgstr "Súbor sa nepodarilo načítať na zálohovanie."
+
+#: includes/class-segurium-cleanup.php:121
+msgid "Failed to create backup."
+msgstr "Zálohu sa nepodarilo vytvoriť."
+
+#: includes/class-segurium-cleanup.php:175
+msgid "Failed to clean file."
+msgstr "Súbor sa nepodarilo vyčistiť."
+
+#: includes/class-segurium-component-backup.php:50
+#: includes/class-segurium.php:5717
+msgid "Component directory not found."
+msgstr "Adresár komponentu sa nenašiel."
+
+#: includes/class-segurium-component-backup.php:53
+msgid "Invalid component type."
+msgstr "Neplatný typ komponentu."
+
+#: includes/class-segurium-component-backup.php:56
+msgid "Invalid component slug."
+msgstr "Neplatný slug komponentu."
+
+#: includes/class-segurium-component-backup.php:59
+#: includes/class-segurium-component-backup.php:168
+msgid "The PHP Phar extension is required for component backups."
+msgstr "Na zálohovanie komponentov je potrebné rozšírenie PHP Phar."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:80
+#, php-format
+msgid "Backup failed: %s"
+msgstr "Zálohovanie zlyhalo: %s"
+
+#: includes/class-segurium-component-backup.php:92
+msgid "Backup archive was not created."
+msgstr "Archív zálohy sa nevytvoril."
+
+#. translators: 1: component size in MB, 2: cap in MB.
+#: includes/class-segurium-component-backup.php:104
+#, php-format
+msgid ""
+"Component is %1$.1f MB, which exceeds the %2$d MB encrypted-backup limit. "
+"Delete skipped so your site does not lose uncovered data."
+msgstr ""
+"Komponent má %1$.1f MB, čo prekračuje limit šifrovanej zálohy %2$d MB. "
+"Odstránenie sa preskočilo, aby vaša webová stránka neprišla o nezálohované "
+"údaje."
+
+#: includes/class-segurium-component-backup.php:119
+msgid "Failed to read packed component archive."
+msgstr "Zbalený archív komponentu sa nepodarilo načítať."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:141
+#, php-format
+msgid "Failed to encrypt component backup: %s"
+msgstr "Zálohu komponentu sa nepodarilo zašifrovať: %s"
+
+#: includes/class-segurium-component-backup.php:165
+msgid "Invalid backup identifier."
+msgstr "Neplatný identifikátor zálohy."
+
+#: includes/class-segurium-component-backup.php:175
+msgid "Backup archive not found or failed integrity check."
+msgstr "Archív zálohy sa nenašiel alebo neprešiel kontrolou integrity."
+
+#: includes/class-segurium-component-backup.php:188
+msgid "Failed to stage backup for extraction."
+msgstr "Zálohu sa nepodarilo pripraviť na rozbalenie."
+
+#: includes/class-segurium-component-backup.php:193
+#: includes/class-segurium.php:5509
+msgid "Restore target directory is not writable."
+msgstr "Do cieľového adresára obnovenia sa nedá zapisovať."
+
+#. translators: %s: underlying error message.
+#: includes/class-segurium-component-backup.php:209
+#, php-format
+msgid "Restore failed: %s"
+msgstr "Obnovenie zlyhalo: %s"
+
+#: includes/class-segurium-component-backup.php:243
+msgid "Secure randomness is unavailable on this host."
+msgstr "Na tomto hostiteľovi nie je dostupný bezpečný zdroj náhodnosti."
+
+#: includes/class-segurium-consent.php:74
+msgid "External Service Disclosure"
+msgstr "Oznámenie o externých službách"
+
+#: includes/class-segurium-consent.php:75
+msgid ""
+"Segurium protects your site by working together with the Segurium cloud. "
+"When you enable it, Segurium exchanges data with our servers so it can "
+"detect malware, verify your files, and adapt protection to active threats."
+msgstr ""
+"Segurium chráni vašu webovú stránku v spolupráci s cloudom Segurium. Keď ho "
+"zapnete, Segurium si vymieňa údaje s našimi servermi, aby mohlo zisťovať "
+"malvér, overovať vaše súbory a prispôsobovať ochranu aktuálnym hrozbám."
+
+#: includes/class-segurium-consent.php:78
+msgid "What is sent:"
+msgstr "Čo sa odosiela:"
+
+#: includes/class-segurium-consent.php:80
+msgid ""
+"File metadata: SHA-256 hash, path relative to your WordPress installation, "
+"size, modification time."
+msgstr ""
+"Metadáta súborov: hash SHA-256, cesta relatívna k vašej inštalácii "
+"WordPress, veľkosť, čas úpravy."
+
+#: includes/class-segurium-consent.php:81
+msgid ""
+"File content — only when classification by hash alone is not conclusive, or "
+"when generating a clean replacement during cleanup."
+msgstr ""
+"Obsah súboru – len keď samotný hash na klasifikáciu nestačí alebo keď sa pri"
+" čistení vytvára čistá náhrada."
+
+#: includes/class-segurium-consent.php:82
+msgid ""
+"A randomly-generated installation identifier and basic site info (URL, name,"
+" WordPress version) used to associate requests with this install."
+msgstr ""
+"Náhodne vygenerovaný identifikátor inštalácie a základné informácie o "
+"webovej stránke (URL adresa, názov, verzia WordPress), podľa ktorých sa "
+"požiadavky priradia k tejto inštalácii."
+
+#: includes/class-segurium-consent.php:83
+msgid ""
+"Scan, cleanup, and security-settings events, so the cloud can keep your site"
+" protection in sync."
+msgstr ""
+"Udalosti skenovania, čistenia a bezpečnostných nastavení, aby cloud mohol "
+"udržiavať ochranu vašej webovej stránky synchronizovanú."
+
+#: includes/class-segurium-consent.php:84
+msgid ""
+"Firewall events (blocked IPs, attack patterns) used to adapt protection "
+"across all Segurium-protected sites."
+msgstr ""
+"Udalosti firewallu (blokované IP adresy, vzory útokov), podľa ktorých sa "
+"prispôsobuje ochrana všetkých webových stránok chránených Segurium."
+
+#: includes/class-segurium-consent.php:85
+msgid ""
+"The email address for security alerts: the WordPress admin email, or the one"
+" you enter below, together with your email alerts choice."
+msgstr ""
+"E-mailová adresa pre bezpečnostné upozornenia: e-mail administrátora "
+"WordPress alebo adresa, ktorú zadáte nižšie, spolu s vašou voľbou "
+"e-mailových upozornení."
+
+#: includes/class-segurium-consent.php:89
+msgid "What is NOT sent:"
+msgstr "Čo sa NEODOSIELA:"
+
+#: includes/class-segurium-consent.php:91
+msgid "Visitor analytics or personal data of users who visit your site."
+msgstr ""
+"Analytika návštevníkov ani osobné údaje používateľov, ktorí navštevujú vašu "
+"webovú stránku."
+
+#: includes/class-segurium-consent.php:92
+msgid "Database content, posts, comments, or media files."
+msgstr "Obsah databázy, články, komentáre ani mediálne súbory."
+
+#: includes/class-segurium-consent.php:93
+msgid ""
+"Files whose hash is already known to the cloud — only the hash leaves your "
+"server."
+msgstr "Súbory, ktorých hash už cloud pozná – váš server opustí len hash."
+
+#: includes/class-segurium-consent.php:99
+msgid "Where it is sent:"
+msgstr "Kam sa odosiela:"
+
+#: includes/class-segurium-consent.php:100
+msgid "Segurium servers at cti.segurium.com."
+msgstr "Servery Segurium na cti.segurium.com."
+
+#: includes/class-segurium-consent.php:103
+msgid "Retention:"
+msgstr "Uchovávanie:"
+
+#: includes/class-segurium-consent.php:104
+msgid ""
+"File samples uploaded for analysis are kept for up to 365 days and then "
+"removed by an automated nightly purge. A sample may be removed sooner once "
+"it has been reviewed."
+msgstr ""
+"Vzorky súborov nahrané na analýzu sa uchovávajú až 365 dní a potom ich "
+"odstráni automatické nočné mazanie. Vzorka sa môže odstrániť aj skôr, keď sa"
+" posúdi."
+
+#. translators: 1: opening link tag for Terms of Service, 2: closing link tag,
+#. 3: opening link tag for Privacy Policy, 4: closing link tag
+#: includes/class-segurium-consent.php:109
+#, php-format
+msgid ""
+"By enabling scanning, you agree to the %1$sTerms of Service%2$s and "
+"%3$sPrivacy Policy%4$s."
+msgstr ""
+"Zapnutím skenovania súhlasíte s %1$sPodmienkami služby%2$s a %3$sZásadami "
+"ochrany osobných údajov%4$s."
+
+#: includes/class-segurium-cti-client.php:236
+msgid ""
+"Installation ID unavailable. Please ensure the plugin is properly activated."
+msgstr ""
+"ID inštalácie nie je dostupné. Skontrolujte, či je plugin správne "
+"aktivovaný."
+
+#: includes/class-segurium-cti-client.php:611
+msgid "Too many requests. Please try again later."
+msgstr "Príliš veľa požiadaviek. Skúste to znova neskôr."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-cti-client.php:617
+#, php-format
+msgid "Support service error (HTTP %d)."
+msgstr "Chyba služby podpory (HTTP %d)."
+
+#: includes/class-segurium-cti-client.php:1458
+msgid "Cleanup quota reached."
+msgstr "Kvóta na vyčistenie je vyčerpaná."
+
+#: includes/class-segurium-cti-client.php:1465
+msgid "Clean version not available for this file"
+msgstr "Čistá verzia tohto súboru nie je dostupná"
+
+#: includes/class-segurium-cti-client.php:1891
+msgid "Invalid billing response from Segurium Cloud."
+msgstr "Neplatná fakturačná odpoveď zo Segurium Cloud."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:88
+#, php-format
+msgid "Segurium Cloud (%s): no response to verify."
+msgstr "Segurium Cloud (%s): žiadna odpoveď na overenie."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:120
+#, php-format
+msgid "Segurium Cloud (%s): missing signature headers."
+msgstr "Segurium Cloud (%s): chýbajú hlavičky podpisu."
+
+#. translators: 1: endpoint label, 2: key id from the signature header
+#: includes/class-segurium-cti-signature.php:130
+#, php-format
+msgid "Segurium Cloud (%1$s): signed with an untrusted key \"%2$s\"."
+msgstr "Segurium Cloud (%1$s): podpísané nedôveryhodným kľúčom „%2$s“."
+
+#: includes/class-segurium-cti-signature.php:141
+msgid "Signature trust list is corrupt — public key failed to decode."
+msgstr ""
+"Zoznam dôveryhodných podpisov je poškodený – verejný kľúč sa nepodarilo "
+"dekódovať."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:151
+#, php-format
+msgid "Segurium Cloud (%s): signature header malformed."
+msgstr "Segurium Cloud (%s): hlavička podpisu má nesprávny formát."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:162
+#, php-format
+msgid "Segurium Cloud (%s): signature timestamp malformed."
+msgstr "Segurium Cloud (%s): časová pečiatka podpisu má nesprávny formát."
+
+#. translators: 1: endpoint label, 2: skew in seconds
+#: includes/class-segurium-cti-signature.php:175
+#, php-format
+msgid ""
+"Segurium Cloud (%1$s): signature timestamp is %2$d seconds out of range."
+msgstr ""
+"Segurium Cloud (%1$s): časová pečiatka podpisu je %2$d s mimo povoleného "
+"rozsahu."
+
+#. translators: 1: endpoint label, 2: error message
+#: includes/class-segurium-cti-signature.php:192
+#, php-format
+msgid "Segurium Cloud (%1$s): libsodium rejected the signature (%2$s)."
+msgstr "Segurium Cloud (%1$s): libsodium odmietlo podpis (%2$s)."
+
+#. translators: %s: endpoint label
+#: includes/class-segurium-cti-signature.php:204
+#, php-format
+msgid "Segurium Cloud (%s): signature did not verify."
+msgstr "Segurium Cloud (%s): podpis sa nepodarilo overiť."
+
+#: includes/class-segurium-deactivation-reason.php:247
+msgid "Why are you deactivating Segurium?"
+msgstr "Prečo deaktivujete Segurium?"
+
+#: includes/class-segurium-deactivation-reason.php:248
+#: includes/class-segurium.php:1135 includes/class-segurium.php:2240
+#: includes/class-segurium.php:2254
+msgid "Close"
+msgstr "Zavrieť"
+
+#: includes/class-segurium-deactivation-reason.php:262
+#: includes/class-segurium.php:1074 includes/class-segurium.php:3398
+msgid "Note (optional, max 2000 chars)"
+msgstr "Poznámka (voliteľné, max. 2000 znakov)"
+
+#: includes/class-segurium-deactivation-reason.php:267
+#: includes/class-segurium.php:1201
+msgid "Continue"
+msgstr "Pokračovať"
+
+#: includes/class-segurium-deactivation-reason.php:268
+#: includes/class-segurium.php:1260
+msgid "Skip"
+msgstr "Preskočiť"
+
+#: includes/class-segurium-deactivation-reason.php:336
+#: includes/class-segurium-paywall-telemetry.php:467
+#: includes/class-segurium-review-prompt.php:548
+#: includes/class-segurium.php:3975 includes/class-segurium.php:4053
+#: includes/class-segurium.php:4150 includes/class-segurium.php:4186
+#: includes/class-segurium.php:4259 includes/class-segurium.php:4344
+#: includes/class-segurium.php:4379 includes/class-segurium.php:4448
+#: includes/class-segurium.php:4512 includes/class-segurium.php:4589
+#: includes/class-segurium.php:4690 includes/class-segurium.php:4808
+#: includes/class-segurium.php:4866 includes/class-segurium.php:4916
+#: includes/class-segurium.php:5381 includes/class-segurium.php:5422
+#: includes/class-segurium.php:5449 includes/class-segurium.php:5477
+#: includes/class-segurium.php:5535 includes/class-segurium.php:5575
+#: includes/class-segurium.php:5618 includes/class-segurium.php:5661
+#: includes/class-segurium.php:5786 includes/class-segurium.php:5890
+#: includes/class-segurium.php:6253 includes/class-segurium.php:6310
+#: includes/class-segurium.php:6405 includes/class-segurium.php:6968
+#: includes/class-segurium.php:7290 includes/class-segurium.php:7368
+msgid "Unauthorized"
+msgstr "Neautorizované"
+
+#: includes/class-segurium-deactivation-reason.php:391
+msgid "Missing feature"
+msgstr "Chýba mi funkcia"
+
+#: includes/class-segurium-deactivation-reason.php:393
+msgid "It is causing issues"
+msgstr "Spôsobuje problémy"
+
+#: includes/class-segurium-deactivation-reason.php:395
+msgid "No longer needed"
+msgstr "Už ho nepotrebujem"
+
+#: includes/class-segurium-deactivation-reason.php:397
+msgid "Found better alternative"
+msgstr "Našiel som lepšiu alternatívu"
+
+#: includes/class-segurium-deactivation-reason.php:399
+msgid "Temporary deactivation"
+msgstr "Dočasná deaktivácia"
+
+#: includes/class-segurium-deactivation-reason.php:401
+#: includes/class-segurium.php:2710
+msgid "Other"
+msgstr "Iné"
+
+#: includes/class-segurium-geo-updater.php:144
+msgid "Downloaded geo DB has invalid format."
+msgstr "Stiahnutá geodatabáza má neplatný formát."
+
+#: includes/class-segurium-geo-updater.php:148
+msgid "Failed to write geo DB to disk."
+msgstr "Geodatabázu sa nepodarilo zapísať na disk."
+
+#: includes/class-segurium-geo-updater.php:153
+msgid "Failed to install geo DB."
+msgstr "Geodatabázu sa nepodarilo nainštalovať."
+
+#: includes/class-segurium-iid.php:256
+msgid ""
+"Segurium detected this site was moved or cloned and is re-establishing its "
+"secure connection in the background. If you have a Pro license, please re-"
+"activate it on the Segurium account screen so Pro features are restored on "
+"the new identity."
+msgstr ""
+"Segurium zistilo, že táto webová stránka bola presunutá alebo naklonovaná, a"
+" na pozadí znova nadväzuje zabezpečené pripojenie. Ak máte licenciu Pro, "
+"znova ju aktivujte na obrazovke účtu Segurium, aby sa funkcie Pro obnovili "
+"aj pod novou identitou."
+
+#: includes/class-segurium-iid.php:315
+msgid ""
+"Segurium could not activate the Pro license on this site because it is "
+"currently bound to another installation. Please open the Segurium account "
+"portal on the original installation and deactivate the license there; the "
+"binding will be released and Pro features will re-activate here on the next "
+"license check."
+msgstr ""
+"Segurium nemohlo aktivovať licenciu Pro na tejto webovej stránke, pretože je"
+" momentálne viazaná na inú inštaláciu. Otvorte portál účtu Segurium v "
+"pôvodnej inštalácii a licenciu tam deaktivujte; väzba sa uvoľní a funkcie "
+"Pro sa tu znova aktivujú pri ďalšej kontrole licencie."
+
+#: includes/class-segurium-info-shield.php:333
+msgid ""
+"On Nginx, the Server header must be removed at the server level "
+"(server_tokens off;). This toggle has no effect."
+msgstr ""
+"Na Nginx sa hlavička Server musí odstrániť na úrovni servera (server_tokens "
+"off;). Tento prepínač nemá žiadny účinok."
+
+#: includes/class-segurium-info-shield.php:336
+msgid ""
+"On Apache with FastCGI, the Server header is added after PHP runs. Use "
+"ServerTokens Prod in Apache config."
+msgstr ""
+"Na Apache s FastCGI sa hlavička Server pridáva až po spustení PHP. V "
+"konfigurácii Apache použite ServerTokens Prod."
+
+#: includes/class-segurium-info-shield.php:340
+msgid ""
+"On IIS, use the removeServerHeader attribute in web.config. This toggle has "
+"limited effect."
+msgstr ""
+"Na IIS použite atribút removeServerHeader vo web.config. Tento prepínač má "
+"obmedzený účinok."
+
+#: includes/class-segurium-info-shield.php:354
+msgid ""
+"Your server uses FastCGI, which may re-add the X-Powered-By header. Verify "
+"removal by inspecting response headers."
+msgstr ""
+"Váš server používa FastCGI, ktoré môže hlavičku X-Powered-By znova pridať. "
+"Odstránenie overte kontrolou hlavičiek odpovede."
+
+#: includes/class-segurium-info-shield.php:367
+msgid ""
+"Jetpack is active and requires XML-RPC. Disabling XML-RPC will break the "
+"Jetpack connection."
+msgstr ""
+"Jetpack je aktívny a vyžaduje XML-RPC. Vypnutie XML-RPC preruší pripojenie "
+"Jetpacku."
+
+#: includes/class-segurium-integrity-chain.php:149
+#: includes/class-segurium.php:1213
+msgid "Running a quick malware scan first…"
+msgstr "Najprv prebieha rýchle skenovanie malvéru…"
+
+#: includes/class-segurium-integrity-chain.php:203
+msgid ""
+"The chained malware scan was cancelled — integrity scan was not started."
+msgstr ""
+"Nadväzujúce skenovanie malvéru bolo zrušené – kontrola integrity sa "
+"nespustila."
+
+#. translators: %s: underlying error message
+#: includes/class-segurium-integrity-chain.php:227
+#, php-format
+msgid "Could not start the chained integrity scan: %s"
+msgstr "Nadväzujúcu kontrolu integrity sa nepodarilo spustiť: %s"
+
+#: includes/class-segurium-issue-indicator.php:100
+#: includes/class-segurium.php:1232
+msgid "Delisted from official WordPress.org"
+msgstr "Vyradené z oficiálneho WordPress.org"
+
+#: includes/class-segurium-issue-indicator.php:101
+msgid "A vulnerable component is installed"
+msgstr "Je nainštalovaný zraniteľný komponent"
+
+#: includes/class-segurium-license-menu.php:145
+#: includes/class-segurium.php:3419
+msgid "Plan"
+msgstr "Plán"
+
+#: includes/class-segurium-license-menu.php:146
+#: includes/class-segurium.php:3182 includes/class-segurium.php:3420
+msgid "Free"
+msgstr "Free"
+
+#: includes/class-segurium-license-menu.php:152
+#: includes/class-segurium.php:1214 includes/class-segurium.php:1215
+#: includes/class-segurium.php:1227 includes/class-segurium.php:1845
+#: includes/class-segurium.php:1892 includes/class-segurium.php:3228
+msgid "Upgrade to Pro"
+msgstr "Prejsť na Pro"
+
+#. translators: %d: interval in seconds.
+#: includes/class-segurium-realtime-scan.php:197
+#, php-format
+msgid "Segurium realtime scan (every %d seconds, dev override)"
+msgstr ""
+"Skenovanie Segurium v reálnom čase (každých %d s, vývojárske prepísanie)"
+
+#: includes/class-segurium-review-prompt.php:459
+msgid "Leave a review"
+msgstr "Napísať recenziu"
+
+#: includes/class-segurium-review-prompt.php:461
+#: includes/class-segurium.php:1216
+msgid "Maybe later"
+msgstr "Možno neskôr"
+
+#: includes/class-segurium-review-prompt.php:463
+msgid "Don't ask again"
+msgstr "Už sa nepýtať"
+
+#: includes/class-segurium-review-prompt.php:479
+msgid "Segurium just cleaned your site."
+msgstr "Segurium práve vyčistilo vašu webovú stránku."
+
+#: includes/class-segurium-review-prompt.php:480
+msgid ""
+"Glad we could help. If Segurium saved you time or money today, an honest "
+"review on WordPress.org helps other site owners find it, and helps us keep "
+"the cleanup tier free."
+msgstr ""
+"Sme radi, že sme mohli pomôcť. Ak vám Segurium dnes ušetrilo čas alebo "
+"peniaze, úprimná recenzia na WordPress.org pomôže ďalším majiteľom webových "
+"stránok ho nájsť a nám pomôže udržať bezplatnú úroveň čistenia."
+
+#: includes/class-segurium-review-prompt.php:485
+msgid "Scan complete. Your site is clean."
+msgstr "Skenovanie je dokončené. Vaša webová stránka je čistá."
+
+#: includes/class-segurium-review-prompt.php:486
+msgid ""
+"If Segurium is doing its job, would you leave an honest review on "
+"WordPress.org? It takes a minute."
+msgstr ""
+"Ak Segurium robí svoju prácu, napísali by ste úprimnú recenziu na "
+"WordPress.org? Zaberie to minútu."
+
+#: includes/class-segurium-review-prompt.php:556
+msgid "Unknown review prompt action."
+msgstr "Neznáma akcia výzvy na recenziu."
+
+#: includes/class-segurium-scan-exclusions.php:48
+msgid "A bare * pattern was removed because it would exclude all files."
+msgstr "Samostatný vzor * bol odstránený, pretože by vylúčil všetky súbory."
+
+#. translators: %d: number of rewritten lines
+#: includes/class-segurium-scan-exclusions.php:66
+#, php-format
+msgid ""
+"%d absolute path was rewritten to a path relative to the WordPress install "
+"root."
+msgid_plural ""
+"%d absolute paths were rewritten to paths relative to the WordPress install "
+"root."
+msgstr[0] ""
+"%d absolútna cesta bola prepísaná na cestu relatívnu ku koreňovému adresáru "
+"inštalácie WordPress."
+msgstr[1] ""
+"%d absolútne cesty boli prepísané na cesty relatívne ku koreňovému adresáru "
+"inštalácie WordPress."
+msgstr[2] ""
+"%d absolútnych ciest bolo prepísaných na cesty relatívne ku koreňovému "
+"adresáru inštalácie WordPress."
+
+#: includes/class-segurium-scan-exclusions.php:82
+msgid "Scan exclusion list is limited to 500 entries."
+msgstr "Zoznam výnimiek skenovania je obmedzený na 500 položiek."
+
+#. translators: %d: number of rejected lines
+#: includes/class-segurium-scan-exclusions.php:90
+#, php-format
+msgid "%d entry longer than 191 characters was removed."
+msgid_plural "%d entries longer than 191 characters were removed."
+msgstr[0] "%d položka dlhšia ako 191 znakov bola odstránená."
+msgstr[1] "%d položky dlhšie ako 191 znakov boli odstránené."
+msgstr[2] "%d položiek dlhších ako 191 znakov bolo odstránených."
+
+#: includes/class-segurium-scan-runner.php:379
+msgid "Every 60 seconds (Segurium scan rescue)"
+msgstr "Každých 60 sekúnd (záchrana skenovania Segurium)"
+
+#: includes/class-segurium-scan-runner.php:412
+msgid "A scan type is required."
+msgstr "Vyžaduje sa typ skenovania."
+
+#: includes/class-segurium-scan-runner.php:425
+msgid ""
+"Activation with the Segurium cloud service is still pending. Please try "
+"again in a moment."
+msgstr ""
+"Aktivácia v cloudovej službe Segurium ešte nie je dokončená. Skúste to znova"
+" o chvíľu."
+
+#: includes/class-segurium-scan-runner.php:439
+#: includes/class-segurium.php:1118 includes/class-segurium.php:4984
+msgid ""
+"Scan storage is not ready. Please deactivate and reactivate the Segurium "
+"plugin, then try again."
+msgstr ""
+"Úložisko skenovania nie je pripravené. Deaktivujte a znova aktivujte plugin "
+"Segurium a potom to skúste znova."
+
+#: includes/class-segurium-scan-runner.php:449
+#: includes/class-segurium-scan-runner.php:487
+#: includes/class-segurium.php:1097
+msgid "A scan is already in progress."
+msgstr "Skenovanie už prebieha."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:480
+#: includes/class-segurium-scan-runner.php:556
+#, php-format
+msgid "Unexpected error starting scan: %s"
+msgstr "Neočakávaná chyba pri spúšťaní skenovania: %s"
+
+#: includes/class-segurium-scan-runner.php:508
+msgid ""
+"Scan storage was not ready. It has been repaired automatically — please "
+"click \"Start scan\" again."
+msgstr ""
+"Úložisko skenovania nebolo pripravené. Automaticky sa opravilo – kliknite "
+"znova na „Spustiť skenovanie“."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium-scan-runner.php:517
+#, php-format
+msgid "Failed to initialize scan: %s"
+msgstr "Skenovanie sa nepodarilo inicializovať: %s"
+
+#: includes/class-segurium-scan-runner.php:1382
+#: includes/class-segurium.php:1101 includes/class-segurium.php:3700
+#: includes/class-segurium.php:3765 includes/class-segurium.php:3792
+#: includes/class-segurium.php:4629
+msgid "You do not have permission to manage scans."
+msgstr "Nemáte oprávnenie na správu skenovania."
+
+#: includes/class-segurium-scan-runner.php:1412
+#: includes/class-segurium.php:4657
+msgid "Could not fetch scan status due to a server error."
+msgstr "Stav skenovania sa pre chybu servera nepodarilo načítať."
+
+#. translators: %d: max_execution_time in seconds
+#: includes/class-segurium-scan-runner.php:2339
+#, php-format
+msgid ""
+"PHP max_execution_time is %ds — too short for reliable scanning. Ask your "
+"host to raise it to at least 30s."
+msgstr ""
+"PHP max_execution_time je %d s – na spoľahlivé skenovanie príliš málo. "
+"Požiadajte poskytovateľa hostingu, aby ho zvýšil aspoň na 30 s."
+
+#: includes/class-segurium-scan-runner.php:2350
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way "
+"to detach long tasks from page requests. Background scans will only progress"
+" while a Segurium admin tab stays open. Ask your host to either enable a "
+"real system cron job hitting wp-cron.php every minute, or to switch from "
+"mod_php to PHP-FPM / LiteSpeed."
+msgstr ""
+"Cron WordPress je vypnutý (DISABLE_WP_CRON) a vaše nastavenie PHP nedokáže "
+"oddeliť dlhé úlohy od požiadaviek na stránky. Skenovanie na pozadí bude "
+"pokračovať, len kým zostane otvorená karta administrácie Segurium. "
+"Požiadajte poskytovateľa hostingu, aby zapol skutočnú systémovú úlohu cron, "
+"ktorá každú minútu volá wp-cron.php, alebo aby prešiel z mod_php na PHP-FPM "
+"/ LiteSpeed."
+
+#: includes/class-segurium-scan-runner.php:2352
+msgid ""
+"WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a "
+"real system cron job hitting wp-cron.php every minute. Ask your host to set "
+"one up."
+msgstr ""
+"Cron WordPress je vypnutý (DISABLE_WP_CRON). Naplánované skenovanie závisí "
+"od skutočnej systémovej úlohy cron, ktorá každú minútu volá wp-cron.php. "
+"Požiadajte poskytovateľa hostingu, aby ju nastavil."
+
+#: includes/class-segurium-scan-trigger-auth.php:93
+#: includes/class-segurium-scan-trigger-auth.php:135
+#: includes/class-segurium-scan-trigger-auth.php:143
+msgid "Scan trigger requires authentication."
+msgstr "Spustenie skenovania vyžaduje overenie."
+
+#: includes/class-segurium-scan-trigger-auth.php:122
+msgid "Scan trigger secret did not match."
+msgstr "Tajný kľúč na spustenie skenovania sa nezhoduje."
+
+#: includes/class-segurium-scheduled-scan-settings.php:114
+msgid "Invalid settings payload."
+msgstr "Neplatné údaje nastavení."
+
+#: includes/class-segurium-scheduled-scan-settings.php:133
+msgid "Frequency must be one of: off, daily, weekly."
+msgstr "Frekvencia musí byť jedna z: off, daily, weekly."
+
+#: includes/class-segurium-scheduled-scan-settings.php:144
+msgid "Hour must be between 0 and 23."
+msgstr "Hodina musí byť od 0 do 23."
+
+#: includes/class-segurium-scheduled-scan-settings.php:155
+msgid "Minute must be between 0 and 59."
+msgstr "Minúta musí byť od 0 do 59."
+
+#: includes/class-segurium-scheduled-scan-settings.php:166
+msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
+msgstr "Deň v týždni musí byť od 0 (nedeľa) do 6 (sobota)."
+
+#: includes/class-segurium-self-check.php:522
+msgid ""
+"This server re-adds the header after the plugin removes it. Open the feature"
+" tab for the server-level fix."
+msgstr ""
+"Tento server hlavičku po odstránení pluginom znova pridá. Opravu na úrovni "
+"servera nájdete na karte funkcie."
+
+#: includes/class-segurium-self-check.php:711 includes/class-segurium.php:2900
+msgid "Content-Security-Policy"
+msgstr "Content-Security-Policy"
+
+#: includes/class-segurium-self-check.php:714
+msgid "CSP is enforced."
+msgstr "CSP sa vynucuje."
+
+#: includes/class-segurium-self-check.php:716
+msgid "CSP is report-only. Switch to enforce for full protection."
+msgstr ""
+"CSP je len v režime hlásenia. Na úplnú ochranu prepnite na vynucovanie."
+
+#: includes/class-segurium-self-check.php:717
+msgid "No Content-Security-Policy header. Protects against XSS and injection."
+msgstr ""
+"Chýba hlavička Content-Security-Policy. Chráni pred XSS a vkladaním kódu."
+
+#: includes/class-segurium-self-check.php:732
+msgid "Strict-Transport-Security"
+msgstr "Strict-Transport-Security"
+
+#: includes/class-segurium-self-check.php:735
+msgid "HSTS active with at least a one-year max-age."
+msgstr "HSTS je aktívne s max-age aspoň jeden rok."
+
+#: includes/class-segurium-self-check.php:737
+msgid "HSTS present but max-age is below one year."
+msgstr "HSTS je nastavené, ale max-age je kratší ako jeden rok."
+
+#: includes/class-segurium-self-check.php:738
+msgid "No HSTS header. Browsers may connect over plain HTTP."
+msgstr ""
+"Chýba hlavička HSTS. Prehliadače sa môžu pripojiť cez nezabezpečené HTTP."
+
+#: includes/class-segurium-self-check.php:750
+msgid "X-Content-Type-Options"
+msgstr "X-Content-Type-Options"
+
+#: includes/class-segurium-self-check.php:753
+msgid "MIME sniffing prevented."
+msgstr "Zisťovanie typu MIME je zablokované."
+
+#: includes/class-segurium-self-check.php:754
+msgid "Missing. Browsers may misinterpret file types."
+msgstr "Chýba. Prehliadače môžu nesprávne určiť typ súboru."
+
+#: includes/class-segurium-self-check.php:766 includes/class-segurium.php:2769
+msgid "X-Frame-Options"
+msgstr "X-Frame-Options"
+
+#: includes/class-segurium-self-check.php:769
+msgid "Clickjacking protection via X-Frame-Options."
+msgstr "Ochrana pred clickjackingom pomocou X-Frame-Options."
+
+#: includes/class-segurium-self-check.php:770
+msgid "Missing X-Frame-Options. Site may be framed by attackers."
+msgstr ""
+"Chýba X-Frame-Options. Útočníci môžu vašu webovú stránku vložiť do rámca."
+
+#: includes/class-segurium-self-check.php:782 includes/class-segurium.php:2777
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: includes/class-segurium-self-check.php:785
+msgid "Referrer-Policy restricts information leakage on navigation."
+msgstr "Referrer-Policy obmedzuje únik informácií pri navigácii."
+
+#: includes/class-segurium-self-check.php:786
+msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
+msgstr ""
+"Referrer-Policy chýba alebo nie je bezpečná. Môžu uniknúť celé URL adresy."
+
+#: includes/class-segurium-self-check.php:797 includes/class-segurium.php:2865
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: includes/class-segurium-self-check.php:800
+msgid "Permissions-Policy restricts access to browser features."
+msgstr "Permissions-Policy obmedzuje prístup k funkciám prehliadača."
+
+#: includes/class-segurium-self-check.php:801
+msgid "Missing Permissions-Policy. Browser features are not restricted."
+msgstr "Chýba Permissions-Policy. Funkcie prehliadača nie sú obmedzené."
+
+#: includes/class-segurium-self-check.php:813 includes/class-segurium.php:2797
+msgid "X-XSS-Protection"
+msgstr "X-XSS-Protection"
+
+#: includes/class-segurium-self-check.php:816
+msgid "Legacy XSS filter directive present."
+msgstr "Je prítomná zastaraná direktíva filtra XSS."
+
+#: includes/class-segurium-self-check.php:817
+msgid ""
+"Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters "
+"safely."
+msgstr ""
+"Chýba X-XSS-Protection. Nastavte hodnotu 0, aby sa zastarané filtre XSS v "
+"prehliadačoch bezpečne vypli."
+
+#: includes/class-segurium-self-check.php:842
+msgid "X-Powered-By hidden"
+msgstr "X-Powered-By je skryté"
+
+#. translators: %s: header value
+#: includes/class-segurium-self-check.php:847
+#, php-format
+msgid "X-Powered-By reveals: %s"
+msgstr "X-Powered-By prezrádza: %s"
+
+#: includes/class-segurium-self-check.php:850
+msgid "X-Powered-By header is not exposed."
+msgstr "Hlavička X-Powered-By nie je zverejnená."
+
+#: includes/class-segurium-self-check.php:861
+msgid "WordPress version hidden"
+msgstr "Verzia WordPress je skrytá"
+
+#: includes/class-segurium-self-check.php:864
+msgid "WordPress version exposed in HTML source."
+msgstr "Verzia WordPress je viditeľná v zdrojovom kóde HTML."
+
+#: includes/class-segurium-self-check.php:865
+msgid "WordPress version not visible in HTML."
+msgstr "Verzia WordPress nie je v HTML viditeľná."
+
+#: includes/class-segurium-self-check.php:876
+msgid "Asset version query hidden"
+msgstr "Verzia v dotaze súborov je skrytá"
+
+#: includes/class-segurium-self-check.php:879
+msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
+msgstr ""
+"Verzia jadra, témy alebo pluginu je viditeľná v ?ver= v URL adresách "
+"súborov."
+
+#: includes/class-segurium-self-check.php:880
+msgid "Asset URLs do not expose version numbers."
+msgstr "URL adresy súborov neprezrádzajú čísla verzií."
+
+#: includes/class-segurium-self-check.php:907
+msgid "XML-RPC disabled"
+msgstr "XML-RPC je vypnuté"
+
+#: includes/class-segurium-self-check.php:910
+msgid "XML-RPC endpoint is disabled."
+msgstr "Koncový bod XML-RPC je vypnutý."
+
+#: includes/class-segurium-self-check.php:911
+msgid ""
+"XML-RPC is reachable. A frequent brute-force and pingback-amplification "
+"target."
+msgstr ""
+"XML-RPC je dostupné. Je častým cieľom útokov hrubou silou a zosilnenia cez "
+"pingback."
+
+#: includes/class-segurium-self-check.php:922
+msgid "REST API discovery disabled"
+msgstr "Zisťovanie REST API je vypnuté"
+
+#: includes/class-segurium-self-check.php:925
+msgid "REST API discovery link removed from <head>."
+msgstr "Odkaz na zisťovanie REST API bol odstránený z <head>."
+
+#: includes/class-segurium-self-check.php:926
+msgid "REST API discovery link exposed — simplifies reconnaissance."
+msgstr "Odkaz na zisťovanie REST API je viditeľný – uľahčuje prieskum."
+
+#: includes/class-segurium-self-check.php:937
+msgid "Brute-force protection"
+msgstr "Ochrana pred útokmi hrubou silou"
+
+#: includes/class-segurium-self-check.php:940
+msgid "Login brute-force protection is active."
+msgstr "Ochrana prihlásenia pred útokmi hrubou silou je aktívna."
+
+#: includes/class-segurium-self-check.php:941
+msgid "Brute-force protection is disabled."
+msgstr "Ochrana pred útokmi hrubou silou je vypnutá."
+
+#: includes/class-segurium-self-check.php:956
+msgid "Two-factor enforced for administrators"
+msgstr "Dvojfaktorové overenie je vynútené pre administrátorov"
+
+#: includes/class-segurium-self-check.php:959
+msgid "Two-factor authentication is enforced for the administrator role."
+msgstr "Dvojfaktorové overenie je vynútené pre rolu administrátor."
+
+#: includes/class-segurium-self-check.php:960
+msgid "Administrators can log in with a password alone."
+msgstr "Administrátori sa môžu prihlásiť iba heslom."
+
+#: includes/class-segurium-self-check.php:972 includes/class-segurium.php:2040
+msgid "Firewall"
+msgstr "Firewall"
+
+#: includes/class-segurium-self-check.php:975
+msgid "Firewall rules are active."
+msgstr "Pravidlá firewallu sú aktívne."
+
+#: includes/class-segurium-self-check.php:976
+msgid "No firewall rules are active."
+msgstr "Nie sú aktívne žiadne pravidlá firewallu."
+
+#: includes/class-segurium-self-check.php:988
+msgid "HTTPS / SSL active"
+msgstr "HTTPS / SSL je aktívne"
+
+#: includes/class-segurium-self-check.php:991
+msgid "Site is served over HTTPS."
+msgstr "Webová stránka sa poskytuje cez HTTPS."
+
+#: includes/class-segurium-self-check.php:992
+msgid "Site is not served over HTTPS. Traffic is unencrypted."
+msgstr "Webová stránka sa neposkytuje cez HTTPS. Prenos nie je šifrovaný."
+
+#: includes/class-segurium-self-check.php:1032
+msgid ""
+"No Set-Cookie headers on the homepage; cannot assess cookie flags from "
+"outside."
+msgstr ""
+"Domovská stránka neposiela žiadne hlavičky Set-Cookie; príznaky cookies sa "
+"zvonka nedajú posúdiť."
+
+#: includes/class-segurium-self-check.php:1038
+#: includes/class-segurium-self-check.php:1060
+msgid "Cookies — Secure"
+msgstr "Cookies – Secure"
+
+#: includes/class-segurium-self-check.php:1049
+#: includes/class-segurium-self-check.php:1156
+#: includes/class-segurium-self-check.php:1170
+#: includes/class-segurium-self-check.php:1188
+msgid "Cookies — SameSite"
+msgstr "Cookies – SameSite"
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:1092
+#, php-format
+msgid "All %1$d cookies set the %2$s attribute."
+msgstr "Všetky cookies (%1$d) nastavujú atribút %2$s."
+
+#. translators: 1: matching cookie count, 2: total cookie count, 3: cookie
+#. attribute name
+#: includes/class-segurium-self-check.php:1106
+#, php-format
+msgid "%1$d of %2$d cookies set %3$s."
+msgstr "%3$s nastavuje %1$d z %2$d cookies."
+
+#. translators: 1: total cookie count, 2: cookie attribute name
+#: includes/class-segurium-self-check.php:1119
+#, php-format
+msgid "None of the %1$d cookies set the %2$s attribute."
+msgstr "Žiadne z %1$d cookies nenastavujú atribút %2$s."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:1159
+#, php-format
+msgid "All %d cookies set SameSite=Lax/Strict."
+msgstr "Všetky cookies (%d) nastavujú SameSite=Lax/Strict."
+
+#. translators: 1: good cookie count, 2: total cookie count
+#: includes/class-segurium-self-check.php:1173
+#, php-format
+msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
+msgstr "SameSite=Lax/Strict nastavuje %1$d z %2$d cookies."
+
+#. translators: 1: count of cookies using SameSite=None, 2: total cookie count
+#: includes/class-segurium-self-check.php:1181
+#, php-format
+msgid "%1$d of %2$d cookies use SameSite=None."
+msgstr "SameSite=None používa %1$d z %2$d cookies."
+
+#. translators: %d: total cookie count
+#: includes/class-segurium-self-check.php:1183
+#, php-format
+msgid "No cookies set SameSite=Lax or Strict (out of %d)."
+msgstr "Žiadne cookies nenastavujú SameSite=Lax ani Strict (z celkom %d)."
+
+#: includes/class-segurium-self-check.php:1250
+#: includes/class-segurium.php:3271
+msgid "Cloud-assisted malware detection"
+msgstr "Detekcia malvéru s pomocou cloudu"
+
+#: includes/class-segurium-self-check.php:1253
+msgid ""
+"On-premise mode is enabled: file contents stay on this server, and any file "
+"the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
+"detection for full accuracy."
+msgstr ""
+"Je zapnutý režim On-premise: obsah súborov zostáva na tomto serveri a každý "
+"súbor, ktorý cloud nedokáže rozpoznať podľa hashu, zostane nevyriešený. Na "
+"plnú presnosť zapnite detekciu s pomocou cloudu."
+
+#: includes/class-segurium-self-check.php:1254
+msgid "Cloud-assisted malware detection is active."
+msgstr "Detekcia malvéru s pomocou cloudu je aktívna."
+
+#: includes/class-segurium-self-check.php:1266
+msgid "Scheduled malware scans"
+msgstr "Naplánované skenovanie malvéru"
+
+#: includes/class-segurium-self-check.php:1269
+msgid "A recurring malware scan is scheduled."
+msgstr "Je naplánované opakované skenovanie malvéru."
+
+#: includes/class-segurium-self-check.php:1270
+msgid "No recurring malware scan is scheduled."
+msgstr "Nie je naplánované žiadne opakované skenovanie malvéru."
+
+#: includes/class-segurium-self-check.php:1282
+msgid "Automatic malware cleanup"
+msgstr "Automatické čistenie malvéru"
+
+#: includes/class-segurium-self-check.php:1285
+msgid "Detected malware is cleaned automatically after every scan."
+msgstr "Zistený malvér sa po každom skenovaní automaticky vyčistí."
+
+#: includes/class-segurium-self-check.php:1286
+msgid ""
+"Automatic cleanup is disabled. Detected malware requires a manual click to "
+"clean."
+msgstr ""
+"Automatické čistenie je vypnuté. Zistený malvér treba vyčistiť ručne "
+"kliknutím."
+
+#: includes/class-segurium-self-check.php:1300
+msgid "Malware scan up to date"
+msgstr "Skenovanie malvéru je aktuálne"
+
+#. translators: %s: human time difference
+#: includes/class-segurium-self-check.php:1305
+#, php-format
+msgid "Last malware scan completed %s ago."
+msgstr "Posledné skenovanie malvéru sa dokončilo pred %s."
+
+#: includes/class-segurium-self-check.php:1309
+msgid "Malware scan is older than 7 days."
+msgstr "Skenovanie malvéru je staršie ako 7 dní."
+
+#: includes/class-segurium-self-check.php:1310
+msgid "No malware scan has been completed yet."
+msgstr "Zatiaľ sa nedokončilo žiadne skenovanie malvéru."
+
+#: includes/class-segurium-self-check.php:1322
+msgid "No malware in the last 24 hours"
+msgstr "Za posledných 24 hodín žiadny malvér"
+
+#: includes/class-segurium-self-check.php:1325
+msgid ""
+"The most recent malware scan ran in the last 24 hours and found nothing."
+msgstr ""
+"Posledné skenovanie malvéru prebehlo za posledných 24 hodín a nič nenašlo."
+
+#: includes/class-segurium-self-check.php:1327
+msgid ""
+"No malware scan has run in the last 24 hours. Scans are quick — run one to "
+"refresh this verdict."
+msgstr ""
+"Za posledných 24 hodín neprebehlo žiadne skenovanie malvéru. Skenovanie je "
+"rýchle – spustite ho a tento výsledok sa obnoví."
+
+#. translators: %d: number of threats
+#: includes/class-segurium-self-check.php:1330
+#, php-format
+msgid ""
+"Last malware scan flagged %d threat. Review it on the Malware scanner tab."
+msgid_plural ""
+"Last malware scan flagged %d threats. Review them on the Malware scanner "
+"tab."
+msgstr[0] ""
+"Posledné skenovanie malvéru označilo %d hrozbu. Skontrolujte ju na karte "
+"Skener malvéru."
+msgstr[1] ""
+"Posledné skenovanie malvéru označilo %d hrozby. Skontrolujte ich na karte "
+"Skener malvéru."
+msgstr[2] ""
+"Posledné skenovanie malvéru označilo %d hrozieb. Skontrolujte ich na karte "
+"Skener malvéru."
+
+#: includes/class-segurium-self-check.php:1354
+msgid "No integrity issues in the last 24 hours"
+msgstr "Za posledných 24 hodín žiadne problémy s integritou"
+
+#: includes/class-segurium-self-check.php:1357
+msgid ""
+"The most recent integrity scan ran in the last 24 hours and reported no "
+"issues."
+msgstr ""
+"Posledná kontrola integrity prebehla za posledných 24 hodín a nenahlásila "
+"žiadne problémy."
+
+#: includes/class-segurium-self-check.php:1359
+msgid ""
+"No integrity scan has run in the last 24 hours. Scans are quick — run one to"
+" refresh this verdict."
+msgstr ""
+"Za posledných 24 hodín neprebehla žiadna kontrola integrity. Kontrola je "
+"rýchla – spustite ju a tento výsledok sa obnoví."
+
+#. translators: %d: number of open integrity issues
+#: includes/class-segurium-self-check.php:1362
+#, php-format
+msgid ""
+"%d open integrity issue is unresolved. Review it on the Integrity scanner "
+"tab."
+msgid_plural ""
+"%d open integrity issues are unresolved. Review them on the Integrity "
+"scanner tab."
+msgstr[0] ""
+"%d otvorený problém s integritou nie je vyriešený. Skontrolujte ho na karte "
+"Integrita."
+msgstr[1] ""
+"%d otvorené problémy s integritou nie sú vyriešené. Skontrolujte ich na "
+"karte Integrita."
+msgstr[2] ""
+"%d otvorených problémov s integritou nie je vyriešených. Skontrolujte ich na"
+" karte Integrita."
+
+#: includes/class-segurium-settings-writer.php:500
+msgid "The setting could not be saved."
+msgstr "Nastavenie sa nepodarilo uložiť."
+
+#. translators: %d: HTTP status code
+#: includes/class-segurium-trusted-proxies.php:92
+#, php-format
+msgid "Trusted proxies endpoint returned HTTP %d."
+msgstr "Koncový bod dôveryhodných proxy vrátil HTTP %d."
+
+#: includes/class-segurium-trusted-proxies.php:113
+msgid "Trusted proxies response has invalid format."
+msgstr "Odpoveď dôveryhodných proxy má neplatný formát."
+
+#: includes/class-segurium-upload-scan.php:93
+msgid "This file was identified as malware and has been blocked."
+msgstr "Tento súbor bol rozpoznaný ako malvér a zablokovaný."
+
+#: includes/class-segurium.php:391
+msgid "Unknown or unsupported action."
+msgstr "Neznáma alebo nepodporovaná akcia."
+
+#: includes/class-segurium.php:417
+msgid "This action is temporarily unavailable."
+msgstr "Táto akcia je dočasne nedostupná."
+
+#: includes/class-segurium.php:492 includes/segurium-admin-menu-shell.php:182
+msgid "Security score:"
+msgstr "Bezpečnostné skóre:"
+
+#. translators: %s: human-readable time difference
+#. translators: %s: human-readable time difference such as "5 mins"
+#: includes/class-segurium.php:502 includes/class-segurium.php:1350
+#: includes/segurium-admin-menu-shell.php:192
+#, php-format
+msgid "Last checked %s ago."
+msgstr "Naposledy skontrolované pred %s."
+
+#: includes/class-segurium.php:509 includes/segurium-admin-menu-shell.php:199
+msgid ""
+"Run a Self-Check from the Segurium admin page to see your security score."
+msgstr ""
+"Spustite samokontrolu na administračnej stránke Segurium a zobrazí sa vaše "
+"bezpečnostné skóre."
+
+#: includes/class-segurium.php:515 includes/segurium-admin-menu-shell.php:205
+msgid "Open Segurium"
+msgstr "Otvoriť Segurium"
+
+#: includes/class-segurium.php:1061
+msgid "Malware"
+msgstr "Malvér"
+
+#: includes/class-segurium.php:1062
+msgid "Clean"
+msgstr "Čisté"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "Vyčistiť"
+
+#: includes/class-segurium.php:1063 includes/class-segurium.php:2123
+msgid "Cleaned"
+msgstr "Vyčistené"
+
+#: includes/class-segurium.php:1064
+msgid "Restored"
+msgstr "Obnovené"
+
+#: includes/class-segurium.php:1065
+msgid "Failed"
+msgstr "Zlyhalo"
+
+#: includes/class-segurium.php:1066
+msgid "Processing..."
+msgstr "Spracúva sa..."
+
+#: includes/class-segurium.php:1067
+msgid "Show malware"
+msgstr "Zobraziť malvér"
+
+#: includes/class-segurium.php:1068
+msgid "Report false positive"
+msgstr "Nahlásiť falošný poplach"
+
+#: includes/class-segurium.php:1069 includes/class-segurium.php:3384
+msgid "Report False Positive"
+msgstr "Nahlásiť falošný poplach"
+
+#: includes/class-segurium.php:1070 includes/class-segurium.php:3389
+msgid "File path"
+msgstr "Cesta k súboru"
+
+#: includes/class-segurium.php:1071 includes/class-segurium.php:3391
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: includes/class-segurium.php:1072 includes/class-segurium.php:2201
+#: includes/class-segurium.php:3393
+msgid "Component"
+msgstr "Komponent"
+
+#: includes/class-segurium.php:1073 includes/class-segurium.php:3395
+msgid "Current verdict"
+msgstr "Aktuálny verdikt"
+
+#: includes/class-segurium.php:1075 includes/class-segurium.php:3402
+msgid "Also ignore this file on this site"
+msgstr "Ignorovať tento súbor aj na tejto webovej stránke"
+
+#: includes/class-segurium.php:1076 includes/class-segurium.php:3406
+msgid "Submit report"
+msgstr "Odoslať hlásenie"
+
+#: includes/class-segurium.php:1078
+msgid "Submitting…"
+msgstr "Odosiela sa…"
+
+#: includes/class-segurium.php:1079
+msgid "Report submitted. Thank you."
+msgstr "Hlásenie bolo odoslané. Ďakujeme."
+
+#: includes/class-segurium.php:1080
+msgid "Could not submit the report."
+msgstr "Hlásenie sa nepodarilo odoslať."
+
+#: includes/class-segurium.php:1081 includes/class-segurium.php:1186
+msgid "Restore"
+msgstr "Obnoviť"
+
+#: includes/class-segurium.php:1082
+msgid "This will restore the original infected file from backup. Continue?"
+msgstr "Pôvodný infikovaný súbor sa obnoví zo zálohy. Pokračovať?"
+
+#: includes/class-segurium.php:1083
+msgid "Restore file"
+msgstr "Obnoviť súbor"
+
+#: includes/class-segurium.php:1084
+msgid "Checking…"
+msgstr "Kontroluje sa…"
+
+#: includes/class-segurium.php:1085
+msgid ""
+"The file on disk is already the backed-up version. Restore anyway to update "
+"database records?"
+msgstr ""
+"Súbor na disku už je zálohovaná verzia. Obnoviť aj tak, aby sa aktualizovali"
+" záznamy v databáze?"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1087
+#, php-format
+msgid ""
+"The file at %s has been modified since the last cleanup. Restoring will "
+"overwrite the existing file with the backed-up version. This cannot be "
+"undone."
+msgstr ""
+"Súbor %s sa od posledného čistenia zmenil. Obnovenie prepíše existujúci "
+"súbor zálohovanou verziou. Túto akciu nie je možné vrátiť."
+
+#: includes/class-segurium.php:1088
+msgid "Overwrite & Restore"
+msgstr "Prepísať a obnoviť"
+
+#: includes/class-segurium.php:1089
+msgid "No threats found."
+msgstr "Nenašli sa žiadne hrozby."
+
+#: includes/class-segurium.php:1090
+msgid "Scan complete."
+msgstr "Skenovanie je dokončené."
+
+#: includes/class-segurium.php:1091
+msgid "files"
+msgstr "súborov"
+
+#: includes/class-segurium.php:1092
+msgid "failed"
+msgstr "zlyhalo"
+
+#: includes/class-segurium.php:1093
+msgid "skipped"
+msgstr "preskočené"
+
+#: includes/class-segurium.php:1094
+msgid "scanned"
+msgstr "preskenované"
+
+#: includes/class-segurium.php:1095
+msgid "Starting scan..."
+msgstr "Spúšťa sa skenovanie..."
+
+#: includes/class-segurium.php:1096
+msgid "Error"
+msgstr "Chyba"
+
+#: includes/class-segurium.php:1098
+msgid "Scan in progress..."
+msgstr "Prebieha skenovanie..."
+
+#: includes/class-segurium.php:1099
+msgid "Request failed"
+msgstr "Požiadavka zlyhala"
+
+#: includes/class-segurium.php:1100
+msgid "Your session has expired. Reload the page and try again."
+msgstr ""
+"Platnosť vašej relácie vypršala. Znova načítajte stránku a skúste to znova."
+
+#: includes/class-segurium.php:1102 includes/class-segurium.php:3710
+msgid "Segurium Cloud consent is required before scanning."
+msgstr "Pred skenovaním je potrebný súhlas so Segurium Cloud."
+
+#: includes/class-segurium.php:1103
+msgid "The scan could not be initialized. Check the PHP error log."
+msgstr ""
+"Skenovanie sa nepodarilo inicializovať. Skontrolujte protokol chýb PHP."
+
+#: includes/class-segurium.php:1104
+msgid ""
+"The scan started but the background worker could not be dispatched. Try "
+"again."
+msgstr ""
+"Skenovanie sa spustilo, ale proces na pozadí sa nepodarilo spustiť. Skúste "
+"to znova."
+
+#: includes/class-segurium.php:1105
+msgid ""
+"The scan could not be started due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Skenovanie sa pre chybu servera nepodarilo spustiť. Skontrolujte protokol "
+"chýb PHP."
+
+#: includes/class-segurium.php:1106
+msgid ""
+"Could not fetch scan status due to a server error. Check the PHP error log."
+msgstr ""
+"Stav skenovania sa pre chybu servera nepodarilo načítať. Skontrolujte "
+"protokol chýb PHP."
+
+#: includes/class-segurium.php:1107
+msgid ""
+"Could not stop the running scan due to a server error. Check the PHP error "
+"log."
+msgstr ""
+"Prebiehajúce skenovanie sa pre chybu servera nepodarilo zastaviť. "
+"Skontrolujte protokol chýb PHP."
+
+#: includes/class-segurium.php:1108
+msgid "The server returned an error while processing the request."
+msgstr "Server pri spracovaní požiadavky vrátil chybu."
+
+#: includes/class-segurium.php:1109
+msgid "Network error — the request could not reach the server."
+msgstr "Chyba siete – požiadavka sa nedostala na server."
+
+#: includes/class-segurium.php:1110
+msgid ""
+"The progress display hit a script error and stopped updating. Reload the "
+"page to see the current state — the scan itself is unaffected. Details are "
+"in the browser console."
+msgstr ""
+"Zobrazenie priebehu narazilo na chybu skriptu a prestalo sa aktualizovať. "
+"Znova načítajte stránku a uvidíte aktuálny stav – samotné skenovanie to "
+"neovplyvnilo. Podrobnosti sú v konzole prehliadača."
+
+#: includes/class-segurium.php:1111
+msgid ""
+"The server returned an unexpected response. Reload the page and try again."
+msgstr ""
+"Server vrátil neočakávanú odpoveď. Znova načítajte stránku a skúste to "
+"znova."
+
+#: includes/class-segurium.php:1112
+msgid ""
+"Segurium got an empty response from the server. The PHP handler likely "
+"crashed before producing any output — check the PHP error log for a fatal, "
+"OOM, or timeout."
+msgstr ""
+"Segurium dostalo zo servera prázdnu odpoveď. Obsluha PHP pravdepodobne "
+"spadla skôr, ako čokoľvek vypísala – v protokole chýb PHP hľadajte fatálnu "
+"chybu, nedostatok pamäte (OOM) alebo vypršanie časového limitu."
+
+#: includes/class-segurium.php:1113
+msgid ""
+"Segurium's response markers are missing from the body. The Segurium AJAX "
+"handler did not run, or another plugin replaced the entire response. Check "
+"wp-content/mu-plugins, active plugins, and the PHP error log."
+msgstr ""
+"V tele odpovede chýbajú značky Segurium. Obsluha AJAX Segurium sa nespustila"
+" alebo iný plugin nahradil celú odpoveď. Skontrolujte wp-content/mu-plugins,"
+" aktívne pluginy a protokol chýb PHP."
+
+#: includes/class-segurium.php:1114
+msgid ""
+"Segurium's response was cut off mid-stream — the start marker arrived but "
+"the end marker did not. The PHP handler crashed mid-response (fatal, OOM, or"
+" timeout). Check the PHP error log."
+msgstr ""
+"Odpoveď Segurium bola uprostred prerušená – prišla počiatočná značka, ale "
+"nie koncová. Obsluha PHP spadla počas odpovede (fatálna chyba, OOM alebo "
+"vypršanie časového limitu). Skontrolujte protokol chýb PHP."
+
+#: includes/class-segurium.php:1115
+msgid ""
+"Segurium could not unwrap the server response. Check the PHP error log for a"
+" fatal, OOM, or timeout in the Segurium handler."
+msgstr ""
+"Segurium nedokázalo rozbaliť odpoveď servera. V protokole chýb PHP hľadajte "
+"fatálnu chybu, OOM alebo vypršanie časového limitu v obsluhe Segurium."
+
+#: includes/class-segurium.php:1116
+msgid ""
+"Segurium received a response wrapped in valid markers but the JSON inside "
+"did not parse. This usually indicates a fatal PHP error inside the Segurium "
+"handler — check the PHP error log."
+msgstr ""
+"Segurium dostalo odpoveď v platných značkách, ale JSON v nej sa nepodarilo "
+"spracovať. Zvyčajne to znamená fatálnu chybu PHP v obsluhe Segurium – "
+"skontrolujte protokol chýb PHP."
+
+#: includes/class-segurium.php:1117 includes/class-segurium.php:3774
+msgid "This version of the admin page is stale. Reload the page to continue."
+msgstr ""
+"Táto verzia administračnej stránky je zastaraná. Ak chcete pokračovať, znova"
+" načítajte stránku."
+
+#: includes/class-segurium.php:1119
+msgid ""
+"An unexpected server error occurred. Check the PHP error log and try again."
+msgstr ""
+"Nastala neočakávaná chyba servera. Skontrolujte protokol chýb PHP a skúste "
+"to znova."
+
+#: includes/class-segurium.php:1120 includes/class-segurium.php:3335
+msgid "Frequency"
+msgstr "Frekvencia"
+
+#: includes/class-segurium.php:1121 includes/class-segurium.php:2749
+#: includes/class-segurium.php:3338
+msgid "Off"
+msgstr "Vypnuté"
+
+#: includes/class-segurium.php:1122 includes/class-segurium.php:3339
+msgid "Daily"
+msgstr "Denne"
+
+#: includes/class-segurium.php:1123 includes/class-segurium.php:3340
+msgid "Weekly"
+msgstr "Týždenne"
+
+#: includes/class-segurium.php:1124 includes/class-segurium.php:3345
+msgid "Time of day"
+msgstr "Čas"
+
+#: includes/class-segurium.php:1125 includes/class-segurium.php:3352
+msgid "Day of week"
+msgstr "Deň v týždni"
+
+#: includes/class-segurium.php:1126
+msgid "Next run:"
+msgstr "Ďalšie spustenie:"
+
+#: includes/class-segurium.php:1127
+msgid "Schedule saved."
+msgstr "Plán bol uložený."
+
+#: includes/class-segurium.php:1128
+msgid "Could not save schedule."
+msgstr "Plán sa nepodarilo uložiť."
+
+#: includes/class-segurium.php:1129
+msgid "Stored in UTC. Displayed in your browser locale."
+msgstr "Uložené v UTC. Zobrazené podľa jazyka a regiónu vášho prehliadača."
+
+#: includes/class-segurium.php:1130
+msgid "Scanned files"
+msgstr "Preskenované súbory"
+
+#: includes/class-segurium.php:1131
+msgid "showing first"
+msgstr "zobrazujú sa prvé"
+
+#: includes/class-segurium.php:1132
+msgid "Original file content (malware)"
+msgstr "Pôvodný obsah súboru (malvér)"
+
+#. translators: %s: relative file path
+#: includes/class-segurium.php:1134
+#, php-format
+msgid "Current on-disk content (malware): %s"
+msgstr "Aktuálny obsah na disku (malvér): %s"
+
+#. translators: button label on a notice popup that closes the popup
+#: includes/class-segurium.php:1137
+msgid "OK"
+msgstr "OK"
+
+#: includes/class-segurium.php:1138
+msgid "Delete failed"
+msgstr "Odstránenie zlyhalo"
+
+#: includes/class-segurium.php:1139
+msgid "Restore failed"
+msgstr "Obnovenie zlyhalo"
+
+#: includes/class-segurium.php:1140
+msgid "Fix failed"
+msgstr "Oprava zlyhala"
+
+#: includes/class-segurium.php:1141
+msgid "Diff failed"
+msgstr "Porovnanie zlyhalo"
+
+#: includes/class-segurium.php:1142
+msgid "Diff decode error"
+msgstr "Chyba dekódovania porovnania"
+
+#: includes/class-segurium.php:1143
+msgid "View failed"
+msgstr "Zobrazenie zlyhalo"
+
+#: includes/class-segurium.php:1144
+msgid ""
+"Cannot restore — no backup recorded for this file. The backup may have been "
+"rotated out."
+msgstr ""
+"Obnovenie nie je možné – pre tento súbor nie je zaznamenaná žiadna záloha. "
+"Záloha už mohla byť vyradená."
+
+#: includes/class-segurium.php:1145 includes/class-segurium.php:1187
+#: includes/class-segurium.php:2127
+msgid "Fixed"
+msgstr "Opravené"
+
+#: includes/class-segurium.php:1146 includes/class-segurium.php:2131
+msgid "Ignored"
+msgstr "Ignorované"
+
+#: includes/class-segurium.php:1147
+msgid "Ignore until file is the same"
+msgstr "Ignorovať, kým sa súbor nezmení"
+
+#: includes/class-segurium.php:1148
+msgid "Always ignore"
+msgstr "Vždy ignorovať"
+
+#: includes/class-segurium.php:1149
+msgid "Remove from ignore"
+msgstr "Odstrániť z ignorovaných"
+
+#: includes/class-segurium.php:1150
+msgid "Connected"
+msgstr "Pripojené"
+
+#: includes/class-segurium.php:1151
+msgid "Disconnected"
+msgstr "Odpojené"
+
+#: includes/class-segurium.php:1152
+msgid "No files found."
+msgstr "Nenašli sa žiadne súbory."
+
+#. translators: %d: number of malicious files still needing attention
+#: includes/class-segurium.php:1154 includes/class-segurium.php:1876
+#, php-format
+msgid "%d threats still need your attention"
+msgstr "Počet hrozieb, ktoré stále vyžadujú vašu pozornosť: %d"
+
+#: includes/class-segurium.php:1155
+msgid "No threats — you are clear."
+msgstr "Žiadne hrozby – všetko je v poriadku."
+
+#: includes/class-segurium.php:1156
+msgid "No scans yet — run your first scan."
+msgstr "Zatiaľ žiadne skenovanie – spustite prvé skenovanie."
+
+#: includes/class-segurium.php:1157 includes/class-segurium.php:2096
+#: includes/class-segurium.php:2185
+msgid "Stop scan"
+msgstr "Zastaviť skenovanie"
+
+#: includes/class-segurium.php:1158
+msgid "Stop the running scan? Progress so far will be discarded."
+msgstr "Zastaviť prebiehajúce skenovanie? Doterajší priebeh sa zahodí."
+
+#: includes/class-segurium.php:1159
+msgid "Could not stop the scan."
+msgstr "Skenovanie sa nepodarilo zastaviť."
+
+#: includes/class-segurium.php:1160
+msgid "Scan stopped."
+msgstr "Skenovanie bolo zastavené."
+
+#. translators: %1$d: files scanned before stop, %2$d: files discovered
+#: includes/class-segurium.php:1162
+#, php-format
+msgid "Scan stopped — %1$d of %2$d files scanned."
+msgstr "Skenovanie bolo zastavené – preskenovaných súborov: %1$d z %2$d."
+
+#. translators: %1$d: files scanned before abort, %2$d: files discovered
+#: includes/class-segurium.php:1164
+#, php-format
+msgid "Scan aborted — %1$d of %2$d files scanned."
+msgstr "Skenovanie bolo prerušené – preskenovaných súborov: %1$d z %2$d."
+
+#. translators: %d: number of seconds since the scan worker last reported
+#. progress
+#: includes/class-segurium.php:1166
+#, php-format
+msgid "no progress for %ds — waiting for worker"
+msgstr "žiadny pokrok %d s – čaká sa na proces na pozadí"
+
+#: includes/class-segurium.php:1167
+msgid "Hosting environment warnings"
+msgstr "Upozornenia na prostredie hostingu"
+
+#: includes/class-segurium.php:1168
+msgid "No malicious files. All known threats have been handled."
+msgstr "Žiadne škodlivé súbory. Všetky známe hrozby sú vyriešené."
+
+#: includes/class-segurium.php:1169
+msgid "No cleaned files yet."
+msgstr "Zatiaľ žiadne vyčistené súbory."
+
+#: includes/class-segurium.php:1170
+msgid "No files marked fixed."
+msgstr "Žiadne súbory označené ako opravené."
+
+#: includes/class-segurium.php:1171
+msgid "No ignored files."
+msgstr "Žiadne ignorované súbory."
+
+#: includes/class-segurium.php:1172
+msgid "Recently processed in this session"
+msgstr "Nedávno spracované v tejto relácii"
+
+#: includes/class-segurium.php:1173 includes/class-segurium.php:1330
+msgid "Page"
+msgstr "Stránka"
+
+#: includes/class-segurium.php:1174 includes/class-segurium.php:1331
+msgid "of"
+msgstr "z"
+
+#: includes/class-segurium.php:1175
+msgid "items"
+msgstr "položiek"
+
+#: includes/class-segurium.php:1176 includes/class-segurium.php:1328
+#: includes/class-segurium.php:2622
+msgid "Previous"
+msgstr "Predchádzajúca"
+
+#: includes/class-segurium.php:1177 includes/class-segurium.php:1329
+#: includes/class-segurium.php:2624
+msgid "Next"
+msgstr "Ďalšia"
+
+#: includes/class-segurium.php:1178 includes/class-segurium.php:1351
+msgid "Fix"
+msgstr "Opraviť"
+
+#: includes/class-segurium.php:1179
+msgid "Update"
+msgstr "Aktualizovať"
+
+#: includes/class-segurium.php:1180
+msgid "Outdated"
+msgstr "Zastarané"
+
+#: includes/class-segurium.php:1181
+msgid "Vulnerable"
+msgstr "Zraniteľné"
+
+#: includes/class-segurium.php:1182
+msgid "No update available"
+msgstr "Aktualizácia nie je dostupná"
+
+#. translators: 1: component name, 2: installed version, 3: version WordPress
+#. would install
+#: includes/class-segurium.php:1184
+#, php-format
+msgid ""
+"%1$s moves from %2$s to %3$s. This is a major version change and can break "
+"your site."
+msgstr ""
+"%1$s sa zmení z %2$s na %3$s. Ide o zmenu hlavnej verzie, ktorá môže vašu "
+"webovú stránku pokaziť."
+
+#: includes/class-segurium.php:1185
+msgid "Ignore"
+msgstr "Ignorovať"
+
+#: includes/class-segurium.php:1188
+msgid "Deleted"
+msgstr "Odstránené"
+
+#: includes/class-segurium.php:1189
+msgid "Not found"
+msgstr "Nenájdené"
+
+#: includes/class-segurium.php:1190
+msgid ""
+"This file is not part of the original installation and will be deleted. A "
+"backup will be created. Continue?"
+msgstr ""
+"Tento súbor nie je súčasťou pôvodnej inštalácie a bude odstránený. Vytvorí "
+"sa záloha. Pokračovať?"
+
+#: includes/class-segurium.php:1191
+msgid ""
+"Some files will be deleted (unknown files) and some will be replaced with "
+"originals (modified files). Backups will be created for all. Continue?"
+msgstr ""
+"Niektoré súbory sa odstránia (neznáme súbory) a niektoré sa nahradia "
+"originálmi (upravené súbory). Pre všetky sa vytvoria zálohy. Pokračovať?"
+
+#: includes/class-segurium.php:1192
+msgid "Fixing files..."
+msgstr "Opravujú sa súbory..."
+
+#: includes/class-segurium.php:1194
+msgid "Older backups will be rotated out"
+msgstr "Staršie zálohy budú vyradené"
+
+#. translators: 1: number of files to fix, 2: human-readable size (e.g. "12.4
+#. MB")
+#: includes/class-segurium.php:1196
+#, php-format
+msgid "You are about to fix %1$d files (~%2$s)."
+msgstr "Chystáte sa opraviť súbory (%1$d, ~%2$s)."
+
+#. translators: 1: number of envelopes to evict, 2: human-readable size of
+#. those envelopes
+#: includes/class-segurium.php:1198
+#, php-format
+msgid ""
+"%1$d older backups (~%2$s) will be rotated out — these are restore points "
+"for previously-fixed files."
+msgstr ""
+"Staršie zálohy (%1$d, ~%2$s) budú vyradené – sú to body obnovenia pre "
+"predtým opravené súbory."
+
+#. translators: %d: number of pinned backups that are protected from rotation
+#: includes/class-segurium.php:1200
+#, php-format
+msgid "%d pinned backups will be kept (still referenced by Restore)."
+msgstr "Pripnuté zálohy (%d) sa zachovajú (stále na ne odkazuje obnovenie)."
+
+#: includes/class-segurium.php:1202
+msgid "Restoring files…"
+msgstr "Obnovujú sa súbory…"
+
+#: includes/class-segurium.php:1203
+msgid "Updating files…"
+msgstr "Aktualizujú sa súbory…"
+
+#. translators: 1: number of items completed; 2: total number of items
+#: includes/class-segurium.php:1205
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d z %2$d"
+
+#: includes/class-segurium.php:1206
+msgid "Cancelling…"
+msgstr "Ruší sa…"
+
+#: includes/class-segurium.php:1207
+msgid "Clean all detected malware"
+msgstr "Vyčistiť všetok zistený malvér"
+
+#. translators: %d: number of malicious files queued for cleanup
+#: includes/class-segurium.php:1209
+#, php-format
+msgid ""
+"This will attempt to clean %d detected malicious file(s). Each file is "
+"backed up before cleanup."
+msgstr ""
+"Segurium sa pokúsi vyčistiť zistené škodlivé súbory (%d). Každý súbor sa "
+"pred čistením zálohuje."
+
+#: includes/class-segurium.php:1210
+msgid "Clean all"
+msgstr "Vyčistiť všetko"
+
+#: includes/class-segurium.php:1211
+msgid "Cleaning malware..."
+msgstr "Čistí sa malvér..."
+
+#: includes/class-segurium.php:1217 includes/class-segurium.php:4101
+#: includes/class-segurium.php:7135
+msgid ""
+"Cleanup quota reached. Upgrade to Pro for an unbounded cloud cleanup quota."
+msgstr ""
+"Kvóta na čistenie je vyčerpaná. Prejdite na Pro a získajte neobmedzenú kvótu"
+" čistenia v cloude."
+
+#: includes/class-segurium.php:1218 includes/class-segurium.php:1883
+msgid "Cleanup quota reached"
+msgstr "Kvóta na čistenie je vyčerpaná"
+
+#. translators: 1: number of cleanups consumed in the rolling window (e.g.,
+#. 3); 2: rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1220
+#, php-format
+msgid ""
+"You’ve used %1$d cloud cleanups in the last %2$d days. Upgrade to Pro for an"
+" unbounded cloud cleanup quota."
+msgstr ""
+"Za posledných %2$d dní ste využili %1$d vyčistení v cloude. Prejdite na Pro "
+"a získajte neobmedzenú kvótu čistenia v cloude."
+
+#. translators: %s: localized date when the next cleanup slot becomes
+#. available
+#: includes/class-segurium.php:1222
+#, php-format
+msgid "Next slot opens %s"
+msgstr "Ďalšie voľné miesto: %s"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30)
+#: includes/class-segurium.php:1224 includes/class-segurium.php:1817
+#, php-format
+msgid "%1$d of %2$d cleanups used in the last %3$d days"
+msgstr "Využité vyčistenia za posledných %3$d dní: %1$d z %2$d"
+
+#. translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3:
+#. rolling window length in days (e.g., 30), 4: localized date when the next
+#. slot opens
+#: includes/class-segurium.php:1226 includes/class-segurium.php:1808
+#, php-format
+msgid ""
+"%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s"
+msgstr ""
+"Využité vyčistenia za posledných %3$d dní: %1$d z %2$d – ďalšie voľné "
+"miesto: %4$s"
+
+#: includes/class-segurium.php:1228 includes/class-segurium.php:1895
+#: includes/class-segurium.php:2072 includes/class-segurium.php:3170
+msgid "Plans"
+msgstr "Plány"
+
+#: includes/class-segurium.php:1229 includes/class-segurium.php:1898
+#: includes/class-segurium.php:3231
+msgid "14-day money-back guarantee."
+msgstr "14-dňová záruka vrátenia peňazí."
+
+#: includes/class-segurium.php:1230 includes/class-segurium.php:3211
+#: includes/class-segurium.php:3420
+msgid "Pro"
+msgstr "Pro"
+
+#: includes/class-segurium.php:1231
+msgid "Diff"
+msgstr "Diff"
+
+#: includes/class-segurium.php:1233 includes/class-segurium.php:5974
+msgid "Abandoned (no updates >2 years)"
+msgstr "Opustené (žiadne aktualizácie viac ako 2 roky)"
+
+#: includes/class-segurium.php:1234
+msgid "Not from official WordPress.org"
+msgstr "Nepochádza z oficiálneho WordPress.org"
+
+#: includes/class-segurium.php:1235
+msgid "ignored"
+msgstr "ignorované"
+
+#: includes/class-segurium.php:1236
+msgid "Issues"
+msgstr "Problémy"
+
+#: includes/class-segurium.php:1237
+msgid "issue"
+msgstr "problém"
+
+#: includes/class-segurium.php:1238
+msgid "unrecognized file"
+msgstr "nerozpoznaný súbor"
+
+#: includes/class-segurium.php:1239
+msgid "(!) malware"
+msgstr "(!) malvér"
+
+#: includes/class-segurium.php:1240
+msgid "View"
+msgstr "Zobraziť"
+
+#: includes/class-segurium.php:1241
+msgid "issues"
+msgstr "problémy"
+
+#: includes/class-segurium.php:1242
+msgid "Checking"
+msgstr "Kontroluje sa"
+
+#: includes/class-segurium.php:1243
+msgid "Discovering components…"
+msgstr "Hľadajú sa komponenty…"
+
+#: includes/class-segurium.php:1244
+msgid "Saved permanently."
+msgstr "Uložené natrvalo."
+
+#: includes/class-segurium.php:1245
+msgid "Changes reverted."
+msgstr "Zmeny boli vrátené."
+
+#: includes/class-segurium.php:1246 includes/class-segurium.php:2295
+#: includes/migrations/class-segurium-migration-wordfence.php:188
+#: includes/migrations/class-segurium-migration-wordfence.php:190
+msgid "Blocked Countries"
+msgstr "Blokované krajiny"
+
+#: includes/class-segurium.php:1247
+msgid "Allowed Countries"
+msgstr "Povolené krajiny"
+
+#: includes/class-segurium.php:1248 includes/class-segurium.php:2304
+msgid "Type a country name or ISO code to add it to the block list."
+msgstr ""
+"Zadajte názov krajiny alebo kód ISO a pridajte ju do zoznamu blokovaných."
+
+#: includes/class-segurium.php:1249
+msgid "Type a country name or ISO code to add it to the allow list."
+msgstr ""
+"Zadajte názov krajiny alebo kód ISO a pridajte ju do zoznamu povolených."
+
+#: includes/class-segurium.php:1250 includes/class-segurium.php:2383
+msgid "Blocked IPs / CIDRs"
+msgstr "Blokované IP adresy / CIDR"
+
+#: includes/class-segurium.php:1251 includes/class-segurium.php:2384
+msgid ""
+"These IPs are always blocked. One entry per line. Accepts IPv4, IPv6, and "
+"CIDR ranges."
+msgstr ""
+"Tieto IP adresy sú vždy blokované. Jedna položka na riadok. Podporované sú "
+"IPv4, IPv6 a rozsahy CIDR."
+
+#: includes/class-segurium.php:1252
+msgid "Allowed IPs / CIDRs"
+msgstr "Povolené IP adresy / CIDR"
+
+#: includes/class-segurium.php:1253
+msgid ""
+"Only these IPs can access the site. All others are blocked. One entry per "
+"line."
+msgstr ""
+"K webovej stránke majú prístup iba tieto IP adresy. Všetky ostatné sú "
+"blokované. Jedna položka na riadok."
+
+#: includes/class-segurium.php:1254
+msgid "No supported security plugins detected."
+msgstr "Nenašli sa žiadne podporované bezpečnostné pluginy."
+
+#: includes/class-segurium.php:1255
+msgid "Preview"
+msgstr "Náhľad"
+
+#: includes/class-segurium.php:1256
+msgid "Apply Migration"
+msgstr "Použiť migráciu"
+
+#: includes/class-segurium.php:1258
+msgid "Migration complete."
+msgstr "Migrácia je dokončená."
+
+#: includes/class-segurium.php:1259
+#: includes/migrations/class-segurium-migration-wordfence.php:190
+msgid "Import"
+msgstr "Importovať"
+
+#: includes/class-segurium.php:1261
+msgid "Planned feature"
+msgstr "Plánovaná funkcia"
+
+#: includes/class-segurium.php:1262
+msgid "Feature"
+msgstr "Funkcia"
+
+#: includes/class-segurium.php:1263
+msgid "Value"
+msgstr "Hodnota"
+
+#: includes/class-segurium.php:1264
+msgid "Action"
+msgstr "Akcia"
+
+#: includes/class-segurium.php:1265
+msgid "Note"
+msgstr "Poznámka"
+
+#: includes/class-segurium.php:1266
+msgid "items imported"
+msgstr "importovaných položiek"
+
+#: includes/class-segurium.php:1267
+msgid "features planned"
+msgstr "plánovaných funkcií"
+
+#: includes/class-segurium.php:1268
+msgid "Submitting\\u2026"
+msgstr "Odosiela sa\\u2026"
+
+#: includes/class-segurium.php:1269
+msgid "Ticket submitted successfully."
+msgstr "Žiadosť bola úspešne odoslaná."
+
+#: includes/class-segurium.php:1270
+msgid "Your ticket reference:"
+msgstr "Číslo vašej žiadosti:"
+
+#: includes/class-segurium.php:1271
+msgid "Failed to submit ticket. Please try again."
+msgstr "Žiadosť sa nepodarilo odoslať. Skúste to znova."
+
+#: includes/class-segurium.php:1272
+msgid "Please attach a file before submitting."
+msgstr "Pred odoslaním priložte súbor."
+
+#: includes/class-segurium.php:1273
+msgid "Selected file exceeds the 100 MB limit."
+msgstr "Vybraný súbor prekračuje limit 100 MB."
+
+#: includes/class-segurium.php:1274
+msgid "Please enter a valid reply-to email."
+msgstr "Zadajte platný e-mail na odpoveď."
+
+#: includes/class-segurium.php:1275
+msgid "Please enter your name."
+msgstr "Zadajte svoje meno."
+
+#: includes/class-segurium.php:1276
+msgid "Could not save your choice. Please try again."
+msgstr "Vašu voľbu sa nepodarilo uložiť. Skúste to znova."
+
+#: includes/class-segurium.php:1277
+msgid "Brute-Force Protection"
+msgstr "Ochrana pred útokmi hrubou silou"
+
+#: includes/class-segurium.php:1278 includes/class-segurium.php:2409
+msgid "Enable brute-force protection"
+msgstr "Zapnúť ochranu pred útokmi hrubou silou"
+
+#: includes/class-segurium.php:1279 includes/class-segurium.php:2427
+msgid "Max failed attempts"
+msgstr "Max. počet neúspešných pokusov"
+
+#: includes/class-segurium.php:1280 includes/class-segurium.php:2429
+msgid "Number of failed login attempts allowed before the IP is locked out."
+msgstr ""
+"Počet neúspešných pokusov o prihlásenie, po ktorých sa IP adresa uzamkne."
+
+#: includes/class-segurium.php:1281 includes/class-segurium.php:2432
+msgid "Attempt window (seconds)"
+msgstr "Okno pokusov (sekundy)"
+
+#: includes/class-segurium.php:1282 includes/class-segurium.php:2434
+msgid "Time window in which failed attempts are counted toward the threshold."
+msgstr "Časové okno, v ktorom sa neúspešné pokusy započítavajú do limitu."
+
+#: includes/class-segurium.php:1283 includes/class-segurium.php:2437
+msgid "Initial lockout duration (seconds)"
+msgstr "Trvanie prvého uzamknutia (sekundy)"
+
+#: includes/class-segurium.php:1284 includes/class-segurium.php:2441
+msgid "Lockouts before extended ban"
+msgstr "Uzamknutia pred predĺženým zákazom"
+
+#: includes/class-segurium.php:1285 includes/class-segurium.php:2446
+msgid "Extended lockout duration (seconds)"
+msgstr "Trvanie predĺženého uzamknutia (sekundy)"
+
+#: includes/class-segurium.php:1286 includes/class-segurium.php:2450
+msgid "History window (seconds)"
+msgstr "Okno histórie (sekundy)"
+
+#: includes/class-segurium.php:1287 includes/class-segurium.php:2456
+msgid "Also protect XML-RPC (xmlrpc.php)"
+msgstr "Chrániť aj XML-RPC (xmlrpc.php)"
+
+#: includes/class-segurium.php:1288 includes/class-segurium.php:2462
+msgid "Add honeypot field to login form"
+msgstr "Pridať pole honeypot do prihlasovacieho formulára"
+
+#: includes/class-segurium.php:1289 includes/class-segurium.php:2510
+msgid "Active Lockouts"
+msgstr "Aktívne uzamknutia"
+
+#: includes/class-segurium.php:1290 includes/class-segurium.php:2523
+msgid "No IPs are currently locked out."
+msgstr "Momentálne nie sú uzamknuté žiadne IP adresy."
+
+#: includes/class-segurium.php:1291 includes/class-segurium.php:1335
+#: includes/class-segurium.php:2590
+msgid "Unlock"
+msgstr "Odomknúť"
+
+#: includes/class-segurium.php:1292 includes/class-segurium.php:1325
+#: includes/class-segurium.php:2515 includes/class-segurium.php:2615
+msgid "Tier"
+msgstr "Úroveň"
+
+#: includes/class-segurium.php:1293 includes/class-segurium.php:1322
+#: includes/class-segurium.php:2514 includes/class-segurium.php:2557
+#: includes/class-segurium.php:2611
+msgid "IP"
+msgstr "IP adresa"
+
+#: includes/class-segurium.php:1294 includes/class-segurium.php:2516
+msgid "Locked at"
+msgstr "Uzamknuté o"
+
+#: includes/class-segurium.php:1295 includes/class-segurium.php:2517
+msgid "Expires"
+msgstr "Platnosť do"
+
+#: includes/class-segurium.php:1296 includes/class-segurium.php:1341
+msgid "Settings saved."
+msgstr "Nastavenia boli uložené."
+
+#: includes/class-segurium.php:1297
+msgid "Unlock this IP?"
+msgstr "Odomknúť túto IP adresu?"
+
+#: includes/class-segurium.php:1298 includes/class-segurium.php:2467
+msgid "Log retention (days)"
+msgstr "Uchovávanie protokolu (dni)"
+
+#: includes/class-segurium.php:1299 includes/class-segurium.php:2472
+msgid "hCaptcha"
+msgstr "hCaptcha"
+
+#: includes/class-segurium.php:1300 includes/class-segurium.php:2477
+msgid "Require hCaptcha after repeated failures"
+msgstr "Po opakovaných neúspešných pokusoch vyžadovať hCaptcha"
+
+#: includes/class-segurium.php:1301 includes/class-segurium.php:2485
+msgid "hCaptcha site key"
+msgstr "hCaptcha – kľúč webovej stránky"
+
+#: includes/class-segurium.php:1302 includes/class-segurium.php:2491
+msgid "hCaptcha secret key"
+msgstr "hCaptcha – tajný kľúč"
+
+#: includes/class-segurium.php:1303 includes/class-segurium.php:2497
+msgid "Show CAPTCHA after N failed attempts"
+msgstr "Zobraziť CAPTCHA po N neúspešných pokusoch"
+
+#: includes/class-segurium.php:1304
+msgid "Presets:"
+msgstr "Predvoľby:"
+
+#: includes/class-segurium.php:1305
+msgid "Light"
+msgstr "Mierna"
+
+#: includes/class-segurium.php:1306 includes/class-segurium.php:2418
+#: includes/class-segurium.php:2751 includes/class-segurium.php:3206
+msgid "Recommended"
+msgstr "Odporúčaná"
+
+#: includes/class-segurium.php:1307 includes/class-segurium.php:2752
+#: includes/class-segurium.php:2945
+msgid "Strict"
+msgstr "Prísna"
+
+#: includes/class-segurium.php:1308
+msgid "Click a preset to fill the form, then Save."
+msgstr "Kliknutím na predvoľbu vyplníte formulár, potom kliknite na Uložiť."
+
+#: includes/class-segurium.php:1309 includes/class-segurium.php:2528
+msgid "Statistics"
+msgstr "Štatistiky"
+
+#: includes/class-segurium.php:1310 includes/class-segurium.php:2531
+msgid "Active lockouts"
+msgstr "Aktívne uzamknutia"
+
+#: includes/class-segurium.php:1311 includes/class-segurium.php:2535
+msgid "Attempts (24h)"
+msgstr "Pokusy (24 h)"
+
+#: includes/class-segurium.php:1312 includes/class-segurium.php:2539
+msgid "Lockouts (24h)"
+msgstr "Uzamknutia (24 h)"
+
+#: includes/class-segurium.php:1313 includes/class-segurium.php:2543
+msgid "Honeypot hits (24h)"
+msgstr "Zásahy honeypotu (24 h)"
+
+#: includes/class-segurium.php:1314 includes/class-segurium.php:2547
+msgid "CAPTCHA failures (24h)"
+msgstr "Zlyhania CAPTCHA (24 h)"
+
+#: includes/class-segurium.php:1315 includes/class-segurium.php:2553
+msgid "Top attacking IPs (24h)"
+msgstr "Najčastejšie útočiace IP adresy (24 h)"
+
+#: includes/class-segurium.php:1316 includes/class-segurium.php:2566
+msgid "Top targeted usernames (24h)"
+msgstr "Najčastejšie cieľové používateľské mená (24 h)"
+
+#: includes/class-segurium.php:1317 includes/class-segurium.php:2563
+msgid "No attacking IPs in the last 24 hours."
+msgstr "Za posledných 24 hodín žiadne útočiace IP adresy."
+
+#: includes/class-segurium.php:1318 includes/class-segurium.php:2576
+msgid "No targeted usernames in the last 24 hours."
+msgstr "Za posledných 24 hodín žiadne cieľové používateľské mená."
+
+#: includes/class-segurium.php:1319 includes/class-segurium.php:2582
+msgid "Event log"
+msgstr "Protokol udalostí"
+
+#: includes/class-segurium.php:1320 includes/class-segurium.php:2609
+msgid "When"
+msgstr "Kedy"
+
+#: includes/class-segurium.php:1321 includes/class-segurium.php:2610
+msgid "Event"
+msgstr "Udalosť"
+
+#: includes/class-segurium.php:1323 includes/class-segurium.php:2570
+#: includes/class-segurium.php:2613
+msgid "Username"
+msgstr "Používateľské meno"
+
+#: includes/class-segurium.php:1324 includes/class-segurium.php:2614
+msgid "Surface"
+msgstr "Rozhranie"
+
+#: includes/class-segurium.php:1326 includes/class-segurium.php:2584
+msgid "All events"
+msgstr "Všetky udalosti"
+
+#: includes/class-segurium.php:1327 includes/class-segurium.php:2620
+msgid "No events recorded yet."
+msgstr "Zatiaľ nie sú zaznamenané žiadne udalosti."
+
+#: includes/class-segurium.php:1332 includes/class-segurium.php:2587
+msgid "Attempt"
+msgstr "Pokus"
+
+#: includes/class-segurium.php:1333 includes/class-segurium.php:2588
+msgid "Lockout"
+msgstr "Uzamknutie"
+
+#: includes/class-segurium.php:1334 includes/class-segurium.php:2589
+msgid "Honeypot"
+msgstr "Honeypot"
+
+#: includes/class-segurium.php:1336 includes/class-segurium.php:2591
+msgid "CAPTCHA failed"
+msgstr "CAPTCHA zlyhala"
+
+#: includes/class-segurium.php:1337
+msgid "wp-login.php"
+msgstr "wp-login.php"
+
+#: includes/class-segurium.php:1338 includes/class-segurium.php:3092
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#: includes/class-segurium.php:1339
+msgid "Loading settings..."
+msgstr "Načítavajú sa nastavenia..."
+
+#: includes/class-segurium.php:1340
+msgid "Saving..."
+msgstr "Ukladá sa..."
+
+#: includes/class-segurium.php:1342
+msgid "Failed to save settings."
+msgstr "Nastavenia sa nepodarilo uložiť."
+
+#: includes/class-segurium.php:1343
+msgid "Failed to load settings."
+msgstr "Nastavenia sa nepodarilo načítať."
+
+#: includes/class-segurium.php:1344
+msgid "All recommended settings enabled."
+msgstr "Všetky odporúčané nastavenia sú zapnuté."
+
+#: includes/class-segurium.php:1345 includes/class-segurium.php:2008
+msgid "Self-Check"
+msgstr "Samokontrola"
+
+#: includes/class-segurium.php:1346 includes/class-segurium.php:3125
+msgid "Run Self-Check"
+msgstr "Spustiť samokontrolu"
+
+#: includes/class-segurium.php:1347
+msgid "Running..."
+msgstr "Prebieha..."
+
+#: includes/class-segurium.php:1348
+msgid "Click Run Self-Check to grade your site."
+msgstr ""
+"Kliknite na Spustiť samokontrolu a vaša webová stránka dostane hodnotenie."
+
+#: includes/class-segurium.php:1352
+msgid "Applying..."
+msgstr "Používa sa..."
+
+#: includes/class-segurium.php:1353
+msgid ""
+"Setting saved. Your page cache is still serving the old response, so this "
+"row will clear once the cache refreshes."
+msgstr ""
+"Nastavenie je uložené. Vaša medzipamäť stránok stále poskytuje starú "
+"odpoveď, takže tento riadok zmizne po obnovení medzipamäte."
+
+#: includes/class-segurium.php:1354
+msgid "How to fix"
+msgstr "Ako to opraviť"
+
+#: includes/class-segurium.php:1355
+msgid "Hide details"
+msgstr "Skryť podrobnosti"
+
+#: includes/class-segurium.php:1356
+msgid "fail"
+msgstr "zlyhanie"
+
+#: includes/class-segurium.php:1357
+msgid "warn"
+msgstr "varovanie"
+
+#: includes/class-segurium.php:1358
+msgid "HTTP Security Headers"
+msgstr "Bezpečnostné hlavičky HTTP"
+
+#: includes/class-segurium.php:1359
+msgid "Information Disclosure"
+msgstr "Zverejnenie informácií"
+
+#: includes/class-segurium.php:1360
+msgid "WordPress Hardening"
+msgstr "Sprísnenie WordPress"
+
+#: includes/class-segurium.php:1361
+msgid "Cookie Security"
+msgstr "Zabezpečenie cookies"
+
+#: includes/class-segurium.php:1362
+msgid "Malware Protection"
+msgstr "Ochrana pred malvérom"
+
+#. translators: 1: pass count, 2: warn count, 3: fail count
+#: includes/class-segurium.php:1364
+#, php-format
+msgid "%1$d pass, %2$d warn, %3$d fail"
+msgstr "V poriadku: %1$d, varovania: %2$d, zlyhania: %3$d"
+
+#. translators: %d: numeric score, always out of 100
+#: includes/class-segurium.php:1366
+#, php-format
+msgid "%1$d/100"
+msgstr "%1$d/100"
+
+#. translators: 1: previous grade letter, 2: previous score, 3: new grade
+#. letter, 4: new score
+#: includes/class-segurium.php:1368
+#, php-format
+msgid "Changed from %1$s (%2$d) to %3$s (%4$d)."
+msgstr "Zmenené z %1$s (%2$d) na %3$s (%4$d)."
+
+#: includes/class-segurium.php:1369
+msgid "No change since last run."
+msgstr "Od posledného spustenia bez zmeny."
+
+#. translators: %s: error message returned by the self-ping
+#: includes/class-segurium.php:1371
+#, php-format
+msgid "Self-check could not reach your site: %s. Results are incomplete."
+msgstr ""
+"Samokontrola sa nedostala na vašu webovú stránku: %s. Výsledky sú neúplné."
+
+#: includes/class-segurium.php:1372
+msgid "Verify with securityheaders.com"
+msgstr "Overiť na securityheaders.com"
+
+#: includes/class-segurium.php:1373
+msgid "Verify with Mozilla Observatory"
+msgstr "Overiť v Mozilla Observatory"
+
+#: includes/class-segurium.php:1675
+msgid "Notify me on malware findings and security threats on this website."
+msgstr ""
+"Upozorňovať ma na nájdený malvér a bezpečnostné hrozby na tejto webovej "
+"stránke."
+
+#: includes/class-segurium.php:1677 includes/class-segurium.php:3282
+msgid "Alert email address"
+msgstr "E-mailová adresa pre upozornenia"
+
+#: includes/class-segurium.php:1685
+msgid "You can change this later under Settings."
+msgstr "Neskôr to môžete zmeniť v Nastaveniach."
+
+#: includes/class-segurium.php:1686 includes/class-segurium.php:3290
+msgid "Leave blank to use the WordPress site admin email."
+msgstr ""
+"Ak chcete použiť e-mail administrátora webovej stránky WordPress, nechajte "
+"pole prázdne."
+
+#: includes/class-segurium.php:1689
+msgid "I agree"
+msgstr "Súhlasím"
+
+#: includes/class-segurium.php:1938
+msgid "Up to date"
+msgstr "Aktuálne"
+
+#: includes/class-segurium.php:1943
+msgid "Stale — last refresh exceeded the daily window"
+msgstr "Zastarané – posledné obnovenie prekročilo denné okno"
+
+#: includes/class-segurium.php:1944
+msgid "Never updated on this site yet"
+msgstr "Na tejto webovej stránke sa ešte neaktualizovalo"
+
+#: includes/class-segurium.php:1999
+msgid "WordPress Security"
+msgstr "Zabezpečenie WordPress"
+
+#: includes/class-segurium.php:2013
+msgid "Malware is waiting for you to act"
+msgstr "Malvér čaká na váš zásah"
+
+#: includes/class-segurium.php:2015
+msgid "Malware Scanner"
+msgstr "Skener malvéru"
+
+#: includes/class-segurium.php:2032
+msgid "Integrity"
+msgstr "Integrita"
+
+#: includes/class-segurium.php:2036
+msgid "GEO Blocking"
+msgstr "Geoblokovanie"
+
+#: includes/class-segurium.php:2044
+msgid "Brute-Force"
+msgstr "Hrubá sila"
+
+#: includes/class-segurium.php:2048
+msgid "2FA"
+msgstr "2FA"
+
+#: includes/class-segurium.php:2052
+msgid "Headers"
+msgstr "Hlavičky"
+
+#: includes/class-segurium.php:2056
+msgid "Info Shield"
+msgstr "Informačný štít"
+
+#: includes/class-segurium.php:2060
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: includes/class-segurium.php:2064
+msgid "Migration"
+msgstr "Migrácia"
+
+#: includes/class-segurium.php:2068 includes/class-segurium.php:2686
+msgid "Support"
+msgstr "Podpora"
+
+#: includes/class-segurium.php:2092 includes/class-segurium.php:2181
+msgid "Scan"
+msgstr "Skenovať"
+
+#: includes/class-segurium.php:2105 includes/class-segurium.php:2189
+msgid "Fix all"
+msgstr "Opraviť všetko"
+
+#: includes/class-segurium.php:2115
+msgid "Malicious"
+msgstr "Škodlivé"
+
+#: includes/class-segurium.php:2119
+msgid "All"
+msgstr "Všetko"
+
+#: includes/class-segurium.php:2139
+msgid "File"
+msgstr "Súbor"
+
+#: includes/class-segurium.php:2140
+msgid "State"
+msgstr "Stav"
+
+#: includes/class-segurium.php:2141
+msgid "Date"
+msgstr "Dátum"
+
+#: includes/class-segurium.php:2142 includes/class-segurium.php:2205
+msgid "Actions"
+msgstr "Akcie"
+
+#: includes/class-segurium.php:2160
+msgid "Show recent only (14 days)"
+msgstr "Zobraziť len nedávne (14 dní)"
+
+#: includes/class-segurium.php:2170 includes/class-segurium.php:2231
+msgid "per page"
+msgstr "na stránku"
+
+#: includes/class-segurium.php:2203
+msgid "Files"
+msgstr "Súbory"
+
+#: includes/class-segurium.php:2204
+msgid "Last Scanned"
+msgstr "Naposledy skenované"
+
+#: includes/class-segurium.php:2263 includes/class-segurium.php:2351
+msgid "Settings applied. Confirm to keep, or changes revert in"
+msgstr ""
+"Nastavenia sa použili. Potvrďte ich zachovanie, inak sa zmeny vrátia o"
+
+#: includes/class-segurium.php:2264 includes/class-segurium.php:2352
+msgid "s."
+msgstr "s."
+
+#: includes/class-segurium.php:2268 includes/class-segurium.php:2356
+msgid "Revert"
+msgstr "Vrátiť"
+
+#: includes/class-segurium.php:2277
+msgid "Enable Geo-Blocking"
+msgstr "Zapnúť geoblokovanie"
+
+#: includes/class-segurium.php:2282
+msgid "Blocking Mode"
+msgstr "Režim blokovania"
+
+#: includes/class-segurium.php:2286
+msgid "Block specific countries"
+msgstr "Blokovať vybrané krajiny"
+
+#: includes/class-segurium.php:2290
+msgid "Allow only specific countries"
+msgstr "Povoliť len vybrané krajiny"
+
+#: includes/class-segurium.php:2297
+msgid "EU"
+msgstr "EÚ"
+
+#: includes/class-segurium.php:2298
+msgid "Americas"
+msgstr "Amerika"
+
+#: includes/class-segurium.php:2299
+msgid "Asia-Pacific"
+msgstr "Ázia a Tichomorie"
+
+#: includes/class-segurium.php:2300
+msgid "Africa"
+msgstr "Afrika"
+
+#: includes/class-segurium.php:2301
+msgid "Middle East"
+msgstr "Blízky východ"
+
+#: includes/class-segurium.php:2302
+msgid "High-Risk"
+msgstr "Vysoké riziko"
+
+#: includes/class-segurium.php:2309
+msgid "Search countries…"
+msgstr "Hľadať krajiny…"
+
+#: includes/class-segurium.php:2315
+msgid "Block Action"
+msgstr "Akcia blokovania"
+
+#: includes/class-segurium.php:2317
+msgid "Return 403 Forbidden"
+msgstr "Vrátiť 403 Forbidden"
+
+#: includes/class-segurium.php:2318
+msgid "Redirect to URL"
+msgstr "Presmerovať na URL adresu"
+
+#: includes/class-segurium.php:2319
+msgid "Silent drop (no response)"
+msgstr "Tiché zahodenie (bez odpovede)"
+
+#: includes/class-segurium.php:2327 includes/class-segurium.php:2397
+#: includes/class-segurium.php:2504 includes/class-segurium.php:2952
+#: includes/class-segurium.php:3103
+msgid "Save"
+msgstr "Uložiť"
+
+#: includes/class-segurium.php:2333
+msgid "Blocked Requests"
+msgstr "Blokované požiadavky"
+
+#: includes/class-segurium.php:2337 includes/class-segurium.php:2612
+msgid "Country"
+msgstr "Krajina"
+
+#: includes/class-segurium.php:2338
+msgid "Requests"
+msgstr "Požiadavky"
+
+#: includes/class-segurium.php:2365
+msgid "Enable Firewall"
+msgstr "Zapnúť firewall"
+
+#: includes/class-segurium.php:2370 includes/class-segurium.php:2910
+msgid "Mode"
+msgstr "Režim"
+
+#: includes/class-segurium.php:2374
+msgid "Allow everything except…"
+msgstr "Povoliť všetko okrem…"
+
+#: includes/class-segurium.php:2378
+msgid "Deny everything except…"
+msgstr "Zakázať všetko okrem…"
+
+#: includes/class-segurium.php:2388
+msgid "Custom Trusted Proxy IPs / CIDRs"
+msgstr "Vlastné IP adresy / CIDR dôveryhodných proxy"
+
+#: includes/class-segurium.php:2390
+msgid "Loading auto-detected proxy status..."
+msgstr "Načítava sa stav automaticky rozpoznaných proxy..."
+
+#: includes/class-segurium.php:2392
+msgid ""
+"Additional proxy IPs beyond the auto-detected list, one per line. Leave "
+"empty if all your proxies are covered above."
+msgstr ""
+"Ďalšie IP adresy proxy mimo automaticky rozpoznaného zoznamu, jedna na "
+"riadok. Ak sú všetky vaše proxy pokryté vyššie, nechajte pole prázdne."
+
+#: includes/class-segurium.php:2411
+msgid ""
+"Tracks failed login attempts and locks out IPs after a configurable "
+"threshold. Reuses the firewall allow-list for trusted IPs."
+msgstr ""
+"Sleduje neúspešné pokusy o prihlásenie a po nastaviteľnom limite IP adresy "
+"uzamkne. Pre dôveryhodné IP adresy používa zoznam povolených z firewallu."
+
+#: includes/class-segurium.php:2415
+msgid "Settings:"
+msgstr "Nastavenia:"
+
+#: includes/class-segurium.php:2418
+msgid "safe defaults; settings are locked."
+msgstr "bezpečné predvolené hodnoty; nastavenia sú uzamknuté."
+
+#: includes/class-segurium.php:2422 includes/class-segurium.php:2753
+msgid "Custom"
+msgstr "Vlastné"
+
+#: includes/class-segurium.php:2422
+msgid "edit every setting yourself."
+msgstr "všetky nastavenia upravíte sami."
+
+#: includes/class-segurium.php:2443
+msgid ""
+"After this many lockouts within the history window, the next lockout will "
+"use the extended duration."
+msgstr ""
+"Po tomto počte uzamknutí v okne histórie sa pri ďalšom uzamknutí použije "
+"predĺžené trvanie."
+
+#: includes/class-segurium.php:2464
+msgid ""
+"Adds an off-screen input that legitimate users never see. Filling it "
+"triggers an immediate lockout."
+msgstr ""
+"Pridá skryté vstupné pole, ktoré skutoční používatelia nikdy neuvidia. Jeho "
+"vyplnenie spustí okamžité uzamknutie."
+
+#: includes/class-segurium.php:2473
+msgid ""
+"Optionally show an hCaptcha challenge on the login form after a configurable"
+" number of failed attempts. Get free keys at hcaptcha.com."
+msgstr ""
+"Voliteľne zobrazí výzvu hCaptcha v prihlasovacom formulári po nastaviteľnom "
+"počte neúspešných pokusov. Bezplatné kľúče získate na hcaptcha.com."
+
+#: includes/class-segurium.php:2499
+msgid ""
+"Must be less than the maximum failed attempts so the challenge fires before "
+"the lockout."
+msgstr ""
+"Musí byť menej ako maximálny počet neúspešných pokusov, aby sa výzva "
+"zobrazila pred uzamknutím."
+
+#: includes/class-segurium.php:2558 includes/class-segurium.php:2571
+msgid "Attempts"
+msgstr "Pokusy"
+
+#: includes/class-segurium.php:2634
+msgid "Enable Two-Factor Authentication"
+msgstr "Zapnúť dvojfaktorové overenie"
+
+#: includes/class-segurium.php:2636
+msgid ""
+"Require users to verify their identity with a second factor during login."
+msgstr ""
+"Vyžadovať od používateľov, aby pri prihlásení overili svoju totožnosť druhým"
+" faktorom."
+
+#: includes/class-segurium.php:2640
+msgid "Available Methods"
+msgstr "Dostupné metódy"
+
+#: includes/class-segurium.php:2641
+msgid "Select which 2FA methods users can choose from."
+msgstr "Vyberte, z ktorých metód 2FA si môžu používatelia vybrať."
+
+#: includes/class-segurium.php:2646
+msgid "Enforced Roles"
+msgstr "Vynútené roly"
+
+#: includes/class-segurium.php:2647
+msgid "Users in these roles will be required to set up 2FA."
+msgstr "Používatelia v týchto rolách budú musieť nastaviť 2FA."
+
+#: includes/class-segurium.php:2651
+msgid "Grace Period (days)"
+msgstr "Prechodné obdobie (dni)"
+
+#: includes/class-segurium.php:2652
+msgid ""
+"Days before enforcement blocks login for users who have not set up 2FA. Set "
+"to 0 to enforce immediately."
+msgstr ""
+"Počet dní, po ktorých vynútenie zablokuje prihlásenie používateľom bez "
+"nastaveného 2FA. Hodnota 0 vynúti 2FA okamžite."
+
+#: includes/class-segurium.php:2656
+msgid "Trusted Device Duration (days)"
+msgstr "Platnosť dôveryhodného zariadenia (dni)"
+
+#: includes/class-segurium.php:2657
+msgid ""
+"How many days a device stays trusted after the user checks the trust option."
+msgstr ""
+"Počet dní, počas ktorých zostane zariadenie dôveryhodné, keď používateľ "
+"zaškrtne možnosť dôvery."
+
+#: includes/class-segurium.php:2662 includes/class-segurium.php:3323
+msgid "Save Settings"
+msgstr "Uložiť nastavenia"
+
+#: includes/class-segurium.php:2667
+msgid "User Statistics"
+msgstr "Štatistiky používateľov"
+
+#: includes/class-segurium.php:2671
+msgid "Method"
+msgstr "Metóda"
+
+#: includes/class-segurium.php:2672
+msgid "Users"
+msgstr "Používatelia"
+
+#: includes/class-segurium.php:2677
+msgid "Reset User 2FA"
+msgstr "Resetovať 2FA používateľa"
+
+#: includes/class-segurium.php:2678
+msgid "Enter a username or user ID to reset their 2FA configuration."
+msgstr ""
+"Zadajte používateľské meno alebo ID používateľa a jeho nastavenie 2FA sa "
+"resetuje."
+
+#: includes/class-segurium.php:2679
+msgid "Username or ID"
+msgstr "Používateľské meno alebo ID"
+
+#: includes/class-segurium.php:2680
+msgid "Reset 2FA"
+msgstr "Resetovať 2FA"
+
+#: includes/class-segurium.php:2687
+msgid "Submit a support ticket below. Our team will respond via email."
+msgstr "Nižšie odošlite žiadosť o podporu. Náš tím vám odpovie e-mailom."
+
+#: includes/class-segurium.php:2690
+msgid "Your name"
+msgstr "Vaše meno"
+
+#: includes/class-segurium.php:2694
+msgid "Reply-to email"
+msgstr "E-mail na odpoveď"
+
+#: includes/class-segurium.php:2696
+msgid ""
+"We will reply to this address. Change it if you want the response to go "
+"elsewhere."
+msgstr "Odpovieme na túto adresu. Ak chcete dostať odpoveď inam, zmeňte ju."
+
+#: includes/class-segurium.php:2699
+msgid "Website"
+msgstr "Webová stránka"
+
+#: includes/class-segurium.php:2701
+msgid ""
+"Included automatically so support can identify your site. Change this under "
+"Settings → General."
+msgstr ""
+"Pridáva sa automaticky, aby podpora vedela identifikovať vašu webovú "
+"stránku. Zmeníte ju v Nastavenia → Všeobecné."
+
+#: includes/class-segurium.php:2704
+msgid "Type"
+msgstr "Typ"
+
+#: includes/class-segurium.php:2706 includes/class-segurium.php:7879
+msgid "Bug report"
+msgstr "Nahlásenie chyby"
+
+#: includes/class-segurium.php:2707 includes/class-segurium.php:7881
+msgid "Feature request"
+msgstr "Návrh funkcie"
+
+#: includes/class-segurium.php:2708 includes/class-segurium.php:7883
+msgid "General question"
+msgstr "Všeobecná otázka"
+
+#: includes/class-segurium.php:2709
+msgid "Report missed malware"
+msgstr "Nahlásiť prehliadnutý malvér"
+
+#: includes/class-segurium.php:2714
+msgid "Suspicious file"
+msgstr "Podozrivý súbor"
+
+#: includes/class-segurium.php:2716
+msgid "Attach the file you believe is malware. Max 100 MB."
+msgstr "Priložte súbor, ktorý považujete za malvér. Max. 100 MB."
+
+#: includes/class-segurium.php:2719
+msgid "Message"
+msgstr "Správa"
+
+#: includes/class-segurium.php:2725
+msgid ""
+"Attach system information (WP version, PHP version, plugin version, active "
+"plugins, last scan date)"
+msgstr ""
+"Priložiť informácie o systéme (verzia WP, verzia PHP, verzia pluginu, "
+"aktívne pluginy, dátum posledného skenovania)"
+
+#: includes/class-segurium.php:2729
+msgid "Submit Ticket"
+msgstr "Odoslať žiadosť"
+
+#: includes/class-segurium.php:2740
+msgid "Enable Security Headers"
+msgstr "Zapnúť bezpečnostné hlavičky"
+
+#: includes/class-segurium.php:2742
+msgid ""
+"Adds HTTP security response headers to all responses. Protects against "
+"clickjacking, MIME sniffing, XSS, and protocol downgrade attacks."
+msgstr ""
+"Pridá bezpečnostné hlavičky HTTP do všetkých odpovedí. Chráni pred "
+"clickjackingom, MIME sniffingom, XSS a útokmi na zníženie protokolu."
+
+#: includes/class-segurium.php:2746
+msgid "Mode:"
+msgstr "Režim:"
+
+#: includes/class-segurium.php:2750
+msgid "Basic"
+msgstr "Základný"
+
+#: includes/class-segurium.php:2750
+msgid "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+msgstr "X-Content-Type, X-Frame-Options, X-XSS-Protection"
+
+#: includes/class-segurium.php:2751
+msgid "Basic + Referrer-Policy, Permissions-Policy, HSTS"
+msgstr "Základný + Referrer-Policy, Permissions-Policy, HSTS"
+
+#: includes/class-segurium.php:2752
+msgid "Recommended + Cross-Origin policies, DNS prefetch, Cache-Control"
+msgstr ""
+"Odporúčaný + zásady Cross-Origin, predbežné načítanie DNS, Cache-Control"
+
+#: includes/class-segurium.php:2753
+msgid "configure each header individually"
+msgstr "nastaviť každú hlavičku zvlášť"
+
+#: includes/class-segurium.php:2764
+msgid ""
+"This mode emits fixed preset values. Switch to Custom to override individual"
+" headers."
+msgstr ""
+"Tento režim posiela pevné prednastavené hodnoty. Ak chcete upraviť "
+"jednotlivé hlavičky, prepnite na Vlastný."
+
+#: includes/class-segurium.php:2767
+msgid "Header Values"
+msgstr "Hodnoty hlavičiek"
+
+#: includes/class-segurium.php:2771 includes/class-segurium.php:2785
+#: includes/class-segurium.php:2842 includes/class-segurium.php:2851
+#: includes/class-segurium.php:2861
+msgid "Same origin"
+msgstr "Rovnaký pôvod"
+
+#: includes/class-segurium.php:2772
+msgid "Deny all"
+msgstr "Zakázať všetko"
+
+#: includes/class-segurium.php:2774
+msgid "Prevents your site from being embedded in iframes on other domains."
+msgstr "Zabráni vloženiu vašej webovej stránky do iframe na iných doménach."
+
+#: includes/class-segurium.php:2781
+msgid "No referrer"
+msgstr "Bez referrera"
+
+#: includes/class-segurium.php:2782
+msgid "No referrer when downgrade"
+msgstr "Bez referrera pri prechode na HTTP"
+
+#: includes/class-segurium.php:2783
+msgid "Origin only"
+msgstr "Len pôvod"
+
+#: includes/class-segurium.php:2784
+msgid "Origin when cross-origin"
+msgstr "Pôvod pri cross-origin"
+
+#: includes/class-segurium.php:2786
+msgid "Strict origin"
+msgstr "Prísny pôvod"
+
+#: includes/class-segurium.php:2787
+msgid "Strict origin when cross-origin"
+msgstr "Prísny pôvod pri cross-origin"
+
+#: includes/class-segurium.php:2788
+msgid "Unsafe URL"
+msgstr "Nebezpečná URL adresa"
+
+#: includes/class-segurium.php:2799 includes/class-segurium.php:2803
+msgid "Disabled (recommended)"
+msgstr "Vypnuté (odporúčané)"
+
+#: includes/class-segurium.php:2800 includes/class-segurium.php:2804
+msgid "Enabled"
+msgstr "Zapnuté"
+
+#: includes/class-segurium.php:2801 includes/class-segurium.php:2805
+msgid "Enabled with block mode"
+msgstr "Zapnuté s režimom blokovania"
+
+#: includes/class-segurium.php:2803
+msgid ""
+"Explicitly turns off the legacy IE/old-Edge XSS filter, which had universal-"
+"XSS bugs that could be weaponised. Modern browsers ignore this header; CSP "
+"is the actual XSS defence."
+msgstr ""
+"Výslovne vypne zastaraný filter XSS v IE a starom Edge, ktorý mal chyby typu"
+" universal-XSS zneužiteľné na útok. Moderné prehliadače túto hlavičku "
+"ignorujú; skutočnou obranou proti XSS je CSP."
+
+#: includes/class-segurium.php:2804
+msgid ""
+"Tells legacy browsers to sanitise reflections. The filter has false "
+"positives that silently break valid pages and known UXSS bypasses. Not "
+"recommended."
+msgstr ""
+"Zastaraným prehliadačom prikáže čistiť odrazy. Filter má falošné poplachy, "
+"ktoré potichu pokazia platné stránky, a známe spôsoby obídenia UXSS. "
+"Neodporúča sa."
+
+#: includes/class-segurium.php:2805
+msgid ""
+"Same filter as above, but blocks the page entirely on suspected reflection. "
+"Same bugs, plus a timing side-channel that can leak cross-origin data. Not "
+"recommended."
+msgstr ""
+"Rovnaký filter ako vyššie, ale pri podozrení na odraz stránku úplne "
+"zablokuje. Rovnaké chyby a navyše časový postranný kanál, cez ktorý môžu "
+"uniknúť údaje z iných pôvodov. Neodporúča sa."
+
+#: includes/class-segurium.php:2807
+msgid "HSTS (Strict-Transport-Security)"
+msgstr "HSTS (Strict-Transport-Security)"
+
+#: includes/class-segurium.php:2811
+msgid "Enable HSTS"
+msgstr "Zapnúť HSTS"
+
+#: includes/class-segurium.php:2813
+msgid "Forces browsers to use HTTPS. Only sent when SSL is active."
+msgstr "Prinúti prehliadače používať HTTPS. Posiela sa len pri aktívnom SSL."
+
+#: includes/class-segurium.php:2817
+msgid "Max-Age (seconds)"
+msgstr "Max-Age (sekundy)"
+
+#: includes/class-segurium.php:2823
+msgid "Include subdomains"
+msgstr "Zahrnúť subdomény"
+
+#: includes/class-segurium.php:2829
+msgid "Preload"
+msgstr "Preload"
+
+#: includes/class-segurium.php:2831
+msgid ""
+"Warning: preload is difficult to undo. Requires max-age at least 1 year and "
+"subdomains included."
+msgstr ""
+"Upozornenie: preload sa ťažko vracia späť. Vyžaduje max-age aspoň 1 rok a "
+"zahrnuté subdomény."
+
+#: includes/class-segurium.php:2835
+msgid ""
+"Your site appears to be on a subdomain. Enabling includeSubDomains in HSTS "
+"will affect all subdomains of the parent domain, including ones you may not "
+"control."
+msgstr ""
+"Vaša webová stránka je zrejme na subdoméne. Zapnutie includeSubDomains v "
+"HSTS ovplyvní všetky subdomény nadradenej domény vrátane tých, ktoré možno "
+"nespravujete."
+
+#: includes/class-segurium.php:2837
+msgid "Cross-Origin Policies"
+msgstr "Zásady Cross-Origin"
+
+#: includes/class-segurium.php:2839
+msgid "Cross-Origin-Opener-Policy"
+msgstr "Cross-Origin-Opener-Policy"
+
+#: includes/class-segurium.php:2841 includes/class-segurium.php:2850
+msgid "Not set"
+msgstr "Nenastavené"
+
+#: includes/class-segurium.php:2843
+msgid "Same origin, allow popups"
+msgstr "Rovnaký pôvod, povoliť vyskakovacie okná"
+
+#: includes/class-segurium.php:2844 includes/class-segurium.php:2862
+msgid "Unsafe none"
+msgstr "Nebezpečné – žiadne"
+
+#: includes/class-segurium.php:2848
+msgid "Cross-Origin-Resource-Policy"
+msgstr "Cross-Origin-Resource-Policy"
+
+#: includes/class-segurium.php:2852
+msgid "Same site"
+msgstr "Rovnaká webová stránka"
+
+#: includes/class-segurium.php:2853
+msgid "Cross origin"
+msgstr "Iný pôvod"
+
+#: includes/class-segurium.php:2857
+msgid "Cross-Origin-Embedder-Policy"
+msgstr "Cross-Origin-Embedder-Policy"
+
+#: includes/class-segurium.php:2859
+msgid "Not set (recommended)"
+msgstr "Nenastavené (odporúčané)"
+
+#: includes/class-segurium.php:2860
+msgid "Require CORP"
+msgstr "Vyžadovať CORP"
+
+#: includes/class-segurium.php:2866
+msgid "Control which browser features your site may use."
+msgstr "Určite, ktoré funkcie prehliadača môže vaša webová stránka používať."
+
+#: includes/class-segurium.php:2870
+msgid "Accelerometer"
+msgstr "Akcelerometer"
+
+#: includes/class-segurium.php:2871
+msgid "Autoplay"
+msgstr "Automatické prehrávanie"
+
+#: includes/class-segurium.php:2872
+msgid "Camera"
+msgstr "Kamera"
+
+#: includes/class-segurium.php:2873
+msgid "Encrypted media"
+msgstr "Šifrované médiá"
+
+#: includes/class-segurium.php:2874
+msgid "Fullscreen"
+msgstr "Celá obrazovka"
+
+#: includes/class-segurium.php:2875
+msgid "Geolocation"
+msgstr "Geolokácia"
+
+#: includes/class-segurium.php:2876
+msgid "Gyroscope"
+msgstr "Gyroskop"
+
+#: includes/class-segurium.php:2877
+msgid "Magnetometer"
+msgstr "Magnetometer"
+
+#: includes/class-segurium.php:2878
+msgid "Microphone"
+msgstr "Mikrofón"
+
+#: includes/class-segurium.php:2879
+msgid "MIDI"
+msgstr "MIDI"
+
+#: includes/class-segurium.php:2880
+msgid "Payment"
+msgstr "Platby"
+
+#: includes/class-segurium.php:2881
+msgid "USB"
+msgstr "USB"
+
+#: includes/class-segurium.php:2891
+msgid "Deny"
+msgstr "Zakázať"
+
+#: includes/class-segurium.php:2892
+msgid "Self only"
+msgstr "Len vlastný pôvod"
+
+#: includes/class-segurium.php:2893
+msgid "Allow all"
+msgstr "Povoliť všetko"
+
+#: includes/class-segurium.php:2904
+msgid "Send Content-Security-Policy header"
+msgstr "Posielať hlavičku Content-Security-Policy"
+
+#: includes/class-segurium.php:2906
+msgid ""
+"CSP restricts where scripts, styles, and other resources may load from, "
+"mitigating XSS and injection. CSP is site-specific and can break themes or "
+"page builders — start in report-only mode to surface violations before "
+"enforcing."
+msgstr ""
+"CSP obmedzuje, odkiaľ sa môžu načítavať skripty, štýly a ďalšie zdroje, a "
+"tým zmierňuje XSS a vkladanie kódu. CSP závisí od konkrétnej webovej stránky"
+" a môže pokaziť témy alebo nástroje na tvorbu stránok – začnite v režime len"
+" hlásenia, aby ste porušenia videli skôr, ako ich začnete vynucovať."
+
+#: includes/class-segurium.php:2912
+msgid "Report-only (recommended for first deploy)"
+msgstr "Len hlásenie (odporúčané pri prvom nasadení)"
+
+#: includes/class-segurium.php:2913
+msgid "Enforce"
+msgstr "Vynucovať"
+
+#: includes/class-segurium.php:2915
+msgid ""
+"Report-only sends Content-Security-Policy-Report-Only — the browser logs "
+"violations but still loads blocked resources. Enforce sends Content-"
+"Security-Policy and blocks them."
+msgstr ""
+"Režim len hlásenia posiela Content-Security-Policy-Report-Only – prehliadač "
+"porušenia zaznamená, ale blokované zdroje aj tak načíta. Vynucovanie posiela"
+" Content-Security-Policy a zdroje zablokuje."
+
+#: includes/class-segurium.php:2918
+msgid "Policy directives"
+msgstr "Direktívy zásad"
+
+#: includes/class-segurium.php:2921
+msgid ""
+"Single line of directives separated by semicolons. The default starter "
+"policy permits Gutenberg and most themes; tighten once your reports are "
+"clean."
+msgstr ""
+"Jeden riadok direktív oddelených bodkočiarkami. Predvolené úvodné zásady "
+"povoľujú Gutenberg a väčšinu tém; sprísnite ich, keď budú hlásenia čisté."
+
+#: includes/class-segurium.php:2922
+msgid "CSP reference (MDN)"
+msgstr "Referenčná príručka CSP (MDN) [EN]"
+
+#: includes/class-segurium.php:2926
+msgid "Report URI (optional)"
+msgstr "URI pre hlásenia (voliteľné)"
+
+#: includes/class-segurium.php:2928
+msgid ""
+"When set, browsers will POST violation reports to this URL. Appended "
+"automatically as report-uri unless your directives already contain one."
+msgstr ""
+"Ak je nastavené, prehliadače budú na túto URL adresu posielať hlásenia o "
+"porušení metódou POST. Automaticky sa pripojí ako report-uri, ak ho vaše "
+"direktívy už neobsahujú."
+
+#: includes/class-segurium.php:2932
+msgid "Cookie Hardening"
+msgstr "Sprísnenie cookies"
+
+#: includes/class-segurium.php:2936
+msgid "Add SameSite attribute to auth cookies"
+msgstr "Pridať atribút SameSite do overovacích cookies"
+
+#: includes/class-segurium.php:2938
+msgid ""
+"Adds SameSite flag to WordPress session cookies. Protects against CSRF "
+"attacks. Mozilla Observatory penalizes missing SameSite."
+msgstr ""
+"Pridá príznak SameSite do cookies relácie WordPress. Chráni pred útokmi "
+"CSRF. Mozilla Observatory chýbajúci SameSite penalizuje."
+
+#: includes/class-segurium.php:2942
+msgid "SameSite value"
+msgstr "Hodnota SameSite"
+
+#: includes/class-segurium.php:2944
+msgid "Lax (recommended)"
+msgstr "Lax (odporúčané)"
+
+#: includes/class-segurium.php:2947
+msgid ""
+"Strict may break OAuth/SSO login flows that redirect back to your site."
+msgstr ""
+"Strict môže pokaziť prihlasovanie cez OAuth/SSO, ktoré presmerúva späť na "
+"vašu webovú stránku."
+
+#: includes/class-segurium.php:2958
+msgid "Headers Preview"
+msgstr "Náhľad hlavičiek"
+
+#: includes/class-segurium.php:2970
+msgid "Enable Information Shield"
+msgstr "Zapnúť Informačný štít"
+
+#: includes/class-segurium.php:2972
+msgid ""
+"Reduces WordPress information disclosure by removing version fingerprints, "
+"discovery endpoints, and unnecessary metadata from HTTP headers and HTML "
+"output."
+msgstr ""
+"Obmedzuje zverejňovanie informácií o WordPress odstránením odtlačkov verzie,"
+" koncových bodov na zisťovanie a zbytočných metadát z hlavičiek HTTP a "
+"výstupu HTML."
+
+#: includes/class-segurium.php:2975
+msgid "Enable All Recommended"
+msgstr "Zapnúť všetky odporúčané"
+
+#: includes/class-segurium.php:2979
+msgid "HTTP Header Disclosure"
+msgstr "Zverejnenie v hlavičkách HTTP"
+
+#: includes/class-segurium.php:2983
+msgid "Remove X-Powered-By header"
+msgstr "Odstrániť hlavičku X-Powered-By"
+
+#: includes/class-segurium.php:2985
+msgid "Removes the header that reveals your PHP version."
+msgstr "Odstráni hlavičku, ktorá prezrádza vašu verziu PHP."
+
+#: includes/class-segurium.php:2991
+msgid "Remove Server header"
+msgstr "Odstrániť hlavičku Server"
+
+#: includes/class-segurium.php:2993
+msgid ""
+"Removes the header that identifies your web server software. Best-effort."
+msgstr ""
+"Odstráni hlavičku, ktorá identifikuje softvér vášho webového servera. Podľa "
+"možností servera."
+
+#: includes/class-segurium.php:2999
+msgid "Remove X-Pingback header"
+msgstr "Odstrániť hlavičku X-Pingback"
+
+#: includes/class-segurium.php:3001
+msgid "Hides the pingback/XML-RPC endpoint URL from response headers."
+msgstr ""
+"Skryje URL adresu koncového bodu pingback/XML-RPC v hlavičkách odpovede."
+
+#: includes/class-segurium.php:3006
+msgid "Remove REST API Link: header"
+msgstr "Odstrániť hlavičku Link: pre REST API"
+
+#: includes/class-segurium.php:3008
+msgid "Removes the HTTP Link header that advertises the REST API endpoint."
+msgstr "Odstráni hlavičku HTTP Link, ktorá ohlasuje koncový bod REST API."
+
+#: includes/class-segurium.php:3013
+msgid "Remove Shortlink Link: header"
+msgstr "Odstrániť hlavičku Link: pre krátky odkaz"
+
+#: includes/class-segurium.php:3015
+msgid "Removes the rel=shortlink HTTP header."
+msgstr "Odstráni hlavičku HTTP rel=shortlink."
+
+#: includes/class-segurium.php:3018
+msgid "HTML Meta and Links"
+msgstr "Meta značky a odkazy v HTML"
+
+#: includes/class-segurium.php:3022
+msgid "Remove WordPress generator tag"
+msgstr "Odstrániť značku generátora WordPress"
+
+#: includes/class-segurium.php:3024
+msgid ""
+"Removes the meta generator tag and RSS generator that reveal your WordPress "
+"version."
+msgstr ""
+"Odstráni meta značku generátora a generátor RSS, ktoré prezrádzajú vašu "
+"verziu WordPress."
+
+#: includes/class-segurium.php:3029
+msgid "Remove RSD link"
+msgstr "Odstrániť odkaz RSD"
+
+#: includes/class-segurium.php:3031
+msgid "Removes the Really Simple Discovery endpoint link from HTML head."
+msgstr ""
+"Odstráni odkaz na koncový bod Really Simple Discovery z hlavičky HTML."
+
+#: includes/class-segurium.php:3036
+msgid "Remove WLW manifest link"
+msgstr "Odstrániť odkaz na manifest WLW"
+
+#: includes/class-segurium.php:3038
+msgid ""
+"Removes the Windows Live Writer manifest link. Only needed if you use WLW to"
+" write posts."
+msgstr ""
+"Odstráni odkaz na manifest Windows Live Writer. Potrebný je len vtedy, ak "
+"píšete články vo WLW."
+
+#: includes/class-segurium.php:3043
+msgid "Remove REST API discovery link"
+msgstr "Odstrániť odkaz na zisťovanie REST API"
+
+#: includes/class-segurium.php:3045
+msgid ""
+"Removes the discovery link tag from HTML head. The REST API itself remains "
+"functional at /wp-json/."
+msgstr ""
+"Odstráni značku odkazu na zisťovanie z hlavičky HTML. Samotné REST API "
+"zostane funkčné na /wp-json/."
+
+#: includes/class-segurium.php:3050
+msgid "Remove oEmbed discovery links"
+msgstr "Odstrániť odkazy na zisťovanie oEmbed"
+
+#: includes/class-segurium.php:3052
+msgid ""
+"Prevents other sites from showing rich embed previews when linking to your "
+"content."
+msgstr ""
+"Zabráni iným webovým stránkam zobrazovať rozšírené náhľady pri odkazovaní na"
+" váš obsah."
+
+#: includes/class-segurium.php:3057
+msgid "Remove shortlink meta tag"
+msgstr "Odstrániť meta značku krátkeho odkazu"
+
+#: includes/class-segurium.php:3059
+msgid "Removes the shortlink link tag from HTML head."
+msgstr "Odstráni značku krátkeho odkazu z hlavičky HTML."
+
+#: includes/class-segurium.php:3064
+msgid "Remove emoji scripts and styles"
+msgstr "Odstrániť skripty a štýly emoji"
+
+#: includes/class-segurium.php:3066
+msgid ""
+"Removes the WordPress emoji polyfill JavaScript and CSS. Modern browsers "
+"have native emoji support."
+msgstr ""
+"Odstráni JavaScript a CSS polyfillu emoji vo WordPress. Moderné prehliadače "
+"podporujú emoji natívne."
+
+#: includes/class-segurium.php:3071
+msgid "Remove RSS/Atom feed links"
+msgstr "Odstrániť odkazy na RSS/Atom"
+
+#: includes/class-segurium.php:3073
+msgid ""
+"May break RSS readers and WordPress.com Reader. Only enable if your site "
+"does not use RSS feeds."
+msgstr ""
+"Môže pokaziť čítačky RSS a WordPress.com Reader. Zapnite, len ak vaša webová"
+" stránka nepoužíva RSS."
+
+#: includes/class-segurium.php:3078
+msgid "Remove adjacent post links"
+msgstr "Odstrániť odkazy na susedné články"
+
+#: includes/class-segurium.php:3080
+msgid "Removes prev/next post rel links from HTML head."
+msgstr ""
+"Odstráni odkazy rel na predchádzajúci a nasledujúci článok z hlavičky HTML."
+
+#: includes/class-segurium.php:3083
+msgid "Asset Fingerprinting"
+msgstr "Odtlačky súborov"
+
+#: includes/class-segurium.php:3087
+msgid "Remove version query strings"
+msgstr "Odstrániť reťazce verzie v dotaze"
+
+#: includes/class-segurium.php:3089
+msgid ""
+"Strips ?ver= from CSS and JavaScript URLs. Browser-cached assets may become "
+"stale after plugin or theme updates."
+msgstr ""
+"Odstráni ?ver= z URL adries CSS a JavaScriptu. Súbory v medzipamäti "
+"prehliadača môžu byť po aktualizácii pluginu alebo témy zastarané."
+
+#: includes/class-segurium.php:3096
+msgid "Disable XML-RPC entirely"
+msgstr "Úplne vypnúť XML-RPC"
+
+#: includes/class-segurium.php:3098
+msgid ""
+"Some plugins (Jetpack, WordPress mobile app) require XML-RPC. Disable only "
+"if you do not use them."
+msgstr ""
+"Niektoré pluginy (Jetpack, mobilná aplikácia WordPress) vyžadujú XML-RPC. "
+"Vypnite ho, len ak ich nepoužívate."
+
+#: includes/class-segurium.php:3110
+msgid "Security Self-Check"
+msgstr "Bezpečnostná samokontrola"
+
+#: includes/class-segurium.php:3112
+msgid ""
+"Segurium runs the same checks as leading external security scanners, plus "
+"WordPress-specific hardening checks, and grades your site A+ to F. Results "
+"are saved until the next run."
+msgstr ""
+"Segurium spúšťa rovnaké kontroly ako popredné externé bezpečnostné skenery, "
+"k tomu kontroly sprísnenia špecifické pre WordPress, a hodnotí vašu webovú "
+"stránku od A+ po F. Výsledky sa uchovajú do ďalšieho spustenia."
+
+#: includes/class-segurium.php:3131
+msgid "Check results"
+msgstr "Výsledky kontroly"
+
+#: includes/class-segurium.php:3133
+msgid "Independent verification"
+msgstr "Nezávislé overenie"
+
+#: includes/class-segurium.php:3135
+msgid "Cross-check results with these public scanners:"
+msgstr "Porovnajte výsledky s týmito verejnými skenermi:"
+
+#: includes/class-segurium.php:3138
+msgid "securityheaders.com"
+msgstr "securityheaders.com"
+
+#: includes/class-segurium.php:3139
+msgid "Mozilla Observatory"
+msgstr "Mozilla Observatory"
+
+#: includes/class-segurium.php:3153
+msgid "Cleanup: 3 files / 30 days"
+msgstr "Čistenie: 3 súbory / 30 dní"
+
+#: includes/class-segurium.php:3154
+msgid "Full malware detection — same findings as Pro"
+msgstr "Úplná detekcia malvéru – rovnaké nálezy ako Pro"
+
+#: includes/class-segurium.php:3155
+msgid "Auto-fix and Bulk Fix All"
+msgstr "Automatická oprava a hromadné Opraviť všetko"
+
+#: includes/class-segurium.php:3156
+msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
+msgstr ""
+"Sprísnenie: 2FA, hrubá sila, geoblokovanie, firewall, bezpečnostné hlavičky"
+
+#: includes/class-segurium.php:3157
+msgid "File-integrity monitoring (core / plugins / themes)"
+msgstr "Sledovanie integrity súborov (jadro / pluginy / témy)"
+
+#: includes/class-segurium.php:3158
+msgid "Migration importer (Wordfence, AIOS, Solid Security)"
+msgstr "Nástroj na migráciu (Wordfence, AIOS, Solid Security)"
+
+#: includes/class-segurium.php:3159
+msgid "Community support"
+msgstr "Komunitná podpora"
+
+#: includes/class-segurium.php:3162
+msgid "Unlimited cleanup"
+msgstr "Neobmedzené čistenie"
+
+#: includes/class-segurium.php:3163
+msgid "Everything in Free"
+msgstr "Všetko z Free"
+
+#: includes/class-segurium.php:3164
+msgid "Email support, priority queue"
+msgstr "Podpora e-mailom, prioritný rad"
+
+#: includes/class-segurium.php:3172
+msgid ""
+"Every feature ships on every install. Pro lifts the monthly cleanup cap."
+msgstr ""
+"Každá funkcia je v každej inštalácii. Pro ruší mesačný limit čistenia."
+
+#: includes/class-segurium.php:3179 includes/class-segurium.php:3204
+msgid "Current plan"
+msgstr "Aktuálny plán"
+
+#: includes/class-segurium.php:3184
+msgid "Every feature, on every site. Cleanups capped at 3 per 30 days."
+msgstr ""
+"Každá funkcia na každej webovej stránke. Čistenie obmedzené na 3 za 30 dní."
+
+#: includes/class-segurium.php:3189
+msgid "forever"
+msgstr "navždy"
+
+#: includes/class-segurium.php:3213
+msgid "Unlimited cleanup. Same features as Free, with no monthly cap."
+msgstr "Neobmedzené čistenie. Rovnaké funkcie ako Free, bez mesačného limitu."
+
+#: includes/class-segurium.php:3218
+msgid "/year per site"
+msgstr "/rok za webovú stránku"
+
+#. translators: 1: opening anchor tag, 2: closing anchor tag
+#: includes/class-segurium.php:3242
+#, php-format
+msgid ""
+"Bundles for 5 and 25 sites, plus 100+ quotes, on "
+"%1$ssegurium.com/pricing/%2$s."
+msgstr ""
+"Balíky pre 5 a 25 webových stránok a ponuky pre 100+ nájdete na "
+"%1$ssegurium.com/pricing/%2$s."
+
+#: includes/class-segurium.php:3260
+msgid "Scan Settings"
+msgstr "Nastavenia skenovania"
+
+#: includes/class-segurium.php:3263
+msgid ""
+"Exclude files from scan that match these wildcard patterns (one per line)"
+msgstr ""
+"Vylúčiť zo skenovania súbory, ktoré zodpovedajú týmto vzorom so zástupnými "
+"znakmi (jeden na riadok)"
+
+#: includes/class-segurium.php:3265
+msgid ""
+"Use * as a wildcard. For example, *.log will exclude all log files. vendor/*"
+" will exclude the vendor directory and everything inside it."
+msgstr ""
+"Ako zástupný znak použite *. Napríklad *.log vylúči všetky súbory "
+"protokolov. vendor/* vylúči adresár vendor a všetko v ňom."
+
+#: includes/class-segurium.php:3273
+msgid ""
+"When enabled, file contents may be shared with Segurium Cloud for advanced "
+"malware detection and cloud-powered cleanup. Only suspicious files are "
+"transmitted. Turn it off for On-premise mode: scans then send SHA-256 "
+"hashes, file paths, and metadata only, and a file the cloud cannot identify "
+"by hash stays unresolved. Reporting a false positive or attaching a file to "
+"a support ticket still sends that file, because you pick it yourself."
+msgstr ""
+"Keď je zapnuté, obsah súborov sa môže zdieľať so Segurium Cloud na pokročilú"
+" detekciu malvéru a čistenie v cloude. Prenášajú sa len podozrivé súbory. "
+"Vypnite ho pre režim On-premise: skenovanie potom posiela len hashe SHA-256,"
+" cesty k súborom a metadáta a súbor, ktorý cloud nedokáže rozpoznať podľa "
+"hashu, zostane nevyriešený. Nahlásenie falošného poplachu alebo priloženie "
+"súboru k žiadosti o podporu daný súbor stále odošle, pretože ho vyberáte "
+"sami."
+
+#: includes/class-segurium.php:3279
+msgid "Email me about findings"
+msgstr "Posielať mi e-mail o nálezoch"
+
+#: includes/class-segurium.php:3281
+msgid ""
+"Send a daily digest of malware verdicts and successful cleanups, delivered "
+"from support@segurium.com. At most one email per site per 24 hours."
+msgstr ""
+"Posiela denný prehľad verdiktov o malvéri a úspešných vyčistení z adresy "
+"support@segurium.com. Najviac jeden e-mail na webovú stránku za 24 hodín."
+
+#: includes/class-segurium.php:3295
+msgid "Wipe encrypted backups when the plugin is uninstalled"
+msgstr "Pri odinštalovaní pluginu vymazať šifrované zálohy"
+
+#: includes/class-segurium.php:3297
+msgid ""
+"Off (default): encrypted backups of deleted components and cured files are "
+"kept in the uploads/segurium-data directory after uninstall, so a reinstall "
+"can still restore them. Turn on only if you want a hard deletion on "
+"uninstall."
+msgstr ""
+"Vypnuté (predvolené): šifrované zálohy odstránených komponentov a "
+"vyliečených súborov zostanú po odinštalovaní v adresári uploads/segurium-"
+"data, takže ich opätovná inštalácia ešte dokáže obnoviť. Zapnite, len ak "
+"chcete pri odinštalovaní všetko natrvalo vymazať."
+
+#: includes/class-segurium.php:3307
+msgid "Automatically clean detected malware"
+msgstr "Automaticky čistiť zistený malvér"
+
+#: includes/class-segurium.php:3309
+msgid ""
+"After every scheduled or real-time scan, files with a known malware or "
+"injection verdict are cleaned without requiring a click. Files you have "
+"ignored (by path or by hash) are skipped."
+msgstr ""
+"Po každom naplánovanom skenovaní alebo skenovaní v reálnom čase sa súbory so"
+" známym verdiktom malvéru alebo vloženého kódu vyčistia bez kliknutia. "
+"Súbory, ktoré ignorujete (podľa cesty alebo hashu), sa preskočia."
+
+#: includes/class-segurium.php:3315
+msgid "Let Segurium Cloud request component updates"
+msgstr "Povoliť Segurium Cloud žiadať o aktualizácie komponentov"
+
+#: includes/class-segurium.php:3318
+msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Vypnuté vo wp-config.php konštantou SEGURIUM_DISABLE_REMOTE_ACTIONS."
+
+#: includes/class-segurium.php:3329
+msgid "Scheduled Scan"
+msgstr "Naplánované skenovanie"
+
+#: includes/class-segurium.php:3331
+msgid ""
+"Run a full malware scan automatically on a recurring schedule. A scheduled "
+"scan does the same work as a manual scan, but does not require you to keep "
+"your browser open. A scheduled tick that fires while a manual scan is "
+"already in progress is skipped, not queued."
+msgstr ""
+"Automaticky spúšťa úplné skenovanie malvéru podľa opakovaného plánu. "
+"Naplánované skenovanie vykoná rovnakú prácu ako ručné, ale nemusíte mať "
+"otvorený prehliadač. Naplánované spustenie počas prebiehajúceho ručného "
+"skenovania sa preskočí, nezaradí sa do frontu."
+
+#: includes/class-segurium.php:3358
+msgid "Save Schedule"
+msgstr "Uložiť plán"
+
+#: includes/class-segurium.php:3366
+msgid ""
+"Import settings from other security plugins into Segurium. Existing Segurium"
+" settings are preserved; imported data is merged."
+msgstr ""
+"Importujte nastavenia z iných bezpečnostných pluginov do Segurium. "
+"Existujúce nastavenia Segurium sa zachovajú; importované údaje sa zlúčia."
+
+#: includes/class-segurium.php:3417
+msgid "Version"
+msgstr "Verzia"
+
+#. translators: brand name of the service, do not translate
+#: includes/class-segurium.php:3422
+msgid "Segurium Cloud"
+msgstr "Segurium Cloud"
+
+#: includes/class-segurium.php:3424
+msgid "Geo DB updated"
+msgstr "Geodatabáza aktualizovaná"
+
+#: includes/class-segurium.php:3431
+msgid "Proxies DB updated"
+msgstr "Databáza proxy aktualizovaná"
+
+#: includes/class-segurium.php:3441
+msgid "IID"
+msgstr "IID"
+
+#: includes/class-segurium.php:3447
+msgid "Copy IID to clipboard"
+msgstr "Skopírovať IID do schránky"
+
+#: includes/class-segurium.php:3451
+msgid "Your IP"
+msgstr "Vaša IP adresa"
+
+#: includes/class-segurium.php:3608 includes/class-segurium.php:3641
+msgid "You do not have permission to manage scan settings."
+msgstr "Nemáte oprávnenie na správu nastavení skenovania."
+
+#: includes/class-segurium.php:3723
+msgid "The scan could not be started due to a server error."
+msgstr "Skenovanie sa pre chybu servera nepodarilo spustiť."
+
+#: includes/class-segurium.php:3812
+msgid "Could not stop the running scan due to a server error."
+msgstr "Prebiehajúce skenovanie sa pre chybu servera nepodarilo zastaviť."
+
+#: includes/class-segurium.php:3860
+msgid "Check the PHP error log for details."
+msgstr "Podrobnosti nájdete v protokole chýb PHP."
+
+#: includes/class-segurium.php:3991
+msgid "No scan results available"
+msgstr "Žiadne výsledky skenovania nie sú dostupné"
+
+#: includes/class-segurium.php:4062 includes/class-segurium.php:6261
+#: includes/class-segurium.php:6265 includes/class-segurium.php:6321
+#: includes/class-segurium.php:6410 includes/class-segurium.php:6983
+#: includes/class-segurium.php:7380
+msgid "Invalid parameters"
+msgstr "Neplatné parametre"
+
+#: includes/class-segurium.php:4072 includes/class-segurium.php:4384
+#: includes/class-segurium.php:5492 includes/class-segurium.php:5540
+#: includes/class-segurium.php:5545 includes/class-segurium.php:6995
+#: includes/class-segurium.php:7324 includes/class-segurium.php:7387
+msgid "Invalid path"
+msgstr "Neplatná cesta"
+
+#: includes/class-segurium.php:4076 includes/class-segurium.php:5549
+#: includes/class-segurium.php:7091 includes/class-segurium.php:7402
+msgid "File not found"
+msgstr "Súbor sa nenašiel"
+
+#: includes/class-segurium.php:4130 includes/class-segurium.php:7194
+msgid "File cleaned"
+msgstr "Súbor bol vyčistený"
+
+#: includes/class-segurium.php:4191 includes/class-segurium.php:4264
+#: includes/class-segurium.php:4349
+msgid "Missing backup ID"
+msgstr "Chýba ID zálohy"
+
+#: includes/class-segurium.php:4202 includes/class-segurium.php:4275
+#: includes/class-segurium.php:4354
+msgid "Backup not found"
+msgstr "Záloha sa nenašla"
+
+#: includes/class-segurium.php:4218 includes/class-segurium.php:4229
+#: includes/class-segurium.php:7453
+msgid "Failed to restore file"
+msgstr "Súbor sa nepodarilo obnoviť"
+
+#: includes/class-segurium.php:4222 includes/class-segurium.php:4285
+msgid "Invalid restore path"
+msgstr "Neplatná cesta obnovenia"
+
+#: includes/class-segurium.php:4244 includes/class-segurium.php:7357
+msgid "File restored from backup"
+msgstr "Súbor bol obnovený zo zálohy"
+
+#: includes/class-segurium.php:4280
+msgid "Backup has no target path"
+msgstr "Záloha nemá cieľovú cestu"
+
+#: includes/class-segurium.php:4302
+msgid "Failed to read target file"
+msgstr "Cieľový súbor sa nepodarilo načítať"
+
+#: includes/class-segurium.php:4392
+msgid "File is not an active malware entry."
+msgstr "Súbor nie je aktívny záznam malvéru."
+
+#: includes/class-segurium.php:4399
+msgid "File is outside the WordPress root."
+msgstr "Súbor je mimo koreňového adresára WordPress."
+
+#: includes/class-segurium.php:4402
+msgid "File not found or not readable."
+msgstr "Súbor sa nenašiel alebo sa nedá čítať."
+
+#: includes/class-segurium.php:4410
+msgid "File is too large to preview."
+msgstr "Súbor je príliš veľký na náhľad."
+
+#: includes/class-segurium.php:4419 includes/class-segurium.php:6337
+msgid "Failed to read file."
+msgstr "Súbor sa nepodarilo načítať."
+
+#: includes/class-segurium.php:4885
+msgid "No integrity scan is currently running."
+msgstr "Momentálne neprebieha žiadna kontrola integrity."
+
+#. translators: %s: underlying exception message
+#: includes/class-segurium.php:5003
+#, php-format
+msgid "Unexpected error: %s"
+msgstr "Neočakávaná chyba: %s"
+
+#: includes/class-segurium.php:5023
+msgid "Unexpected error."
+msgstr "Neočakávaná chyba."
+
+#: includes/class-segurium.php:5051
+msgid "This endpoint has been removed. Please reload the page."
+msgstr "Tento koncový bod bol odstránený. Znova načítajte stránku."
+
+#: includes/class-segurium.php:5179 includes/class-segurium.php:5668
+#: includes/class-segurium.php:5672 includes/class-segurium.php:5699
+#: includes/class-segurium.php:5798 includes/class-segurium.php:5802
+#: includes/class-segurium.php:5815
+msgid "Invalid parameters."
+msgstr "Neplatné parametre."
+
+#: includes/class-segurium.php:5430 includes/class-segurium.php:5457
+#: includes/class-segurium.php:5486 includes/class-segurium.php:5582
+#: includes/class-segurium.php:5625 includes/class-segurium.php:5794
+msgid "Missing parameters."
+msgstr "Chýbajú parametre."
+
+#: includes/class-segurium.php:5512 includes/class-segurium.php:7332
+msgid "Failed to write restored file"
+msgstr "Obnovený súbor sa nepodarilo zapísať"
+
+#: includes/class-segurium.php:5554
+msgid "File too large to view (>2 MB)"
+msgstr "Súbor je príliš veľký na zobrazenie (>2 MB)"
+
+#: includes/class-segurium.php:5692
+msgid ""
+"Cannot delete the currently active theme. Switch to a different theme first."
+msgstr "Aktuálne aktívnu tému nemožno odstrániť. Najprv prepnite na inú tému."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5769
+#, php-format
+msgid "%1$s \"%2$s\" has been deleted. A backup was created."
+msgstr "Odstránené: %1$s „%2$s“. Vytvorila sa záloha."
+
+#. translators: 1: component type, 2: component slug.
+#: includes/class-segurium.php:5874
+#, php-format
+msgid "%1$s \"%2$s\" has been restored from backup."
+msgstr "Obnovené zo zálohy: %1$s „%2$s“."
+
+#: includes/class-segurium.php:5935
+msgid "Cannot delete active theme. Switch first."
+msgstr "Aktívnu tému nemožno odstrániť. Najprv ju prepnite."
+
+#: includes/class-segurium.php:5942
+msgid "Delisted from WordPress.org"
+msgstr "Vyradené z WordPress.org"
+
+#. translators: %s: theme slug.
+#: includes/class-segurium.php:5952
+#, php-format
+msgid "Theme \"%s\" is abandoned but currently active. It will be skipped."
+msgstr "Téma „%s“ je opustená, ale momentálne aktívna. Preskočí sa."
+
+#: includes/class-segurium.php:5958
+msgid "Active abandoned theme — switch manually."
+msgstr "Aktívna opustená téma – prepnite ju ručne."
+
+#: includes/class-segurium.php:5984
+msgid "Not from WordPress.org — integrity cannot be verified."
+msgstr "Nepochádza z WordPress.org – integritu nemožno overiť."
+
+#: includes/class-segurium.php:6007
+msgid "Protected file (exclusion list)."
+msgstr "Chránený súbor (zoznam výnimiek)."
+
+#. translators: %s: file verdict reported by the integrity check.
+#: includes/class-segurium.php:6047
+#, php-format
+msgid "No automatic fix for verdict \"%s\"."
+msgstr "Pre verdikt „%s“ neexistuje automatická oprava."
+
+#. translators: %d: number of files.
+#: includes/class-segurium.php:6059
+#, php-format
+msgid "Component version not recognized. %d file cannot be verified."
+msgid_plural "Component version not recognized. %d files cannot be verified."
+msgstr[0] "Verzia komponentu nebola rozpoznaná. %d súbor nemožno overiť."
+msgstr[1] "Verzia komponentu nebola rozpoznaná. %d súbory nemožno overiť."
+msgstr[2] "Verzia komponentu nebola rozpoznaná. %d súborov nemožno overiť."
+
+#: includes/class-segurium.php:6329
+msgid "File not found on disk."
+msgstr "Súbor sa na disku nenašiel."
+
+#: includes/class-segurium.php:6333
+msgid "File is too large to submit."
+msgstr "Súbor je príliš veľký na odoslanie."
+
+#: includes/class-segurium.php:6340
+msgid "File contents changed since the scan."
+msgstr "Obsah súboru sa od skenovania zmenil."
+
+#: includes/class-segurium.php:6344 includes/class-segurium.php:7973
+msgid "Failed to compress file."
+msgstr "Súbor sa nepodarilo skomprimovať."
+
+#: includes/class-segurium.php:6711 includes/class-segurium.php:6727
+#: includes/class-segurium.php:6762 includes/class-segurium.php:6783
+#: includes/class-segurium.php:6797 includes/class-segurium.php:6823
+#: includes/class-segurium.php:6846 includes/class-segurium.php:6906
+#: includes/class-segurium.php:6938 includes/class-segurium.php:6951
+#: includes/class-segurium.php:7496 includes/class-segurium.php:7518
+#: includes/class-segurium.php:7533 includes/class-segurium.php:7555
+#: includes/class-segurium.php:7571 includes/class-segurium.php:7593
+#: includes/class-segurium.php:7610 includes/class-segurium.php:7626
+#: includes/class-segurium.php:7654 includes/class-segurium.php:7669
+#: includes/class-segurium.php:7687 includes/class-segurium.php:7700
+#: includes/class-segurium.php:7719 includes/class-segurium.php:7732
+#: includes/class-segurium.php:7756 includes/class-segurium.php:8025
+#: includes/class-segurium.php:8044 includes/class-segurium.php:8059
+#: includes/class-segurium.php:8093
+msgid "Unauthorized."
+msgstr "Neautorizované."
+
+#: includes/class-segurium.php:6807 includes/class-segurium.php:6830
+msgid "Pending change not found or already expired."
+msgstr "Čakajúca zmena sa nenašla alebo už vypršala."
+
+#. translators: %s: file path relative to the WordPress root.
+#: includes/class-segurium.php:7026
+#, php-format
+msgid ""
+"Deletion refused: \"%s\" is a protected file. The web server or another "
+"plugin may load it, and removing it can take the whole site down. Delete it "
+"manually if you are certain it is safe."
+msgstr ""
+"Odstránenie odmietnuté: „%s“ je chránený súbor. Môže ho načítavať webový "
+"server alebo iný plugin a jeho odstránenie môže vyradiť celú webovú stránku."
+" Ak ste si istí, že je to bezpečné, odstráňte ho ručne."
+
+#: includes/class-segurium.php:7078
+msgid "Failed to create directory"
+msgstr "Adresár sa nepodarilo vytvoriť"
+
+#: includes/class-segurium.php:7081 includes/class-segurium.php:7233
+msgid "Failed to write file"
+msgstr "Súbor sa nepodarilo zapísať"
+
+#: includes/class-segurium.php:7096 includes/class-segurium.php:7204
+msgid "Failed to read file for backup"
+msgstr "Súbor sa nepodarilo načítať na zálohovanie"
+
+#: includes/class-segurium.php:7219
+msgid "Failed to create backup"
+msgstr "Zálohu sa nepodarilo vytvoriť"
+
+#: includes/class-segurium.php:7242
+msgid "Failed to delete file"
+msgstr "Súbor sa nepodarilo odstrániť"
+
+#: includes/class-segurium.php:7407
+msgid "Failed to read file"
+msgstr "Súbor sa nepodarilo načítať"
+
+#: includes/class-segurium.php:7439
+msgid "Backup is no longer available — it was rotated out by newer backups."
+msgstr "Záloha už nie je dostupná – nahradili ju novšie zálohy."
+
+#: includes/class-segurium.php:7441
+msgid "Backup metadata is missing or unreadable."
+msgstr "Metadáta zálohy chýbajú alebo sa nedajú čítať."
+
+#: includes/class-segurium.php:7443
+msgid ""
+"Backup file is unreadable. Check filesystem permissions on uploads/segurium-"
+"data."
+msgstr ""
+"Súbor zálohy sa nedá čítať. Skontrolujte oprávnenia súborového systému pre "
+"uploads/segurium-data."
+
+#: includes/class-segurium.php:7445
+msgid "Backup file is corrupt — decryption failed."
+msgstr "Súbor zálohy je poškodený – dešifrovanie zlyhalo."
+
+#: includes/class-segurium.php:7447
+msgid "Backup file is corrupt — decompression failed."
+msgstr "Súbor zálohy je poškodený – dekompresia zlyhala."
+
+#: includes/class-segurium.php:7449
+msgid "Backup integrity check failed — content hash does not match metadata."
+msgstr ""
+"Kontrola integrity zálohy zlyhala – hash obsahu nezodpovedá metadátam."
+
+#: includes/class-segurium.php:7451
+msgid "Invalid backup reference."
+msgstr "Neplatný odkaz na zálohu."
+
+#: includes/class-segurium.php:7673
+msgid "Invalid IP address."
+msgstr "Neplatná IP adresa."
+
+#: includes/class-segurium.php:7737 includes/class-segurium.php:7761
+msgid "Plugin not found or no data to migrate."
+msgstr "Plugin sa nenašiel alebo nemá žiadne údaje na migráciu."
+
+#: includes/class-segurium.php:7885
+msgid "Missed malware report"
+msgstr "Nahlásenie prehliadnutého malvéru"
+
+#: includes/class-segurium.php:7887
+msgid "Other request"
+msgstr "Iná žiadosť"
+
+#: includes/class-segurium.php:7916
+msgid "Permission denied."
+msgstr "Prístup zamietnutý."
+
+#: includes/class-segurium.php:7926
+msgid "Message is required."
+msgstr "Správa je povinná."
+
+#: includes/class-segurium.php:7933
+msgid "A valid reply-to email is required."
+msgstr "Vyžaduje sa platný e-mail na odpoveď."
+
+#: includes/class-segurium.php:7951
+msgid "You have submitted too many tickets today. Please try again tomorrow."
+msgstr "Dnes ste odoslali príliš veľa žiadostí. Skúste to znova zajtra."
+
+#: includes/class-segurium.php:7957
+msgid "Failed to upload the file. Try again."
+msgstr "Súbor sa nepodarilo nahrať. Skúste to znova."
+
+#: includes/class-segurium.php:7961
+msgid "File is empty or too large (max 100 MB)."
+msgstr "Súbor je prázdny alebo príliš veľký (max. 100 MB)."
+
+#: includes/class-segurium.php:7965
+msgid "Invalid upload."
+msgstr "Neplatné nahratie."
+
+#: includes/class-segurium.php:7969
+msgid "Failed to read uploaded file."
+msgstr "Nahraný súbor sa nepodarilo načítať."
+
+#: includes/class-segurium.php:8098
+msgid "Please enter a username or user ID."
+msgstr "Zadajte používateľské meno alebo ID používateľa."
+
+#: includes/class-segurium.php:8103
+msgid "User not found."
+msgstr "Používateľ sa nenašiel."
+
+#. translators: %s: username
+#: includes/class-segurium.php:8111
+#, php-format
+msgid "2FA reset for user %s."
+msgstr "2FA používateľa %s bolo resetované."
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid "IP Whitelist"
+msgstr "Zoznam povolených IP adries"
+
+#: includes/migrations/class-segurium-migration-aios.php:55
+msgid ""
+"AIOS IP whitelist (bypass) has no direct equivalent in Segurium's deny-list "
+"firewall mode. Configure manually if needed."
+msgstr ""
+"Zoznam povolených IP adries AIOS (obídenie) nemá v režime firewallu Segurium"
+" so zoznamom zakázaných priamy ekvivalent. V prípade potreby ho nastavte "
+"ručne."
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Brute Force Protection"
+msgstr "Ochrana pred útokmi hrubou silou"
+
+#: includes/migrations/class-segurium-migration-aios.php:56
+#: includes/migrations/class-segurium-migration-solid-security.php:59
+#: includes/migrations/class-segurium-migration-wordfence.php:67
+msgid "Segurium brute force protection (planned)"
+msgstr "Ochrana Segurium pred útokmi hrubou silou (plánované)"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid "Country Blocking"
+msgstr "Blokovanie krajín"
+
+#: includes/migrations/class-segurium-migration-aios.php:57
+msgid ""
+"AIOS country blocking is a paid cloud feature and cannot be imported "
+"locally."
+msgstr ""
+"Blokovanie krajín v AIOS je platená cloudová funkcia a nedá sa importovať "
+"lokálne."
+
+#: includes/migrations/class-segurium-migration-aios.php:144
+#: includes/migrations/class-segurium-migration-aios.php:146
+#: includes/migrations/class-segurium-migration-wordfence.php:201
+#: includes/migrations/class-segurium-migration-wordfence.php:203
+msgid "Blocked IPs"
+msgstr "Blokované IP adresy"
+
+#: includes/migrations/class-segurium-migration-aios.php:144
+msgid "No banned IPs configured in AIOS."
+msgstr "V AIOS nie sú nastavené žiadne zakázané IP adresy."
+
+#: includes/migrations/class-segurium-migration-aios.php:146
+#: includes/migrations/class-segurium-migration-aios.php:159
+#: includes/migrations/class-segurium-migration-solid-security.php:138
+#: includes/migrations/class-segurium-migration-wordfence.php:177
+#: includes/migrations/class-segurium-migration-wordfence.php:203
+msgid "Merge"
+msgstr "Zlúčiť"
+
+#: includes/migrations/class-segurium-migration-aios.php:157
+#: includes/migrations/class-segurium-migration-aios.php:159
+#: includes/migrations/class-segurium-migration-wordfence.php:175
+#: includes/migrations/class-segurium-migration-wordfence.php:177
+msgid "Scan Exclusions"
+msgstr "Výnimky zo skenovania"
+
+#: includes/migrations/class-segurium-migration-aios.php:157
+msgid "No file exclusions configured in AIOS."
+msgstr "V AIOS nie sú nastavené žiadne výnimky súborov."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:60
+msgid "Segurium 2FA (planned)"
+msgstr "Segurium 2FA (plánované)"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:61
+msgid ""
+"Solid Security stores country blocks in the cloud dashboard. Configure "
+"manually in the Geo Blocking tab."
+msgstr ""
+"Solid Security ukladá blokovanie krajín v cloudovej nástenke. Nastavte ho "
+"ručne na karte Geoblokovanie."
+
+#: includes/migrations/class-segurium-migration-solid-security.php:136
+#: includes/migrations/class-segurium-migration-solid-security.php:138
+msgid "Banned IPs"
+msgstr "Zakázané IP adresy"
+
+#: includes/migrations/class-segurium-migration-solid-security.php:136
+msgid "No banned IPs found in Solid Security."
+msgstr "V Solid Security sa nenašli žiadne zakázané IP adresy."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:55
+msgid "Cloud-Managed Settings"
+msgstr "Nastavenia spravované v cloude"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:59
+msgid ""
+"Sucuri Security stores its WAF rules, geo-blocking, and malware scanning "
+"settings in the Sucuri cloud dashboard. These cannot be imported locally."
+msgstr ""
+"Sucuri Security ukladá svoje pravidlá WAF, geoblokovanie a nastavenia "
+"skenovania malvéru v cloudovej nástenke Sucuri. Tie sa nedajú importovať "
+"lokálne."
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "WAF Rules"
+msgstr "Pravidlá WAF"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:61
+#: includes/migrations/class-segurium-migration-wordfence.php:69
+msgid "Segurium WAF rules (planned)"
+msgstr "Pravidlá WAF Segurium (plánované)"
+
+#: includes/migrations/class-segurium-migration-sucuri.php:62
+msgid ""
+"Segurium geo-blocking (available) — configure manually in the Geo Blocking "
+"tab."
+msgstr ""
+"Geoblokovanie Segurium (dostupné) – nastavte ho ručne na karte "
+"Geoblokovanie."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:175
+msgid "No exclusion patterns configured in Wordfence."
+msgstr "Vo Wordfence nie sú nastavené žiadne vzory výnimiek."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:188
+msgid "No country blocks configured in Wordfence."
+msgstr "Vo Wordfence nie je nastavené žiadne blokovanie krajín."
+
+#: includes/migrations/class-segurium-migration-wordfence.php:201
+msgid "No manual IP blocks found in Wordfence."
+msgstr "Vo Wordfence sa nenašli žiadne ručne blokované IP adresy."
+
+#. translators: %d: number of users with 2FA
+#: includes/migrations/class-segurium-migration-wordfence.php:302
+#, php-format
+msgid "Import %d user(s) with TOTP"
+msgstr "Importovať používateľov s TOTP: %d"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:305
+msgid "Import into Segurium 2FA"
+msgstr "Importovať do Segurium 2FA"
+
+#: includes/migrations/class-segurium-migration-wordfence.php:315
+msgid "No Wordfence 2FA data found"
+msgstr "Nenašli sa žiadne údaje 2FA z Wordfence"
+
+#: includes/segurium-admin-menu-shell.php:72
+msgid "Security issues need your attention"
+msgstr "Bezpečnostné problémy vyžadujú vašu pozornosť"
+
+#. translators: %s is the name of the missing form field.
+#: includes/segurium-ajax-envelope.php:109
+#, php-format
+msgid "Missing parameter: %s"
+msgstr "Chýba parameter: %s"
+
+#: includes/storage/class-segurium-storage.php:792
+msgid "Invalid cleanup response from Segurium Cloud."
+msgstr "Neplatná odpoveď na čistenie zo Segurium Cloud."
+
+#: includes/storage/class-segurium-storage.php:804
+msgid "Cleanup unavailable."
+msgstr "Čistenie nie je dostupné."
+
+#: includes/storage/class-segurium-storage.php:812
+msgid "Segurium Cloud returned cleanup content that is not valid base64."
+msgstr "Segurium Cloud vrátil vyčistený obsah, ktorý nie je platný base64."
+
+#: includes/storage/class-segurium-storage.php:825
+msgid "Cleanup response is missing the checksum of the cleaned file."
+msgstr "V odpovedi na čistenie chýba kontrolný súčet vyčisteného súboru."
+
+#: includes/storage/class-segurium-storage.php:829
+msgid "Cleaned file does not match the checksum in the cleanup response."
+msgstr "Vyčistený súbor nezodpovedá kontrolnému súčtu v odpovedi na čistenie."
+
+#: includes/storage/class-segurium-storage.php:1057
+msgid "Invalid response from Segurium Cloud."
+msgstr "Neplatná odpoveď zo Segurium Cloud."
+
+#. translators: %d: numeric error code returned by the service
+#: includes/storage/class-segurium-storage.php:1065
+#, php-format
+msgid "Segurium Cloud returned error %d."
+msgstr "Segurium Cloud vrátil chybu %d."
+
+#: includes/storage/class-segurium-storage.php:1073
+msgid "Segurium Cloud response is missing the file content."
+msgstr "V odpovedi Segurium Cloud chýba obsah súboru."
+
+#: includes/storage/class-segurium-storage.php:1081
+msgid "Segurium Cloud returned file content that is not valid base64."
+msgstr "Segurium Cloud vrátil obsah súboru, ktorý nie je platný base64."
+
+#: includes/storage/class-segurium-storage.php:1088
+msgid "Segurium Cloud response is missing the file checksum."
+msgstr "V odpovedi Segurium Cloud chýba kontrolný súčet súboru."
+
+#: includes/storage/class-segurium-storage.php:1095
+msgid "Downloaded file does not match the checksum in the response."
+msgstr "Stiahnutý súbor nezodpovedá kontrolnému súčtu v odpovedi."
+
+#: segurium.php:49 segurium.php:1289
+msgid "Plugin Activation Error"
+msgstr "Chyba aktivácie pluginu"
+
+#. translators: 1: required PHP version, 2: detected PHP version
+#: segurium.php:1091
+#, php-format
+msgid ""
+"Segurium requires PHP %1$s or higher. This site is running PHP %2$s. Please "
+"ask your host to upgrade PHP, then try activating Segurium again."
+msgstr ""
+"Segurium vyžaduje PHP %1$s alebo novšie. Táto webová stránka beží na PHP "
+"%2$s. Požiadajte poskytovateľa hostingu o aktualizáciu PHP a potom skúste "
+"Segurium aktivovať znova."
+
+#. translators: 1: required WordPress version, 2: detected WordPress version
+#: segurium.php:1099
+#, php-format
+msgid ""
+"Segurium requires WordPress %1$s or higher. This site is running WordPress "
+"%2$s. Please update WordPress, then try activating Segurium again."
+msgstr ""
+"Segurium vyžaduje WordPress %1$s alebo novší. Táto webová stránka beží na "
+"WordPress %2$s. Aktualizujte WordPress a potom skúste Segurium aktivovať "
+"znova."
+
+#: segurium.php:1101
+msgid "unknown"
+msgstr "neznáme"

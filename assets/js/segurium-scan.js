@@ -1746,7 +1746,7 @@
                     ' data-path="' + escAttr(item.path || '') + '"' +
                     ' data-sha256="' + escAttr(item.sha256 || '') + '"' +
                     ' data-verdict="' + (item.verdict || 0) + '">' +
-                    escHtml(i18n.clean || 'Clean') + '</button>' +
+                    escHtml(i18n.cleanAction || 'Clean') + '</button>' +
                     '<div class="segurium-dropdown">' +
                     '<button class="button button-small segurium-dropdown-toggle" type="button">...</button>' +
                     '<div class="segurium-dropdown-menu">' +

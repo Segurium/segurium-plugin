@@ -705,7 +705,7 @@ msgstr "Pemindaian realtime Segurium (tiap %d detik, penimpaan dev)"
 
 #: includes/class-segurium-rest-actions-poke.php:79
 msgid "Remote actions are switched off for this site."
-msgstr "Tindakan jarak jauh dimatikan untuk situs ini."
+msgstr "Tindakan jarak jauh dinonaktifkan untuk situs ini."
 
 #: includes/class-segurium-rest-actions-poke.php:95
 #: includes/class-segurium-rest-actions-poke.php:103
@@ -838,8 +838,8 @@ msgstr ""
 "Cron WordPress dinonaktifkan (DISABLE_WP_CRON) dan penyiapan PHP Anda tidak "
 "punya cara melepas tugas panjang dari permintaan halaman. Pemindaian latar "
 "hanya akan maju selama tab admin Segurium tetap terbuka. Minta penyedia "
-"hosting Anda menyalakan tugas cron sistem sungguhan yang memanggil wp-"
-"cron.php tiap menit, atau berpindah dari mod_php ke PHP-FPM / LiteSpeed."
+"hosting Anda mengaktifkan tugas cron sistem sungguhan yang memanggil "
+"wp-cron.php tiap menit, atau berpindah dari mod_php ke PHP-FPM / LiteSpeed."
 
 #: includes/class-segurium-scan-runner.php:2324
 msgid ""
@@ -1169,9 +1169,9 @@ msgid ""
 "the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted "
 "detection for full accuracy."
 msgstr ""
-"Mode On-premise diaktifkan: konten berkas tetap di server ini, dan berkas apa"
-" pun yang tidak dapat dikenali cloud lewat hash akan menggantung. Nyalakan "
-"deteksi berbantuan cloud untuk akurasi penuh."
+"Mode On-premise diaktifkan: konten berkas tetap di server ini, dan berkas "
+"apa pun yang tidak dapat dikenali cloud lewat hash tidak dapat dipastikan. "
+"Aktifkan deteksi berbantuan cloud untuk akurasi penuh."
 
 #: includes/class-segurium-self-check.php:948
 msgid "Cloud-assisted malware detection is active."
@@ -1342,6 +1342,11 @@ msgid "Malware"
 msgstr "Malware"
 
 #: includes/class-segurium.php:1043
+msgid "Clean"
+msgstr "Bersih"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
 msgid "Clean"
 msgstr "Bersihkan"
 
@@ -3217,7 +3222,7 @@ msgstr "Origin ketat saat lintas origin"
 
 #: includes/class-segurium.php:2770
 msgid "Unsafe URL"
-msgstr "URL tidak aman"
+msgstr "URL Tidak Aman"
 
 #: includes/class-segurium.php:2781 includes/class-segurium.php:2785
 msgid "Disabled (recommended)"
@@ -3237,7 +3242,7 @@ msgid ""
 "XSS bugs that could be weaponised. Modern browsers ignore this header; CSP is"
 " the actual XSS defence."
 msgstr ""
-"Secara tegas mematikan penyaring XSS IE/Edge lama, yang punya bug XSS "
+"Secara tegas menonaktifkan penyaring XSS IE/Edge lama, yang punya bug XSS "
 "universal yang dapat dipersenjatai. Peramban modern mengabaikan header ini; "
 "CSP adalah pertahanan XSS yang sesungguhnya."
 
@@ -3781,7 +3786,7 @@ msgstr "Bantuan e-mail, antrean prioritas"
 msgid ""
 "Every feature ships on every install. Pro lifts the monthly cleanup cap."
 msgstr ""
-"Tiap fitur dikirim pada tiap instalasi. Pro menaikkan batas pembersihan "
+"Tiap fitur disertakan pada tiap instalasi. Pro menaikkan batas pembersihan "
 "bulanan."
 
 #: includes/class-segurium.php:3161 includes/class-segurium.php:3186
@@ -3848,11 +3853,11 @@ msgid ""
 msgstr ""
 "Ketika diaktifkan, konten berkas dapat dibagikan dengan Segurium Cloud untuk "
 "deteksi malware lanjutan dan pembersihan bertenaga cloud. Hanya berkas "
-"mencurigakan yang dikirim. Matikan untuk mode On-premise: pemindaian lalu "
-"hanya mengirim hash SHA-256, jalur berkas, dan metadata, dan berkas yang "
-"tidak dapat dikenali cloud lewat hash tetap menggantung. Melaporkan positif "
-"palsu atau melampirkan berkas ke tiket bantuan tetap mengirim berkas itu, "
-"karena Anda sendiri yang memilihnya."
+"mencurigakan yang dikirim. Nonaktifkan untuk mode On-premise: pemindaian "
+"lalu hanya mengirim hash SHA-256, jalur berkas, dan metadata, dan berkas "
+"yang tidak dapat dikenali cloud lewat hash tetap tidak dapat dipastikan. "
+"Melaporkan positif palsu atau melampirkan berkas ke tiket bantuan tetap "
+"mengirim berkas itu, karena Anda sendiri yang memilihnya."
 
 #: includes/class-segurium.php:3261
 msgid "Email me about findings"
@@ -3878,10 +3883,10 @@ msgid ""
 "can still restore them. Turn on only if you want a hard deletion on "
 "uninstall."
 msgstr ""
-"Mati (standar): cadangan terenkripsi berisi komponen yang dihapus dan berkas "
-"yang disembuhkan tetap disimpan di direktori uploads/segurium-data setelah "
-"uninstal, sehingga pemasangan ulang masih dapat memulihkannya. Nyalakan hanya"
-" bila Anda menginginkan penghapusan permanen saat uninstal."
+"Nonaktif (standar): cadangan terenkripsi berisi komponen yang dihapus dan "
+"berkas yang disembuhkan tetap disimpan di direktori uploads/segurium-data "
+"setelah uninstal, sehingga pemasangan ulang masih dapat memulihkannya. "
+"Aktifkan hanya bila Anda menginginkan penghapusan permanen saat uninstal."
 
 #: includes/class-segurium.php:3289
 msgid "Automatically clean detected malware"
@@ -3911,16 +3916,17 @@ msgid ""
 " Turn this off and the site stops asking for and accepting these requests."
 msgstr ""
 "Segurium Cloud dapat meminta situs ini memperbarui plugin, tema, atau "
-"WordPress itu sendiri. Ia hanya dapat menyebut komponen yang sudah Anda "
-"pasang, dan hanya ketika WordPress.org sudah menawarkan pembaruan itu; "
-"pembaruan diunduh oleh WordPress dari WordPress.org, tidak pernah dari "
+"WordPress itu sendiri. Segurium Cloud hanya dapat menyebut komponen yang "
+"sudah Anda pasang, dan hanya ketika WordPress.org sudah menawarkan pembaruan "
+"itu; pembaruan diunduh oleh WordPress dari WordPress.org, tidak pernah dari "
 "Segurium. Core WordPress dibatasi pada rilis keamanan dan pemeliharaan. "
-"Segurium tidak pernah memperbarui dirinya sendiri lewat cara ini. Matikan ini"
-" dan situs berhenti meminta serta menerima permintaan tersebut."
+"Segurium tidak pernah memperbarui dirinya sendiri lewat cara ini. "
+"Nonaktifkan ini dan situs berhenti meminta serta menerima permintaan "
+"tersebut."
 
 #: includes/class-segurium.php:3301
 msgid "Switched off in wp-config.php by SEGURIUM_DISABLE_REMOTE_ACTIONS."
-msgstr "Dimatikan di wp-config.php oleh SEGURIUM_DISABLE_REMOTE_ACTIONS."
+msgstr "Dinonaktifkan di wp-config.php oleh SEGURIUM_DISABLE_REMOTE_ACTIONS."
 
 #: includes/class-segurium.php:3305
 msgid "Recent cloud requests"

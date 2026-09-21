@@ -1129,6 +1129,11 @@ msgstr "멀웨어"
 msgid "Clean"
 msgstr "정상"
 
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
+msgid "Clean"
+msgstr "정리"
+
 #: includes/class-segurium.php:804 includes/class-segurium.php:1463
 msgid "Cleaned"
 msgstr "정리됨"

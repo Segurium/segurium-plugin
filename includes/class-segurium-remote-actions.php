@@ -3,10 +3,10 @@
  * CTI → plugin action channel.
  *
  * CTI addresses a site by IID and hands it a short, closed-grammar
- * instruction. Four exist: "update this component", named by type +
+ * instruction. Five exist: "update this component", named by type +
  * slug; "scan again", which names nothing at all; "upload this file",
- * naming one site-relative path; and "stop this scan", naming one
- * running scan by id.
+ * naming one site-relative path; "stop this scan", naming one running
+ * scan by id; and "undo this cleanup", naming one malware backup by id.
  *
  * The design assumes CTI is fully compromised. An attacker who owns CTI
  * holds the Ed25519 signing seed and can write any row into the message
@@ -86,6 +86,9 @@ class Segurium_Remote_Actions {
 	const TYPE_START_SCAN       = 'start_scan';
 	const TYPE_UPLOAD_FILE      = 'upload_file';
 	const TYPE_STOP_SCAN        = 'stop_scan';
+	const TYPE_RESTORE_FILE     = 'restore_file';
+
+	const ACTOR = 'remote';
 
 	/**
 	 * `scan_history.scan_type` written by a start_scan action. The scan
@@ -127,6 +130,17 @@ class Segurium_Remote_Actions {
 	const REFUSE_UPLOAD_FAILED      = 'upload_failed';
 	const REFUSE_BAD_SCAN_ID        = 'bad_scan_id';
 	const REFUSE_SCAN_NOT_RUNNING   = 'scan_not_running';
+
+	const REFUSE_BAD_BACKUP_ID       = 'bad_backup_id';
+	const REFUSE_BACKUP_NOT_FOUND    = 'backup_not_found';
+	const REFUSE_BACKUP_TOO_OLD      = 'backup_too_old';
+	const REFUSE_SUPERSEDED          = 'superseded';
+	const REFUSE_ALREADY_RESTORED    = 'already_restored';
+	const REFUSE_NO_CLEAN_HASH       = 'no_clean_hash';
+	const REFUSE_FILE_CHANGED        = 'file_changed';
+	const REFUSE_STILL_FLAGGED       = 'still_flagged';
+	const REFUSE_VERDICT_UNAVAILABLE = 'verdict_unavailable';
+	const REFUSE_RESTORE_FAILED      = 'restore_failed';
 
 	/**
 	 * Longest site-relative path the channel will carry. Mirrors CTI's
@@ -549,9 +563,148 @@ class Segurium_Remote_Actions {
 				return self::evaluate_upload_file( $action );
 			case self::TYPE_STOP_SCAN:
 				return self::evaluate_stop_scan( $action );
+			case self::TYPE_RESTORE_FILE:
+				return self::evaluate_restore_file( $action );
 			default:
 				return self::REFUSE_BAD_TYPE;
 		}
+	}
+
+	/**
+	 * Decide whether a restore_file action may run.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function evaluate_restore_file( array $action ): string {
+		$backup   = array();
+		$resolved = '';
+		$verdict  = self::check_restore_target( $action, $backup, $resolved );
+		if ( self::OK !== $verdict ) {
+			return $verdict;
+		}
+
+		if ( self::executed_in_last_hour() >= self::MAX_PER_HOUR ) {
+			return self::REFUSE_RATE_CAPPED;
+		}
+
+		return self::OK;
+	}
+
+	/**
+	 * Every local check a restore has to pass. Only the newest backup of a
+	 * path qualifies: two malware cleanups of one path both leave an empty file.
+	 *
+	 * @param array<string, mixed> $action   One entry from `actions[]`.
+	 * @param array<string, mixed> $backup   Set to the backup's sidecar on success.
+	 * @param string               $resolved Set to the absolute resolved target on success.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function check_restore_target( array $action, array &$backup, string &$resolved ): string {
+		$backup    = array();
+		$resolved  = '';
+		$backup_id = self::restore_file_target( $action );
+		if ( '' === $backup_id ) {
+			return self::REFUSE_BAD_BACKUP_ID;
+		}
+
+		$meta  = null;
+		$newer = array();
+		foreach ( Segurium_Storage::backup_list( Segurium_Backup::BUCKET ) as $entry ) {
+			if ( ( $entry['backup_id'] ?? '' ) === $backup_id ) {
+				$meta = $entry;
+				break;
+			}
+			$newer[] = self::canonical_path( self::backup_target( $entry ) );
+		}
+		if ( null === $meta ) {
+			return self::REFUSE_BACKUP_NOT_FOUND;
+		}
+
+		if ( (int) ( $meta['created_at'] ?? 0 ) + Segurium_Backup::TTL < time() ) {
+			return self::REFUSE_BACKUP_TOO_OLD;
+		}
+
+		$target = self::backup_target( $meta );
+		if ( '' === $target ) {
+			return self::REFUSE_BAD_PATH;
+		}
+		if ( in_array( self::canonical_path( $target ), $newer, true ) ) {
+			return self::REFUSE_SUPERSEDED;
+		}
+
+		$found = realpath( $target );
+		if ( false === $found || ! is_file( $found ) ) {
+			return self::REFUSE_FILE_CHANGED;
+		}
+		if ( ! self::inside_abspath( $found ) ) {
+			return self::REFUSE_PATH_DENIED;
+		}
+
+		$current = Segurium_Fs::hash_file( 'sha256', $found );
+		if ( false === $current ) {
+			return self::REFUSE_UNREADABLE;
+		}
+
+		$original = (string) ( $meta['sha256_plain'] ?? '' );
+		if ( '' !== $original && hash_equals( $original, $current ) ) {
+			return self::REFUSE_ALREADY_RESTORED;
+		}
+
+		$clean = (string) ( $meta['sha256_clean'] ?? '' );
+		if ( '' === $clean ) {
+			return self::REFUSE_NO_CLEAN_HASH;
+		}
+		if ( ! hash_equals( $clean, $current ) ) {
+			return self::REFUSE_FILE_CHANGED;
+		}
+
+		$backup   = $meta;
+		$resolved = $found;
+		return self::OK;
+	}
+
+	/**
+	 * The path a malware backup writes back to.
+	 *
+	 * @param array<string, mixed> $meta Backup sidecar.
+	 * @return string
+	 */
+	private static function backup_target( array $meta ): string {
+		if ( isset( $meta['original_path'] ) && '' !== (string) $meta['original_path'] ) {
+			return (string) $meta['original_path'];
+		}
+		return (string) ( $meta['ref'] ?? '' );
+	}
+
+	/**
+	 * The resolved form of a path when it exists, so two spellings of one file compare equal.
+	 *
+	 * @param string $path Absolute path.
+	 * @return string
+	 */
+	private static function canonical_path( string $path ): string {
+		$real = '' === $path ? false : realpath( $path );
+		return false === $real ? $path : $real;
+	}
+
+	/**
+	 * The backup a restore_file action names, or '' when it names nothing valid.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string
+	 */
+	private static function restore_file_target( array $action ): string {
+		$raw = isset( $action['args'] ) && is_array( $action['args'] ) ? $action['args'] : array();
+		if ( 1 !== count( $raw ) ) {
+			return '';
+		}
+
+		$args = self::action_args( $action );
+		if ( ! isset( $args['backup_id'] ) ) {
+			return '';
+		}
+		return 1 === preg_match( '/\A[0-9]{1,20}-[0-9a-f]{8}\z/', $args['backup_id'] ) ? $args['backup_id'] : '';
 	}
 
 	/**
@@ -904,8 +1057,88 @@ class Segurium_Remote_Actions {
 		if ( self::TYPE_STOP_SCAN === $type ) {
 			return self::execute_stop_scan( $action );
 		}
+		if ( self::TYPE_RESTORE_FILE === $type ) {
+			return self::execute_restore_file( $action );
+		}
 
 		return self::execute_update_component( $action );
+	}
+
+	/**
+	 * Refuse bytes the cloud still flags, then restore through the admin Restore path.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function execute_restore_file( array $action ): string {
+		$backup   = array();
+		$resolved = '';
+		$verdict  = self::check_restore_target( $action, $backup, $resolved );
+		if ( self::OK !== $verdict ) {
+			return $verdict;
+		}
+
+		self::note_execution();
+
+		$flagged = self::verdict_refusal( $backup, self::relative_to_abspath( $resolved ) );
+		if ( self::OK !== $flagged ) {
+			return $flagged;
+		}
+
+		$verdict = self::check_restore_target( $action, $backup, $resolved );
+		if ( self::OK !== $verdict ) {
+			return $verdict;
+		}
+
+		$restored = Segurium::get_instance()->restore_malware_backup(
+			(string) $backup['backup_id'],
+			self::ACTOR,
+			self::action_string( $action, 'id' )
+		);
+		if ( is_wp_error( $restored ) ) {
+			$code = (string) $restored->get_error_code();
+			Segurium_Debug::log( '[segurium] remote action restore failed: ' . $code );
+			return 'invalid_restore_path' === $code ? self::REFUSE_PATH_DENIED : self::REFUSE_RESTORE_FAILED;
+		}
+
+		return self::OK;
+	}
+
+	/**
+	 * The cloud's verdict on a backup's original bytes, as a refusal code or OK.
+	 *
+	 * @param array<string, mixed> $backup   Backup sidecar.
+	 * @param string               $relative Site-relative path of the target.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function verdict_refusal( array $backup, string $relative ): string {
+		$sha256  = (string) ( $backup['sha256_plain'] ?? '' );
+		$results = Segurium_Storage::cti_inspect_hashes(
+			array(
+				array(
+					'path'   => $relative,
+					'sha256' => $sha256,
+					'size'   => (int) ( $backup['orig_size'] ?? 0 ),
+					'mtime'  => 0,
+				),
+			)
+		);
+		if ( is_wp_error( $results ) ) {
+			Segurium_Debug::log( '[segurium] remote action restore verdict lookup failed: ' . $results->get_error_code() );
+			return self::REFUSE_VERDICT_UNAVAILABLE;
+		}
+
+		foreach ( (array) $results as $row ) {
+			if ( ! is_array( $row ) || ! isset( $row['sha256'], $row['verdict'] ) || $sha256 !== (string) $row['sha256'] ) {
+				continue;
+			}
+			return in_array( (int) $row['verdict'], Segurium_Cleanup::cleanable_verdicts(), true )
+				? self::REFUSE_STILL_FLAGGED
+				: self::OK;
+		}
+
+		Segurium_Debug::log( '[segurium] remote action restore verdict lookup returned no row for ' . $sha256 );
+		return self::REFUSE_VERDICT_UNAVAILABLE;
 	}
 
 	/**
@@ -1531,7 +1764,8 @@ class Segurium_Remote_Actions {
 	 * refused everywhere for one reason.
 	 *
 	 * `target` is one field whatever the action named: a slug for an
-	 * update, a site-relative path for an upload, a scan id for a stop.
+	 * update, a site-relative path for an upload, a scan id for a stop, a
+	 * backup id for a restore.
 	 *
 	 * @param array<string, mixed> $action One entry from `actions[]`.
 	 * @param string               $code   Outcome code.
@@ -1550,6 +1784,10 @@ class Segurium_Remote_Actions {
 			case self::TYPE_STOP_SCAN:
 				$args   = self::action_args( $action );
 				$target = isset( $args['scan_id'] ) ? $args['scan_id'] : '';
+				break;
+			case self::TYPE_RESTORE_FILE:
+				$args   = self::action_args( $action );
+				$target = isset( $args['backup_id'] ) ? $args['backup_id'] : '';
 				break;
 			default:
 				$target = self::action_string( $action, 'slug' );

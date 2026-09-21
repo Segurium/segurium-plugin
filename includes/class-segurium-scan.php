@@ -531,9 +531,8 @@ class Segurium_Scan {
 	/**
 	 * Build the shared payload emitted alongside every terminal
 	 * scan_history transition (scan_aborted / scan_cancelled). The
-	 * scan_completed emitter intentionally hand-rolls a narrower payload
-	 * (only the legacy fields plus duration_seconds) instead of reusing this
-	 * helper, since CTI consumers depend on the historic field set.
+	 * scan_completed emitter builds its own payload and shares only the
+	 * deep-scan report.
 	 *
 	 * @param string $reason_code REASON_* constant for `error_code`.
 	 * @param array  $extra       Per-message_type additions (e.g. cancelled_by).
@@ -541,6 +540,7 @@ class Segurium_Scan {
 	 */
 	private function terminal_message_payload( $reason_code, array $extra = array() ) {
 		$scan_id   = (string) $this->state['scan_id'];
+		$stats     = array();
 		$verdicted = 0;
 		$failed    = 0;
 		$threats   = 0;
@@ -551,6 +551,7 @@ class Segurium_Scan {
 				$failed    = isset( $stats['failed'] ) ? (int) $stats['failed'] : 0;
 				$threats   = isset( $stats['threats'] ) ? (int) $stats['threats'] : 0;
 			} catch ( Throwable $e ) {
+				$stats     = array();
 				$verdicted = 0;
 				$failed    = 0;
 				$threats   = 0;
@@ -569,8 +570,26 @@ class Segurium_Scan {
 				'threats_found'    => $threats,
 				'duration_seconds' => $duration,
 			),
+			self::deep_scan_report( $stats ),
 			$extra
 		);
+	}
+
+	/**
+	 * Deep-scan skip reasons and worker deaths for the terminal message.
+	 *
+	 * @param array $stats Verdict-queue stats for this scan.
+	 * @return array
+	 */
+	private static function deep_scan_report( array $stats ) {
+		$report = array(
+			'skip_reasons'  => isset( $stats['skip_reasons'] ) ? $stats['skip_reasons'] : array(),
+			'worker_deaths' => isset( $stats['worker_deaths'] ) ? (int) $stats['worker_deaths'] : 0,
+		);
+		if ( ! empty( $stats['last_worker_death'] ) ) {
+			$report['last_worker_death'] = $stats['last_worker_death'];
+		}
+		return $report;
 	}
 
 	/**
@@ -1167,14 +1186,17 @@ class Segurium_Scan {
 		Segurium_Storage::cti_send_message(
 			'scan_completed',
 			wp_json_encode(
-				array(
-					'scan_id'          => $scan_id,
-					'files_found'      => (int) $this->state['files_found'],
-					'files_verdicted'  => (int) $stats['verdicted'],
-					'files_failed'     => $files_failed,
-					'files_skipped'    => $files_skipped,
-					'threats_found'    => (int) $stats['threats'],
-					'duration_seconds' => $duration,
+				array_merge(
+					array(
+						'scan_id'          => $scan_id,
+						'files_found'      => (int) $this->state['files_found'],
+						'files_verdicted'  => (int) $stats['verdicted'],
+						'files_failed'     => $files_failed,
+						'files_skipped'    => $files_skipped,
+						'threats_found'    => (int) $stats['threats'],
+						'duration_seconds' => $duration,
+					),
+					self::deep_scan_report( $stats )
 				)
 			)
 		);

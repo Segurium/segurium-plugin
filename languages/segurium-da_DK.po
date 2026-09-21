@@ -437,7 +437,7 @@ msgstr "Sikkerhedskopien kunne ikke gøres klar til udpakning."
 #: includes/class-segurium-component-backup.php:193
 #: includes/class-segurium.php:5064
 msgid "Restore target directory is not writable."
-msgstr "Målmappen for gendannelsen kan ikke skrives til."
+msgstr "Destinationsmappen for gendannelsen kan ikke skrives til."
 
 #. translators: %s: underlying error message.
 #: includes/class-segurium-component-backup.php:209
@@ -1297,6 +1297,11 @@ msgid "Malware"
 msgstr "Malware"
 
 #: includes/class-segurium.php:1017
+msgid "Clean"
+msgstr "Ren"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
 msgid "Clean"
 msgstr "Rens"
 
@@ -3707,7 +3712,7 @@ msgstr "Fuld opdagelse af malware – samme fund som i Pro"
 
 #: includes/class-segurium.php:2956
 msgid "Auto-fix and Bulk Fix All"
-msgstr "Automatisk rettelse og Ret alt i én omgang"
+msgstr "Automatisk rettelse og masserettelse med Ret alt"
 
 #: includes/class-segurium.php:2957
 msgid "Hardening: 2FA, brute-force, geo-blocking, firewall, security headers"
@@ -4034,11 +4039,11 @@ msgstr "Filen er gendannet fra sikkerhedskopien"
 
 #: includes/class-segurium.php:4065
 msgid "Backup has no target path"
-msgstr "Sikkerhedskopien har ingen målsti"
+msgstr "Sikkerhedskopien har ingen destinationssti"
 
 #: includes/class-segurium.php:4087
 msgid "Failed to read target file"
-msgstr "Målfilen kunne ikke læses"
+msgstr "Destinationsfilen kunne ikke læses"
 
 #: includes/class-segurium.php:4177
 msgid "File is not an active malware entry."
@@ -4687,8 +4692,8 @@ msgid ""
 "Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
 "Antivirus Scanner, Vulnerability Alerts"
 msgstr ""
-"Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, "
-"Antivirus Scanner, Vulnerability Alerts"
+"Segurium – Gratis fjernelse af malware og automatisk rensning af hackede "
+"websteder, antivirusscanner, sårbarhedsvarsler"
 
 msgid ""
 "Website hacked? Free malware removal and auto cleanup on every site you run,"

@@ -1060,6 +1060,7 @@ class Segurium {
 					'i18n'           => array(
 						'malware'                 => __( 'Malware', 'segurium' ),
 						'clean'                   => __( 'Clean', 'segurium' ),
+						'cleanAction'             => _x( 'Clean', 'verb: button that cleans a malicious file', 'segurium' ),
 						'cleaned'                 => __( 'Cleaned', 'segurium' ),
 						'restored'                => __( 'Restored', 'segurium' ),
 						'failed'                  => __( 'Failed', 'segurium' ),
@@ -4191,6 +4192,24 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Missing backup ID', 'segurium' ) ) );
 		}
 
+		$result = $this->restore_malware_backup( $backup_id );
+		if ( is_wp_error( $result ) ) {
+			$this->send_restore_error( $result );
+		}
+
+		segurium_send_json_success( array( 'message' => __( 'File restored from backup', 'segurium' ) ) );
+	}
+
+	/**
+	 * Write a `malware` bucket backup back to its recorded path and reopen
+	 * the file's state, as the cleaned row's Restore action does.
+	 *
+	 * @param string $backup_id Backup identifier.
+	 * @param string $actor     `actor` on the file_restored message.
+	 * @param string $action_id Remote action this restore answers, if any.
+	 * @return string|WP_Error Absolute path written, or the refusal.
+	 */
+	public function restore_malware_backup( $backup_id, $actor = Segurium_Cleanup::ACTOR_MANUAL, $action_id = '' ) {
 		$backup_entry = null;
 		foreach ( Segurium_Storage::backup_list( 'malware' ) as $meta ) {
 			if ( ( $meta['backup_id'] ?? '' ) === $backup_id ) {
@@ -4199,49 +4218,76 @@ class Segurium {
 			}
 		}
 		if ( null === $backup_entry ) {
-			segurium_send_json_error( array( 'message' => __( 'Backup not found', 'segurium' ) ) );
+			return new WP_Error( 'backup_not_found', __( 'Backup not found', 'segurium' ) );
 		}
 
 		$restore = Segurium_Storage::backup_restore_detailed( 'malware', $backup_id );
 		if ( null === $restore['content'] ) {
-			segurium_send_json_error(
-				array(
-					'message' => $this->backup_restore_failure_message( $restore['reason'] ),
-					'reason'  => $restore['reason'],
-				)
-			);
+			return $this->backup_restore_error( $restore['reason'] );
 		}
 		$content = $restore['content'];
 
 		$target = isset( $backup_entry['original_path'] ) ? (string) $backup_entry['original_path'] : (string) ( $backup_entry['ref'] ?? '' );
 		if ( '' === $target ) {
-			segurium_send_json_error( array( 'message' => __( 'Failed to restore file', 'segurium' ) ) );
+			return new WP_Error( 'restore_target_missing', __( 'Failed to restore file', 'segurium' ) );
 		}
 		$safe_target = $this->resolve_abs_within_wp_root( $this->strip_abspath( $target ), 'write' );
 		if ( null === $safe_target ) {
-			segurium_send_json_error( array( 'message' => __( 'Invalid restore path', 'segurium' ) ), 403 );
+			return new WP_Error( 'invalid_restore_path', __( 'Invalid restore path', 'segurium' ), array( 'status' => 403 ) );
 		}
 		$dir = dirname( $safe_target );
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );
 		}
 		if ( ! $this->write_in_place( $safe_target, $content ) ) {
-			segurium_send_json_error( array( 'message' => __( 'Failed to restore file', 'segurium' ) ) );
+			return new WP_Error( 'restore_write_failed', __( 'Failed to restore file', 'segurium' ) );
 		}
 
 		$rel_path = $this->strip_abspath( $safe_target );
 		Segurium_File_State::mark_restored( (string) $rel_path, time() );
 
-		Segurium_Storage::cti_send_message(
-			'file_restored',
-			wp_json_encode(
-				array(
-					'backup_id' => $backup_id,
-				)
-			)
+		$restored = array(
+			'backup_id' => $backup_id,
+			'sha256'    => hash( 'sha256', $content ),
+			'path'      => (string) $rel_path,
+			'actor'     => (string) $actor,
 		);
+		if ( '' !== (string) $action_id ) {
+			$restored['action_id'] = (string) $action_id;
+		}
+		Segurium_Storage::cti_send_message( 'file_restored', wp_json_encode( $restored ) );
 
-		segurium_send_json_success( array( 'message' => __( 'File restored from backup', 'segurium' ) ) );
+		return $safe_target;
+	}
+
+	/**
+	 * Emit a restore refusal in the envelope the admin JS already reads:
+	 * `message`, plus `reason` when the backup store named one.
+	 *
+	 * @param WP_Error $error Refusal from one of the restore_*_backup methods.
+	 * @return void
+	 */
+	private function send_restore_error( WP_Error $error ) {
+		$data    = (array) $error->get_error_data();
+		$payload = array( 'message' => $error->get_error_message() );
+		if ( isset( $data['reason'] ) ) {
+			$payload['reason'] = $data['reason'];
+		}
+		segurium_send_json_error( $payload, isset( $data['status'] ) ? (int) $data['status'] : null );
+	}
+
+	/**
+	 * Wrap a {@see Segurium_Storage_Backup::restore_detailed()} reason tag.
+	 *
+	 * @param string|null $reason Reason tag.
+	 * @return WP_Error
+	 */
+	private function backup_restore_error( $reason ) {
+		return new WP_Error(
+			'backup_' . ( null === $reason ? 'restore_failed' : (string) $reason ),
+			$this->backup_restore_failure_message( $reason ),
+			array( 'reason' => $reason )
+		);
 	}
 
 	/**
@@ -5097,9 +5143,12 @@ class Segurium {
 			$issue_files = array();
 
 			foreach ( $comp['issues'] ?? array() as $issue ) {
+				if ( ! is_string( $issue['verdict'] ?? null ) || '' === $issue['verdict'] ) {
+					continue;
+				}
 				$issue_files[] = array(
 					'path'         => $issue['path'] ?? '',
-					'verdict'      => $issue['verdict'] ?? 'unknown',
+					'verdict'      => $issue['verdict'],
 					'state'        => $issue['status'] ?? 'open',
 					'sha256'       => $issue['sha256'] ?? '',
 					'correct_hash' => $issue['correct_hash'] ?? null,
@@ -5108,7 +5157,8 @@ class Segurium {
 				);
 			}
 
-			$ok_count = ( $comp['files'] ?? 0 ) - count( $issue_files );
+			$unverified_paths = $comp['unverified_paths'] ?? array();
+			$ok_count         = ( $comp['files'] ?? 0 ) - count( $issue_files ) - count( $unverified_paths );
 			if ( $ok_count < 0 ) {
 				$ok_count = 0;
 			}
@@ -5130,6 +5180,7 @@ class Segurium {
 					'vulnerable'       => ! empty( $comp['vulnerable'] ),
 					'ok_count'         => $ok_count,
 					'files'            => $issue_files,
+					'unverified_paths' => $unverified_paths,
 				)
 			);
 		}
@@ -5293,19 +5344,24 @@ class Segurium {
 			}
 		}
 
-		$issues = array();
+		$issues           = array();
+		$unverified_paths = array();
 		if ( 'not_in_repository' !== $component_status && ! empty( $row['files'] ) && is_array( $row['files'] ) ) {
 			$hash_map = array();
 			foreach ( $hashes as $h ) {
 				$hash_map[ $h['path'] ] = $h['sha256'];
 			}
 			foreach ( $row['files'] as $file ) {
-				$verdict = (string) ( $file['verdict'] ?? '' );
-				if ( 'ok' === $verdict || '' === $verdict ) {
+				$file_path = (string) ( $file['path'] ?? '' );
+				$verdict   = Segurium_Integrity_Scan_State::file_verdict( (array) $file, $type . ':' . $slug );
+				if ( null === $verdict ) {
+					$unverified_paths[] = $file_path;
 					continue;
 				}
-				$file_path = (string) ( $file['path'] ?? '' );
-				$issues[]  = array(
+				if ( 'ok' === $verdict ) {
+					continue;
+				}
+				$issues[] = array(
 					'path'         => $file_path,
 					'verdict'      => $verdict,
 					'status'       => 'open',
@@ -5329,6 +5385,7 @@ class Segurium {
 					'vulnerable'       => $vulnerable,
 					'files'            => count( $hashes ),
 					'issues'           => $issues,
+					'unverified_paths' => $unverified_paths,
 				),
 			),
 			array(),
@@ -5794,12 +5851,35 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Missing parameters.', 'segurium' ) ) );
 		}
 
-		if ( ! in_array( $type, array( 'plugin', 'theme' ), true ) ) {
-			segurium_send_json_error( array( 'message' => __( 'Invalid parameters.', 'segurium' ) ) );
+		$result = $this->restore_component_backup( $backup_id, $type, $slug );
+		if ( is_wp_error( $result ) ) {
+			$this->send_restore_error( $result );
 		}
 
-		if ( ! $this->is_safe_component_slug( $slug ) ) {
-			segurium_send_json_error( array( 'message' => __( 'Invalid parameters.', 'segurium' ) ) );
+		segurium_send_json_success(
+			array(
+				'message' => sprintf(
+				/* translators: 1: component type, 2: component slug. */
+					__( '%1$s "%2$s" has been restored from backup.', 'segurium' ),
+					ucfirst( $type ),
+					$slug
+				),
+			)
+		);
+	}
+
+	/**
+	 * Extract a `component` bucket backup back into the plugins or themes
+	 * directory, as the Integrity tab's component Restore action does.
+	 *
+	 * @param string $backup_id Backup identifier.
+	 * @param string $type      plugin|theme.
+	 * @param string $slug      Component slug.
+	 * @return string|WP_Error Component directory restored, or the refusal.
+	 */
+	public function restore_component_backup( $backup_id, $type, $slug ) {
+		if ( ! in_array( $type, array( 'plugin', 'theme' ), true ) || ! $this->is_safe_component_slug( $slug ) ) {
+			return new WP_Error( 'invalid_component', __( 'Invalid parameters.', 'segurium' ) );
 		}
 
 		$t0 = microtime( true );
@@ -5812,7 +5892,7 @@ class Segurium {
 		}
 
 		if ( ! $this->is_path_within_root( $restore_to, $root_dir ) ) {
-			segurium_send_json_error( array( 'message' => __( 'Invalid parameters.', 'segurium' ) ) );
+			return new WP_Error( 'invalid_component', __( 'Invalid parameters.', 'segurium' ) );
 		}
 
 		$backup = new Segurium_Component_Backup();
@@ -5833,7 +5913,7 @@ class Segurium {
 					'duration_ms'    => (int) round( ( microtime( true ) - $t0 ) * 1000 ),
 				)
 			);
-			segurium_send_json_error( array( 'message' => $result->get_error_message() ) );
+			return $result;
 		}
 
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
@@ -5867,16 +5947,7 @@ class Segurium {
 			)
 		);
 
-		segurium_send_json_success(
-			array(
-				'message' => sprintf(
-				/* translators: 1: component type, 2: component slug. */
-					__( '%1$s "%2$s" has been restored from backup.', 'segurium' ),
-					ucfirst( $type ),
-					$slug
-				),
-			)
-		);
+		return $restore_to;
 	}
 
 	/**
@@ -6444,15 +6515,18 @@ class Segurium {
 	}
 
 	/**
-	 * Strip the ABSPATH prefix from a file path.
+	 * Strip the ABSPATH prefix, as written or resolved, from a file path.
 	 *
 	 * @param string $path Full file path.
 	 * @return string Relative path.
 	 */
 	private function strip_abspath( $path ) {
-		$base = rtrim( Segurium_Path_Helpers::wp_root(), '/' ) . '/';
-		if ( 0 === strpos( $path, $base ) ) {
-			return substr( $path, strlen( $base ) );
+		$root = rtrim( Segurium_Path_Helpers::wp_root(), '/' );
+		$real = Segurium_Fs::realpath( $root );
+		foreach ( array_unique( array( $root, false === $real ? $root : rtrim( $real, '/' ) ) ) as $base ) {
+			if ( 0 === strpos( $path, $base . '/' ) ) {
+				return substr( $path, strlen( $base ) + 1 );
+			}
 		}
 		return $path;
 	}
@@ -7302,6 +7376,25 @@ class Segurium {
 			segurium_send_missing_param( 'file_path' );
 		}
 
+		$result = $this->restore_integrity_backup( $backup_id, $comp_type, $comp_slug, $file_path );
+		if ( is_wp_error( $result ) ) {
+			$this->send_restore_error( $result );
+		}
+
+		segurium_send_json_success( array( 'message' => __( 'File restored from backup', 'segurium' ) ) );
+	}
+
+	/**
+	 * Write an `integrity` bucket backup back to its path and reopen the
+	 * integrity issue, as the Integrity tab's Restore action does.
+	 *
+	 * @param string $backup_id Backup identifier.
+	 * @param string $comp_type Component type (core, plugin, theme).
+	 * @param string $comp_slug Component slug.
+	 * @param string $file_path File path relative to the WordPress root.
+	 * @return string|WP_Error Absolute path written, or the refusal.
+	 */
+	public function restore_integrity_backup( $backup_id, $comp_type, $comp_slug, $file_path ) {
 		// Surface the precise reason instead of the legacy
 		// "Failed to restore file" so the operator can tell a rotation
 		// eviction apart from corruption / permissions. The
@@ -7309,19 +7402,14 @@ class Segurium {
 		// the next state read, so the Restore button disappears organically.
 		$restore = Segurium_Storage::backup_restore_detailed( 'integrity', $backup_id );
 		if ( null === $restore['content'] ) {
-			segurium_send_json_error(
-				array(
-					'message' => $this->backup_restore_failure_message( $restore['reason'] ),
-					'reason'  => $restore['reason'],
-				)
-			);
+			return $this->backup_restore_error( $restore['reason'] );
 		}
 		$restored_content = $restore['content'];
 
 		$file_path = ltrim( $file_path, '/' );
 		$abs_path  = $this->resolve_abs_within_wp_root( $file_path, 'write' );
 		if ( null === $abs_path ) {
-			segurium_send_json_error( array( 'message' => __( 'Invalid path', 'segurium' ) ), 403 );
+			return new WP_Error( 'invalid_restore_path', __( 'Invalid path', 'segurium' ), array( 'status' => 403 ) );
 		}
 		$restore_dir = dirname( $abs_path );
 		if ( ! is_dir( $restore_dir ) ) {
@@ -7329,9 +7417,28 @@ class Segurium {
 		}
 		$sha256_before = file_exists( $abs_path ) ? (string) Segurium_Fs::hash_file( 'sha256', $abs_path ) : '';
 		if ( ! $this->write_in_place( $abs_path, $restored_content ) ) {
-			segurium_send_json_error( array( 'message' => __( 'Failed to write restored file', 'segurium' ) ) );
+			return new WP_Error( 'restore_write_failed', __( 'Failed to write restored file', 'segurium' ) );
 		}
 
+		$this->record_integrity_restore( $backup_id, $comp_type, $comp_slug, $file_path, $sha256_before, hash( 'sha256', $restored_content ) );
+
+		return $abs_path;
+	}
+
+	/**
+	 * Reopen an integrity issue whose file was just written back from a
+	 * backup, and report the restore.
+	 *
+	 * @param string $backup_id     Backup identifier.
+	 * @param string $comp_type     Component type (core, plugin, theme).
+	 * @param string $comp_slug     Component slug.
+	 * @param string $file_path     File path relative to the WordPress root.
+	 * @param string $sha256_before Hash of the file replaced, '' when absent.
+	 * @param string $sha256_after  Hash of the restored bytes.
+	 * @return void
+	 */
+	public function record_integrity_restore( $backup_id, $comp_type, $comp_slug, $file_path, $sha256_before, $sha256_after ) {
+		$file_path = ltrim( $file_path, '/' );
 		$this->update_integrity_issue_status( $comp_type, $comp_slug, $file_path, 'open', null );
 
 		$acc = new Segurium_Integrity_Server_State( $this->get_data_dir() );
@@ -7347,14 +7454,12 @@ class Segurium {
 				'file_path'      => $file_path,
 				'action'         => 'restore',
 				'sha256_before'  => $sha256_before,
-				'sha256_after'   => hash( 'sha256', $restored_content ),
+				'sha256_after'   => $sha256_after,
 				'backup_id'      => $backup_id,
 				'success'        => 1,
 				'error'          => '',
 			)
 		);
-
-		segurium_send_json_success( array( 'message' => __( 'File restored from backup', 'segurium' ) ) );
 	}
 
 	/**

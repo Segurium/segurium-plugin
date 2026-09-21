@@ -91,6 +91,8 @@ class Segurium_Verdict_Queue {
 	 */
 	const NEO_RAY_MAX_BODY = 104857600;
 
+	const MAX_WORKER_DEATHS_PER_FILE = 2;
+
 	/**
 	 * Mapping from the `/v1/neo-ray` verdict string to the numeric verdict
 	 * codes used by the rest of the pipeline.
@@ -243,6 +245,7 @@ class Segurium_Verdict_Queue {
 		'threats',
 		'neoray_errors',
 		'neoray_skipped',
+		'worker_deaths',
 	);
 
 	/**
@@ -914,7 +917,7 @@ class Segurium_Verdict_Queue {
 				// `verdicted+failed+neoray_skipped == submitted` invariant
 				// regardless of cancel timing.
 				if ( null !== $cancel_check && (bool) call_user_func( $cancel_check ) ) {
-					++$stats['neoray_skipped'];
+					self::count_skip( $stats, 'cancelled' );
 					continue;
 				}
 				// Malware scans dispatch Unknown files in
@@ -930,7 +933,7 @@ class Segurium_Verdict_Queue {
 					try {
 						self::enqueue_unknown_async( $scan_id, $detector, $sha256, $path, $base_path, $async_submitter, $stats, $now );
 					} catch ( Throwable $escalation_exc ) {
-						++$stats['neoray_skipped'];
+						self::count_skip( $stats, 'escalation_threw' );
 						self::log_escalation_skip(
 							$scan_id,
 							array(
@@ -1258,7 +1261,7 @@ class Segurium_Verdict_Queue {
 		// holds and the scan settles instead of stalling on a verdict that
 		// can never arrive. The body is never read off disk.
 		if ( Segurium_Storage::on_premise_mode() ) {
-			++$stats['neoray_skipped'];
+			self::count_skip( $stats, 'on_premise' );
 			// `neoray_skipped` also holds oversize files and cancelled
 			// ones. The event is what tells an operator that a skip was
 			// policy rather than a failure.
@@ -1294,7 +1297,21 @@ class Segurium_Verdict_Queue {
 			return null;
 		}
 		if ( $size > self::NEO_RAY_MAX_BODY ) {
-			++$stats['neoray_skipped'];
+			self::count_skip( $stats, 'too_large' );
+			return null;
+		}
+		if ( null !== $submitter && ! Segurium_Async_Scan_Submitter::memory_allows( 0, $size ) ) {
+			self::count_skip( $stats, 'low_memory' );
+			self::log_escalation_skip(
+				$scan_id,
+				array(
+					'sha256' => $sha256,
+					'path'   => $path,
+					'size'   => $size,
+				),
+				'low_memory',
+				'memory_limit leaves no room to upload this file'
+			);
 			return null;
 		}
 
@@ -1317,8 +1334,9 @@ class Segurium_Verdict_Queue {
 				++$stats['neoray_errors'];
 				return null;
 			}
-			if ( null !== $submitter->refuse_before_read( $size, $sample, $path ) ) {
-				++$stats['neoray_skipped'];
+			$refused = $submitter->refuse_before_read( $size, $sample, $path );
+			if ( null !== $refused ) {
+				self::count_skip( $stats, Segurium_Async_Scan_Submitter::SKIP_REASONS[ $refused->get_error_code() ] );
 				return null;
 			}
 		}
@@ -1363,14 +1381,11 @@ class Segurium_Verdict_Queue {
 		if ( null === $body ) {
 			return;
 		}
-		$added                    = $submitter->add( $sha256, $path, $body );
-		$stats['neoray_skipped'] += $submitter->take_skipped();
+		$added = $submitter->add( $sha256, $path, $body );
+		self::count_skip( $stats, 'upload_refused', $submitter->take_skipped() );
 		if ( is_wp_error( $added ) ) {
-			// A file the learned ceiling cannot carry, or one
-			// arriving after the ceiling hit its floor, is a skip: the link
-			// refused it, CTI never saw the content.
-			if ( in_array( $added->get_error_code(), Segurium_Async_Scan_Submitter::CEILING_SKIP_ERROR_CODES, true ) ) {
-				++$stats['neoray_skipped'];
+			if ( isset( Segurium_Async_Scan_Submitter::SKIP_REASONS[ $added->get_error_code() ] ) ) {
+				self::count_skip( $stats, Segurium_Async_Scan_Submitter::SKIP_REASONS[ $added->get_error_code() ] );
 				return;
 			}
 			++$stats['failed'];
@@ -1404,8 +1419,8 @@ class Segurium_Verdict_Queue {
 		// The submitter drops a batch the link refused and
 		// halves its ceiling; the dropped files come back through the
 		// tally, never through the buffer.
-		$stats['neoray_skipped'] += $submitter->take_skipped();
-		$rejected                 = array();
+		self::count_skip( $stats, 'upload_refused', $submitter->take_skipped() );
+		$rejected = array();
 		if ( is_wp_error( $result ) ) {
 			// flush() restores the buffer on a content rejection, but the
 			// submitter is call-local so that buffer dies with it; the files
@@ -1672,15 +1687,8 @@ class Segurium_Verdict_Queue {
 			$cursor = self::new_chunk_cursor();
 		}
 
-		// A marker still on the row means the worker that wrote it never
-		// came back — a PHP fatal, an execution-time kill, or a segfault
-		// inside the escalation. The file is already off `unknown_queue`,
-		// so all that is left is to account for it and move on. Without
-		// this the next tick re-read the same file and died the same way,
-		// walking the attempt counter to STUCK_MAX on a scan that was
-		// otherwise progressing fine.
 		if ( ! empty( $cursor['in_flight'] ) ) {
-			$this->skip_dead_in_flight( $scan_id, $chunk_idx, $cursor );
+			$this->recover_dead_batch( $scan_id, $chunk_idx, $cursor );
 		}
 
 		// Run (or retry) the one-shot /v1/inspect step while it
@@ -1698,29 +1706,11 @@ class Segurium_Verdict_Queue {
 		$submitter = null;
 
 		while ( ! empty( $cursor['unknown_queue'] ) ) {
-			if ( $this->scan_was_cancelled() ) {
-				// Cooperative cancel: drain whatever's already buffered so
-				// the work doesn't sit in PHP memory unsent, then persist
-				// the cursor so the runner's cleanup_state can purge it.
-				$this->flush_chunk_submitter( $submitter, $chunk_idx, $cursor );
-				return false;
-			}
-			if ( ! $this->time_allows_next_unknown() ) {
-				// Time-budget yield: flush the buffered batch before we
-				// bail so the next process() call doesn't have to re-read
-				// files we already pulled off disk.
-				$this->flush_chunk_submitter( $submitter, $chunk_idx, $cursor );
-				return false;
-			}
-			// Honour the IID-scoped submit pause at the
-			// loop level. CTI already asked us to back off — continuing
-			// to walk files would only swell the in-memory buffer and
-			// waste disk IO on files we cannot ship this tick. Flush
-			// whatever is already buffered (the inner flush itself
-			// defers while paused) and yield so the runner's next tick
-			// can pick up where we left off.
-			if ( Segurium_Async_Scan_Pause::is_paused( Segurium_Async_Scan_Pause::ENDPOINT_SUBMIT ) ) {
-				$this->flush_chunk_submitter( $submitter, $chunk_idx, $cursor );
+			if ( $this->scan_was_cancelled()
+				|| ! $this->time_allows_next_unknown()
+				|| Segurium_Async_Scan_Pause::is_paused( Segurium_Async_Scan_Pause::ENDPOINT_SUBMIT ) ) {
+				$this->settle_submitter( $submitter, $scan_id, $cursor );
+				$this->save_chunk_cursor( $chunk_idx, $cursor );
 				return false;
 			}
 
@@ -1740,15 +1730,8 @@ class Segurium_Verdict_Queue {
 			$sha256  = isset( $head['sha256'] ) ? (string) $head['sha256'] : '';
 			$path    = isset( $head['path'] ) ? (string) $head['path'] : '';
 
-			// Name the file on the durable row before anything reads it
-			// off disk. Everything past this point can kill the worker
-			// outright — a 100 MB body, the gzip in scan_submit — and a
-			// kill leaves no chance to record what happened afterwards.
-			$cursor['in_flight'] = array(
-				'sha256' => $sha256,
-				'path'   => $path,
-				'size'   => isset( $head['size'] ) ? (int) $head['size'] : 0,
-			);
+			$cursor['in_flight'][] = $head;
+			$cursor['memory']      = array( memory_get_usage( true ), Segurium_Async_Scan_Submitter::memory_limit_bytes() );
 			$this->save_chunk_cursor( $chunk_idx, $cursor );
 
 			if ( null === $submitter ) {
@@ -1773,18 +1756,24 @@ class Segurium_Verdict_Queue {
 			} catch ( Throwable $escalation_exc ) {
 				// One file, one skip. `add()` pushes to the buffer last, so
 				// the file named here provably never reached the wire.
-				// Whatever the auto-flush was carrying is left alone — some
-				// of it may already be at CTI awaiting a verdict.
-				++$partial['neoray_skipped'];
+				self::count_skip( $partial, 'escalation_threw' );
 				self::log_escalation_skip(
 					$scan_id,
-					$cursor['in_flight'],
+					$head,
 					'escalation_threw',
 					get_class( $escalation_exc ) . ': ' . $escalation_exc->getMessage()
 				);
 			}
 
-			$cursor['in_flight']     = null;
+			$buffered                = array_flip( $submitter->buffered_paths() );
+			$cursor['in_flight']     = array_values(
+				array_filter(
+					$cursor['in_flight'],
+					static function ( $file ) use ( $buffered ) {
+						return isset( $buffered[ $file['path'] ] );
+					}
+				)
+			);
 			$cursor['partial_stats'] = $partial;
 			++$this->files_processed_in_call;
 
@@ -1797,8 +1786,9 @@ class Segurium_Verdict_Queue {
 		// authoritative point at which the chunk's verdicts become visible
 		// to is_scan_complete and the progress UI), then delete the cursor
 		// + chunk rows. The caller advances chunk_out and saves state.
-		if ( null !== $submitter ) {
-			self::flush_submitter_guarded( $submitter, $cursor['partial_stats'], $scan_id );
+		if ( ! $this->settle_submitter( $submitter, $scan_id, $cursor ) ) {
+			$this->save_chunk_cursor( $chunk_idx, $cursor );
+			return false;
 		}
 		$this->fold_partial_stats( $scan_id, $cursor['partial_stats'] );
 		$this->delete_chunk_cursor( $chunk_idx );
@@ -1807,22 +1797,26 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * Flush the chunk-local async submitter on cooperative
-	 * exit (cancel / time-budget yield) and persist the cursor so the
-	 * partial-stat counters bumped by the flush survive the yield.
+	 * Ship the buffer, or requeue it while CTI asks for a pause (returns false).
 	 *
 	 * @param Segurium_Async_Scan_Submitter|null $submitter Active submitter.
-	 * @param int                                $chunk_idx Chunk index.
+	 * @param string                             $scan_id   Scan UUID.
 	 * @param array                              $cursor    Active cursor.
+	 * @return bool
 	 */
-	private function flush_chunk_submitter( $submitter, $chunk_idx, array &$cursor ) {
-		if ( null === $submitter || 0 === $submitter->buffer_count() ) {
-			return;
+	private function settle_submitter( $submitter, $scan_id, array &$cursor ) {
+		if ( null !== $submitter && $submitter->buffer_count() > 0 ) {
+			if ( Segurium_Async_Scan_Pause::is_paused( Segurium_Async_Scan_Pause::ENDPOINT_SUBMIT ) ) {
+				$cursor['unknown_queue'] = array_merge( $cursor['in_flight'], $cursor['unknown_queue'] );
+				$cursor['in_flight']     = array();
+				return false;
+			}
+			$partial = $cursor['partial_stats'];
+			self::flush_submitter_guarded( $submitter, $partial, $scan_id );
+			$cursor['partial_stats'] = $partial;
 		}
-		$partial = $cursor['partial_stats'];
-		self::flush_submitter_guarded( $submitter, $partial, $this->scan_id );
-		$cursor['partial_stats'] = $partial;
-		$this->save_chunk_cursor( $chunk_idx, $cursor );
+		$cursor['in_flight'] = array();
+		return true;
 	}
 
 	/**
@@ -1858,32 +1852,61 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * Account for the file a killed worker left marked
-	 * in-flight and clear the marker so the chunk moves on. The file is
-	 * already off `unknown_queue`; counting it `neoray_skipped` keeps
-	 * `verdicted + failed + neoray_skipped == submitted` whole.
+	 * Requeue the files a dead worker held, or skip them after a second death.
 	 *
 	 * @param string $scan_id   Scan UUID.
 	 * @param int    $chunk_idx Chunk index in runtime_kv.
 	 * @param array  $cursor    Cursor data (by reference).
 	 * @return void
 	 */
-	private function skip_dead_in_flight( $scan_id, $chunk_idx, array &$cursor ) {
-		$file  = is_array( $cursor['in_flight'] ) ? $cursor['in_flight'] : array();
-		$stats = $cursor['partial_stats'];
-
-		$stats['neoray_skipped'] = (int) ( $stats['neoray_skipped'] ?? 0 ) + 1;
-
-		$cursor['partial_stats'] = $stats;
-		$cursor['in_flight']     = null;
+	private function recover_dead_batch( $scan_id, $chunk_idx, array &$cursor ) {
+		$dead  = isset( $cursor['in_flight']['path'] ) ? array( $cursor['in_flight'] ) : $cursor['in_flight'];
+		$retry = array();
+		foreach ( $dead as $file ) {
+			$file['deaths'] = (int) ( $file['deaths'] ?? 0 ) + 1;
+			if ( $file['deaths'] < self::MAX_WORKER_DEATHS_PER_FILE ) {
+				$retry[] = $file;
+				continue;
+			}
+			self::count_skip( $cursor['partial_stats'], 'worker_died' );
+			self::log_escalation_skip( $scan_id, $file, 'worker_died', 'the worker died twice with this file in its upload batch' );
+		}
+		$cursor['unknown_queue'] = array_merge( $retry, $cursor['unknown_queue'] );
+		$cursor['in_flight']     = array();
 		$this->save_chunk_cursor( $chunk_idx, $cursor );
 
-		self::log_escalation_skip(
-			$scan_id,
-			$file,
-			'worker_died',
-			'the previous tick did not survive this file'
+		( new Segurium_Async_Scan_Submitter( $scan_id, self::detector_for_scan_type( 'malware' ), $this->cti_client ) )->shrink_after_worker_death();
+
+		$memory = isset( $cursor['memory'] ) ? $cursor['memory'] : array( 0, 0 );
+		$this->ensure_scan_stats( $scan_id );
+		++$this->state['scan_stats'][ $scan_id ]['worker_deaths'];
+		$this->state['scan_stats'][ $scan_id ]['last_worker_death'] = array(
+			'files'            => count( $dead ),
+			'bytes'            => (int) array_sum( array_column( $dead, 'size' ) ),
+			'memory_before_mb' => (int) round( $memory[0] / 1048576 ),
+			'memory_limit_mb'  => (int) round( $memory[1] / 1048576 ),
 		);
+		$this->save_state();
+
+		if ( class_exists( 'Segurium_Scan_Runner' ) ) {
+			Segurium_Scan_Runner::reset_stuck_counter( $scan_id );
+		}
+	}
+
+	/**
+	 * Count skipped files under a reason.
+	 *
+	 * @param array  $stats  Stat block (by reference).
+	 * @param string $reason Skip reason.
+	 * @param int    $count  Files skipped.
+	 * @return void
+	 */
+	private static function count_skip( array &$stats, $reason, $count = 1 ) {
+		if ( $count <= 0 ) {
+			return;
+		}
+		$stats['neoray_skipped']          = (int) ( $stats['neoray_skipped'] ?? 0 ) + $count;
+		$stats['skip_reasons'][ $reason ] = (int) ( $stats['skip_reasons'][ $reason ] ?? 0 ) + $count;
 	}
 
 	/**
@@ -1938,7 +1961,7 @@ class Segurium_Verdict_Queue {
 			'inspect_done'               => false,
 			'inspect_classified_applied' => false,
 			'unknown_queue'              => array(),
-			'in_flight'                  => null,
+			'in_flight'                  => array(),
 			'partial_stats'              => array(
 				'verdicted'      => 0,
 				'threats'        => 0,
@@ -2214,6 +2237,9 @@ class Segurium_Verdict_Queue {
 		foreach ( array( 'verdicted', 'threats', 'failed', 'neoray_errors', 'neoray_skipped' ) as $k ) {
 			$this->state['scan_stats'][ $scan_id ][ $k ] += (int) ( isset( $partial[ $k ] ) ? $partial[ $k ] : 0 );
 		}
+		foreach ( isset( $partial['skip_reasons'] ) ? $partial['skip_reasons'] : array() as $reason => $count ) {
+			$this->state['scan_stats'][ $scan_id ]['skip_reasons'][ $reason ] = (int) ( $this->state['scan_stats'][ $scan_id ]['skip_reasons'][ $reason ] ?? 0 ) + (int) $count;
+		}
 	}
 
 	/**
@@ -2407,9 +2433,7 @@ class Segurium_Verdict_Queue {
 			$this->cti_client,
 			$cancel_check
 		);
-		foreach ( array( 'verdicted', 'threats', 'failed', 'neoray_errors', 'neoray_skipped' ) as $k ) {
-			$this->state['scan_stats'][ $scan_id ][ $k ] += (int) $chunk_stats[ $k ];
-		}
+		$this->fold_partial_stats( $scan_id, $chunk_stats );
 		$this->batch_processed = true;
 	}
 
@@ -2429,6 +2453,8 @@ class Segurium_Verdict_Queue {
 			'unknowns'             => array(),
 			'neoray_errors'        => 0,
 			'neoray_skipped'       => 0,
+			'skip_reasons'         => array(),
+			'worker_deaths'        => 0,
 		);
 	}
 

@@ -138,3 +138,4 @@ require_once __DIR__ . '/class-segurium-cli-iid.php';
 require_once __DIR__ . '/class-segurium-cli-consent.php';
 require_once __DIR__ . '/class-segurium-cli-license.php';
 require_once __DIR__ . '/class-segurium-cli-settings.php';
+require_once __DIR__ . '/class-segurium-cli-backup.php';

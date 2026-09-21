@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,12 +194,16 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.4.3 - 2026-09-21 =
+* Deep scans no longer lose files if a worker stops.
+* Fixed rare crash during full scans.
+* Restoring a cleaned file also reopens its integrity issue.
+* WP-CLI command to list and restore backups.
+* Improved false alerts handling.
+* Firewall and geo blocking rules no longer break cloud scans.
+
 = 1.4.2 - 2026-09-15 =
 * Minor UI improvements.
 * Integrity tab flags components delisted from WordPress.org.
-
-= 1.4.1 - 2026-09-13 =
-* Faster response.
-* Integrity scan no longer flags empty files as new.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

@@ -1,4 +1,5 @@
-#
+# Copyright (C) 2026 Segurium
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Segurium – Free Malware Removal & Antivirus Scanner, Hacked Website Cleanup, Firewall, 2FA 1.3.1\n"
@@ -1362,6 +1363,11 @@ msgid "Malware"
 msgstr "Haittaohjelma"
 
 #: includes/class-segurium.php:1061
+msgid "Clean"
+msgstr "Puhdas"
+
+#: includes/class-segurium.php:1063
+msgctxt "verb: button that cleans a malicious file"
 msgid "Clean"
 msgstr "Puhdista"
 
