@@ -453,16 +453,18 @@ class Segurium_Scanner {
 	/**
 	 * Process a chunk of the filesystem scan within the time limit.
 	 *
+	 * @param int $max_files Stop after this many files; 0 means no limit.
 	 * @return array Progress data after the chunk.
 	 */
-	public function process_chunk() {
+	public function process_chunk( $max_files = 0 ) {
 		$this->start_time = microtime( true );
 		$checkpoint       = $this->state;
 		$did_work         = false;
 		$completed        = false;
+		$files_done       = 0;
 
 		while ( true ) {
-			if ( $did_work && $this->is_time_up() ) {
+			if ( $did_work && ( $this->is_time_up() || ( $max_files > 0 && $files_done >= $max_files ) ) ) {
 				break;
 			}
 
@@ -470,6 +472,7 @@ class Segurium_Scanner {
 				$file = array_shift( $this->state['pending_files'] );
 				$this->process_file( $file );
 				$did_work = true;
+				++$files_done;
 				continue;
 			}
 

@@ -2250,25 +2250,8 @@ button.button[hidden],
 	margin: 8px 0;
 }
 
-.segurium-sc-categories {
-	display: grid;
-	gap: 8px;
-	margin: 16px 0 24px;
-}
-
-.segurium-sc-cat-row {
-	display: grid;
-	grid-template-columns: 200px 1fr 180px;
-	align-items: center;
-	gap: 12px;
-}
-
-.segurium-sc-cat-name {
-	font-weight: 600;
-	color: #1f2937;
-}
-
 .segurium-sc-cat-bar {
+	grid-area: bar;
 	display: flex;
 	height: 12px;
 	background: #e5e7eb;
@@ -2287,7 +2270,9 @@ button.button[hidden],
 .segurium-sc-cat-bar .fail    { background: #ef4444; }
 
 .segurium-sc-cat-counts {
+	grid-area: counts;
 	font-size: 12px;
+	font-weight: 400;
 	color: #6b7280;
 	text-align: right;
 }
@@ -2306,9 +2291,11 @@ button.button[hidden],
 }
 
 .segurium-sc-cat-header {
-	display: flex;
+	display: grid;
+	grid-template-columns: 200px 1fr 180px 14px;
+	grid-template-areas: "title bar counts arrow";
 	align-items: center;
-	gap: 8px;
+	gap: 12px;
 	width: 100%;
 	padding: 10px 14px;
 	background: #f3f4f6;
@@ -2325,41 +2312,17 @@ button.button[hidden],
 }
 
 .segurium-sc-cat-title {
-	flex: 1;
-}
-
-.segurium-sc-cat-badges {
-	display: flex;
-	gap: 4px;
-}
-
-.segurium-sc-badge {
-	display: inline-block;
-	padding: 1px 7px;
-	border-radius: 10px;
-	font-size: 11px;
-	font-weight: 600;
-	line-height: 18px;
-}
-
-.segurium-sc-badge--fail {
-	background: #fee2e2;
-	color: #b91c1c;
-}
-
-.segurium-sc-badge--warn {
-	background: #fef3c7;
-	color: #92400e;
+	grid-area: title;
 }
 
 .segurium-sc-cat-arrow {
+	grid-area: arrow;
 	width: 14px;
 	height: 14px;
 	border-right: 2px solid #6b7280;
 	border-bottom: 2px solid #6b7280;
 	transform: rotate(-45deg);
 	transition: transform 0.2s ease;
-	flex-shrink: 0;
 	margin-right: 2px;
 }
 
@@ -2471,8 +2434,13 @@ button.button[hidden],
 }
 
 @media screen and (max-width: 782px) {
-	.segurium-sc-cat-row {
-		grid-template-columns: 1fr;
+	.segurium-sc-cat-header {
+		grid-template-columns: 1fr 14px;
+		grid-template-areas:
+			"title arrow"
+			"bar bar"
+			"counts counts";
+		gap: 6px 12px;
 	}
 	.segurium-sc-cat-counts {
 		text-align: left;

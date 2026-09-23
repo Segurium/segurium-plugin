@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts 1.4.2\n"
+"Project-Id-Version: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts 1.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-20T03:34:34+00:00\n"
+"POT-Creation-Date: 2026-09-23T03:34:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
@@ -53,129 +53,129 @@ msgstr ""
 msgid "Two-factor authentication required. Append your 2FA code to your password."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:985
+#: includes/class-segurium-2fa.php:992
 msgid "Verifying..."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:986
+#: includes/class-segurium-2fa.php:993
 msgid "Logging in..."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:987
+#: includes/class-segurium-2fa.php:994
 msgid "Enter the code from your authenticator app:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:988
+#: includes/class-segurium-2fa.php:995
 msgid "Enter the code sent to your email:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:989
+#: includes/class-segurium-2fa.php:996
 msgid "Verify"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:990
+#: includes/class-segurium-2fa.php:997
 msgid "Resend code"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:991
+#: includes/class-segurium-2fa.php:998
 msgid "A new code has been sent to your email."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:992
+#: includes/class-segurium-2fa.php:999
 msgid "Lost your device? Enter a backup code instead."
 msgstr ""
 
 #. translators: %d: number of days
-#: includes/class-segurium-2fa.php:994
+#: includes/class-segurium-2fa.php:1001
 #, php-format
 msgid "Trust this device for %d days"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:995
-#: includes/class-segurium-2fa.php:1582
-#: includes/class-segurium-2fa.php:1660
-#: includes/class-segurium-2fa.php:1718
+#: includes/class-segurium-2fa.php:1002
+#: includes/class-segurium-2fa.php:1589
+#: includes/class-segurium-2fa.php:1667
+#: includes/class-segurium-2fa.php:1725
 msgid "Too many failed attempts. Please try again later."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:996
+#: includes/class-segurium-2fa.php:1003
 msgid "Two-factor authentication setup is required for your role."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1020
+#: includes/class-segurium-2fa.php:1027
 #: includes/migrations/class-segurium-migration-solid-security.php:60
 #: includes/migrations/class-segurium-migration-wordfence.php:297
 #: includes/migrations/class-segurium-migration-wordfence.php:311
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1023
+#: includes/class-segurium-2fa.php:1030
 #: includes/class-segurium.php:2203
 #: includes/class-segurium.php:3416
 msgid "Status"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1026
+#: includes/class-segurium-2fa.php:1033
 msgid "JavaScript is required for 2FA setup."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1064
+#: includes/class-segurium-2fa.php:1071
 msgid "Not configured"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1065
+#: includes/class-segurium-2fa.php:1072
 msgid "Set up Authenticator App"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1066
+#: includes/class-segurium-2fa.php:1073
 msgid "Set up Email Verification"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1067
+#: includes/class-segurium-2fa.php:1074
 msgid "Current method:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1068
+#: includes/class-segurium-2fa.php:1075
 #: includes/class-segurium.php:2643
 msgid "Authenticator App (TOTP)"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1069
+#: includes/class-segurium-2fa.php:1076
 #: includes/class-segurium.php:2644
 msgid "Email Verification"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1070
+#: includes/class-segurium-2fa.php:1077
 msgid "Backup codes remaining:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1071
+#: includes/class-segurium-2fa.php:1078
 msgid "Regenerate Backup Codes"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1072
+#: includes/class-segurium-2fa.php:1079
 msgid "Disable 2FA"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1073
+#: includes/class-segurium-2fa.php:1080
 msgid "Scan this QR code with your authenticator app:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1074
+#: includes/class-segurium-2fa.php:1081
 msgid "Or enter this key manually:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1075
+#: includes/class-segurium-2fa.php:1082
 msgid "Enter the 6-digit code from your app to confirm:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1076
+#: includes/class-segurium-2fa.php:1083
 #: includes/class-segurium.php:2268
 #: includes/class-segurium.php:2356
 msgid "Confirm"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1077
+#: includes/class-segurium-2fa.php:1084
 #: includes/class-segurium.php:1078
 #: includes/class-segurium.php:1213
 #: includes/class-segurium.php:1258
@@ -184,58 +184,58 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1078
+#: includes/class-segurium-2fa.php:1085
 msgid "Save these backup codes in a safe place. They will not be shown again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1079
+#: includes/class-segurium-2fa.php:1086
 msgid "2FA has been set up successfully."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1080
-#: includes/class-segurium-2fa.php:1415
+#: includes/class-segurium-2fa.php:1087
+#: includes/class-segurium-2fa.php:1422
 msgid "2FA has been disabled."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1081
+#: includes/class-segurium-2fa.php:1088
 msgid "New backup codes generated."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1082
+#: includes/class-segurium-2fa.php:1089
 msgid "Enter your current 2FA code to confirm:"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1083
+#: includes/class-segurium-2fa.php:1090
 msgid "A verification code has been sent to your email."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1084
+#: includes/class-segurium-2fa.php:1091
 msgid "Your administrator requires 2FA for your role."
 msgstr ""
 
 #. translators: %d: number of days remaining
-#: includes/class-segurium-2fa.php:1118
+#: includes/class-segurium-2fa.php:1125
 #, php-format
 msgid "Your administrator requires two-factor authentication. You have %d day(s) remaining to set it up."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1123
 #: includes/class-segurium-2fa.php:1130
+#: includes/class-segurium-2fa.php:1137
 msgid "Set up now"
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1128
+#: includes/class-segurium-2fa.php:1135
 msgid "Two-factor authentication is required for your role. Please set it up immediately."
 msgstr ""
 
 #. translators: %s: site name
-#: includes/class-segurium-2fa.php:1165
+#: includes/class-segurium-2fa.php:1172
 #, php-format
 msgid "[%s] Your login verification code"
 msgstr ""
 
 #. translators: 1: verification code, 2: TTL in minutes
-#: includes/class-segurium-2fa.php:1171
+#: includes/class-segurium-2fa.php:1178
 #, php-format
 msgid ""
 "Your verification code is: %1$s\n"
@@ -245,24 +245,24 @@ msgid ""
 "If you did not request this, ignore this email."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1214
-#: includes/class-segurium-2fa.php:1250
-#: includes/class-segurium-2fa.php:1305
-#: includes/class-segurium-2fa.php:1331
-#: includes/class-segurium-2fa.php:1372
-#: includes/class-segurium-2fa.php:1426
+#: includes/class-segurium-2fa.php:1221
+#: includes/class-segurium-2fa.php:1257
+#: includes/class-segurium-2fa.php:1312
+#: includes/class-segurium-2fa.php:1338
+#: includes/class-segurium-2fa.php:1379
+#: includes/class-segurium-2fa.php:1433
 msgid "Not authenticated."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1220
-#: includes/class-segurium-2fa.php:1256
-#: includes/class-segurium-2fa.php:1311
-#: includes/class-segurium-2fa.php:1337
-#: includes/class-segurium-2fa.php:1378
-#: includes/class-segurium-2fa.php:1432
-#: includes/class-segurium-2fa.php:1488
-#: includes/class-segurium-2fa.php:1622
-#: includes/class-segurium-2fa.php:1745
+#: includes/class-segurium-2fa.php:1227
+#: includes/class-segurium-2fa.php:1263
+#: includes/class-segurium-2fa.php:1318
+#: includes/class-segurium-2fa.php:1344
+#: includes/class-segurium-2fa.php:1385
+#: includes/class-segurium-2fa.php:1439
+#: includes/class-segurium-2fa.php:1495
+#: includes/class-segurium-2fa.php:1629
+#: includes/class-segurium-2fa.php:1752
 #: includes/class-segurium.php:406
 #: includes/class-segurium.php:5089
 #: includes/class-segurium.php:5217
@@ -271,54 +271,54 @@ msgstr ""
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1267
+#: includes/class-segurium-2fa.php:1274
 msgid "Setup session expired. Please start again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1271
-#: includes/class-segurium-2fa.php:1347
+#: includes/class-segurium-2fa.php:1278
+#: includes/class-segurium-2fa.php:1354
 msgid "Invalid code. Please try again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1277
+#: includes/class-segurium-2fa.php:1284
 msgid "Encryption error."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1320
+#: includes/class-segurium-2fa.php:1327
 msgid "Verification code sent to your email."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1388
+#: includes/class-segurium-2fa.php:1395
 msgid "2FA is required for your role and cannot be disabled."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1410
-#: includes/class-segurium-2fa.php:1458
+#: includes/class-segurium-2fa.php:1417
+#: includes/class-segurium-2fa.php:1465
 msgid "Invalid verification code."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1505
+#: includes/class-segurium-2fa.php:1512
 msgid "Please enter your username and password."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1641
+#: includes/class-segurium-2fa.php:1648
 msgid "Session expired. Please log in again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1647
-#: includes/class-segurium-2fa.php:1760
+#: includes/class-segurium-2fa.php:1654
+#: includes/class-segurium-2fa.php:1767
 msgid "Invalid session."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1727
+#: includes/class-segurium-2fa.php:1734
 msgid "Invalid verification code. Please try again."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1755
+#: includes/class-segurium-2fa.php:1762
 msgid "Session expired."
 msgstr ""
 
-#: includes/class-segurium-2fa.php:1765
+#: includes/class-segurium-2fa.php:1772
 msgid "Code sent."
 msgstr ""
 
@@ -829,48 +829,48 @@ msgid_plural "%d entries longer than 191 characters were removed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-segurium-scan-runner.php:379
+#: includes/class-segurium-scan-runner.php:380
 msgid "Every 60 seconds (Segurium scan rescue)"
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:412
+#: includes/class-segurium-scan-runner.php:413
 msgid "A scan type is required."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:425
+#: includes/class-segurium-scan-runner.php:426
 msgid "Activation with the Segurium cloud service is still pending. Please try again in a moment."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:439
+#: includes/class-segurium-scan-runner.php:440
 #: includes/class-segurium.php:1119
 #: includes/class-segurium.php:5030
 msgid "Scan storage is not ready. Please deactivate and reactivate the Segurium plugin, then try again."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:449
-#: includes/class-segurium-scan-runner.php:487
+#: includes/class-segurium-scan-runner.php:450
+#: includes/class-segurium-scan-runner.php:488
 #: includes/class-segurium.php:1098
 msgid "A scan is already in progress."
 msgstr ""
 
 #. translators: %s: underlying exception message
-#: includes/class-segurium-scan-runner.php:480
-#: includes/class-segurium-scan-runner.php:556
+#: includes/class-segurium-scan-runner.php:481
+#: includes/class-segurium-scan-runner.php:557
 #, php-format
 msgid "Unexpected error starting scan: %s"
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:508
+#: includes/class-segurium-scan-runner.php:509
 msgid "Scan storage was not ready. It has been repaired automatically — please click \"Start scan\" again."
 msgstr ""
 
 #. translators: %s: underlying exception message
-#: includes/class-segurium-scan-runner.php:517
+#: includes/class-segurium-scan-runner.php:518
 #, php-format
 msgid "Failed to initialize scan: %s"
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:1382
+#: includes/class-segurium-scan-runner.php:1387
 #: includes/class-segurium.php:1102
 #: includes/class-segurium.php:3701
 #: includes/class-segurium.php:3766
@@ -879,22 +879,22 @@ msgstr ""
 msgid "You do not have permission to manage scans."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:1412
+#: includes/class-segurium-scan-runner.php:1417
 #: includes/class-segurium.php:4703
 msgid "Could not fetch scan status due to a server error."
 msgstr ""
 
 #. translators: %d: max_execution_time in seconds
-#: includes/class-segurium-scan-runner.php:2339
+#: includes/class-segurium-scan-runner.php:2358
 #, php-format
 msgid "PHP max_execution_time is %ds — too short for reliable scanning. Ask your host to raise it to at least 30s."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:2350
+#: includes/class-segurium-scan-runner.php:2369
 msgid "WordPress cron is disabled (DISABLE_WP_CRON) and your PHP setup has no way to detach long tasks from page requests. Background scans will only progress while a Segurium admin tab stays open. Ask your host to either enable a real system cron job hitting wp-cron.php every minute, or to switch from mod_php to PHP-FPM / LiteSpeed."
 msgstr ""
 
-#: includes/class-segurium-scan-runner.php:2352
+#: includes/class-segurium-scan-runner.php:2371
 msgid "WordPress cron is disabled (DISABLE_WP_CRON). Scheduled scans depend on a real system cron job hitting wp-cron.php every minute. Ask your host to set one up."
 msgstr ""
 

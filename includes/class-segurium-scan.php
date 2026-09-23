@@ -135,7 +135,7 @@ class Segurium_Scan {
 		$this->initialize( wp_generate_uuid4(), $scan_type );
 		$scanner = $this->create_scanner();
 		$scanner->load_state();
-		return $this->run_chunk( $scanner );
+		return $this->run_chunk( $scanner, $this->verdict_queue->listing_pass_size() );
 	}
 
 	/**
@@ -306,9 +306,10 @@ class Segurium_Scan {
 			return $this->build_progress();
 		}
 
-		$scanner = $this->create_scanner();
+		$scanner   = $this->create_scanner();
+		$pass_size = $this->verdict_queue->listing_pass_size();
 
-		if ( ! $this->state['scanner_completed'] ) {
+		if ( ! $this->state['scanner_completed'] && $pass_size > 0 ) {
 			if ( ! $scanner->load_state() ) {
 				// An unreadable or corrupt state file leaves nothing to
 				// resume from. The runner reads this marker and takes the
@@ -325,7 +326,7 @@ class Segurium_Scan {
 			}
 		}
 
-		return $this->run_chunk( $scanner );
+		return $this->run_chunk( $scanner, $pass_size );
 	}
 
 	/**
@@ -889,15 +890,16 @@ class Segurium_Scan {
 	/**
 	 * Process a chunk of listing/verdicting work.
 	 *
-	 * @param Segurium_Scanner $scanner Scanner instance.
+	 * @param Segurium_Scanner $scanner   Scanner instance.
+	 * @param int              $pass_size Files the listing pass may add; 0 skips listing.
 	 * @return array
 	 */
-	private function run_chunk( $scanner ) {
+	private function run_chunk( $scanner, $pass_size ) {
 		$this->start_time      = microtime( true );
 		$listing_just_finished = false;
 
-		if ( ! $this->state['scanner_completed'] ) {
-			$result                       = $scanner->process_chunk();
+		if ( ! $this->state['scanner_completed'] && $pass_size > 0 ) {
+			$result                       = $scanner->process_chunk( $pass_size );
 			$this->state['files_found']   = (int) $result['files_found'];
 			$this->state['files_skipped'] = isset( $result['files_skipped'] ) ? (int) $result['files_skipped'] : 0;
 			if ( ! empty( $result['completed'] ) ) {
@@ -906,7 +908,11 @@ class Segurium_Scan {
 			}
 		}
 
-		$this->submit_new_scanner_results();
+		if ( ! $this->submit_new_scanner_results() ) {
+			$progress                  = $this->build_progress();
+			$progress['queue_refused'] = true;
+			return $progress;
+		}
 
 		// Persist the listing-side counters (files_found,
 		// files_skipped) into their own runtime_kv row right after the
@@ -945,19 +951,20 @@ class Segurium_Scan {
 	/**
 	 * Read new scanner results and enqueue them with the verdict queue.
 	 *
-	 * @return void
+	 * @return bool False when the queue refused the rows; the read offset stays put.
 	 */
 	private function submit_new_scanner_results() {
 		$file = $this->scanner_result_file();
 		if ( '' === $file || ! file_exists( $file ) ) {
-			return;
+			return true;
 		}
 		$handle = Segurium_Fs::open( $file, 'r' );
 		if ( ! $handle ) {
-			return;
+			return true;
 		}
-		fseek( $handle, (int) $this->state['scanner_read_offset'] );
-		$last_good_offset = (int) $this->state['scanner_read_offset'];
+		$read_from = (int) $this->state['scanner_read_offset'];
+		fseek( $handle, $read_from );
+		$last_good_offset = $read_from;
 		$files            = array();
 		// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 		while ( ( $line = fgets( $handle ) ) !== false ) {
@@ -984,7 +991,7 @@ class Segurium_Scan {
 		Segurium_Fs::close( $handle );
 
 		if ( empty( $files ) ) {
-			return;
+			return true;
 		}
 
 		$ignore = new Segurium_Ignore_Lists( $this->data_dir );
@@ -995,9 +1002,11 @@ class Segurium_Scan {
 				$filtered[] = $f;
 			}
 		}
-		if ( ! empty( $filtered ) ) {
-			$this->verdict_queue->submit( $filtered, (string) $this->state['scan_id'] );
+		if ( empty( $filtered ) || $this->verdict_queue->submit( $filtered, (string) $this->state['scan_id'] ) ) {
+			return true;
 		}
+		$this->state['scanner_read_offset'] = $read_from;
+		return false;
 	}
 
 	/**

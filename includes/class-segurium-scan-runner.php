@@ -313,6 +313,7 @@ final class Segurium_Scan_Runner {
 	const REASON_ABORTED_ENGINE_LOAD_FAILED = 'ABORTED_ENGINE_LOAD_FAILED';
 	const REASON_ABORTED_ORPHANED           = 'ABORTED_ORPHANED';
 	const REASON_ABORTED_UPLOAD_CAPACITY    = 'ABORTED_UPLOAD_CAPACITY';
+	const REASON_ABORTED_QUEUE_FULL         = 'ABORTED_QUEUE_FULL';
 
 	/**
 	 * The scan_history.status values that end a scan. One list for the terminal
@@ -1071,7 +1072,10 @@ final class Segurium_Scan_Runner {
 
 		// running = lock held (true through a dead-worker stall);
 		// worker_alive / heartbeat_age carry the heartbeat state.
+		// completed stays false: the completion hooks run before the lock
+		// drops, and a caller that sees true starts the next scan into it.
 		$liveness = array(
+			'completed'     => false,
 			'running'       => Segurium_Scan_Lock::is_running( $lock ),
 			'worker_alive'  => Segurium_Scan_Lock::is_worker_alive( $lock ),
 			'heartbeat_age' => Segurium_Scan_Lock::heartbeat_age( $lock ),
@@ -1320,6 +1324,7 @@ final class Segurium_Scan_Runner {
 			case self::REASON_ABORTED_ENGINE_LOAD_FAILED:
 			case self::REASON_ABORTED_ORPHANED:
 			case self::REASON_ABORTED_UPLOAD_CAPACITY:
+			case self::REASON_ABORTED_QUEUE_FULL:
 			case self::REASON_RUNTIME_ERROR:
 				return 'aborted';
 			default:
@@ -2059,6 +2064,20 @@ final class Segurium_Scan_Runner {
 					// must carry into the next one.
 					if ( ! empty( $result['engine_load_failed'] ) ) {
 						$engine_load_failed = true;
+						break;
+					}
+
+					if ( ! empty( $result['queue_refused'] ) ) {
+						self::debug(
+							'queue_refused_abort',
+							array(
+								'scan_id'         => $scan_id,
+								'files_submitted' => isset( $result['files_submitted'] ) ? (int) $result['files_submitted'] : 0,
+								'code'            => self::REASON_ABORTED_QUEUE_FULL,
+							)
+						);
+						// terminate() hands the workspace teardown to this worker through the cancel flag.
+						self::terminate( self::REASON_ABORTED_QUEUE_FULL, $scan_id );
 						break;
 					}
 

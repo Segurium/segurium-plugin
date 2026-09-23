@@ -1690,8 +1690,8 @@
             var n = (counts && typeof counts.malicious === 'number') ? counts.malicious : 0;
             // Distinguish "no scans yet" from "scan ran, 0
             // threats". `lastScan` is null on a fresh install until the
-            // first scan completes; ssShowResult() refreshes it after a
-            // run so the empty-state banner switches over without a
+            // first scan completes; the scan poller refreshes it when a
+            // run ends so the empty-state banner switches over without a
             // page reload.
             var hasScanned = !!seguriumScan.lastScan;
             if (!hasScanned && n === 0) {
@@ -2196,7 +2196,7 @@
             ssShowStop(false);
             // Tear down the live progress UI so a Stop click clears the
             // bar without waiting for a page refresh. Idempotent for the
-            // other paths (renderLastScan / ssShowResult already hide it).
+            // other paths (renderLastScan already hides it).
             if (ssProgressWrap) ssProgressWrap.style.display = 'none';
             if (ssBar) {
                 ssBar.classList.remove('segurium-progress-bar--active');
@@ -2220,11 +2220,11 @@
                 parts.push(ssFormatDuration(elapsed));
                 appendStalledHint(parts, data);
                 ssStatus.textContent = parts.join(' | ');
-            } else if (data.phase === 'scanning') {
+            } else if (data.phase === 'scanning' || data.phase === 'completed') {
                 ssBar.classList.remove('segurium-progress-bar--active');
                 var total = data.files_found || 1;
                 var done = data.files_verdicted + data.files_failed;
-                var pct = done >= total ? 100 : Math.min(99, Math.round(done / total * 100));
+                var pct = (done >= total || data.phase === 'completed') ? 100 : Math.min(99, Math.round(done / total * 100));
                 ssBar.style.width = pct + '%';
                 if (ssProgressLabel) ssProgressLabel.textContent = pct + '%';
                 var parts = ['Scanning... ' + done + ' checked of ' + data.files_found + ' found'];
@@ -2233,30 +2233,6 @@
                 appendStalledHint(parts, data);
                 ssStatus.textContent = parts.join(' | ');
             }
-        }
-
-        function ssShowResult(data) {
-            var elapsed = ssTotalStart ? Math.floor((Date.now() - ssTotalStart) / 1000) : 0;
-            var summary = {
-                status: 'completed',
-                files_found: data.files_found,
-                files_verdicted: data.files_verdicted || 0,
-                files_failed: data.files_failed || 0,
-                files_skipped: data.files_skipped || 0,
-                threats_found: data.threats_found || 0,
-                duration: elapsed
-            };
-            renderLastScan(summary);
-            // Keep the localized lastScan in sync so the
-            // empty-state banner switches from "no scans yet" to the
-            // clean / threats-remaining variant without a reload.
-            seguriumScan.lastScan = summary;
-            // A completed scan produces the fresh truth; ghost rows from
-            // prior session actions should stop lingering. The Scans tab
-            // (when present) refreshes via the segurium:scan-finished
-            // event dispatched from ssDone() below.
-            ssStickyRows = Object.create(null);
-            loadServerState();
         }
 
         // ── Scanner tab: polling + dispatch via Segurium_Scan_Runner ──
@@ -2334,11 +2310,6 @@
                         ssStickyRows = Object.create(null);
                         loadServerState();
                     }
-                    ssDone();
-                    return;
-                }
-                if (data.completed) {
-                    ssShowResult(data);
                     ssDone();
                     return;
                 }
@@ -2517,20 +2488,28 @@
         // a malware scan (called from switchTab → 'scanner'). Observes
         // whatever the runner is driving server-side without ever
         // issuing a chunk call from the browser.
-        ssResumeIfRunning = function () {
+        ssResumeIfRunning = function (onIdle) {
             if (ssScanning) return;
             post({
                 action: 'segurium_scan_status',
                 nonce: seguriumScan.nonce
             }).then(function (response) {
-                if (!response || !response.success) return;
-                var data = response.data || {};
-                if (!data.running || data.completed) return;
                 if (ssScanning) return;
-                ssBeginObserving(data);
+                var data = (response && response.success && response.data) || {};
+                if (data.running && !data.completed) {
+                    ssBeginObserving(data);
+                    return;
+                }
+                if (typeof onIdle === 'function') onIdle();
             });
         };
         ssResumeIfRunning();
+
+        document.addEventListener('segurium:start-malware-scan', function () {
+            ssResumeIfRunning(function () {
+                if (ssBtn) ssBtn.click();
+            });
+        });
 
         // ── Fix all ──
         //
@@ -3717,8 +3696,8 @@
                     return;
                 }
                 if (!data.running || data.completed) {
-                    isRenderCompletion();
                     isScanDone();
+                    isRenderCompletion();
                 }
             }).catch(function (err) {
                 // Stop observing rather than retry: a handler bug repeats on
@@ -3755,9 +3734,6 @@
                 }).then(function (response) {
                     if (response && response.success) {
                         isStatus.textContent = '';
-                        isBar.classList.remove('segurium-progress-bar--active');
-                        if (isProgressLabel) isProgressLabel.textContent = '';
-                        isProgress.style.display = 'none';
                         isScanDone();
                     } else {
                         isStopBtn.disabled = false;
@@ -3836,7 +3812,7 @@
 
         function isRenderCompletion() {
             isStatus.textContent = '';
-            isBar.classList.remove('segurium-progress-bar--active');
+            isProgress.style.display = '';
             isBar.style.width = '100%';
             if (isProgressLabel) isProgressLabel.textContent = '100%';
             setTimeout(function () {
@@ -3851,6 +3827,10 @@
             isBtn.disabled = false;
             isShowStop(false);
             isStopPolling();
+            isProgress.style.display = 'none';
+            isBar.classList.remove('segurium-progress-bar--active');
+            isBar.style.width = '';
+            if (isProgressLabel) isProgressLabel.textContent = '';
             // Integrity scan terminations dispatch the same
             // signal the malware scanner already emits in ssDone(). The
             // post-action quota refresh listener (see "scan-finished →

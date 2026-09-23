@@ -1,7 +1,8 @@
 /**
  * Self-Check tab controller: renders the security grade, runs the
- * AJAX scan, applies in-place fixes, and wires the remaining Fix
- * buttons to their target tab.
+ * AJAX scan, applies in-place fixes one by one or all at once, hands
+ * stale malware rows to the scanner, rescores after a scan finishes,
+ * and wires the remaining Fix buttons to their target tab.
  *
  * Depends on the global `seguriumScan` object for ajaxUrl + nonce +
  * i18n, and `window.seguriumSelfCheck` for server-side bootstrap
@@ -15,7 +16,8 @@
 	var i18n  = cfg.i18n || {};
 
 	// Per-row messages that outlive a re-render, keyed by check id.
-	// Populated when a write lands but the rescore cannot observe it.
+	// Populated when a write lands but the rescore cannot observe it, or
+	// when Fix all could not write a row.
 	var rowNotices = {};
 
 	function $ (id) { return document.getElementById(id); }
@@ -124,86 +126,78 @@
 		}
 	}
 
-	function renderCategories (cats) {
-		var wrap = $('segurium-sc-categories');
-		if (!wrap) { return; }
-		wrap.innerHTML = '';
-		if (!cats) { return; }
-		var order = ['hardening', 'malware', 'disclosure', 'cookies', 'headers'];
-		order.forEach(function (key) {
-			var c = cats[key];
-			if (!c) { return; }
-			var row = document.createElement('div');
-			row.className = 'segurium-sc-cat-row';
+	function categoryBar (counts) {
+		var bar = document.createElement('span');
+		bar.className = 'segurium-sc-cat-bar';
+		['pass', 'partial', 'warn', 'fail'].forEach(function (s) {
+			if (counts[s] > 0) {
+				var seg = document.createElement('span');
+				seg.className = s;
+				seg.style.flexGrow = String(counts[s]);
+				bar.appendChild(seg);
+			}
+		});
+		return bar;
+	}
 
-			var name = document.createElement('div');
-			name.className = 'segurium-sc-cat-name';
-			name.textContent = categoryLabel(key);
-
-			var bar = document.createElement('div');
-			bar.className = 'segurium-sc-cat-bar';
-			['pass', 'partial', 'warn', 'fail'].forEach(function (s) {
-				if (c[s] > 0) {
-					var seg = document.createElement('span');
-					seg.className = s;
-					seg.style.flexGrow = String(c[s]);
-					bar.appendChild(seg);
-				}
-			});
-
-			// `partial` rolls up with `warn` for category counts so we don't
-			// proliferate UI buckets for what is functionally a soft fail.
-			var warnish = (c.warn || 0) + (c.partial || 0);
-			var counts = document.createElement('div');
-			counts.className = 'segurium-sc-cat-counts';
-			counts.textContent = sprintf(
-				t('scPassWarnFail', '%1$d pass, %2$d warn, %3$d fail'),
-				c.pass || 0, warnish, c.fail || 0
-			);
-
-			row.appendChild(name);
-			row.appendChild(bar);
-			row.appendChild(counts);
-			wrap.appendChild(row);
+	function hasPending (checks, flag) {
+		return Array.isArray(checks) && checks.some(function (c) {
+			return c.status !== 'pass' && c[flag];
 		});
 	}
 
-	function renderChecks (checks) {
+	function fixButton (className, attr, value) {
+		var b = document.createElement('button');
+		b.type = 'button';
+		b.className = className;
+		if (attr) { b.setAttribute(attr, value); }
+		b.textContent = t('scFix', 'Fix');
+		return b;
+	}
+
+	function notVisibleText () {
+		return t(
+			'scFixNotVisible',
+			'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.'
+		);
+	}
+
+	function renderChecks (checks, categories) {
 		var wrap = $('segurium-sc-checks');
 		if (!wrap) { return; }
 
-		// Applying a fix redraws the whole list. Carry the open groups
-		// across so the user keeps the place they were reading.
+		// Applying a fix redraws the whole list. Carry each group's open
+		// state across so the user keeps the place they were reading.
 		var wasOpen = {};
 		Array.prototype.forEach.call(wrap.querySelectorAll('.segurium-sc-group'), function (g) {
 			var head = g.querySelector('.segurium-sc-cat-header');
-			if (head && head.getAttribute('aria-expanded') === 'true') {
-				wasOpen[g.getAttribute('data-category')] = true;
+			if (head) {
+				wasOpen[g.getAttribute('data-category')] = head.getAttribute('aria-expanded') === 'true';
 			}
 		});
 
 		wrap.innerHTML = '';
 		if (!Array.isArray(checks)) { return; }
 
-		var order = ['hardening', 'malware', 'disclosure', 'cookies', 'headers'];
-		var grouped = { hardening: [], malware: [], disclosure: [], cookies: [], headers: [] };
+		var order = ['malware', 'hardening', 'disclosure', 'cookies', 'headers'];
+		var grouped = { malware: [], hardening: [], disclosure: [], cookies: [], headers: [] };
 		checks.forEach(function (c) {
 			if (grouped[c.category]) { grouped[c.category].push(c); }
 		});
 
 		var statusOrder = { fail: 0, partial: 1, warn: 2, pass: 3 };
+		var pinned = function (c) { return c.id === 'malware_fresh' && c.status === 'fail'; };
 		order.forEach(function (cat) {
 			grouped[cat].sort(function (a, b) {
-				return (statusOrder[a.status] || 0) - (statusOrder[b.status] || 0);
+				return (pinned(b) - pinned(a)) || (statusOrder[a.status] || 0) - (statusOrder[b.status] || 0);
 			});
 		});
 
 		order.forEach(function (cat) {
 			if (grouped[cat].length === 0) { return; }
 
-			var fails = grouped[cat].filter(function (c) { return c.status === 'fail'; }).length;
-			// `partial` rolls up with `warn` in the category badge.
-			var warns = grouped[cat].filter(function (c) { return c.status === 'warn' || c.status === 'partial'; }).length;
+			var counts = (categories && categories[cat]) || { pass: 0, partial: 0, warn: 0, fail: 0 };
+			var open = Object.prototype.hasOwnProperty.call(wasOpen, cat) ? wasOpen[cat] : counts.fail > 0;
 
 			var group = document.createElement('div');
 			group.className = 'segurium-sc-group';
@@ -212,28 +206,24 @@
 			var header = document.createElement('button');
 			header.type = 'button';
 			header.className = 'segurium-sc-cat-header';
-			header.setAttribute('aria-expanded', wasOpen[cat] ? 'true' : 'false');
+			header.setAttribute('aria-expanded', open ? 'true' : 'false');
 
 			var titleSpan = document.createElement('span');
 			titleSpan.className = 'segurium-sc-cat-title';
 			titleSpan.textContent = categoryLabel(cat);
 			header.appendChild(titleSpan);
 
-			var badges = document.createElement('span');
-			badges.className = 'segurium-sc-cat-badges';
-			if (fails > 0) {
-				var fb = document.createElement('span');
-				fb.className = 'segurium-sc-badge segurium-sc-badge--fail';
-				fb.textContent = fails + ' ' + t('scFail', 'fail');
-				badges.appendChild(fb);
-			}
-			if (warns > 0) {
-				var wb = document.createElement('span');
-				wb.className = 'segurium-sc-badge segurium-sc-badge--warn';
-				wb.textContent = warns + ' ' + t('scWarn', 'warn');
-				badges.appendChild(wb);
-			}
-			header.appendChild(badges);
+			header.appendChild(categoryBar(counts));
+
+			// `partial` rolls up with `warn` so a soft fail does not get a
+			// UI bucket of its own.
+			var countsSpan = document.createElement('span');
+			countsSpan.className = 'segurium-sc-cat-counts';
+			countsSpan.textContent = sprintf(
+				t('scPassWarnFail', '%1$d pass, %2$d warn, %3$d fail'),
+				counts.pass, counts.warn + counts.partial, counts.fail
+			);
+			header.appendChild(countsSpan);
 
 			var arrow = document.createElement('span');
 			arrow.className = 'segurium-sc-cat-arrow';
@@ -278,12 +268,9 @@
 				var hideTxt = t('scHideFix', 'Hide details');
 
 				if (c.status !== 'pass' && c.fix_action) {
-					var applyBtn = document.createElement('button');
-					applyBtn.type = 'button';
-					applyBtn.className = 'button button-primary segurium-sc-apply';
-					applyBtn.setAttribute('data-fix-check', c.id);
-					applyBtn.textContent = t('scFix', 'Fix');
-					action.appendChild(applyBtn);
+					action.appendChild(fixButton('button button-primary segurium-sc-apply', 'data-fix-check', c.id));
+				} else if (c.status !== 'pass' && c.fix_scan) {
+					action.appendChild(fixButton('button button-primary segurium-sc-scan'));
 				} else if (c.status !== 'pass' && hasHelp) {
 					help = document.createElement('div');
 					help.className = 'segurium-sc-help';
@@ -303,12 +290,7 @@
 					});
 					action.appendChild(helpBtn);
 				} else if (c.fix_tab && c.status !== 'pass') {
-					var btn = document.createElement('button');
-					btn.type = 'button';
-					btn.className = 'button button-secondary segurium-sc-fix';
-					btn.setAttribute('data-fix-tab', c.fix_tab);
-					btn.textContent = t('scFix', 'Fix');
-					action.appendChild(btn);
+					action.appendChild(fixButton('button button-secondary segurium-sc-fix', 'data-fix-tab', c.fix_tab));
 				}
 
 				row.appendChild(icon);
@@ -340,6 +322,7 @@
 	}
 
 	function renderResult (result, history) {
+		renderFixAll(result);
 		if (!result) {
 			var scannedAt = $('segurium-sc-scanned-at');
 			if (scannedAt) { scannedAt.textContent = t('scNeverRun', 'Click Run Self-Check to grade your site.'); }
@@ -348,14 +331,39 @@
 		}
 		renderGrade(result);
 		renderDelta(result, history);
-		renderCategories(result.categories);
-		renderChecks(result.checks);
+		renderChecks(result.checks, result.categories);
 		renderExternalLinks();
+	}
+
+	function renderFixAll (result) {
+		var btn = $('segurium-sc-fix-all');
+		if (!btn) { return; }
+		var checks = result && result.checks;
+		btn.hidden = !(hasPending(checks, 'fix_action') || hasPending(checks, 'fix_scan'));
+	}
+
+	function adoptResult (result) {
+		boot.last = result;
+		boot.history = (boot.history || []).concat([{
+			score: result.score,
+			grade: result.grade,
+			scanned_at: result.scanned_at
+		}]).slice(-10);
+		renderResult(boot.last, boot.history);
 	}
 
 	function navigateToFix (tabId) {
 		var nav = document.querySelector('.segurium-nav-item[data-feature="' + tabId + '"]');
 		if (nav) { nav.click(); }
+	}
+
+	function startMalwareScan () {
+		navigateToFix('scanner');
+		document.dispatchEvent(new CustomEvent('segurium:start-malware-scan'));
+	}
+
+	function scanIfStale () {
+		if (hasPending(boot.last && boot.last.checks, 'fix_scan')) { startMalwareScan(); }
 	}
 
 	function resetFixButton (btn) {
@@ -388,22 +396,58 @@
 				// way a visitor does, so a page cache can still be serving
 				// the response from before the fix.
 				if (!res.data.flipped) {
-					rowNotices[checkId] = t(
-						'scFixNotVisible',
-						'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.'
-					);
+					rowNotices[checkId] = notVisibleText();
 				}
 
-				boot.last = res.data.result;
-				boot.history = (boot.history || []).concat([{
-					score: res.data.result.score,
-					grade: res.data.result.grade,
-					scanned_at: res.data.result.scanned_at
-				}]).slice(-10);
-				renderResult(boot.last, boot.history);
+				adoptResult(res.data.result);
 			})
 			.catch(function () {
 				resetFixButton(btn);
+			});
+	}
+
+	function fixAll (btn) {
+		showStatus('');
+		if (!hasPending(boot.last && boot.last.checks, 'fix_action')) {
+			scanIfStale();
+			return;
+		}
+
+		btn.disabled = true;
+		btn.textContent = t('scFixing', 'Applying...');
+
+		window.seguriumAdmin.post({
+			action: 'segurium_self_check_apply_all_fixes',
+			nonce: cfg.selfCheckNonce || ''
+		})
+			.then(function (res) {
+				var data = res && res.data;
+				if (!res || !res.success || !data || !data.result) {
+					showStatus(window.seguriumAdmin.describeAjaxError(data));
+					return false;
+				}
+
+				var errors = data.errors || {};
+				(data.not_flipped || []).forEach(function (id) { rowNotices[id] = notVisibleText(); });
+				Object.keys(errors).forEach(function (id) {
+					rowNotices[id] = window.seguriumAdmin.describeAjaxError({ code: errors[id] });
+				});
+
+				if ((data.applied || []).length) {
+					adoptResult(data.result);
+				} else {
+					renderResult(boot.last, boot.history);
+				}
+				return true;
+			})
+			.catch(function (err) {
+				showStatus(window.seguriumAdmin.describeAjaxError({ raw: err && err.message }));
+				return false;
+			})
+			.then(function (ok) {
+				btn.disabled = false;
+				btn.textContent = t('scFixAll', 'Fix all');
+				if (ok) { scanIfStale(); }
 			});
 	}
 
@@ -417,6 +461,20 @@
 			slot.style.display = '';
 			slot.textContent = message;
 		}
+	}
+
+	function refreshAfterScan () {
+		window.seguriumAdmin.post({
+			action: 'segurium_run_self_check',
+			nonce: cfg.selfCheckNonce || ''
+		}).then(function (res) {
+			if (!res || !res.success || !res.data) {
+				showStatus(window.seguriumAdmin.describeAjaxError(res && res.data));
+				return;
+			}
+			if (boot.last && boot.last.scanned_at === res.data.scanned_at) { return; }
+			adoptResult(res.data);
+		});
 	}
 
 	function runScan (force) {
@@ -439,14 +497,7 @@
 			.then(window.seguriumParseResponse)
 			.then(function (res) {
 				if (res && res.success) {
-					boot.history = (boot.history || []).concat([{
-						score: res.data.score,
-						grade: res.data.grade,
-						scanned_at: res.data.scanned_at
-					}]);
-					if (boot.history.length > 10) { boot.history = boot.history.slice(-10); }
-					boot.last = res.data;
-					renderResult(res.data, boot.history);
+					adoptResult(res.data);
 				} else {
 					showStatus((res && res.data && res.data.message) || t('errGeneric', 'Request failed'));
 				}
@@ -465,6 +516,13 @@
 		if (!runBtn) { return; }
 		runBtn.addEventListener('click', function () { runScan(true); });
 
+		document.addEventListener('segurium:scan-finished', refreshAfterScan);
+
+		var fixAllBtn = $('segurium-sc-fix-all');
+		if (fixAllBtn) {
+			fixAllBtn.addEventListener('click', function () { fixAll(fixAllBtn); });
+		}
+
 		var checksWrap = $('segurium-sc-checks');
 		if (checksWrap) {
 			checksWrap.addEventListener('click', function (ev) {
@@ -474,6 +532,10 @@
 						if (target.disabled) { return; }
 						var checkId = target.getAttribute('data-fix-check');
 						if (checkId) { applyFix(checkId, target); }
+						return;
+					}
+					if (target.classList && target.classList.contains('segurium-sc-scan')) {
+						startMalwareScan();
 						return;
 					}
 					if (target.classList && target.classList.contains('segurium-sc-fix')) {

@@ -320,15 +320,14 @@ class Segurium_Verdict_Queue {
 		if ( empty( $files ) ) {
 			return true;
 		}
-		$pending_count = $this->get_total_pending();
-		if ( $pending_count + count( $files ) > self::MAX_QUEUE_SIZE ) {
+		$this->scan_id = (string) $scan_id;
+		$buffered      = $this->load_pending_tail();
+		$backlog       = ( $this->state['chunk_in'] - $this->state['chunk_out'] ) * $this->batch_size + count( $buffered );
+		if ( $backlog + count( $files ) > static::MAX_QUEUE_SIZE ) {
 			return false;
 		}
 
-		$this->scan_id = (string) $scan_id;
 		$this->ensure_scan_stats( $scan_id );
-
-		$buffered = $this->load_pending_tail();
 		foreach ( $files as $file ) {
 			$file['scan_id'] = $scan_id;
 			$buffered[]      = $file;
@@ -536,12 +535,16 @@ class Segurium_Verdict_Queue {
 	}
 
 	/**
-	 * Whether the queue can accept more files.
+	 * Files the next listing pass may add: a tenth of the cap, or 0 while the
+	 * backlog leaves room for less than two passes. The second pass covers
+	 * rows a crashed tick listed but never submitted.
 	 *
-	 * @return bool
+	 * @return int
 	 */
-	public function is_accepting() {
-		return $this->get_total_pending() < self::MAX_QUEUE_SIZE;
+	public function listing_pass_size() {
+		$pass    = (int) ceil( static::MAX_QUEUE_SIZE / 10 );
+		$backlog = ( $this->state['chunk_in'] - $this->state['chunk_out'] + 1 ) * $this->batch_size;
+		return $backlog + 2 * $pass <= static::MAX_QUEUE_SIZE ? $pass : 0;
 	}
 
 	/**
@@ -2473,20 +2476,6 @@ class Segurium_Verdict_Queue {
 				$this->state['scan_stats'][ $scan_id ][ $key ] = $default;
 			}
 		}
-	}
-
-	/**
-	 * Calculate the total number of pending items across all scans.
-	 *
-	 * @return int Number of pending items.
-	 */
-	private function get_total_pending() {
-		$total = 0;
-		foreach ( $this->state['scan_stats'] as $stats ) {
-			$neoray_skipped = isset( $stats['neoray_skipped'] ) ? (int) $stats['neoray_skipped'] : 0;
-			$total         += $stats['submitted'] - $stats['verdicted'] - $stats['failed'] - $neoray_skipped;
-		}
-		return max( 0, $total );
 	}
 
 	/**

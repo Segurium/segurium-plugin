@@ -345,6 +345,7 @@ class Segurium {
 			// Self check.
 			'segurium_run_self_check'                    => array( $selfcheck, $mo, array( $this, 'ajax_run_self_check' ) ),
 			'segurium_self_check_apply_fix'              => array( $selfcheck, $mo, array( $this, 'ajax_self_check_apply_fix' ) ),
+			'segurium_self_check_apply_all_fixes'        => array( $selfcheck, $mo, array( $this, 'ajax_self_check_apply_all_fixes' ) ),
 
 			// 2FA admin settings (manage_options).
 			'segurium_get_2fa_settings'                  => array( $twofa, $mo, array( $this, 'ajax_get_2fa_settings' ) ),
@@ -1351,11 +1352,10 @@ class Segurium {
 						'scLastRun'               => __( 'Last checked %s ago.', 'segurium' ),
 						'scFix'                   => __( 'Fix', 'segurium' ),
 						'scFixing'                => __( 'Applying...', 'segurium' ),
+						'scFixAll'                => __( 'Fix all', 'segurium' ),
 						'scFixNotVisible'         => __( 'Setting saved. Your page cache is still serving the old response, so this row will clear once the cache refreshes.', 'segurium' ),
 						'scHowToFix'              => __( 'How to fix', 'segurium' ),
 						'scHideFix'               => __( 'Hide details', 'segurium' ),
-						'scFail'                  => __( 'fail', 'segurium' ),
-						'scWarn'                  => __( 'warn', 'segurium' ),
 						'scCategoryHeaders'       => __( 'HTTP Security Headers', 'segurium' ),
 						'scCategoryDisclosure'    => __( 'Information Disclosure', 'segurium' ),
 						'scCategoryHardening'     => __( 'WordPress Hardening', 'segurium' ),
@@ -3122,13 +3122,15 @@ class Segurium {
 								<p id="segurium-sc-delta" class="segurium-sc-delta"></p>
 								<p id="segurium-sc-ping-error" class="segurium-sc-ping-error" style="display:none;"></p>
 								<p>
-									<button type="button" class="button button-primary" id="segurium-sc-run">
+									<button type="button" class="button button-primary" id="segurium-sc-fix-all" hidden>
+										<?php esc_html_e( 'Fix all', 'segurium' ); ?>
+									</button>
+									<button type="button" class="button" id="segurium-sc-run">
 										<?php esc_html_e( 'Run Self-Check', 'segurium' ); ?>
 									</button>
 								</p>
 							</div>
 						</div>
-						<div class="segurium-sc-categories" id="segurium-sc-categories"></div>
 						<h3><?php esc_html_e( 'Check results', 'segurium' ); ?></h3>
 						<div class="segurium-sc-checks" id="segurium-sc-checks" role="list"></div>
 						<h3><?php esc_html_e( 'Independent verification', 'segurium' ); ?></h3>
@@ -7743,6 +7745,27 @@ class Segurium {
 				),
 				isset( $data['status'] ) ? (int) $data['status'] : 400
 			);
+		}
+
+		segurium_send_json_success( $outcome );
+	}
+
+	/**
+	 * AJAX handler for the Self-Check Fix all button.
+	 *
+	 * @return void
+	 */
+	public function ajax_self_check_apply_all_fixes() {
+		check_ajax_referer( Segurium_Self_Check::NONCE_ACTION, 'nonce' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			segurium_send_json_error( array( 'message' => __( 'Unauthorized.', 'segurium' ) ), 403 );
+		}
+
+		try {
+			$outcome = Segurium_Self_Check::get_instance()->apply_all_fixes();
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium] self_check_fix_all_exception: ' . get_class( $e ) . ': ' . $e->getMessage() );
+			segurium_send_json_error( array( 'code' => 'segurium_self_check_fix_all_exception' ), 500 );
 		}
 
 		segurium_send_json_success( $outcome );

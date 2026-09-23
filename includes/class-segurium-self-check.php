@@ -40,6 +40,12 @@ class Segurium_Self_Check {
 	const CRON_HOOK = 'segurium_daily_self_check';
 
 	/**
+	 * One-off event queued when a scan finishes, so the malware and
+	 * integrity rows follow the scan without waiting for the daily run.
+	 */
+	const REFRESH_HOOK = 'segurium_self_check_refresh';
+
+	/**
 	 * CTI message_type. Server-side allow-list lives in
 	 * segurium-cti's handler.rs::VALID_MESSAGE_TYPES. The materialised view
 	 * `segurium.self_check_mv` filters on this exact value.
@@ -191,7 +197,9 @@ class Segurium_Self_Check {
 	/**
 	 * Run the full check battery and return a structured result array.
 	 *
-	 * @param bool $force          When true, bypass the 1-hour transient.
+	 * @param bool $force          When true, bypass the cached result. The
+	 *                             cache is also bypassed once a malware or
+	 *                             integrity scan finished after it was scored.
 	 * @param bool $record_history When false, skip the history row. Used by
 	 *                             `apply_fix()`, whose rescores would
 	 *                             otherwise push every real run out of the
@@ -201,7 +209,7 @@ class Segurium_Self_Check {
 	public function run_checks( $force = false, $record_history = true ) {
 		if ( ! $force ) {
 			$cached = get_transient( self::CACHE_KEY );
-			if ( is_array( $cached ) ) {
+			if ( is_array( $cached ) && (int) ( $cached['scanned_at'] ?? 0 ) >= $this->last_scan_finished_at() ) {
 				return $cached;
 			}
 		}
@@ -235,6 +243,58 @@ class Segurium_Self_Check {
 	 */
 	public static function register_hooks(): void {
 		add_action( self::CRON_HOOK, array( __CLASS__, 'run_cron' ) );
+		add_action( self::REFRESH_HOOK, array( __CLASS__, 'run_refresh' ) );
+		add_action( 'segurium_scan_completed', array( __CLASS__, 'queue_refresh' ) );
+		add_action( 'segurium_integrity_scan_completed', array( __CLASS__, 'queue_refresh' ) );
+	}
+
+	/**
+	 * Queue a background rescore. A pending event covers any scan that
+	 * finishes before it runs. The delay lets a page that watched the scan
+	 * rescore first, so the event finds a fresh cache.
+	 *
+	 * @return void
+	 */
+	public static function queue_refresh(): void {
+		if ( false === wp_next_scheduled( self::REFRESH_HOOK ) ) {
+			wp_schedule_single_event( time() + MINUTE_IN_SECONDS, self::REFRESH_HOOK );
+		}
+	}
+
+	/**
+	 * Cron handler for the queued rescore.
+	 *
+	 * @return void
+	 */
+	public static function run_refresh(): void {
+		try {
+			self::get_instance()->run_checks();
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-self-check] refresh after scan failed: ' . get_class( $e ) . ': ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * When the newest completed malware or integrity scan finished.
+	 *
+	 * @return int Unix timestamp, 0 when neither has run.
+	 */
+	private function last_scan_finished_at() {
+		$malware = Segurium::get_instance()->get_last_completed_scan();
+		return max( is_array( $malware ) ? (int) ( $malware['completed_at'] ?? 0 ) : 0, $this->integrity_scanned_at() );
+	}
+
+	/**
+	 * When the last integrity scan finished.
+	 *
+	 * @return int Unix timestamp, 0 when none has run.
+	 */
+	private function integrity_scanned_at() {
+		return (int) Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+			array( 'integrity:last_scan' )
+		);
 	}
 
 	/**
@@ -252,7 +312,8 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * Clear the daily event. Called on plugin deactivation.
+	 * Clear the daily event and any queued refresh. Called on plugin
+	 * deactivation.
 	 *
 	 * @return void
 	 */
@@ -262,6 +323,7 @@ class Segurium_Self_Check {
 			wp_unschedule_event( $ts, self::CRON_HOOK );
 		}
 		wp_clear_scheduled_hook( self::CRON_HOOK );
+		wp_clear_scheduled_hook( self::REFRESH_HOOK );
 	}
 
 	/**
@@ -438,7 +500,9 @@ class Segurium_Self_Check {
 	 * only emitted on failing/warning checks by the helpers that build
 	 * them — absent otherwise.
 	 *
-	 * @param array $spec Row fields — `id`, `category`, `label`, `status`, `detail`, `fix_tab`, `help_html`, `points`.
+	 * `fix_scan` marks a failing row that a fresh malware scan would clear.
+	 *
+	 * @param array $spec Row fields — `id`, `category`, `label`, `status`, `detail`, `fix_tab`, `fix_scan`, `help_html`, `points`.
 	 * @return array
 	 */
 	private function make_check( array $spec ) {
@@ -452,6 +516,7 @@ class Segurium_Self_Check {
 			'detail'     => (string) ( $spec['detail'] ?? '' ),
 			'fix_tab'    => (string) ( $spec['fix_tab'] ?? self::TAB_NONE ),
 			'fix_action' => self::is_fixable( $id ) && self::server_supports_fix( $id ),
+			'fix_scan'   => (bool) ( $spec['fix_scan'] ?? false ),
 			'help_html'  => (string) ( $spec['help_html'] ?? '' ),
 			'points'     => (float) ( $spec['points'] ?? 0 ),
 		);
@@ -525,7 +590,7 @@ class Segurium_Self_Check {
 		}
 
 		$feature = self::FIXABLE[ $check_id ];
-		$applied = $this->run_fix( $feature, $check_id );
+		$applied = $this->run_fix( $feature, array( $check_id ) );
 		if ( is_wp_error( $applied ) ) {
 			return $applied;
 		}
@@ -555,14 +620,70 @@ class Segurium_Self_Check {
 	}
 
 	/**
+	 * Apply every in-place fix the last result offers, then rescore once.
+	 *
+	 * The rows come from the cached result, so the writes match the list
+	 * the user pressed the button on. Each feature is written once for all
+	 * of its rows. A feature whose write fails is reported per row and the
+	 * rest still go ahead.
+	 *
+	 * @return array { applied, not_flipped, errors, result }
+	 */
+	public function apply_all_fixes() {
+		$previous = $this->get_last_result();
+		if ( null === $previous ) {
+			$previous = $this->run_checks( true, false );
+		}
+
+		$by_feature = array();
+		$checks     = ( isset( $previous['checks'] ) && is_array( $previous['checks'] ) ) ? $previous['checks'] : array();
+		foreach ( $checks as $check ) {
+			$id = isset( $check['id'] ) ? (string) $check['id'] : '';
+			if ( self::STATUS_PASS === ( $check['status'] ?? '' ) || ! self::is_fixable( $id ) || ! self::server_supports_fix( $id ) ) {
+				continue;
+			}
+			$by_feature[ self::FIXABLE[ $id ] ][] = $id;
+		}
+
+		$applied = array();
+		$errors  = array();
+		foreach ( $by_feature as $feature => $ids ) {
+			$outcome = $this->run_fix( $feature, $ids );
+			if ( is_wp_error( $outcome ) ) {
+				foreach ( $ids as $id ) {
+					$errors[ $id ] = $outcome->get_error_code();
+				}
+				continue;
+			}
+			$applied = array_merge( $applied, $ids );
+		}
+
+		$result = empty( $applied ) ? $previous : $this->run_checks( true, false );
+
+		$not_flipped = array();
+		foreach ( $result['checks'] as $check ) {
+			if ( in_array( $check['id'], $applied, true ) && self::STATUS_PASS !== $check['status'] ) {
+				$not_flipped[] = $check['id'];
+			}
+		}
+
+		return array(
+			'applied'     => $applied,
+			'not_flipped' => $not_flipped,
+			'errors'      => $errors,
+			'result'      => $result,
+		);
+	}
+
+	/**
 	 * Perform the settings write for one feature, preserving every
 	 * choice the user has already made inside it.
 	 *
-	 * @param string $feature  One of the FIX_* constants.
-	 * @param string $check_id Check the user pressed, for the per-row key.
+	 * @param string   $feature   One of the FIX_* constants.
+	 * @param string[] $check_ids Rows being fixed, for their per-row keys.
 	 * @return true|WP_Error
 	 */
-	private function run_fix( $feature, $check_id ) {
+	private function run_fix( $feature, array $check_ids ) {
 		switch ( $feature ) {
 			case self::FIX_INFO_SHIELD:
 				if ( ! class_exists( 'Segurium_Info_Shield' ) ) {
@@ -571,8 +692,10 @@ class Segurium_Self_Check {
 				$shield              = Segurium_Info_Shield::get_instance();
 				$settings            = $shield->get_settings();
 				$settings['enabled'] = true;
-				if ( isset( self::FIX_SHIELD_KEYS[ $check_id ] ) ) {
-					$settings[ self::FIX_SHIELD_KEYS[ $check_id ] ] = true;
+				foreach ( $check_ids as $check_id ) {
+					if ( isset( self::FIX_SHIELD_KEYS[ $check_id ] ) ) {
+						$settings[ self::FIX_SHIELD_KEYS[ $check_id ] ] = true;
+					}
 				}
 				$saved = $shield->save_settings( $settings );
 				return empty( $saved['enabled'] ) ? $this->fix_not_persisted( $feature ) : true;
@@ -1309,6 +1432,7 @@ class Segurium_Self_Check {
 						? __( 'Malware scan is older than 7 days.', 'segurium' )
 						: __( 'No malware scan has been completed yet.', 'segurium' ) ),
 				'fix_tab'  => self::TAB_SCANNER,
+				'fix_scan' => ! $malware_fresh,
 				'points'   => $malware_fresh ? $pts : 0,
 			)
 		);
@@ -1331,15 +1455,12 @@ class Segurium_Self_Check {
 							$malware_n
 						) ),
 				'fix_tab'  => self::TAB_SCANNER,
+				'fix_scan' => ! $malware_24h_fresh,
 				'points'   => $malware_24h_pass ? $pts : 0,
 			)
 		);
 
-		$integrity_t = (int) Segurium_Storage::table_get_var(
-			'runtime_kv',
-			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
-			array( 'integrity:last_scan' )
-		);
+		$integrity_t = $this->integrity_scanned_at();
 
 		$integrity_24h_fresh = ( $integrity_t > 0 && ( $now - $integrity_t ) <= self::SCAN_24H_FRESH_SECS );
 
