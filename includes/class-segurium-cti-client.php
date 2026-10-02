@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * HTTP client for all Segurium CTI API endpoints.
  *
- * NOTE: every call in this class targets cti.segurium.com on TCP/8901, which
+ * NOTE: the primary endpoint is cti.segurium.com on TCP/8901, which
  * wp_http_validate_url() rejects (allowed cross-host ports are {80,443,8080}).
- * That is why we use wp_remote_* here instead of the safer wp_safe_remote_*
- * variants — the safe variants would refuse the request before it leaves
- * the site.
+ * That is why Segurium_Cloud_Endpoint sends with wp_remote_request() instead
+ * of the safer wp_safe_remote_* variants — the safe variants would refuse the
+ * request before it leaves the site.
  */
 class Segurium_CTI_Client {
 
@@ -510,8 +510,8 @@ class Segurium_CTI_Client {
 		}
 
 		$response = ( 'GET' === $opts['method'] )
-			? wp_remote_get( $url, $args )
-			: wp_remote_post( $url, $args );
+			? Segurium_Cloud_Endpoint::get( $url, $args )
+			: Segurium_Cloud_Endpoint::post( $url, $args );
 
 		$this->maybe_reregister( $response );
 
@@ -524,7 +524,10 @@ class Segurium_CTI_Client {
 	 * @return bool True if the health endpoint returns HTTP 200.
 	 */
 	public function health() {
-		$response = wp_remote_get(
+		if ( ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
+			return false;
+		}
+		$response = Segurium_Cloud_Endpoint::get(
 			self::BASE_URL . '/health',
 			array(
 				'timeout' => 5,
@@ -590,7 +593,7 @@ class Segurium_CTI_Client {
 			}
 			$body .= '--' . $boundary . "--\r\n";
 
-			$response = wp_remote_post(
+			$response = Segurium_Cloud_Endpoint::post(
 				self::SUPPORT_ENDPOINT,
 				array(
 					'headers' => array_merge(
@@ -662,7 +665,7 @@ class Segurium_CTI_Client {
 			. $gzip_body . "\r\n"
 			. '--' . $boundary . "--\r\n";
 
-		$response = wp_remote_post(
+		$response = Segurium_Cloud_Endpoint::post(
 			self::SUBMISSIONS_ENDPOINT,
 			array(
 				'headers' => array_merge(
@@ -1026,7 +1029,7 @@ class Segurium_CTI_Client {
 			$post_args['timeout'] = self::submit_timeout_secs( 0 === $attempt );
 			++$attempt;
 			$t0           = microtime( true );
-			$response     = wp_remote_post( self::SCAN_SUBMIT_ENDPOINT, $post_args );
+			$response     = Segurium_Cloud_Endpoint::post( self::SCAN_SUBMIT_ENDPOINT, $post_args );
 			$attempt_wall = ( microtime( true ) - $t0 ) * 1000.0;
 			$wall_ms     += $attempt_wall;
 			$class        = $this->classify_scan_response( $response );
@@ -1530,15 +1533,21 @@ class Segurium_CTI_Client {
 	 *                           'post_update', 'unspecified'). Sent as
 	 *                           `X-Segurium-Integrity-Trigger` header so CTI
 	 *                           can record what caused the scan.
+	 * @param string $scan_id    Plugin-side scan UUID shared by every chunk
+	 *                           of one run. Sent in the body when non-empty.
 	 * @return array|WP_Error Array of component integrity results or error.
 	 */
-	public function integrity_check( $components, $trigger = '' ) {
+	public function integrity_check( $components, $trigger = '', $scan_id = '' ) {
 		$in_tick = class_exists( 'Segurium_Scan_Runner' ) && Segurium_Scan_Runner::in_tick();
-		$opts    = array(
-			'body'    => array(
-				'components' => $components,
-				'caps'       => self::inspect_capabilities(),
-			),
+		$body    = array(
+			'components' => $components,
+			'caps'       => self::inspect_capabilities(),
+		);
+		if ( is_string( $scan_id ) && '' !== $scan_id ) {
+			$body['scan_id'] = $scan_id;
+		}
+		$opts = array(
+			'body'    => $body,
 			'timeout' => $in_tick ? self::INTEGRITY_TICK_TIMEOUT_SEC : 60,
 		);
 		if ( is_string( $trigger ) && '' !== $trigger ) {

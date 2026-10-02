@@ -13,6 +13,7 @@
 
 	var cfg   = (typeof window !== 'undefined' && window.seguriumScan) ? window.seguriumScan : {};
 	var boot  = (typeof window !== 'undefined' && window.seguriumSelfCheck) ? window.seguriumSelfCheck : { last: null, history: [] };
+	var icon  = window.seguriumIcon;
 	var i18n  = cfg.i18n || {};
 
 	// Per-row messages that outlive a re-render, keyed by check id.
@@ -67,9 +68,9 @@
 	}
 
 	function statusIcon (status) {
-		if (status === 'pass') { return '\u2714'; }
-		if (status === 'warn' || status === 'partial') { return '\u26A0'; }
-		return '\u2716';
+		if (status === 'pass') { return icon('circle-check'); }
+		if (status === 'warn' || status === 'partial') { return icon('alert-triangle'); }
+		return icon('circle-x');
 	}
 
 	function renderExternalLinks () {
@@ -239,10 +240,10 @@
 				row.setAttribute('data-status', c.status);
 				row.setAttribute('role', 'listitem');
 
-				var icon = document.createElement('span');
-				icon.className = 'segurium-sc-icon';
-				icon.setAttribute('aria-hidden', 'true');
-				icon.textContent = statusIcon(c.status);
+				var iconEl = document.createElement('span');
+				iconEl.className = 'segurium-sc-icon';
+				iconEl.setAttribute('aria-hidden', 'true');
+				iconEl.innerHTML = statusIcon(c.status);
 
 				var body = document.createElement('div');
 				body.className = 'segurium-sc-body';
@@ -293,7 +294,7 @@
 					action.appendChild(fixButton('button button-secondary segurium-sc-fix', 'data-fix-tab', c.fix_tab));
 				}
 
-				row.appendChild(icon);
+				row.appendChild(iconEl);
 				row.appendChild(body);
 				row.appendChild(action);
 				if (help) {

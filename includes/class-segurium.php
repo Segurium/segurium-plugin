@@ -572,15 +572,6 @@ class Segurium {
 	 *   - `accent_strong`  darker shade (text on light accent chips)
 	 *   - `accent_chip`    light accent background (chips, active pills)
 	 *   - `accent_soft`    very light accent background (hover rows)
-	 *   - `chrome_from`    plugin banner gradient start (= scheme `colors[0]`)
-	 *   - `chrome_to`      plugin banner gradient end   (= scheme `colors[1]`)
-	 *   - `chrome_text`    text color on the banner — flips between white
-	 *                      and dark based on the gradient luminance so
-	 *                      Light scheme users keep a readable banner
-	 *
-	 * The chrome stops are exactly what wp-admin uses for its own admin
-	 * sidebar gradient, so the plugin banner reads as a continuation of
-	 * the WordPress chrome rather than a foreign element.
 	 *
 	 * Sources the base from `$_wp_admin_css_colors[ <slug> ]->colors`
 	 * (registered by `register_admin_color_schemes()`); falls back to
@@ -589,7 +580,7 @@ class Segurium {
 	 *
 	 * @param string|null $scheme Optional scheme slug. Defaults to
 	 *                            `get_user_option( 'admin_color' )`.
-	 * @return array{accent:string,accent_hover:string,accent_strong:string,accent_chip:string,accent_soft:string,chrome_from:string,chrome_to:string,chrome_text:string}
+	 * @return array{accent:string,accent_hover:string,accent_strong:string,accent_chip:string,accent_soft:string}
 	 */
 	public static function get_admin_accent_palette( $scheme = null ) {
 		if ( null === $scheme || '' === $scheme ) {
@@ -615,8 +606,6 @@ class Segurium {
 
 		$accent       = self::sanitize_hex_color( isset( $colors[2] ) ? $colors[2] : null, '#2271b1' );
 		$accent_hover = self::sanitize_hex_color( isset( $colors[3] ) ? $colors[3] : $accent, $accent );
-		$chrome_from  = self::sanitize_hex_color( isset( $colors[0] ) ? $colors[0] : null, '#1d2327' );
-		$chrome_to    = self::sanitize_hex_color( isset( $colors[1] ) ? $colors[1] : $chrome_from, $chrome_from );
 
 		return array(
 			'accent'        => $accent,
@@ -624,9 +613,6 @@ class Segurium {
 			'accent_strong' => self::mix_hex_color( $accent, '#000000', 0.30 ),
 			'accent_chip'   => self::mix_hex_color( $accent, '#ffffff', 0.80 ),
 			'accent_soft'   => self::mix_hex_color( $accent, '#ffffff', 0.92 ),
-			'chrome_from'   => $chrome_from,
-			'chrome_to'     => $chrome_to,
-			'chrome_text'   => self::contrast_text_for( $chrome_from, $chrome_to ),
 		);
 	}
 
@@ -648,45 +634,7 @@ class Segurium {
 			. '--segurium-accent-strong:' . $p['accent_strong'] . ';'
 			. '--segurium-accent-chip-bg:' . $p['accent_chip'] . ';'
 			. '--segurium-accent-soft-bg:' . $p['accent_soft'] . ';'
-			. '--segurium-chrome-from:' . $p['chrome_from'] . ';'
-			. '--segurium-chrome-to:' . $p['chrome_to'] . ';'
-			. '--segurium-chrome-text:' . $p['chrome_text'] . ';'
 			. '}';
-	}
-
-	/**
-	 * Pick a readable text color (white or near-black) for a two-stop
-	 * gradient. Uses the average sRGB-relative luminance of the two
-	 * stops with the standard 0.5 cutoff.
-	 *
-	 * Why: the wp-admin Light scheme has near-white sidebar stops
-	 * (`#e5e5e5` → `#999`); white plugin-banner text on that gradient
-	 * is invisible. Flipping to dark text when luminance is high keeps
-	 * the banner legible across every shipped scheme.
-	 *
-	 * @param string $a Sanitized hex.
-	 * @param string $b Sanitized hex.
-	 * @return string `#ffffff` or `#1d2327`.
-	 */
-	private static function contrast_text_for( $a, $b ) {
-		$la = self::relative_luminance( $a );
-		$lb = self::relative_luminance( $b );
-		return ( ( $la + $lb ) / 2.0 ) < 0.5 ? '#ffffff' : '#1d2327';
-	}
-
-	/**
-	 * SRGB-relative luminance per WCAG 2.x — returns a value in [0, 1].
-	 *
-	 * @param string $hex Sanitized hex color.
-	 * @return float
-	 */
-	private static function relative_luminance( $hex ) {
-		$rgb = self::hex_to_rgb( $hex );
-		$lin = static function ( $c ) {
-			$s = $c / 255.0;
-			return ( $s <= 0.03928 ) ? ( $s / 12.92 ) : pow( ( $s + 0.055 ) / 1.055, 2.4 );
-		};
-		return 0.2126 * $lin( $rgb[0] ) + 0.7152 * $lin( $rgb[1] ) + 0.0722 * $lin( $rgb[2] );
 	}
 
 	/**
@@ -1060,6 +1008,7 @@ class Segurium {
 					'selfCheckNonce' => wp_create_nonce( Segurium_Self_Check::NONCE_ACTION ),
 					'i18n'           => array(
 						'malware'                 => __( 'Malware', 'segurium' ),
+						'actions'                 => __( 'Actions', 'segurium' ),
 						'clean'                   => __( 'Clean', 'segurium' ),
 						'cleanAction'             => _x( 'Clean', 'verb: button that cleans a malicious file', 'segurium' ),
 						'cleaned'                 => __( 'Cleaned', 'segurium' ),
@@ -1925,7 +1874,7 @@ class Segurium {
 
 	/**
 	 * Render a status-card `<dd>` for a daily-refreshed timestamp with a
-	 * freshness dashicon. Stale also covers the `0`/never-updated case.
+	 * freshness icon. Stale also covers the `0`/never-updated case.
 	 *
 	 * @param int $ts             Unix timestamp of the last update (0 if never).
 	 * @param int $max_fresh_secs Healthy upper bound; older = stale.
@@ -1934,11 +1883,11 @@ class Segurium {
 	private function render_status_freshness_dd( $ts, $max_fresh_secs ) {
 		$is_fresh = $ts > 0 && ( time() - $ts ) <= $max_fresh_secs;
 		if ( $is_fresh ) {
-			$icon  = 'dashicons-yes-alt';
+			$icon  = 'circle-check';
 			$class = 'segurium-status-fresh';
 			$title = __( 'Up to date', 'segurium' );
 		} else {
-			$icon  = 'dashicons-warning';
+			$icon  = 'alert-triangle';
 			$class = 'segurium-status-stale';
 			$title = $ts > 0
 				? __( 'Stale — last refresh exceeded the daily window', 'segurium' )
@@ -1947,10 +1896,11 @@ class Segurium {
 		?>
 		<dd class="<?php echo esc_attr( $class ); ?>">
 			<span
-				class="dashicons <?php echo esc_attr( $icon ); ?> segurium-status-icon"
+				class="segurium-status-icon"
+				role="img"
 				title="<?php echo esc_attr( $title ); ?>"
 				aria-label="<?php echo esc_attr( $title ); ?>"
-			></span>
+			><?php Segurium_Icons::render( $icon ); ?></span>
 			<?php echo $ts > 0 ? esc_html( wp_date( 'Y-m-d H:i', $ts ) ) : '&mdash;'; ?>
 		</dd>
 		<?php
@@ -1994,6 +1944,7 @@ class Segurium {
 		};
 		?>
 		<div class="wrap segurium-wrap <?php echo esc_attr( $tier_class ); ?>">
+			<?php Segurium_Icons::render_sprite(); ?>
 			<div class="segurium-banner">
 				<img class="segurium-banner-logo" src="<?php echo esc_url( SEGURIUM_PLUGIN_URL . 'assets/img/brand/mark.svg' ); ?>" alt="" aria-hidden="true" width="32" height="32" />
 				<span class="segurium-banner-title"><?php esc_html_e( 'Segurium', 'segurium' ); ?></span>
@@ -2005,12 +1956,12 @@ class Segurium {
 				<div class="segurium-main">
 					<div class="segurium-nav">
 						<a href="<?php echo esc_url( self::admin_tab_url( 'self-check' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'self-check' ) ); ?>" data-feature="self-check">
-							<span class="dashicons dashicons-yes-alt segurium-nav-icon-dashicon"></span>
+							<?php Segurium_Icons::render( 'stethoscope', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Self-Check', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'scanner' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'scanner' ) ); ?>" data-feature="scanner">
 							<span class="segurium-nav-icon-wrap">
-								<span class="segurium-nav-icon">&#x1F50D;</span>
+								<?php Segurium_Icons::render( 'virus-search', 'segurium-nav-icon' ); ?>
 								<?php $segurium_nav_alert( $issue_flags[ Segurium_Issue_Indicator::SIGNAL_MALWARE ], __( 'Malware is waiting for you to act', 'segurium' ) ); ?>
 							</span>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Malware Scanner', 'segurium' ); ?></span>
@@ -2027,49 +1978,49 @@ class Segurium {
 						?>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'integrity-scanner' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'integrity-scanner' ) ); ?>" data-feature="integrity-scanner">
 							<span class="segurium-nav-icon-wrap">
-								<span class="segurium-nav-icon">&#x1F9E9;</span>
+								<?php Segurium_Icons::render( 'file-check', 'segurium-nav-icon' ); ?>
 								<?php $segurium_nav_alert( $integrity_mark['raised'], $integrity_mark['label'] ); ?>
 							</span>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Integrity', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'geo' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'geo' ) ); ?>" data-feature="geo">
-							<span class="segurium-nav-icon">&#x1F310;</span>
+							<?php Segurium_Icons::render( 'world-cancel', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'GEO Blocking', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'firewall' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'firewall' ) ); ?>" data-feature="firewall">
-							<span class="segurium-nav-icon">&#x1F525;</span>
+							<?php Segurium_Icons::render( 'wall', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Firewall', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'bruteforce' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'bruteforce' ) ); ?>" data-feature="bruteforce">
-							<span class="segurium-nav-icon">&#x1F510;</span>
+							<?php Segurium_Icons::render( 'lock-password', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Brute-Force', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'twofactor' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'twofactor' ) ); ?>" data-feature="twofactor">
-							<span class="segurium-nav-icon">&#x1F511;</span>
+							<?php Segurium_Icons::render( 'key', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( '2FA', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'headers' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'headers' ) ); ?>" data-feature="headers">
-							<span class="segurium-nav-icon">&#x1F6E1;</span>
+							<?php Segurium_Icons::render( 'code', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Headers', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'info-shield' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'info-shield' ) ); ?>" data-feature="info-shield">
-							<span class="dashicons dashicons-shield segurium-nav-icon-dashicon"></span>
+							<?php Segurium_Icons::render( 'eye-off', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Info Shield', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'settings' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'settings' ) ); ?>" data-feature="settings">
-							<span class="segurium-nav-icon">&#x2699;</span>
+							<?php Segurium_Icons::render( 'settings', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Settings', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'migration' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'migration' ) ); ?>" data-feature="migration">
-							<span class="segurium-nav-icon">&#x21C6;</span>
+							<?php Segurium_Icons::render( 'arrows-left-right', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Migration', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'support' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'support' ) ); ?>" data-feature="support">
-							<span class="segurium-nav-icon">&#x2753;</span>
+							<?php Segurium_Icons::render( 'lifebuoy', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Support', 'segurium' ); ?></span>
 						</a>
 						<a href="<?php echo esc_url( self::admin_tab_url( 'plans' ) ); ?>" class="<?php echo esc_attr( $segurium_nav_class( 'plans' ) ); ?>" data-feature="plans">
-							<span class="segurium-nav-icon">&#x1F4B3;</span>
+							<?php Segurium_Icons::render( 'diamond', 'segurium-nav-icon' ); ?>
 							<span class="segurium-nav-label"><?php esc_html_e( 'Plans', 'segurium' ); ?></span>
 						</a>
 					</div>
@@ -2261,7 +2212,8 @@ class Segurium {
 						<div id="segurium-geo-pending-banner" class="segurium-geo-pending-banner" style="display:none;">
 							<div class="segurium-geo-pending-inner">
 								<span class="segurium-geo-pending-msg">
-									&#x23F1; <?php esc_html_e( 'Settings applied. Confirm to keep, or changes revert in', 'segurium' ); ?>
+									<?php Segurium_Icons::render( 'stopwatch', 'segurium-pending-icon' ); ?>
+									<?php esc_html_e( 'Settings applied. Confirm to keep, or changes revert in', 'segurium' ); ?>
 									<strong id="segurium-geo-countdown">60</strong><?php esc_html_e( 's.', 'segurium' ); ?>
 								</span>
 								<div class="segurium-geo-pending-btns">
@@ -2349,7 +2301,8 @@ class Segurium {
 						<div id="segurium-fw-pending-banner" class="segurium-geo-pending-banner" style="display:none;">
 							<div class="segurium-geo-pending-inner">
 								<span class="segurium-geo-pending-msg">
-									&#x23F1; <?php esc_html_e( 'Settings applied. Confirm to keep, or changes revert in', 'segurium' ); ?>
+									<?php Segurium_Icons::render( 'stopwatch', 'segurium-pending-icon' ); ?>
+									<?php esc_html_e( 'Settings applied. Confirm to keep, or changes revert in', 'segurium' ); ?>
 									<strong id="segurium-fw-countdown">60</strong><?php esc_html_e( 's.', 'segurium' ); ?>
 								</span>
 								<div class="segurium-geo-pending-btns">
@@ -3448,7 +3401,7 @@ class Segurium {
 										type="button"
 										class="button-link segurium-iid-copy"
 										aria-label="<?php esc_attr_e( 'Copy IID to clipboard', 'segurium' ); ?>"
-									><span class="dashicons dashicons-clipboard" aria-hidden="true"></span></button>
+									><?php Segurium_Icons::render( 'copy' ); ?></button>
 								</dd>
 							<?php endif; ?>
 							<dt><?php esc_html_e( 'Your IP', 'segurium' ); ?></dt>

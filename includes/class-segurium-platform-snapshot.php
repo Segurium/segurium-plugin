@@ -202,6 +202,7 @@ final class Segurium_Platform_Snapshot {
 			'plugin_version'         => defined( 'SEGURIUM_VERSION' ) ? (string) SEGURIUM_VERSION : '',
 			'active_theme_slug'      => $theme_slug,
 			'active_theme_version'   => $theme_version,
+			'cloud_endpoint'         => Segurium_Cloud_Endpoint::selected(),
 		);
 	}
 

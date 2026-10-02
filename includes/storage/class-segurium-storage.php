@@ -907,10 +907,11 @@ class Segurium_Storage {
 	 * @param string $trigger    Optional scan trigger ('scheduled', 'manual',
 	 *                           'post_update', 'unspecified') forwarded to CTI
 	 *                           via `X-Segurium-Integrity-Trigger`.
+	 * @param string $scan_id    Scan UUID shared by every chunk of one run.
 	 * @return array|WP_Error
 	 */
-	public static function cti_integrity_check( array $components, string $trigger = '' ) {
-		return self::cti_client()->integrity_check( $components, $trigger );
+	public static function cti_integrity_check( array $components, string $trigger = '', string $scan_id = '' ) {
+		return self::cti_client()->integrity_check( $components, $trigger, $scan_id );
 	}
 
 	/**

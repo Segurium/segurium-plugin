@@ -423,7 +423,7 @@ final class Segurium_Scan_Runner {
 			self::debug( 'scan_refused_no_iid', array( 'scan_type' => $scan_type ) );
 			return new WP_Error(
 				'no_iid',
-				__( 'Activation with the Segurium cloud service is still pending. Please try again in a moment.', 'segurium' )
+				Segurium_IID::missing_iid_message()
 			);
 		}
 

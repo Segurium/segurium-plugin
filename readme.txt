@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.4
+Stable tag: 1.5.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,17 +194,14 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.5.0 - 2026-10-02 =
+* Connects through a backup address when the host blocks the main port.
+* Scans no longer fail on hosts that block outgoing non-standard ports.
+* Redesigned admin page with consistent icons across operating systems.
+
 = 1.4.4 - 2026-09-24 =
 * Self-Check tab improved.
 * Malware scan on website with many files no longer skips files.
 * Minor UI improvements.
-
-= 1.4.3 - 2026-09-21 =
-* Deep scans no longer lose files if a worker stops.
-* Fixed rare crash during full scans.
-* Restoring a cleaned file also reopens its integrity issue.
-* WP-CLI command to list and restore backups.
-* Improved false alerts handling.
-* Firewall and geo blocking rules no longer break cloud scans.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

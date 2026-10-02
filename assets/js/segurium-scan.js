@@ -193,6 +193,14 @@
             .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
+    function icon(name, extraClass) {
+        return '<svg class="segurium-icon segurium-icon--' + name + (extraClass ? ' ' + extraClass : '') + '"'
+            + ' width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
+            + ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+            + '<use href="#segurium-icon-' + name + '"></use></svg>';
+    }
+    window.seguriumIcon = icon;
+
     function truncatePath(path) {
         if (!path || path.length <= 50) {
             return '<span class="segurium-path-truncated">' + escHtml(path || '') + '</span>';
@@ -1031,8 +1039,8 @@
     function renderCtiHealth(data) {
         if (!ctiStatusEl || !data) return;
         ctiStatusEl.innerHTML = data.healthy
-            ? '&#x1F7E2; ' + escHtml(i18n.ctiConnected || 'Connected')
-            : '&#x1F534; ' + escHtml(i18n.ctiDisconnected || 'Disconnected');
+            ? icon('cloud-check', 'segurium-cti-up') + ' ' + escHtml(i18n.ctiConnected || 'Connected')
+            : icon('cloud-off', 'segurium-cti-down') + ' ' + escHtml(i18n.ctiDisconnected || 'Disconnected');
     }
     function checkCtiHealth() {
         if (!ctiStatusEl) return;
@@ -1214,7 +1222,7 @@
                 var warnings = response.data && response.data.warnings || [];
                 if (warnings.length > 0) {
                     statusEl.classList.add('segurium-status-warning');
-                    statusEl.textContent = '\u26A0 ' + warnings.join(' ');
+                    statusEl.innerHTML = icon('alert-triangle', 'segurium-save-icon') + ' ' + escHtml(warnings.join(' '));
                     if (textarea) {
                         var lines = textarea.value.split('\n').filter(function (l) {
                             return l.trim() !== '*';
@@ -1222,7 +1230,7 @@
                         textarea.value = lines.join('\n');
                     }
                 } else {
-                    statusEl.textContent = '\u2713 Saved';
+                    statusEl.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml('Saved');
                 }
             }).catch(function () {
                 saveBtn.disabled = false;
@@ -1748,7 +1756,7 @@
                     ' data-verdict="' + (item.verdict || 0) + '">' +
                     escHtml(i18n.cleanAction || 'Clean') + '</button>' +
                     '<div class="segurium-dropdown">' +
-                    '<button class="button button-small segurium-dropdown-toggle" type="button">...</button>' +
+                    '<button class="button button-small segurium-dropdown-toggle" type="button" aria-label="' + escAttr(i18n.actions || 'Actions') + '">' + icon('dots') + '</button>' +
                     '<div class="segurium-dropdown-menu">' +
                     '<a href="#" class="segurium-dropdown-item segurium-ss-show-disk"' +
                     ' data-path="' + escAttr(item.path || '') + '">' +
@@ -1764,7 +1772,7 @@
             }
             if (item.state === 'cleaned' && item.backup_id) {
                 return '<div class="segurium-dropdown">' +
-                    '<button class="button button-small segurium-dropdown-toggle" type="button">...</button>' +
+                    '<button class="button button-small segurium-dropdown-toggle" type="button" aria-label="' + escAttr(i18n.actions || 'Actions') + '">' + icon('dots') + '</button>' +
                     '<div class="segurium-dropdown-menu">' +
                     '<a href="#" class="segurium-dropdown-item segurium-ss-show-malware"' +
                     ' data-backup-id="' + escAttr(item.backup_id) + '">' +
@@ -2784,7 +2792,7 @@
             });
         }
 
-        var typeIcons = { core: '\uD83C\uDFDB', plugin: '\uD83E\uDDE9', theme: '\uD83C\uDFA8' };
+        var typeIcons = { core: icon('brand-wordpress'), plugin: icon('plug'), theme: icon('brush') };
 
         function timeAgo(ts) {
             var diff = Math.floor(Date.now() / 1000) - ts;
@@ -2840,11 +2848,11 @@
                 // Deleted components: files are gone, nothing to show.
                 var showFiles = !isDeleted && !isIgnored && cat !== 'unknown' && cat !== 'delisted' && comp.files && comp.files.length > 0;
                 var expandHtml = showFiles
-                    ? '<span class="segurium-is-expand-icon">\u25B6</span>'
+                    ? '<span class="segurium-is-expand-icon">' + icon('chevron-right') + '</span>'
                     : '<span style="display:inline-block;width:16px;"></span>';
-                var icon = typeIcons[comp.type] || '\u2753';
+                var typeIcon = typeIcons[comp.type] || icon('help');
                 var nameHtml = '<span class="segurium-is-type-icon" title="' + escAttr(comp.type || '') + '">' +
-                    icon + '</span> ' + escHtml(comp.slug || '') +
+                    typeIcon + '</span> ' + escHtml(comp.slug || '') +
                     ' <small>' + escHtml(comp.version || '') + '</small>';
                 var statusHtml = buildISStatusBadge(comp);
                 var openCount = 0;
@@ -4432,7 +4440,7 @@
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     baselineSettings = collectForm();
-                    saveStatus.textContent = '\u2713 ' + (i18n.geoConfirmed || 'Saved.');
+                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved.');
                     return;
                 }
                 pendingToken = response.data.token;
@@ -4454,7 +4462,7 @@
                     confirmBtn.disabled = false;
                     if (response.success) {
                         baselineSettings = collectForm();
-                        saveStatus.textContent = '\u2713 ' + (i18n.geoConfirmed || 'Saved permanently.');
+                        saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved permanently.');
                     } else {
                         saveStatus.textContent = (response.data && response.data.message) || 'Error.';
                     }
@@ -4619,7 +4627,7 @@
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     baselineSettings = collectForm();
-                    saveStatus.textContent = '\u2713 ' + (i18n.geoConfirmed || 'Saved.');
+                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved.');
                     return;
                 }
                 pendingToken = r.data.token;
@@ -4639,7 +4647,7 @@
                     confirmBtn.disabled = false;
                     if (r.success) {
                         baselineSettings = collectForm();
-                        saveStatus.textContent = '\u2713 ' + (i18n.geoConfirmed || 'Saved permanently.');
+                        saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved permanently.');
                     } else {
                         saveStatus.textContent = (r.data && r.data.message) || 'Error.';
                     }
@@ -4683,8 +4691,8 @@
                 return;
             }
             var rel = tpRelativeTime(d.updated_at);
-            var emoji = rel.fresh ? '\u2705 ' : '\u26a0\ufe0f ';
-            tpStatusText.innerHTML = emoji + '<strong>' + escHtml(i18n.tpKnownProxies || 'Known CDNs, proxies') + ':</strong> '
+            var mark = rel.fresh ? icon('circle-check', 'segurium-tp-fresh') : icon('alert-triangle', 'segurium-tp-stale');
+            tpStatusText.innerHTML = mark + ' <strong>' + escHtml(i18n.tpKnownProxies || 'Known CDNs, proxies') + ':</strong> '
                 + '<strong>' + escHtml(String(d.total_cidrs || 0)) + '</strong> ' + escHtml(i18n.tpCidrs || 'CIDRs')
                 + ' &mdash; ' + escHtml(i18n.tpUpdated || 'Updated') + ': ' + escHtml(rel.text)
                 + ' <a href="#" id="segurium-tp-refresh">' + escHtml(i18n.tpRefresh || 'Refresh now') + '</a>';
@@ -4999,7 +5007,7 @@
                     return;
                 }
                 if (r.data && r.data.settings) populate(r.data.settings);
-                saveStatus.textContent = '\u2713 ' + (i18n.bfSettingsSaved || 'Settings saved.');
+                saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.bfSettingsSaved || 'Settings saved.');
                 loadLockouts();
                 loadStats();
                 loadLog(1);
@@ -5367,7 +5375,7 @@
                         saveStatus.textContent = (r.data && r.data.message) || 'Error.';
                         return;
                     }
-                    saveStatus.textContent = '\u2713 ' + (i18n.settingsSaved || 'Saved.');
+                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.settingsSaved || 'Saved.');
                 }).catch(function () {
                     saveBtn.disabled = false;
                     saveStatus.textContent = 'Error.';
@@ -5496,7 +5504,7 @@
                         if (saveStatus) saveStatus.textContent = (r.data && r.data.message) || (i18n.isSaveError || 'Error.');
                         return;
                     }
-                    if (saveStatus) saveStatus.textContent = '\u2713 ' + (i18n.isSaved || 'Saved.');
+                    if (saveStatus) saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.isSaved || 'Saved.');
                 })
                 .catch(function () {
                     if (saveBtn) saveBtn.disabled = false;

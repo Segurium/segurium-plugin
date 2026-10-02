@@ -125,7 +125,7 @@ class Segurium_Integrity_Scan_State {
 	 * @param string      $base_path  WordPress install root.
 	 * @param string      $data_dir   Accepted for call-site compatibility; unused (storage
 	 *                                is managed by Segurium_Storage facade).
-	 * @param object|null $cti_client Anything with `integrity_check( array $components )`.
+	 * @param object|null $cti_client Anything with `integrity_check( array $components, $trigger, $scan_id )`.
 	 *                                Defaults to a real Segurium_CTI_Client. Tests inject a stub.
 	 * @param object|null $discovery  Anything with `discover()` and `collect_hashes( $type, $slug )`.
 	 *                                Defaults to a real WordPress component scanner. Tests inject a stub.
@@ -304,9 +304,10 @@ class Segurium_Integrity_Scan_State {
 		}
 
 		$trigger    = (string) ( $this->state['trigger'] ?? 'unspecified' );
+		$scan_id    = (string) ( $this->state['scan_id'] ?? '' );
 		$cti_result = null !== $this->cti_client
-			? $this->cti_client->integrity_check( $cti_payload, $trigger )
-			: Segurium_Storage::cti_integrity_check( $cti_payload, $trigger );
+			? $this->cti_client->integrity_check( $cti_payload, $trigger, $scan_id )
+			: Segurium_Storage::cti_integrity_check( $cti_payload, $trigger, $scan_id );
 		if ( is_wp_error( $cti_result ) || ! is_array( $cti_result ) ) {
 			return $this->handle_chunk_failure( $cti_result, $slice, $component_meta );
 		}

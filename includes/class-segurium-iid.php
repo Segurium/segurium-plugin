@@ -19,6 +19,14 @@ class Segurium_IID {
 	const REGISTER_PATH = '/v1/iid/register';
 
 	/**
+	 * Last failed registration: `code`, `message` and `at`. A successful
+	 * registration removes the option.
+	 */
+	const OPTION_REGISTER_ERROR = 'segurium_iid_register_error';
+
+	const ERR_CLOUD_UNREACHABLE = 'iid_register_cloud_unreachable';
+
+	/**
 	 * Set when CTI returns HTTP 409 `re_register` so the next
 	 * `admin_init` can re-register asynchronously instead of paying the
 	 * 15s register POST inside whatever request the 409 short-circuited.
@@ -94,8 +102,7 @@ class Segurium_IID {
 			$body = array_merge( $body, $alerts_payload );
 		}
 
-		// CTI listens on TCP/8901 — see Segurium_CTI_Client class docblock for why wp_safe_remote_* cannot be used here.
-		$response = wp_remote_post(
+		$response = Segurium_Cloud_Endpoint::post(
 			$url,
 			array(
 				'headers' => array( 'Content-Type' => 'application/json' ),
@@ -105,22 +112,60 @@ class Segurium_IID {
 		);
 
 		if ( is_wp_error( $response ) ) {
+			self::record_register_error(
+				Segurium_Cloud_Endpoint::is_connect_failure( $response ) ? self::ERR_CLOUD_UNREACHABLE : 'iid_register_no_response',
+				$response->get_error_message()
+			);
 			return false;
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
 		if ( 201 !== $code ) {
+			self::record_register_error( 'iid_register_http_' . (int) $code, wp_remote_retrieve_body( $response ) );
 			return false;
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( ! isset( $body['iid'] ) || ! is_string( $body['iid'] ) || '' === $body['iid'] ) {
+			self::record_register_error( 'iid_register_invalid_response', wp_remote_retrieve_body( $response ) );
 			return false;
 		}
 
 		Segurium_Storage::setting_set( self::OPTION_TOKEN, sanitize_text_field( $body['iid'] ) );
 		Segurium_Storage::setting_delete( self::OPTION_REREGISTER_PENDING );
+		Segurium_Storage::setting_delete( self::OPTION_REGISTER_ERROR );
 		return true;
+	}
+
+	/**
+	 * Store why the last registration failed.
+	 *
+	 * @param string $code    Error code.
+	 * @param string $message Transport error or response body.
+	 * @return void
+	 */
+	private static function record_register_error( $code, $message ) {
+		Segurium_Storage::setting_set(
+			self::OPTION_REGISTER_ERROR,
+			array(
+				'code'    => $code,
+				'message' => substr( sanitize_text_field( (string) $message ), 0, 300 ),
+				'at'      => time(),
+			)
+		);
+	}
+
+	/**
+	 * Text for a caller that needs an installation ID and has none.
+	 *
+	 * @return string
+	 */
+	public static function missing_iid_message() {
+		$error = Segurium_Storage::setting_get_array( self::OPTION_REGISTER_ERROR );
+		if ( isset( $error['code'] ) && self::ERR_CLOUD_UNREACHABLE === $error['code'] ) {
+			return __( 'This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support.', 'segurium' );
+		}
+		return __( 'Activation with the Segurium cloud service is still pending. Please try again in a moment.', 'segurium' );
 	}
 
 	/**

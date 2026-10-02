@@ -26,14 +26,73 @@
 /* ── Banner ────────────────────────────────────────────── */
 
 .segurium-banner {
+	position: relative;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 16px 20px;
-	background: linear-gradient(135deg, var(--segurium-chrome-from, #1d2327) 0%, var(--segurium-chrome-to, #2c3338) 100%);
-	color: var(--segurium-chrome-text, #fff);
+	background: #0a0a0f;
+	color: #fafafa;
 	border-radius: 4px;
 	margin-bottom: 0;
+}
+
+.segurium-banner::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 140px;
+	height: 3px;
+	background: #dc2626;
+}
+
+/* ── Icons ─────────────────────────────────────────────── */
+
+.segurium-icon-sprite {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.segurium-icon {
+	display: inline-block;
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+.segurium-status-list .segurium-icon,
+.segurium-iid-copy .segurium-icon,
+.segurium-is-type-icon .segurium-icon,
+.segurium-tp-fresh,
+.segurium-tp-stale,
+.segurium-pending-icon,
+.segurium-save-icon {
+	width: 16px;
+	height: 16px;
+	vertical-align: text-bottom;
+}
+
+.segurium-cti-up,
+.segurium-tp-fresh {
+	color: #00a32a;
+}
+
+.segurium-cti-down {
+	color: #d63638;
+}
+
+.segurium-tp-stale {
+	color: #dba617;
+}
+
+.segurium-dropdown-toggle .segurium-icon {
+	width: 16px;
+	height: 16px;
 }
 
 .segurium-banner-logo {
@@ -132,9 +191,8 @@
 	pointer-events: none;
 }
 
-.segurium-nav-icon {
-	font-size: 20px;
-	line-height: 1;
+.segurium-nav-item--active .segurium-nav-icon {
+	color: var(--segurium-accent, #2271b1);
 }
 
 .segurium-nav-label {
@@ -319,10 +377,7 @@
 }
 
 .segurium-status-icon {
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
-	line-height: 16px;
+	display: inline-flex;
 	vertical-align: text-bottom;
 	margin-right: 4px;
 }
@@ -361,12 +416,6 @@
 .segurium-iid-copy:hover,
 .segurium-iid-copy:focus {
 	color: var(--segurium-accent, #2271b1);
-}
-
-.segurium-iid-copy .dashicons {
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
 }
 
 .segurium-iid-copy.is-copied {
@@ -863,11 +912,16 @@ button.button[hidden],
 }
 
 .segurium-is-expand-icon {
-	display: inline-block;
+	display: inline-flex;
 	width: 16px;
-	font-size: 10px;
 	color: #8c8f94;
+	vertical-align: text-bottom;
 	transition: transform 0.15s;
+}
+
+.segurium-is-expand-icon .segurium-icon {
+	width: 14px;
+	height: 14px;
 }
 
 .segurium-is-expanded .segurium-is-expand-icon {
@@ -875,7 +929,9 @@ button.button[hidden],
 }
 
 .segurium-is-type-icon {
-	font-size: 15px;
+	display: inline-flex;
+	color: #50575e;
+	vertical-align: text-bottom;
 	cursor: default;
 }
 
@@ -2137,14 +2193,6 @@ button.button[hidden],
 
 /* ── Information Shield tab ─────────────────────────────────────────── */
 
-.segurium-nav-icon-dashicon {
-	font-size: 18px;
-	width: 18px;
-	height: 18px;
-	line-height: 1;
-	vertical-align: middle;
-}
-
 .segurium-is-body {
 	padding: 20px;
 }
@@ -2394,14 +2442,19 @@ button.button[hidden],
 }
 
 .segurium-sc-icon {
-	font-size: 16px;
-	line-height: 1;
+	display: flex;
+	justify-content: center;
 	width: 28px;
-	text-align: center;
+}
+
+.segurium-sc-icon .segurium-icon {
+	width: 18px;
+	height: 18px;
 }
 
 .segurium-sc-check[data-status="pass"] .segurium-sc-icon { color: #16a34a; }
-.segurium-sc-check[data-status="warn"] .segurium-sc-icon { color: #d97706; }
+.segurium-sc-check[data-status="warn"] .segurium-sc-icon,
+.segurium-sc-check[data-status="partial"] .segurium-sc-icon { color: #d97706; }
 .segurium-sc-check[data-status="fail"] .segurium-sc-icon { color: #dc2626; }
 
 .segurium-sc-label {

@@ -59,6 +59,8 @@ final class Segurium_Settings {
 		'segurium_iid_seed',
 		'segurium_iid_token',
 		'segurium_iid_reregister_pending',
+		'segurium_iid_register_error',
+		'segurium_cloud_endpoint',
 		'segurium_cti_consent',
 		'segurium_consent_source',
 		'segurium_consent_constant_applied',

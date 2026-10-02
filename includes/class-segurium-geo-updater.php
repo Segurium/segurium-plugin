@@ -100,8 +100,7 @@ class Segurium_Geo_Updater {
 			$headers['X-Segurium-IID'] = $iid;
 		}
 
-		// CTI listens on TCP/8901 — see Segurium_CTI_Client class docblock for why wp_safe_remote_* cannot be used here.
-		$response = wp_remote_get(
+		$response = Segurium_Cloud_Endpoint::get(
 			Segurium_Storage::cti_endpoint( 'geo_db' ),
 			array(
 				'headers' => $headers,

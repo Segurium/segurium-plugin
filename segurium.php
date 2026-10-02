@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
- * Version:     1.4.4
+ * Version:     1.5.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.4.4' );
+define( 'SEGURIUM_VERSION', '1.5.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -472,6 +472,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings-profile.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cli.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scanner.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cloud-endpoint.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-iid.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-alerts-settings.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-consent.php';
@@ -543,6 +544,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-checkout-prefill.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-mainwp-bridge.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-mainwp-fleet-marker.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-icons.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium.php';
 
 	$segurium_dev_bootstrap = SEGURIUM_PLUGIN_DIR . 'dev/bootstrap.php';
@@ -641,6 +643,7 @@ require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-settings-writer.php'
 // CTI access layer ships with storage: every lightweight tier funnels
 // settings + security events through Segurium_Storage::cti_send_message,
 // so loading storage without the CTI client fatals on first call.
+require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cloud-endpoint.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-iid.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-signature.php';
 require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cti-client.php';
