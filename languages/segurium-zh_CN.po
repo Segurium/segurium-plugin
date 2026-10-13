@@ -16,6 +16,9 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
+msgstr "此站点无法连接到 Segurium 云服务。您的主机服务商可能屏蔽了出站连接。请联系您的主机服务商或 Segurium 支持团队。"
+
 #: includes/class-segurium-scan-runner.php:369
 msgid ""
 "Activation with the Segurium cloud service is still pending. Please try "

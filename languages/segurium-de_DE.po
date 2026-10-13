@@ -14,6 +14,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: segurium\n"
 
+msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
+msgstr "Diese Website kann den Segurium-Cloud-Dienst nicht erreichen. Dein Hosting-Anbieter blockiert möglicherweise ausgehende Verbindungen. Bitte wende dich an deinen Hosting-Anbieter oder an den Segurium-Support."
+
 #: includes/class-segurium-scan-runner.php:369
 msgid ""
 "Activation with the Segurium cloud service is still pending. Please try "

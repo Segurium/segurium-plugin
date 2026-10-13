@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n == 0 || n % 100 >= 2 && n % 100 <= 19) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
+msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
+msgstr "Acest site nu poate accesa serviciul Segurium cloud. Serviciul tău de găzduire poate bloca conexiunile de ieșire. Te rog să contactezi serviciul tău de găzduire sau suportul Segurium."
+
 #. Plugin Name of the plugin
 #: segurium.php
 msgid ""
@@ -2440,10 +2443,6 @@ msgstr "Cum să repari"
 #: includes/class-segurium.php:1300
 msgid "Hide details"
 msgstr "Ascunde detalii"
-
-#: includes/class-segurium.php:1301
-msgid "fail"
-msgstr "eșec"
 
 #: includes/class-segurium.php:1302
 msgid "warn"

@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
+msgstr "Dette websted kan ikke nå Segurium-skytjenesten. Din hostingudbyder blokerer muligvis udgående forbindelser. Kontakt din hostingudbyder eller Segurium-support."
+
 #. Plugin Name of the plugin
 #: segurium.php
 msgid ""

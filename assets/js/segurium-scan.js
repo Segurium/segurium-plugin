@@ -63,6 +63,19 @@
         });
     }
 
+    // A host that cannot detach the response answers only when the scan
+    // slice ends, so a request whose answer nobody reads carries the slice.
+    var driveInFlight = false;
+    function driveScan() {
+        if (driveInFlight) return;
+        driveInFlight = true;
+        post({
+            action: 'segurium_scan_tick',
+            drive: 1,
+            nonce: seguriumScan.nonce
+        }).then(function () { driveInFlight = false; });
+    }
+
     // The settings writer merges a save over the stored row, so a list
     // posted with no key keeps its old entries.
     function appendList(params, name, values) {
@@ -2322,6 +2335,7 @@
                     return;
                 }
                 ssUpdateStatus(data);
+                if (data.drive) driveScan();
 
                 // Advance the watermark only when the refetch actually fires,
                 // so a throttled poll retries instead of losing the refresh.
@@ -3694,6 +3708,7 @@
                 }
                 if (data.running && !data.completed) {
                     isUpdateStatus(data);
+                    if (data.drive) driveScan();
                     var hb = data.heartbeat || 0;
                     var advanced = hb > isLastHeartbeat;
                     isLastHeartbeat = hb;

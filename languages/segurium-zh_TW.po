@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
+msgstr "此網站無法連接到 Segurium 雲端服務。你的主機商可能封鎖了外送連線。請聯絡你的主機商或 Segurium 支援團隊。"
+
 msgid "Security issues need your attention"
 msgstr "安全性問題需要你注意"
 

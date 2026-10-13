@@ -11,8 +11,8 @@
  * The handler marks the request as the runner observer so the existing
  * shutdown handler in {@see Segurium_Scan_Runner::maybe_pageload_tick()}
  * runs `life_support_system('ajax')` AFTER fastcgi_finish_request() /
- * litespeed_finish_request() detaches the connection — same pattern as
- * /scan-tick.
+ * litespeed_finish_request() detaches the connection, or before the response
+ * leaves a host that cannot detach — same pattern as /scan-tick.
  *
  * @package Segurium
  */

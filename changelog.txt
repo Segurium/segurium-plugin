@@ -2,6 +2,11 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.4.4 - 2026-09-24 =
+* Self-Check tab improved.
+* Malware scan on website with many files no longer skips files.
+* Minor UI improvements.
+
 = 1.4.3 - 2026-09-21 =
 * Deep scans no longer lose files if a worker stops.
 * Fixed rare crash during full scans.

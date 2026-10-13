@@ -220,6 +220,19 @@ class Segurium_Scanner {
 	}
 
 	/**
+	 * Check whether a path is valid UTF-8, with or without the mbstring extension.
+	 *
+	 * @param string $path Filesystem path to check.
+	 * @return bool True if every byte sequence is valid UTF-8.
+	 */
+	public static function is_valid_utf8( $path ) {
+		if ( function_exists( 'mb_check_encoding' ) ) {
+			return mb_check_encoding( $path, 'UTF-8' );
+		}
+		return false !== preg_match( '//u', $path ) || PREG_BAD_UTF8_ERROR !== preg_last_error();
+	}
+
+	/**
 	 * Record a skipped file with the given reason.
 	 *
 	 * Also appends a JSONL row to `$this->skips_file` so the path can be
@@ -244,7 +257,7 @@ class Segurium_Scanner {
 			return;
 		}
 		$safe_path = $path;
-		if ( ! mb_check_encoding( $path, 'UTF-8' ) ) {
+		if ( ! self::is_valid_utf8( $path ) ) {
 			$safe_path = preg_replace_callback(
 				'/[\x80-\xff]/',
 				function ( $m ) {
@@ -689,7 +702,7 @@ class Segurium_Scanner {
 		}
 
 		$safe_path = $filepath;
-		if ( ! mb_check_encoding( $filepath, 'UTF-8' ) ) {
+		if ( ! self::is_valid_utf8( $filepath ) ) {
 			$safe_path = preg_replace_callback(
 				'/[\x80-\xff]/',
 				function ( $m ) {

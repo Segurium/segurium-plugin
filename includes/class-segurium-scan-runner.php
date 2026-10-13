@@ -161,6 +161,9 @@ final class Segurium_Scan_Runner {
 	 */
 	const TICK_BUDGET_UNLIMITED_SEC = 60;
 
+	/** Slice ceiling (seconds) on a host that cannot detach; under mod_fcgid's 40s FcgidIOTimeout default. */
+	const INLINE_SLICE_MAX_SEC = 25;
+
 	/**
 	 * Delay (seconds) between chained wp-cron ticks while a scan lock is
 	 * held. Kept short so the chained event picks up promptly when the
@@ -238,6 +241,13 @@ final class Segurium_Scan_Runner {
 	private static $is_observer_request = false;
 
 	/**
+	 * Per-request flag: the caller does not wait for the answer.
+	 *
+	 * @var bool
+	 */
+	private static $caller_hangs_up = false;
+
+	/**
 	 * Per-process record of the tick-mutex token this PHP
 	 * process is currently holding plus the TTL it was acquired with. The
 	 * runtime_kv mutex is a *lease* — the holder must renew it periodically
@@ -273,6 +283,7 @@ final class Segurium_Scan_Runner {
 	 */
 	public static function mark_request_as_observer() {
 		self::$is_observer_request = true;
+		self::$caller_hangs_up     = true;
 	}
 
 	/**
@@ -293,6 +304,7 @@ final class Segurium_Scan_Runner {
 	 */
 	public static function reset_observer_request_for_test() {
 		self::$is_observer_request = false;
+		self::$caller_hangs_up     = false;
 	}
 
 	/*
@@ -1083,6 +1095,7 @@ final class Segurium_Scan_Runner {
 			'scan_type'     => $lock['scan_type'],
 			'started_at'    => $lock['started_at'],
 			'heartbeat'     => $lock['heartbeat'],
+			'drive'         => ! self::can_detach(),
 		);
 
 		$engine = self::create_engine( $lock['scan_type'] );
@@ -1395,6 +1408,11 @@ final class Segurium_Scan_Runner {
 			$scope = '';
 		}
 
+		if ( ! empty( $_REQUEST['drive'] ) ) {
+			self::$caller_hangs_up = true;
+			segurium_send_json_success( array() );
+		}
+
 		try {
 			if ( 'integrity' === $scope ) {
 				$status = self::get_status( 'integrity' );
@@ -1460,8 +1478,8 @@ final class Segurium_Scan_Runner {
 	 * Pageload shutdown handler — opportunistic trigger for visitor and
 	 * admin requests (including the AJAX poller). Cheap pre-check so the
 	 * vast majority of pageloads on idle sites cost nothing; on hosts with
-	 * neither fastcgi_finish_request() nor litespeed_finish_request() we
-	 * skip entirely so visitor pageloads never block on the chunk loop.
+	 * neither fastcgi_finish_request() nor litespeed_finish_request() only
+	 * a caller that hangs up runs the chunk loop, so no visitor waits for it.
 	 *
 	 * When a browser observer is actively driving the runner
 	 * (its own AJAX → shutdown → LSS('ajax') is the privileged path),
@@ -1492,20 +1510,22 @@ final class Segurium_Scan_Runner {
 			return;
 		}
 
-		// Need a way to detach from the user's request. fastcgi_finish_request
-		// (PHP-FPM) and litespeed_finish_request (LSAPI) close the connection
-		// to the client and let PHP keep running until max_execution_time.
-		// Bare mod_php has no portable equivalent — skip so visitor pageloads
-		// never block on the chunk loop.
+		// mod_php and php-cgi hold the response until PHP ends, so there only
+		// a caller that hangs up gets a slice, and a short one.
+		$budget_cap = 0.0;
 		if ( ! self::detach_response() ) {
-			return;
+			if ( ! self::$caller_hangs_up ) {
+				return;
+			}
+			ignore_user_abort( true );
+			$budget_cap = (float) self::INLINE_SLICE_MAX_SEC;
 		}
 
 		// Observer's own shutdown drives under the 'ajax' label so LSS
 		// stamps `observer_last_seen` in the same heartbeat write the chunk
 		// loop already does — zero extra DB writes vs. the old baseline.
 		$caller = self::$is_observer_request ? 'ajax' : 'pageload';
-		self::life_support_system( $caller );
+		self::life_support_system( $caller, $budget_cap );
 	}
 
 	/**
@@ -1698,7 +1718,8 @@ final class Segurium_Scan_Runner {
 	 * Single decision tree shared by every trigger path. Idempotent and
 	 * concurrency-safe via the tick mutex transient.
 	 *
-	 * @param string $caller Trigger label (cron / ajax / pageload / test).
+	 * @param string $caller     Trigger label (cron / ajax / pageload / test).
+	 * @param float  $budget_cap Ceiling for the tick budget in seconds, 0 for none.
 	 * @return void
 	 *
 	 * @throws Throwable Engine process_chunk() exceptions are re-thrown from
@@ -1706,7 +1727,7 @@ final class Segurium_Scan_Runner {
 	 *                   the next tick. Never escapes this method — the
 	 *                   outer try/catch in this same function captures it.
 	 */
-	public static function life_support_system( $caller = 'manual' ) {
+	public static function life_support_system( $caller = 'manual', $budget_cap = 0.0 ) {
 		$tick_wall_start = microtime( true );
 
 		/*
@@ -1964,7 +1985,8 @@ final class Segurium_Scan_Runner {
 				add_filter( 'segurium_scan_verdict_single_batch', '__return_false' );
 			}
 
-			$budget                   = (float) apply_filters( 'segurium_scan_tick_budget', self::tick_budget() );
+			$budget                   = $budget_cap > 0 ? min( self::tick_budget(), $budget_cap ) : self::tick_budget();
+			$budget                   = (float) apply_filters( 'segurium_scan_tick_budget', $budget );
 			$started                  = microtime( true );
 			self::$tick_started_at    = $started;
 			self::$tick_budget_active = $budget;
@@ -2360,8 +2382,7 @@ final class Segurium_Scan_Runner {
 			);
 		}
 
-		$has_detach = function_exists( 'fastcgi_finish_request' )
-			|| function_exists( 'litespeed_finish_request' );
+		$has_detach = self::can_detach();
 		$cron_off   = defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON;
 		if ( $cron_off && ! $has_detach ) {
 			// Worst-case: WP-cron disabled AND no way to detach from a
@@ -2813,23 +2834,32 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
+	 * Whether PHP can close the client connection and keep running.
+	 *
+	 * @return bool
+	 */
+	private static function can_detach() {
+		$available = function_exists( 'fastcgi_finish_request' ) || function_exists( 'litespeed_finish_request' );
+		return (bool) apply_filters( 'segurium_scan_can_detach', $available );
+	}
+
+	/**
 	 * Detach the current PHP request from the client connection so the
 	 * worker can keep running without holding the user's browser. Returns
-	 * whether detachment succeeded — bare mod_php has no portable
-	 * equivalent so the caller skips on false.
+	 * whether detachment succeeded.
 	 *
 	 * @return bool
 	 */
 	private static function detach_response() {
+		if ( ! self::can_detach() ) {
+			return false;
+		}
 		if ( function_exists( 'fastcgi_finish_request' ) ) {
 			@fastcgi_finish_request(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort detach
-			return true;
-		}
-		if ( function_exists( 'litespeed_finish_request' ) ) {
+		} elseif ( function_exists( 'litespeed_finish_request' ) ) {
 			@litespeed_finish_request(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort detach
-			return true;
 		}
-		return false;
+		return true;
 	}
 
 	/**

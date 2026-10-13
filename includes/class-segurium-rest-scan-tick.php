@@ -7,7 +7,7 @@
  * the observer flag so the existing shutdown handler in
  * {@see Segurium_Scan_Runner::maybe_pageload_tick()} runs the next chunk
  * AFTER fastcgi_finish_request() / litespeed_finish_request() detaches the
- * connection — callers do not block on engine work.
+ * connection, or before the response leaves a host that cannot detach.
  *
  * Status values are echoed verbatim from the runner / scan history:
  *   running | completed | cancelled | aborted | not_found
