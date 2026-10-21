@@ -2,6 +2,11 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.5.0 - 2026-10-02 =
+* Connects through a backup address when the host blocks the main port.
+* Scans no longer fail on hosts that block outgoing non-standard ports.
+* Redesigned admin page with consistent icons across operating systems.
+
 = 1.4.4 - 2026-09-24 =
 * Self-Check tab improved.
 * Malware scan on website with many files no longer skips files.

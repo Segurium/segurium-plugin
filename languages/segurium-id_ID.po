@@ -1844,7 +1844,7 @@ msgstr "Sebelumnya"
 #: includes/class-segurium.php:1158 includes/class-segurium.php:1304
 #: includes/class-segurium.php:2606
 msgid "Next"
-msgstr "Berikutnya"
+msgstr "Selanjutnya"
 
 #: includes/class-segurium.php:1159 includes/class-segurium.php:1326
 msgid "Fix"
@@ -1955,7 +1955,7 @@ msgstr "Membersihkan malware..."
 #: includes/class-segurium.php:1202 includes/class-segurium.php:1846
 #: includes/class-segurium.php:1893 includes/class-segurium.php:3210
 msgid "Upgrade to Pro"
-msgstr "Tingkatkan ke Pro"
+msgstr "Upgrade ke Pro"
 
 #: includes/class-segurium.php:1192 includes/class-segurium.php:4135
 #: includes/class-segurium.php:6963
@@ -3320,7 +3320,7 @@ msgstr "Cross-Origin-Opener-Policy"
 
 #: includes/class-segurium.php:2823 includes/class-segurium.php:2832
 msgid "Not set"
-msgstr "Tidak disetel"
+msgstr "Tidak diatur"
 
 #: includes/class-segurium.php:2825
 msgid "Same origin, allow popups"
@@ -3348,7 +3348,7 @@ msgstr "Cross-Origin-Embedder-Policy"
 
 #: includes/class-segurium.php:2841
 msgid "Not set (recommended)"
-msgstr "Tidak disetel (disarankan)"
+msgstr "Tidak diatur (disarankan)"
 
 #: includes/class-segurium.php:2842
 msgid "Require CORP"

@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Singleton that runs the 24-check security self-check.
+ * Singleton that runs the 25-check security self-check.
  */
 class Segurium_Self_Check {
 
@@ -60,6 +60,19 @@ class Segurium_Self_Check {
 	const PTS_HARDENING  = 40;
 	const PTS_COOKIES    = 8;
 	const PTS_MALWARE    = 20;
+
+	// First release per branch that fixes PHP2Shell; older branches get no php.net fix.
+	const PHP_FIXED_RELEASES = array(
+		'8.2' => '8.2.35',
+		'8.3' => '8.3.36',
+		'8.4' => '8.4.27',
+		'8.5' => '8.5.12',
+	);
+
+	const PHP_FIRST_UNAFFECTED_BRANCH = '8.6';
+	const PHP_UPGRADE_TARGET          = '8.3.36';
+	const PHP_CHECK_ID                = 'php_version';
+	const VULNERABLE_PHP_SCORE_CAP    = 39;
 
 	/**
 	 * 24-hour freshness window for the malware-protection scan checks.
@@ -190,26 +203,38 @@ class Segurium_Self_Check {
 	}
 
 	/**
+	 * PHP release the version row grades.
+	 *
+	 * @var string
+	 */
+	private $php_version;
+
+	/**
 	 * Private constructor (singleton).
 	 */
-	private function __construct() {}
+	private function __construct() {
+		$this->php_version = PHP_VERSION;
+	}
 
 	/**
 	 * Run the full check battery and return a structured result array.
 	 *
 	 * @param bool $force          When true, bypass the cached result. The
 	 *                             cache is also bypassed once a malware or
-	 *                             integrity scan finished after it was scored.
+	 *                             integrity scan finished after it was scored,
+	 *                             or when the PHP release changed.
 	 * @param bool $record_history When false, skip the history row. Used by
 	 *                             `apply_fix()`, whose rescores would
 	 *                             otherwise push every real run out of the
 	 *                             ten-entry trend within a minute.
-	 * @return array { score, grade, categories, checks, scanned_at, self_ping_error }
+	 * @return array { score, grade, categories, checks, scanned_at, self_ping_error, php_version }
 	 */
 	public function run_checks( $force = false, $record_history = true ) {
 		if ( ! $force ) {
 			$cached = get_transient( self::CACHE_KEY );
-			if ( is_array( $cached ) && (int) ( $cached['scanned_at'] ?? 0 ) >= $this->last_scan_finished_at() ) {
+			if ( is_array( $cached )
+				&& (string) ( $cached['php_version'] ?? '' ) === (string) $this->php_version
+				&& (int) ( $cached['scanned_at'] ?? 0 ) >= $this->last_scan_finished_at() ) {
 				return $cached;
 			}
 		}
@@ -225,6 +250,7 @@ class Segurium_Self_Check {
 
 		$result                    = $this->calculate_score( $checks );
 		$result['self_ping_error'] = $ping['error'];
+		$result['php_version']     = (string) $this->php_version;
 
 		set_transient( self::CACHE_KEY, $result, self::CACHE_TTL );
 		if ( $record_history ) {
@@ -417,7 +443,13 @@ class Segurium_Self_Check {
 	 */
 	public function get_last_result() {
 		$cached = get_transient( self::CACHE_KEY );
-		return is_array( $cached ) ? $cached : null;
+		if ( ! is_array( $cached ) ) {
+			return null;
+		}
+		if ( (string) ( $cached['php_version'] ?? '' ) !== (string) $this->php_version ) {
+			self::queue_refresh();
+		}
+		return $cached;
 	}
 
 	/**
@@ -1010,8 +1042,8 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * Category 3 — 6 WordPress hardening checks, total 40 points. Scan
-	 * freshness/result rows live in `check_malware_protection()`.
+	 * Category 3 — 6 WordPress hardening checks, total 40 points, and the
+	 * PHP2Shell row. Scan freshness/result rows live in `check_malware_protection()`.
 	 *
 	 * @return array
 	 */
@@ -1118,7 +1150,56 @@ class Segurium_Self_Check {
 			)
 		);
 
+		$checks[] = $this->check_php_version();
+
 		return $checks;
+	}
+
+	/**
+	 * PHP2Shell row. No points: a failing row caps the score in `calculate_score()`.
+	 *
+	 * @return array
+	 */
+	private function check_php_version() {
+		$version = (string) $this->php_version;
+		$status  = self::STATUS_WARN;
+
+		if ( preg_match( '/^(\d+)\.(\d+)\.(\d+)(.*)$/', $version, $m ) ) {
+			$branch = $m[1] . '.' . $m[2];
+			$target = array_key_exists( $branch, self::PHP_FIXED_RELEASES ) ? self::PHP_FIXED_RELEASES[ $branch ] : self::PHP_UPGRADE_TARGET;
+			if ( version_compare( $branch, self::PHP_FIRST_UNAFFECTED_BRANCH, '>=' ) || version_compare( $branch . '.' . $m[3], $target, '>=' ) ) {
+				$status = self::STATUS_PASS;
+			} elseif ( '' === $m[4] || preg_match( '/^(-dev|alpha|beta|RC)/i', $m[4] ) ) {
+				$status = self::STATUS_FAIL;
+			}
+		}
+
+		if ( self::STATUS_PASS === $status ) {
+			/* translators: %s: PHP version, e.g. 8.4.27 */
+			$detail = sprintf( __( 'PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619).', 'segurium' ), $version );
+		} elseif ( self::STATUS_FAIL === $status ) {
+			$detail = sprintf(
+				/* translators: 1: running PHP version, 2: first PHP release with the fix */
+				__( 'PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F.', 'segurium' ),
+				$version,
+				$target
+			);
+		} else {
+			/* translators: %s: PHP version as the server reports it */
+			$detail = sprintf( __( 'PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host.', 'segurium' ), $version );
+		}
+
+		return $this->make_check(
+			array(
+				'id'       => self::PHP_CHECK_ID,
+				'category' => self::CAT_HARDENING,
+				'label'    => __( 'PHP patched against PHP2Shell', 'segurium' ),
+				'status'   => $status,
+				'detail'   => $detail,
+				'fix_tab'  => self::TAB_NONE,
+				'points'   => 0,
+			)
+		);
 	}
 
 	/**
@@ -1521,11 +1602,16 @@ class Segurium_Self_Check {
 	 * @return array
 	 */
 	private function calculate_score( $checks ) {
-		$total = 0.0;
+		$total  = 0.0;
+		$capped = false;
 		foreach ( $checks as $c ) {
 			$total += (float) $c['points'];
+			$capped = $capped || ( self::PHP_CHECK_ID === $c['id'] && self::STATUS_FAIL === $c['status'] );
 		}
 		$score = (int) round( min( 100.0, max( 0.0, $total ) ) );
+		if ( $capped ) {
+			$score = min( $score, self::VULNERABLE_PHP_SCORE_CAP );
+		}
 		$grade = $this->score_to_grade( $score );
 
 		$cats = array();

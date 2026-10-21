@@ -183,6 +183,50 @@ class Segurium_Storage {
 	}
 
 	/**
+	 * Read an option row from the database, past the object cache.
+	 *
+	 * @param string $key Option name.
+	 * @return string|null Serialized value, or null when absent.
+	 */
+	public static function setting_get_raw( string $key ): ?string {
+		return Segurium_Storage_Settings::get_raw( $key );
+	}
+
+	/**
+	 * Create an option row unless one already exists.
+	 *
+	 * @param string $key Option name.
+	 * @param string $raw Serialized value.
+	 * @return bool
+	 */
+	public static function setting_insert_raw( string $key, string $raw ): bool {
+		return Segurium_Storage_Settings::insert_raw( $key, $raw );
+	}
+
+	/**
+	 * Replace an option row only while it still holds `$expected`.
+	 *
+	 * @param string $key      Option name.
+	 * @param string $expected Serialized value the row must hold.
+	 * @param string $raw      Serialized replacement.
+	 * @return bool
+	 */
+	public static function setting_swap_raw( string $key, string $expected, string $raw ): bool {
+		return Segurium_Storage_Settings::swap_raw( $key, $expected, $raw );
+	}
+
+	/**
+	 * Delete an option row only while it still holds `$expected`.
+	 *
+	 * @param string $key      Option name.
+	 * @param string $expected Serialized value the row must hold.
+	 * @return bool
+	 */
+	public static function setting_delete_raw( string $key, string $expected ): bool {
+		return Segurium_Storage_Settings::delete_raw( $key, $expected );
+	}
+
+	/**
 	 * Typed int getter.
 	 *
 	 * @param string $key     Option name.

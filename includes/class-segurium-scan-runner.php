@@ -483,7 +483,9 @@ final class Segurium_Scan_Runner {
 
 			$scan_id = wp_generate_uuid4();
 
-			if ( ! Segurium_Scan_Lock::acquire( $scan_id, $scan_type ) ) {
+			$acquired = Segurium_Scan_Lock::acquire( $scan_id, $scan_type )
+				|| ( null === Segurium_Scan_Lock::get() && Segurium_Scan_Lock::acquire( $scan_id, $scan_type ) );
+			if ( ! $acquired ) {
 				$holder = Segurium_Scan_Lock::get();
 				if ( null === $holder ) {
 					return new WP_Error(
@@ -506,7 +508,7 @@ final class Segurium_Scan_Runner {
 			try {
 				$engine->initialize( $scan_id, $scan_type );
 			} catch ( Throwable $e ) {
-				Segurium_Scan_Lock::release();
+				Segurium_Scan_Lock::release( $scan_id );
 				$lock_acquired = false;
 				self::log_exception( 'initialize', $e );
 
@@ -556,7 +558,7 @@ final class Segurium_Scan_Runner {
 		} catch ( Throwable $e ) {
 			if ( $lock_acquired ) {
 				try {
-					Segurium_Scan_Lock::release();
+					Segurium_Scan_Lock::release( $scan_id );
 				} catch ( Throwable $ignored ) {
 					unset( $ignored );
 				}
@@ -953,6 +955,22 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
+	 * Release `$scan_id`'s lock and clear the site-wide tick chain. While any
+	 * lock remains (a newer scan's, or this one's after a failed release) the
+	 * chain stays: it drives that scan, or the terminal gate that frees it.
+	 *
+	 * @param string $scan_id Scan UUID being finished.
+	 * @return bool True when no lock remains.
+	 */
+	private static function release_scan_lock( $scan_id ) {
+		if ( ! Segurium_Scan_Lock::release( $scan_id ) && null !== Segurium_Scan_Lock::get() ) {
+			return false;
+		}
+		wp_clear_scheduled_hook( self::TICK_HOOK );
+		return true;
+	}
+
+	/**
 	 * Release the tick mutex iff we still own it.
 	 *
 	 * The token guard keeps a late release call from a worker whose lock
@@ -1268,9 +1286,8 @@ final class Segurium_Scan_Runner {
 			}
 		}
 
-		Segurium_Scan_Lock::release();
+		$lock_freed = self::release_scan_lock( $scan_id );
 		self::clear_stuck_state( $scan_id );
-		wp_clear_scheduled_hook( self::TICK_HOOK );
 
 		// Clear the chain-pending marker on EVERY termination
 		// path. Without this, an aborted chained malware scan left the
@@ -1278,7 +1295,9 @@ final class Segurium_Scan_Runner {
 		// so any UI surface that read `is_chain_pending()` kept reporting
 		// "running" until the user clicked another scan and the self-heal in
 		// `Segurium_Integrity_Chain::start_or_chain()` finally ran.
-		Segurium_Integrity_Chain::clear_pending();
+		if ( $lock_freed ) {
+			Segurium_Integrity_Chain::clear_pending();
+		}
 
 		self::debug(
 			'terminate',
@@ -1686,10 +1705,7 @@ final class Segurium_Scan_Runner {
 	private static function close_ancient_lock( array $lock ) {
 		$scan_id = (string) $lock['scan_id'];
 		if ( self::scan_history_is_terminal( $scan_id ) ) {
-			$current = Segurium_Scan_Lock::get();
-			if ( null !== $current && (string) $current['scan_id'] === $scan_id ) {
-				Segurium_Scan_Lock::release();
-				wp_clear_scheduled_hook( self::TICK_HOOK );
+			if ( self::release_scan_lock( $scan_id ) ) {
 				self::clear_stuck_state( $scan_id );
 			}
 			return;
@@ -1846,8 +1862,7 @@ final class Segurium_Scan_Runner {
 						self::finalize_scan( $recover, $lock['scan_type'] );
 					}
 				}
-				Segurium_Scan_Lock::release();
-				wp_clear_scheduled_hook( self::TICK_HOOK );
+				self::release_scan_lock( $lock['scan_id'] );
 				self::clear_stuck_state( $lock['scan_id'] );
 				$tick_outcome = 'terminal_gate';
 				return;
@@ -2217,9 +2232,8 @@ final class Segurium_Scan_Runner {
 					);
 					self::renew_liveness( $scan_id, $is_observer );
 					self::finalize_scan( $engine, $scan_type );
-					Segurium_Scan_Lock::release();
+					self::release_scan_lock( $scan_id );
 					self::clear_stuck_state( $scan_id );
-					wp_clear_scheduled_hook( self::TICK_HOOK );
 					$tick_outcome = 'completed';
 					return;
 				}
@@ -2591,9 +2605,8 @@ final class Segurium_Scan_Runner {
 
 	/**
 	 * Cheap "is a browser observer currently driving the runner?" check used
-	 * by the cron and pageload entry hooks. Reads the lock option once
-	 * (in-request memoized by WordPress's options cache after the first hit
-	 * within a request) and compares `observer_last_seen` against the
+	 * by the cron and pageload entry hooks. Reads the lock row and compares
+	 * `observer_last_seen` against the
 	 * `OBSERVER_FRESH_SEC` window. Returns false when no scan is running, no
 	 * observer has ever been seen, or the last observer ping is older than
 	 * the freshness window.
@@ -2619,7 +2632,7 @@ final class Segurium_Scan_Runner {
 	 * @return bool
 	 */
 	private static function has_work() {
-		if ( null !== Segurium_Scan_Lock::get() ) {
+		if ( Segurium_Scan_Lock::maybe_held() ) {
 			return true;
 		}
 		if ( class_exists( 'Segurium_Scheduled_Scan' ) ) {

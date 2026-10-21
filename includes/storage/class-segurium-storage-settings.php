@@ -75,6 +75,134 @@ class Segurium_Storage_Settings {
 	}
 
 	/**
+	 * Read an option row straight from the database, past the object cache.
+	 *
+	 * @param string $key Option name.
+	 * @return string|null Serialized value, or null when the row does not exist.
+	 * @throws Segurium_Storage_Exception When the query fails.
+	 */
+	public static function get_raw( string $key ): ?string {
+		$raw = self::run_raw(
+			'read',
+			$key,
+			static function ( $wpdb ) use ( $key ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- callers need the row other requests left, not this request's copy.
+				return $wpdb->get_var( $wpdb->prepare( 'SELECT option_value FROM %i WHERE option_name = %s', $wpdb->options, $key ) );
+			}
+		);
+		return null === $raw ? null : (string) $raw;
+	}
+
+	/**
+	 * Create an option row (autoload off) unless one already exists.
+	 *
+	 * @param string $key Option name.
+	 * @param string $raw Serialized value.
+	 * @return bool True when this call created the row, false when the row exists.
+	 * @throws Segurium_Storage_Exception When the insert fails for any other reason.
+	 */
+	public static function insert_raw( string $key, string $raw ): bool {
+		try {
+			$rows = self::run_raw(
+				'insert',
+				$key,
+				static function ( $wpdb ) use ( $key, $raw ) {
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- the unique option_name key is the atomic test.
+					return $wpdb->query( $wpdb->prepare( "INSERT INTO %i (option_name, option_value, autoload) VALUES (%s, %s, 'no')", $wpdb->options, $key, $raw ) );
+				}
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			if ( null !== self::get_raw( $key ) ) {
+				return false;
+			}
+			throw $e;
+		}
+		return 1 === (int) $rows;
+	}
+
+	/**
+	 * Replace an option row only while it still holds exactly `$expected`.
+	 *
+	 * @param string $key      Option name.
+	 * @param string $expected Serialized value the row must hold.
+	 * @param string $raw      Serialized replacement.
+	 * @return bool True when this call replaced the row.
+	 * @throws Segurium_Storage_Exception When the query fails.
+	 */
+	public static function swap_raw( string $key, string $expected, string $raw ): bool {
+		$rows = self::run_raw(
+			'swap',
+			$key,
+			static function ( $wpdb ) use ( $key, $expected, $raw ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- compare-and-swap must hit the row itself.
+				return $wpdb->query( $wpdb->prepare( 'UPDATE %i SET option_value = %s WHERE option_name = %s AND option_value = CAST(%s AS BINARY)', $wpdb->options, $raw, $key, $expected ) );
+			}
+		);
+		return (int) $rows > 0;
+	}
+
+	/**
+	 * Delete an option row only while it still holds exactly `$expected`.
+	 *
+	 * @param string $key      Option name.
+	 * @param string $expected Serialized value the row must hold.
+	 * @return bool True when this call deleted the row.
+	 * @throws Segurium_Storage_Exception When the query fails.
+	 */
+	public static function delete_raw( string $key, string $expected ): bool {
+		$rows = self::run_raw(
+			'delete',
+			$key,
+			static function ( $wpdb ) use ( $key, $expected ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- compare-and-delete must hit the row itself.
+				return $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name = %s AND option_value = CAST(%s AS BINARY)', $wpdb->options, $key, $expected ) );
+			}
+		);
+		return (int) $rows > 0;
+	}
+
+	/**
+	 * Run one raw option statement with WPDB error output off. Writes also
+	 * drop the option from the object cache.
+	 *
+	 * @param string   $op    Operation label: read, insert, swap or delete.
+	 * @param string   $key   Option name.
+	 * @param callable $query Receives $wpdb and returns its result.
+	 * @return mixed
+	 * @throws Segurium_Storage_Exception When the statement fails.
+	 */
+	private static function run_raw( string $op, string $key, callable $query ) {
+		global $wpdb;
+		$prev = $wpdb->suppress_errors( true );
+		try {
+			$result = $query( $wpdb );
+		} finally {
+			$wpdb->suppress_errors( $prev );
+			if ( 'read' !== $op ) {
+				self::forget_cached( $key );
+			}
+		}
+		if ( '' !== (string) $wpdb->last_error ) {
+			throw new Segurium_Storage_Exception( esc_html( sprintf( 'option %s failed for %s: %s', $op, $key, $wpdb->last_error ) ) );
+		}
+		return $result;
+	}
+
+	/**
+	 * Drop a non-autoloaded option from the object cache after a direct write.
+	 *
+	 * @param string $key Option name.
+	 */
+	private static function forget_cached( string $key ): void {
+		wp_cache_delete( $key, 'options' );
+		$notoptions = wp_cache_get( 'notoptions', 'options' );
+		if ( is_array( $notoptions ) && isset( $notoptions[ $key ] ) ) {
+			unset( $notoptions[ $key ] );
+			wp_cache_set( 'notoptions', $notoptions, 'options' );
+		}
+	}
+
+	/**
 	 * Typed get: int.
 	 *
 	 * @param string $key     Option name.
