@@ -2,6 +2,12 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.5.1 - 2026-10-14 =
+* No mbstring extension dependency.
+* Scans now progress on hosts with a disabled WP-Cron.
+* Faster plugin activation on repeated schedule checks.
+* Freemius version bump.
+
 = 1.5.0 - 2026-10-02 =
 * Connects through a backup address when the host blocks the main port.
 * Scans no longer fail on hosts that block outgoing non-standard ports.

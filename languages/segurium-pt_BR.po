@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "O PHP %1$s está vulnerável ao PHP2Shell, uma falha de execução remota de código no próprio PHP (CVE-2026-109618, CVE-2026-109619). Peça ao seu provedor de hospedagem para atualizar o PHP para %2$s ou posterior."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Este site não consegue acessar o serviço de nuvem Segurium. Seu provedor de hospedagem pode estar bloqueando conexões de saída. Entre em contato com seu provedor de hospedagem ou com o suporte do Segurium."
 
@@ -5076,3 +5079,21 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "A configuração não pôde ser salva."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+#, php-format
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "O PHP %s inclui as correções do PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+#, php-format
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "O PHP %1$s está exposto ao PHP2Shell, uma falha de execução remota de código no próprio PHP (CVE-2026-109618, CVE-2026-109619). Peça ao seu provedor para atualizar o PHP para %2$s ou superior. Até lá, a pontuação não pode ultrapassar F."
+
+#. translators: %s: PHP version as the server reports it
+#, php-format
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "O PHP %s é uma versão compilada pelo fornecedor. O número da versão não indica se contém as correções do PHP2Shell (CVE-2026-109618, CVE-2026-109619). Pergunte ao seu provedor."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP corrigido contra o PHP2Shell"

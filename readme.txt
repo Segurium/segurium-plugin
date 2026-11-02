@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +35,7 @@ Every feature below ships in the plugin and runs on every install — Free and P
 * **Geo-blocking** — Block login or admin traffic by country using a local binary database (auto-updated), with a confirm-or-revert safety net so you can't lock yourself out.
 * **Security headers** — Security HTTP response headers, cookie hardening (SameSite/Secure/HttpOnly), and five one-click preset modes.
 * **Information Shield** — Toggles that hide WordPress version fingerprints, discovery endpoints, asset `?ver=` strings, and XML-RPC when you don't use them.
-* **Self-Check security grade** — Checks roll up into an A+ to F grade, each with one-click Fix buttons and cross-referenced with third-party services. The grade stays at F while your PHP version is open to PHP2Shell (CVE-2026-109618, CVE-2026-109619).
+* **Self-Check security grade** — Checks roll up into an A+ to F grade, each with one-click Fix buttons and cross-referenced with third-party services. Includes PHP2Shell vulnerability handling.
 * **Migration importer** — Import your settings from Wordfence, All-In-One Security and Solid Security so you don't lose your hardening when you switch. Sucuri Security is detected too, but its settings live in Sucuri's cloud dashboard and cannot be read locally, so there is nothing to import.
 * **Disaster recovery** — Local encrypted backups can be extracted with a tiny PHP one-liner, even if Segurium is uninstalled.
 * **Embedded support**.
@@ -194,14 +194,11 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
-= 1.5.2 - 2026-10-21 =
-* Self-Check grades the site F while its PHP version is open to PHP2Shell (CVE-2026-109618, CVE-2026-109619).
-* A scan started right after a cancelled one no longer stops.
+= 1.5.3 - 2026-11-02 =
+* Self-Check tab improved.
 
-= 1.5.1 - 2026-10-14 =
-* No mbstring extension dependency.
-* Scans now progress on hosts with a disabled WP-Cron.
-* Faster plugin activation on repeated schedule checks.
-* Freemius version bump.
+= 1.5.2 - 2026-10-21 =
+* PHP2Shell vulnerability handling.
+* A scan started right after a cancelled one no longer stops.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

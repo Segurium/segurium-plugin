@@ -16,6 +16,9 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "إصدار PHP %1$s معرض لثغرة PHP2Shell، وهي ثغرة تنفيذ تعليمات برمجية عن بُعد في PHP نفسه (CVE-2026-109618، CVE-2026-109619). اطلب من مزوّد الاستضافة ترقية PHP إلى %2$s أو إصدار أحدث."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "لا يمكن لهذا الموقع الوصول إلى خدمة Segurium السحابية. قد يقوم مزود الاستضافة الخاص بك بحظر الاتصالات الصادرة. يُرجى التواصل مع مزود الاستضافة أو مع دعم Segurium."
 
@@ -5001,3 +5004,18 @@ msgstr "تعذّر حفظ الإعدادات."
 #~ msgstr ""
 #~ "تم تجاوز حصة المعالجة للفئة المجانية. قم بالترقية إلى الإصدار الاحترافي "
 #~ "للحصول على إصلاحات غير محدودة."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "يتضمن إصدار PHP %s إصلاحات ثغرة PHP2Shell (CVE-2026-109618، CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "إصدار PHP %1$s معرّض لثغرة PHP2Shell، وهي ثغرة تنفيذ تعليمات برمجية عن بُعد في PHP نفسه (CVE-2026-109618، CVE-2026-109619). اطلب من مزود الاستضافة ترقية PHP إلى %2$s أو إصدار أحدث. حتى ذلك الحين لا يمكن أن ترتفع النتيجة فوق F."
+
+#. translators: %s: PHP version as the server reports it
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "إصدار PHP %s هو بناء خاص بالمزود. لا يُظهر رقم الإصدار ما إذا كان يحتوي على إصلاحات PHP2Shell (CVE-2026-109618، CVE-2026-109619). اسأل مزود الاستضافة."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP مُصحَّح ضد ثغرة PHP2Shell"

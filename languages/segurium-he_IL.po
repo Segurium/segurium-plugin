@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "‏PHP %1$s חשוף ל-PHP2Shell, פרצת הרצת קוד מרחוק ב-PHP עצמו (CVE-2026-109618, CVE-2026-109619). בקש מספק האחסון שלך לשדרג את PHP לגרסה %2$s או חדשה יותר."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "האתר הזה לא מצליח להתחבר לשירות הענן של Segurium. ייתכן שחברת האחסון חוסמת חיבורים יוצאים. יש לפנות לחברת האחסון או לתמיכה של Segurium."
 
@@ -4583,3 +4586,15 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "לא ניתן היה לשמור את ההגדרה."
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s כולל את תיקוני PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s חשוף ל-PHP2Shell, פגם של הרצת קוד מרחוק ב-PHP עצמו (CVE-2026-109618, CVE-2026-109619). יש לבקש מחברת האחסון לשדרג את PHP ל-%2$s ואילך. עד אז הציון לא יכול לעלות מעל F."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s הוא בנייה של ספק. מספר הגרסה לא מראה אם היא כוללת את תיקוני PHP2Shell (CVE-2026-109618, CVE-2026-109619). יש לפנות לחברת האחסון."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP מתוקן מפני PHP2Shell"

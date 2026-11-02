@@ -16,6 +16,9 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s è vulnerabile a PHP2Shell, una falla di esecuzione di codice remoto in PHP stesso (CVE-2026-109618, CVE-2026-109619). Chiedi al tuo hoster di aggiornare PHP alla versione %2$s o successiva."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Questo sito non riesce a raggiungere il servizio cloud Segurium. Il tuo fornitore di hosting potrebbe bloccare le connessioni in uscita. Contatta il tuo fornitore di hosting o il supporto Segurium."
 
@@ -5126,3 +5129,15 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "Impossibile salvare l'impostazione."
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s include le correzioni per PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s è esposto a PHP2Shell, una vulnerabilità di esecuzione di codice remoto in PHP stesso (CVE-2026-109618, CVE-2026-109619). Chiedi al tuo host di aggiornare PHP a %2$s o versione successiva. Fino ad allora il punteggio non può superare F."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s è una build del fornitore. Il numero di versione non indica se contiene le correzioni per PHP2Shell (CVE-2026-109618, CVE-2026-109619). Chiedi al tuo host."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP corretto contro PHP2Shell"

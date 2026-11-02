@@ -16,6 +16,9 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: segurium i18n, derived from segurium-es_ES.po\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s es vulnerable a PHP2Shell, un fallo de ejecución remota de código en el propio PHP (CVE-2026-109618, CVE-2026-109619). Pide a tu proveedor de alojamiento que actualice PHP a la versión %2$s o posterior."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Este sitio no puede conectarse con el servicio en la nube de Segurium. Tu proveedor de hosting podría estar bloqueando las conexiones salientes. Contacta a tu proveedor de hosting o al soporte de Segurium."
 
@@ -5060,3 +5063,15 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "No se pudo guardar el ajuste."
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s incluye las correcciones de PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s es vulnerable a PHP2Shell, una falla de ejecución remota de código en el propio PHP (CVE-2026-109618, CVE-2026-109619). Pide a tu proveedor de hosting que actualice PHP a %2$s o posterior. Hasta entonces, la calificación no puede subir de F."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s es una compilación del proveedor. Su número de versión no indica si incluye las correcciones de PHP2Shell (CVE-2026-109618, CVE-2026-109619). Consulta a tu proveedor de hosting."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP parcheado contra PHP2Shell"

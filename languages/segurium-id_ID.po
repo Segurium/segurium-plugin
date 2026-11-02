@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s rentan terhadap PHP2Shell, celah eksekusi kode jarak jauh pada PHP itu sendiri (CVE-2026-109618, CVE-2026-109619). Minta penyedia hosting Anda untuk memutakhirkan PHP ke %2$s atau yang lebih baru."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Situs ini tidak dapat menjangkau layanan cloud Segurium. Penyedia hosting Anda mungkin memblokir koneksi keluar. Silakan hubungi penyedia hosting Anda atau layanan bantuan Segurium."
 
@@ -4698,3 +4701,21 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "Pengaturan tidak dapat disimpan."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+#, php-format
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s mencakup perbaikan PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+#, php-format
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s rentan terhadap PHP2Shell, celah eksekusi kode jarak jauh pada PHP itu sendiri (CVE-2026-109618, CVE-2026-109619). Minta penyedia hosting Anda memperbarui PHP ke %2$s atau yang lebih baru. Hingga saat itu skor tidak dapat naik di atas F."
+
+#. translators: %s: PHP version as the server reports it
+#, php-format
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s adalah build vendor. Nomor versinya tidak menunjukkan apakah build ini mencakup perbaikan PHP2Shell (CVE-2026-109618, CVE-2026-109619). Tanya penyedia hosting Anda."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP telah ditambal terhadap PHP2Shell"

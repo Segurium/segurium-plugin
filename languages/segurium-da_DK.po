@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s er sårbar over for PHP2Shell, en fjernudførelse af kode-fejl i selve PHP (CVE-2026-109618, CVE-2026-109619). Bed din hostingudbyder om at opgradere PHP til %2$s eller nyere."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Dette websted kan ikke nå Segurium-skytjenesten. Din hostingudbyder blokerer muligvis udgående forbindelser. Kontakt din hostingudbyder eller Segurium-support."
 
@@ -4707,3 +4710,18 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "Indstillingen kunne ikke gemmes."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s indeholder PHP2Shell-rettelserne (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s er åben for PHP2Shell, en sårbarhed i selve PHP, der tillader fjernkørsel af kode (CVE-2026-109618, CVE-2026-109619). Bed din udbyder om at opgradere PHP til %2$s eller nyere. Indtil da kan karakteren ikke komme højere end F."
+
+#. translators: %s: PHP version as the server reports it
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s er en leverandørbygget udgave. Versionsnummeret viser ikke, om den har PHP2Shell-rettelserne (CVE-2026-109618, CVE-2026-109619). Spørg din udbyder."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP er lappet mod PHP2Shell"

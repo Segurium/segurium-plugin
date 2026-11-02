@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s มีช่องโหว่ PHP2Shell ซึ่งเป็นช่องโหว่การรันโค้ดจากระยะไกลใน PHP เอง (CVE-2026-109618, CVE-2026-109619) โปรดขอให้ผู้ให้บริการโฮสติ้งอัปเกรด PHP เป็น %2$s หรือใหม่กว่า"
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "เว็บนี้ไม่สามารถเข้าถึงบริการคลาวด์ของ Segurium ได้ ผู้ให้บริการโฮสติ้งของคุณอาจปิดกั้นการเชื่อมต่อขาออก โปรดติดต่อผู้ให้บริการโฮสติ้งของคุณหรือฝ่ายสนับสนุน Segurium"
 
@@ -4592,3 +4595,15 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "บันทึกการตั้งค่าไม่สำเร็จ"
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s มีการแก้ไขช่องโหว่ PHP2Shell แล้ว (CVE-2026-109618, CVE-2026-109619)"
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s มีช่องโหว่ PHP2Shell ซึ่งเป็นช่องโหว่การเรียกใช้โค้ดจากระยะไกลใน PHP เอง (CVE-2026-109618, CVE-2026-109619) โปรดขอให้ผู้ให้บริการโฮสติ้งอัปเกรด PHP เป็น %2$s หรือใหม่กว่า จนกว่าจะอัปเกรด คะแนนจะไม่สูงกว่า F"
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s เป็นเวอร์ชันที่ผู้จำหน่ายปรับแต่ง หมายเลขเวอร์ชันไม่ได้ระบุว่ามีการแก้ไขช่องโหว่ PHP2Shell (CVE-2026-109618, CVE-2026-109619) หรือไม่ โปรดสอบถามผู้ให้บริการโฮสติ้ง"
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP ได้รับการแก้ไขช่องโหว่ PHP2Shell"

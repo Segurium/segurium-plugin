@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n >= 2 && n <= 4) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s je zraniteľný voči PHP2Shell, chybe vzdialeného spustenia kódu v samotnom PHP (CVE-2026-109618, CVE-2026-109619). Požiadaj svojho hostingového poskytovateľa, aby aktualizoval PHP na verziu %2$s alebo novšiu."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Táto webová stránka sa nedokáže pripojiť ku cloudovej službe Segurium. Váš poskytovateľ hostingu môže blokovať odchádzajúce pripojenia. Kontaktujte svojho poskytovateľa hostingu alebo podporu Segurium."
 
@@ -4685,3 +4688,21 @@ msgstr ""
 #: segurium.php:1101
 msgid "unknown"
 msgstr "neznáme"
+
+#. translators: %s: PHP version, e.g. 8.4.27
+#, php-format
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s obsahuje opravy PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+#, php-format
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s je zraniteľné voči PHP2Shell, chybe vzdialeného spustenia kódu priamo v PHP (CVE-2026-109618, CVE-2026-109619). Požiadajte svojho poskytovateľa hostingu o aktualizáciu PHP na verziu %2$s alebo novšiu. Dovtedy skóre nemôže stúpnuť nad F."
+
+#. translators: %s: PHP version as the server reports it
+#, php-format
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s je zostavenie od dodávateľa. Z čísla verzie sa nedá zistiť, či obsahuje opravy PHP2Shell (CVE-2026-109618, CVE-2026-109619). Opýtajte sa svojho poskytovateľa hostingu."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP opravené proti PHP2Shell"

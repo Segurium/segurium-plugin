@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "Η PHP %1$s είναι ευάλωτη στο PHP2Shell, μια ευπάθεια απομακρυσμένης εκτέλεσης κώδικα στην ίδια την PHP (CVE-2026-109618, CVE-2026-109619). Ζητήστε από τον πάροχο φιλοξενίας να αναβαθμίσει την PHP στην %2$s ή νεότερη."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Αυτός ο ιστότοπος δεν μπορεί να συνδεθεί με την υπηρεσία cloud του Segurium. Ο πάροχος φιλοξενίας σας ενδέχεται να μπλοκάρει τις εξερχόμενες συνδέσεις. Επικοινωνήστε με τον πάροχο φιλοξενίας σας ή με την υποστήριξη Segurium."
 
@@ -4877,3 +4880,21 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "Η ρύθμιση δεν μπόρεσε να αποθηκευτεί."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+#, php-format
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "Η PHP %s περιλαμβάνει τις διορθώσεις PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+#, php-format
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "Η PHP %1$s είναι ευάλωτη στο PHP2Shell, μια ευπάθεια απομακρυσμένης εκτέλεσης κώδικα στην ίδια την PHP (CVE-2026-109618, CVE-2026-109619). Ζητήστε από τον πάροχο φιλοξενίας να αναβαθμίσει την PHP στην %2$s ή νεότερη. Μέχρι τότε η βαθμολογία δεν μπορεί να ανέβει πάνω από F."
+
+#. translators: %s: PHP version as the server reports it
+#, php-format
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "Η PHP %s είναι έκδοση κατασκευαστή διανομής. Ο αριθμός έκδοσης δεν δείχνει αν περιλαμβάνει τις διορθώσεις PHP2Shell (CVE-2026-109618, CVE-2026-109619). Ρωτήστε τον πάροχο φιλοξενίας."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP διορθωμένη κατά του PHP2Shell"

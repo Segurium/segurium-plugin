@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts 1.5.1\n"
+"Project-Id-Version: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts 1.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-17T03:33:49+00:00\n"
+"POT-Creation-Date: 2026-11-02T10:22:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: segurium\n"
@@ -932,365 +932,387 @@ msgstr ""
 msgid "Day of week must be between 0 (Sunday) and 6 (Saturday)."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:587
+#: includes/class-segurium-self-check.php:640
 msgid "This server re-adds the header after the plugin removes it. Open the feature tab for the server-level fix."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:834
+#: includes/class-segurium-self-check.php:887
 #: includes/class-segurium.php:2854
 msgid "Content-Security-Policy"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:837
+#: includes/class-segurium-self-check.php:890
 msgid "CSP is enforced."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:839
+#: includes/class-segurium-self-check.php:892
 msgid "CSP is report-only. Switch to enforce for full protection."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:840
+#: includes/class-segurium-self-check.php:893
 msgid "No Content-Security-Policy header. Protects against XSS and injection."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:855
+#: includes/class-segurium-self-check.php:908
 msgid "Strict-Transport-Security"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:858
+#: includes/class-segurium-self-check.php:911
 msgid "HSTS active with at least a one-year max-age."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:860
+#: includes/class-segurium-self-check.php:913
 msgid "HSTS present but max-age is below one year."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:861
+#: includes/class-segurium-self-check.php:914
 msgid "No HSTS header. Browsers may connect over plain HTTP."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:873
+#: includes/class-segurium-self-check.php:926
 msgid "X-Content-Type-Options"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:876
+#: includes/class-segurium-self-check.php:929
 msgid "MIME sniffing prevented."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:877
+#: includes/class-segurium-self-check.php:930
 msgid "Missing. Browsers may misinterpret file types."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:889
+#: includes/class-segurium-self-check.php:942
 #: includes/class-segurium.php:2723
 msgid "X-Frame-Options"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:892
+#: includes/class-segurium-self-check.php:945
 msgid "Clickjacking protection via X-Frame-Options."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:893
+#: includes/class-segurium-self-check.php:946
 msgid "Missing X-Frame-Options. Site may be framed by attackers."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:905
+#: includes/class-segurium-self-check.php:958
 #: includes/class-segurium.php:2731
 msgid "Referrer-Policy"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:908
+#: includes/class-segurium-self-check.php:961
 msgid "Referrer-Policy restricts information leakage on navigation."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:909
+#: includes/class-segurium-self-check.php:962
 msgid "Missing or unsafe Referrer-Policy. Full URLs may be leaked."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:920
+#: includes/class-segurium-self-check.php:973
 #: includes/class-segurium.php:2819
 msgid "Permissions-Policy"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:923
+#: includes/class-segurium-self-check.php:976
 msgid "Permissions-Policy restricts access to browser features."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:924
+#: includes/class-segurium-self-check.php:977
 msgid "Missing Permissions-Policy. Browser features are not restricted."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:936
+#: includes/class-segurium-self-check.php:989
 #: includes/class-segurium.php:2751
 msgid "X-XSS-Protection"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:939
+#: includes/class-segurium-self-check.php:992
 msgid "Legacy XSS filter directive present."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:940
+#: includes/class-segurium-self-check.php:993
 msgid "Missing X-XSS-Protection. Set to 0 to disable legacy browser XSS filters safely."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:965
+#: includes/class-segurium-self-check.php:1018
 msgid "X-Powered-By hidden"
 msgstr ""
 
 #. translators: %s: header value
-#: includes/class-segurium-self-check.php:970
+#: includes/class-segurium-self-check.php:1023
 #, php-format
 msgid "X-Powered-By reveals: %s"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:973
+#: includes/class-segurium-self-check.php:1026
 msgid "X-Powered-By header is not exposed."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:984
+#: includes/class-segurium-self-check.php:1037
 msgid "WordPress version hidden"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:987
+#: includes/class-segurium-self-check.php:1040
 msgid "WordPress version exposed in HTML source."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:988
+#: includes/class-segurium-self-check.php:1041
 msgid "WordPress version not visible in HTML."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:999
+#: includes/class-segurium-self-check.php:1052
 msgid "Asset version query hidden"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1002
+#: includes/class-segurium-self-check.php:1055
 msgid "Core/theme/plugin version exposed in ?ver= on asset URLs."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1003
+#: includes/class-segurium-self-check.php:1056
 msgid "Asset URLs do not expose version numbers."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1030
+#: includes/class-segurium-self-check.php:1083
 msgid "XML-RPC disabled"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1033
+#: includes/class-segurium-self-check.php:1086
 msgid "XML-RPC endpoint is disabled."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1034
+#: includes/class-segurium-self-check.php:1087
 msgid "XML-RPC is reachable. A frequent brute-force and pingback-amplification target."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1045
+#: includes/class-segurium-self-check.php:1098
 msgid "REST API discovery disabled"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1048
+#: includes/class-segurium-self-check.php:1101
 msgid "REST API discovery link removed from <head>."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1049
+#: includes/class-segurium-self-check.php:1102
 msgid "REST API discovery link exposed — simplifies reconnaissance."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1060
+#: includes/class-segurium-self-check.php:1113
 msgid "Brute-force protection"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1063
+#: includes/class-segurium-self-check.php:1116
 msgid "Login brute-force protection is active."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1064
+#: includes/class-segurium-self-check.php:1117
 msgid "Brute-force protection is disabled."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1079
+#: includes/class-segurium-self-check.php:1132
 msgid "Two-factor enforced for administrators"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1082
+#: includes/class-segurium-self-check.php:1135
 msgid "Two-factor authentication is enforced for the administrator role."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1083
+#: includes/class-segurium-self-check.php:1136
 msgid "Administrators can log in with a password alone."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1095
+#: includes/class-segurium-self-check.php:1148
 #: includes/class-segurium.php:1992
 msgid "Firewall"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1098
+#: includes/class-segurium-self-check.php:1151
 msgid "Firewall rules are active."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1099
+#: includes/class-segurium-self-check.php:1152
 msgid "No firewall rules are active."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1111
+#: includes/class-segurium-self-check.php:1164
 msgid "HTTPS / SSL active"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1114
+#: includes/class-segurium-self-check.php:1167
 msgid "Site is served over HTTPS."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1115
+#: includes/class-segurium-self-check.php:1168
 msgid "Site is not served over HTTPS. Traffic is unencrypted."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1155
+#. translators: %s: PHP version, e.g. 8.4.27
+#: includes/class-segurium-self-check.php:1201
+#, php-format
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr ""
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+#: includes/class-segurium-self-check.php:1205
+#, php-format
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr ""
+
+#. translators: %s: PHP version as the server reports it
+#: includes/class-segurium-self-check.php:1211
+#, php-format
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr ""
+
+#: includes/class-segurium-self-check.php:1218
+msgid "PHP patched against PHP2Shell"
+msgstr ""
+
+#: includes/class-segurium-self-check.php:1258
 msgid "No Set-Cookie headers on the homepage; cannot assess cookie flags from outside."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1161
-#: includes/class-segurium-self-check.php:1183
+#: includes/class-segurium-self-check.php:1264
+#: includes/class-segurium-self-check.php:1286
 msgid "Cookies — Secure"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1172
-#: includes/class-segurium-self-check.php:1279
-#: includes/class-segurium-self-check.php:1293
-#: includes/class-segurium-self-check.php:1311
+#: includes/class-segurium-self-check.php:1275
+#: includes/class-segurium-self-check.php:1382
+#: includes/class-segurium-self-check.php:1396
+#: includes/class-segurium-self-check.php:1414
 msgid "Cookies — SameSite"
 msgstr ""
 
 #. translators: 1: total cookie count, 2: cookie attribute name
-#: includes/class-segurium-self-check.php:1215
+#: includes/class-segurium-self-check.php:1318
 #, php-format
 msgid "All %1$d cookies set the %2$s attribute."
 msgstr ""
 
 #. translators: 1: matching cookie count, 2: total cookie count, 3: cookie attribute name
-#: includes/class-segurium-self-check.php:1229
+#: includes/class-segurium-self-check.php:1332
 #, php-format
 msgid "%1$d of %2$d cookies set %3$s."
 msgstr ""
 
 #. translators: 1: total cookie count, 2: cookie attribute name
-#: includes/class-segurium-self-check.php:1242
+#: includes/class-segurium-self-check.php:1345
 #, php-format
 msgid "None of the %1$d cookies set the %2$s attribute."
 msgstr ""
 
 #. translators: %d: total cookie count
-#: includes/class-segurium-self-check.php:1282
+#: includes/class-segurium-self-check.php:1385
 #, php-format
 msgid "All %d cookies set SameSite=Lax/Strict."
 msgstr ""
 
 #. translators: 1: good cookie count, 2: total cookie count
-#: includes/class-segurium-self-check.php:1296
+#: includes/class-segurium-self-check.php:1399
 #, php-format
 msgid "%1$d of %2$d cookies set SameSite=Lax/Strict."
 msgstr ""
 
 #. translators: 1: count of cookies using SameSite=None, 2: total cookie count
-#: includes/class-segurium-self-check.php:1304
+#: includes/class-segurium-self-check.php:1407
 #, php-format
 msgid "%1$d of %2$d cookies use SameSite=None."
 msgstr ""
 
 #. translators: %d: total cookie count
-#: includes/class-segurium-self-check.php:1306
+#: includes/class-segurium-self-check.php:1409
 #, php-format
 msgid "No cookies set SameSite=Lax or Strict (out of %d)."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1373
+#: includes/class-segurium-self-check.php:1476
 #: includes/class-segurium.php:3227
 msgid "Cloud-assisted malware detection"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1376
+#: includes/class-segurium-self-check.php:1479
 msgid "On-premise mode is enabled: file contents stay on this server, and any file the cloud cannot identify by hash goes unresolved. Turn on cloud-assisted detection for full accuracy."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1377
+#: includes/class-segurium-self-check.php:1480
 msgid "Cloud-assisted malware detection is active."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1389
+#: includes/class-segurium-self-check.php:1492
 msgid "Scheduled malware scans"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1392
+#: includes/class-segurium-self-check.php:1495
 msgid "A recurring malware scan is scheduled."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1393
+#: includes/class-segurium-self-check.php:1496
 msgid "No recurring malware scan is scheduled."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1405
+#: includes/class-segurium-self-check.php:1508
 msgid "Automatic malware cleanup"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1408
+#: includes/class-segurium-self-check.php:1511
 msgid "Detected malware is cleaned automatically after every scan."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1409
+#: includes/class-segurium-self-check.php:1512
 msgid "Automatic cleanup is disabled. Detected malware requires a manual click to clean."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1423
+#: includes/class-segurium-self-check.php:1526
 msgid "Malware scan up to date"
 msgstr ""
 
 #. translators: %s: human time difference
-#: includes/class-segurium-self-check.php:1428
+#: includes/class-segurium-self-check.php:1531
 #, php-format
 msgid "Last malware scan completed %s ago."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1432
+#: includes/class-segurium-self-check.php:1535
 msgid "Malware scan is older than 7 days."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1433
+#: includes/class-segurium-self-check.php:1536
 msgid "No malware scan has been completed yet."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1446
+#: includes/class-segurium-self-check.php:1549
 msgid "No malware in the last 24 hours"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1449
+#: includes/class-segurium-self-check.php:1552
 msgid "The most recent malware scan ran in the last 24 hours and found nothing."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1451
+#: includes/class-segurium-self-check.php:1554
 msgid "No malware scan has run in the last 24 hours. Scans are quick — run one to refresh this verdict."
 msgstr ""
 
 #. translators: %d: number of threats
-#: includes/class-segurium-self-check.php:1454
+#: includes/class-segurium-self-check.php:1557
 #, php-format
 msgid "Last malware scan flagged %d threat. Review it on the Malware scanner tab."
 msgid_plural "Last malware scan flagged %d threats. Review them on the Malware scanner tab."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-segurium-self-check.php:1475
+#: includes/class-segurium-self-check.php:1578
 msgid "No integrity issues in the last 24 hours"
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1478
+#: includes/class-segurium-self-check.php:1581
 msgid "The most recent integrity scan ran in the last 24 hours and reported no issues."
 msgstr ""
 
-#: includes/class-segurium-self-check.php:1480
+#: includes/class-segurium-self-check.php:1583
 msgid "No integrity scan has run in the last 24 hours. Scans are quick — run one to refresh this verdict."
 msgstr ""
 
 #. translators: %d: number of open integrity issues
-#: includes/class-segurium-self-check.php:1483
+#: includes/class-segurium-self-check.php:1586
 #, php-format
 msgid "%d open integrity issue is unresolved. Review it on the Integrity scanner tab."
 msgid_plural "%d open integrity issues are unresolved. Review them on the Integrity scanner tab."

@@ -16,6 +16,18 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s には PHP2Shell の修正 (CVE-2026-109618, CVE-2026-109619) が含まれています。"
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s は PHP 自体のリモートコード実行脆弱性 PHP2Shell (CVE-2026-109618, CVE-2026-109619) の影響を受けます。ホスティングサービスに PHP を %2$s 以降へアップグレードするよう依頼してください。"
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s はベンダービルドです。バージョン番号からは PHP2Shell の修正 (CVE-2026-109618, CVE-2026-109619) が含まれているか判断できません。ホスティングサービスに確認してください。"
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP は PHP2Shell に対してパッチ適用済み"
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "このサイトは Segurium クラウドサービスに接続できません。ホスティングサービスが送信接続をブロックしている可能性があります。ホスティングサービスまたは Segurium サポートまでお問い合わせください。"
 

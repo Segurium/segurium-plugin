@@ -15,6 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s sisältää PHP2Shell-korjaukset (CVE-2026-109618, CVE-2026-109619)."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s on altis PHP2Shell-haavoittuvuudelle, joka on PHP:n oma etäkoodin suoritushaava (CVE-2026-109618, CVE-2026-109619). Pyydä palveluntarjoajaasi päivittämään PHP versioon %2$s tai uudempaan."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s on toimittajan oma koonnos. Versionumero ei näytä, sisältyvätkö PHP2Shell-korjaukset (CVE-2026-109618, CVE-2026-109619). Kysy palveluntarjoajaltasi."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP korjattu PHP2Shelliä vastaan"
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Tämä sivusto ei saa yhteyttä Seguriumin pilvipalveluun. Palveluntarjoajasi saattaa estää lähtevät yhteydet. Ota yhteyttä palveluntarjoajaasi tai Seguriumin tukeen."
 

@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "A PHP %1$s sebezhető a PHP2Shellre, amely a PHP saját, távoli kódfuttatást lehetővé tevő hibája (CVE-2026-109618, CVE-2026-109619). Kérje meg a tárhelyszolgáltatót, hogy frissítse a PHP-t a(z) %2$s vagy újabb verzióra."
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Ez a webhely nem éri el a Segurium felhőszolgáltatását. Lehet, hogy a tárhelyszolgáltató blokkolja a kimenő kapcsolatokat. Forduljunk a tárhelyszolgáltatóhoz vagy a Segurium támogatásához."
 
@@ -4712,3 +4715,15 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "A beállítást nem sikerült menteni."
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "A PHP %s tartalmazza a PHP2Shell javításokat (CVE-2026-109618, CVE-2026-109619)."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "A PHP %1$s sebezhető a PHP2Shellre, amely a PHP saját, távoli kódfuttatást lehetővé tevő hibája (CVE-2026-109618, CVE-2026-109619). Kérje meg a tárhelyszolgáltatót, hogy frissítse a PHP-t a(z) %2$s vagy újabb verzióra. Addig a pontszám nem emelkedhet F fölé."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "A PHP %s szállítói build. A verziószámból nem állapítható meg, hogy tartalmazza-e a PHP2Shell javításokat (CVE-2026-109618, CVE-2026-109619). Kérdezze meg a tárhelyszolgáltatót."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP javítva a PHP2Shell ellen"

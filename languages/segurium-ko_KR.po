@@ -15,6 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s에는 PHP2Shell 수정 사항(CVE-2026-109618, CVE-2026-109619)이 포함되어 있습니다."
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s은(는) PHP 자체의 원격 코드 실행 취약점인 PHP2Shell(CVE-2026-109618, CVE-2026-109619)에 노출되어 있습니다. 호스팅 업체에 PHP를 %2$s 이상으로 업그레이드하도록 요청하세요."
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s은(는) 공급업체 빌드입니다. 버전 번호에는 PHP2Shell 수정 사항(CVE-2026-109618, CVE-2026-109619)이 포함되었는지 표시되지 않습니다. 호스팅 업체에 문의하세요."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP가 PHP2Shell에 대해 패치됨"
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "이 사이트에서 Segurium 클라우드 서비스에 연결할 수 없습니다. 호스팅 공급업체가 외부 연결을 차단하고 있을 수 있습니다. 호스팅 공급업체 또는 Segurium 지원팀에 문의하세요."
 

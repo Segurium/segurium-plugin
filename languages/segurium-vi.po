@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium – Malware Removal & Cleanup, Firewall, Two-Factor Authentication 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-08-20T03:33:10+00:00\n"
-"PO-Revision-Date: 2026-08-20 12:00+0000\n"
+"PO-Revision-Date: 2026-10-22 03:48+0000\n"
 "Last-Translator: Segurium <hello@segurium.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "Language: vi\n"
@@ -14,6 +14,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s dễ bị khai thác bởi PHP2Shell, một lỗ hổng thực thi mã từ xa trong chính PHP (CVE-2026-109618, CVE-2026-109619). Hãy yêu cầu nhà cung cấp hosting nâng cấp PHP lên %2$s hoặc mới hơn."
 
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "Trang web này không thể kết nối đến dịch vụ đám mây Segurium. Nhà cung cấp hosting của bạn có thể đang chặn các kết nối đi. Vui lòng liên hệ với nhà cung cấp hosting hoặc bộ phận hỗ trợ Segurium."
@@ -4693,3 +4696,18 @@ msgstr ""
 
 msgid "The setting could not be saved."
 msgstr "Không thể lưu cài đặt."
+
+#. translators: %s: PHP version, e.g. 8.4.27
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s đã bao gồm các bản vá PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
+
+#. translators: 1: running PHP version, 2: first PHP release with the fix
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s dễ bị tấn công bởi PHP2Shell, một lỗ hổng thực thi mã từ xa trong chính PHP (CVE-2026-109618, CVE-2026-109619). Hãy yêu cầu nhà cung cấp hosting nâng cấp PHP lên %2$s hoặc mới hơn. Cho đến khi đó, điểm số không thể vượt mức F."
+
+#. translators: %s: PHP version as the server reports it
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s là bản dựng của nhà cung cấp. Số phiên bản không cho biết liệu bản vá PHP2Shell (CVE-2026-109618, CVE-2026-109619) đã được áp dụng hay chưa. Hãy hỏi nhà cung cấp hosting."
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP đã được vá chống PHP2Shell"

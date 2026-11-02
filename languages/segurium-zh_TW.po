@@ -15,6 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
+msgstr "PHP %1$s 容易遭受 PHP2Shell 攻擊，這是 PHP 本身的遠端程式碼執行漏洞 (CVE-2026-109618、CVE-2026-109619)。請要求你的主機商將 PHP 升級至 %2$s 以上版本。"
+
 msgid "This site cannot reach the Segurium cloud service. Your hosting provider may block outgoing connections. Please contact your hosting provider or Segurium support."
 msgstr "此網站無法連接到 Segurium 雲端服務。你的主機商可能封鎖了外送連線。請聯絡你的主機商或 Segurium 支援團隊。"
 
@@ -3195,3 +3198,15 @@ msgstr "網站被駭？在你經營的每個網站上免費清除惡意軟體並
 
 msgid "The setting could not be saved."
 msgstr "無法儲存這項設定。"
+
+msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
+msgstr "PHP %s 已包含 PHP2Shell 修正 (CVE-2026-109618、CVE-2026-109619)。"
+
+msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later. Until then the score cannot rise above F."
+msgstr "PHP %1$s 容易遭受 PHP2Shell 攻擊，這是 PHP 本身的遠端程式碼執行漏洞 (CVE-2026-109618、CVE-2026-109619)。請要求你的主機商將 PHP 升級至 %2$s 以上版本。在此之前，分數無法高於 F。"
+
+msgid "PHP %s is a vendor build. Its version number does not show whether it has the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619). Ask your host."
+msgstr "PHP %s 是廠商自訂組建，無法從版本編號看出是否已包含 PHP2Shell 修正 (CVE-2026-109618、CVE-2026-109619)。請詢問你的主機商。"
+
+msgid "PHP patched against PHP2Shell"
+msgstr "PHP 已修補 PHP2Shell 漏洞"
