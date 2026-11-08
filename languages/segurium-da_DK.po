@@ -4708,6 +4708,9 @@ msgstr ""
 "Hacket websted? Gratis fjernelse af malware og automatisk rensning på hvert "
 "websted, du driver, plus sårbarhedsvarsler, firewall og 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Ugyldiggørelse af cache efter oprydning"
+
 msgid "The setting could not be saved."
 msgstr "Indstillingen kunne ikke gemmes."
 

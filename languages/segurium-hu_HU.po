@@ -4713,6 +4713,9 @@ msgstr ""
 "Feltört a webhely? Ingyenes kártevőirtás és automatikus tisztítás minden "
 "webhelyen, sebezhetőségi riasztásokkal, tűzfallal és 2FA-val."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Gyorsítótár érvénytelenítése tisztítás után"
+
 msgid "The setting could not be saved."
 msgstr "A beállítást nem sikerült menteni."
 

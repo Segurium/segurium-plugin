@@ -163,7 +163,7 @@ class Segurium_Scanner {
 		$this->state_file       = $this->data_dir . '/scanner-state.json';
 		$this->skips_file       = $this->data_dir . '/scanner-skips.jsonl';
 		$this->visited_file     = $this->data_dir . '/scanner-visited.jsonl';
-		$this->exclude_patterns = $this->compile_patterns( $exclude_patterns );
+		$this->exclude_patterns = self::compile_patterns( $exclude_patterns );
 	}
 
 	/**
@@ -183,7 +183,7 @@ class Segurium_Scanner {
 	 * @param array $patterns Raw glob patterns.
 	 * @return array Compiled regex patterns.
 	 */
-	private function compile_patterns( $patterns ) {
+	public static function compile_patterns( $patterns ) {
 		$compiled = array();
 		foreach ( $patterns as $pattern ) {
 			$pattern = trim( $pattern );

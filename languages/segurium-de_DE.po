@@ -5181,5 +5181,8 @@ msgstr ""
 "Website gehackt? Malware kostenlos entfernen und automatisch bereinigen auf "
 "jeder Website, dazu Schwachstellen-Warnungen, Firewall und 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Cache-Invalidierung nach Bereinigung"
+
 msgid "The setting could not be saved."
 msgstr "Die Einstellung konnte nicht gespeichert werden."

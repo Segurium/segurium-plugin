@@ -5127,6 +5127,9 @@ msgstr ""
 "Sito web violato? Rimozione gratuita di malware e pulizia automatica su ogni"
 " sito, avvisi di vulnerabilità e 2FA. Stessa configurazione ovunque."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidazione della cache dopo la pulizia"
+
 msgid "The setting could not be saved."
 msgstr "Impossibile salvare l'impostazione."
 

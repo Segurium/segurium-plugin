@@ -1535,7 +1535,7 @@ class Segurium_2FA {
 		$user = wp_authenticate( $username, $password );
 
 		if ( is_wp_error( $user ) ) {
-			$brute_force->record_failed_attempt( $username );
+			$brute_force->record_failed_attempt( $username, $user );
 			segurium_send_json_error( array( 'message' => $user->get_error_message() ) );
 		}
 
@@ -1545,6 +1545,7 @@ class Segurium_2FA {
 		if ( empty( $method ) || 'none' === $method ) {
 			// Check enforcement.
 			if ( $this->is_enforced_for_user( $user ) && ! $this->in_grace_period( $user ) ) {
+				$brute_force->report_failed_attempt( $username, Segurium_Brute_Force::FAIL_2FA_SETUP_REQUIRED );
 				segurium_send_json_success(
 					array(
 						'setup_required' => true,

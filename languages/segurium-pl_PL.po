@@ -5134,6 +5134,9 @@ msgstr ""
 "Witryna internetowa zhakowana? Bezpłatne usuwanie malware i automatyczne "
 "czyszczenie na każdej witrynie, alerty o podatnościach i 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Unieważnienie pamięci podręcznej po czyszczeniu"
+
 msgid "The setting could not be saved."
 msgstr "Nie można było zapisać ustawienia."
 

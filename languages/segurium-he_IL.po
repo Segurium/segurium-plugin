@@ -4584,6 +4584,9 @@ msgstr ""
 "האתר נפרץ? הסרת תוכנה זדונית וניקוי אוטומטי בחינם בכל אתר שלך, עם התראות על "
 "חולשות, חומת אש ו-2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "ביטול תוקף של המטמון לאחר הניקוי"
+
 msgid "The setting could not be saved."
 msgstr "לא ניתן היה לשמור את ההגדרה."
 

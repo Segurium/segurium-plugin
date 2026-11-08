@@ -4694,6 +4694,9 @@ msgstr ""
 "Trang web bị hack? Diệt mã độc và dọn dẹp tự động miễn phí trên mọi trang "
 "web bạn quản lý, kèm cảnh báo lỗ hổng, tường lửa và 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Vô hiệu hóa bộ nhớ đệm sau khi dọn dẹp"
+
 msgid "The setting could not be saved."
 msgstr "Không thể lưu cài đặt."
 

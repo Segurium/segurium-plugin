@@ -216,7 +216,7 @@ final class Segurium_Rest_Actions_Poke {
 	 *
 	 * @return void
 	 */
-	private static function detach_response() {
+	public static function detach_response() {
 		if ( function_exists( 'fastcgi_finish_request' ) ) {
 			@fastcgi_finish_request(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort detach
 			return;

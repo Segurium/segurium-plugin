@@ -63,6 +63,13 @@
         });
     }
 
+    function notifyCleanupBatchDone() {
+        post({
+            action: 'segurium_cache_invalidation_batch_done',
+            nonce: seguriumScan.cleanupNonce
+        });
+    }
+
     // A host that cannot detach the response answers only when the scan
     // slice ends, so a request whose answer nobody reads carries the slice.
     var driveInFlight = false;
@@ -2655,6 +2662,7 @@
                     // Malicious view, making the two paths inconsistent.
                     quotaCacheTs = 0;
                     fetchQuotaReadout();
+                    notifyCleanupBatchDone();
                     return;
                 }
 
@@ -2664,7 +2672,8 @@
                     nonce: seguriumScan.cleanupNonce,
                     path: f.path,
                     sha256: f.sha256,
-                    verdict: f.verdict
+                    verdict: f.verdict,
+                    batch: 1
                 }).then(function (resp) {
                     done++;
                     if (ssBar) ssBar.style.width = Math.round(done / total * 100) + '%';
@@ -3279,6 +3288,13 @@
             var i = 0;
             var firstError = null;
             var modalShown = false;
+            var cleans = false;
+            queue.forEach(function (item) {
+                if (item.action === 'segurium_integrity_fix_file') {
+                    item.batch = 1;
+                    cleans = true;
+                }
+            });
             var showTimer = setTimeout(function () {
                 modalShown = true;
                 progressModal.open(opts.title || '');
@@ -3294,6 +3310,10 @@
             function teardown() {
                 if (showTimer) { clearTimeout(showTimer); showTimer = null; }
                 if (modalShown) progressModal.close();
+                if (cleans) {
+                    cleans = false;
+                    notifyCleanupBatchDone();
+                }
                 // Every exit (completion, paywall, abort)
                 // surfaces the first refusal instead of dropping it.
                 if (firstError) {
@@ -4109,12 +4129,14 @@
                     quotaCacheTs = 0;
                     fetchQuotaReadout();
                     loadIntegrityState();
+                    notifyCleanupBatchDone();
                     return;
                 }
 
                 var item = queue[i];
                 var pd = Object.assign({ nonce: item.nonce }, item.data);
                 pd.action = item.action;
+                if (item.action === 'segurium_integrity_fix_file') pd.batch = 1;
 
                 post(pd).then(function (resp) {
                     done++;

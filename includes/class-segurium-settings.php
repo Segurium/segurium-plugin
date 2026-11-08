@@ -96,6 +96,9 @@ final class Segurium_Settings {
 		'segurium_remote_actions_executed_at',
 		'segurium_remote_actions_component_seen',
 		'segurium_remote_actions_pending_acks',
+		'segurium_cache_invalidation_state',
+		'segurium_standing_orders',
+		'segurium_standing_orders_lock',
 
 		// Telemetry stamps.
 		'segurium_platform_hash',

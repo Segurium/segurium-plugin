@@ -5166,5 +5166,8 @@ msgstr ""
 "¿Sitio web hackeado? Eliminación gratuita de malware y limpieza automática "
 "en cada sitio, más avisos de vulnerabilidades, cortafuegos y 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidación de caché tras la limpieza"
+
 msgid "The setting could not be saved."
 msgstr "No se pudo guardar el ajuste."

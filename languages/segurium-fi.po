@@ -4796,5 +4796,8 @@ msgstr ""
 "Sivusto hakkeroitu? Maksuton haittaohjelmien poisto ja automaattinen "
 "puhdistus jokaisella sivustollasi, haavoittuvuusilmoitukset ja 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Välimuistin mitätöinti siivouksen jälkeen"
+
 msgid "The setting could not be saved."
 msgstr "Asetusta ei voitu tallentaa."

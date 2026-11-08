@@ -193,41 +193,13 @@ final class Segurium_Cleanup {
 			self::log_exception( 'backup_update_meta', $e );
 		}
 
-		Segurium_File_State::mark_cured( (string) $path, (string) $backup_id, (string) $clean_hash, time() );
-
-		try {
-			Segurium_Storage::table_insert(
-				'activity_log',
-				array(
-					'event_type' => 'malware_cured',
-					'severity'   => 2,
-					'subject'    => substr( (string) $path, 0, 191 ),
-					'data_json'  => (string) wp_json_encode(
-						array(
-							'path'      => (string) $path,
-							'sha256'    => (string) $sha256,
-							'backup_id' => (string) $backup_id,
-							'scan_id'   => (string) $scan_id,
-							'actor'     => $actor,
-						)
-					),
-					'created_at' => time(),
-				)
-			);
-		} catch ( Segurium_Storage_Exception $e ) {
-			self::log_exception( 'activity_log', $e );
-		}
-
-		Segurium_Storage::cti_send_message(
-			'file_cleaned',
-			(string) wp_json_encode(
-				array(
-					'sha256'    => $sha256,
-					'path'      => $path,
-					'backup_id' => $backup_id,
-					'actor'     => $actor,
-				)
-			)
+		self::record_cure(
+			(string) $path,
+			(string) $sha256,
+			(string) $backup_id,
+			(string) $clean_hash,
+			$actor,
+			array( 'scan_id' => (string) $scan_id )
 		);
 
 		/**
@@ -250,6 +222,143 @@ final class Segurium_Cleanup {
 			// Post-charge quota envelope echoed by CTI
 			// (null on older builds — caller falls back to a local bump).
 			'quota'      => $quota_echo,
+		);
+	}
+
+	/**
+	 * Write caller-supplied bytes over a file with the backup, history and
+	 * report of {@see cleanup_file()}. An identical copy of the same path
+	 * already in the bucket is reused instead of stored again.
+	 *
+	 * @param string     $abs_path     Absolute, already-resolved path.
+	 * @param string     $path         Path relative to the WordPress root.
+	 * @param string     $sha256       Hash the caller read; a file that moved on is refused.
+	 * @param int        $verdict      One of self::VERDICT_*.
+	 * @param string     $content      Replacement bytes; '' truncates.
+	 * @param string     $actor        Actor on the backup, history row and report.
+	 * @param array      $extra        Extra fields for the backup sidecar and the history row.
+	 * @param array|null $backup_index Index of the bucket shared across calls; built when null.
+	 * @return array{ok:bool,backup_id:?int,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
+	 */
+	public static function remediate( $abs_path, $path, $sha256, $verdict, $content, $actor, array $extra = array(), &$backup_index = null ) {
+		if ( ! in_array( (int) $verdict, self::cleanable_verdicts(), true ) ) {
+			return self::fail( 'verdict_not_cleanable', __( 'Verdict has no defined cleanup recipe.', 'segurium' ) );
+		}
+
+		$original = Segurium_Fs::read( $abs_path );
+		if ( false === $original ) {
+			return self::fail( 'backup_read_failed', __( 'Failed to read file for backup.', 'segurium' ) );
+		}
+		if ( ! hash_equals( (string) $sha256, hash( 'sha256', $original ) ) ) {
+			return self::fail( 'hash_mismatch', __( 'File has been modified since scan. Re-scan first.', 'segurium' ) );
+		}
+
+		if ( null === $backup_index ) {
+			$backup_index = array();
+			foreach ( Segurium_Storage::backup_list( 'malware' ) as $meta ) {
+				$backup_index[ ( $meta['original_path'] ?? '' ) . '|' . ( $meta['sha256_plain'] ?? '' ) ] = (string) ( $meta['backup_id'] ?? '' );
+			}
+		}
+		$index_key = $abs_path . '|' . $sha256;
+		$backup_id = $backup_index[ $index_key ] ?? '';
+		if ( '' === $backup_id || ! Segurium_Storage::backup_exists( 'malware', $backup_id ) ) {
+			try {
+				$backup_id = Segurium_Storage::backup_store(
+					'malware',
+					$abs_path,
+					$original,
+					array_merge(
+						$extra,
+						array(
+							'original_path' => $abs_path,
+							'sha256'        => (string) $sha256,
+							'verdict'       => (int) $verdict,
+							'action'        => 'cleaned',
+							'actor'         => (string) $actor,
+						)
+					)
+				);
+			} catch ( Segurium_Storage_Exception $e ) {
+				return self::fail( 'backup_store_failed', __( 'Failed to create backup.', 'segurium' ), $e );
+			}
+			$backup_index[ $index_key ] = (string) $backup_id;
+		}
+
+		// phpcs:ignore PluginCheck.CodeAnalysis.WriteFile.ABSPATHDetected -- in-place cure: the infected file is the destination, never the plugin folder.
+		if ( false === Segurium_Fs::write( $abs_path, (string) $content ) ) {
+			return self::fail( 'write_failed', __( 'Failed to clean file.', 'segurium' ), null, (int) $backup_id );
+		}
+
+		$clean_hash = hash( 'sha256', (string) $content );
+		try {
+			Segurium_Storage::backup_update_meta( 'malware', (string) $backup_id, array( 'sha256_clean' => $clean_hash ) );
+		} catch ( Segurium_Storage_Exception $e ) {
+			self::log_exception( 'backup_update_meta', $e );
+		}
+
+		self::record_cure( (string) $path, (string) $sha256, (string) $backup_id, $clean_hash, (string) $actor, $extra );
+
+		return array(
+			'ok'         => true,
+			'backup_id'  => (int) $backup_id,
+			'clean_hash' => $clean_hash,
+			'error'      => null,
+			'error_code' => null,
+			'paywall'    => null,
+			'quota'      => null,
+		);
+	}
+
+	/**
+	 * Projection row, history row and `file_cleaned` report of one cure.
+	 *
+	 * @param string $path       Path relative to the WordPress root.
+	 * @param string $sha256     Hash before the cure.
+	 * @param string $backup_id  Backup of the pre-cure bytes.
+	 * @param string $clean_hash Hash after the cure.
+	 * @param string $actor      Who cured.
+	 * @param array  $extra      Extra fields for the history row.
+	 * @return void
+	 */
+	private static function record_cure( $path, $sha256, $backup_id, $clean_hash, $actor, array $extra ) {
+		Segurium_File_State::mark_cured( $path, $backup_id, $clean_hash, time() );
+
+		try {
+			Segurium_Storage::table_insert(
+				'activity_log',
+				array(
+					'event_type' => 'malware_cured',
+					'severity'   => 2,
+					'subject'    => substr( $path, 0, 191 ),
+					'data_json'  => (string) wp_json_encode(
+						array_merge(
+							array( 'scan_id' => '' ),
+							$extra,
+							array(
+								'path'      => $path,
+								'sha256'    => $sha256,
+								'backup_id' => $backup_id,
+								'actor'     => $actor,
+							)
+						)
+					),
+					'created_at' => time(),
+				)
+			);
+		} catch ( Segurium_Storage_Exception $e ) {
+			self::log_exception( 'activity_log', $e );
+		}
+
+		Segurium_Storage::cti_send_message(
+			'file_cleaned',
+			(string) wp_json_encode(
+				array(
+					'sha256'    => $sha256,
+					'path'      => $path,
+					'backup_id' => $backup_id,
+					'actor'     => $actor,
+				)
+			)
 		);
 	}
 

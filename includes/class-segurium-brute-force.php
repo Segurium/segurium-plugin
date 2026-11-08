@@ -54,9 +54,18 @@ class Segurium_Brute_Force {
 	 */
 	const AUTH_ENFORCE_PRIORITY = 50;
 
+	const CTI_ATTEMPT      = 'brute_force_attempt';
 	const CTI_LOCKOUT      = 'brute_force_lockout';
 	const CTI_HONEYPOT     = 'brute_force_honeypot';
 	const CTI_CAPTCHA_FAIL = 'brute_force_captcha_fail';
+
+	const FAIL_UNKNOWN_USER       = 'unknown_user';
+	const FAIL_BAD_PASSWORD       = 'bad_password';
+	const FAIL_2FA_REQUIRED       = '2fa_required';
+	const FAIL_2FA_SETUP_REQUIRED = '2fa_setup_required';
+	const FAIL_2FA_BAD_CODE       = '2fa_bad_code';
+	const FAIL_OTHER              = 'other';
+	const LOGIN_SUCCESS           = 'success';
 
 	const HCAPTCHA_API_JS         = 'https://js.hcaptcha.com/1/api.js';
 	const HCAPTCHA_VERIFY         = 'https://hcaptcha.com/siteverify';
@@ -416,7 +425,7 @@ class Segurium_Brute_Force {
 		add_action( 'login_init', array( $this, 'maybe_block_locked_request' ) );
 		add_filter( 'authenticate', array( $this, 'authenticate_check' ), 1, 3 );
 		add_filter( 'authenticate', array( $this, 'enforce_block' ), self::AUTH_ENFORCE_PRIORITY, 3 );
-		add_action( 'wp_login_failed', array( $this, 'on_login_failed' ), 10, 1 );
+		add_action( 'wp_login_failed', array( $this, 'on_login_failed' ), 10, 2 );
 		add_action( 'wp_login', array( $this, 'on_login_success' ), 10, 1 );
 
 		if ( ! empty( $settings['honeypot_enabled'] ) ) {
@@ -571,10 +580,11 @@ class Segurium_Brute_Force {
 	/**
 	 * Handle a failed login attempt by incrementing counters and applying lockouts.
 	 *
-	 * @param string $username The username that failed to authenticate.
+	 * @param string        $username The username that failed to authenticate.
+	 * @param WP_Error|null $error    The error the `authenticate` filter returned.
 	 * @return void
 	 */
-	public function on_login_failed( $username ) {
+	public function on_login_failed( $username, $error = null ) {
 		if ( null !== $this->blocked_error ) {
 			// Authenticate filter already returned a self-issued verdict for this
 			// request; don't double-count. Reset so subsequent requests in the same
@@ -587,7 +597,7 @@ class Segurium_Brute_Force {
 			return;
 		}
 
-		$this->record_failed_attempt( $username );
+		$this->record_failed_attempt( $username, $error );
 	}
 
 	/**
@@ -600,24 +610,13 @@ class Segurium_Brute_Force {
 	 * 2FA AJAX endpoint calls this method itself, since `wp_login_failed`
 	 * fires on that request but `is_login_surface()` rejects admin-ajax.php.
 	 *
-	 * @param string $username The username that failed to authenticate.
+	 * @param string        $username The username that failed to authenticate.
+	 * @param WP_Error|null $error    Why authentication failed, when known.
 	 * @return void
 	 */
-	public function record_failed_attempt( $username ) {
-		if ( empty( $this->get_settings()['enabled'] ) ) {
-			return;
-		}
-		$ip = $this->get_real_ip();
-		if ( ! $ip ) {
-			return;
-		}
-		if ( $this->is_whitelisted( $ip ) ) {
-			return;
-		}
-		if ( $this->is_already_blocked( $ip ) ) {
-			return;
-		}
-		if ( $this->is_locked_out( $ip ) ) {
+	public function record_failed_attempt( $username, $error = null ) {
+		$ip = $this->trackable_ip();
+		if ( '' === $ip ) {
 			return;
 		}
 
@@ -625,11 +624,87 @@ class Segurium_Brute_Force {
 		$ip_count   = $this->incr_counter( self::COUNTER_IP, $ip );
 		$user_count = '' !== $username ? $this->incr_counter( self::COUNTER_USER, $username ) : 0;
 
-		$this->log_event( self::EVENT_ATTEMPT, $ip, $username );
+		$code = $error instanceof WP_Error ? substr( sanitize_key( (string) $error->get_error_code() ), 0, 64 ) : '';
+		$this->record_attempt( $ip, $username, self::failure_reason( $code ), $code );
 
 		$max = $this->get_settings()['max_attempts'];
 		if ( $ip_count >= $max || $user_count >= $max ) {
 			$this->apply_lockout( $ip, $username, self::REASON_THRESHOLD );
+		}
+	}
+
+	/**
+	 * Log and report a failed login without counting it toward a lockout.
+	 *
+	 * @param string $username The username that failed to authenticate.
+	 * @param string $reason   One of the FAIL_* constants.
+	 * @return void
+	 */
+	public function report_failed_attempt( $username, $reason ) {
+		$ip = $this->trackable_ip();
+		if ( '' === $ip ) {
+			return;
+		}
+		$this->record_attempt( $ip, is_string( $username ) ? trim( $username ) : '', $reason, '' );
+	}
+
+	/**
+	 * Client IP when failed logins from it are tracked, '' otherwise.
+	 *
+	 * @return string
+	 */
+	private function trackable_ip() {
+		if ( empty( $this->get_settings()['enabled'] ) ) {
+			return '';
+		}
+		$ip = $this->get_real_ip();
+		if ( ! $ip || $this->is_whitelisted( $ip ) || $this->is_already_blocked( $ip ) || $this->is_locked_out( $ip ) ) {
+			return '';
+		}
+		return $ip;
+	}
+
+	/**
+	 * Log one failed attempt and report it to CTI.
+	 *
+	 * @param string $ip       Client IP address.
+	 * @param string $username Attempted username.
+	 * @param string $reason   One of the FAIL_* constants.
+	 * @param string $code     Sanitized WP_Error code, or '' when none.
+	 * @return void
+	 */
+	private function record_attempt( $ip, $username, $reason, $code ) {
+		$this->log_event( self::EVENT_ATTEMPT, $ip, $username, null, $reason );
+		$this->report_to_cti(
+			self::CTI_ATTEMPT,
+			$ip,
+			$username,
+			array(
+				'reason' => $reason,
+				'code'   => $code,
+			)
+		);
+	}
+
+	/**
+	 * Map a WP_Error code from the `authenticate` filter to a failure reason.
+	 *
+	 * @param string $code Error code.
+	 * @return string One of the FAIL_* constants.
+	 */
+	private static function failure_reason( $code ) {
+		switch ( $code ) {
+			case 'invalid_username':
+			case 'invalid_email':
+				return self::FAIL_UNKNOWN_USER;
+			case 'incorrect_password':
+				return self::FAIL_BAD_PASSWORD;
+			case 'segurium_2fa_required':
+				return self::FAIL_2FA_REQUIRED;
+			case 'segurium_2fa_setup_required':
+				return self::FAIL_2FA_SETUP_REQUIRED;
+			default:
+				return self::FAIL_OTHER;
 		}
 	}
 
@@ -662,16 +737,31 @@ class Segurium_Brute_Force {
 	}
 
 	/**
-	 * Clear the IP failure counter after a successful login.
+	 * Clear the IP failure counter after a successful login and report the login.
 	 *
 	 * @param string $username The username that successfully authenticated.
 	 * @return void
 	 */
-	public function on_login_success( $username ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function on_login_success( $username ) {
 		$ip = $this->get_real_ip();
-		if ( $ip ) {
-			$this->clear_counter( self::COUNTER_IP, $ip );
+		if ( ! $ip ) {
+			return;
 		}
+		$this->clear_counter( self::COUNTER_IP, $ip );
+
+		// Unlike failures, a locked-out IP is reported: a success from it means a login path skipped the lockout.
+		if ( empty( $this->get_settings()['enabled'] ) || $this->is_whitelisted( $ip ) ) {
+			return;
+		}
+		$this->report_to_cti(
+			self::CTI_ATTEMPT,
+			$ip,
+			is_string( $username ) ? trim( $username ) : '',
+			array(
+				'reason' => self::LOGIN_SUCCESS,
+				'code'   => '',
+			)
+		);
 	}
 
 	/*
@@ -920,15 +1010,25 @@ class Segurium_Brute_Force {
 	/**
 	 * Insert an event row into the brute-force log table.
 	 *
-	 * @param string   $event    Event type constant.
-	 * @param string   $ip       IP address.
-	 * @param string   $username Username associated with the event.
-	 * @param int|null $tier     Lockout tier, if applicable.
+	 * @param string      $event    Event type constant.
+	 * @param string      $ip       IP address.
+	 * @param string      $username Username associated with the event.
+	 * @param int|null    $tier     Lockout tier, if applicable.
+	 * @param string|null $reason   Failure reason (FAIL_* constant) for attempt events.
 	 * @return void
 	 */
-	public function log_event( $event, $ip, $username, $tier = null ) {
+	public function log_event( $event, $ip, $username, $tier = null, $reason = null ) {
 		if ( ! filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			return;
+		}
+		$data = array(
+			'event'      => $event,
+			'tier'       => null === $tier ? null : (int) $tier,
+			'surface'    => $this->detect_surface(),
+			'ip_display' => (string) $ip,
+		);
+		if ( null !== $reason ) {
+			$data['reason'] = (string) $reason;
 		}
 		try {
 			Segurium_Storage::table_insert(
@@ -938,14 +1038,7 @@ class Segurium_Brute_Force {
 					'severity'   => self::severity_for_event( $event ),
 					'actor_ip'   => Segurium_IP::pack( $ip ),
 					'subject'    => '' !== $username ? substr( (string) $username, 0, 191 ) : null,
-					'data_json'  => (string) wp_json_encode(
-						array(
-							'event'      => $event,
-							'tier'       => null === $tier ? null : (int) $tier,
-							'surface'    => $this->detect_surface(),
-							'ip_display' => (string) $ip,
-						)
-					),
+					'data_json'  => (string) wp_json_encode( $data ),
 					'created_at' => time(),
 				)
 			);
@@ -1458,6 +1551,10 @@ class Segurium_Brute_Force {
 	 * @return void
 	 */
 	private function report_to_cti( $message_type, $ip, $username, array $extra = array() ) {
+		// Without an IID the client registers one first, a blocking call of up to 15 s.
+		if ( null === Segurium_IID::get_iid() ) {
+			return;
+		}
 		$payload = array_merge(
 			$extra,
 			array(
@@ -1567,7 +1664,7 @@ class Segurium_Brute_Force {
 		}
 
 		$ip_count = $this->incr_counter( self::COUNTER_IP, $ip );
-		$this->log_event( self::EVENT_ATTEMPT, $ip, is_string( $username ) ? $username : '' );
+		$this->record_attempt( $ip, is_string( $username ) ? $username : '', self::FAIL_2FA_BAD_CODE, '' );
 
 		$max = $this->get_settings()['max_attempts'];
 		if ( $ip_count >= $max ) {

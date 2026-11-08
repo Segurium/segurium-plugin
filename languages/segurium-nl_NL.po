@@ -5023,6 +5023,9 @@ msgstr ""
 "site die je uitvoert, plus waarschuwingen voor kwetsbaarheden, firewall en "
 "2FA. Overal dezelfde setup."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Cache ongeldig maken na opschonen"
+
 msgid "The setting could not be saved."
 msgstr "De instelling kon niet worden opgeslagen."
 

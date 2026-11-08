@@ -4805,5 +4805,8 @@ msgid ""
 msgstr ""
 "サイトが改ざんされましたか ? 運用するすべてのサイトでマルウェアの駆除と自動クリーンアップが無料、脆弱性の通知、ファイアウォール、2FA も付きます。"
 
+msgid "Cache invalidation after cleanup"
+msgstr "クリーンアップ後のキャッシュ無効化"
+
 msgid "The setting could not be saved."
 msgstr "設定を保存できませんでした。"

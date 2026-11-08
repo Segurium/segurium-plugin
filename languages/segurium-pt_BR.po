@@ -5077,6 +5077,9 @@ msgstr ""
 "Site hackeado? Remoção gratuita de malware e limpeza automática em cada site"
 " que você cuida, com alertas de vulnerabilidade, firewall e 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidação de cache após a limpeza"
+
 msgid "The setting could not be saved."
 msgstr "A configuração não pôde ser salva."
 

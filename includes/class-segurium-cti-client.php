@@ -41,6 +41,7 @@ class Segurium_CTI_Client {
 	const CLEAN_ENDPOINT                = 'https://cti.segurium.com:8901/v1/cleanup';
 	const MESSAGES_ENDPOINT             = 'https://cti.segurium.com:8901/v1/messages';
 	const ACTIONS_ENDPOINT              = 'https://cti.segurium.com:8901/v1/actions';
+	const CACHE_ROUTINES_ENDPOINT       = 'https://cti.segurium.com:8901/v1/cache/routines';
 	const INTEGRITY_ENDPOINT            = 'https://cti.segurium.com:8901/v1/integrity/check';
 	const ORIGINAL_ENDPOINT             = 'https://cti.segurium.com:8901/v1/integrity/original-content';
 	const LOG_ACTION_ENDPOINT           = 'https://cti.segurium.com:8901/v1/integrity/log-action';
@@ -1781,6 +1782,49 @@ class Segurium_CTI_Client {
 		// body meant for someone else must not be able to drop our
 		// outstanding outcomes.
 		return $data;
+	}
+
+	/**
+	 * Page cache purge routines the cloud wants this site to run.
+	 *
+	 * @return string[]|WP_Error Routine IDs. A non-200 answer is
+	 *                           `cti_http_error` with `status` and the
+	 *                           cloud's `error` code in its data.
+	 */
+	public function cache_routines() {
+		$response = $this->request(
+			self::CACHE_ROUTINES_ENDPOINT,
+			array(
+				'method'  => 'GET',
+				'timeout' => 10,
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+		if ( 200 !== $code ) {
+			return new WP_Error(
+				'cti_http_error',
+				'CTI returned HTTP ' . $code,
+				array(
+					'status' => $code,
+					'error'  => is_array( $body ) && isset( $body['error'] ) && is_string( $body['error'] ) ? $body['error'] : '',
+				)
+			);
+		}
+
+		$verified = Segurium_CTI_Signature::verify_response( $response, 'cache/routines' );
+		if ( is_wp_error( $verified ) ) {
+			return $verified;
+		}
+
+		if ( ! is_array( $body ) || ! isset( $body['routines'] ) || ! is_array( $body['routines'] ) ) {
+			return new WP_Error( 'cti_invalid_response', 'Invalid CTI cache routines response' );
+		}
+		return array_values( array_filter( $body['routines'], 'is_string' ) );
 	}
 
 	/**

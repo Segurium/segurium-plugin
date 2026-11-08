@@ -4761,5 +4761,8 @@ msgstr ""
 "site pe care îl administrezi, plus alerte de vulnerabilitate, firewall și "
 "2FA. Aceeași configurare peste tot."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidarea cache-ului după curățare"
+
 msgid "The setting could not be saved."
 msgstr "Setarea nu a putut fi salvată."

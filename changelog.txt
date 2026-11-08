@@ -2,6 +2,10 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.5.2 - 2026-10-21 =
+* PHP2Shell vulnerability handling.
+* A scan started right after a cancelled one no longer stops.
+
 = 1.5.1 - 2026-10-14 =
 * No mbstring extension dependency.
 * Scans now progress on hosts with a disabled WP-Cron.

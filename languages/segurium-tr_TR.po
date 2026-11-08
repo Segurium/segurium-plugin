@@ -4969,6 +4969,9 @@ msgstr ""
 "yazılım kaldırma ve otomatik temizleme, ayrıca güvenlik açığı uyarıları, "
 "güvenlik duvarı ve 2FA. Her yerde aynı kurulum."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Temizlik sonrası önbellek geçersizleştirme"
+
 msgid "The setting could not be saved."
 msgstr "Ayar kaydedilemedi."
 

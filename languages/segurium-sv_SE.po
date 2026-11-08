@@ -4659,6 +4659,9 @@ msgstr ""
 "rensning på alla dina webbplatser, plus sårbarhetsvarningar, brandvägg och "
 "2FA. Samma konfiguration överallt."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Cacheinvalidering efter rensning"
+
 msgid "The setting could not be saved."
 msgstr "Inställningen kunde inte sparas."
 

@@ -4746,5 +4746,8 @@ msgid ""
 msgstr ""
 "웹사이트가 해킹당했나요? 운영하는 모든 사이트에서 무료 멀웨어 제거와 자동 정리, 취약점 알림, 방화벽, 2FA까지 제공합니다."
 
+msgid "Cache invalidation after cleanup"
+msgstr "정리 후 캐시 무효화"
+
 msgid "The setting could not be saved."
 msgstr "설정을 저장할 수 없습니다."

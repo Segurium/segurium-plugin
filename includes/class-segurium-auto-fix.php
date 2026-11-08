@@ -137,6 +137,7 @@ final class Segurium_Auto_Fix {
 
 			if ( $result['ok'] ) {
 				++$summary['cleaned'];
+				Segurium_Cache_Invalidation::cleaned( Segurium_Cache_Invalidation::TRIGGER_AUTO_FIX, true );
 				// Written per cure, not once at the end: a long run
 				// killed by max_execution_time leaves the files cured
 				// either way, and a count frozen only after the last
@@ -156,6 +157,10 @@ final class Segurium_Auto_Fix {
 		// later display reads return a stable "X threats, Y cleaned" line
 		// regardless of subsequent manual Fix-All clicks.
 		self::persist_scan_cleaned_count( $scan_id, $summary );
+
+		if ( $summary['cleaned'] > 0 ) {
+			Segurium_Cache_Invalidation::batch_finished();
+		}
 
 		return $summary;
 	}

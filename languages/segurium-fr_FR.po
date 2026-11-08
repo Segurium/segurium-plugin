@@ -5162,5 +5162,8 @@ msgstr ""
 "Site piraté ? Nettoyage automatique et suppression gratuite des logiciels "
 "malveillants, alertes de vulnérabilité, 2FA. Même configuration partout."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidation du cache après nettoyage"
+
 msgid "The setting could not be saved."
 msgstr "Le réglage n’a pas pu être enregistré."

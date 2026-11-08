@@ -973,6 +973,15 @@ class Segurium_Storage {
 	}
 
 	/**
+	 * Page cache purge routines the cloud names for this site.
+	 *
+	 * @return string[]|WP_Error
+	 */
+	public static function cti_cache_routines() {
+		return self::cti_client()->cache_routines();
+	}
+
+	/**
 	 * The only place a settings snapshot payload is built. Segurium_Settings_Writer
 	 * is its only caller; features shape the `settings` object through their
 	 * registry row, never the envelope around it.

@@ -1499,6 +1499,9 @@ msgstr[2] ""
 " karte Integrita."
 
 #: includes/class-segurium-settings-writer.php:500
+msgid "Cache invalidation after cleanup"
+msgstr "Zneplatnenie vyrovnávacej pamäte po vyčistení"
+
 msgid "The setting could not be saved."
 msgstr "Nastavenie sa nepodarilo uložiť."
 

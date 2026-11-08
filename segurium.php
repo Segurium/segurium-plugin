@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
- * Version:     1.5.3
+ * Version:     1.6.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.5.3' );
+define( 'SEGURIUM_VERSION', '1.6.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -496,6 +496,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-component-updates.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-action-paths.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-remote-actions.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-standing-orders.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-actions-poke.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan-settings.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scheduled-scan.php';
@@ -507,6 +508,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-issue-indicator.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-ignore-lists.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cleanup.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cache-invalidation.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-review-prompt.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-paywall-telemetry.php';
@@ -1350,6 +1352,8 @@ function segurium_deactivate() {
 	Segurium_Storage_GC::unschedule();
 	Segurium_Integrity_Inventory_Cron::unschedule();
 	Segurium_Remote_Actions::unschedule();
+	Segurium_Standing_Orders::unschedule();
+	Segurium_Cache_Invalidation::unschedule();
 	Segurium_Platform_Snapshot::unschedule();
 	Segurium_Memory_Recorder::unschedule();
 	Segurium_Self_Check::unschedule();

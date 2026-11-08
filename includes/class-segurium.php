@@ -187,6 +187,8 @@ class Segurium {
 		Segurium_Rest_Scan_Spawn::register_hooks();
 		Segurium_Rest_Actions_Poke::register_hooks();
 		Segurium_Remote_Actions::register_hooks();
+		Segurium_Standing_Orders::register_hooks();
+		Segurium_Cache_Invalidation::register_hooks();
 		Segurium_Integrity_Inventory_Cron::register_hooks();
 		Segurium_Platform_Snapshot::register_hooks();
 		Segurium_Memory_Recorder::register_hooks();
@@ -267,6 +269,7 @@ class Segurium {
 			// Cleanup / restore / false-positive flows.
 			'segurium_get_threats'                       => array( $cleanup, $mo, array( $this, 'ajax_get_threats' ) ),
 			'segurium_cleanup_file'                      => array( $cleanup, $mo, array( $this, 'ajax_cleanup_file' ) ),
+			'segurium_cache_invalidation_batch_done'     => array( $cleanup, $mo, array( 'Segurium_Cache_Invalidation', 'ajax_batch_done' ) ),
 			'segurium_restore_file'                      => array( $cleanup, $mo, array( $this, 'ajax_restore_file' ) ),
 			'segurium_restore_preflight'                 => array( $cleanup, $mo, array( $this, 'ajax_restore_preflight' ) ),
 			'segurium_get_backup_content'                => array( $cleanup, $mo, array( $this, 'ajax_get_backup_content' ) ),
@@ -3116,6 +3119,8 @@ class Segurium {
 						);
 						$pro_bullets  = array(
 							__( 'Unlimited cleanup', 'segurium' ),
+							__( 'Cache invalidation after cleanup', 'segurium' ),
+							__( 'Cleanup of malware that comes back with new code', 'segurium' ),
 							__( 'Everything in Free', 'segurium' ),
 							__( 'Email support, priority queue', 'segurium' ),
 						);
@@ -4080,6 +4085,12 @@ class Segurium {
 		} else {
 			Segurium_Quota::instance()->record_consumed_slot();
 		}
+
+		$in_batch = ! empty( $_POST['batch'] );
+		Segurium_Cache_Invalidation::cleaned(
+			$in_batch ? Segurium_Cache_Invalidation::TRIGGER_FIX_ALL : Segurium_Cache_Invalidation::TRIGGER_MANUAL,
+			$in_batch
+		);
 
 		segurium_send_json_success(
 			array(
@@ -7187,6 +7198,8 @@ class Segurium {
 
 				$bkp_id = $cleanup['backup_id'];
 				$status = 'fixed';
+
+				Segurium_Cache_Invalidation::cleaned( Segurium_Cache_Invalidation::TRIGGER_INTEGRITY_FIX, ! empty( $_POST['batch'] ) );
 
 				if ( 'new' === $verdict ) {
 					Segurium_Fs::delete( $abs_path );

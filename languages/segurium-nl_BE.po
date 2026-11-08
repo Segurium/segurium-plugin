@@ -4716,5 +4716,8 @@ msgstr ""
 "Website gehackt? Gratis malware verwijderen en automatisch opschonen op elke"
 " website die je beheert, plus kwetsbaarheidsmeldingen, firewall en 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Cache ongeldig maken na opschonen"
+
 msgid "The setting could not be saved."
 msgstr "De instelling kon niet worden opgeslagen."

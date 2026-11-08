@@ -4675,6 +4675,9 @@ msgid ""
 " plus vulnerability alerts, firewall and 2FA. Same setup everywhere."
 msgstr "网站被黑？在您运营的每个站点上免费清除恶意软件并自动清理，还有漏洞提醒、防火墙与 2FA。"
 
+msgid "Cache invalidation after cleanup"
+msgstr "清理后使缓存失效"
+
 msgid "The setting could not be saved."
 msgstr "无法保存该设置。"
 

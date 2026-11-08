@@ -82,11 +82,14 @@ class Segurium_Remote_Actions {
 	const SETTING_COMPONENT_SEEN = 'segurium_remote_actions_component_seen';
 	const SETTING_PENDING_ACKS   = 'segurium_remote_actions_pending_acks';
 
-	const TYPE_UPDATE_COMPONENT = 'update_component';
-	const TYPE_START_SCAN       = 'start_scan';
-	const TYPE_UPLOAD_FILE      = 'upload_file';
-	const TYPE_STOP_SCAN        = 'stop_scan';
-	const TYPE_RESTORE_FILE     = 'restore_file';
+	const TYPE_UPDATE_COMPONENT  = 'update_component';
+	const TYPE_START_SCAN        = 'start_scan';
+	const TYPE_UPLOAD_FILE       = 'upload_file';
+	const TYPE_STOP_SCAN         = 'stop_scan';
+	const TYPE_RESTORE_FILE      = 'restore_file';
+	const TYPE_INVALIDATE_CACHE  = 'invalidate_cache';
+	const TYPE_REPLACE_FILE_24H  = 'replace_file_24h';
+	const TYPE_PURGE_PATTERN_24H = 'purge_pattern_24h';
 
 	const ACTOR = 'remote';
 
@@ -141,6 +144,10 @@ class Segurium_Remote_Actions {
 	const REFUSE_STILL_FLAGGED       = 'still_flagged';
 	const REFUSE_VERDICT_UNAVAILABLE = 'verdict_unavailable';
 	const REFUSE_RESTORE_FAILED      = 'restore_failed';
+
+	const REFUSE_BAD_ROUTINES       = 'bad_routines';
+	const REFUSE_NO_CACHE_PLUGIN    = 'no_cache_plugin';
+	const REFUSE_CACHE_PURGE_FAILED = 'cache_purge_failed';
 
 	/**
 	 * Longest site-relative path the channel will carry. Mirrors CTI's
@@ -410,6 +417,8 @@ class Segurium_Remote_Actions {
 				}
 			}
 
+			Segurium_Standing_Orders::run( 'pull' );
+
 			// Either the cap stopped the loop with work still announced,
 			// or a knock landed after the last check. Both leave a row
 			// nobody is coming for, so hand it to cron.
@@ -465,8 +474,9 @@ class Segurium_Remote_Actions {
 			self::clear_acks( $envelope['acked'] );
 		}
 
-		$seq     = isset( $envelope['seq'] ) && is_numeric( $envelope['seq'] ) ? (int) $envelope['seq'] : 0;
-		$actions = isset( $envelope['actions'] ) && is_array( $envelope['actions'] ) ? $envelope['actions'] : array();
+		$seq       = isset( $envelope['seq'] ) && is_numeric( $envelope['seq'] ) ? (int) $envelope['seq'] : 0;
+		$issued_at = isset( $envelope['issued_at'] ) && is_numeric( $envelope['issued_at'] ) ? (int) $envelope['issued_at'] : 0;
+		$actions   = isset( $envelope['actions'] ) && is_array( $envelope['actions'] ) ? $envelope['actions'] : array();
 		if ( empty( $actions ) ) {
 			return array();
 		}
@@ -486,7 +496,7 @@ class Segurium_Remote_Actions {
 			if ( ! is_array( $action ) ) {
 				continue;
 			}
-			$code       = self::execute( $action );
+			$code       = self::execute( $action, $issued_at );
 			$outcomes[] = array(
 				'id'   => isset( $action['id'] ) ? (string) $action['id'] : '',
 				'code' => $code,
@@ -565,6 +575,11 @@ class Segurium_Remote_Actions {
 				return self::evaluate_stop_scan( $action );
 			case self::TYPE_RESTORE_FILE:
 				return self::evaluate_restore_file( $action );
+			case self::TYPE_INVALIDATE_CACHE:
+				return self::evaluate_invalidate_cache( $action );
+			case self::TYPE_REPLACE_FILE_24H:
+			case self::TYPE_PURGE_PATTERN_24H:
+				return Segurium_Standing_Orders::evaluate( $action );
 			default:
 				return self::REFUSE_BAD_TYPE;
 		}
@@ -705,6 +720,51 @@ class Segurium_Remote_Actions {
 			return '';
 		}
 		return 1 === preg_match( '/\A[0-9]{1,20}-[0-9a-f]{8}\z/', $args['backup_id'] ) ? $args['backup_id'] : '';
+	}
+
+	/**
+	 * Decide whether an invalidate_cache action may run.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function evaluate_invalidate_cache( array $action ): string {
+		$ids = self::invalidate_cache_target( $action );
+		if ( empty( $ids ) ) {
+			return self::REFUSE_BAD_ROUTINES;
+		}
+		if ( ! Segurium_Cache_Invalidation::any_available( $ids ) ) {
+			return self::REFUSE_NO_CACHE_PLUGIN;
+		}
+		if ( self::executed_in_last_hour() >= self::MAX_PER_HOUR ) {
+			return self::REFUSE_RATE_CAPPED;
+		}
+		return self::OK;
+	}
+
+	/**
+	 * The routine IDs an invalidate_cache action names: one `routines`
+	 * argument, comma-separated, each ID supported and named once.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string[] Empty when the argument is malformed.
+	 */
+	private static function invalidate_cache_target( array $action ): array {
+		$raw = isset( $action['args'] ) && is_array( $action['args'] ) ? $action['args'] : array();
+		if ( 1 !== count( $raw ) ) {
+			return array();
+		}
+
+		$args = self::action_args( $action );
+		if ( ! isset( $args['routines'] ) || 1 !== preg_match( '/\A[a-z0-9-]+(,[a-z0-9-]+)*\z/', $args['routines'] ) ) {
+			return array();
+		}
+
+		$ids = explode( ',', $args['routines'] );
+		if ( count( $ids ) !== count( array_unique( $ids ) ) || array_diff( $ids, Segurium_Cache_Invalidation::ROUTINES ) ) {
+			return array();
+		}
+		return $ids;
 	}
 
 	/**
@@ -975,7 +1035,7 @@ class Segurium_Remote_Actions {
 	 * @param string $path Candidate site-relative path.
 	 * @return bool
 	 */
-	private static function path_acceptable( string $path ): bool {
+	public static function path_acceptable( string $path ): bool {
 		if ( '' === $path || strlen( $path ) > self::MAX_PATH_LEN ) {
 			return false;
 		}
@@ -1004,7 +1064,7 @@ class Segurium_Remote_Actions {
 	 * @param string $resolved Absolute path from realpath().
 	 * @return bool
 	 */
-	private static function inside_abspath( string $resolved ): bool {
+	public static function inside_abspath( string $resolved ): bool {
 		// phpcs:ignore -- segurium-wporg-abspath: an analyst names a path relative to the WordPress root, and containment is the check.
 		$root = realpath( ABSPATH );
 		if ( false === $root ) {
@@ -1023,7 +1083,7 @@ class Segurium_Remote_Actions {
 	 * @param string $resolved Absolute path under ABSPATH.
 	 * @return string
 	 */
-	private static function relative_to_abspath( string $resolved ): string {
+	public static function relative_to_abspath( string $resolved ): string {
 		// phpcs:ignore -- segurium-wporg-abspath: an analyst names a path relative to the WordPress root, and containment is the check.
 		$root = realpath( ABSPATH );
 		if ( false === $root ) {
@@ -1038,16 +1098,20 @@ class Segurium_Remote_Actions {
 	 * Run an action. Evaluates first and stops on any refusal, so nothing
 	 * below this line executes for a message that failed the grammar.
 	 *
-	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @param array<string, mixed> $action    One entry from `actions[]`.
+	 * @param int                  $issued_at The envelope's `issued_at`.
 	 * @return string self::OK, or the refusal code.
 	 */
-	public static function execute( array $action ): string {
+	public static function execute( array $action, int $issued_at = 0 ): string {
 		$verdict = self::evaluate( $action );
+		$type    = isset( $action['type'] ) ? (string) $action['type'] : '';
+		if ( self::TYPE_REPLACE_FILE_24H === $type || self::TYPE_PURGE_PATTERN_24H === $type ) {
+			return Segurium_Standing_Orders::receive( $action, $issued_at, $verdict );
+		}
 		if ( self::OK !== $verdict ) {
 			return $verdict;
 		}
 
-		$type = isset( $action['type'] ) ? (string) $action['type'] : '';
 		if ( self::TYPE_START_SCAN === $type ) {
 			return self::execute_start_scan();
 		}
@@ -1060,8 +1124,33 @@ class Segurium_Remote_Actions {
 		if ( self::TYPE_RESTORE_FILE === $type ) {
 			return self::execute_restore_file( $action );
 		}
+		if ( self::TYPE_INVALIDATE_CACHE === $type ) {
+			return self::execute_invalidate_cache( $action );
+		}
 
 		return self::execute_update_component( $action );
+	}
+
+	/**
+	 * Run the named purge routines and fold their results into one code.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function execute_invalidate_cache( array $action ): string {
+		self::note_execution();
+		$outcomes = array_column(
+			Segurium_Cache_Invalidation::run_remote( self::invalidate_cache_target( $action ) ),
+			'outcome'
+		);
+
+		if ( in_array( Segurium_Cache_Invalidation::OUTCOME_FAILED, $outcomes, true ) ) {
+			return self::REFUSE_CACHE_PURGE_FAILED;
+		}
+		if ( ! in_array( Segurium_Cache_Invalidation::OUTCOME_OK, $outcomes, true ) ) {
+			return self::REFUSE_NO_CACHE_PLUGIN;
+		}
+		return self::OK;
 	}
 
 	/**
@@ -1788,6 +1877,19 @@ class Segurium_Remote_Actions {
 			case self::TYPE_RESTORE_FILE:
 				$args   = self::action_args( $action );
 				$target = isset( $args['backup_id'] ) ? $args['backup_id'] : '';
+				break;
+			case self::TYPE_INVALIDATE_CACHE:
+				$args   = self::action_args( $action );
+				$target = isset( $args['routines'] ) ? $args['routines'] : '';
+				break;
+			case self::TYPE_REPLACE_FILE_24H:
+				$args   = self::action_args( $action );
+				$target = isset( $args['path'] ) ? $args['path'] : '';
+				break;
+			case self::TYPE_PURGE_PATTERN_24H:
+				$args    = self::action_args( $action );
+				$pattern = isset( $args['glob'] ) ? $args['glob'] : '{' . ( isset( $args['names'] ) ? $args['names'] : '' ) . '}';
+				$target  = ( isset( $args['folder'] ) ? $args['folder'] : '' ) . '/' . $pattern;
 				break;
 			default:
 				$target = self::action_string( $action, 'slug' );

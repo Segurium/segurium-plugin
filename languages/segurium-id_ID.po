@@ -4699,6 +4699,9 @@ msgstr ""
 "Situs web diretas? Hapus malware gratis dan pembersihan otomatis di setiap "
 "situs Anda, plus peringatan kerentanan, firewall, dan 2FA."
 
+msgid "Cache invalidation after cleanup"
+msgstr "Invalidasi cache setelah pembersihan"
+
 msgid "The setting could not be saved."
 msgstr "Pengaturan tidak dapat disimpan."
 
