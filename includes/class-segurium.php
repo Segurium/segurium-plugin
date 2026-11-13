@@ -193,6 +193,8 @@ class Segurium {
 		Segurium_Platform_Snapshot::register_hooks();
 		Segurium_Memory_Recorder::register_hooks();
 		Segurium_Activity_Tracker::register_hooks();
+		Segurium_Account_Lock::register_hooks();
+		Segurium_Install_Scan::register_hooks();
 		Segurium_Self_Check::register_hooks();
 		Segurium_Integrity_Chain::register_hooks();
 		Segurium_Realtime_Scan::register_hooks();
@@ -272,6 +274,7 @@ class Segurium {
 			'segurium_cache_invalidation_batch_done'     => array( $cleanup, $mo, array( 'Segurium_Cache_Invalidation', 'ajax_batch_done' ) ),
 			'segurium_restore_file'                      => array( $cleanup, $mo, array( $this, 'ajax_restore_file' ) ),
 			'segurium_restore_preflight'                 => array( $cleanup, $mo, array( $this, 'ajax_restore_preflight' ) ),
+			'segurium_restore_account'                   => array( $cleanup, $mo, array( 'Segurium_Account_Lock', 'ajax_restore' ) ),
 			'segurium_get_backup_content'                => array( $cleanup, $mo, array( $this, 'ajax_get_backup_content' ) ),
 			'segurium_get_disk_content'                  => array( $cleanup, $mo, array( $this, 'ajax_get_disk_content' ) ),
 			'segurium_ignore_file'                       => array( $cleanup, $mo, array( $this, 'ajax_ignore_file' ) ),
@@ -971,6 +974,7 @@ class Segurium {
 					'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
 					'activeTab'      => self::current_tab(),
 					'adminPage'      => self::admin_tab_url( '' ),
+					'updateCoreUrl'  => network_admin_url( 'update-core.php' ),
 					'nonce'          => wp_create_nonce( 'segurium_scan' ),
 					'consentNonce'   => wp_create_nonce( 'segurium_consent' ),
 					'settingsNonce'  => wp_create_nonce( 'segurium_settings' ),
@@ -998,6 +1002,7 @@ class Segurium {
 					// so the query would be dead work there.
 					'threatsOpen'    => 'pro' === $plan_tier ? 0 : $this->outstanding_threat_count(),
 					'meterMaxSlots'  => self::MAX_QUOTA_METER_SLOTS,
+					'proPrice'       => Segurium_Entitlements::PRO_PRICE,
 					'planTier'       => $plan_tier,
 					'isPro'          => 'pro' === $plan_tier,
 					'migrationNonce' => wp_create_nonce( 'segurium_migration' ),
@@ -1034,6 +1039,9 @@ class Segurium {
 						'fpFailed'                => __( 'Could not submit the report.', 'segurium' ),
 						'restore'                 => __( 'Restore', 'segurium' ),
 						'confirmRestore'          => __( 'This will restore the original infected file from backup. Continue?', 'segurium' ),
+						/* translators: %s: login name of the locked WordPress account. */
+						'lockedAccount'           => __( 'Locked account: %s', 'segurium' ),
+						'confirmRestoreAccount'   => __( 'This gives the account back its role, password and application passwords. Continue?', 'segurium' ),
 						'restoreTitle'            => __( 'Restore file', 'segurium' ),
 						'restoreChecking'         => __( 'Checking…', 'segurium' ),
 						'restoreAlreadyRestored'  => __( 'The file on disk is already the backed-up version. Restore anyway to update database records?', 'segurium' ),
@@ -1078,6 +1086,8 @@ class Segurium {
 						'schedTime'               => __( 'Time of day', 'segurium' ),
 						'schedDay'                => __( 'Day of week', 'segurium' ),
 						'schedNextRunPrefix'      => __( 'Next run:', 'segurium' ),
+						'settingsSaved'           => __( 'Settings saved.', 'segurium' ),
+						'settingsSaveError'       => __( 'Failed to save settings.', 'segurium' ),
 						'schedSaved'              => __( 'Schedule saved.', 'segurium' ),
 						'schedSaveError'          => __( 'Could not save schedule.', 'segurium' ),
 						'schedTimeHint'           => __( 'Stored in UTC. Displayed in your browser locale.', 'segurium' ),
@@ -1132,6 +1142,7 @@ class Segurium {
 						'intFix'                  => __( 'Fix', 'segurium' ),
 						'intUpdate'               => __( 'Update', 'segurium' ),
 						'intOutdated'             => __( 'Outdated', 'segurium' ),
+						'intRescanNeeded'         => __( 'Rescan needed', 'segurium' ),
 						'intVulnerable'           => __( 'Vulnerable', 'segurium' ),
 						'intVulnerableNoUpdate'   => __( 'No update available', 'segurium' ),
 						/* translators: 1: component name, 2: installed version, 3: version WordPress would install */
@@ -1179,7 +1190,7 @@ class Segurium {
 						/* translators: 1: cleanups used so far, 2: per-window cap (e.g., 3), 3: rolling window length in days (e.g., 30), 4: localized date when the next slot opens */
 						'quotaReadoutAtLimit'     => __( '%1$d of %2$d cleanups used in the last %3$d days — next slot opens %4$s', 'segurium' ),
 						'quotaReadoutUpgradeCta'  => __( 'Upgrade to Pro', 'segurium' ),
-						'plansTab'                => __( 'Plans', 'segurium' ),
+						'perYearPerSite'          => __( '/year per site', 'segurium' ),
 						'moneyBackGuarantee'      => __( '14-day money-back guarantee.', 'segurium' ),
 						'proBadge'                => __( 'Pro', 'segurium' ),
 						'intDiff'                 => __( 'Diff', 'segurium' ),
@@ -1247,7 +1258,6 @@ class Segurium {
 						'bfIp'                    => __( 'IP', 'segurium' ),
 						'bfCreated'               => __( 'Locked at', 'segurium' ),
 						'bfExpires'               => __( 'Expires', 'segurium' ),
-						'bfSettingsSaved'         => __( 'Settings saved.', 'segurium' ),
 						'bfUnlockConfirm'         => __( 'Unlock this IP?', 'segurium' ),
 						'bfLogRetention'          => __( 'Log retention (days)', 'segurium' ),
 						'bfHcaptchaSection'       => __( 'hCaptcha', 'segurium' ),
@@ -1292,8 +1302,6 @@ class Segurium {
 						'bfSurfaceXmlrpc'         => __( 'XML-RPC', 'segurium' ),
 						'isLoading'               => __( 'Loading settings...', 'segurium' ),
 						'isSaving'                => __( 'Saving...', 'segurium' ),
-						'isSaved'                 => __( 'Settings saved.', 'segurium' ),
-						'isSaveError'             => __( 'Failed to save settings.', 'segurium' ),
 						'isLoadError'             => __( 'Failed to load settings.', 'segurium' ),
 						'isEnableAllDone'         => __( 'All recommended settings enabled.', 'segurium' ),
 						'scTitle'                 => __( 'Self-Check', 'segurium' ),
@@ -1809,8 +1817,8 @@ class Segurium {
 	/**
 	 * Card body for the at-limit state. Every string here already
 	 * ships — the heading comes from the paywall modal, the threat line
-	 * from the scanner's own banner, the guarantee from the Plans tab.
-	 * What changes is hierarchy, not vocabulary.
+	 * from the scanner's own banner, the offer from the Plans tab's Pro
+	 * card. What changes is hierarchy, not vocabulary.
 	 *
 	 * Kept byte-compatible with the branch of segurium-scan.js's
 	 * renderQuotaReadout() that rebuilds this node, so a tab switch does
@@ -1833,19 +1841,24 @@ class Segurium {
 		$offsite = class_exists( 'Segurium_Entitlements' ) && Segurium_Entitlements::is_offsite_url( $upgrade_url );
 
 		return '<div class="segurium-quota-card__body">'
-			. '<h3 class="segurium-quota-card__title">' . esc_html__( 'Cleanup quota reached', 'segurium' ) . '</h3>'
-			. '<p class="segurium-quota-card__threats">' . esc_html( $threat_copy ) . '</p>'
-			. '<p class="segurium-quota-card__usage">' . esc_html( $usage_copy ) . '</p>'
-			. self::quota_card_meter_html( $used, $limit )
+			. '<div class="segurium-quota-card__headline">'
+				. '<h3 class="segurium-quota-card__title">' . esc_html__( 'Cleanup quota reached', 'segurium' ) . '</h3>'
+				. '<p class="segurium-quota-card__threats">' . esc_html( $threat_copy ) . '</p>'
 			. '</div>'
-			. '<div class="segurium-quota-card__actions">'
-			. '<p class="segurium-quota-card__buttons">'
-				. '<a class="button button-primary button-hero segurium-quota-readout-cta" href="' . esc_url( $upgrade_url ) . '"'
+			. '<div class="segurium-quota-card__status">'
+				. self::quota_card_meter_html( $used, $limit )
+				. '<p class="segurium-quota-card__usage">' . esc_html( $usage_copy ) . '</p>'
+			. '</div>'
+			. '</div>'
+			. '<div class="segurium-quota-card__offer">'
+			. '<p class="segurium-quota-card__buy">'
+				. '<a class="segurium-quota-card__price" href="' . esc_url( self::admin_tab_url( 'plans' ) ) . '">'
+					. '<strong>' . esc_html( Segurium_Entitlements::PRO_PRICE ) . '</strong> '
+					. esc_html__( '/year per site', 'segurium' )
+				. '</a>'
+				. '<a class="button button-primary segurium-quota-readout-cta" href="' . esc_url( $upgrade_url ) . '"'
 					. ( $offsite ? ' target="_blank" rel="noopener noreferrer"' : '' ) . '>'
 					. esc_html__( 'Upgrade to Pro', 'segurium' )
-				. '</a>'
-				. '<a class="segurium-quota-card__secondary" href="' . esc_url( self::admin_tab_url( 'plans' ) ) . '">'
-					. esc_html__( 'Plans', 'segurium' )
 				. '</a>'
 			. '</p>'
 			. '<p class="segurium-quota-card__guarantee">' . esc_html__( '14-day money-back guarantee.', 'segurium' ) . '</p>'
@@ -2131,6 +2144,7 @@ class Segurium {
 						<div class="<?php echo esc_attr( $quota_readout_class ); ?>"<?php echo '' === $quota_readout_html ? ' hidden' : ''; ?>><?php echo wp_kses_post( $quota_readout_html ); ?></div>
 						<?php // Same env-warnings banner as the malware scanner panel; populated by JS from seguriumScan.envWarnings. ?>
 						<div class="segurium-env-warnings" hidden></div>
+						<div id="segurium-is-rescan-notice" class="segurium-is-rescan-notice" role="status" hidden></div>
 						<div class="segurium-is-scan-area">
 							<button id="segurium-is-scan-btn" class="button button-primary">
 								<?php esc_html_e( 'Scan', 'segurium' ); ?>
@@ -2606,8 +2620,9 @@ class Segurium {
 									</div>
 									<div class="segurium-setting-row">
 										<label for="sgm-2fa-grace"><strong><?php esc_html_e( 'Grace Period (days)', 'segurium' ); ?></strong></label>
-										<p class="description"><?php esc_html_e( 'Days before enforcement blocks login for users who have not set up 2FA. Set to 0 to enforce immediately.', 'segurium' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Days before enforcement blocks login for users who have not set up 2FA. Set to 0 to enforce immediately.', 'segurium' ); ?> <?php esc_html_e( 'Administrators get no grace period.', 'segurium' ); ?></p>
 										<input type="number" id="sgm-2fa-grace" min="0" max="30" value="3" style="width:80px;">
+										<p class="description" id="sgm-2fa-grace-zero" hidden><strong><?php esc_html_e( 'With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day.', 'segurium' ); ?></strong></p>
 									</div>
 									<div class="segurium-setting-row">
 										<label for="sgm-2fa-trusted-days"><strong><?php esc_html_e( 'Trusted Device Duration (days)', 'segurium' ); ?></strong></label>
@@ -2616,7 +2631,7 @@ class Segurium {
 									</div>
 								</div>
 								<p>
-									<button id="sgm-2fa-save" class="button button-primary"><?php esc_html_e( 'Save Settings', 'segurium' ); ?></button>
+									<button id="sgm-2fa-save" class="button button-primary"><?php esc_html_e( 'Save', 'segurium' ); ?></button>
 									<span id="sgm-2fa-save-status" style="display:none;margin-left:10px;color:#00a32a;"></span>
 								</p>
 							</div>
@@ -3114,6 +3129,7 @@ class Segurium {
 							__( 'Auto-fix and Bulk Fix All', 'segurium' ),
 							__( 'Hardening: 2FA, brute-force, geo-blocking, firewall, security headers', 'segurium' ),
 							__( 'File-integrity monitoring (core / plugins / themes)', 'segurium' ),
+							__( 'Vulnerable and outdated plugins, themes and core, with updates where available', 'segurium' ),
 							__( 'Migration importer (Wordfence, AIOS, Solid Security)', 'segurium' ),
 							__( 'Community support', 'segurium' ),
 						);
@@ -3121,6 +3137,7 @@ class Segurium {
 							__( 'Unlimited cleanup', 'segurium' ),
 							__( 'Cache invalidation after cleanup', 'segurium' ),
 							__( 'Cleanup of malware that comes back with new code', 'segurium' ),
+							__( 'Lockout of malicious administrator accounts', 'segurium' ),
 							__( 'Everything in Free', 'segurium' ),
 							__( 'Email support, priority queue', 'segurium' ),
 						);
@@ -3130,7 +3147,7 @@ class Segurium {
 								<header class="segurium-plans__head">
 									<h2><?php esc_html_e( 'Plans', 'segurium' ); ?></h2>
 									<p class="description">
-										<?php esc_html_e( 'Every feature ships on every install. Pro lifts the monthly cleanup cap.', 'segurium' ); ?>
+										<?php esc_html_e( 'Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services.', 'segurium' ); ?>
 									</p>
 								</header>
 
@@ -3171,11 +3188,11 @@ class Segurium {
 										<header class="segurium-plan__header">
 											<h3><?php esc_html_e( 'Pro', 'segurium' ); ?></h3>
 											<p class="segurium-plan__tagline">
-												<?php esc_html_e( 'Unlimited cleanup. Same features as Free, with no monthly cap.', 'segurium' ); ?>
+												<?php esc_html_e( 'Unlimited cleanup, plus the cloud services below.', 'segurium' ); ?>
 											</p>
 										</header>
 										<p class="segurium-plan__price">
-											<span class="segurium-plan__amount">$79</span>
+											<span class="segurium-plan__amount"><?php echo esc_html( Segurium_Entitlements::PRO_PRICE ); ?></span>
 											<span class="segurium-plan__unit"><?php esc_html_e( '/year per site', 'segurium' ); ?></span>
 										</p>
 										<ul class="segurium-plan__bullets" role="list">
@@ -3281,7 +3298,7 @@ class Segurium {
 						</div>
 						<p>
 							<button id="segurium-save-settings" class="button button-primary">
-								<?php esc_html_e( 'Save Settings', 'segurium' ); ?>
+								<?php esc_html_e( 'Save', 'segurium' ); ?>
 							</button>
 							<span id="segurium-settings-status"></span>
 						</p>
@@ -4211,6 +4228,7 @@ class Segurium {
 
 		$rel_path = $this->strip_abspath( $safe_target );
 		Segurium_File_State::mark_restored( (string) $rel_path, time() );
+		Segurium_Standing_Orders::release( (string) $rel_path );
 
 		$restored = array(
 			'backup_id' => $backup_id,
@@ -5078,8 +5096,12 @@ class Segurium {
 		$state      = $engine->get_state();
 		$results    = $state['results'] ?? array();
 		$unverified = $state['unverified'] ?? array();
+		$walked     = array();
+		foreach ( $state['queue'] ?? array() as $comp ) {
+			$walked[ ( $comp['type'] ?? '' ) . ':' . ( $comp['slug'] ?? '' ) ] = (string) ( $comp['version'] ?? '' );
+		}
 		if ( ! empty( $results ) || ! empty( $unverified ) ) {
-			$this->update_integrity_server_state( $results, $unverified );
+			$this->update_integrity_server_state( $results, $unverified, true, $walked );
 		}
 	}
 
@@ -5097,9 +5119,10 @@ class Segurium {
 	 *                               $components are marked not-found. Only a
 	 *                               scan that walked the whole site may sweep;
 	 *                               a single-component re-check must not.
+	 * @param array $walked_versions "type:slug" => version the scan walked.
 	 * @return void
 	 */
-	private function update_integrity_server_state( $components, $unverified_keys = array(), $sweep_not_found = true ) {
+	private function update_integrity_server_state( $components, $unverified_keys = array(), $sweep_not_found = true, $walked_versions = array() ) {
 		$acc = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$acc->load();
 
@@ -5156,6 +5179,9 @@ class Segurium {
 		// findings and metadata are left exactly as the last real scan saw them.
 		foreach ( $unverified_keys as $uk ) {
 			$scanned_keys[] = $uk;
+			if ( isset( $walked_versions[ $uk ] ) ) {
+				$acc->note_scanned_version( $uk, $walked_versions[ $uk ] );
+			}
 		}
 
 		if ( $sweep_not_found ) {
@@ -5198,7 +5224,11 @@ class Segurium {
 			);
 		}
 
-		// Multisite grants update_plugins / update_themes / update_core to
+		if ( 'core' === $type ) {
+			segurium_send_json_error( array( 'code' => 'core_update_use_wp_screen' ) );
+		}
+
+		// Multisite grants update_plugins / update_themes to
 		// super admins only, so a subsite administrator is refused here.
 		if ( ! current_user_can( Segurium_Component_Updates::capability_for( $type ) ) ) {
 			segurium_send_json_error(
@@ -5209,6 +5239,8 @@ class Segurium {
 				403
 			);
 		}
+
+		$this->refuse_stale_integrity_row( $type, $slug );
 
 		$pending = Segurium_Component_Updates::for_component( $type, $slug );
 		if ( array() === $pending || empty( $pending['package_available'] ) ) {
@@ -5238,21 +5270,17 @@ class Segurium {
 	 * into the accumulated state. Called after an update so the row does not
 	 * keep showing the previous version's hashes.
 	 *
-	 * A failed check leaves the stored state untouched and returns the row as
-	 * it stands, so a CTI outage cannot resolve or invent findings.
+	 * A failed check leaves the stored state untouched and an unindexed one
+	 * leaves the findings untouched, so a CTI outage cannot resolve or invent
+	 * findings.
 	 *
 	 * @param string $type Component type (core|plugin|theme).
 	 * @param string $slug Component slug.
 	 * @return array|null Refreshed component row, or null when unknown.
 	 */
 	private function recheck_integrity_component( $type, $slug ) {
-		// Core keeps its pre-update version for the rest of this request:
-		// update_core() deliberately leaves $wp_version alone, so a re-check
-		// would grade the new files against the old manifest and flag every
-		// one of them. Our own files sit in the same position after a
-		// self-update. Both rows wait for the next scan.
-		if ( 'core' === $type
-			|| ( 'plugin' === $type && dirname( plugin_basename( SEGURIUM_PLUGIN_FILE ) ) === $slug ) ) {
+		// A self-update swapped our files under this request; the next scan re-checks them.
+		if ( 'plugin' === $type && dirname( plugin_basename( SEGURIUM_PLUGIN_FILE ) ) === $slug ) {
 			return $this->load_integrity_component( $type, $slug );
 		}
 
@@ -5285,6 +5313,8 @@ class Segurium {
 		// A version the cloud catalogue has not indexed yet carries no
 		// verdict, so recording it would resolve real findings.
 		if ( 'version_not_indexed' === $component_status ) {
+			$key = $type . ':' . $slug;
+			$this->update_integrity_server_state( array(), array( $key ), false, array( $key => $version ) );
 			return $this->load_integrity_component( $type, $slug );
 		}
 
@@ -5362,6 +5392,72 @@ class Segurium {
 	}
 
 	/**
+	 * Refuse a backup restore unless a finding with exactly this type, slug
+	 * and path holds the backup. The table collation folds case.
+	 *
+	 * @param string $type      Component type.
+	 * @param string $slug      Component slug.
+	 * @param string $file_path File path relative to the WordPress root.
+	 * @param string $backup_id Backup identifier.
+	 * @return void
+	 */
+	private function refuse_unmatched_finding( $type, $slug, $file_path, $backup_id ) {
+		$finding = Segurium_Storage::table_get_row(
+			'integrity_issues',
+			'SELECT comp_type, comp_slug, backup_id FROM {{table}} WHERE comp_type = %s AND comp_slug = %s AND file_path_hash = %s LIMIT 1',
+			array( $type, $slug, hash( 'sha256', $file_path ) ),
+			ARRAY_A
+		);
+		if ( is_array( $finding )
+			&& (string) $finding['comp_type'] === $type
+			&& (string) $finding['comp_slug'] === $slug
+			&& (string) $finding['backup_id'] === $backup_id
+		) {
+			return;
+		}
+		segurium_send_json_error(
+			array(
+				'code'    => 'integrity_finding_mismatch',
+				'message' => __( 'Invalid parameters.', 'segurium' ),
+			)
+		);
+	}
+
+	/**
+	 * Refuse the request when the row is stale.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return Segurium_Integrity_Server_State The loaded state.
+	 */
+	private function refuse_stale_integrity_row( $type, $slug ) {
+		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
+		$state->load();
+		$this->send_integrity_rescan_required( $state->stale_reason( $type, $slug ) );
+		return $state;
+	}
+
+	/**
+	 * Refuse the request for a non-empty stale reason.
+	 *
+	 * @param string $reason Stale reason.
+	 * @return void
+	 */
+	private function send_integrity_rescan_required( $reason ) {
+		if ( '' === $reason ) {
+			return;
+		}
+		segurium_send_json_error(
+			array(
+				'code'    => 'integrity_rescan_required',
+				'reason'  => $reason,
+				'message' => Segurium_Integrity_Server_State::rescan_message( $reason ),
+			),
+			409
+		);
+	}
+
+	/**
 	 * Read one component row out of the accumulated integrity state.
 	 *
 	 * @param string $type Component type.
@@ -5419,8 +5515,9 @@ class Segurium {
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
 
-		$items = $state->get_components( $page, $per_page, $snapshot_id );
-		$total = $state->get_total();
+		$items  = $state->get_components( $page, $per_page, $snapshot_id );
+		$total  = $state->get_total();
+		$rescan = $state->rescan_reason();
 
 		segurium_send_json_success(
 			array(
@@ -5430,6 +5527,10 @@ class Segurium {
 				'per_page'    => $per_page,
 				'total_pages' => max( 1, (int) ceil( $total / $per_page ) ),
 				'issue_mark'  => Segurium_Issue_Indicator::integrity_mark( $state->count_escalated() ),
+				'rescan'      => array(
+					'reason'  => $rescan,
+					'message' => Segurium_Integrity_Server_State::rescan_message( $rescan ),
+				),
 			)
 		);
 	}
@@ -5455,6 +5556,7 @@ class Segurium {
 
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
+		$this->send_integrity_rescan_required( $state->stale_reason( $type, $slug ) );
 		$state->update_file_state( $slug, $type, $file_path, 'ignored' );
 		$state->save();
 
@@ -5482,6 +5584,7 @@ class Segurium {
 
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
+		$this->send_integrity_rescan_required( $state->stale_reason( $type, $slug ) );
 		$state->update_file_state( $slug, $type, $file_path, 'open' );
 		$state->save();
 
@@ -5514,6 +5617,11 @@ class Segurium {
 		if ( null === $abs_path ) {
 			segurium_send_json_error( array( 'message' => __( 'Invalid path', 'segurium' ) ), 403 );
 		}
+
+		if ( ! empty( $backup_id ) ) {
+			$this->refuse_unmatched_finding( $type, $slug, $file_path, $backup_id );
+		}
+		$this->refuse_stale_integrity_row( $type, $slug );
 
 		// Step 1: restore the pre-fix content from the integrity bucket.
 		if ( ! empty( $backup_id ) ) {
@@ -5609,6 +5717,7 @@ class Segurium {
 		$t0      = microtime( true );
 		$state   = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
+		$this->send_integrity_rescan_required( $state->stale_reason( $type, $slug ) );
 		$state->update_component_state( $slug, $type, 'ignored' );
 		$state->save();
 
@@ -5652,6 +5761,7 @@ class Segurium {
 		$t0      = microtime( true );
 		$state   = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
+		$this->send_integrity_rescan_required( $state->stale_reason( $type, $slug ) );
 		$state->update_component_state( $slug, $type, 'active' );
 		$state->save();
 
@@ -5694,6 +5804,8 @@ class Segurium {
 		if ( ! $this->is_safe_component_slug( $slug ) ) {
 			segurium_send_json_error( array( 'message' => __( 'Invalid parameters.', 'segurium' ) ) );
 		}
+
+		$this->refuse_stale_integrity_row( $type, $slug );
 
 		$t0      = microtime( true );
 		$version = $this->lookup_component_version( $type, $slug );
@@ -5817,6 +5929,8 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Missing parameters.', 'segurium' ) ) );
 		}
 
+		$this->refuse_stale_integrity_row( $type, $slug );
+
 		$result = $this->restore_component_backup( $backup_id, $type, $slug );
 		if ( is_wp_error( $result ) ) {
 			$this->send_restore_error( $result );
@@ -5934,6 +6048,7 @@ class Segurium {
 		// the per-file path.
 		$state = new Segurium_Integrity_Server_State( $this->get_data_dir() );
 		$state->load();
+		$this->send_integrity_rescan_required( $state->rescan_reason() );
 
 		$preview = array(
 			'files_replace'         => array(),
@@ -7008,12 +7123,11 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
 		}
 
-		$comp_type    = isset( $_POST['comp_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_type'] ) ) : '';
-		$comp_slug    = isset( $_POST['comp_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_slug'] ) ) : '';
-		$comp_version = isset( $_POST['comp_version'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_version'] ) ) : '';
-		$file_path    = isset( $_POST['file_path'] ) ? sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) : '';
-		$sha256       = isset( $_POST['sha256'] ) ? sanitize_text_field( wp_unslash( $_POST['sha256'] ) ) : '';
-		$verdict      = isset( $_POST['verdict'] ) ? sanitize_text_field( wp_unslash( $_POST['verdict'] ) ) : '';
+		$comp_type = isset( $_POST['comp_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_type'] ) ) : '';
+		$comp_slug = isset( $_POST['comp_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_slug'] ) ) : '';
+		$file_path = isset( $_POST['file_path'] ) ? sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) : '';
+		$sha256    = isset( $_POST['sha256'] ) ? sanitize_text_field( wp_unslash( $_POST['sha256'] ) ) : '';
+		$verdict   = isset( $_POST['verdict'] ) ? sanitize_text_field( wp_unslash( $_POST['verdict'] ) ) : '';
 
 		if ( ! in_array( $comp_type, array( 'core', 'plugin', 'theme' ), true )
 			|| empty( $file_path )
@@ -7071,6 +7185,8 @@ class Segurium {
 				403
 			);
 		}
+
+		$comp_version = $this->refuse_stale_integrity_row( $comp_type, $comp_slug )->installed_version( $comp_type, $comp_slug );
 
 		// Strip the component prefix so CTI can build the correct SVN/Git URL.
 		switch ( $comp_type ) {
@@ -7344,6 +7460,10 @@ class Segurium {
 			segurium_send_missing_param( 'file_path' );
 		}
 
+		$file_path = ltrim( $file_path, '/' );
+		$this->refuse_unmatched_finding( $comp_type, $comp_slug, $file_path, $backup_id );
+		$this->refuse_stale_integrity_row( $comp_type, $comp_slug );
+
 		$result = $this->restore_integrity_backup( $backup_id, $comp_type, $comp_slug, $file_path );
 		if ( is_wp_error( $result ) ) {
 			$this->send_restore_error( $result );
@@ -7441,10 +7561,9 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
 		}
 
-		$comp_type    = isset( $_POST['comp_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_type'] ) ) : '';
-		$comp_slug    = isset( $_POST['comp_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_slug'] ) ) : '';
-		$comp_version = isset( $_POST['comp_version'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_version'] ) ) : '';
-		$file_path    = isset( $_POST['file_path'] ) ? sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) : '';
+		$comp_type = isset( $_POST['comp_type'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_type'] ) ) : '';
+		$comp_slug = isset( $_POST['comp_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['comp_slug'] ) ) : '';
+		$file_path = isset( $_POST['file_path'] ) ? sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) : '';
 
 		if ( ! in_array( $comp_type, array( 'core', 'plugin', 'theme' ), true )
 			|| empty( $file_path )
@@ -7459,6 +7578,8 @@ class Segurium {
 		if ( null === $abs_path ) {
 			segurium_send_json_error( array( 'message' => __( 'Invalid path', 'segurium' ) ), 403 );
 		}
+
+		$comp_version = $this->refuse_stale_integrity_row( $comp_type, $comp_slug )->installed_version( $comp_type, $comp_slug );
 
 		switch ( $comp_type ) {
 			case 'plugin':
@@ -8197,7 +8318,7 @@ class Segurium {
 			segurium_send_json_error( array( 'message' => __( 'User not found.', 'segurium' ) ) );
 		}
 
-		Segurium_2FA::get_instance()->reset_user_2fa( $user->ID );
+		Segurium_2FA::get_instance()->admin_reset_user_2fa( $user->ID );
 
 		segurium_send_json_success(
 			array(

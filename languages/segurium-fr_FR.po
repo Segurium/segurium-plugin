@@ -13,6 +13,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Nettoyage des logiciels malveillants qui reviennent avec un nouveau code"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Toutes les 5 minutes (ordres permanents Segurium)"
+
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s inclut les correctifs PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
 
@@ -5167,3 +5173,42 @@ msgstr "Invalidation du cache après nettoyage"
 
 msgid "The setting could not be saved."
 msgstr "Le réglage n’a pas pu être enregistré."
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "L’authentification à deux facteurs devient obligatoire pour les administrateurs dès que le premier administrateur la configure."
+
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Installation interrompue. Segurium a trouvé un logiciel malveillant dans %s."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "La version de certains composants a été modifiée depuis la dernière analyse d’intégrité. Lancez une nouvelle analyse pour débloquer leurs actions."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "La dernière analyse d’intégrité date de plus de 24 heures. Lancez une nouvelle analyse pour débloquer les actions."
+
+msgid "Locked account: %s"
+msgstr "Compte verrouillé : %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Cette action restaure le rôle, le mot de passe et les mots de passe d’application du compte. Continuer ?"
+
+msgid "Rescan needed"
+msgstr "Nouvelle analyse nécessaire"
+
+msgid "Administrators get no grace period."
+msgstr "Les administrateurs ne bénéficient d’aucun délai de grâce."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Avec 0 jour, les utilisateurs des rôles soumis à l’obligation qui n’ont pas configuré la 2FA ne peuvent pas se connecter, nouveaux utilisateurs compris. Les administrateurs peuvent se connecter jusqu’à ce que le premier administrateur configure la 2FA. Réinitialiser la 2FA accorde 1 jour à un utilisateur bloqué."
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Verrouillage des comptes administrateur malveillants"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Extensions, thèmes et cœur vulnérables et obsolètes, avec les mises à jour disponibles"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Chaque fonctionnalité est incluse dans toutes les installations. Pro supprime la limite mensuelle de nettoyage et ajoute trois services cloud."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Nettoyage illimité, plus les services cloud ci-dessous."

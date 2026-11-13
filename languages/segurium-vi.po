@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Dọn dẹp mã độc quay lại với mã mới"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Mỗi 5 phút (lệnh thường trực của Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s dễ bị khai thác bởi PHP2Shell, một lỗ hổng thực thi mã từ xa trong chính PHP (CVE-2026-109618, CVE-2026-109619). Hãy yêu cầu nhà cung cấp hosting nâng cấp PHP lên %2$s hoặc mới hơn."
 
@@ -4714,3 +4720,44 @@ msgstr "PHP %s là bản dựng của nhà cung cấp. Số phiên bản không 
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP đã được vá chống PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Đã dừng cài đặt. Segurium phát hiện mã độc trong %s."
+
+#. translators: %s: login name of the locked WordPress account.
+msgid "Locked account: %s"
+msgstr "Tài khoản bị khóa: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Thao tác này sẽ khôi phục vai trò, mật khẩu và mật khẩu ứng dụng cho tài khoản. Tiếp tục?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Khóa các tài khoản quản trị viên độc hại"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Xác thực hai yếu tố trở thành bắt buộc với quản trị viên ngay khi quản trị viên đầu tiên thiết lập."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Một số thành phần đã đổi phiên bản sau lượt quét toàn vẹn gần nhất. Hãy chạy một lượt quét mới để mở khóa các hành động của chúng."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Lượt quét toàn vẹn gần nhất đã cũ hơn 24 giờ. Hãy chạy một lượt quét mới để mở khóa các hành động."
+
+msgid "Rescan needed"
+msgstr "Cần quét lại"
+
+msgid "Administrators get no grace period."
+msgstr "Quản trị viên không có thời gian ân hạn."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Với 0 ngày, người dùng thuộc các vai trò bị bắt buộc mà chưa thiết lập 2FA sẽ không đăng nhập được, kể cả người dùng mới. Quản trị viên vẫn đăng nhập được cho tới khi quản trị viên đầu tiên thiết lập 2FA. Đặt lại 2FA cho người dùng bị chặn 1 ngày."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Plugin, giao diện và nhân lỗi thời và dễ bị tấn công, kèm bản cập nhật nếu có"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Mọi tính năng đều có trong mọi bản cài đặt. Pro loại bỏ giới hạn dọn dẹp hàng tháng và thêm ba dịch vụ đám mây."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Dọn dẹp không giới hạn, cộng với các dịch vụ đám mây bên dưới."

@@ -24,11 +24,12 @@ final class Segurium_Standing_Orders {
 	const MESSAGE_TYPE = 'standing_order';
 	const ACTOR        = 'standing_order';
 
-	const MAX_FILES_PER_WAKE = 20;
-	const MAX_LIFETIME       = DAY_IN_SECONDS;
-	const REPORT_LIST_MAX    = 20;
-	const MAX_NAME_LEN       = 255;
-	const BYTES_KEY_PREFIX   = 'standing_order_bytes:';
+	const MAX_FILES_PER_WAKE  = 20;
+	const MAX_LIFETIME        = DAY_IN_SECONDS;
+	const REPORT_LIST_MAX     = 20;
+	const MAX_NAME_LEN        = 255;
+	const BYTES_KEY_PREFIX    = 'standing_order_bytes:';
+	const RELEASED_KEY_PREFIX = 'standing_order_released:';
 
 	/** Safe, and pristine release bytes that carry a CVE. */
 	const UNTOUCHABLE_VERDICTS = array( 0, 5 );
@@ -256,7 +257,7 @@ final class Segurium_Standing_Orders {
 			if ( (int) $stored['generated_at'] > (int) $order['generated_at'] ) {
 				return Segurium_Remote_Actions::REFUSE_SUPERSEDED;
 			}
-			self::forget_bytes( $stored );
+			self::forget( $stored );
 			unset( $orders[ $id ] );
 		}
 
@@ -287,7 +288,7 @@ final class Segurium_Standing_Orders {
 						'files_touched' => (int) $order['files_touched'],
 					)
 				);
-				self::forget_bytes( $order );
+				self::forget( $order );
 				$expired[ $id ] = true;
 				unset( $orders[ $id ] );
 			}
@@ -329,6 +330,7 @@ final class Segurium_Standing_Orders {
 			$plans[ $id ] = array(
 				'matched'    => 0,
 				'candidates' => array(),
+				'released'   => array_flip( self::released( $order ) ),
 				'touched'    => array(),
 				'skipped'    => array(),
 				'errors'     => array(),
@@ -410,6 +412,10 @@ final class Segurium_Standing_Orders {
 			self::skip_once( $order, $plan, $path, 'protected' );
 			return;
 		}
+		if ( isset( $plan['released'][ $path ] ) || isset( $plan['released'][ Segurium_Remote_Actions::relative_to_abspath( $real ) ] ) ) {
+			self::skip_once( $order, $plan, $path, 'restored' );
+			return;
+		}
 		$stamp = self::stamp( $real );
 		if ( isset( $order['state']['cured'] ) && $stamp === $order['state']['cured'] ) {
 			return;
@@ -474,6 +480,10 @@ final class Segurium_Standing_Orders {
 			}
 			if ( self::is_protected( $file ) ) {
 				self::skip_once( $order, $plan, $rel, 'protected' );
+				continue;
+			}
+			if ( isset( $plan['released'][ $rel ] ) ) {
+				self::skip_once( $order, $plan, $rel, 'restored' );
 				continue;
 			}
 			if ( 0 === (int) filesize( $file ) ) {
@@ -775,15 +785,116 @@ final class Segurium_Standing_Orders {
 	}
 
 	/**
-	 * Drop a replace order's cached bytes.
+	 * Keep a restored file out of every live order that covers its path.
+	 *
+	 * @param string $rel Site-relative path.
+	 * @return int Live orders that cover the path.
+	 */
+	public static function release( string $rel ): int {
+		$covered = 0;
+		foreach ( self::orders() as $order ) {
+			if ( ! self::covers( $order, $rel ) ) {
+				continue;
+			}
+			++$covered;
+			$paths = self::released( $order );
+			if ( in_array( $rel, $paths, true ) ) {
+				continue;
+			}
+			$paths[] = $rel;
+			$encoded = wp_json_encode( $paths );
+			if ( false === $encoded ) {
+				Segurium_Debug::log( '[segurium] standing order ' . $order['id'] . ': released path list is not JSON-encodable, ' . $rel . ' stays in scope' );
+				continue;
+			}
+			Segurium_Storage::table_upsert(
+				'runtime_kv',
+				array(
+					'kv_key'     => self::RELEASED_KEY_PREFIX . $order['id'],
+					'kv_value'   => $encoded,
+					'expires_at' => (int) $order['deadline'],
+					'updated_at' => time(),
+				),
+				array( 'kv_key' )
+			);
+		}
+		return $covered;
+	}
+
+	/**
+	 * Whether an order's target names a path.
+	 *
+	 * @param array<string, mixed> $order Order.
+	 * @param string               $rel   Site-relative path.
+	 * @return bool
+	 */
+	private static function covers( array $order, string $rel ): bool {
+		if ( Segurium_Remote_Actions::TYPE_REPLACE_FILE_24H === $order['type'] ) {
+			return in_array( $rel, self::spellings( (string) $order['path'] ), true );
+		}
+		$slash  = strrpos( $rel, '/' );
+		$parent = false === $slash ? '' : substr( $rel, 0, $slash );
+		$name   = false === $slash ? $rel : substr( $rel, $slash + 1 );
+		$folder = '.' === $order['folder'] ? '' : (string) $order['folder'];
+		return '' !== $name && in_array( $parent, self::spellings( $folder ), true ) && self::name_matches( $order, $name );
+	}
+
+	/**
+	 * A target as the order spells it and as the filesystem resolves it.
+	 *
+	 * @param string $target Site-relative path; empty for the root.
+	 * @return array<int, string>
+	 */
+	private static function spellings( string $target ): array {
+		// phpcs:ignore -- segurium-wporg-abspath: an order names its target relative to the WordPress root, and containment was checked when it was stored.
+		$real = realpath( '' === $target ? untrailingslashit( ABSPATH ) : ABSPATH . $target );
+		if ( false === $real ) {
+			return array( $target );
+		}
+		return array_unique( array( $target, Segurium_Remote_Actions::relative_to_abspath( $real ) ) );
+	}
+
+	/**
+	 * Whether a purge order's glob or name list matches a file name.
+	 *
+	 * @param array<string, mixed> $order Purge order.
+	 * @param string               $name  File name.
+	 * @return bool
+	 */
+	private static function name_matches( array $order, string $name ): bool {
+		if ( empty( $order['names'] ) ) {
+			return self::glob_matches( (string) $order['glob'], $name );
+		}
+		return in_array( $name, (array) $order['names'], true );
+	}
+
+	/**
+	 * Paths a restore released from an order.
+	 *
+	 * @param array<string, mixed> $order Order.
+	 * @return array<int, string>
+	 */
+	private static function released( array $order ): array {
+		$raw   = Segurium_Storage::table_get_var(
+			'runtime_kv',
+			'SELECT kv_value FROM {{table}} WHERE kv_key = %s AND (expires_at IS NULL OR expires_at > %d)',
+			array( self::RELEASED_KEY_PREFIX . $order['id'], time() )
+		);
+		$paths = null === $raw ? null : json_decode( (string) $raw, true );
+		return is_array( $paths ) ? array_values( array_filter( $paths, 'is_string' ) ) : array();
+	}
+
+	/**
+	 * Drop what an order kept in `runtime_kv`: cached cure bytes and released paths.
 	 *
 	 * @param array<string, mixed> $order Order.
 	 * @return void
 	 */
-	private static function forget_bytes( array $order ): void {
+	private static function forget( array $order ): void {
 		if ( ! empty( $order['clean_sha256'] ) ) {
 			Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::BYTES_KEY_PREFIX . $order['clean_sha256'] ) );
 		}
+		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::RELEASED_KEY_PREFIX . $order['id'] ) );
 	}
 
 	/**
@@ -829,7 +940,7 @@ final class Segurium_Standing_Orders {
 			if ( '.' === $entry || '..' === $entry ) {
 				continue;
 			}
-			if ( empty( $order['names'] ) ? self::glob_matches( (string) $order['glob'], $entry ) : in_array( $entry, (array) $order['names'], true ) ) {
+			if ( self::name_matches( $order, $entry ) ) {
 				$names[] = $entry;
 			}
 		}

@@ -41,6 +41,11 @@ final class Segurium_State_File {
 	 */
 	const READ_RETRY_SLEEP_US = 20000;
 
+	const FAULT_MISSING      = 'missing';
+	const FAULT_UNREADABLE   = 'unreadable';
+	const FAULT_EMPTY        = 'empty';
+	const FAULT_INVALID_JSON = 'invalid_json';
+
 	/**
 	 * Write $data as JSON to $path atomically.
 	 *
@@ -192,27 +197,63 @@ final class Segurium_State_File {
 	 * Read and JSON-decode a state file, retrying on transient
 	 * partial-read failures.
 	 *
-	 * @param string $path Absolute source path.
+	 * @param string $path  Absolute source path.
+	 * @param string $fault Set to the last failed attempt's FAULT_* code, or ''.
 	 * @return mixed Decoded value, or null when the file is missing,
 	 *               empty, or cannot be parsed after all retries.
 	 */
-	public static function read_json_with_retry( $path ) {
+	public static function read_json_with_retry( $path, &$fault = null ) {
+		$fault = '';
 		if ( ! file_exists( $path ) ) {
+			$fault = self::FAULT_MISSING;
 			return null;
 		}
 		$attempts = max( 1, self::READ_RETRIES );
 		for ( $i = 0; $i < $attempts; $i++ ) {
 			$raw = Segurium_Fs::read( $path );
 			if ( false === $raw || '' === $raw ) {
+				$fault = false === $raw ? self::FAULT_UNREADABLE : self::FAULT_EMPTY;
 				usleep( self::READ_RETRY_SLEEP_US );
 				continue;
 			}
 			$data = json_decode( $raw, true );
 			if ( null !== $data ) {
+				$fault = '';
 				return $data;
 			}
+			$fault = self::FAULT_INVALID_JSON;
 			usleep( self::READ_RETRY_SLEEP_US );
 		}
 		return null;
+	}
+
+	/**
+	 * Owner, mode and access of a path as this process sees it. A file in
+	 * a directory the process may not search reads as missing.
+	 *
+	 * @param string $path Absolute path.
+	 * @return array
+	 */
+	public static function path_facts( $path ) {
+		$path = (string) $path;
+		clearstatcache( true, $path );
+		if ( '' === $path || ! file_exists( $path ) ) {
+			return array( 'exists' => false );
+		}
+		$owner = fileowner( $path );
+		$perms = fileperms( $path );
+		$facts = array(
+			'exists'   => true,
+			'owner'    => false === $owner ? null : (int) $owner,
+			'mode'     => false === $perms ? null : sprintf( '%04o', $perms & 07777 ),
+			'readable' => is_readable( $path ),
+		);
+		if ( is_dir( $path ) ) {
+			$facts['searchable'] = is_executable( $path );
+		} else {
+			$size          = Segurium_Fs::size( $path );
+			$facts['size'] = false === $size ? null : (int) $size;
+		}
+		return $facts;
 	}
 }

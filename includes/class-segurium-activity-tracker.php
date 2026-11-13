@@ -154,6 +154,7 @@ final class Segurium_Activity_Tracker {
 		add_action( 'switch_theme', array( __CLASS__, 'on_theme_switched' ), 10, 2 );
 
 		add_action( self::FLUSH_HOOK, array( __CLASS__, 'run_scheduled_flush' ), 20 );
+		add_action( 'segurium_scan_completed', array( __CLASS__, 'send_census_after_scan' ), 30, 0 );
 		add_action( 'admin_init', array( __CLASS__, 'maybe_flush_escalation' ) );
 	}
 
@@ -591,6 +592,21 @@ final class Segurium_Activity_Tracker {
 	}
 
 	/**
+	 * A finished scan is when hidden accounts and the code behind them
+	 * are most likely to have changed, so the census does not wait for
+	 * the daily tick.
+	 *
+	 * @return void
+	 */
+	public static function send_census_after_scan(): void {
+		try {
+			self::send_census();
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-activity] census after scan failed: ' . $e->getMessage() );
+		}
+	}
+
+	/**
 	 * Take the flush mutex.
 	 *
 	 * @return bool False when another flush holds it.
@@ -964,10 +980,13 @@ final class Segurium_Activity_Tracker {
 			}
 		);
 
-		return array(
-			'total'      => (int) ( $counts['total_users'] ?? 0 ),
-			'by_role'    => $by_role,
-			'privileged' => $privileged,
+		return array_merge(
+			array(
+				'total'      => (int) ( $counts['total_users'] ?? 0 ),
+				'by_role'    => $by_role,
+				'privileged' => $privileged,
+			),
+			Segurium_Account_Lock::census_fields()
 		);
 	}
 

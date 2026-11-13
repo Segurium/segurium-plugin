@@ -16,6 +16,12 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Czyszczenie złośliwego oprogramowania, które wraca z nowym kodem"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Co 5 minut (stałe zlecenia Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s jest podatny na PHP2Shell, lukę zdalnego wykonania kodu w samym PHP (CVE-2026-109618, CVE-2026-109619). Poproś swojego dostawcę hostingu o aktualizację PHP do wersji %2$s lub nowszej."
 
@@ -5154,3 +5160,46 @@ msgstr "PHP %s to kompilacja dostawcy. Numer wersji nie pokazuje, czy zawiera po
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP załatane przeciwko PHP2Shell"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Uwierzytelnianie dwuskładnikowe staje się wymagane dla administratorów, gdy pierwszy administrator je skonfiguruje."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Instalacja zatrzymana. Segurium znalazło złośliwe oprogramowanie w %s."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Niektóre komponenty zmieniły wersję od ostatniego skanowania integralności. Uruchom nowe skanowanie, aby odblokować ich działania."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Ostatnie skanowanie integralności jest starsze niż 24 godziny. Uruchom nowe skanowanie, aby odblokować działania."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Zablokowane konto: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Przywróci to konto wraz z rolą, hasłem i hasłami aplikacji. Kontynuować?"
+
+msgid "Rescan needed"
+msgstr "Wymagane ponowne skanowanie"
+
+msgid "Administrators get no grace period."
+msgstr "Administratorzy nie mają okresu karencji."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Przy 0 dniach użytkownicy w rolach z wymuszonym 2FA, którzy go nie skonfigurowali, nie mogą się zalogować, nowi użytkownicy też. Administratorzy mogą się logować, dopóki pierwszy administrator nie skonfiguruje 2FA. Resetowanie 2FA daje zablokowanemu użytkownikowi 1 dzień."
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Blokada szkodliwych kont administratorów"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Podatne i nieaktualne wtyczki, motywy i rdzeń WordPressa, wraz z dostępnymi aktualizacjami"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Każda funkcja jest dostępna w każdej instalacji. Pro znosi miesięczny limit czyszczenia i dodaje trzy usługi w chmurze."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Nieograniczone czyszczenie, plus usługi w chmurze wymienione poniżej."

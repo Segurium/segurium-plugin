@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Limpeza de malware que volta com código novo"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "A cada 5 minutos (ordens permanentes do Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "O PHP %1$s está vulnerável ao PHP2Shell, uma falha de execução remota de código no próprio PHP (CVE-2026-109618, CVE-2026-109619). Peça ao seu provedor de hospedagem para atualizar o PHP para %2$s ou posterior."
 
@@ -5100,3 +5106,46 @@ msgstr "O PHP %s é uma versão compilada pelo fornecedor. O número da versão 
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP corrigido contra o PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Instalação interrompida. O Segurium encontrou malware em %s."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Conta bloqueada: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Isso devolve à conta sua função, senha e senhas de aplicativo. Continuar?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Bloqueio de contas de administrador maliciosas"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "A autenticação de dois fatores passa a ser obrigatória para administradores assim que o primeiro administrador a configura."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Alguns componentes mudaram de versão após a última varredura de integridade. Execute uma nova varredura para desbloquear suas ações."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "A última varredura de integridade tem mais de 24 horas. Execute uma nova varredura para desbloquear as ações."
+
+msgid "Rescan needed"
+msgstr "Nova varredura necessária"
+
+msgid "Administrators get no grace period."
+msgstr "Administradores não recebem período de carência."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Com 0 dias, os usuários em funções obrigatórias que ainda não configuraram o 2FA não conseguem acessar, inclusive novos usuários. Administradores conseguem acessar até que o primeiro administrador configure o 2FA. Redefinir o 2FA concede ao usuário bloqueado 1 dia."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Plugins, temas e núcleo vulneráveis e desatualizados, com atualizações quando disponíveis"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Cada recurso está incluído em todas as instalações. O Pro remove o limite mensal de limpeza e adiciona três serviços em nuvem."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Limpeza ilimitada, além dos serviços em nuvem abaixo."

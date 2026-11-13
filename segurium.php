@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
- * Version:     1.6.0
+ * Version:     1.7.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.6.0' );
+define( 'SEGURIUM_VERSION', '1.7.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -419,11 +419,17 @@ function segurium_tier_groups( $tier ) {
 	// from cron and from admin_init.
 	$activity_group = array(
 		'includes/class-segurium-activity-tracker.php',
+		'includes/class-segurium-account-lock.php',
+	);
+	// The installer runs from update.php (admin_other), the Install Now
+	// AJAX action (ajax_other) and the REST plugins route (visitor).
+	$install_group = array(
+		'includes/class-segurium-install-scan.php',
 	);
 
 	switch ( $tier ) {
 		case 'visitor':
-			return array_merge( $firewall_group, $visitor_headers_group, $activity_group );
+			return array_merge( $firewall_group, $visitor_headers_group, $activity_group, $install_group );
 		case 'ajax_other':
 			// Firewall + geo-block must run on every reachable WP entry
 			// point — admin-ajax is reachable, including unauthenticated
@@ -432,11 +438,11 @@ function segurium_tier_groups( $tier ) {
 			// store's registration form posts here. No login/headers/
 			// admin-shell classes — heartbeat and third-party AJAX don't
 			// render UI.
-			return array_merge( $firewall_group, $activity_group );
+			return array_merge( $firewall_group, $activity_group, $install_group );
 		case 'login':
 			return array_merge( $firewall_group, $login_group, $visitor_headers_group, $activity_group );
 		case 'admin_other':
-			return array_merge( $firewall_group, $admin_shell_group, $activity_group );
+			return array_merge( $firewall_group, $admin_shell_group, $activity_group, $install_group );
 		default:
 			// testing / cli / cron / ajax_segurium / admin_segurium /
 			// rest_segurium / full.
@@ -521,6 +527,8 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-platform-snapshot.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-memory-recorder.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-activity-tracker.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-account-lock.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-install-scan.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity-chain.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-component-backup.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-pending-changes.php';
@@ -658,43 +666,58 @@ Segurium_Storage::boot();
 // flag once the site is current.
 Segurium_Settings::upgrade();
 
-// integrity_issues stores a backup_id alongside each fixed file
-// and the UI offers Restore for as long as that row exists, so rotation must
-// never silently drop those envelopes. The byte cap is the meaningful limit;
-// max_count is set high enough to never bind, and the pinned-ids provider
-// teaches rotation about the rows that the UI is still referencing.
-Segurium_Storage::backup_register_bucket(
-	'integrity',
-	array(
-		'max_count'           => PHP_INT_MAX,
-		'max_bytes'           => 200 * 1048576,
-		'pinned_ids_provider' => static function () {
-			$ids = Segurium_Storage::table_get_col(
-				'integrity_issues',
-				"SELECT DISTINCT backup_id FROM {{table}} WHERE backup_id IS NOT NULL AND backup_id <> ''",
-				array()
-			);
-			return is_array( $ids ) ? $ids : array();
-		},
-	)
-);
-Segurium_Storage::backup_register_bucket(
-	'malware',
-	array(
-		'max_count' => 200,
-		'max_bytes' => 200 * 1048576,
-	)
-);
-// Component backups (whole plugin/theme archives) are user-managed: no
-// implicit rotation, so caps are set astronomically high. The 100 MB
-// per-archive size gate lives in Segurium_Component_Backup, not here.
-Segurium_Storage::backup_register_bucket(
-	'component',
-	array(
-		'max_count' => 1000000,
-		'max_bytes' => PHP_INT_MAX,
-	)
-);
+/**
+ * Register the three backup buckets with their rotation caps.
+ *
+ * Fixed and cured files keep a backup_id in integrity_issues and file_state,
+ * and the UI offers Restore while that row exists, so rotation must never
+ * drop the envelope a row points at: the pinned-ids provider names those rows.
+ *
+ * @return void
+ */
+function segurium_register_backup_buckets(): void {
+	Segurium_Storage::backup_register_bucket(
+		'integrity',
+		array(
+			'max_count'           => PHP_INT_MAX,
+			'max_bytes'           => 200 * 1048576,
+			'pinned_ids_provider' => static function () {
+				$ids = Segurium_Storage::table_get_col(
+					'integrity_issues',
+					"SELECT DISTINCT backup_id FROM {{table}} WHERE backup_id IS NOT NULL AND backup_id <> ''",
+					array()
+				);
+				return is_array( $ids ) ? $ids : array();
+			},
+		)
+	);
+	Segurium_Storage::backup_register_bucket(
+		'malware',
+		array(
+			'max_count'           => 200,
+			'max_bytes'           => 200 * 1048576,
+			'pinned_ids_provider' => static function () {
+				$ids = Segurium_Storage::table_get_col(
+					'file_state',
+					"SELECT DISTINCT backup_id FROM {{table}} WHERE current_status = 'cured' AND backup_id IS NOT NULL AND backup_id <> ''",
+					array()
+				);
+				return is_array( $ids ) ? $ids : array();
+			},
+		)
+	);
+	// Component backups (whole plugin/theme archives) are user-managed: no
+	// implicit rotation, so caps are set astronomically high. The 100 MB
+	// per-archive size gate lives in Segurium_Component_Backup, not here.
+	Segurium_Storage::backup_register_bucket(
+		'component',
+		array(
+			'max_count' => 1000000,
+			'max_bytes' => PHP_INT_MAX,
+		)
+	);
+}
+segurium_register_backup_buckets();
 
 /**
  * Self-heal schema drift introduced by in-place plugin updates.
@@ -1006,6 +1029,10 @@ function segurium_lightweight_bootstrap( $tier ) {
 	// when the heavy Segurium class is not loaded.
 	Segurium_Firewall_Rules::register_hooks();
 	Segurium_Activity_Tracker::register_hooks();
+	Segurium_Account_Lock::register_hooks();
+	if ( 'login' !== $tier ) {
+		Segurium_Install_Scan::register_hooks();
+	}
 
 	if ( 'visitor' === $tier ) {
 		Segurium_Security_Headers::get_instance()->init();
@@ -1306,6 +1333,8 @@ function segurium_activate() {
 	// Stamp the install date so the review ask can tell a
 	// week-old install from a five-minute-old one. Never overwrites.
 	Segurium_Review_Prompt::record_first_activation();
+
+	Segurium_Account_Lock::record_installer();
 
 	// No CTI traffic on this path. IID registration, geo DB /
 	// trusted-proxies fetch, and the first plugin_activated message all

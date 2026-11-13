@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Pembersihan malware yang kembali dengan kode baru"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Setiap 5 menit (perintah tetap Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s rentan terhadap PHP2Shell, celah eksekusi kode jarak jauh pada PHP itu sendiri (CVE-2026-109618, CVE-2026-109619). Minta penyedia hosting Anda untuk memutakhirkan PHP ke %2$s atau yang lebih baru."
 
@@ -4722,3 +4728,46 @@ msgstr "PHP %s adalah build vendor. Nomor versinya tidak menunjukkan apakah buil
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP telah ditambal terhadap PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Pemasangan dihentikan. Segurium menemukan malware di %s."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Akun terkunci: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Tindakan ini mengembalikan peran, kata sandi, dan kata sandi aplikasi akun. Lanjutkan?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Penguncian akun administrator berbahaya"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Autentikasi dua faktor menjadi wajib bagi administrator setelah administrator pertama menyiapkannya."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Sebagian komponen berubah versi setelah pemindaian integritas terakhir. Jalankan pemindaian baru untuk membuka tindakannya."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Pemindaian integritas terakhir sudah lebih dari 24 jam. Jalankan pemindaian baru untuk membuka tindakannya."
+
+msgid "Rescan needed"
+msgstr "Pindai ulang diperlukan"
+
+msgid "Administrators get no grace period."
+msgstr "Administrator tidak mendapat masa tenggang."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Dengan 0 hari, pengguna pada peran yang ditegakkan yang belum menyiapkan 2FA tidak dapat login, termasuk pengguna baru. Administrator dapat login sampai administrator pertama menyiapkan 2FA. Setel Ulang 2FA memberi pengguna yang diblokir waktu 1 hari."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Plugin, tema, dan inti yang rentan dan ketinggalan zaman, dengan pembaruan jika tersedia"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Setiap fitur disertakan di setiap instalasi. Pro menghapus batas pembersihan bulanan dan menambahkan tiga layanan cloud."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Pembersihan tanpa batas, plus layanan cloud di bawah ini."

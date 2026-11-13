@@ -79,7 +79,7 @@ final class Segurium_Cleanup {
 	 * @param int    $verdict  One of self::VERDICT_*.
 	 * @param string $scan_id  Originating scan UUID.
 	 * @param string $actor    self::ACTOR_MANUAL or self::ACTOR_AUTO.
-	 * @return array{ok:bool,backup_id:?int,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
+	 * @return array{ok:bool,backup_id:?string,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
 	 */
 	public static function cleanup_file( $abs_path, $path, $sha256, $verdict, $scan_id, $actor ) {
 		$verdict = (int) $verdict;
@@ -156,7 +156,7 @@ final class Segurium_Cleanup {
 				$code,
 				$fetched->get_error_message(),
 				null,
-				(int) $backup_id,
+				(string) $backup_id,
 				$paywall
 			);
 		}
@@ -174,7 +174,7 @@ final class Segurium_Cleanup {
 				'write_failed',
 				__( 'Failed to clean file.', 'segurium' ),
 				null,
-				(int) $backup_id
+				(string) $backup_id
 			);
 		}
 
@@ -214,7 +214,7 @@ final class Segurium_Cleanup {
 
 		return array(
 			'ok'         => true,
-			'backup_id'  => (int) $backup_id,
+			'backup_id'  => (string) $backup_id,
 			'clean_hash' => (string) $clean_hash,
 			'error'      => null,
 			'error_code' => null,
@@ -238,7 +238,7 @@ final class Segurium_Cleanup {
 	 * @param string     $actor        Actor on the backup, history row and report.
 	 * @param array      $extra        Extra fields for the backup sidecar and the history row.
 	 * @param array|null $backup_index Index of the bucket shared across calls; built when null.
-	 * @return array{ok:bool,backup_id:?int,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
+	 * @return array{ok:bool,backup_id:?string,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
 	 */
 	public static function remediate( $abs_path, $path, $sha256, $verdict, $content, $actor, array $extra = array(), &$backup_index = null ) {
 		if ( ! in_array( (int) $verdict, self::cleanable_verdicts(), true ) ) {
@@ -286,7 +286,7 @@ final class Segurium_Cleanup {
 
 		// phpcs:ignore PluginCheck.CodeAnalysis.WriteFile.ABSPATHDetected -- in-place cure: the infected file is the destination, never the plugin folder.
 		if ( false === Segurium_Fs::write( $abs_path, (string) $content ) ) {
-			return self::fail( 'write_failed', __( 'Failed to clean file.', 'segurium' ), null, (int) $backup_id );
+			return self::fail( 'write_failed', __( 'Failed to clean file.', 'segurium' ), null, (string) $backup_id );
 		}
 
 		$clean_hash = hash( 'sha256', (string) $content );
@@ -300,7 +300,7 @@ final class Segurium_Cleanup {
 
 		return array(
 			'ok'         => true,
-			'backup_id'  => (int) $backup_id,
+			'backup_id'  => (string) $backup_id,
 			'clean_hash' => $clean_hash,
 			'error'      => null,
 			'error_code' => null,
@@ -368,11 +368,11 @@ final class Segurium_Cleanup {
 	 * @param string         $code      Stable machine-readable code.
 	 * @param string         $message   Translated human-readable message.
 	 * @param Throwable|null $exception Optional underlying exception (logged).
-	 * @param int|null       $backup_id Optional backup id captured before the
+	 * @param string|null    $backup_id Optional backup id captured before the
 	 *                                  failure point.
 	 * @param array|null     $paywall   Optional `quota` envelope when the
 	 *                                  failure is `paywall_quota_exceeded`.
-	 * @return array{ok:bool,backup_id:?int,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
+	 * @return array{ok:bool,backup_id:?string,clean_hash:?string,error:?string,error_code:?string,paywall:?array,quota:?array}
 	 */
 	private static function fail( $code, $message, $exception = null, $backup_id = null, $paywall = null ) {
 		if ( null !== $exception ) {
@@ -380,7 +380,7 @@ final class Segurium_Cleanup {
 		}
 		return array(
 			'ok'         => false,
-			'backup_id'  => null === $backup_id ? null : (int) $backup_id,
+			'backup_id'  => null === $backup_id ? null : (string) $backup_id,
 			'clean_hash' => null,
 			'error'      => (string) $message,
 			'error_code' => (string) $code,

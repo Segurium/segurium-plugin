@@ -4,7 +4,7 @@ Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.6.0
+Stable tag: 1.7.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,9 +42,11 @@ Every feature below ships in the plugin and runs on every install — Free and P
 
 = How the Pro service tier differs =
 
-Our cloud service performs the cleanups and counts each against a per-installation quota. The Free service tier covers up to **3 cleanups per rolling 30 days** — enough for an occasional incident on a typical site. The Pro service tier raises that quota for sites that need higher volume (recurring infections, hosts under sustained attack, sites with high reliability requirements). The plugin code, the detection engines, and every feature listed above are identical on both tiers; the service-side differences are the quota ceiling and cache invalidation after cleanup.
+Our cloud service performs the cleanups and counts each against a per-installation quota. The Free service tier covers up to **3 cleanups per rolling 30 days** — enough for an occasional incident on a typical site. The Pro service tier raises that quota for sites that need higher volume (recurring infections, hosts under sustained attack, sites with high reliability requirements). The plugin code, the detection engines, and every feature listed above are identical on both tiers; the service-side differences are the quota ceiling, cache invalidation after cleanup, and the lockout of malicious administrator accounts.
 
 * Cache invalidation after cleanup.
+* Cleanup of malware that comes back with new code.
+* Lockout of malicious administrator accounts that hide from the Users screen. Needs Auto-fix on.
 
 = Privacy by default =
 
@@ -196,12 +198,17 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.7.0 - 2026-11-13 =
+* Stops plugin and theme installs w/ malware.
+* Detects & blocks malicious hidden administrator accounts.
+* Blocks administrators without 2FA, with a safety valve.
+* Recovers failed scans after engine load errors.
+* Minor UI fixes.
+* Improved translations.
+
 = 1.6.0 - 2026-11-09 =
 * Cleanups now clear page caches.
 * Reporting of login attempt failures.
 * Cleanup orders support for hash-variative malwares.
-
-= 1.5.3 - 2026-11-02 =
-* Self-Check tab improved.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

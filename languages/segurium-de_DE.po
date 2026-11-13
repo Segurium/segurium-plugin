@@ -6,13 +6,19 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-29 03:31+0000\n"
+"PO-Revision-Date: 2026-11-13 01:01+0000\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: segurium\n"
+
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Bereinigung von Malware, die mit neuem Code zurückkehrt"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Alle 5 Minuten (Segurium-Daueraufträge)"
 
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s enthält die PHP2Shell-Fixes (CVE-2026-109618, CVE-2026-109619)."
@@ -5186,3 +5192,44 @@ msgstr "Cache-Invalidierung nach Bereinigung"
 
 msgid "The setting could not be saved."
 msgstr "Die Einstellung konnte nicht gespeichert werden."
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Zwei-Faktor-Authentifizierung wird für Administratoren erforderlich, sobald der erste Administrator sie einrichtet."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Installation gestoppt. Segurium hat Malware in %s gefunden."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Einige Komponenten haben seit dem letzten Integritätsscan die Version gewechselt. Führe einen neuen Scan aus, um ihre Aktionen freizuschalten."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Der letzte Integritätsscan ist mehr als 24 Stunden alt. Führe einen neuen Scan aus, um die Aktionen freizuschalten."
+
+#. translators: %s: login name of the locked WordPress account.
+msgid "Locked account: %s"
+msgstr "Gesperrtes Konto: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Damit erhält das Konto seine Rolle, sein Passwort und seine Anwendungspasswörter zurück. Fortfahren?"
+
+msgid "Rescan needed"
+msgstr "Neuer Scan erforderlich"
+
+msgid "Administrators get no grace period."
+msgstr "Administratoren erhalten keine Kulanzfrist."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Bei 0 Tagen können sich Benutzer in erzwungenen Rollen, die 2FA nicht eingerichtet haben, nicht anmelden, auch neue Benutzer nicht. Administratoren können sich anmelden, bis der erste Administrator 2FA einrichtet. 2FA zurücksetzen gewährt einem gesperrten Benutzer 1 Tag."
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Sperrung bösartiger Administratorkonten"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Verwundbare und veraltete Plugins, Themes und WordPress-Core, mit Updates, sofern verfügbar"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Jede Funktion ist in jeder Installation enthalten. Pro hebt das monatliche Bereinigungslimit auf und fügt drei Cloud-Dienste hinzu."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Unbegrenzte Bereinigung, plus die unten aufgeführten Cloud-Dienste."

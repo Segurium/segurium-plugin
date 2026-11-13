@@ -21,6 +21,7 @@
 	}
 
 	var submitBtn   = form.querySelector( '#wp-submit' );
+	var submitLabel = submitBtn ? submitBtn.value : '';
 	var userField   = form.querySelector( '#user_login' );
 	var passField   = form.querySelector( '#user_pass' );
 	var rememberBox = form.querySelector( '#rememberme' );
@@ -273,7 +274,7 @@
 			rememberme: ( rememberBox && rememberBox.checked ) ? 'forever' : '',
 		} ).then( function ( r ) {
 			if ( ! r.success ) {
-				setLoading( false, i18n.logIn || 'Log In' );
+				setLoading( false, submitLabel );
 				showError( r.data && r.data.message ? r.data.message : 'Authentication failed.' );
 				return;
 			}
@@ -291,16 +292,12 @@
 			}
 
 			if ( d.setup_required ) {
-				showError( i18n.setupRequired || '2FA setup is required for your role.' );
-				if ( d.profile_url ) {
-					setTimeout( function () {
-						window.location = d.profile_url;
-					}, 2000 );
-				}
+				setLoading( false, submitLabel );
+				showError( d.message || i18n.setupRequired || '2FA setup is required for your role.' );
 				return;
 			}
 		} ).catch( function () {
-			setLoading( false, i18n.logIn || 'Log In' );
+			setLoading( false, submitLabel );
 			showError( 'Network error. Please try again.' );
 		} );
 	}

@@ -282,12 +282,13 @@ class Segurium_File_State {
 	 * @param int    $per_page    Page size (1..1000).
 	 * @param bool   $recent_only Restrict to rows updated within RECENT_DAYS.
 	 * @param string $filter      One of the FILTER_* constants.
+	 * @param int    $offset      Row offset; -1 derives it from $page.
 	 * @return array<int, array<string, mixed>>
 	 */
-	public static function get_page( int $page, int $per_page, bool $recent_only, string $filter = self::FILTER_ALL ) {
+	public static function get_page( int $page, int $per_page, bool $recent_only, string $filter = self::FILTER_ALL, int $offset = -1 ) {
 		$page     = max( 1, $page );
 		$per_page = max( 1, min( 1000, $per_page ) );
-		$offset   = ( $page - 1 ) * $per_page;
+		$offset   = $offset >= 0 ? $offset : ( $page - 1 ) * $per_page;
 
 		list( $extra_cond, $args ) = self::build_filter_clause( $recent_only, $filter );
 		$args[]                    = $per_page;

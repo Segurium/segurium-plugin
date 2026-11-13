@@ -2,6 +2,9 @@
 
 The two most recent releases are in readme.txt.
 
+= 1.5.3 - 2026-11-02 =
+* Self-Check tab improved.
+
 = 1.5.2 - 2026-10-21 =
 * PHP2Shell vulnerability handling.
 * A scan started right after a cancelled one no longer stops.

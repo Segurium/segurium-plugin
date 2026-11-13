@@ -55,6 +55,16 @@ class Segurium_Path_Helpers {
 	}
 
 	/**
+	 * Return the local wp-content directory, which core uses to map the
+	 * installer's remote `upgrade/` paths to local ones.
+	 *
+	 * @return string Path without a trailing slash.
+	 */
+	public static function content_root() {
+		return WP_CONTENT_DIR; // phpcs:ignore -- segurium-wporg-abspath: single audited accessor; WordPress exposes no API for the local content directory.
+	}
+
+	/**
 	 * Require a file from wp-admin/includes/. Wrapper for the
 	 * Plugin-Handbook-documented `require_once ABSPATH . 'wp-admin/includes/X.php'`
 	 * pattern. Callers gate on function_exists()/class_exists() to

@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Очищення шкідливого ПЗ, яке повертається з новим кодом"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Кожні 5 хвилин (постійні доручення Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s уразливий до PHP2Shell — вади віддаленого виконання коду в самому PHP (CVE-2026-109618, CVE-2026-109619). Попросіть свого хостинг-провайдера оновити PHP до версії %2$s або новішої."
 
@@ -5080,3 +5086,46 @@ msgstr "PHP %s — це збірка від постачальника. За н�
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP із виправленням проти PHP2Shell"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Двофакторна автентифікація стає обов'язковою для адміністраторів, щойно перший адміністратор її налаштує."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Встановлення зупинено. Segurium виявив шкідливе ПЗ у %s."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Деякі компоненти змінили версію після останнього сканування цілісності. Запустіть нове сканування, щоб розблокувати їхні дії."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Останнє сканування цілісності виконано понад 24 години тому. Запустіть нове сканування, щоб розблокувати дії."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Заблокований обліковий запис: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Це поверне обліковому запису його роль, пароль і паролі застосунків. Продовжити?"
+
+msgid "Rescan needed"
+msgstr "Потрібне повторне сканування"
+
+msgid "Administrators get no grace period."
+msgstr "Для адміністраторів пільгового періоду немає."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "При 0 днях користувачі в обов'язкових ролях, які не налаштували 2FA, не зможуть увійти, зокрема нові користувачі. Адміністратори можуть входити, доки перший адміністратор не налаштує 2FA. Скидання 2FA дає заблокованому користувачеві 1 день."
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Блокування шкідливих облікових записів адміністраторів"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Вразливі та застарілі плагіни, теми й ядро, з оновленнями, де доступні"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Кожна функція є в кожному встановленні. Pro знімає місячний ліміт очищення та додає три хмарні сервіси."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Необмежене очищення, а також хмарні сервіси нижче."

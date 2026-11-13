@@ -800,6 +800,18 @@ class Segurium_Storage {
 	}
 
 	/**
+	 * Queue file bodies for the deep scan without waiting for verdicts.
+	 *
+	 * @param string $scan_id         Plugin-side run UUID.
+	 * @param string $client_batch_id Idempotency key for this POST.
+	 * @param array  $files           `{sha256, path, body}` records, at most 100.
+	 * @return array|WP_Error `{accepted, rejected, next_seq}` or WP_Error.
+	 */
+	public static function cti_scan_submit( string $scan_id, string $client_batch_id, array $files ) {
+		return self::cti_client()->scan_submit( $scan_id, $client_batch_id, $files );
+	}
+
+	/**
 	 * Fetch the replacement (cleaned) bytes for a malicious file by SHA-256.
 	 *
 	 * `/v1/cleanup` is now the single quota-charging point

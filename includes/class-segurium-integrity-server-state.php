@@ -28,6 +28,10 @@ class Segurium_Integrity_Server_State {
 	 */
 	const INACTIVE_COMPONENT_STATES = array( 'deleted', 'not_found', 'ignored' );
 
+	const RESCAN_MAX_AGE        = DAY_IN_SECONDS;
+	const STALE_VERSION_CHANGED = 'version_changed';
+	const STALE_SCAN_TOO_OLD    = 'scan_too_old';
+
 	/**
 	 * Component metadata keyed by "{type}:{slug}".
 	 * Does NOT contain `files` — those are loaded from integrity_issues on demand.
@@ -42,6 +46,20 @@ class Segurium_Integrity_Server_State {
 	 * @var array|null
 	 */
 	private $update_map = null;
+
+	/**
+	 * Installed versions keyed "{type}:{slug}".
+	 *
+	 * @var array|null
+	 */
+	private $installed_versions = null;
+
+	/**
+	 * Completion time of the last integrity scan.
+	 *
+	 * @var int|null
+	 */
+	private $last_scan_at = null;
 
 	/**
 	 * Constructor.
@@ -102,6 +120,134 @@ class Segurium_Integrity_Server_State {
 				: array();
 		}
 		return $this->update_map;
+	}
+
+	/**
+	 * Versions installed now, as the scan discovers them.
+	 *
+	 * @return array
+	 */
+	public function get_installed_versions() {
+		if ( null === $this->installed_versions ) {
+			$map       = array();
+			$discovery = new Segurium_Integrity_Component_Discovery( Segurium_Path_Helpers::wp_root() );
+			foreach ( $discovery->discover() as $comp ) {
+				$map[ $comp['type'] . ':' . $comp['slug'] ] = (string) $comp['version'];
+			}
+			$this->installed_versions = (array) apply_filters( 'segurium_integrity_installed_versions', $map );
+		}
+		return $this->installed_versions;
+	}
+
+	/**
+	 * Version installed now, or '' when the component is not on disk.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return string
+	 */
+	public function installed_version( $type, $slug ) {
+		return (string) ( $this->get_installed_versions()[ $type . ':' . $slug ] ?? '' );
+	}
+
+	/**
+	 * Record the version a scan walked without verifying it.
+	 *
+	 * @param string $key     Component key "{type}:{slug}".
+	 * @param string $version Version on disk.
+	 * @return void
+	 */
+	public function note_scanned_version( $key, $version ) {
+		if ( isset( $this->comp_meta[ $key ] ) ) {
+			$this->comp_meta[ $key ]['scanned_version'] = (string) $version;
+		}
+	}
+
+	/**
+	 * Why a row needs a rescan, or ''.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return string
+	 */
+	public function stale_reason( $type, $slug ) {
+		$key = $type . ':' . $slug;
+		if ( isset( $this->comp_meta[ $key ] ) && $this->version_changed( $key ) ) {
+			return self::STALE_VERSION_CHANGED;
+		}
+		return $this->scan_too_old() ? self::STALE_SCAN_TOO_OLD : '';
+	}
+
+	/**
+	 * Why the tab needs a rescan, or ''.
+	 *
+	 * @return string
+	 */
+	public function rescan_reason() {
+		if ( empty( $this->comp_meta ) ) {
+			return '';
+		}
+		if ( $this->scan_too_old() ) {
+			return self::STALE_SCAN_TOO_OLD;
+		}
+		foreach ( array_keys( $this->comp_meta ) as $key ) {
+			if ( $this->version_changed( $key ) ) {
+				return self::STALE_VERSION_CHANGED;
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * Notice text for a stale reason.
+	 *
+	 * @param string $reason Stale reason.
+	 * @return string
+	 */
+	public static function rescan_message( $reason ) {
+		switch ( $reason ) {
+			case self::STALE_VERSION_CHANGED:
+				return __( 'Some components changed version after the last integrity scan. Run a new scan to unlock their actions.', 'segurium' );
+			case self::STALE_SCAN_TOO_OLD:
+				return __( 'The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions.', 'segurium' );
+		}
+		return '';
+	}
+
+	/**
+	 * Whether the version on disk differs from the one the last scan walked.
+	 * No scan updates a deleted row.
+	 *
+	 * @param string $key Component key "{type}:{slug}".
+	 * @return bool
+	 */
+	private function version_changed( $key ) {
+		$meta = $this->comp_meta[ $key ];
+		if ( in_array( $meta['state'] ?? 'active', array( 'deleted', 'not_found' ), true ) ) {
+			return false;
+		}
+		$installed = $this->get_installed_versions();
+		if ( ! array_key_exists( $key, $installed ) ) {
+			return true;
+		}
+		$walked = (string) ( $meta['scanned_version'] ?? $meta['version'] ?? '' );
+		return (string) $installed[ $key ] !== $walked;
+	}
+
+	/**
+	 * Whether the last completed integrity scan is older than RESCAN_MAX_AGE.
+	 *
+	 * @return bool
+	 */
+	private function scan_too_old() {
+		if ( null === $this->last_scan_at ) {
+			$this->last_scan_at = (int) Segurium_Storage::table_get_var(
+				'runtime_kv',
+				'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+				array( 'integrity:last_scan' )
+			);
+		}
+		return time() - $this->last_scan_at > self::RESCAN_MAX_AGE;
 	}
 
 	/**
@@ -185,6 +331,7 @@ class Segurium_Integrity_Server_State {
 			'slug'             => $scan_component['slug'],
 			'type'             => $scan_component['type'],
 			'version'          => $scan_component['version'],
+			'scanned_version'  => $scan_component['version'],
 			'path'             => $scan_component['path'] ?? '',
 			'comp_name'        => $scan_component['name'] ?? $scan_component['slug'],
 			'component_status' => $scan_component['component_status'] ?? 'listed',
@@ -307,6 +454,7 @@ class Segurium_Integrity_Server_State {
 				array(
 					'files'  => $this->load_files_for_component( $type, $slug ),
 					'update' => $this->pending_update( $key ),
+					'stale'  => $this->stale_reason( $type, $slug ),
 				)
 			);
 		}
@@ -410,6 +558,7 @@ class Segurium_Integrity_Server_State {
 			array(
 				'files'  => $this->load_files_for_component( $type, $slug ),
 				'update' => $this->pending_update( $key ),
+				'stale'  => $this->stale_reason( $type, $slug ),
 			)
 		);
 	}

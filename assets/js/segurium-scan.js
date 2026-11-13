@@ -364,6 +364,40 @@
         });
     }
 
+    function restoreAccount(uid, onSuccess) {
+        var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
+        var modal   = el('segurium-confirm-modal');
+        var okBtn   = el('segurium-confirm-ok');
+        var cancel  = el('segurium-confirm-cancel');
+        var close   = el('segurium-confirm-close');
+
+        el('segurium-confirm-title').textContent = i18n.restore || 'Restore';
+        el('segurium-confirm-content').textContent = i18n.confirmRestoreAccount || 'This gives the account back its role, password and application passwords. Continue?';
+        okBtn.textContent = i18n.restore || 'Restore';
+        okBtn.disabled = false;
+        modal.style.display = '';
+
+        function closeModal() { modal.style.display = 'none'; }
+        cancel.onclick = closeModal;
+        close.onclick  = closeModal;
+        modal.querySelector('.segurium-diff-overlay').onclick = closeModal;
+
+        okBtn.onclick = function () {
+            closeModal();
+            post({
+                action: 'segurium_restore_account',
+                nonce: seguriumScan.cleanupNonce,
+                uid: uid
+            }).then(function (response) {
+                if (response.success) {
+                    onSuccess();
+                    return;
+                }
+                seguriumNotice(describeAjaxError(response.data), response.data && response.data.code);
+            });
+        };
+    }
+
     function computeDiff(aLines, bLines) {
         if (aLines.length > 1500 || bLines.length > 1500) {
             return [{ type: 'info', line: 'File too large for inline diff (' + aLines.length + ' vs ' + bLines.length + ' lines).' }];
@@ -500,6 +534,36 @@
     })();
 
     var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
+
+    function saveFailedText(data) {
+        return (data && data.message) || i18n.settingsSaveError || 'Failed to save settings.';
+    }
+
+    function savedHtml() {
+        return icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.settingsSaved || 'Settings saved.');
+    }
+
+    function saveGate(saveBtn, nodes, ignore) {
+        var edited = false;
+        var busy = false;
+        function sync() { if (saveBtn) saveBtn.disabled = busy || !edited; }
+        function edit() { edited = true; sync(); }
+        nodes.forEach(function (node) {
+            if (!node) return;
+            ['input', 'change'].forEach(function (type) {
+                node.addEventListener(type, function (e) {
+                    if (!ignore || !e.target.matches(ignore)) edit();
+                });
+            });
+        });
+        sync();
+        return {
+            edit: edit,
+            lock: function () { busy = true; sync(); },
+            unlock: function () { busy = false; sync(); },
+            reset: function () { busy = false; edited = false; sync(); }
+        };
+    }
 
     // Batched first-paint read. Collapses the three init
     // round-trips (server_state + quota + cti_health) into a single
@@ -873,19 +937,25 @@
             .replace('%d', String(threats));
         var target = seguriumScan.upgradeOffsite ? ' target="_blank" rel="noopener noreferrer"' : '';
         return '<div class="segurium-quota-card__body">' +
+            '<div class="segurium-quota-card__headline">' +
             '<h3 class="segurium-quota-card__title">' +
             escHtml(i18n.paywallQuotaTitle || 'Cleanup quota reached') + '</h3>' +
             '<p class="segurium-quota-card__threats">' + escHtml(threatCopy) + '</p>' +
-            '<p class="segurium-quota-card__usage">' + escHtml(usageCopy) + '</p>' +
-            quotaMeterHtml(used, limit) +
             '</div>' +
-            '<div class="segurium-quota-card__actions">' +
-            '<p class="segurium-quota-card__buttons">' +
-            '<a class="button button-primary button-hero segurium-quota-readout-cta" href="' +
+            '<div class="segurium-quota-card__status">' +
+            quotaMeterHtml(used, limit) +
+            '<p class="segurium-quota-card__usage">' + escHtml(usageCopy) + '</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="segurium-quota-card__offer">' +
+            '<p class="segurium-quota-card__buy">' +
+            '<a class="segurium-quota-card__price" href="' + escAttr(buildTabUrl('plans')) + '">' +
+            '<strong>' + escHtml(seguriumScan.proPrice) + '</strong> ' +
+            escHtml(i18n.perYearPerSite || '/year per site') +
+            '</a>' +
+            '<a class="button button-primary segurium-quota-readout-cta" href="' +
             escAttr(seguriumScan.upgradeUrl) + '"' + target + '>' +
             escHtml(i18n.quotaReadoutUpgradeCta || 'Upgrade to Pro') + '</a>' +
-            '<a class="segurium-quota-card__secondary" href="' + escAttr(buildTabUrl('plans')) + '">' +
-            escHtml(i18n.plansTab || 'Plans') + '</a>' +
             '</p>' +
             '<p class="segurium-quota-card__guarantee">' +
             escHtml(i18n.moneyBackGuarantee || '14-day money-back guarantee.') + '</p>' +
@@ -1143,12 +1213,12 @@
         return base + '&tab=' + encodeURIComponent(feature);
     }
 
-    // The at-limit card's secondary action lands on the Plans tab. It is
+    // The at-limit card's price lands on the Plans tab. It is
     // rebuilt on every quota repaint, so the per-node listener below
     // cannot reach it.
     document.addEventListener('click', function (e) {
         var link = (e.target && typeof e.target.closest === 'function')
-            ? e.target.closest('.segurium-quota-card__secondary')
+            ? e.target.closest('.segurium-quota-card__price')
             : null;
         if (!link) return;
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
@@ -1208,21 +1278,26 @@
 
     var saveBtn = el('segurium-save-settings');
     if (saveBtn) {
+        var textarea = el('segurium_scan_exclude');
+        var cloudDetection = el('segurium_cloud_detection');
+        var wipeOnUninstall = el('segurium_uninstall_wipe_data');
+        var alertsEnabled = el('segurium_alerts_email_enabled');
+        var alertsEmail = el('segurium_alerts_email_address');
+        var autoFixEnabled = el('segurium_auto_fix_enabled');
+        var remoteActions = el('segurium_remote_actions_enabled');
+        var settingsFields = [textarea, cloudDetection, wipeOnUninstall, alertsEnabled, alertsEmail, autoFixEnabled, remoteActions];
+        var settingsGate = saveGate(saveBtn, settingsFields);
+        // A reload can restore the browser's unsaved values over the server-rendered ones.
+        if (settingsFields.some(function (f) {
+            return f && (f.type === 'checkbox' ? f.checked !== f.defaultChecked : f.value !== f.defaultValue);
+        })) {
+            settingsGate.edit();
+        }
         saveBtn.addEventListener('click', function () {
-            saveBtn.disabled = true;
+            settingsGate.lock();
             var statusEl = el('segurium-settings-status');
             statusEl.textContent = '';
             statusEl.classList.remove('segurium-status-warning');
-            var textarea = el('segurium_scan_exclude');
-            var cloudDetection = el('segurium_cloud_detection');
-            var wipeOnUninstall = el('segurium_uninstall_wipe_data');
-            // Alerts opt-in.
-            var alertsEnabled = el('segurium_alerts_email_enabled');
-            var alertsEmail = el('segurium_alerts_email_address');
-            // Auto-fix opt-in.
-            var autoFixEnabled = el('segurium_auto_fix_enabled');
-            // Cloud-requested component updates.
-            var remoteActions = el('segurium_remote_actions_enabled');
             post({
                 action: 'segurium_save_settings',
                 nonce: seguriumScan.settingsNonce,
@@ -1234,9 +1309,9 @@
                 auto_fix_enabled: autoFixEnabled && autoFixEnabled.checked ? '1' : '',
                 remote_actions_enabled: remoteActions && remoteActions.checked ? '1' : ''
             }).then(function (response) {
-                saveBtn.disabled = false;
                 if (!response.success) {
-                    statusEl.textContent = 'Error saving.';
+                    settingsGate.unlock();
+                    statusEl.textContent = saveFailedText(response.data);
                     return;
                 }
                 var warnings = response.data && response.data.warnings || [];
@@ -1250,11 +1325,12 @@
                         textarea.value = lines.join('\n');
                     }
                 } else {
-                    statusEl.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml('Saved');
+                    statusEl.innerHTML = savedHtml();
                 }
+                settingsGate.reset();
             }).catch(function () {
-                saveBtn.disabled = false;
-                statusEl.textContent = 'Error saving.';
+                settingsGate.unlock();
+                statusEl.textContent = saveFailedText();
             });
         });
     }
@@ -1379,6 +1455,7 @@
         var saveBtn    = el('segurium-scheduled-save');
         var statusEl   = el('segurium-scheduled-status');
         var nextRunEl  = el('segurium-scheduled-next-run');
+        var gate       = saveGate(saveBtn, [modeSelect, timeInput, daySelect]);
         var i18n       = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
         var locale     = (typeof navigator !== 'undefined' && navigator.language) || 'en-US';
 
@@ -1452,6 +1529,7 @@
         }
 
         function loadSettings() {
+            gate.lock();
             post({
                 action: 'segurium_get_scheduled_scan_settings',
                 nonce: seguriumScan.settingsNonce
@@ -1461,6 +1539,7 @@
                     return;
                 }
                 renderSettings(response.data);
+                gate.reset();
             });
         }
 
@@ -1470,7 +1549,7 @@
 
         if (saveBtn) {
             saveBtn.addEventListener('click', function () {
-                saveBtn.disabled = true;
+                gate.lock();
                 statusEl.textContent = '';
                 var time = timeInput.value || '00:00';
                 var hm   = time.split(':');
@@ -1484,14 +1563,15 @@
                     minute: minute,
                     day_of_week: daySelect.value
                 }).then(function (response) {
-                    saveBtn.disabled = false;
                     if (!response || !response.success) {
+                        gate.unlock();
                         statusEl.textContent = (i18n.schedSaveError || 'Could not save schedule.') +
                             ' ' + describeAjaxError(response && response.data);
                         return;
                     }
                     statusEl.textContent = i18n.schedSaved || 'Schedule saved.';
                     renderSettings(response.data);
+                    gate.reset();
                 });
             });
         }
@@ -1534,6 +1614,7 @@
         function ssActionLockTargets() {
             return '.segurium-ss-clean-btn,' +
                 '.segurium-ss-restore-btn,' +
+                '.segurium-ss-account-restore-btn,' +
                 '.segurium-ss-unignore-btn,' +
                 '.segurium-ss-ignore-hash,' +
                 '.segurium-ss-ignore-path';
@@ -1747,7 +1828,7 @@
             if (state === 'cleaned') {
                 label = i18n.cleaned || 'Cleaned';
                 cls = 'segurium-state--cleaned';
-            } else if (state === 'restored') {
+            } else if (state === 'restored' || state === 'account_restored') {
                 label = i18n.restored || 'Restored';
                 cls = 'segurium-state--restored';
             } else if (state === 'fixed') {
@@ -1768,6 +1849,16 @@
         var modalBody = el('segurium-modal-body');
 
         function buildActionsHtml(item) {
+            if (item.kind === 'account') {
+                if (item.state !== 'cleaned') return '';
+                return '<div class="segurium-dropdown">' +
+                    '<button class="button button-small segurium-dropdown-toggle" type="button" aria-label="' + escAttr(i18n.actions || 'Actions') + '">' + icon('dots') + '</button>' +
+                    '<div class="segurium-dropdown-menu">' +
+                    '<a href="#" class="segurium-dropdown-item segurium-ss-account-restore-btn"' +
+                    ' data-uid="' + escAttr(String(item.uid || 0)) + '">' +
+                    escHtml(i18n.restore || 'Restore') + '</a>' +
+                    '</div></div>';
+            }
             if (item.state === 'malicious') {
                 return '<span style="display:inline-flex;align-items:center;gap:4px;">' +
                     '<button class="button button-small segurium-ss-clean-btn"' +
@@ -1846,6 +1937,9 @@
             var actionsCell = tr.querySelector('.segurium-ss-actions-cell');
             var item = {
                 path: path,
+                kind: tr.getAttribute('data-kind') || '',
+                label: tr.getAttribute('data-label') || '',
+                uid: parseInt(tr.getAttribute('data-uid') || '0', 10),
                 sha256: tr.getAttribute('data-sha256') || '',
                 state: newState,
                 timestamp: Math.floor(Date.now() / 1000),
@@ -1989,6 +2083,18 @@
                 });
             }
 
+            var accountRestoreBtn = tr.querySelector('.segurium-ss-account-restore-btn');
+            if (accountRestoreBtn) {
+                accountRestoreBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    this.closest('.segurium-dropdown-menu').classList.remove('segurium-dropdown-menu--open');
+                    var row = this.closest('tr');
+                    restoreAccount(this.getAttribute('data-uid'), function () {
+                        applyRowMutation(row, 'account_restored', {});
+                    });
+                });
+            }
+
             var restoreBtn = tr.querySelector('.segurium-ss-restore-btn');
             if (restoreBtn) {
                 restoreBtn.addEventListener('click', function (e) {
@@ -2049,6 +2155,7 @@
 
         function renderRow(item, opts) {
             opts = opts || {};
+            if (item.kind === 'account') return renderAccountRow(item, opts);
             var tr = document.createElement('tr');
             tr.setAttribute('data-path', item.path || '');
             tr.setAttribute('data-sha256', item.sha256 || '');
@@ -2060,6 +2167,23 @@
                 truncatePath(item.path) +
                 (item.sha256 ? '<br><span class="segurium-ss-sha256" style="font-size:11px;color:#999">SHA256: <span style="user-select:all">' + escHtml(item.sha256) + '</span></span>' : '') +
                 '</td>' +
+                '<td class="segurium-ss-state-cell">' + buildStateHtml(item.state) + '</td>' +
+                '<td>' + escHtml(formatDate(item.timestamp)) + '</td>' +
+                '<td class="segurium-ss-actions-cell">' + buildActionsHtml(item) + '</td>';
+            bindSSRowActions(tr);
+            return tr;
+        }
+
+        function renderAccountRow(item, opts) {
+            var tr = document.createElement('tr');
+            var label = (i18n.lockedAccount || 'Locked account: %s').replace('%s', item.label || '');
+            tr.setAttribute('data-path', item.path || '');
+            tr.setAttribute('data-kind', 'account');
+            tr.setAttribute('data-label', item.label || '');
+            tr.setAttribute('data-uid', String(item.uid || 0));
+            tr.setAttribute('data-state', item.state || '');
+            if (opts.acted || ssIsActed(item.path)) tr.classList.add('segurium-ss-row--acted');
+            tr.innerHTML = '<td class="segurium-path-cell">' + escHtml(label) + '</td>' +
                 '<td class="segurium-ss-state-cell">' + buildStateHtml(item.state) + '</td>' +
                 '<td>' + escHtml(formatDate(item.timestamp)) + '</td>' +
                 '<td class="segurium-ss-actions-cell">' + buildActionsHtml(item) + '</td>';
@@ -2739,6 +2863,7 @@
         var isBar       = el('segurium-is-progress-bar');
         var isProgressLabel = el('segurium-is-progress-label');
         var isTbody     = el('segurium-integrity-state-tbody');
+        var isRescanNotice = el('segurium-is-rescan-notice');
         if (!isBtn) return;
 
         function isShowStop(visible) {
@@ -2850,8 +2975,16 @@
             return (comp.files || []).some(function (f) { return f.state === 'open'; });
         }
 
+        function renderISRescanNotice(rescan) {
+            if (!isRescanNotice) return;
+            var msg = (rescan && rescan.reason) ? (rescan.message || '') : '';
+            isRescanNotice.textContent = msg;
+            isRescanNotice.hidden = msg === '';
+        }
+
         function renderIntegrityState(data) {
             if (data.issue_mark) syncNavAlert('integrity-scanner', data.issue_mark.raised, data.issue_mark.label);
+            renderISRescanNotice(data.rescan);
             isTbody.innerHTML = '';
             if (!data.items || data.items.length === 0) {
                 isTbody.innerHTML = '<tr><td colspan="6">' +
@@ -2878,6 +3011,9 @@
                     typeIcon + '</span> ' + escHtml(comp.slug || '') +
                     ' <small>' + escHtml(comp.version || '') + '</small>';
                 var statusHtml = buildISStatusBadge(comp);
+                if (comp.stale) {
+                    statusHtml += '<span class="segurium-is-status segurium-is-status--rescan">' + escHtml(i18n.intRescanNeeded || 'Rescan needed') + '</span>';
+                }
                 var openCount = 0;
                 (comp.files || []).forEach(function (f) {
                     if (f.state === 'open') openCount++;
@@ -2937,7 +3073,7 @@
                     toggleISDetail(comp, tr);
                 }
             });
-            isFixAll.disabled = !hasActionable;
+            isFixAll.disabled = !hasActionable || !!(data.rescan && data.rescan.reason);
             renderISPagination(data);
         }
 
@@ -3034,7 +3170,9 @@
             var btns = '';
 
             if (updatableComponent(comp)) {
-                btns += compBtn('segurium-is-update-comp', comp, i18n.intUpdate || 'Update') + ' ';
+                btns += (comp.type === 'core'
+                    ? coreUpdateLink()
+                    : compBtn('segurium-is-update-comp', comp, i18n.intUpdate || 'Update')) + ' ';
             }
 
             if (cat === 'known') {
@@ -3074,8 +3212,15 @@
                 ' data-slug="' + escAttr(comp.slug) + '"' +
                 ' data-type="' + escAttr(comp.type) + '"' +
                 ' data-version="' + escAttr(comp.version || '') + '"' +
-                ' data-backup="' + escAttr(comp.backup_id || '') + '">' +
+                ' data-backup="' + escAttr(comp.backup_id || '') + '"' +
+                (comp.stale ? ' disabled' : '') + '>' +
                 escHtml(label) + '</button>';
+        }
+
+        function coreUpdateLink() {
+            return '<a class="button button-small segurium-is-update-core"' +
+                ' href="' + escAttr(seguriumScan.updateCoreUrl || '') + '">' +
+                escHtml(i18n.intUpdate || 'Update') + '</a>';
         }
 
         function runComponentUpdate(btn, comp) {
@@ -3584,13 +3729,15 @@
             var btns = '';
 
             function fileBtn(cls, label) {
+                var locked = comp.stale && cls !== 'segurium-is-view-btn';
                 return '<button class="button button-small ' + cls + '"' +
                     ' data-slug="' + escAttr(comp.slug) + '"' +
                     ' data-type="' + escAttr(comp.type) + '"' +
                     ' data-version="' + escAttr(comp.version || '') + '"' +
                     ' data-path="' + escAttr(f.path) + '"' +
                     ' data-sha256="' + escAttr(f.sha256 || '') + '"' +
-                    ' data-verdict="' + escAttr(verdict) + '">' +
+                    ' data-verdict="' + escAttr(verdict) + '"' +
+                    (locked ? ' disabled' : '') + '>' +
                     escHtml(label) + '</button> ';
             }
 
@@ -3919,7 +4066,10 @@
                 }
                 if (isPaywallResponse(resp)) {
                     showPaywallModal(resp.data);
+                    return;
                 }
+                seguriumNoticeFromError(resp.data, i18n.errUnexpectedError);
+                loadIntegrityState();
             });
         });
 
@@ -4215,6 +4365,7 @@
         var statsTbody      = el('segurium-geo-stats-tbody');
         var modeRadios      = document.querySelectorAll('input[name="segurium-geo-mode"]');
         var regionBtns      = document.querySelectorAll('.segurium-geo-region-btn');
+        var gate            = saveGate(saveBtn, [el('segurium-feature-geo')], '#segurium-geo-country-input');
 
         // ─ helpers
 
@@ -4288,6 +4439,7 @@
             if (selectedCodes.indexOf(code) === -1) {
                 selectedCodes.push(code);
                 renderTags();
+                gate.edit();
             }
             countryInput.value = '';
             countryDropdown.style.display = 'none';
@@ -4296,6 +4448,7 @@
         function removeCountry(code) {
             selectedCodes = selectedCodes.filter(function (c) { return c !== code; });
             renderTags();
+            gate.edit();
         }
 
         function showDropdown(query) {
@@ -4346,6 +4499,7 @@
                     codes.forEach(function (c) { if (selectedCodes.indexOf(c) === -1) selectedCodes.push(c); });
                 }
                 renderTags();
+                gate.edit();
             });
         });
 
@@ -4410,13 +4564,13 @@
 
         function loadSettings() {
             // An unloaded form posts empty lists, which would clear the stored ones.
-            saveBtn.disabled = true;
+            gate.lock();
             post({action: 'segurium_get_geo_settings', nonce: seguriumScan.settingsNonce})
                 .then(function (response) {
                     if (!response.success) return;
-                    saveBtn.disabled = false;
                     baselineSettings = response.data;
                     populateForm(response.data);
+                    gate.reset();
                 });
         }
 
@@ -4456,6 +4610,7 @@
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     if (baselineSettings) populateForm(baselineSettings);
+                    gate.reset();
                     saveStatus.textContent = i18n.geoReverted || 'Changes reverted.';
                 }
             }, 1000);
@@ -4464,27 +4619,28 @@
         // ─ save
 
         saveBtn.addEventListener('click', function () {
-            saveBtn.disabled = true;
+            gate.lock();
             saveStatus.textContent = '';
             postGeoSettings(collectForm()).then(function (response) {
-                saveBtn.disabled = false;
                 if (!response.success) {
-                    saveStatus.textContent = (response.data && response.data.message) || 'Error.';
+                    gate.unlock();
+                    saveStatus.textContent = saveFailedText(response.data);
                     return;
                 }
+                gate.reset();
                 if (!response.data.token) {
                     stopCountdown();
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     baselineSettings = collectForm();
-                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved.');
+                    saveStatus.innerHTML = savedHtml();
                     return;
                 }
                 pendingToken = response.data.token;
                 startCountdown(response.data.expires_in || 60);
             }).catch(function () {
-                saveBtn.disabled = false;
-                saveStatus.textContent = 'Error saving.';
+                gate.unlock();
+                saveStatus.textContent = saveFailedText();
             });
         });
 
@@ -4501,7 +4657,7 @@
                         baselineSettings = collectForm();
                         saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved permanently.');
                     } else {
-                        saveStatus.textContent = (response.data && response.data.message) || 'Error.';
+                        saveStatus.textContent = saveFailedText(response.data);
                     }
                     pendingToken = null;
                 }).catch(function () { confirmBtn.disabled = false; });
@@ -4516,6 +4672,7 @@
                     revertBtn.disabled = false;
                     if (response.success) {
                         if (baselineSettings) populateForm(baselineSettings);
+                        gate.reset();
                         saveStatus.textContent = i18n.geoReverted || 'Changes reverted.';
                     }
                     pendingToken = null;
@@ -4559,6 +4716,7 @@
         var pendingToken  = null;
         var countdownTimer   = null;
         var baselineSettings = null;
+        var gate             = saveGate(saveBtn, [el('segurium-feature-firewall')]);
 
         function getMode() {
             var checked = document.querySelector('input[name="segurium-fw-mode"]:checked');
@@ -4619,19 +4777,20 @@
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     if (baselineSettings) populateForm(baselineSettings);
+                    gate.reset();
                     saveStatus.textContent = i18n.geoReverted || 'Changes reverted.';
                 }
             }, 1000);
         }
 
         function loadSettings() {
-            saveBtn.disabled = true;
+            gate.lock();
             post({action: 'segurium_get_firewall_settings', nonce: seguriumScan.settingsNonce})
                 .then(function (r) {
                     if (!r.success) return;
-                    saveBtn.disabled = false;
                     baselineSettings = r.data;
                     populateForm(r.data);
+                    gate.reset();
                 });
         }
 
@@ -4651,27 +4810,28 @@
         }
 
         saveBtn.addEventListener('click', function () {
-            saveBtn.disabled = true;
+            gate.lock();
             saveStatus.textContent = '';
             postSettings(collectForm()).then(function (r) {
-                saveBtn.disabled = false;
                 if (!r.success) {
-                    saveStatus.textContent = (r.data && r.data.message) || 'Error.';
+                    gate.unlock();
+                    saveStatus.textContent = saveFailedText(r.data);
                     return;
                 }
+                gate.reset();
                 if (!r.data.token) {
                     stopCountdown();
                     pendingBanner.style.display = 'none';
                     pendingToken = null;
                     baselineSettings = collectForm();
-                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved.');
+                    saveStatus.innerHTML = savedHtml();
                     return;
                 }
                 pendingToken = r.data.token;
                 startCountdown(r.data.expires_in || 60);
             }).catch(function () {
-                saveBtn.disabled = false;
-                saveStatus.textContent = 'Error.';
+                gate.unlock();
+                saveStatus.textContent = saveFailedText();
             });
         });
 
@@ -4686,7 +4846,7 @@
                         baselineSettings = collectForm();
                         saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.geoConfirmed || 'Saved permanently.');
                     } else {
-                        saveStatus.textContent = (r.data && r.data.message) || 'Error.';
+                        saveStatus.textContent = saveFailedText(r.data);
                     }
                     pendingToken = null;
                 }).catch(function () { confirmBtn.disabled = false; });
@@ -4701,6 +4861,7 @@
                     revertBtn.disabled = false;
                     if (r.success && baselineSettings) {
                         populateForm(baselineSettings);
+                        gate.reset();
                         saveStatus.textContent = i18n.geoReverted || 'Changes reverted.';
                     }
                     pendingToken = null;
@@ -4814,6 +4975,8 @@
         var logPrev           = el('segurium-bf-log-prev');
         var logNext           = el('segurium-bf-log-next');
         var logPageInfo       = el('segurium-bf-log-pageinfo');
+        var gate              = saveGate(saveBtn, [el('segurium-feature-bruteforce')],
+            '#segurium-bf-log-filter, input[name="username"], input[name="password"]');
 
         var loaded         = false;
         var currentLogPage = 1;
@@ -4981,8 +5144,13 @@
         }
 
         function loadSettings() {
+            gate.lock();
             return post({action: 'segurium_get_bf_settings', nonce: seguriumScan.bfNonce})
-                .then(function (r) { if (r.success) populate(r.data.settings); });
+                .then(function (r) {
+                    if (!r.success) return;
+                    populate(r.data.settings);
+                    gate.reset();
+                });
         }
 
         function loadLockouts() {
@@ -5035,22 +5203,23 @@
         }
 
         saveBtn.addEventListener('click', function () {
-            saveBtn.disabled = true;
+            gate.lock();
             saveStatus.textContent = '';
             postSettings().then(function (r) {
-                saveBtn.disabled = false;
                 if (!r.success) {
-                    saveStatus.textContent = (r.data && r.data.message) || 'Error.';
+                    gate.unlock();
+                    saveStatus.textContent = saveFailedText(r.data);
                     return;
                 }
                 if (r.data && r.data.settings) populate(r.data.settings);
-                saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.bfSettingsSaved || 'Settings saved.');
+                gate.reset();
+                saveStatus.innerHTML = savedHtml();
                 loadLockouts();
                 loadStats();
                 loadLog(1);
             }).catch(function () {
-                saveBtn.disabled = false;
-                saveStatus.textContent = 'Error.';
+                gate.unlock();
+                saveStatus.textContent = saveFailedText();
             });
         });
 
@@ -5176,6 +5345,7 @@
         var previewContent = el('segurium-sh-preview-content');
         var saveBtn       = el('segurium-sh-save-btn');
         var saveStatus    = el('segurium-sh-save-status');
+        var gate          = saveGate(saveBtn, [el('segurium-feature-headers')]);
         var cookieHardening = el('segurium-sh-cookie-hardening');
         var cookieFields    = el('segurium-sh-cookie-fields');
         var hstsEnabled     = el('segurium-sh-hsts-enabled');
@@ -5333,10 +5503,12 @@
         }
 
         function loadSettings() {
+            gate.lock();
             return post({ action: 'segurium_get_sh_settings', nonce: seguriumScan.settingsNonce })
                 .then(function (r) {
                     if (!r.success) return;
                     populateForm(r.data);
+                    gate.reset();
                 });
         }
 
@@ -5404,18 +5576,19 @@
 
         if (saveBtn) {
             saveBtn.addEventListener('click', function () {
-                saveBtn.disabled = true;
+                gate.lock();
                 saveStatus.textContent = '';
                 postSettings(collectForm()).then(function (r) {
-                    saveBtn.disabled = false;
                     if (!r.success) {
-                        saveStatus.textContent = (r.data && r.data.message) || 'Error.';
+                        gate.unlock();
+                        saveStatus.textContent = saveFailedText(r.data);
                         return;
                     }
-                    saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.settingsSaved || 'Saved.');
+                    gate.reset();
+                    saveStatus.innerHTML = savedHtml();
                 }).catch(function () {
-                    saveBtn.disabled = false;
-                    saveStatus.textContent = 'Error.';
+                    gate.unlock();
+                    saveStatus.textContent = saveFailedText();
                 });
             });
         }
@@ -5441,6 +5614,7 @@
         var saveStatus = el('segurium-is-save-status');
         var enableAllBtn = el('segurium-is-enable-all');
         var enableAllStatus = el('segurium-is-enable-all-status');
+        var gate = saveGate(saveBtn, [panel]);
 
         // Info Shield rows now use the shared `.segurium-setting-row`
         // class. The `[data-key]` filter scopes the query to the per-toggle rows
@@ -5511,6 +5685,7 @@
         }
 
         function loadSettings() {
+            gate.lock();
             if (saveStatus) saveStatus.textContent = i18n.isLoading || '';
             return post({ action: 'segurium_get_info_shield_settings', nonce: seguriumScan.settingsNonce })
                 .then(function (r) {
@@ -5520,6 +5695,7 @@
                         return;
                     }
                     populateForm(r.data || {});
+                    gate.reset();
                 })
                 .catch(function () {
                     if (saveStatus) saveStatus.textContent = i18n.isLoadError || 'Error.';
@@ -5532,20 +5708,21 @@
             Object.keys(settings).forEach(function (k) {
                 params['settings[' + k + ']'] = settings[k];
             });
-            if (saveBtn) saveBtn.disabled = true;
+            gate.lock();
             if (saveStatus) saveStatus.textContent = i18n.isSaving || '';
             return post(params)
                 .then(function (r) {
-                    if (saveBtn) saveBtn.disabled = false;
                     if (!r.success) {
-                        if (saveStatus) saveStatus.textContent = (r.data && r.data.message) || (i18n.isSaveError || 'Error.');
+                        gate.unlock();
+                        if (saveStatus) saveStatus.textContent = saveFailedText(r.data);
                         return;
                     }
-                    if (saveStatus) saveStatus.innerHTML = icon('check', 'segurium-save-icon') + ' ' + escHtml(i18n.isSaved || 'Saved.');
+                    gate.reset();
+                    if (saveStatus) saveStatus.innerHTML = savedHtml();
                 })
                 .catch(function () {
-                    if (saveBtn) saveBtn.disabled = false;
-                    if (saveStatus) saveStatus.textContent = i18n.isSaveError || 'Error.';
+                    gate.unlock();
+                    if (saveStatus) saveStatus.textContent = saveFailedText();
                 });
         }
 
@@ -5559,6 +5736,7 @@
                 }
             });
             applyMasterState();
+            gate.edit();
             if (enableAllStatus) {
                 enableAllStatus.textContent = i18n.isEnableAllDone || '';
                 setTimeout(function () { if (enableAllStatus) enableAllStatus.textContent = ''; }, 3000);
@@ -5591,15 +5769,19 @@
             }).then(window.seguriumParseResponse);
         }
 
+        var gate = saveGate(
+            document.getElementById('sgm-2fa-save'),
+            [document.getElementById('segurium-feature-twofactor')],
+            '#sgm-2fa-reset-user'
+        );
+
         function loadSettings() {
-            var saveButton = document.getElementById('sgm-2fa-save');
-            if (saveButton) saveButton.disabled = true;
+            gate.lock();
             return post({
                 action: 'segurium_get_2fa_settings',
                 nonce: seguriumScan.tfaNonce,
             }).then(function (r) {
                 if (!r.success) return;
-                if (saveButton) saveButton.disabled = false;
                 var s = r.data.settings;
                 var el = document.getElementById('sgm-2fa-enabled');
                 if (el) el.checked = !!s.enabled;
@@ -5626,16 +5808,24 @@
                 // Numbers.
                 var grace = document.getElementById('sgm-2fa-grace');
                 if (grace) grace.value = s.grace_period_days != null ? s.grace_period_days : 3;
+                toggleGraceWarning();
                 var trusted = document.getElementById('sgm-2fa-trusted-days');
                 if (trusted) trusted.value = s.trusted_device_days != null ? s.trusted_device_days : 30;
 
                 toggleOptions(!!s.enabled);
+                gate.reset();
             });
         }
 
         function toggleOptions(show) {
             var opts = document.getElementById('sgm-2fa-options');
             if (opts) opts.style.display = show ? '' : 'none';
+        }
+
+        function toggleGraceWarning() {
+            var grace = document.getElementById('sgm-2fa-grace');
+            var warning = document.getElementById('sgm-2fa-grace-zero');
+            if (grace && warning) warning.hidden = (parseInt(grace.value, 10) || 0) !== 0;
         }
 
         function collectSettings() {
@@ -5712,25 +5902,36 @@
             });
         }
 
+        var graceInput = document.getElementById('sgm-2fa-grace');
+        if (graceInput) graceInput.addEventListener('input', toggleGraceWarning);
+
         // Save button.
         var saveBtn = document.getElementById('sgm-2fa-save');
         if (saveBtn) {
             saveBtn.addEventListener('click', function () {
                 var status = document.getElementById('sgm-2fa-save-status');
-                saveBtn.disabled = true;
+                gate.lock();
                 saveSettings().then(function (r) {
-                    saveBtn.disabled = false;
+                    if (r.success) {
+                        gate.reset();
+                    } else {
+                        gate.unlock();
+                    }
                     if (status) {
                         status.style.display = '';
-                        status.textContent = r.success ? 'Saved.' : 'Error.';
+                        if (r.success) {
+                            status.innerHTML = savedHtml();
+                        } else {
+                            status.textContent = saveFailedText(r.data);
+                        }
                         status.style.color = r.success ? '#00a32a' : '#d63638';
                         setTimeout(function () { status.style.display = 'none'; }, 3000);
                     }
                 }).catch(function () {
-                    saveBtn.disabled = false;
+                    gate.unlock();
                     if (status) {
                         status.style.display = '';
-                        status.textContent = 'Error.';
+                        status.textContent = saveFailedText();
                         status.style.color = '#d63638';
                     }
                 });

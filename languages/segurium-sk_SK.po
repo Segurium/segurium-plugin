@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n >= 2 && n <= 4) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Čistenie malvéru, ktorý sa vracia s novým kódom"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Každých 5 minút (trvalé príkazy Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s je zraniteľný voči PHP2Shell, chybe vzdialeného spustenia kódu v samotnom PHP (CVE-2026-109618, CVE-2026-109619). Požiadaj svojho hostingového poskytovateľa, aby aktualizoval PHP na verziu %2$s alebo novšiu."
 
@@ -4709,3 +4715,46 @@ msgstr "PHP %s je zostavenie od dodávateľa. Z čísla verzie sa nedá zistiť,
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP opravené proti PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Inštalácia bola zastavená. Segurium našiel malvér v %s."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Zablokovaný účet: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Účtu sa tým vráti jeho rola, heslo aj heslá aplikácií. Pokračovať?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Blokovanie škodlivých administrátorských účtov"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Dvojfaktorové overenie sa pre administrátorov stáva povinným, hneď ako ho nastaví prvý administrátor."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Niektoré komponenty zmenili verziu po poslednej kontrole integrity. Na odomknutie ich akcií spustite novú kontrolu."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Posledná kontrola integrity je staršia ako 24 hodín. Na odomknutie akcií spustite novú kontrolu."
+
+msgid "Rescan needed"
+msgstr "Vyžaduje sa opakovaná kontrola"
+
+msgid "Administrators get no grace period."
+msgstr "Administrátori nemajú žiadnu lehotu."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Pri 0 dňoch sa používatelia vo vynútených rolách, ktorí si nenastavili 2FA, nemôžu prihlásiť, vrátane nových používateľov. Administrátori sa môžu prihlásiť, kým si 2FA nenastaví prvý administrátor. Obnovenie 2FA dá zablokovanému používateľovi 1 deň."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Zraniteľné a zastarané pluginy, šablóny a jadro s dostupnými aktualizáciami"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Každá funkcia je súčasťou každej inštalácie. Pro odstraňuje mesačný limit čistenia a pridáva tri cloudové služby."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Neobmedzené čistenie plus cloudové služby uvedené nižšie."

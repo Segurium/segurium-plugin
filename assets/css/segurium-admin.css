@@ -821,7 +821,8 @@ input.segurium-text::placeholder,
  * Hidden when seguriumScan.envWarnings is empty. Avoid the WP `.notice`
  * class because core admin JS auto-moves any element carrying it to the
  * top of the admin page (out of the scanner panel). */
-.segurium-env-warnings {
+.segurium-env-warnings,
+.segurium-is-rescan-notice {
 	margin: 12px 0;
 	padding: 10px 12px;
 	background: #fff8e5;
@@ -843,7 +844,8 @@ input.segurium-text::placeholder,
  * semantics so the Stop scan / Stop integrity buttons stay invisible
  * until a scan is actually in flight. */
 button.button[hidden],
-.segurium-env-warnings[hidden] {
+.segurium-env-warnings[hidden],
+.segurium-is-rescan-notice[hidden] {
 	display: none !important;
 }
 
@@ -945,6 +947,7 @@ button.button[hidden],
 .segurium-is-status--not-in-repo { color: #8c8f94; }
 .segurium-is-status--issues { color: #d63638; }
 .segurium-is-status--outdated { color: #dba617; }
+.segurium-is-status--rescan { color: #996800; margin-left: 6px; }
 .segurium-is-status--vulnerable { color: #d63638; }
 .segurium-is-update-note { color: #8c8f94; font-size: 12px; }
 .segurium-is-status--clean { color: #00a32a; }
@@ -1040,8 +1043,8 @@ button.button[hidden],
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	gap: 16px 48px;
-	padding: 20px 24px;
+	gap: 8px 24px;
+	padding: 12px 16px;
 	background: #fcf0f1;
 	border: 1px solid #f1c3c4;
 	border-left: 4px solid #d63638;
@@ -1057,43 +1060,55 @@ button.button[hidden],
 	min-width: 0;
 }
 
+.segurium-quota-card__headline,
+.segurium-quota-card__status {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 2px 10px;
+}
+
+.segurium-quota-card__status {
+	align-items: center;
+	margin-top: 4px;
+}
+
 .segurium-quota-card__title {
-	margin: 0 0 4px;
+	margin: 0;
 	padding: 0;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 600;
-	line-height: 1.3;
+	line-height: 1.5;
 	color: #1d2327;
 }
 
 /* The number the operator came here about, sitting in the block that */
 /* refuses to act on it.                                              */
 .segurium-quota-card__threats {
-	margin: 0 0 12px;
+	margin: 0;
 	font-size: 14px;
 	font-weight: 600;
-	line-height: 1.4;
+	line-height: 1.5;
 	color: #b32d2e;
 }
 
 .segurium-quota-card__usage {
-	margin: 0 0 8px;
+	margin: 0;
 	font-size: 13px;
-	line-height: 1.4;
+	line-height: 1.5;
 	color: #50575e;
 }
 
 /* One segment per cleanup slot in the window, spent ones filled. No */
-/* text of its own — the line above already spells both numbers out. */
+/* text of its own — the line beside it spells both numbers out.     */
 .segurium-quota-card__meter {
 	display: flex;
-	gap: 4px;
-	max-width: 260px;
+	gap: 3px;
 }
 
 .segurium-quota-card__slot {
-	flex: 1 1 0;
-	height: 5px;
+	width: 22px;
+	height: 4px;
 	border-radius: 2px;
 	background: #f0d1d2;
 }
@@ -1102,31 +1117,45 @@ button.button[hidden],
 	background: #d63638;
 }
 
-.segurium-quota-card__actions {
+.segurium-quota-card__offer {
 	display: flex;
-	flex: 0 0 auto;
 	flex-direction: column;
-	align-items: flex-start;
-	gap: 10px;
+	align-items: flex-end;
+	gap: 4px;
+	margin-left: auto;
 }
 
-.segurium-quota-card__buttons {
+.segurium-quota-card__buy {
 	display: flex;
-	flex-wrap: wrap;
 	align-items: center;
-	gap: 18px;
+	gap: 12px;
 	margin: 0;
 }
 
-.segurium-quota-card__secondary {
+.segurium-quota-card__price {
 	font-size: 13px;
+	white-space: nowrap;
+	color: #50575e;
+	text-decoration: none;
+}
+
+.segurium-quota-card__price strong {
+	font-size: 15px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.segurium-quota-card__price:hover,
+.segurium-quota-card__price:focus {
 	color: var(--segurium-accent, #2271b1);
+	text-decoration: underline;
 }
 
 .segurium-quota-card__guarantee {
 	margin: 0;
 	font-size: 12px;
 	line-height: 1.4;
+	text-align: right;
 	color: #646970;
 }
 

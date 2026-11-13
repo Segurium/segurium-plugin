@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "새 코드로 다시 나타나는 멀웨어 정리"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "5분마다(Segurium 상시 명령)"
+
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s에는 PHP2Shell 수정 사항(CVE-2026-109618, CVE-2026-109619)이 포함되어 있습니다."
 
@@ -4751,3 +4757,42 @@ msgstr "정리 후 캐시 무효화"
 
 msgid "The setting could not be saved."
 msgstr "설정을 저장할 수 없습니다."
+
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "설치가 중단되었습니다. Segurium이 %s에서 멀웨어를 발견했습니다."
+
+msgid "Locked account: %s"
+msgstr "잠긴 계정: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "이 작업은 계정에 역할, 비밀번호 및 애플리케이션 비밀번호를 다시 부여합니다. 계속하시겠습니까?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "악성 관리자 계정 잠금"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "첫 번째 관리자가 설정하면 관리자에게는 이중 인증이 필수가 됩니다."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "마지막 무결성 검사 이후 일부 구성 요소의 버전이 변경되었습니다. 해당 작업을 사용하려면 새 검사를 실행하세요."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "마지막 무결성 검사가 24시간 이상 지났습니다. 작업을 사용하려면 새 검사를 실행하세요."
+
+msgid "Rescan needed"
+msgstr "재검사 필요"
+
+msgid "Administrators get no grace period."
+msgstr "관리자에게는 유예 기간이 없습니다."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "0일로 설정하면 2FA를 설정하지 않은 적용 역할의 사용자는 신규 사용자를 포함하여 로그인할 수 없습니다. 관리자는 첫 번째 관리자가 2FA를 설정할 때까지 로그인할 수 있습니다. 2FA 재설정 시 차단된 사용자에게 1일이 부여됩니다."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "취약하고 오래된 플러그인, 테마 및 코어(사용 가능한 경우 업데이트 포함)"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "모든 기능은 모든 설치에 포함됩니다. Pro는 월간 정리 한도를 없애고 세 가지 클라우드 서비스를 추가합니다."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "무제한 정리와 아래 클라우드 서비스가 포함됩니다."

@@ -50,6 +50,12 @@ final class Segurium_Entitlements {
 	const PRO_PLAN_SLUG = 'pro';
 
 	/**
+	 * Copy of the Pro plan's yearly single-site price in Freemius. The
+	 * checkout charges the Freemius figure, so change both together.
+	 */
+	const PRO_PRICE = '$79';
+
+	/**
 	 * Destination `upgrade_url()` returns when the billing SDK yields
 	 * nothing. Points at the public pricing page the Plans tab already
 	 * links in its footer note, so no new destination is introduced.

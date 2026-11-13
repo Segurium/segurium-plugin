@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "清理以新程式碼捲土重來的惡意軟體"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "每 5 分鐘 (Segurium 常設指令)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s 容易遭受 PHP2Shell 攻擊，這是 PHP 本身的遠端程式碼執行漏洞 (CVE-2026-109618、CVE-2026-109619)。請要求你的主機商將 PHP 升級至 %2$s 以上版本。"
 
@@ -3213,3 +3219,42 @@ msgstr "PHP %s 是廠商自訂組建，無法從版本編號看出是否已包�
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP 已修補 PHP2Shell 漏洞"
+
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "安裝已停止。Segurium 在 %s 中發現惡意軟體。"
+
+msgid "Locked account: %s"
+msgstr "已鎖定的帳號：%s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "此操作會還原帳號的角色、密碼及應用程式密碼。要繼續嗎？"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "鎖定惡意管理員帳號"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "一旦第一位網站管理員完成設定，兩步驟驗證便會對所有網站管理員強制生效。"
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "部分元件在上次完整性掃描後已變更版本。請執行新的掃描以解鎖相關操作。"
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "上次完整性掃描距今已超過 24 小時。請執行新的掃描以解鎖相關操作。"
+
+msgid "Rescan needed"
+msgstr "需要重新掃描"
+
+msgid "Administrators get no grace period."
+msgstr "網站管理員沒有寬限期。"
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "設為 0 天時，受強制的角色中未設定兩步驟驗證的使用者無法登入，新使用者也不例外。網站管理員仍可登入，直到第一位網站管理員完成兩步驟驗證設定為止。重設兩步驟驗證會讓遭封鎖的使用者獲得 1 天的寬限期。"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "有漏洞和過時的外掛、佈景主題及核心，含可用的更新"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "每項功能都包含在每個安裝中。Pro 版取消每月清理上限並新增三項雲端服務。"
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "無限次清理，再加上下方的雲端服務。"

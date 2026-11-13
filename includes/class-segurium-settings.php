@@ -99,6 +99,9 @@ final class Segurium_Settings {
 		'segurium_cache_invalidation_state',
 		'segurium_standing_orders',
 		'segurium_standing_orders_lock',
+		'segurium_account_locks',
+		'segurium_trusted_accounts',
+		'segurium_installer_account',
 
 		// Telemetry stamps.
 		'segurium_platform_hash',

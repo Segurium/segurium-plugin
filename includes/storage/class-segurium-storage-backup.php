@@ -186,7 +186,7 @@ class Segurium_Storage_Backup {
 			throw new Segurium_Storage_Exception( esc_html( sprintf( 'Failed to write backup metadata %s/%s', $bucket, $backup_id ) ) );
 		}
 
-		self::rotate( $bucket );
+		self::rotate( $bucket, $opaque );
 
 		return $backup_id;
 	}
@@ -421,11 +421,12 @@ class Segurium_Storage_Backup {
 	 * Rotate a single bucket, deleting oldest entries first until within caps.
 	 *
 	 * @param string $bucket Target bucket.
+	 * @param string $fresh  Opaque name of an envelope that is never a victim.
 	 * @return int Number of backups removed.
 	 */
-	public static function rotate( string $bucket ): int {
+	public static function rotate( string $bucket, string $fresh = '' ): int {
 		$caps = self::bucket_caps( $bucket );
-		return self::rotate_with_caps( $bucket, (int) $caps['max_count'], (int) $caps['max_bytes'] );
+		return self::rotate_with_caps( $bucket, (int) $caps['max_count'], (int) $caps['max_bytes'], $fresh );
 	}
 
 	/**
@@ -438,8 +439,9 @@ class Segurium_Storage_Backup {
 	 * @param string $bucket    Bucket name.
 	 * @param int    $max_count Maximum number of retained backups.
 	 * @param int    $max_bytes Maximum aggregate `.sgbk` size.
+	 * @param string $fresh     Opaque name of an envelope that is never a victim.
 	 */
-	private static function rotate_with_caps( string $bucket, int $max_count, int $max_bytes ): int {
+	private static function rotate_with_caps( string $bucket, int $max_count, int $max_bytes, string $fresh = '' ): int {
 		$entries = self::list_envelope_stats( $bucket );
 		if ( empty( $entries ) ) {
 			return 0;
@@ -460,7 +462,7 @@ class Segurium_Storage_Backup {
 			if ( $count <= $max_count && $total <= $max_bytes ) {
 				break;
 			}
-			if ( isset( $pinned_opaque[ $e['opaque'] ] ) ) {
+			if ( isset( $pinned_opaque[ $e['opaque'] ] ) || $e['opaque'] === $fresh ) {
 				continue;
 			}
 			$base = $bucket_dir . '/' . $e['shard'] . '/' . $e['opaque'];

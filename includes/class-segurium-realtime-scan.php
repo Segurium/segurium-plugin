@@ -928,7 +928,7 @@ class Segurium_Realtime_Scan {
 	 * @param string $path File path.
 	 * @return bool
 	 */
-	private static function is_executable_path( $path ) {
+	public static function is_executable_path( $path ) {
 		$base = strtolower( basename( (string) $path ) );
 		if ( '.htaccess' === $base || '.user.ini' === $base ) {
 			return true;

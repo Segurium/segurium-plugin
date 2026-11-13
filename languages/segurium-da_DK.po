@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Rensning af malware, der vender tilbage med ny kode"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Hvert 5. minut (Segurium stående ordrer)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s er sårbar over for PHP2Shell, en fjernudførelse af kode-fejl i selve PHP (CVE-2026-109618, CVE-2026-109619). Bed din hostingudbyder om at opgradere PHP til %2$s eller nyere."
 
@@ -4728,3 +4734,46 @@ msgstr "PHP %s er en leverandørbygget udgave. Versionsnummeret viser ikke, om d
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP er lappet mod PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Installationen er stoppet. Segurium fandt malware i %s."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Låst konto: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Dette giver kontoen dens rolle, adgangskode og programadgangskoder tilbage. Vil du fortsætte?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Udelukkelse af ondsindede administratorkonti"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Tofaktor-godkendelse bliver påkrævet for administratorer, når den første administrator sætter det op."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Nogle komponenter har skiftet version efter den sidste integritetsscanning. Kør en ny scanning for at låse deres handlinger op."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Den sidste integritetsscanning er mere end 24 timer gammel. Kør en ny scanning for at låse handlingerne op."
+
+msgid "Rescan needed"
+msgstr "Ny scanning påkrævet"
+
+msgid "Administrators get no grace period."
+msgstr "Administratorer får ingen henstandsperiode."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Med 0 dage kan brugere i påkrævede roller, der ikke har opsat 2FA, ikke logge ind, inklusive nye brugere. Administratorer kan logge ind, indtil den første administrator opsætter 2FA. Nulstil 2FA giver en blokeret bruger 1 dag."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Sårbare og forældede plugins, temaer og kerne, med opdateringer hvor de er tilgængelige"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Alle funktioner er med i enhver installation. Pro fjerner den månedlige oprydningsgrænse og tilføjer tre cloud-tjenester."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Ubegrænset oprydning, plus cloud-tjenesterne nedenfor."

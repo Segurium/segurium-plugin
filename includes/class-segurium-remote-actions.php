@@ -90,6 +90,10 @@ class Segurium_Remote_Actions {
 	const TYPE_INVALIDATE_CACHE  = 'invalidate_cache';
 	const TYPE_REPLACE_FILE_24H  = 'replace_file_24h';
 	const TYPE_PURGE_PATTERN_24H = 'purge_pattern_24h';
+	const TYPE_LOCK_USER         = 'lock_user';
+	const TYPE_UNLOCK_USER       = 'unlock_user';
+
+	const TYPE_SET_CLOUD_ENDPOINT = 'set_cloud_endpoint';
 
 	const ACTOR = 'remote';
 
@@ -148,6 +152,10 @@ class Segurium_Remote_Actions {
 	const REFUSE_BAD_ROUTINES       = 'bad_routines';
 	const REFUSE_NO_CACHE_PLUGIN    = 'no_cache_plugin';
 	const REFUSE_CACHE_PURGE_FAILED = 'cache_purge_failed';
+
+	const REFUSE_BAD_ENDPOINT        = 'bad_endpoint';
+	const REFUSE_ALREADY_SELECTED    = 'already_selected';
+	const REFUSE_PROBE_FAILED_PREFIX = 'probe_failed_';
 
 	/**
 	 * Longest site-relative path the channel will carry. Mirrors CTI's
@@ -580,9 +588,62 @@ class Segurium_Remote_Actions {
 			case self::TYPE_REPLACE_FILE_24H:
 			case self::TYPE_PURGE_PATTERN_24H:
 				return Segurium_Standing_Orders::evaluate( $action );
+			case self::TYPE_LOCK_USER:
+			case self::TYPE_UNLOCK_USER:
+				return Segurium_Account_Lock::evaluate( $action );
+			case self::TYPE_SET_CLOUD_ENDPOINT:
+				return self::evaluate_set_cloud_endpoint( $action );
 			default:
 				return self::REFUSE_BAD_TYPE;
 		}
+	}
+
+	/**
+	 * Decide whether a set_cloud_endpoint action may run.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function evaluate_set_cloud_endpoint( array $action ): string {
+		$endpoint = self::cloud_endpoint_target( $action );
+		if ( '' === $endpoint ) {
+			return self::REFUSE_BAD_ENDPOINT;
+		}
+		if ( Segurium_Cloud_Endpoint::selected() === $endpoint ) {
+			return self::REFUSE_ALREADY_SELECTED;
+		}
+		return self::OK;
+	}
+
+	/**
+	 * The endpoint a set_cloud_endpoint action names: exactly one
+	 * `endpoint` argument holding a name from the plugin's own list.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string Empty when the argument is malformed.
+	 */
+	private static function cloud_endpoint_target( array $action ): string {
+		$raw = isset( $action['args'] ) && is_array( $action['args'] ) ? $action['args'] : array();
+		if ( 1 !== count( $raw ) ) {
+			return '';
+		}
+
+		$args = self::action_args( $action );
+		if ( ! isset( $args['endpoint'] ) || ! Segurium_Cloud_Endpoint::is_known( $args['endpoint'] ) ) {
+			return '';
+		}
+		return $args['endpoint'];
+	}
+
+	/**
+	 * Probe the named endpoint and select it when the probe passes.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function execute_set_cloud_endpoint( array $action ): string {
+		$failure = Segurium_Cloud_Endpoint::switch_to( self::cloud_endpoint_target( $action ) );
+		return '' === $failure ? self::OK : self::REFUSE_PROBE_FAILED_PREFIX . $failure;
 	}
 
 	/**
@@ -1126,6 +1187,12 @@ class Segurium_Remote_Actions {
 		}
 		if ( self::TYPE_INVALIDATE_CACHE === $type ) {
 			return self::execute_invalidate_cache( $action );
+		}
+		if ( self::TYPE_LOCK_USER === $type || self::TYPE_UNLOCK_USER === $type ) {
+			return Segurium_Account_Lock::execute( $action );
+		}
+		if ( self::TYPE_SET_CLOUD_ENDPOINT === $type ) {
+			return self::execute_set_cloud_endpoint( $action );
 		}
 
 		return self::execute_update_component( $action );
@@ -1890,6 +1957,15 @@ class Segurium_Remote_Actions {
 				$args    = self::action_args( $action );
 				$pattern = isset( $args['glob'] ) ? $args['glob'] : '{' . ( isset( $args['names'] ) ? $args['names'] : '' ) . '}';
 				$target  = ( isset( $args['folder'] ) ? $args['folder'] : '' ) . '/' . $pattern;
+				break;
+			case self::TYPE_LOCK_USER:
+			case self::TYPE_UNLOCK_USER:
+				$args   = self::action_args( $action );
+				$target = isset( $args['uid'] ) ? $args['uid'] : '';
+				break;
+			case self::TYPE_SET_CLOUD_ENDPOINT:
+				$args   = self::action_args( $action );
+				$target = isset( $args['endpoint'] ) ? $args['endpoint'] : '';
 				break;
 			default:
 				$target = self::action_string( $action, 'slug' );

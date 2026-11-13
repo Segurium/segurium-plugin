@@ -16,6 +16,12 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "清理以新代码卷土重来的恶意软件"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "每 5 分钟（Segurium 常设指令）"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s 存在 PHP2Shell 漏洞，这是 PHP 本身的远程代码执行缺陷（CVE-2026-109618、CVE-2026-109619）。请要求您的主机服务商将 PHP 升级到 %2$s 或更高版本。"
 
@@ -4564,6 +4570,24 @@ msgstr "已安装存在漏洞的组件"
 msgid "Security issues need your attention"
 msgstr "安全问题需要您关注"
 
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "一旦首位管理员完成设置，所有管理员就必须启用双重身份验证。"
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "部分组件自上次完整性扫描后已变更版本。请运行新扫描以解锁其操作。"
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "上次完整性扫描已超过 24 小时。请运行新扫描以解锁操作。"
+
+msgid "Rescan needed"
+msgstr "需要重新扫描"
+
+msgid "Administrators get no grace period."
+msgstr "管理员没有宽限期。"
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "设为 0 天时，强制角色中未设置 2FA 的用户无法登录，新用户也包括在内。在首位管理员设置 2FA 之前，管理员仍可登录。重置 2FA 会给被阻止的用户 1 天的时间。"
+
 #~ msgid "Segurium plugin for WordPress."
 #~ msgstr "适用于 WordPress 的 Segurium 插件。"
 
@@ -4698,3 +4722,28 @@ msgstr "PHP %s 是厂商构建版本。其版本号无法显示是否已包含 P
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP 已修复 PHP2Shell 漏洞"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "安装已停止。Segurium 在 %s 中发现了恶意软件。"
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "已锁定的账户：%s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "此操作将恢复该账户的角色、密码和应用程序密码。是否继续？"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "锁定恶意管理员账户"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "存在漏洞和过时的插件、主题及核心，附带可用的更新"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "每项功能都包含在每次安装中。Pro 版本取消每月清理上限并增加三项云服务。"
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "无限次清理，外加下方的云服务。"

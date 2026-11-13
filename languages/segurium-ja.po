@@ -16,6 +16,12 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "新しいコードで再発するマルウェアのクリーンアップ"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "5分ごと (Segurium の継続的な修復指示)"
+
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s には PHP2Shell の修正 (CVE-2026-109618, CVE-2026-109619) が含まれています。"
 
@@ -4810,3 +4816,42 @@ msgstr "クリーンアップ後のキャッシュ無効化"
 
 msgid "The setting could not be saved."
 msgstr "設定を保存できませんでした。"
+
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "インストールを中止しました。Segurium が %s にマルウェアを検出しました。"
+
+msgid "Locked account: %s"
+msgstr "ロックされたアカウント: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "このアカウントの権限グループ、パスワード、アプリケーションパスワードを復元します。続行しますか ?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "悪意のある管理者アカウントのロックアウト"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "最初の管理者が2要素認証を設定した時点から、すべての管理者に2要素認証が必須となります。"
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "前回の整合性スキャン以降にバージョンが変わったコンポーネントがあります。新しいスキャンを実行して対象のアクションを有効化してください。"
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "前回の整合性スキャンから 24時間以上経過しています。新しいスキャンを実行してアクションを有効化してください。"
+
+msgid "Rescan needed"
+msgstr "再スキャンが必要"
+
+msgid "Administrators get no grace period."
+msgstr "管理者には猶予期間はありません。"
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "0日に設定すると、二要素認証を設定していない強制対象の権限グループのユーザーは、新規ユーザーを含めてログインできません。管理者は、最初の管理者が二要素認証を設定するまでログインできます。二要素認証をリセットすると、ブロックされたユーザーに 1日の猶予が与えられます。"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "脆弱で古いプラグイン、テーマ、コア (利用可能な更新も含む)"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "すべての機能はすべてのインストールに含まれています。Pro では月次のクリーンアップ上限が解除され、3つのクラウドサービスが追加されます。"
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "無制限のクリーンアップに加えて、以下のクラウドサービスをご利用いただけます。"

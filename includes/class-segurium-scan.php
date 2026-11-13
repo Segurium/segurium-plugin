@@ -34,6 +34,11 @@ class Segurium_Scan {
 	 */
 	const KV_TTL = 86400;
 
+	const REBUILD_OK            = 'rebuilt';
+	const REBUILD_CREATE_FAILED = 'workspace_create_failed';
+	const REBUILD_START_FAILED  = 'start_failed';
+	const REBUILD_RELOAD_FAILED = 'reload_failed';
+
 	/**
 	 * Absolute path to the WordPress root directory.
 	 *
@@ -167,6 +172,7 @@ class Segurium_Scan {
 			'files_found'         => 0,
 			'files_skipped'       => 0,
 			'started_at'          => time(),
+			'started_by'          => self::process_identity(),
 		);
 
 		$scanner = $this->create_scanner();
@@ -202,22 +208,7 @@ class Segurium_Scan {
 			)
 		);
 
-		Segurium_Storage::table_upsert(
-			'runtime_kv',
-			array(
-				'kv_key'     => self::KV_ACTIVE,
-				'kv_value'   => (string) wp_json_encode(
-					array(
-						'scan_id'   => (string) $scan_id,
-						'scan_type' => (string) $scan_type,
-						'workspace' => $workspace,
-					)
-				),
-				'expires_at' => $now + self::KV_TTL,
-				'updated_at' => $now,
-			),
-			array( 'kv_key' )
-		);
+		$this->write_active();
 
 		Segurium_Storage::cti_send_message(
 			'scan_started',
@@ -311,13 +302,24 @@ class Segurium_Scan {
 
 		if ( ! $this->state['scanner_completed'] && $pass_size > 0 ) {
 			if ( ! $scanner->load_state() ) {
-				// An unreadable or corrupt state file leaves nothing to
-				// resume from. The runner reads this marker and takes the
-				// ENGINE_LOAD_FAILED terminal path; bare progress would read
-				// as a healthy no-op chunk and spin until the lock ages out.
-				$progress                       = $this->build_progress();
-				$progress['engine_load_failed'] = true;
-				return $progress;
+				$fault   = array_merge(
+					$scanner->load_fault(),
+					array(
+						'tick'  => self::process_identity(),
+						'start' => isset( $this->state['started_by'] ) ? $this->state['started_by'] : null,
+					)
+				);
+				$scanner = $this->rebuild_workspace( $fault );
+				if ( null === $scanner ) {
+					// An unreadable or corrupt state file leaves nothing to
+					// resume from. The runner reads this marker and takes the
+					// ENGINE_LOAD_FAILED terminal path; bare progress would read
+					// as a healthy no-op chunk and spin until the lock ages out.
+					$progress                       = $this->build_progress();
+					$progress['engine_load_failed'] = true;
+					$progress['engine_load_fault']  = $fault;
+					return $progress;
+				}
 			}
 			$scanner_state = $scanner->get_state();
 			if ( 'completed' === $scanner_state['status'] ) {
@@ -446,9 +448,10 @@ class Segurium_Scan {
 	 *                            `cleanup_scan_state()` so a parallel worker
 	 *                            mid-tick can run cleanup itself via the
 	 *                            cooperative cancel handshake.
+	 * @param array  $extra       Fields added to the `scan_aborted` payload.
 	 * @return void
 	 */
-	public function mark_aborted( $reason_code = Segurium_Scan_Runner::REASON_RUNTIME_ERROR, $cleanup = true ) {
+	public function mark_aborted( $reason_code = Segurium_Scan_Runner::REASON_RUNTIME_ERROR, $cleanup = true, array $extra = array() ) {
 		$this->finalize_history(
 			'aborted',
 			array_merge(
@@ -458,7 +461,7 @@ class Segurium_Scan {
 		);
 		Segurium_Storage::cti_send_message(
 			'scan_aborted',
-			$this->terminal_message_payload( (string) $reason_code )
+			$this->terminal_message_payload( (string) $reason_code, $extra )
 		);
 		if ( $cleanup ) {
 			$this->cleanup_scan_state();
@@ -572,6 +575,7 @@ class Segurium_Scan {
 				'duration_seconds' => $duration,
 			),
 			self::deep_scan_report( $stats ),
+			$this->rebuild_report(),
 			$extra
 		);
 	}
@@ -591,6 +595,123 @@ class Segurium_Scan {
 			$report['last_worker_death'] = $stats['last_worker_death'];
 		}
 		return $report;
+	}
+
+	/**
+	 * The `workspace_rebuild` field for terminal messages.
+	 *
+	 * @return array
+	 */
+	private function rebuild_report() {
+		if ( empty( $this->state['workspace_rebuild'] ) || ! is_array( $this->state['workspace_rebuild'] ) ) {
+			return array();
+		}
+		return array( 'workspace_rebuild' => $this->state['workspace_rebuild'] );
+	}
+
+	/**
+	 * Effective OS user and PHP SAPI of the running process.
+	 *
+	 * @return array{euid:int|null,sapi:string}
+	 */
+	private static function process_identity() {
+		return array(
+			'euid' => function_exists( 'posix_geteuid' ) ? (int) posix_geteuid() : null,
+			'sapi' => PHP_SAPI,
+		);
+	}
+
+	/**
+	 * Restart the listing in a workspace this process creates, once per
+	 * scan and only before any listing output reached the verdict queue.
+	 *
+	 * @param array $fault Load fault report; gains the outcome.
+	 * @return Segurium_Scanner|null Scanner of the new workspace, or null.
+	 */
+	private function rebuild_workspace( array &$fault ) {
+		if ( 0 !== (int) $this->state['scanner_read_offset'] || isset( $this->state['workspace_rebuild'] ) ) {
+			return null;
+		}
+		$old     = (string) $this->workspace;
+		$scanner = null;
+		$new     = Segurium_Storage::tmp_make_workspace( 'scan' );
+		if ( false === $new ) {
+			$fault['outcome'] = self::REBUILD_CREATE_FAILED;
+		} else {
+			$this->workspace  = $new;
+			$fault['outcome'] = self::REBUILD_OK;
+			try {
+				$scanner = $this->create_scanner();
+				$scanner->start();
+				if ( ! $scanner->load_state() ) {
+					$fault['outcome']      = self::REBUILD_RELOAD_FAILED;
+					$fault['reload_fault'] = $scanner->load_fault()['fault'];
+				}
+			} catch ( Throwable $e ) {
+				$fault['outcome'] = self::REBUILD_START_FAILED;
+				$fault['error']   = get_class( $e );
+			}
+			if ( self::REBUILD_OK !== $fault['outcome'] ) {
+				self::destroy_workspace( $new );
+				$this->workspace = $old;
+				$scanner         = null;
+			}
+		}
+
+		if ( null !== $scanner ) {
+			$this->state['workspace'] = $new;
+		}
+		$this->state['workspace_rebuild'] = $fault;
+		$this->save_state();
+		if ( null === $scanner ) {
+			return null;
+		}
+		$this->write_active();
+		$fault['old_removed']             = '' !== $old && self::destroy_workspace( $old );
+		$this->state['workspace_rebuild'] = $fault;
+		$this->save_state();
+		return $scanner;
+	}
+
+	/**
+	 * Remove a workspace that this process may lack the rights to list.
+	 *
+	 * @param string $workspace Absolute workspace path.
+	 * @return bool True when the workspace is gone.
+	 */
+	private static function destroy_workspace( $workspace ) {
+		try {
+			Segurium_Storage::tmp_destroy( $workspace );
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-scan] workspace teardown failed: ' . get_class( $e ) . ': ' . $e->getMessage() );
+		}
+		clearstatcache( true, $workspace );
+		return ! file_exists( $workspace );
+	}
+
+	/**
+	 * Record the active scan and its workspace in runtime_kv.
+	 *
+	 * @return void
+	 */
+	private function write_active() {
+		$now = time();
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => self::KV_ACTIVE,
+				'kv_value'   => (string) wp_json_encode(
+					array(
+						'scan_id'   => (string) $this->state['scan_id'],
+						'scan_type' => (string) $this->state['scan_type'],
+						'workspace' => (string) $this->workspace,
+					)
+				),
+				'expires_at' => $now + self::KV_TTL,
+				'updated_at' => $now,
+			),
+			array( 'kv_key' )
+		);
 	}
 
 	/**
@@ -924,6 +1045,10 @@ class Segurium_Scan {
 		// `save_listing_state()` (listing only) write disjoint rows; the
 		// orch save can never regress listing.
 		$this->save_listing_state();
+		// Must precede the seal and the drain, or a worker dying there queues
+		// these rows again. Must follow the listing row, since a saved
+		// scanner_completed stops files_found from refreshing.
+		$this->save_state();
 
 		if ( $this->state['scanner_completed'] ) {
 			$this->verdict_queue->mark_submissions_complete( $this->state['scan_id'] );
@@ -937,14 +1062,12 @@ class Segurium_Scan {
 		}
 
 		if ( $listing_just_finished ) {
-			$this->save_state();
 			return $this->build_progress();
 		}
 
 		$single_batch = (bool) apply_filters( 'segurium_scan_verdict_single_batch', true );
 		$this->verdict_queue->process( $single_batch );
 
-		$this->save_state();
 		return $this->build_progress();
 	}
 
@@ -1205,7 +1328,8 @@ class Segurium_Scan {
 						'threats_found'    => (int) $stats['threats'],
 						'duration_seconds' => $duration,
 					),
-					self::deep_scan_report( $stats )
+					self::deep_scan_report( $stats ),
+					$this->rebuild_report()
 				)
 			)
 		);

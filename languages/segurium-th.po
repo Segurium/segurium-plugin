@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "ล้างมัลแวร์ที่กลับมาพร้อมโค้ดใหม่"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "ทุก 5 นาที (คำสั่งถาวรของ Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s มีช่องโหว่ PHP2Shell ซึ่งเป็นช่องโหว่การรันโค้ดจากระยะไกลใน PHP เอง (CVE-2026-109618, CVE-2026-109619) โปรดขอให้ผู้ให้บริการโฮสติ้งอัปเกรด PHP เป็น %2$s หรือใหม่กว่า"
 
@@ -4610,3 +4616,44 @@ msgstr "PHP %s เป็นเวอร์ชันที่ผู้จำห�
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP ได้รับการแก้ไขช่องโหว่ PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "หยุดการติดตั้ง Segurium พบมัลแวร์ใน %s"
+
+#. translators: %s: login name of the locked WordPress account.
+msgid "Locked account: %s"
+msgstr "บัญชีที่ถูกล็อก: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "การทำเช่นนี้จะคืนบทบาท รหัสผ่าน และรหัสผ่านแอปพลิเคชันให้กับบัญชี ดำเนินการต่อหรือไม่?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "การล็อกบัญชีผู้ควบคุมที่มุ่งร้าย"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "การยืนยันตัวตนสองขั้นตอนจะกลายเป็นข้อบังคับสำหรับผู้ควบคุมเมื่อมีผู้ควบคุมคนแรกตั้งค่าเสร็จแล้ว"
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "ส่วนประกอบบางอย่างเปลี่ยนรุ่นหลังจากการสแกนความสมบูรณ์ครั้งล่าสุด โปรดสแกนใหม่เพื่อปลดล็อกการกระทำของส่วนประกอบเหล่านั้น"
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "การสแกนความสมบูรณ์ครั้งล่าสุดเก่ากว่า 24 ชั่วโมง โปรดสแกนใหม่เพื่อปลดล็อกการกระทำ"
+
+msgid "Rescan needed"
+msgstr "ต้องสแกนใหม่"
+
+msgid "Administrators get no grace period."
+msgstr "ผู้ควบคุมจะไม่ได้รับระยะเวลาผ่อนผัน"
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "เมื่อกำหนดเป็น 0 วัน ผู้ใช้ในบทบาทที่บังคับใช้ซึ่งยังไม่ได้ตั้งค่า 2FA จะเข้าสู่ระบบไม่ได้ รวมถึงผู้ใช้ใหม่ ผู้ควบคุมยังเข้าสู่ระบบได้จนกว่าผู้ควบคุมคนแรกจะตั้งค่า 2FA การรีเซ็ต 2FA จะให้เวลาผู้ใช้ที่ถูกบล็อก 1 วัน"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "ปลั๊กอิน ธีม และคอร์ที่มีช่องโหว่และล้าสมัย พร้อมการอัปเดตหากมี"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "ทุกฟีเจอร์มีให้ในทุกการติดตั้ง Pro ยกเลิกขีดจำกัดการทำความสะอาดรายเดือนและเพิ่มบริการคลาวด์สามรายการ"
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "ทำความสะอาดได้ไม่จำกัด พร้อมบริการคลาวด์ด้านล่าง"

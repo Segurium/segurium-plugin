@@ -307,7 +307,7 @@ class Segurium_Geo_Blocker {
 
 		// Unwrap X-Forwarded-For right-to-left through trusted proxies.
 		if ( '' !== $xff ) {
-			$chain = array_map( 'trim', explode( ',', $xff ) );
+			$chain = array_map( array( __CLASS__, 'strip_xff_port' ), explode( ',', $xff ) );
 			for ( $i = count( $chain ) - 1; $i >= 0; $i-- ) {
 				if ( false === @inet_pton( $chain[ $i ] ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors
 					continue;
@@ -346,6 +346,24 @@ class Segurium_Geo_Blocker {
 
 		$cached_ip = $remote;
 		return $cached_ip;
+	}
+
+	/**
+	 * Strip the client port some proxies append. A bare IPv6 address holds
+	 * colons too, so only a dotted quad or a bracketed address loses one.
+	 *
+	 * @param string $entry One comma-separated X-Forwarded-For entry.
+	 * @return string
+	 */
+	private static function strip_xff_port( $entry ) {
+		$entry = trim( $entry );
+		if ( preg_match( '/^\[([0-9A-Fa-f:.]+)\](?::\d{1,5})?$/', $entry, $m ) ) {
+			return $m[1];
+		}
+		if ( preg_match( '/^(\d{1,3}(?:\.\d{1,3}){3}):\d{1,5}$/', $entry, $m ) ) {
+			return $m[1];
+		}
+		return $entry;
 	}
 
 	/**

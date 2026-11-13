@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Haittaohjelmien puhdistus, kun ne palaavat uudella koodilla"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "5 minuutin välein (Seguriumin kestotilaukset)"
+
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s sisältää PHP2Shell-korjaukset (CVE-2026-109618, CVE-2026-109619)."
 
@@ -4801,3 +4807,46 @@ msgstr "Välimuistin mitätöinti siivouksen jälkeen"
 
 msgid "The setting could not be saved."
 msgstr "Asetusta ei voitu tallentaa."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Asennus pysäytettiin. Segurium löysi haittaohjelman tiedostosta %s."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Lukittu tili: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Tämä palauttaa tilille sen roolin, salasanan ja sovellussalasanat. Jatketaanko?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Haitallisten ylläpitäjätilien lukitus"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Kaksivaiheinen tunnistautuminen tulee ylläpitäjille pakolliseksi, kun ensimmäinen ylläpitäjä ottaa sen käyttöön."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Joidenkin osien versio on muuttunut viimeisen eheystarkistuksen jälkeen. Aja uusi tarkistus, niin niiden toiminnot avautuvat."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Viimeisin eheystarkistus on yli 24 tuntia vanha. Aja uusi tarkistus, niin toiminnot avautuvat."
+
+msgid "Rescan needed"
+msgstr "Tarkistus on ajettava uudelleen"
+
+msgid "Administrators get no grace period."
+msgstr "Ylläpitäjät eivät saa siirtymäaikaa."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Kun arvo on 0 päivää, pakotetuissa rooleissa olevat käyttäjät, jotka eivät ole ottaneet 2FA:ta käyttöön, eivät voi kirjautua sisään, uudet käyttäjät mukaan lukien. Ylläpitäjät voivat kirjautua, kunnes ensimmäinen ylläpitäjä ottaa 2FA:n käyttöön. 2FA:n nollaus antaa estetylle käyttäjälle 1 päivän."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Haavoittuvat ja vanhentuneet lisäosat, teemat ja ydin, saatavilla olevien päivitysten kanssa"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Kaikki ominaisuudet sisältyvät jokaiseen asennukseen. Pro poistaa kuukausittaisen puhdistusrajan ja lisää kolme pilvipalvelua."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Rajaton puhdistus sekä alla olevat pilvipalvelut."

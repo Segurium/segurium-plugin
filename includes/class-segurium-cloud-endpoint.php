@@ -31,6 +31,8 @@ class Segurium_Cloud_Endpoint {
 
 	const RESEND_MIN_TIMEOUT_SEC = 5;
 
+	const PROBE_TIMEOUT_SEC = 10;
+
 	/**
 	 * Endpoint the next request uses.
 	 *
@@ -39,6 +41,49 @@ class Segurium_Cloud_Endpoint {
 	public static function selected() {
 		$state = self::state();
 		return $state['selected'];
+	}
+
+	/**
+	 * Whether a name is one of the two endpoints above.
+	 *
+	 * @param mixed $endpoint Candidate name.
+	 * @return bool
+	 */
+	public static function is_known( $endpoint ) {
+		return self::PRIMARY === $endpoint || self::SECONDARY === $endpoint;
+	}
+
+	/**
+	 * Probe one endpoint's health route and select the endpoint when the
+	 * probe passes the rule the fallback applies to that endpoint: any HTTP
+	 * status for the primary, a status under 500 for the secondary. The
+	 * probe never moves to the other endpoint.
+	 *
+	 * @param string $endpoint PRIMARY or SECONDARY.
+	 * @return string '' after the switch, else `http_<status>`, `curl_<errno>` or `transport`.
+	 */
+	public static function switch_to( $endpoint ) {
+		$response = wp_remote_request(
+			self::url( self::PRIMARY_BASE . '/health', $endpoint ),
+			array(
+				'method'  => 'GET',
+				'timeout' => self::PROBE_TIMEOUT_SEC,
+			)
+		);
+
+		$failure = '';
+		if ( is_wp_error( $response ) ) {
+			$message = (string) $response->get_error_message();
+			$failure = preg_match( '/^cURL error (\d+):/', $message, $match ) ? 'curl_' . $match[1] : 'transport';
+			Segurium_Debug::log( '[segurium] cloud endpoint probe of ' . $endpoint . ' failed: ' . $message );
+		} elseif ( self::SECONDARY === $endpoint && (int) wp_remote_retrieve_response_code( $response ) >= 500 ) {
+			$failure = 'http_' . (int) wp_remote_retrieve_response_code( $response );
+		}
+
+		if ( '' === $failure ) {
+			self::select( $endpoint );
+		}
+		return $failure;
 	}
 
 	/**

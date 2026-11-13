@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "ניקוי תוכנות זדוניות שחוזרות עם קוד חדש"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "כל 5 דקות (הוראות קבע של Segurium)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "‏PHP %1$s חשוף ל-PHP2Shell, פרצת הרצת קוד מרחוק ב-PHP עצמו (CVE-2026-109618, CVE-2026-109619). בקש מספק האחסון שלך לשדרג את PHP לגרסה %2$s או חדשה יותר."
 
@@ -4601,3 +4607,46 @@ msgstr "PHP %s הוא בנייה של ספק. מספר הגרסה לא מראה 
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP מתוקן מפני PHP2Shell"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "אימות דו-שלבי הופך לנדרש עבור מנהלי מערכת ברגע שהמנהל הראשון מגדיר אותו."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "ההתקנה הופסקה. Segurium מצא תוכנה זדונית ב-%s."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "חלק מהרכיבים שינו גרסה אחרי סריקת השלמות האחרונה. יש להריץ סריקה חדשה כדי לשחרר את הפעולות שלהם."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "סריקת השלמות האחרונה בת יותר מ-24 שעות. יש להריץ סריקה חדשה כדי לשחרר את הפעולות."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "חשבון נעול: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "הפעולה הזו מחזירה לחשבון את התפקיד, הסיסמה וסיסמאות היישום. להמשיך?"
+
+msgid "Rescan needed"
+msgstr "נדרשת סריקה מחדש"
+
+msgid "Administrators get no grace period."
+msgstr "מנהלי מערכת לא מקבלים תקופת חסד."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "כאשר מוגדרים 0 ימים, משתמשים בתפקידים שהאכיפה חלה עליהם ולא הגדירו 2FA לא יוכלו להתחבר, כולל משתמשים חדשים. מנהלי מערכת יוכלו להתחבר עד שהמנהל הראשון יגדיר 2FA. איפוס 2FA מעניק למשתמש חסום יום אחד."
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "חסימה של חשבונות מנהל מערכת זדוניים"
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "תוספים, תבניות וליבה פגיעים ומיושנים, עם עדכונים כאשר זמינים"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "כל התכונות כלולות בכל התקנה. Pro מסיר את מגבלת הניקוי החודשית ומוסיף שלושה שירותי ענן."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "ניקוי ללא הגבלה, בנוסף לשירותי הענן למטה."

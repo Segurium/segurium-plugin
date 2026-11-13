@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n == 0 || n % 100 >= 2 && n % 100 <= 19) ? 1 : 2);\n"
 "X-Domain: segurium\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Curățarea malware-ului care revine cu cod nou"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "La fiecare 5 minute (ordine permanente Segurium)"
+
 msgid "PHP %s includes the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)."
 msgstr "PHP %s include corecțiile PHP2Shell (CVE-2026-109618, CVE-2026-109619)."
 
@@ -4766,3 +4772,44 @@ msgstr "Invalidarea cache-ului după curățare"
 
 msgid "The setting could not be saved."
 msgstr "Setarea nu a putut fi salvată."
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Instalare oprită. Segurium a găsit malware în %s."
+
+#. translators: %s: login name of the locked WordPress account.
+msgid "Locked account: %s"
+msgstr "Cont blocat: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Această acțiune redă contului rolul, parola și parolele de aplicație. Continui?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Blocarea conturilor de administrator rău intenționate"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "Autentificarea cu doi factori devine obligatorie pentru administratori după ce primul administrator o configurează."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Unele componente și-au schimbat versiunea după ultima scanare de integritate. Rulează o nouă scanare pentru a debloca acțiunile lor."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Ultima scanare de integritate este mai veche de 24 de ore. Rulează o nouă scanare pentru a debloca acțiunile."
+
+msgid "Rescan needed"
+msgstr "Rescanare necesară"
+
+msgid "Administrators get no grace period."
+msgstr "Administratorii nu beneficiază de perioadă de grație."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "Cu 0 zile, utilizatorii din rolurile impuse care nu au configurat 2FA nu se pot autentifica, inclusiv utilizatorii noi. Administratorii se pot autentifica până când primul administrator configurează 2FA. Resetează 2FA acordă unui utilizator blocat 1 zi."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Module, teme și nucleu vulnerabile și învechite, cu actualizări unde sunt disponibile"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Fiecare funcție este inclusă în fiecare instalare. Pro elimină limita lunară de curățare și adaugă trei servicii cloud."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Curățare nelimitată, plus serviciile cloud de mai jos."

@@ -59,6 +59,9 @@ class Segurium_Scanner {
 	 */
 	const SKIP_STAT_FAILED = 11;
 
+	const FAULT_INVALID_PAYLOAD = 'invalid_payload';
+	const FAULT_REWIND_FAILED   = 'rewind_failed';
+
 	/**
 	 * Absolute path to the WordPress root directory.
 	 *
@@ -147,6 +150,13 @@ class Segurium_Scanner {
 	 * @var string
 	 */
 	private $visited_file;
+
+	/**
+	 * FAULT_* code of the last failed load_state(), '' after a good one.
+	 *
+	 * @var string
+	 */
+	private $load_fault = '';
 
 	/**
 	 * Constructor.
@@ -336,8 +346,14 @@ class Segurium_Scanner {
 	 * @return bool True if state was loaded successfully.
 	 */
 	public function load_state() {
-		$data = Segurium_State_File::read_json_with_retry( $this->state_file );
+		$fault            = '';
+		$data             = Segurium_State_File::read_json_with_retry( $this->state_file, $fault );
+		$this->load_fault = $fault;
+		if ( '' !== $fault ) {
+			return false;
+		}
 		if ( ! is_array( $data ) || empty( $data['status'] ) ) {
+			$this->load_fault = self::FAULT_INVALID_PAYLOAD;
 			return false;
 		}
 
@@ -367,6 +383,7 @@ class Segurium_Scanner {
 
 		$this->state = $data;
 		if ( ! $this->rewind_outputs() ) {
+			$this->load_fault = self::FAULT_REWIND_FAILED;
 			return false;
 		}
 		// Through mark_visited(), not straight into the map: the inline
@@ -379,6 +396,20 @@ class Segurium_Scanner {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Why the last load_state() failed, and the state file and workspace
+	 * as this process sees them.
+	 *
+	 * @return array{fault:string,state_file:array,workspace:array}
+	 */
+	public function load_fault() {
+		return array(
+			'fault'      => $this->load_fault,
+			'state_file' => Segurium_State_File::path_facts( $this->state_file ),
+			'workspace'  => Segurium_State_File::path_facts( $this->data_dir ),
+		);
 	}
 
 	/**

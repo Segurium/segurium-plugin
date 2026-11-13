@@ -327,6 +327,8 @@ final class Segurium_Scan_Runner {
 	const REASON_ABORTED_UPLOAD_CAPACITY    = 'ABORTED_UPLOAD_CAPACITY';
 	const REASON_ABORTED_QUEUE_FULL         = 'ABORTED_QUEUE_FULL';
 
+	const FAULT_ORCHESTRATOR_STATE = 'orchestrator_state';
+
 	/**
 	 * The scan_history.status values that end a scan. One list for the terminal
 	 * gate, the REST answer and the newest-terminal lookup.
@@ -1157,10 +1159,11 @@ final class Segurium_Scan_Runner {
 	 *                                      only if the lock still belongs to
 	 *                                      this scan; a lock replaced in the
 	 *                                      meantime is left alone.
+	 * @param array       $detail           Extra `scan_aborted` payload fields.
 	 * @return bool True when a scan was terminated, false when no lock was held
 	 *              (or it belongs to another scan than expected).
 	 */
-	public static function terminate( $reason_code, $expected_scan_id = null ) {
+	public static function terminate( $reason_code, $expected_scan_id = null, array $detail = array() ) {
 		$lock = Segurium_Scan_Lock::get();
 		if ( null === $lock ) {
 			return false;
@@ -1198,7 +1201,7 @@ final class Segurium_Scan_Runner {
 				if ( 'cancelled' === $status ) {
 					$engine->mark_cancelled( $reason_code, $cleanup_synchronously );
 				} else {
-					$engine->mark_aborted( $reason_code, $cleanup_synchronously );
+					$engine->mark_aborted( $reason_code, $cleanup_synchronously, $detail );
 				}
 				$engine_finalized = true;
 			}
@@ -1243,7 +1246,7 @@ final class Segurium_Scan_Runner {
 				$payload['cancelled_by'] = self::cancelled_by( $reason_code );
 				Segurium_Storage::cti_send_message( 'scan_cancelled', $payload );
 			} else {
-				Segurium_Storage::cti_send_message( 'scan_aborted', $payload );
+				Segurium_Storage::cti_send_message( 'scan_aborted', array_merge( $payload, $detail ) );
 			}
 		}
 
@@ -1946,7 +1949,11 @@ final class Segurium_Scan_Runner {
 						'scan_type' => $lock['scan_type'],
 					)
 				);
-				self::terminate( self::REASON_ABORTED_ENGINE_LOAD_FAILED );
+				self::terminate(
+					self::REASON_ABORTED_ENGINE_LOAD_FAILED,
+					null,
+					array( 'load_fault' => array( 'fault' => self::FAULT_ORCHESTRATOR_STATE ) )
+				);
 				$tick_outcome = 'engine_load_failed';
 				return;
 			}
@@ -2010,6 +2017,7 @@ final class Segurium_Scan_Runner {
 			$completed                = false;
 			$cancel_observed          = false;
 			$engine_load_failed       = false;
+			$engine_load_fault        = array();
 
 			self::debug(
 				'chunk_loop_start',
@@ -2101,6 +2109,9 @@ final class Segurium_Scan_Runner {
 					// must carry into the next one.
 					if ( ! empty( $result['engine_load_failed'] ) ) {
 						$engine_load_failed = true;
+						if ( isset( $result['engine_load_fault'] ) && is_array( $result['engine_load_fault'] ) ) {
+							$engine_load_fault = $result['engine_load_fault'];
+						}
 						break;
 					}
 
@@ -2200,13 +2211,18 @@ final class Segurium_Scan_Runner {
 							'chunks'   => $chunks_returned,
 							'failures' => $load_failures,
 							'max'      => self::ENGINE_LOAD_MAX_ATTEMPTS,
+							'fault'    => $engine_load_fault,
 						)
 					);
 					if ( $load_failures >= self::ENGINE_LOAD_MAX_ATTEMPTS ) {
 						// terminate() defers the workspace teardown while this
 						// worker holds the tick mutex, as it does for a
 						// cooperative cancel. We are that worker.
-						self::terminate( self::REASON_ABORTED_ENGINE_LOAD_FAILED, $scan_id );
+						self::terminate(
+							self::REASON_ABORTED_ENGINE_LOAD_FAILED,
+							$scan_id,
+							empty( $engine_load_fault ) ? array() : array( 'load_fault' => $engine_load_fault )
+						);
 						try {
 							$engine->cleanup_state();
 						} catch ( Throwable $cleanup_exc ) {

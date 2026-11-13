@@ -235,8 +235,14 @@ class Segurium_Server_State {
 	 * @return array
 	 */
 	public function get_items( $page = 1, $per_page = 20, $recent_only = false, $filter = Segurium_File_State::FILTER_ALL ) {
-		$rows = Segurium_File_State::get_page( (int) $page, (int) $per_page, (bool) $recent_only, (string) $filter );
-		$out  = array();
+		$per_page = max( 1, min( 1000, (int) $per_page ) );
+		$start    = ( max( 1, (int) $page ) - 1 ) * $per_page;
+		$accounts = $this->account_items( (bool) $recent_only, (string) $filter, true );
+		$out      = array_slice( $accounts, $start, $per_page );
+		$room     = $per_page - count( $out );
+		$rows     = $room > 0
+			? Segurium_File_State::get_page( 1, $room, (bool) $recent_only, (string) $filter, max( 0, $start - count( $accounts ) ) )
+			: array();
 		foreach ( $rows as $row ) {
 			$out[] = array(
 				'path'      => (string) $row['path'],
@@ -258,7 +264,8 @@ class Segurium_Server_State {
 	 * @return int
 	 */
 	public function get_total( $recent_only = false, $filter = Segurium_File_State::FILTER_ALL ) {
-		return Segurium_File_State::get_total( (bool) $recent_only, (string) $filter );
+		return Segurium_File_State::get_total( (bool) $recent_only, (string) $filter )
+			+ count( $this->account_items( (bool) $recent_only, (string) $filter, false ) );
 	}
 
 	/**
@@ -268,7 +275,47 @@ class Segurium_Server_State {
 	 * @return array<string, int>
 	 */
 	public function get_counts( $recent_only = false ) {
-		return Segurium_File_State::get_counts( (bool) $recent_only );
+		$counts             = Segurium_File_State::get_counts( (bool) $recent_only );
+		$counts['all']     += count( $this->account_items( (bool) $recent_only, Segurium_File_State::FILTER_ALL, false ) );
+		$counts['cleaned'] += count( $this->account_items( (bool) $recent_only, Segurium_File_State::FILTER_CLEANED, false ) );
+		return $counts;
+	}
+
+	/**
+	 * Locked and restored accounts, shaped like file rows. They sort
+	 * ahead of every file, so pages count them like any other row.
+	 *
+	 * @param bool   $recent_only Only rows changed inside the recent window.
+	 * @param string $filter      One of Segurium_File_State::FILTER_* constants.
+	 * @param bool   $reconcile   Match the rows to the live accounts first.
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function account_items( $recent_only, $filter, $reconcile ) {
+		if ( Segurium_File_State::FILTER_ALL !== $filter && Segurium_File_State::FILTER_CLEANED !== $filter ) {
+			return array();
+		}
+		if ( $reconcile ) {
+			Segurium_Account_Lock::reconcile();
+		}
+		$out = array();
+		foreach ( Segurium_Account_Lock::rows( $recent_only ) as $row ) {
+			$locked = Segurium_Account_Lock::STATE_LOCKED === $row['state'];
+			if ( Segurium_File_State::FILTER_CLEANED === $filter && ! $locked ) {
+				continue;
+			}
+			$out[] = array(
+				'kind'      => 'account',
+				'path'      => 'account:' . $row['uid'],
+				'uid'       => $row['uid'],
+				'label'     => $row['login'],
+				'sha256'    => '',
+				'state'     => $locked ? 'cleaned' : 'account_restored',
+				'timestamp' => $row['at'],
+				'verdict'   => 0,
+				'backup_id' => null,
+			);
+		}
+		return $out;
 	}
 
 	/**

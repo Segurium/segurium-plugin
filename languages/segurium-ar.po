@@ -16,6 +16,12 @@ msgstr ""
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
+msgid "Cleanup of malware that comes back with new code"
+msgstr "تنظيف البرمجيات الضارة التي تعود بشيفرة جديدة"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "كل 5 دقائق (أوامر Segurium الدائمة)"
+
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "إصدار PHP %1$s معرض لثغرة PHP2Shell، وهي ثغرة تنفيذ تعليمات برمجية عن بُعد في PHP نفسه (CVE-2026-109618، CVE-2026-109619). اطلب من مزوّد الاستضافة ترقية PHP إلى %2$s أو إصدار أحدث."
 
@@ -5022,3 +5028,44 @@ msgstr "إصدار PHP %s هو بناء خاص بالمزود. لا يُظهر �
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP مُصحَّح ضد ثغرة PHP2Shell"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "تم إيقاف التثبيت. اكتشف Segurium برمجيات ضارة في %s."
+
+#. translators: %s: login name of the locked WordPress account.
+msgid "Locked account: %s"
+msgstr "حساب مقفل: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "سيؤدي هذا إلى إعادة دور الحساب وكلمة المرور وكلمات مرور التطبيقات. هل تريد المتابعة؟"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "قفل حسابات المسؤولين الخبيثة"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "تصبح المصادقة الثنائية مطلوبة للمسؤولين بمجرد أن يقوم أول مسؤول بإعدادها."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "تغيّر إصدار بعض المكوّنات بعد آخر فحص للسلامة. شغّل فحصًا جديدًا لإلغاء قفل إجراءاتها."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "مضى على آخر فحص للسلامة أكثر من 24 ساعة. شغّل فحصًا جديدًا لإلغاء قفل الإجراءات."
+
+msgid "Rescan needed"
+msgstr "يلزم إعادة الفحص"
+
+msgid "Administrators get no grace period."
+msgstr "لا يحصل المسؤولون على فترة سماح."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "عند تعيين 0 يوم، لا يستطيع المستخدمون في الأدوار الملزمة الذين لم يُعدّوا المصادقة الثنائية تسجيل الدخول، بمن فيهم المستخدمون الجدد. يمكن للمسؤولين تسجيل الدخول حتى يُعدّ أول مسؤول المصادقة الثنائية. إعادة تعيين المصادقة الثنائية تمنح المستخدم المحظور يومًا واحدًا."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "الإضافات والقوالب والنواة المعرضة للخطر والقديمة، مع التحديثات المتوفرة"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "جميع الميزات مضمنة في كل تثبيت. Pro يرفع الحد الشهري للتنظيف ويضيف ثلاث خدمات سحابية."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "تنظيف غير محدود، بالإضافة إلى الخدمات السحابية أدناه."

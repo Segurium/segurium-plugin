@@ -28,6 +28,8 @@ class Segurium_2FA {
 	const USER_META_SETUP   = '_segurium_2fa_setup_at';
 	const USER_META_GRACE   = '_segurium_2fa_grace_start';
 
+	const USER_META_GRACE_UNTIL = '_segurium_2fa_grace_until';
+
 	const EMAIL_TRANSIENT        = 'segurium_2fa_email_';
 	const PENDING_TRANSIENT      = 'segurium_2fa_pending_';
 	const USER_ATTEMPT_TRANSIENT = 'segurium_2fa_user_attempts_';
@@ -590,17 +592,20 @@ class Segurium_2FA {
 	 * @return WP_User|WP_Error User or error if enforcement is active and grace expired.
 	 */
 	private function handle_unenrolled_user( $user ) {
-		if ( ! $this->is_enforced_for_user( $user ) ) {
-			return $user;
-		}
-		if ( $this->in_grace_period( $user ) ) {
+		if ( ! $this->blocks_login_without_2fa( $user ) ) {
 			return $user;
 		}
 
-		return new WP_Error(
-			'segurium_2fa_setup_required',
-			__( 'Two-factor authentication setup is required for your role. Please contact your administrator.', 'segurium' )
-		);
+		return new WP_Error( 'segurium_2fa_setup_required', self::setup_required_message() );
+	}
+
+	/**
+	 * Message shown when a login stops because the account has no 2FA.
+	 *
+	 * @return string
+	 */
+	private static function setup_required_message() {
+		return __( 'Two-factor authentication setup is required for your role. Please contact your administrator.', 'segurium' );
 	}
 
 	/**
@@ -773,19 +778,25 @@ class Segurium_2FA {
 	 * @return bool True if within grace period.
 	 */
 	public function in_grace_period( $user ) {
-		$settings = $this->get_settings();
-		$days     = (int) $settings['grace_period_days'];
-		if ( $days <= 0 ) {
-			return false;
-		}
-
-		$grace_start = (int) get_user_meta( $user->ID, self::USER_META_GRACE, true );
-		if ( 0 === $grace_start ) {
+		if ( $this->grace_days_for( $user ) > 0 && 0 === (int) get_user_meta( $user->ID, self::USER_META_GRACE, true ) ) {
 			update_user_meta( $user->ID, self::USER_META_GRACE, time() );
-			return true;
 		}
 
-		return ( time() - $grace_start ) < ( $days * DAY_IN_SECONDS );
+		return $this->get_grace_remaining( $user ) > 0;
+	}
+
+	/**
+	 * Configured grace days for a user. Site admins get none.
+	 *
+	 * @param WP_User $user WordPress user.
+	 * @return int
+	 */
+	private function grace_days_for( $user ) {
+		if ( user_can( $user, 'manage_options' ) ) {
+			return 0;
+		}
+		$settings = $this->get_settings();
+		return (int) $settings['grace_period_days'];
 	}
 
 	/**
@@ -795,16 +806,61 @@ class Segurium_2FA {
 	 * @return int Remaining seconds (0 if expired).
 	 */
 	public function get_grace_remaining( $user ) {
-		$settings    = $this->get_settings();
-		$days        = (int) $settings['grace_period_days'];
+		$days        = $this->grace_days_for( $user );
 		$grace_start = (int) get_user_meta( $user->ID, self::USER_META_GRACE, true );
+		$period_left = ( 0 === $grace_start || $days <= 0 ) ? 0 : ( $grace_start + $days * DAY_IN_SECONDS ) - time();
+		$reset_left  = (int) get_user_meta( $user->ID, self::USER_META_GRACE_UNTIL, true ) - time();
 
-		if ( 0 === $grace_start || $days <= 0 ) {
-			return 0;
+		return max( 0, $period_left, $reset_left );
+	}
+
+	/**
+	 * Whether a login without 2FA must stop for this user now.
+	 *
+	 * @param WP_User $user WordPress user.
+	 * @return bool
+	 */
+	public function blocks_login_without_2fa( $user ) {
+		if ( ! $this->is_enforced_for_user( $user ) || $this->in_grace_period( $user ) ) {
+			return false;
 		}
+		return ! $this->valve_open_for( $user );
+	}
 
-		$remaining = ( $grace_start + $days * DAY_IN_SECONDS ) - time();
-		return max( 0, $remaining );
+	/**
+	 * Site admins pass while no site admin has 2FA, so turning on
+	 * enforcement cannot lock every admin out of the site.
+	 *
+	 * @param WP_User $user WordPress user.
+	 * @return bool
+	 */
+	private function valve_open_for( $user ) {
+		return user_can( $user, 'manage_options' ) && ! $this->site_admin_has_2fa();
+	}
+
+	/**
+	 * Whether at least one site admin has 2FA set up.
+	 *
+	 * @return bool
+	 */
+	public function site_admin_has_2fa() {
+		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- a user-query filter must not hide an enrolled admin from the count.
+		$ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT DISTINCT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value NOT IN ( '', 'none' ) ORDER BY user_id",
+				self::USER_META_METHOD
+			)
+		);
+		foreach ( array_chunk( array_map( 'intval', $ids ), 100 ) as $chunk ) {
+			cache_users( $chunk );
+			foreach ( $chunk as $id ) {
+				if ( user_can( $id, 'manage_options' ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	// =========================================================================
@@ -899,6 +955,18 @@ class Segurium_2FA {
 		delete_user_meta( $user_id, self::USER_META_TRUSTED );
 		delete_user_meta( $user_id, self::USER_META_SETUP );
 		delete_user_meta( $user_id, self::USER_META_GRACE );
+		delete_user_meta( $user_id, self::USER_META_GRACE_UNTIL );
+	}
+
+	/**
+	 * Clear a user's 2FA on an admin's request and give the user one day to set it up again.
+	 *
+	 * @param int $user_id WordPress user ID.
+	 * @return void
+	 */
+	public function admin_reset_user_2fa( $user_id ) {
+		$this->reset_user_2fa( $user_id );
+		update_user_meta( $user_id, self::USER_META_GRACE_UNTIL, time() + DAY_IN_SECONDS );
 	}
 
 	/**
@@ -1126,6 +1194,13 @@ class Segurium_2FA {
 						$days
 					)
 				),
+				esc_url( $profile_url ),
+				esc_html__( 'Set up now', 'segurium' )
+			);
+		} elseif ( $this->valve_open_for( $user ) ) {
+			printf(
+				'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
+				esc_html__( 'Two-factor authentication becomes required for administrators once the first administrator sets it up.', 'segurium' ),
 				esc_url( $profile_url ),
 				esc_html__( 'Set up now', 'segurium' )
 			);
@@ -1544,12 +1619,12 @@ class Segurium_2FA {
 		// No 2FA configured.
 		if ( empty( $method ) || 'none' === $method ) {
 			// Check enforcement.
-			if ( $this->is_enforced_for_user( $user ) && ! $this->in_grace_period( $user ) ) {
+			if ( $this->blocks_login_without_2fa( $user ) ) {
 				$brute_force->report_failed_attempt( $username, Segurium_Brute_Force::FAIL_2FA_SETUP_REQUIRED );
 				segurium_send_json_success(
 					array(
 						'setup_required' => true,
-						'profile_url'    => admin_url( 'profile.php#segurium-2fa' ),
+						'message'        => self::setup_required_message(),
 					)
 				);
 			}

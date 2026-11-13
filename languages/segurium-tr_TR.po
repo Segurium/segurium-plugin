@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-10-22 03:31+0000\n"
+"PO-Revision-Date: 2026-11-11 04:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: tr_TR\n"
@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Domain: segurium\n"
 "X-Generator: WP-CLI 2.12.0\n"
+
+msgid "Cleanup of malware that comes back with new code"
+msgstr "Yeni kodla geri dönen kötü amaçlı yazılımın temizlenmesi"
+
+msgid "Every 5 minutes (Segurium standing orders)"
+msgstr "Her 5 dakikada bir (Segurium'un kalıcı talimatları)"
 
 msgid "PHP %1$s is open to PHP2Shell, a remote code execution flaw in PHP itself (CVE-2026-109618, CVE-2026-109619). Ask your host to upgrade PHP to %2$s or later."
 msgstr "PHP %1$s, PHP'nin kendisinde bulunan bir uzaktan kod yürütme açığı olan PHP2Shell'e açıktır (CVE-2026-109618, CVE-2026-109619). Barındırma sağlayıcınızdan PHP'yi %2$s veya üzerine yükseltmesini isteyin."
@@ -5074,3 +5080,46 @@ msgstr "PHP %s bir satıcı sürümüdür. Sürüm numarası, PHP2Shell düzeltm
 
 msgid "PHP patched against PHP2Shell"
 msgstr "PHP, PHP2Shell'e karşı yamalandı"
+
+#. translators: %s: path of the infected file inside the plugin or theme package.
+#, php-format
+msgid "Installation stopped. Segurium found malware in %s."
+msgstr "Kurulum durduruldu. Segurium, %s içinde kötü amaçlı yazılım buldu."
+
+#. translators: %s: login name of the locked WordPress account.
+#, php-format
+msgid "Locked account: %s"
+msgstr "Kilitlenen hesap: %s"
+
+msgid "This gives the account back its role, password and application passwords. Continue?"
+msgstr "Bu işlem; hesaba rolünü, parolasını ve uygulama parolalarını geri verir. Devam edilsin mi?"
+
+msgid "Lockout of malicious administrator accounts"
+msgstr "Kötü amaçlı yönetici hesaplarının kilitlenmesi"
+
+msgid "Two-factor authentication becomes required for administrators once the first administrator sets it up."
+msgstr "İlk yönetici 2FA kurduğunda yöneticiler için iki adımlı doğrulama zorunlu hâle gelir."
+
+msgid "Some components changed version after the last integrity scan. Run a new scan to unlock their actions."
+msgstr "Bazı bileşenler son bütünlük taramasından sonra sürüm değiştirdi. Eylemlerin kilidini açmak için yeni bir tarama çalıştırın."
+
+msgid "The last integrity scan is more than 24 hours old. Run a new scan to unlock the actions."
+msgstr "Son bütünlük taraması 24 saatten eski. Eylemlerin kilidini açmak için yeni bir tarama çalıştırın."
+
+msgid "Rescan needed"
+msgstr "Yeniden tarama gerekli"
+
+msgid "Administrators get no grace period."
+msgstr "Yöneticiler için ek süre yoktur."
+
+msgid "With 0 days, users in enforced roles who have not set up 2FA cannot log in, new users included. Administrators can log in until the first administrator sets up 2FA. Reset 2FA gives a blocked user 1 day."
+msgstr "0 gün ayarlandığında, zorunlu rollerdeki 2FA kurmamış kullanıcılar oturum açamaz; yeni kullanıcılar dahil. Yöneticiler, ilk yönetici 2FA kurana kadar oturum açabilir. 2FA'yı Sıfırla, engellenen bir kullanıcıya 1 gün verir."
+
+msgid "Vulnerable and outdated plugins, themes and core, with updates where available"
+msgstr "Savunmasız ve güncel olmayan eklentiler, temalar ve çekirdek, mevcut güncellemelerle birlikte"
+
+msgid "Every feature ships on every install. Pro lifts the monthly cleanup cap and adds three cloud services."
+msgstr "Her özellik her kurulumda mevcuttur. Pro, aylık temizlik sınırını kaldırır ve üç bulut hizmeti ekler."
+
+msgid "Unlimited cleanup, plus the cloud services below."
+msgstr "Sınırsız temizlik ve aşağıdaki bulut hizmetleri."
