@@ -97,6 +97,11 @@ final class Segurium_MainWP_Bridge {
 	const OPT_LAST_SCAN_START = 'segurium_mainwp_last_scan_start';
 
 	/**
+	 * Trigger recorded on the run row of a scan started from a dashboard.
+	 */
+	const RUN_TRIGGER = 'mainwp';
+
+	/**
 	 * Read-only actions. Nothing in this set writes, and
 	 * `test_no_read_only_action_leaves_a_trace_on_the_site` asserts that
 	 * against state rather than against this list.
@@ -302,8 +307,7 @@ final class Segurium_MainWP_Bridge {
 	private static function status_payload() {
 		$terminal = self::last_terminal_malware_scan();
 		$counts   = Segurium_File_State::get_counts( false );
-		$live     = Segurium_Scan_Runner::get_status();
-		$malware  = ( null !== $live && 'integrity' !== ( $live['scan_type'] ?? '' ) ) ? $live : null;
+		$malware  = Segurium_Scan_Runner::get_files_status();
 
 		$integrity_since = self::integrity_last_scan_at();
 
@@ -367,7 +371,7 @@ final class Segurium_MainWP_Bridge {
 	 * Terminal state of the malware scanner.
 	 *
 	 * @param array|null $terminal Last terminal scan row.
-	 * @param array|null $live     Live non-integrity scan status, or null.
+	 * @param array|null $live     Live file scan status, or null.
 	 * @return string
 	 */
 	private static function malware_scan_state( $terminal, $live ) {
@@ -386,7 +390,7 @@ final class Segurium_MainWP_Bridge {
 	 * When the scan the state refers to began.
 	 *
 	 * @param array|null $terminal Last terminal scan row.
-	 * @param array|null $live     Live non-integrity scan status, or null.
+	 * @param array|null $live     Live file scan status, or null.
 	 * @return int
 	 */
 	private static function scan_started_at( $terminal, $live ) {
@@ -435,16 +439,16 @@ final class Segurium_MainWP_Bridge {
 			return 'running';
 		}
 
-		$row = Segurium_Storage::table_get_row(
-			'scan_history',
-			"SELECT status FROM {{table}}
-			 WHERE status IN ('completed','cancelled','aborted') AND scan_type = 'integrity'
-			 ORDER BY started_at DESC LIMIT 1",
-			array(),
-			ARRAY_A
-		);
-		if ( is_array( $row ) ) {
-			return (string) $row['status'];
+		$last = Segurium_Scan_Run::last_phase_result( Segurium_Scan_Phase_Integrity::ID );
+		if ( null !== $last ) {
+			$stopped = in_array( $last['error_code'], array( Segurium_Scan_Runner::REASON_USER_CANCEL, Segurium_Scan_Runner::REASON_REMOTE_CANCEL ), true );
+			$states  = array(
+				Segurium_Scan_Run::PHASE_DONE      => 'completed',
+				Segurium_Scan_Run::PHASE_CANCELLED => 'cancelled',
+				Segurium_Scan_Run::PHASE_FAILED    => 'aborted',
+				Segurium_Scan_Run::PHASE_SKIPPED   => $stopped ? 'cancelled' : 'aborted',
+			);
+			return $states[ $last['status'] ];
 		}
 
 		return self::integrity_last_scan_at() > 0 ? 'completed' : 'never_run';
@@ -642,7 +646,7 @@ final class Segurium_MainWP_Bridge {
 			return self::fail( $action, 'scan_too_soon' );
 		}
 
-		$result = Segurium_Scan_Runner::start( 'manual' );
+		$result = Segurium_Scan_Runner::start_run( array( Segurium_Scan_Phase_Files::ID ), self::RUN_TRIGGER );
 
 		if ( is_wp_error( $result ) ) {
 			return self::fail( $action, self::error_code( $result ) );

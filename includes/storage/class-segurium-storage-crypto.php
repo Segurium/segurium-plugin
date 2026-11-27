@@ -13,9 +13,8 @@
  *   bytes 17..N-16 : ciphertext
  *   bytes N-16..N  : GCM tag (16 bytes)
  *
- * Key is a fixed 32-byte value derived from a build-time constant. The goal
- * of the envelope is to keep stored malware/cleanup payloads unreadable to
- * unrelated on-host scanners, not to defeat an attacker with code access.
+ * The fixed key hides file payloads from on-host scanners, not from readers
+ * of the code; a bucket of site data takes {@see site_key()}.
  *
  * @package Segurium
  */
@@ -41,9 +40,7 @@ class Segurium_Storage_Crypto {
 	const HEADER_LEN = 17;
 
 	/**
-	 * Deterministic key-derivation input. Every install produces the same
-	 * 32-byte key from sha256 of this string — intentionally, so backups
-	 * survive reinstall without any per-site secret management.
+	 * Input of the fixed key (sha256) and of the site key (HMAC under the auth salt).
 	 */
 	const KEY_MATERIAL = 'segurium-storage-backup-v1';
 
@@ -72,10 +69,11 @@ class Segurium_Storage_Crypto {
 	 *
 	 * @param string      $plaintext Bytes to protect.
 	 * @param string|null $backend   Force a backend; defaults to {@see backend()}.
+	 * @param string|null $key       32-byte key; defaults to the fixed key.
 	 * @return string|null Ciphertext envelope, or null on failure.
 	 */
-	public static function encrypt( string $plaintext, ?string $backend = null ): ?string {
-		$key     = self::key();
+	public static function encrypt( string $plaintext, ?string $backend = null, ?string $key = null ): ?string {
+		$key     = $key ?? self::key();
 		$backend = $backend ?? self::backend();
 		try {
 			$nonce = random_bytes( self::NONCE_LEN );
@@ -108,10 +106,11 @@ class Segurium_Storage_Crypto {
 	 *
 	 * @param string      $cipher  Envelope bytes.
 	 * @param string|null $backend Force a backend; defaults to {@see backend()}.
+	 * @param string|null $key     32-byte key; defaults to the fixed key.
 	 * @return string|null Plaintext, or null when the header is wrong or the tag
 	 *                    fails to verify.
 	 */
-	public static function decrypt( string $cipher, ?string $backend = null ): ?string {
+	public static function decrypt( string $cipher, ?string $backend = null, ?string $key = null ): ?string {
 		if ( strlen( $cipher ) < self::HEADER_LEN + self::TAG_LEN ) {
 			return null;
 		}
@@ -121,7 +120,7 @@ class Segurium_Storage_Crypto {
 		if ( self::VERSION !== ord( $cipher[4] ) ) {
 			return null;
 		}
-		$key     = self::key();
+		$key     = $key ?? self::key();
 		$nonce   = substr( $cipher, 5, self::NONCE_LEN );
 		$body    = substr( $cipher, self::HEADER_LEN );
 		$backend = $backend ?? self::backend();
@@ -147,5 +146,17 @@ class Segurium_Storage_Crypto {
 	 */
 	private static function key(): string {
 		return hash( 'sha256', self::KEY_MATERIAL, true );
+	}
+
+	/**
+	 * The 32-byte key of this install, keyed by its auth salt.
+	 *
+	 * @return string|null Null before WordPress loads its salts.
+	 */
+	public static function site_key(): ?string {
+		if ( ! function_exists( 'wp_salt' ) ) {
+			return null;
+		}
+		return hash_hmac( 'sha256', self::KEY_MATERIAL, wp_salt( 'auth' ), true );
 	}
 }

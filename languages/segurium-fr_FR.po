@@ -5212,3 +5212,92 @@ msgstr "Chaque fonctionnalité est incluse dans toutes les installations. Pro su
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Nettoyage illimité, plus les services cloud ci-dessous."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Cette notice a été modifiée depuis votre acceptation. Segurium envoie les nouvelles données au titre de votre consentement précédent. Veuillez lire la nouvelle version et l’accepter."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Tâches planifiées (événements WP-Cron) : nom du crochet, planification, intervalle et arguments, et pour chaque rappel du crochet son nom, chemin du fichier, numéros de ligne, empreinte SHA-256 du fichier et code source."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Comptes avec droits d’administrateur ou d’éditeur, et comptes masqués de la liste des utilisateurs : identifiant d’utilisateur, identifiant de connexion et adresse e-mail en clair, rôles, permissions, date d’inscription, ainsi que le nombre de mots de passe d’application et de sessions de connexion actives."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Sessions de connexion actives de ces comptes : identifiant d’utilisateur, un identifiant de session à sens unique, adresse IP et chaîne du navigateur en clair, heure de connexion et heure d’expiration."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Scripts stockés dans la base de données : le code contenu dans chaque balise script, ou l’adresse d’un script externe, et l’emplacement où Segurium l’a trouvé (table, ligne et colonne, ou nom d’option). Segurium lit le contenu des articles, les métadonnées d’articles, les options, le texte des commentaires et l’adresse e-mail de l’auteur du commentaire, ainsi que les tables des extensions d’extraits de code."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "L’adresse e-mail pour les alertes de sécurité : l’e-mail d’administration WordPress, ou celle que vous avez définie dans les réglages Segurium, avec votre choix d’alertes e-mail."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Mots de passe des utilisateurs, empreintes de mots de passe et jetons de session de connexion."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Fichiers médias, et articles, commentaires ou autres contenus de la base de données en dehors des scripts listés ci-dessus."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Les échantillons de fichiers téléversés pour analyse sont conservés jusqu’à 365 jours, puis supprimés par une purge nocturne automatisée. Un échantillon peut être supprimé plus tôt une fois examiné. Les tâches planifiées, les comptes, les sessions et les scripts sont conservés jusqu’à 60 jours après leur dernier téléversement ; ceux jugés malveillants sont conservés sans limite de durée."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+msgid "Cron job: %s"
+msgstr "Tâche Cron : %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Planification : %1$s, arguments : %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+msgid "Account: %s"
+msgstr "Compte : %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+msgid "User ID %1$d, roles: %2$s"
+msgstr "Identifiant d’utilisateur %1$d, rôles : %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+msgid "Script in the database: %s"
+msgstr "Script dans la base de données : %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Trouvé à %d emplacement"
+msgstr[1] "Trouvé à %d emplacements"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+msgid "Login session of %s"
+msgstr "Session de connexion de %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Connecté : %1$s, expire : %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Cette opération tentera de nettoyer %d problème(s) détecté(s). Chaque élément est sauvegardé avant le nettoyage. Une session de connexion terminée ne peut pas être restaurée."
+
+msgid "Remind me at next login"
+msgstr "Me rappeler à la prochaine connexion"
+
+msgid "Cron jobs"
+msgstr "Tâches Cron"
+
+msgid "Database"
+msgstr "Base de données"
+
+msgid "Waiting"
+msgstr "En attente"
+
+msgid "Running"
+msgstr "En cours"
+
+msgid "Done"
+msgstr "Terminé"
+
+msgid "Skipped"
+msgstr "Ignoré"
+
+msgid "Cancelled"
+msgstr "Annulé"

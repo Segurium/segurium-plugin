@@ -32,12 +32,11 @@
  * those mechanisms — each tick is a self-contained PHP process that the
  * trigger paths fire opportunistically.
  *
- * Supports multiple scan types via a duck-typed engine contract. Each
- * engine must implement: initialize(), load_state(), process_chunk(),
- * get_progress_snapshot(), mark_cancelled(), mark_aborted(). Currently
- * supported: malware scans (Segurium_Scan) and integrity scans
- * (Segurium_Integrity_Scan_State). A shared lock ensures only one scan
- * of any kind runs at a time.
+ * The runner drives one engine: a run ({@see Segurium_Scan_Run}). A run
+ * holds the shared lock from its first phase to its last and hands each
+ * chunk to its current phase ({@see Segurium_Scan_Phase}): the malware
+ * scan (Segurium_Scan) or the integrity scan
+ * (Segurium_Integrity_Scan_State).
  *
  * @package Segurium
  */
@@ -411,12 +410,13 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Start a new scan. Returns either the scan id on success or a WP_Error
-	 * describing why the start was refused.
+	 * Start a run of one phase. Returns either the scan id on success or a
+	 * WP_Error describing why the start was refused.
 	 *
-	 * @param string $scan_type Scan type label ('manual', 'scheduled', ...).
-	 * @param string $trigger   Origin passed to engines that accept one;
-	 *                          integrity scans report it to CTI.
+	 * @param string $scan_type 'integrity' for the integrity phase; any other
+	 *                          label ('manual', 'scheduled', 'rescan') starts
+	 *                          the files phase with that trigger.
+	 * @param string $trigger   Trigger of an integrity run; 'manual' when empty.
 	 * @return string|WP_Error
 	 */
 	public static function start( $scan_type = 'manual', $trigger = '' ) {
@@ -427,6 +427,32 @@ final class Segurium_Scan_Runner {
 				__( 'A scan type is required.', 'segurium' )
 			);
 		}
+		if ( 'integrity' === $scan_type ) {
+			return self::start_run( array( Segurium_Scan_Phase_Integrity::ID ), '' === (string) $trigger ? 'manual' : (string) $trigger );
+		}
+		return self::start_run( array( Segurium_Scan_Phase_Files::ID ), $scan_type );
+	}
+
+	/**
+	 * Start a run. Returns either the run id on success or a WP_Error
+	 * describing why the start was refused. The run id is the scan id of
+	 * the files phase and the lock's scan id through every phase.
+	 *
+	 * @param string[] $phases  Phase IDs from {@see Segurium_Scan_Run::registry()}.
+	 *                          The run walks them in registry order.
+	 * @param string   $trigger What started the run: manual, scheduled, rescan,
+	 *                          mainwp, integrity_tab.
+	 * @return string|WP_Error
+	 */
+	public static function start_run( array $phases, $trigger = 'manual' ) {
+		$trigger   = sanitize_key( (string) $trigger );
+		$phase_ids = Segurium_Scan_Run::order_phases( $phases );
+		if ( null === $phase_ids || '' === $trigger ) {
+			return new WP_Error(
+				'invalid_phase_list',
+				__( 'A scan type is required.', 'segurium' )
+			);
+		}
 
 		// Pre-flight IID gate. Without a stored installation ID
 		// every outbound CTI call would be unauthenticated and every progress
@@ -434,7 +460,7 @@ final class Segurium_Scan_Runner {
 		// engine, filesystem, or network so a not-yet-activated install does
 		// not waste work or pollute scan stats.
 		if ( null === Segurium_IID::get_iid() ) {
-			self::debug( 'scan_refused_no_iid', array( 'scan_type' => $scan_type ) );
+			self::debug( 'scan_refused_no_iid', array( 'scan_type' => $trigger ) );
 			return new WP_Error(
 				'no_iid',
 				Segurium_IID::missing_iid_message()
@@ -443,6 +469,7 @@ final class Segurium_Scan_Runner {
 
 		$lock_acquired = false;
 		$scan_id       = '';
+		$run           = null;
 
 		try {
 			try {
@@ -475,19 +502,24 @@ final class Segurium_Scan_Runner {
 						'lock_age' => time() - (int) $existing['started_at'],
 					)
 				);
-				self::close_ancient_lock( $existing );
-			}
-
-			$engine = self::create_engine( $scan_type );
-			if ( '' !== (string) $trigger && method_exists( $engine, 'set_trigger' ) ) {
-				$engine->set_trigger( (string) $trigger );
+				self::close_ancient_lock( $existing, true );
 			}
 
 			$scan_id = wp_generate_uuid4();
+			// The row goes in ahead of the lock, so a lock that names a
+			// phase always has its row.
+			try {
+				$run = Segurium_Scan_Run::create( $scan_id, $phase_ids, $trigger );
+			} catch ( Segurium_Storage_Exception $e ) {
+				self::log_exception( 'run_row', $e );
+				return self::schema_repaired_error( $e );
+			}
+			$scan_type = $run->scan_type();
 
-			$acquired = Segurium_Scan_Lock::acquire( $scan_id, $scan_type )
-				|| ( null === Segurium_Scan_Lock::get() && Segurium_Scan_Lock::acquire( $scan_id, $scan_type ) );
+			$acquired = Segurium_Scan_Lock::acquire( $scan_id, $scan_type, $run->phase_id() )
+				|| ( null === Segurium_Scan_Lock::get() && Segurium_Scan_Lock::acquire( $scan_id, $scan_type, $run->phase_id() ) );
 			if ( ! $acquired ) {
+				$run->discard();
 				$holder = Segurium_Scan_Lock::get();
 				if ( null === $holder ) {
 					return new WP_Error(
@@ -508,23 +540,27 @@ final class Segurium_Scan_Runner {
 			$lock_acquired = true;
 
 			try {
-				$engine->initialize( $scan_id, $scan_type );
+				$begun = $run->begin();
 			} catch ( Throwable $e ) {
+				$closed = self::terminate(
+					self::REASON_ABORTED_ENGINE_LOAD_FAILED,
+					$scan_id,
+					array(
+						'load_fault' => array(
+							'fault' => Segurium_Scan_Run::FAULT_PHASE_INITIALIZE,
+							'error' => get_class( $e ),
+						),
+					)
+				);
 				Segurium_Scan_Lock::release( $scan_id );
 				$lock_acquired = false;
+				if ( $closed ) {
+					$run->discard();
+				}
 				self::log_exception( 'initialize', $e );
 
 				if ( $e instanceof Segurium_Storage_Exception ) {
-					try {
-						Segurium_Storage::ensure_schema( true );
-					} catch ( Throwable $heal_exc ) {
-						self::log_exception( 'ensure_schema_force', $heal_exc );
-					}
-					return new WP_Error(
-						'schema_unavailable',
-						__( 'Scan storage was not ready. It has been repaired automatically — please click "Start scan" again.', 'segurium' ),
-						array( 'detail' => $e->getMessage() )
-					);
+					return self::schema_repaired_error( $e );
 				}
 
 				return new WP_Error(
@@ -533,6 +569,18 @@ final class Segurium_Scan_Runner {
 						/* translators: %s: underlying exception message */
 						__( 'Failed to initialize scan: %s', 'segurium' ),
 						$e->getMessage()
+					)
+				);
+			}
+
+			if ( ! $begun ) {
+				self::debug( 'start_lost_the_run', array( 'scan_id' => $scan_id ) );
+				return new WP_Error(
+					'scan_initialize_failed',
+					sprintf(
+						/* translators: %s: underlying exception message */
+						__( 'Failed to initialize scan: %s', 'segurium' ),
+						'the run ended while its first phase was starting'
 					)
 				);
 			}
@@ -558,12 +606,15 @@ final class Segurium_Scan_Runner {
 
 			return $scan_id;
 		} catch ( Throwable $e ) {
-			if ( $lock_acquired ) {
-				try {
+			try {
+				if ( $lock_acquired ) {
 					Segurium_Scan_Lock::release( $scan_id );
-				} catch ( Throwable $ignored ) {
-					unset( $ignored );
 				}
+				if ( null !== $run ) {
+					$run->discard();
+				}
+			} catch ( Throwable $ignored ) {
+				unset( $ignored );
 			}
 			self::log_exception( 'start', $e );
 			return new WP_Error(
@@ -575,6 +626,25 @@ final class Segurium_Scan_Runner {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Rebuild the scan tables after a storage failure during a start.
+	 *
+	 * @param Segurium_Storage_Exception $e The failure.
+	 * @return WP_Error
+	 */
+	private static function schema_repaired_error( Segurium_Storage_Exception $e ) {
+		try {
+			Segurium_Storage::ensure_schema( true );
+		} catch ( Throwable $heal_exc ) {
+			self::log_exception( 'ensure_schema_force', $heal_exc );
+		}
+		return new WP_Error(
+			'schema_unavailable',
+			__( 'Scan storage was not ready. It has been repaired automatically — please click "Start scan" again.', 'segurium' ),
+			array( 'detail' => $e->getMessage() )
+		);
 	}
 
 	/**
@@ -711,12 +781,14 @@ final class Segurium_Scan_Runner {
 	 * Write the cooperative cancel flag for the given scan.
 	 *
 	 * @param string $scan_id Scan UUID being cancelled.
-	 * @param string $reason  Reason code being recorded — kept as the row
+	 * @param string $reason  Reason code being recorded — kept in the row
 	 *                        value so an operator inspecting runtime_kv can
 	 *                        correlate the flag with the scan_history reason.
+	 * @param string $phase   Phase the flag ends. The run ID outlives a
+	 *                        phase, so a flag must name the one it is for.
 	 * @return void
 	 */
-	private static function set_cancel_flag( $scan_id, $reason ) {
+	private static function set_cancel_flag( $scan_id, $reason, $phase ) {
 		$scan_id = (string) $scan_id;
 		if ( '' === $scan_id ) {
 			return;
@@ -726,7 +798,7 @@ final class Segurium_Scan_Runner {
 				'runtime_kv',
 				array(
 					'kv_key'     => self::CANCEL_FLAG_KV_PREFIX . $scan_id,
-					'kv_value'   => (string) $reason,
+					'kv_value'   => $reason . ':' . $phase,
 					'updated_at' => time(),
 				),
 				array( 'kv_key' )
@@ -743,9 +815,19 @@ final class Segurium_Scan_Runner {
 	 * @return bool
 	 */
 	private static function cancel_flag_set( $scan_id ) {
+		return null !== self::cancel_flag_phase( $scan_id );
+	}
+
+	/**
+	 * Phase the cooperative cancel flag names.
+	 *
+	 * @param string $scan_id Scan UUID.
+	 * @return string|null Null with no flag; '' for a flag that names no phase.
+	 */
+	private static function cancel_flag_phase( $scan_id ) {
 		$scan_id = (string) $scan_id;
 		if ( '' === $scan_id ) {
-			return false;
+			return null;
 		}
 		try {
 			$val = Segurium_Storage::table_get_var(
@@ -755,9 +837,38 @@ final class Segurium_Scan_Runner {
 			);
 		} catch ( Throwable $e ) {
 			self::log_exception( 'cancel_flag_set', $e );
+			return null;
+		}
+		if ( null === $val ) {
+			return null;
+		}
+		$parts = explode( ':', (string) $val, 2 );
+		return isset( $parts[1] ) ? $parts[1] : '';
+	}
+
+	/**
+	 * Whether the cooperative cancel flag ends the phase this worker holds.
+	 * A flag naming an earlier phase was left by a worker that died before
+	 * its teardown: that phase is torn down here and the flag dropped.
+	 *
+	 * @param Segurium_Scan_Run $engine Run this worker drives.
+	 * @return bool
+	 */
+	private static function cancel_flag_hits( Segurium_Scan_Run $engine ) {
+		$flagged = self::cancel_flag_phase( $engine->run_id() );
+		if ( null === $flagged ) {
 			return false;
 		}
-		return null !== $val;
+		if ( '' === $flagged || $flagged === $engine->phase_id() ) {
+			return true;
+		}
+		try {
+			$engine->cleanup_state( $flagged );
+		} catch ( Throwable $e ) {
+			self::log_exception( 'stale_cancel_cleanup', $e );
+		}
+		self::clear_cancel_flag( $engine->run_id() );
+		return false;
 	}
 
 	/**
@@ -1102,6 +1213,31 @@ final class Segurium_Scan_Runner {
 			return null;
 		}
 
+		return self::lock_status( $lock, Segurium_Scan_Run::of_lock( $lock ) );
+	}
+
+	/**
+	 * Status of the file scan, or null unless the files phase holds the lock.
+	 *
+	 * @return array|null
+	 */
+	public static function get_files_status() {
+		$lock = Segurium_Scan_Lock::get();
+		if ( null === $lock ) {
+			return null;
+		}
+		$run = Segurium_Scan_Run::of_lock( $lock );
+		return Segurium_Scan_Phase_Files::ID === $run->phase_id() ? self::lock_status( $lock, $run ) : null;
+	}
+
+	/**
+	 * Liveness of a lock, merged over the progress of its phase.
+	 *
+	 * @param array             $lock   Lock payload.
+	 * @param Segurium_Scan_Run $engine The run as the lock describes it.
+	 * @return array
+	 */
+	private static function lock_status( array $lock, Segurium_Scan_Run $engine ) {
 		// running = lock held (true through a dead-worker stall);
 		// worker_alive / heartbeat_age carry the heartbeat state.
 		// completed stays false: the completion hooks run before the lock
@@ -1115,15 +1251,37 @@ final class Segurium_Scan_Runner {
 			'scan_type'     => $lock['scan_type'],
 			'started_at'    => $lock['started_at'],
 			'heartbeat'     => $lock['heartbeat'],
-			'drive'         => ! self::can_detach(),
 		);
 
-		$engine = self::create_engine( $lock['scan_type'] );
 		if ( ! $engine->load_state() ) {
 			return $liveness;
 		}
 
 		return array_merge( $engine->get_progress_snapshot(), $liveness );
+	}
+
+	/**
+	 * Run fields every status endpoint carries, so each scanner tab can tell
+	 * that a run holds the lock and which phase is current.
+	 *
+	 * @return array `run_active` false with no run; else `run_id`,
+	 *               `run_trigger`, `run_phase`, `run_phases` and `drive` too.
+	 */
+	public static function run_status() {
+		$lock = Segurium_Scan_Lock::get();
+		if ( null === $lock || ! Segurium_Scan_Lock::is_running( $lock ) ) {
+			return array( 'run_active' => false );
+		}
+		try {
+			$run = Segurium_Scan_Run::load( $lock['scan_id'] );
+		} catch ( Throwable $e ) {
+			self::log_exception( 'run_status', $e );
+			$run = null;
+		}
+		if ( null === $run ) {
+			$run = Segurium_Scan_Run::of_lock( $lock );
+		}
+		return array_merge( array( 'run_active' => true ), $run->status_fields(), array( 'drive' => ! self::can_detach() ) );
 	}
 
 	/**
@@ -1137,22 +1295,23 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Single termination entry point for every non-success terminal transition.
-	 * Cancellation, watchdog/heartbeat/stuck/engine aborts, and
-	 * unexpected runtime errors all funnel through here so that:
+	 * Single entry point for every non-success end of a phase. Cancellation,
+	 * watchdog/stuck/engine aborts and unexpected runtime errors all funnel
+	 * through here so that:
 	 *   - `wp_segurium_scan_history.error_code` is populated on every reason,
-	 *   - the integrity-chain pending marker (`integrity:chain_pending`) is
-	 *     cleared on every termination path — previously only the success and
-	 *     explicit-cancel paths cleared it, so an aborted chained malware scan
-	 *     left a stranded marker that kept the UI showing "running" forever,
+	 *   - the run row records the phase and what follows,
 	 *   - lock release / tick-clear / stuck-counter reset all happen exactly
 	 *     once and in a consistent order.
 	 *
+	 * A cancel reason ends the run: the current phase is cancelled, the rest
+	 * skipped. An abort reason fails the current phase only: phases needing
+	 * the failed one are skipped, and the run goes on with the next phase or
+	 * ends as completed. A lock whose run row is gone ends as an aborted run.
+	 *
 	 * The success path is intentionally NOT routed through `terminate()` —
-	 * it stays on `finalize_scan()` + the existing `segurium_scan_completed`
-	 * action so listeners (server-state update, chain bookkeeping, workspace
-	 * cleanup) keep firing in their established order. The success path now
-	 * writes `error_code = 'COMPLETED'` directly from `Segurium_Scan::build_progress()`.
+	 * it stays on {@see Segurium_Scan_Run::complete_phase()} and the phase's
+	 * completion action so listeners (server-state update, workspace
+	 * cleanup) keep firing in their established order.
 	 *
 	 * @param string      $reason_code      One of the `REASON_*` constants.
 	 * @param string|null $expected_scan_id When given, terminate
@@ -1160,10 +1319,11 @@ final class Segurium_Scan_Runner {
 	 *                                      this scan; a lock replaced in the
 	 *                                      meantime is left alone.
 	 * @param array       $detail           Extra `scan_aborted` payload fields.
-	 * @return bool True when a scan was terminated, false when no lock was held
+	 * @param bool        $end_run          True ends the run with the phase: the phases left are skipped.
+	 * @return bool True when a phase was terminated, false when no lock was held
 	 *              (or it belongs to another scan than expected).
 	 */
-	public static function terminate( $reason_code, $expected_scan_id = null, array $detail = array() ) {
+	public static function terminate( $reason_code, $expected_scan_id = null, array $detail = array(), $end_run = false ) {
 		$lock = Segurium_Scan_Lock::get();
 		if ( null === $lock ) {
 			return false;
@@ -1183,25 +1343,53 @@ final class Segurium_Scan_Runner {
 		$scan_id   = (string) $lock['scan_id'];
 		$scan_type = (string) $lock['scan_type'];
 
-		// When a worker is mid-tick, skip the synchronous
+		$row_gone = true;
+		try {
+			$run = Segurium_Scan_Run::for_lock( $lock );
+		} catch ( Segurium_Storage_Exception $e ) {
+			self::log_exception( 'terminate.run', $e );
+			$run      = null;
+			$row_gone = false;
+		}
+		$lost = null === $run;
+		if ( $lost ) {
+			$run = Segurium_Scan_Run::of_lock( $lock, $row_gone );
+		}
+		$in_tick = null !== self::$active_mutex_token;
+
+		if ( $run->is_over() ) {
+			if ( $in_tick ) {
+				self::clear_cancel_flag( $scan_id );
+			}
+			if ( self::release_scan_lock( $scan_id ) ) {
+				self::clear_stuck_state( $scan_id );
+			}
+			return true;
+		}
+
+		// A pending phase has no engine to end. A first phase whose start
+		// died may have left a history row and a workspace behind.
+		$started = Segurium_Scan_Run::PHASE_RUNNING === $run->phase_status();
+		$unbegun = $run->awaits_start();
+
+		// When another worker is mid-tick, skip the synchronous
 		// workspace cleanup the engine's mark_*() helpers would run and let
 		// the cooperative cancel handshake do it from the worker's chunk
 		// loop. The history row still reaches its terminal state immediately
 		// so the user sees `Stop scan` reflected without waiting on the
-		// worker to drain.
-		$cleanup_synchronously = ! self::tick_mutex_held();
-		if ( ! $cleanup_synchronously ) {
-			self::set_cancel_flag( $scan_id, $reason_code );
+		// worker to drain. A tick that ends its own phase is that worker.
+		$cleanup_synchronously = $in_tick || ! self::tick_mutex_held();
+		if ( ! $cleanup_synchronously && $started ) {
+			self::set_cancel_flag( $scan_id, $reason_code, $run->phase_id() );
 		}
 
 		$engine_finalized = false;
 		try {
-			$engine = self::create_engine( $scan_type );
-			if ( $engine->load_state() ) {
+			if ( $started && $run->load_state() ) {
 				if ( 'cancelled' === $status ) {
-					$engine->mark_cancelled( $reason_code, $cleanup_synchronously );
+					$run->mark_cancelled( $reason_code, $cleanup_synchronously );
 				} else {
-					$engine->mark_aborted( $reason_code, $cleanup_synchronously, $detail );
+					$run->mark_aborted( $reason_code, $cleanup_synchronously, $detail );
 				}
 				$engine_finalized = true;
 			}
@@ -1212,13 +1400,14 @@ final class Segurium_Scan_Runner {
 		// Engine couldn't load (or threw mid-finalize). Update the
 		// `scan_history` row directly so the row never sits at
 		// `error_code = 'RUNNING'` after a terminal transition. Best-effort:
-		// if the row doesn't exist (integrity scans don't write history),
-		// `table_update` is a silent no-op. Also emit the
-		// terminal CTI message in this branch so analytics never sees a
-		// scan_started without a matching terminal row.
-		if ( ! $engine_finalized && '' !== $scan_id ) {
+		// if the row doesn't exist or is already terminal (the integrity
+		// phase writes no history), `table_update` is a silent no-op. Also
+		// emit the terminal CTI message in this branch so analytics never
+		// sees a scan_started without a matching terminal row.
+		if ( ! $engine_finalized && ( $started || $unbegun ) && '' !== $scan_id ) {
+			$history_closed = 0;
 			try {
-				Segurium_Storage::table_update(
+				$history_closed = (int) Segurium_Storage::table_update(
 					'scan_history',
 					array(
 						'status'      => $status,
@@ -1234,19 +1423,28 @@ final class Segurium_Scan_Runner {
 				self::log_exception( 'terminate.history_fallback', $e );
 			}
 
-			$payload = array(
-				'scan_id'          => $scan_id,
-				'scan_type'        => $scan_type,
-				'error_code'       => (string) $reason_code,
-				'duration_seconds' => isset( $lock['started_at'] ) && (int) $lock['started_at'] > 0
-					? max( 0, time() - (int) $lock['started_at'] )
-					: 0,
-			);
-			if ( 'cancelled' === $status ) {
-				$payload['cancelled_by'] = self::cancelled_by( $reason_code );
-				Segurium_Storage::cti_send_message( 'scan_cancelled', $payload );
-			} else {
-				Segurium_Storage::cti_send_message( 'scan_aborted', array_merge( $payload, $detail ) );
+			if ( $started || $history_closed > 0 ) {
+				$started_at = Segurium_Scan_Lock::phase_started_at( $lock );
+				$payload    = array(
+					'scan_id'          => $scan_id,
+					'scan_type'        => $scan_type,
+					'error_code'       => (string) $reason_code,
+					'duration_seconds' => $started_at > 0 ? max( 0, time() - $started_at ) : 0,
+				);
+				if ( 'cancelled' === $status ) {
+					$payload['cancelled_by'] = self::cancelled_by( $reason_code );
+					Segurium_Storage::cti_send_message( 'scan_cancelled', $payload );
+				} else {
+					Segurium_Storage::cti_send_message( 'scan_aborted', array_merge( $payload, $detail ) );
+				}
+			}
+
+			if ( $cleanup_synchronously ) {
+				try {
+					$run->cleanup_state();
+				} catch ( Throwable $e ) {
+					self::log_exception( 'terminate.cleanup', $e );
+				}
 			}
 		}
 
@@ -1289,18 +1487,32 @@ final class Segurium_Scan_Runner {
 			}
 		}
 
-		$lock_freed = self::release_scan_lock( $scan_id );
-		self::clear_stuck_state( $scan_id );
-
-		// Clear the chain-pending marker on EVERY termination
-		// path. Without this, an aborted chained malware scan left the
-		// `integrity:chain_pending` runtime_kv key pointing at the dead UUID,
-		// so any UI surface that read `is_chain_pending()` kept reporting
-		// "running" until the user clicked another scan and the self-heal in
-		// `Segurium_Integrity_Chain::start_or_chain()` finally ran.
-		if ( $lock_freed ) {
-			Segurium_Integrity_Chain::clear_pending();
+		$ended_phase = $run->phase_id();
+		$settled     = false;
+		try {
+			if ( $lost || $end_run ) {
+				$settled = $run->abort( $reason_code );
+			} elseif ( 'cancelled' === $status ) {
+				$settled = $run->cancel( $reason_code );
+			} else {
+				$settled = $run->fail_phase( $reason_code );
+			}
+		} catch ( Throwable $e ) {
+			self::log_exception( 'terminate.run_row', $e );
 		}
+
+		if ( 'cancelled' === $status && Segurium_Scan_Run::PHASE_SKIPPED === $run->phase_status( Segurium_Scan_Phase_Integrity::ID ) ) {
+			Segurium_Integrity_Chain::note_malware_cancelled();
+		}
+
+		// A run row that took no write cannot carry the run on: the lock
+		// goes, and the hourly sweep ends the row.
+		if ( ! $run->is_over() && ( $settled || $run->phase_id() !== $ended_phase ) ) {
+			$run->point_lock();
+		} else {
+			self::release_scan_lock( $scan_id );
+		}
+		self::clear_stuck_state( $scan_id );
 
 		self::debug(
 			'terminate',
@@ -1439,15 +1651,7 @@ final class Segurium_Scan_Runner {
 			if ( 'integrity' === $scope ) {
 				$status = self::get_status( 'integrity' );
 			} else {
-				$status = self::get_status();
-				if ( null !== $status && 'integrity' === ( $status['scan_type'] ?? '' ) ) {
-					// Malware tab never shows integrity scan progress.
-					$status = null;
-				}
-				// Reverts the chain-driven
-				// suppression: the malware tab is the canonical driver
-				// for any non-integrity scan, regardless of whether a
-				// chain marker is queued behind it.
+				$status = self::get_files_status();
 			}
 		} catch ( Throwable $e ) {
 			self::log_exception( 'ajax_tick', $e );
@@ -1476,6 +1680,7 @@ final class Segurium_Scan_Runner {
 		} else {
 			$payload = $status;
 		}
+		$payload = array_merge( $payload, self::run_status() );
 		self::debug(
 			'ajax_tick',
 			array(
@@ -1570,7 +1775,7 @@ final class Segurium_Scan_Runner {
 		if ( null === $lock ) {
 			return;
 		}
-		$started_at = (int) $lock['started_at'];
+		$started_at = Segurium_Scan_Lock::phase_started_at( $lock );
 		if ( $started_at > 0 && time() - $started_at > Segurium_Scan_Lock::LOCK_MAX_AGE ) {
 			self::close_ancient_lock( $lock );
 			return;
@@ -1634,6 +1839,13 @@ final class Segurium_Scan_Runner {
 			}
 		}
 
+		try {
+			$lock    = Segurium_Scan_Lock::get();
+			$closed += Segurium_Scan_Run::sweep_orphans( null === $lock ? '' : (string) $lock['scan_id'] );
+		} catch ( Throwable $e ) {
+			self::log_exception( 'sweep_orphaned_runs', $e );
+		}
+
 		if ( $closed > 0 ) {
 			self::debug( 'orphan_sweep', array( 'closed' => $closed ) );
 		}
@@ -1694,26 +1906,135 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Close a lock held past LOCK_MAX_AGE. A lock whose
-	 * history row is already terminal (worker died between the terminal
-	 * write and the release) is only dropped — the gate in
+	 * Close a lock held past LOCK_MAX_AGE. A lock whose run
+	 * or phase already ended (worker died between the terminal write and
+	 * the release) only follows that record — the gate in
 	 * life_support_system() — so a completed scan is never relabelled
-	 * aborted and no duplicate terminal message goes out. Anything else is
-	 * terminated with ABORTED_WATCHDOG_SWEEP, scoped to this lock's scan_id
-	 * so a lock replaced in the meantime is left alone.
+	 * aborted and no duplicate terminal message goes out. Anything else
+	 * fails the current phase with ABORTED_WATCHDOG_SWEEP, scoped to this
+	 * lock's scan_id so a lock replaced in the meantime is left alone.
 	 *
-	 * @param array $lock Lock snapshot from Segurium_Scan_Lock::get().
+	 * @param array $lock    Lock snapshot from Segurium_Scan_Lock::get().
+	 * @param bool  $end_run True when a new start takes the slot: the run ends here.
 	 * @return void
 	 */
-	private static function close_ancient_lock( array $lock ) {
+	private static function close_ancient_lock( array $lock, $end_run = false ) {
 		$scan_id = (string) $lock['scan_id'];
-		if ( self::scan_history_is_terminal( $scan_id ) ) {
-			if ( self::release_scan_lock( $scan_id ) ) {
-				self::clear_stuck_state( $scan_id );
-			}
-			return;
+		try {
+			$run = Segurium_Scan_Run::for_lock( $lock );
+		} catch ( Segurium_Storage_Exception $e ) {
+			self::log_exception( 'close_ancient_lock', $e );
+			$run = null;
 		}
-		self::terminate( self::REASON_ABORTED_WATCHDOG_SWEEP, $scan_id );
+		if ( null !== $run && ( $run->is_over() || null !== $run->phase_settled() ) ) {
+			$phase = $run->phase_id();
+			if ( self::catch_up( $run, false ) ) {
+				return;
+			}
+			if ( ! $end_run && $run->phase_id() !== $phase ) {
+				$run->point_lock();
+				return;
+			}
+			if ( Segurium_Scan_Run::PHASE_PENDING !== $run->phase_status() ) {
+				// The run row took no write: the lock goes, the hourly sweep ends the row.
+				self::release_scan_lock( $scan_id );
+				self::clear_stuck_state( $scan_id );
+				return;
+			}
+		}
+		self::terminate( self::REASON_ABORTED_WATCHDOG_SWEEP, $scan_id, array(), $end_run );
+	}
+
+	/**
+	 * Bring a run row in line with what already happened: the row says the
+	 * run is over, or the current phase's own record says the phase ended
+	 * while the row still shows the phase running.
+	 *
+	 * @param Segurium_Scan_Run $run    Run holding the lock.
+	 * @param bool              $replay Fire the completion listeners of a
+	 *                                  phase that ended as done and still has
+	 *                                  its state.
+	 * @return bool True when the run is over and the lock released.
+	 */
+	private static function catch_up( Segurium_Scan_Run $run, $replay ) {
+		if ( ! $run->is_over() ) {
+			$ended = $run->phase_settled();
+			if ( null === $ended ) {
+				return false;
+			}
+			if ( Segurium_Scan_Run::PHASE_DONE === $ended['status'] ) {
+				$run->complete_phase( $replay && $run->load_state() );
+			} elseif ( Segurium_Scan_Run::PHASE_SKIPPED === $ended['status'] ) {
+				$run->complete_phase( false, $ended['error_code'] );
+			} elseif ( Segurium_Scan_Run::PHASE_CANCELLED === $ended['status'] ) {
+				$run->cancel( $ended['error_code'] );
+			} else {
+				$run->fail_phase( $ended['error_code'] );
+			}
+			if ( ! $run->is_over() ) {
+				return false;
+			}
+		}
+		self::release_scan_lock( $run->run_id() );
+		self::clear_stuck_state( $run->run_id() );
+		return true;
+	}
+
+	/**
+	 * Fail the phase a tick is driving. The tick holds the mutex, so the
+	 * phase state is torn down here.
+	 *
+	 * @param Segurium_Scan_Run $engine      Run this tick drives.
+	 * @param string            $reason_code One of the `REASON_*` constants.
+	 * @param array             $detail      Extra `scan_aborted` payload fields.
+	 * @return bool True when the run goes on and its next phase is up.
+	 */
+	private static function fail_phase( Segurium_Scan_Run $engine, $reason_code, array $detail = array() ) {
+		return self::terminate( $reason_code, $engine->run_id(), $detail )
+			&& self::run_goes_on( $engine )
+			&& self::start_phase( $engine, 'phase_failed' );
+	}
+
+	/**
+	 * Whether a run still holds the lock after one of its phases ended.
+	 *
+	 * @param Segurium_Scan_Run $engine Run this tick drives.
+	 * @return bool
+	 */
+	private static function run_goes_on( Segurium_Scan_Run $engine ) {
+		$lock = Segurium_Scan_Lock::get();
+		return null !== $lock && $lock['scan_id'] === $engine->run_id() && $engine->refresh();
+	}
+
+	/**
+	 * Load the current phase of a run inside a tick, starting a pending
+	 * phase. A phase that does not come up fails, and the next one is tried.
+	 *
+	 * @param Segurium_Scan_Run $engine Run this tick drives.
+	 * @param string            $caller Trigger label, for the debug event.
+	 * @return bool False when the run ended instead.
+	 */
+	private static function start_phase( Segurium_Scan_Run $engine, $caller ) {
+		$left = count( $engine->phases() );
+		while ( ! $engine->load_state( true ) ) {
+			self::debug(
+				'engine_load_failed',
+				array(
+					'caller'  => $caller,
+					'scan_id' => $engine->run_id(),
+					'phase'   => $engine->phase_id(),
+				)
+			);
+			$terminated = self::terminate(
+				self::REASON_ABORTED_ENGINE_LOAD_FAILED,
+				$engine->run_id(),
+				array( 'load_fault' => $engine->load_fault() )
+			);
+			if ( ! $terminated || ! self::run_goes_on( $engine ) || --$left <= 0 ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -1820,29 +2141,47 @@ final class Segurium_Scan_Runner {
 
 			$scan_id_for_exit = $lock['scan_id'];
 
+			try {
+				$engine = Segurium_Scan_Run::for_lock( $lock );
+			} catch ( Segurium_Storage_Exception $e ) {
+				// A failed read is no proof the row is gone: leave the run to the next tick.
+				self::log_exception( 'life_support_system.run:' . $caller, $e );
+				$tick_outcome = 'run_read_failed';
+				return;
+			}
+			if ( null === $engine ) {
+				self::debug(
+					'run_row_lost',
+					array(
+						'caller'  => $caller,
+						'scan_id' => $lock['scan_id'],
+						'phase'   => $lock['phase'],
+					)
+				);
+				self::terminate( self::REASON_ABORTED_ENGINE_LOAD_FAILED, $lock['scan_id'] );
+				$tick_outcome = 'run_row_lost';
+				return;
+			}
+
 			/*
-			 * — Durable terminal gate. A lock whose scan_history
-			 * row is already terminal (completed / cancelled / aborted) is a
-			 * leftover: the finalize/release tail never ran, so each later driver
-			 * tick (browser poll / wp-cron / CTI tick) used to rebuild the engine
-			 * and re-emit. Close the scan out and release the lock so the tick
-			 * becomes a no-op. Integrity scans write no history row, so they read
-			 * as non-terminal here and fall through to their normal path.
+			 * — Durable terminal gate. A lock whose run row is already over
+			 * is a leftover: the release tail never ran. So is a phase whose
+			 * own record says it ended (the scan_history row of the files
+			 * phase) while the run row still shows it running: the worker
+			 * died between the phase's end and the advance.
 			 *
-			 * For a `completed` row whose engine state is still present — the
-			 * worker died after finalize_completion()'s atomic claim but before
-			 * finalize_scan() — drive the post-completion side-effects now
-			 * (Auto-Fix cleanup, integrity chaining, realtime snapshot, chain
-			 * marker clear, workspace teardown). The atomic claim keeps
-			 * scan_completed exactly-once, so this recovery does not re-emit. If
-			 * the state is already gone (crash between cleanup and release) the
-			 * engine load fails and we simply drop the lock — no spurious
-			 * scan_aborted, no `completed`→`aborted` relabel. cancelled/aborted
-			 * rows had their side-effects run by terminate(), so they only need
-			 * the lock dropped.
+			 * For a `completed` row whose engine state is still present,
+			 * drive the post-completion side-effects now (Auto-Fix cleanup,
+			 * realtime snapshot, workspace teardown), then advance. The
+			 * atomic claim keeps scan_completed exactly-once, so this
+			 * recovery does not re-emit. If the state is already gone the
+			 * run only advances — no spurious scan_aborted, no
+			 * `completed`→`aborted` relabel. cancelled/aborted rows had
+			 * their side-effects run by terminate(), so the run row only
+			 * follows them.
 			 *
 			 * Exception: a pending `scan_cancel:<id>` flag means terminate()
-			 * wrote the terminal (cancelled) row but DEFERRED the workspace
+			 * wrote the terminal row but DEFERRED the workspace
 			 * teardown to this very tick (cooperative cancel).
 			 * Gating it out would strand the workspace, so fall through and let
 			 * the chunk loop observe the flag and clean up; the next tick (flag
@@ -1850,25 +2189,39 @@ final class Segurium_Scan_Runner {
 			 */
 			if ( ! $lock_acquired_inline
 				&& ! self::cancel_flag_set( $lock['scan_id'] )
-				&& self::scan_history_is_terminal( $lock['scan_id'] ) ) {
+				&& self::catch_up( $engine, true ) ) {
 				self::debug(
 					'tick_terminal_gate',
 					array(
 						'caller'  => $caller,
 						'scan_id' => $lock['scan_id'],
-						'status'  => self::scan_history_status( $lock['scan_id'] ),
+						'status'  => $engine->status(),
 					)
 				);
-				if ( 'completed' === self::scan_history_status( $lock['scan_id'] ) ) {
-					$recover = self::create_engine( $lock['scan_type'] );
-					if ( $recover->load_state() ) {
-						self::finalize_scan( $recover, $lock['scan_type'] );
-					}
-				}
-				self::release_scan_lock( $lock['scan_id'] );
-				self::clear_stuck_state( $lock['scan_id'] );
 				$tick_outcome = 'terminal_gate';
 				return;
+			}
+
+			if ( $engine->awaits_start() ) {
+				// start_run() holds no tick mutex. Past one heartbeat window its worker is dead.
+				$start_age = time() - (int) $lock['started_at'];
+				self::debug(
+					'run_awaits_start',
+					array(
+						'caller'  => $caller,
+						'scan_id' => $lock['scan_id'],
+						'age'     => $start_age,
+					)
+				);
+				if ( $start_age <= Segurium_Scan_Lock::HEARTBEAT_MAX_AGE ) {
+					$tick_outcome = 'run_starting';
+					return;
+				}
+				$start_died = array( 'load_fault' => array( 'fault' => Segurium_Scan_Run::FAULT_START_DIED ) );
+				if ( ! self::fail_phase( $engine, self::REASON_ABORTED_ENGINE_LOAD_FAILED, $start_died ) ) {
+					$tick_outcome = 'run_start_died';
+					return;
+				}
 			}
 
 			/*
@@ -1888,22 +2241,19 @@ final class Segurium_Scan_Runner {
 			 *
 			 * The genuine "this scan is going nowhere" guard is the STUCK_MAX
 			 * no-progress attempt counter in Step 5 (a worker that resumes but
-			 * never advances a chunk still aborts). The LOCK_MAX_AGE ceiling
-			 * below is the runaway backstop: a lock held past the hard ceiling
-			 * is treated as genuinely abandoned and aborted, matching what the
-			 * hourly watchdog would do.
-			 *
-			 * Previously this path aborted any stale-heartbeat lock
-			 * with ABORTED_HEARTBEAT_STALE, which killed large (>25k-file)
-			 * scans on 30–60s execution-capped hosts before they could finish.
+			 * never advances a chunk still fails the phase). The LOCK_MAX_AGE
+			 * ceiling below is the runaway backstop: a phase running past the
+			 * hard ceiling is treated as genuinely abandoned and failed,
+			 * matching what the hourly watchdog would do.
 			 */
-			$started_at = (int) $lock['started_at'];
+			$started_at = Segurium_Scan_Lock::phase_started_at( $lock );
 			$lock_age   = time() - $started_at;
 			// A 0/absent started_at (legacy or corrupt lock) must NOT read as
 			// "ancient" — that would false-abort a healthy scan. Fall through
 			// to the heartbeat-takeover path; STUCK_MAX still bounds a scan
 			// that genuinely never progresses.
-			if ( ! $lock_acquired_inline && $started_at > 0 && $lock_age > Segurium_Scan_Lock::LOCK_MAX_AGE ) {
+			if ( ! $lock_acquired_inline && $started_at > 0 && $lock_age > Segurium_Scan_Lock::LOCK_MAX_AGE
+				&& Segurium_Scan_Run::PHASE_RUNNING === $engine->phase_status() ) {
 				self::debug(
 					'lock_age_ceiling_abort',
 					array(
@@ -1914,9 +2264,10 @@ final class Segurium_Scan_Runner {
 						'lock_max'  => Segurium_Scan_Lock::LOCK_MAX_AGE,
 					)
 				);
-				self::terminate( self::REASON_ABORTED_WATCHDOG_SWEEP );
-				$tick_outcome = 'lock_age_abort';
-				return;
+				if ( ! self::fail_phase( $engine, self::REASON_ABORTED_WATCHDOG_SWEEP ) ) {
+					$tick_outcome = 'lock_age_abort';
+					return;
+				}
 			}
 
 			$hb_age = time() - (int) $lock['heartbeat'];
@@ -1935,32 +2286,17 @@ final class Segurium_Scan_Runner {
 			}
 
 			/*
-			 * Step 4 — load engine state. If load fails the worker has nothing
-			 * to do; release the lock so the user can retry instead of waiting
-			 * for the watchdog.
+			 * Step 4 — load the state of the current phase, starting a phase
+			 * that is still pending. A phase whose state does not load fails;
+			 * the tick goes on with the next phase the run allows.
 			 */
-			$engine = self::create_engine( $lock['scan_type'] );
-			if ( ! $engine->load_state() ) {
-				self::debug(
-					'engine_load_failed',
-					array(
-						'caller'    => $caller,
-						'scan_id'   => $lock['scan_id'],
-						'scan_type' => $lock['scan_type'],
-					)
-				);
-				self::terminate(
-					self::REASON_ABORTED_ENGINE_LOAD_FAILED,
-					null,
-					array( 'load_fault' => array( 'fault' => self::FAULT_ORCHESTRATOR_STATE ) )
-				);
+			if ( ! self::start_phase( $engine, $caller ) ) {
 				$tick_outcome = 'engine_load_failed';
 				return;
 			}
 
 			$scan_id     = $lock['scan_id'];
 			$scan_type   = $lock['scan_type'];
-			$is_malware  = ( 'integrity' !== $scan_type );
 			$is_observer = ( 'ajax' === $caller );
 
 			/*
@@ -1996,15 +2332,10 @@ final class Segurium_Scan_Runner {
 						'code'     => self::REASON_ABORTED_STUCK_NO_PROGRESS,
 					)
 				);
-				self::terminate( self::REASON_ABORTED_STUCK_NO_PROGRESS );
-				$tick_outcome = 'attempt_abort';
-				return;
-			}
-
-			// Malware-only: drain CTI batches at full throughput while the
-			// chunk loop is hot. Reset on every exit path.
-			if ( $is_malware ) {
-				add_filter( 'segurium_scan_verdict_single_batch', '__return_false' );
+				if ( ! self::fail_phase( $engine, self::REASON_ABORTED_STUCK_NO_PROGRESS ) ) {
+					$tick_outcome = 'attempt_abort';
+					return;
+				}
 			}
 
 			$budget                   = $budget_cap > 0 ? min( self::tick_budget(), $budget_cap ) : self::tick_budget();
@@ -2015,6 +2346,7 @@ final class Segurium_Scan_Runner {
 			$chunks_returned          = 0;
 			$chunks_succeeded         = 0;
 			$completed                = false;
+			$advance_lost             = false;
 			$cancel_observed          = false;
 			$engine_load_failed       = false;
 			$engine_load_fault        = array();
@@ -2052,7 +2384,7 @@ final class Segurium_Scan_Runner {
 					// here is what closes the loop — we exit, run cleanup
 					// from the only process still holding the workspace, and
 					// clear the flag.
-					if ( self::cancel_flag_set( $scan_id ) ) {
+					if ( self::cancel_flag_hits( $engine ) ) {
 						self::debug(
 							'chunk_loop_observed_cancel',
 							array(
@@ -2124,9 +2456,11 @@ final class Segurium_Scan_Runner {
 								'code'            => self::REASON_ABORTED_QUEUE_FULL,
 							)
 						);
-						// terminate() hands the workspace teardown to this worker through the cancel flag.
-						self::terminate( self::REASON_ABORTED_QUEUE_FULL, $scan_id );
-						break;
+						if ( ! self::fail_phase( $engine, self::REASON_ABORTED_QUEUE_FULL ) ) {
+							$tick_outcome = 'queue_refused_abort';
+							return;
+						}
+						continue;
 					}
 
 					self::reset_stuck_counter( $scan_id );
@@ -2143,35 +2477,55 @@ final class Segurium_Scan_Runner {
 						)
 					);
 
-					// Phase B — drain `/v1/scan/results`
-					// in the same tick. Only the malware-scan path
-					// submits to CTI's async pipeline, so the integrity
-					// scan type stays out of this branch entirely.
-					if ( $is_malware && class_exists( 'Segurium_Async_Scan_Results_Loop' ) ) {
-						Segurium_Async_Scan_Results_Loop::run( $scan_id );
-					}
-
-					// The submitter flags a scan whose link
-					// refused a batch at the floor ceiling. Terminate from
-					// here, ahead of the completion branch, so an aborted
-					// scan never fires `segurium_scan_completed`.
-					if ( $is_malware && class_exists( 'Segurium_Async_Scan_Submitter' )
-						&& Segurium_Async_Scan_Submitter::floor_reached_for( $scan_id ) ) {
+					// The phase's own post-chunk work: the files phase drains
+					// `/v1/scan/results` and reads the upload floor. A reason
+					// fails the phase from here, ahead of the completion
+					// branch, so a failed phase never fires its completion
+					// listeners.
+					$phase_failure = $engine->after_chunk();
+					if ( '' !== $phase_failure ) {
 						self::debug(
-							'upload_capacity_abort',
+							'phase_failed_after_chunk',
 							array(
 								'scan_id' => $scan_id,
 								'chunks'  => $chunks_returned,
-								'code'    => self::REASON_ABORTED_UPLOAD_CAPACITY,
+								'code'    => $phase_failure,
 							)
 						);
-						self::terminate( self::REASON_ABORTED_UPLOAD_CAPACITY, $scan_id );
-						$tick_outcome = 'upload_capacity_abort';
-						return;
+						if ( ! self::fail_phase( $engine, $phase_failure ) ) {
+							$tick_outcome = 'phase_failed';
+							return;
+						}
+						continue;
 					}
 
 					if ( ! empty( $result['completed'] ) ) {
-						$completed = true;
+						// The listeners of the phase finish before the next
+						// phase starts; the lock is held throughout.
+						if ( ! $engine->complete_phase( true, isset( $result['skipped'] ) ? (string) $result['skipped'] : '' ) ) {
+							$advance_lost = true;
+							break;
+						}
+						if ( $engine->is_over() ) {
+							$completed = true;
+							break;
+						}
+						self::clear_stuck_state( $scan_id );
+						if ( ! self::start_phase( $engine, $caller ) ) {
+							$tick_outcome = 'engine_load_failed';
+							return;
+						}
+						continue;
+					}
+
+					if ( ! empty( $result['yield'] ) ) {
+						self::debug(
+							'phase_yield',
+							array(
+								'scan_id' => $scan_id,
+								'phase'   => $engine->phase_id(),
+							)
+						);
 						break;
 					}
 
@@ -2215,23 +2569,15 @@ final class Segurium_Scan_Runner {
 						)
 					);
 					if ( $load_failures >= self::ENGINE_LOAD_MAX_ATTEMPTS ) {
-						// terminate() defers the workspace teardown while this
-						// worker holds the tick mutex, as it does for a
-						// cooperative cancel. We are that worker.
-						self::terminate(
+						$continues = self::fail_phase(
+							$engine,
 							self::REASON_ABORTED_ENGINE_LOAD_FAILED,
-							$scan_id,
 							empty( $engine_load_fault ) ? array() : array( 'load_fault' => $engine_load_fault )
 						);
-						try {
-							$engine->cleanup_state();
-						} catch ( Throwable $cleanup_exc ) {
-							self::log_exception( 'engine_load_failed_cleanup', $cleanup_exc );
+						if ( ! $continues ) {
+							$tick_outcome = 'engine_load_failed_abort';
+							return;
 						}
-						self::clear_cancel_flag( $scan_id );
-						self::clear_stuck_state( $scan_id );
-						$tick_outcome = 'engine_load_failed_abort';
-						return;
 					}
 					// Below the ceiling the read may still recover: fall
 					// through to the graceful handoff so the next tick
@@ -2247,7 +2593,6 @@ final class Segurium_Scan_Runner {
 						)
 					);
 					self::renew_liveness( $scan_id, $is_observer );
-					self::finalize_scan( $engine, $scan_type );
 					self::release_scan_lock( $scan_id );
 					self::clear_stuck_state( $scan_id );
 					$tick_outcome = 'completed';
@@ -2262,7 +2607,7 @@ final class Segurium_Scan_Runner {
 				// set the flag after the chunk loop ended but before the
 				// outer finally released the mutex — we are still the only
 				// process holding the workspace, so run cleanup from here.
-				if ( $cancel_observed || self::cancel_flag_set( $scan_id ) ) {
+				if ( $cancel_observed || self::cancel_flag_hits( $engine ) ) {
 					try {
 						$engine->cleanup_state();
 					} catch ( Throwable $cleanup_exc ) {
@@ -2271,6 +2616,11 @@ final class Segurium_Scan_Runner {
 					self::clear_cancel_flag( $scan_id );
 					self::clear_stuck_state( $scan_id );
 					$tick_outcome = 'cancel_observed';
+					return;
+				}
+
+				if ( $advance_lost ) {
+					$tick_outcome = 'advance_lost';
 					return;
 				}
 
@@ -2308,9 +2658,6 @@ final class Segurium_Scan_Runner {
 				);
 				$tick_outcome = 'graceful_handoff';
 			} finally {
-				if ( $is_malware ) {
-					remove_filter( 'segurium_scan_verdict_single_batch', '__return_false' );
-				}
 				self::$tick_started_at    = 0.0;
 				self::$tick_budget_active = 0.0;
 			}
@@ -2686,77 +3033,6 @@ final class Segurium_Scan_Runner {
 	}
 
 	/**
-	 * Current scan_history status for $scan_id, or '' when there is no row
-	 * (integrity scans) or the lookup fails.
-	 *
-	 * @param string $scan_id Scan UUID.
-	 * @return string
-	 */
-	private static function scan_history_status( $scan_id ) {
-		if ( '' === (string) $scan_id ) {
-			return '';
-		}
-		try {
-			return (string) Segurium_Storage::table_get_var(
-				'scan_history',
-				'SELECT status FROM {{table}} WHERE scan_uuid = %s',
-				array( (string) $scan_id )
-			);
-		} catch ( Segurium_Storage_Exception $e ) {
-			Segurium_Debug::log( '[segurium-scan-runner] scan_history_status lookup failed: ' . $e->getMessage() );
-			return '';
-		}
-	}
-
-	/**
-	 * Whether the scan_history row for $scan_id is in a terminal state.
-	 *
-	 * Integrity scans do not write a scan_history row, so a missing/empty
-	 * status reads as non-terminal and the normal tick path runs. On a storage
-	 * error scan_history_status() also returns '', which is non-terminal: a
-	 * transient DB blip must never strand a live scan by gating it out.
-	 *
-	 * @param string $scan_id Scan UUID.
-	 * @return bool
-	 */
-	private static function scan_history_is_terminal( $scan_id ) {
-		return in_array( self::scan_history_status( $scan_id ), self::TERMINAL_STATUSES, true );
-	}
-
-	/**
-	 * Finalize a completed scan by firing the appropriate action for the
-	 * engine type so listeners can persist results and update server state.
-	 *
-	 * @param object $engine    Completed scan engine instance.
-	 * @param string $scan_type Lock scan_type value.
-	 * @return void
-	 */
-	private static function finalize_scan( $engine, $scan_type ) {
-		if ( 'integrity' === $scan_type ) {
-			/**
-			 * Fires when an integrity scan completes inside the runner.
-			 *
-			 * @param Segurium_Integrity_Scan_State $engine Completed engine.
-			 */
-			do_action( 'segurium_integrity_scan_completed', $engine );
-		} else {
-			// Emit the terminal scan_completed (idempotent) on the
-			// same path that releases the lock, and before the
-			// `segurium_scan_completed` listener's cleanup tears down the verdict
-			// queue this payload is built from.
-			if ( $engine instanceof Segurium_Scan ) {
-				$engine->emit_terminal_completion();
-			}
-			/**
-			 * Fires when a malware scan completes inside the runner.
-			 *
-			 * @param Segurium_Scan $engine Completed scan instance.
-			 */
-			do_action( 'segurium_scan_completed', $engine );
-		}
-	}
-
-	/**
 	 * Increment the per-scan attempt counter and return the new value.
 	 * An attempt counter: incremented at tick
 	 * entry, reset as soon as any process_chunk() call returns successfully.
@@ -2915,30 +3191,5 @@ final class Segurium_Scan_Runner {
 	 */
 	public static function compute_mutex_ttl( $max_exec ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- kept for signature stability.
 		return Segurium_Scan_Lock::HEARTBEAT_MAX_AGE;
-	}
-
-	/**
-	 * Create the scan engine for the given type.
-	 *
-	 * Tests may inject an engine via the `segurium_runner_test_scan` filter
-	 * (malware) or `segurium_runner_test_integrity_engine` filter (integrity).
-	 *
-	 * @param string $scan_type Scan type ('manual', 'scheduled', 'integrity', …).
-	 * @return Segurium_Scan|Segurium_Integrity_Scan_State
-	 */
-	private static function create_engine( $scan_type = '' ) {
-		if ( 'integrity' === $scan_type ) {
-			$filtered = apply_filters( 'segurium_runner_test_integrity_engine', null );
-			if ( is_object( $filtered ) ) {
-				return $filtered;
-			}
-			return Segurium::get_instance()->build_integrity_scan_for_runner();
-		}
-
-		$filtered = apply_filters( 'segurium_runner_test_scan', null );
-		if ( is_object( $filtered ) ) {
-			return $filtered;
-		}
-		return Segurium::get_instance()->build_scan_for_runner();
 	}
 }

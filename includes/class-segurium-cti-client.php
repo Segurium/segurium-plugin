@@ -84,6 +84,11 @@ class Segurium_CTI_Client {
 	 * reads it back immediately.
 	 */
 	const CLEANUP_UPLOAD_TICK_TIMEOUT_SEC = 50;
+
+	/**
+	 * Timeout of a content cleanup inside a runner tick: the request holds no body.
+	 */
+	const CONTENT_CLEANUP_TICK_TIMEOUT_SEC = 15;
 	// /v1/quota/consume removed. /v1/cleanup auto-consumes
 	// the slot when it serves a body, so the plugin no longer needs a
 	// separate consume hop. /v1/quota/state remains for the read-only
@@ -893,6 +898,10 @@ class Segurium_CTI_Client {
 			if ( '' !== $action_id ) {
 				$meta_file['action_id'] = $action_id;
 			}
+			$kind = isset( $f['kind'] ) ? (string) $f['kind'] : '';
+			if ( '' !== $kind ) {
+				$meta_file['kind'] = $kind;
+			}
 			$meta_files[]   = $meta_file;
 			$normal_files[] = array(
 				'sha256' => $sha,
@@ -1012,8 +1021,9 @@ class Segurium_CTI_Client {
 			// SUBMIT_TIMEOUT_MAX_SEC with no heartbeat in between; renew
 			// the lease + heartbeat first, and stop when the lease is gone
 			// (another driver owns the scan; a second upload of the same
-			// batch from here would race it).
-			if ( $attempt > 0 && ! Segurium_Scan_Runner::renew_liveness( $scan_id ) ) {
+			// batch from here would race it). Content items carry
+			// `<run ID>:<kind>` on the wire; the lock holds the run ID.
+			if ( $attempt > 0 && ! Segurium_Scan_Runner::renew_liveness( explode( ':', (string) $scan_id, 2 )[0] ) ) {
 				Segurium_Scan_Runner::debug(
 					'scan_submit_retry_lease_lost',
 					array(
@@ -1277,6 +1287,97 @@ class Segurium_CTI_Client {
 	}
 
 	/**
+	 * Content kinds the cloud accepts, as the quota envelope lists them.
+	 *
+	 * @return string[]|WP_Error Empty when the cloud sends no list.
+	 */
+	public function content_kinds() {
+		$refused = $this->content_consent();
+		if ( null !== $refused ) {
+			return $refused;
+		}
+		$envelope = $this->quota_state();
+		if ( is_wp_error( $envelope ) ) {
+			return $envelope;
+		}
+		$kinds = isset( $envelope['content_kinds'] ) && is_array( $envelope['content_kinds'] ) ? $envelope['content_kinds'] : array();
+		return array_values( array_filter( $kinds, 'is_string' ) );
+	}
+
+	/**
+	 * Look up content items of one kind by hash. The request holds no file.
+	 *
+	 * @param string $kind    Content kind.
+	 * @param array  $items   List of `{sha256, path, size}`; `path` is the locator.
+	 * @param string $scan_id Scan ID of the items.
+	 * @return array|WP_Error Verdict rows, as {@see inspect()} returns them.
+	 */
+	public function inspect_content( $kind, array $items, $scan_id ) {
+		$refused = $this->content_consent();
+		if ( null !== $refused ) {
+			return $refused;
+		}
+		$files = array();
+		foreach ( $items as $item ) {
+			$files[] = array(
+				'path'   => (string) $item['path'],
+				'sha256' => (string) $item['sha256'],
+				'size'   => (int) $item['size'],
+				'mtime'  => 0,
+				'kind'   => (string) $kind,
+			);
+		}
+		return $this->inspect( $files, $scan_id );
+	}
+
+	/**
+	 * Upload the bodies of content items of one kind.
+	 *
+	 * @param string $kind            Content kind.
+	 * @param string $scan_id         Scan ID of the items.
+	 * @param string $client_batch_id Idempotency key of the batch.
+	 * @param array  $items           List of `{sha256, path, body}`.
+	 * @return array|WP_Error As {@see scan_submit()} returns.
+	 */
+	public function submit_content( $kind, $scan_id, $client_batch_id, array $items ) {
+		$refused = $this->content_consent();
+		if ( null !== $refused ) {
+			return $refused;
+		}
+		foreach ( $items as $index => $item ) {
+			$items[ $index ]['kind'] = (string) $kind;
+		}
+		return $this->scan_submit( $scan_id, $client_batch_id, $items );
+	}
+
+	/**
+	 * Pull the verdicts of uploaded content items.
+	 *
+	 * @param int    $since   Last sequence number the caller saw.
+	 * @param string $scan_id Scan ID of the items.
+	 * @return array|WP_Error As {@see scan_results()} returns.
+	 */
+	public function content_results( $since, $scan_id ) {
+		$refused = $this->content_consent();
+		if ( null !== $refused ) {
+			return $refused;
+		}
+		return $this->scan_results( $since, $scan_id, 500 );
+	}
+
+	/**
+	 * Refusal for a content request from a site without stored consent.
+	 *
+	 * @return WP_Error|null Null when consent is stored.
+	 */
+	private function content_consent() {
+		if ( Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
+			return null;
+		}
+		return new WP_Error( 'cti_no_consent', 'content request blocked: no stored consent' );
+	}
+
+	/**
 	 * Synchronous-looking facade kept for realtime / upload scans.
 	 *
 	 * The on-the-wire `/v1/neo-ray` route is gone. This
@@ -1446,7 +1547,51 @@ class Segurium_CTI_Client {
 				: self::CLEANUP_UPLOAD_TIMEOUT_SEC;
 		}
 
-		$response = $this->request( self::CLEAN_ENDPOINT, $opts );
+		return $this->cleanup_answer( $this->request( self::CLEAN_ENDPOINT, $opts ) );
+	}
+
+	/**
+	 * Request the cleaned version of a content item. The answer must echo
+	 * the kind: a cloud without kinds on this route reads the request as a
+	 * file cleanup of the same hash.
+	 *
+	 * @param string $kind    Content kind.
+	 * @param string $locator Locator of the item.
+	 * @param string $sha256  SHA-256 of the infected item.
+	 * @return array|WP_Error As {@see clean()} returns.
+	 */
+	public function clean_content( $kind, $locator, $sha256 ) {
+		$refused = $this->content_consent();
+		if ( null !== $refused ) {
+			return $refused;
+		}
+		$data = $this->cleanup_answer(
+			$this->request(
+				self::CLEAN_ENDPOINT,
+				array(
+					'body'    => array(
+						'sha256'   => (string) $sha256,
+						'filename' => (string) $locator,
+						'ctime'    => 0,
+						'kind'     => (string) $kind,
+					),
+					'timeout' => Segurium_Scan_Runner::in_tick() ? self::CONTENT_CLEANUP_TICK_TIMEOUT_SEC : 30,
+				)
+			)
+		);
+		if ( is_array( $data ) && ( ! isset( $data['kind'] ) || (string) $kind !== $data['kind'] ) ) {
+			return new WP_Error( 'cti_kind_mismatch', 'cleanup answer names no kind or another kind', array( 'served' => isset( $data['error_code'] ) && 0 === (int) $data['error_code'] ) );
+		}
+		return $data;
+	}
+
+	/**
+	 * Read a `/v1/cleanup` answer.
+	 *
+	 * @param array|WP_Error $response What the request returned.
+	 * @return array|WP_Error
+	 */
+	private function cleanup_answer( $response ) {
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
@@ -1470,7 +1615,7 @@ class Segurium_CTI_Client {
 			);
 		}
 		if ( 200 !== $code ) {
-			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code );
+			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code, array( 'status' => (int) $code ) );
 		}
 
 		// Refuse a MITM-tampered body before we act on it.
@@ -1694,6 +1839,41 @@ class Segurium_CTI_Client {
 	 * @return bool True if the request did not error.
 	 */
 	public function send_message( $message_type, $payload = '' ) {
+		return ! is_wp_error( $this->post_message( $message_type, $payload, 10, false ) );
+	}
+
+	/**
+	 * Send a message and wait for the cloud's answer.
+	 *
+	 * @param string $message_type Type of message to send.
+	 * @param string $payload      Message payload.
+	 * @param int    $timeout      Seconds to wait on each endpoint.
+	 * @return true|WP_Error A non-2xx answer is `cti_http_error` with `status` in its data.
+	 */
+	public function deliver_message( $message_type, $payload, $timeout ) {
+		$response = $this->post_message( $message_type, $payload, $timeout, true );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( $code < 200 || $code > 299 ) {
+			return new WP_Error( 'cti_http_error', 'CTI returned HTTP ' . $code, array( 'status' => $code ) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * POST one message envelope.
+	 *
+	 * @param string $message_type Type of message to send.
+	 * @param string $payload      Message payload.
+	 * @param int    $timeout      Request timeout in seconds.
+	 * @param bool   $blocking     Whether to wait for the response.
+	 * @return array|WP_Error
+	 */
+	private function post_message( $message_type, $payload, $timeout, $blocking ) {
 		global $wp_version;
 
 		// A third-party `home_url` filter can return a value with no host
@@ -1706,7 +1886,7 @@ class Segurium_CTI_Client {
 			$host     = '';
 		}
 
-		$response = $this->request(
+		return $this->request(
 			self::MESSAGES_ENDPOINT,
 			array(
 				'body'     => array(
@@ -1718,12 +1898,10 @@ class Segurium_CTI_Client {
 					'php_version'    => PHP_VERSION,
 					'payload'        => $payload,
 				),
-				'timeout'  => 10,
-				'blocking' => false,
+				'timeout'  => $timeout,
+				'blocking' => $blocking,
 			)
 		);
-
-		return ! is_wp_error( $response );
 	}
 
 	/**

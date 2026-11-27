@@ -1,6 +1,6 @@
 <?php
 /**
- * Integrity → malware scan chaining.
+ * Freshness gate between the integrity scan and the malware scan.
  *
  * The Free/Pro packaging classifies integrity findings as benign-restore
  * vs malicious-deletion, and that classification is only
@@ -8,11 +8,8 @@
  * therefore requires every integrity scan to be preceded by a malware
  * scan no older than 24h.
  *
- * Behaviour: never block — always chain. If the most recent malware scan
- * is older than `STALE_AFTER_SECS`, this helper kicks off a malware scan
- * and queues an integrity scan to run on its completion. The two-step is
- * transparent to the caller; the AJAX layer surfaces a "Running a quick
- * malware scan first" status while the chain is in flight.
+ * A start from the Integrity tab never blocks: past `STALE_AFTER_SECS` the
+ * run gets the files phase ahead of the integrity phase, under one lock.
  *
  * @package Segurium
  */
@@ -22,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Static helper that owns the freshness gate and the deferred-start hook.
+ * Static helper that owns the freshness gate and the Integrity tab's notices.
  */
 final class Segurium_Integrity_Chain {
 
@@ -36,28 +33,20 @@ final class Segurium_Integrity_Chain {
 	 * Runtime_kv keys. Public so tests and the WP-CLI diagnostics can
 	 * inspect/clear them deterministically.
 	 */
-	const KV_LAST_MALWARE    = 'malware:last_scan';
+	const KV_LAST_MALWARE = 'malware:last_scan';
+	const KV_STATUS_MSG   = 'integrity:chain_status';
+
+	/**
+	 * Marker rows and WP-Cron hook an updated site can still hold. Nothing writes them.
+	 */
 	const KV_PENDING         = 'integrity:chain_pending';
 	const KV_PENDING_TRIGGER = 'integrity:chain_trigger';
-	const KV_STATUS_MSG      = 'integrity:chain_status';
+	const CHAIN_HOOK         = 'segurium_chain_integrity_start';
 
 	/**
-	 * WP-Cron action used to start the deferred integrity scan after the
-	 * chained malware scan releases the runner lock. Firing via a
-	 * single-event cron rather than calling start() directly from the
-	 * completion hook avoids racing the lock.
+	 * Trigger value of a run started from the Integrity tab.
 	 */
-	const CHAIN_HOOK = 'segurium_chain_integrity_start';
-
-	/**
-	 * Wire up hooks. Called once during plugin bootstrap from
-	 * Segurium::register_hooks().
-	 *
-	 * @return void
-	 */
-	public static function register_hooks() {
-		add_action( self::CHAIN_HOOK, array( __CLASS__, 'fire_pending_integrity_start' ), 10, 1 );
-	}
+	const TRIGGER = 'integrity_tab';
 
 	/**
 	 * Whether the most recent malware scan completed within the freshness
@@ -88,61 +77,30 @@ final class Segurium_Integrity_Chain {
 	}
 
 	/**
-	 * Whether a chained integrity scan is queued behind an in-flight
-	 * malware scan.
-	 *
-	 * @return bool
-	 */
-	public static function is_chain_pending() {
-		$raw = Segurium_Storage::table_get_var(
-			'runtime_kv',
-			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
-			array( self::KV_PENDING )
-		);
-		return null !== $raw && '' !== (string) $raw;
-	}
-
-	/**
-	 * Start an integrity scan, automatically chaining a malware scan first
-	 * when the freshness gate fails. Always non-blocking: the caller never
-	 * has to wait for the chained malware scan, the integrity scan kicks
-	 * itself off when the chain completes.
+	 * Start a run from the Integrity tab, files phase first when the gate fails.
 	 *
 	 * @return array{kind:string,scan_id?:string,message?:string}|WP_Error
-	 *         kind = 'integrity' when the integrity scan started directly,
-	 *         kind = 'chain'     when a malware scan is running first.
+	 *         kind = 'integrity' when the integrity phase starts the run,
+	 *         kind = 'chain'     when the files phase runs first.
 	 */
 	public static function start_or_chain() {
-		// Always clear stale chain state from a previous interrupted run
-		// before evaluating freshness — otherwise a leftover pending flag
-		// from an aborted scan could confuse the next user click.
-		if ( self::is_chain_pending() && ! Segurium_Scan_Lock::is_running() ) {
-			self::clear_pending();
+		self::clear_status_message();
+		$fresh  = self::is_malware_scan_fresh();
+		$phases = $fresh
+			? array( Segurium_Scan_Phase_Integrity::ID )
+			: array( Segurium_Scan_Phase_Files::ID, Segurium_Scan_Phase_Integrity::ID );
+		$result = Segurium_Scan_Runner::start_run( $phases, self::TRIGGER );
+		if ( is_wp_error( $result ) ) {
+			// The caller shows the error; a queued notice would repeat it.
+			self::clear_status_message();
+			return $result;
 		}
-
-		if ( self::is_malware_scan_fresh() ) {
-			$result = Segurium_Scan_Runner::start( 'integrity' );
-			if ( is_wp_error( $result ) ) {
-				return $result;
-			}
+		if ( $fresh ) {
 			return array(
 				'kind'    => 'integrity',
 				'scan_id' => (string) $result,
 			);
 		}
-
-		// Stale or never-scanned → chain.
-		self::clear_status_message();
-		$result = Segurium_Scan_Runner::start( 'manual' );
-		if ( is_wp_error( $result ) ) {
-			return $result;
-		}
-
-		// Mark chain pending only after the malware scan started — if the
-		// runner refused (lock contention, schema, etc.) we must not leave
-		// a stale flag behind.
-		self::set_pending( (string) $result );
-
 		return array(
 			'kind'    => 'chain',
 			'scan_id' => (string) $result,
@@ -152,9 +110,7 @@ final class Segurium_Integrity_Chain {
 
 	/**
 	 * Called from Segurium::on_scan_completed() after every successful
-	 * malware scan. Records the freshness timestamp; if a chain is
-	 * pending, schedules the deferred integrity start for ~now via
-	 * WP-Cron (so the runner lock has time to release).
+	 * malware scan. Records the freshness timestamp.
 	 *
 	 * @return void
 	 */
@@ -170,65 +126,34 @@ final class Segurium_Integrity_Chain {
 			),
 			array( 'kv_key' )
 		);
-
-		if ( ! self::is_chain_pending() ) {
-			return;
-		}
-		$trigger = self::get_pending_trigger();
-		self::clear_pending();
-
-		// Defer the integrity start by one cron tick. The completion hook
-		// fires before Segurium_Scan_Runner releases the malware lock, so
-		// calling start() inline would hit `scan_already_running`. The
-		// trigger rides along as the event argument because the marker it
-		// came from is already gone by the time the event fires.
-		wp_unschedule_hook( self::CHAIN_HOOK );
-		wp_schedule_single_event( $now, self::CHAIN_HOOK, array( $trigger ) );
 	}
 
 	/**
-	 * Called from ajax_stop_scan when the user cancels the in-flight
-	 * malware scan. If a chain was queued behind it, clears the pending
-	 * flag and writes a status message the next integrity-status poll
-	 * surfaces to the UI.
+	 * A stop skipped the integrity phase: queue the notice for the Integrity tab.
 	 *
 	 * @return void
 	 */
 	public static function note_malware_cancelled() {
-		if ( ! self::is_chain_pending() ) {
-			return;
-		}
-		self::clear_pending();
 		self::set_status_message(
 			__( 'The chained malware scan was cancelled — integrity scan was not started.', 'segurium' )
 		);
 	}
 
 	/**
-	 * WP-Cron handler that fires the deferred integrity start after a
-	 * chained malware scan completes. Public for the hook callable.
+	 * The integrity phase could not start: queue the notice for the Integrity tab.
 	 *
-	 * @param string $trigger Origin recorded when the chain was enrolled.
+	 * @param string $error Underlying error message.
 	 * @return void
 	 */
-	public static function fire_pending_integrity_start( $trigger = 'manual' ) {
-		$result = Segurium_Scan_Runner::start( 'integrity', (string) $trigger );
-		if ( is_wp_error( $result ) ) {
-			Segurium_Debug::log(
-				sprintf(
-					'[segurium-integrity-chain] deferred integrity start failed: %s — %s',
-					$result->get_error_code(),
-					$result->get_error_message()
-				)
-			);
-			self::set_status_message(
-				sprintf(
-					/* translators: %s: underlying error message */
-					__( 'Could not start the chained integrity scan: %s', 'segurium' ),
-					$result->get_error_message()
-				)
-			);
-		}
+	public static function note_integrity_start_failed( $error ) {
+		Segurium_Debug::log( '[segurium-integrity-chain] integrity phase did not start: ' . $error );
+		self::set_status_message(
+			sprintf(
+				/* translators: %s: underlying error message */
+				__( 'Could not start the chained integrity scan: %s', 'segurium' ),
+				(string) $error
+			)
+		);
 	}
 
 	/**
@@ -258,75 +183,52 @@ final class Segurium_Integrity_Chain {
 	 */
 	public static function reset_for_testing() {
 		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_LAST_MALWARE ) );
-		self::clear_pending();
+		self::clear_legacy_marker();
 		self::clear_status_message();
 	}
 
 	/**
-	 * Mark a malware scan as the head of a chain so its completion can
-	 * fan out into a deferred integrity start.
+	 * Trigger of the integrity scan a legacy marker queues behind a file scan.
 	 *
-	 * Public so other entry points (scheduled scans, future automation)
-	 * can opt their own malware run into the chain without re-deriving
-	 * the runtime_kv plumbing.
-	 *
-	 * @param string $malware_scan_id Lock scan_id of the chained run.
-	 * @param string $trigger         Origin of the follow-up integrity scan,
-	 *                                reported to CTI when it runs.
+	 * @param string $scan_id Scan ID holding the lock.
+	 * @return string '' when no marker names the scan.
 	 */
-	public static function set_pending( $malware_scan_id, $trigger = 'manual' ) {
-		$now = time();
-		Segurium_Storage::table_upsert(
+	public static function legacy_marker_trigger( $scan_id ) {
+		$rows = Segurium_Storage::table_get_results(
 			'runtime_kv',
-			array(
-				'kv_key'     => self::KV_PENDING,
-				'kv_value'   => (string) $malware_scan_id,
-				'expires_at' => null,
-				'updated_at' => $now,
-			),
-			array( 'kv_key' )
+			'SELECT kv_key, kv_value FROM {{table}} WHERE kv_key IN ( %s, %s )',
+			array( self::KV_PENDING, self::KV_PENDING_TRIGGER ),
+			ARRAY_A
 		);
-		Segurium_Storage::table_upsert(
-			'runtime_kv',
-			array(
-				'kv_key'     => self::KV_PENDING_TRIGGER,
-				'kv_value'   => (string) $trigger,
-				'expires_at' => null,
-				'updated_at' => $now,
-			),
-			array( 'kv_key' )
-		);
+		$map  = array_column( $rows, 'kv_value', 'kv_key' );
+		if ( ! isset( $map[ self::KV_PENDING ] ) || (string) $map[ self::KV_PENDING ] !== (string) $scan_id ) {
+			return '';
+		}
+		return empty( $map[ self::KV_PENDING_TRIGGER ] ) ? 'manual' : (string) $map[ self::KV_PENDING_TRIGGER ];
 	}
 
 	/**
-	 * Origin of the queued follow-up. A marker written before this key
-	 * existed reads back as 'manual', which is how those runs already
-	 * report themselves to CTI.
+	 * Drop the legacy marker rows.
 	 *
-	 * @return string
+	 * @return void
 	 */
-	public static function get_pending_trigger() {
-		$raw = Segurium_Storage::table_get_var(
-			'runtime_kv',
-			'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
-			array( self::KV_PENDING_TRIGGER )
-		);
-		return ( null === $raw || '' === (string) $raw ) ? 'manual' : (string) $raw;
-	}
-
-	/**
-	 * Drop the pending-chain marker so the next malware completion does
-	 * not auto-trigger an integrity scan. It is public so
-	 * the unified `Segurium_Scan_Runner::terminate()` can clear the marker
-	 * on every termination path (cancel, all aborts, runtime error) — the
-	 * marker previously leaked when a chained malware scan was aborted by
-	 * watchdog / stale heartbeat / stuck counter, leaving the UI showing
-	 * "running" against a dead UUID until the next interactive scan click
-	 * triggered the self-heal in `start_or_chain()`.
-	 */
-	public static function clear_pending() {
+	public static function clear_legacy_marker() {
 		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_PENDING ) );
 		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => self::KV_PENDING_TRIGGER ) );
+	}
+
+	/**
+	 * Unschedule a legacy deferred-start event. Nothing listens to the hook.
+	 *
+	 * @return void
+	 */
+	public static function drop_legacy_event() {
+		foreach ( (array) _get_cron_array() as $hooks ) {
+			if ( isset( $hooks[ self::CHAIN_HOOK ] ) ) {
+				wp_unschedule_hook( self::CHAIN_HOOK );
+				return;
+			}
+		}
 	}
 
 	/**

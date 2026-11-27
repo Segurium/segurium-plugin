@@ -66,6 +66,7 @@ class Segurium_Storage_GC {
 		// is safe to prune by created_at. Filterable for unusually long scans.
 		$pending_max_age = (int) apply_filters( 'segurium_async_pending_max_age', 2 * DAY_IN_SECONDS );
 		$pending_pruned  = Segurium_Storage::table_prune_older_than( 'async_pending', time() - $pending_max_age, 'created_at' );
+		$kv_pruned       = self::prune_runtime_kv();
 
 		try {
 			Segurium_Storage::table_insert(
@@ -80,6 +81,7 @@ class Segurium_Storage_GC {
 							'activity_pruned' => $activity_pruned,
 							'stats_pruned'    => $stats_pruned,
 							'pending_pruned'  => $pending_pruned,
+							'kv_pruned'       => $kv_pruned,
 							'tmp_max_age'     => $max_age,
 						)
 					),
@@ -89,6 +91,37 @@ class Segurium_Storage_GC {
 		} catch ( Segurium_Storage_Exception $e ) {
 			Segurium_Debug::log( 'Segurium: storage GC failed to log activity: ' . $e->getMessage() );
 		}
+	}
+
+	/**
+	 * Delete runtime_kv rows past their expiry, and the rows of dead runs
+	 * that carry none: a run holds such a row for minutes, not a day. An
+	 * upsert of a null expiry stores 0, so 0 counts as no expiry.
+	 *
+	 * @return int Rows deleted.
+	 */
+	private static function prune_runtime_kv(): int {
+		global $wpdb;
+		$table = Segurium_Storage::table_name( 'runtime_kv' );
+		$now   = time();
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$expired = $wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE expires_at > 0 AND expires_at <= %d', $table, $now ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$dead = $wpdb->query(
+			$wpdb->prepare(
+				'DELETE FROM %i WHERE ( expires_at IS NULL OR expires_at = 0 ) AND updated_at < %d AND ( kv_key LIKE %s OR kv_key LIKE %s OR kv_key IN ( %s, %s ) )',
+				$table,
+				$now - DAY_IN_SECONDS,
+				$wpdb->esc_like( Segurium_Scan_Runner::CANCEL_FLAG_KV_PREFIX ) . '%',
+				$wpdb->esc_like( Segurium_Scan_Phase_Self_Check::KV_PREFIX ) . '%',
+				Segurium_Integrity_Chain::KV_PENDING,
+				Segurium_Integrity_Chain::KV_PENDING_TRIGGER
+			)
+		);
+		if ( false === $expired || false === $dead ) {
+			Segurium_Debug::log( 'Segurium: STORAGE_GC_KV_PRUNE_FAILED: ' . $wpdb->last_error );
+		}
+		return ( false === $expired ? 0 : (int) $expired ) + ( false === $dead ? 0 : (int) $dead );
 	}
 
 	/**
@@ -117,6 +150,7 @@ class Segurium_Storage_GC {
 				'scan_started'    => 180 * DAY_IN_SECONDS,
 				'scan_finished'   => 180 * DAY_IN_SECONDS,
 				'malware_cured'   => 365 * DAY_IN_SECONDS,
+				'content_cured'   => 365 * DAY_IN_SECONDS,
 				'integrity_fix'   => 365 * DAY_IN_SECONDS,
 				'self_check'      => 180 * DAY_IN_SECONDS,
 				'storage_gc'      => 30 * DAY_IN_SECONDS,

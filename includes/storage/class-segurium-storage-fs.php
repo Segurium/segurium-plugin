@@ -29,6 +29,8 @@ class Segurium_Storage_Fs {
 	const HTACCESS_GUARD  = "Deny from all\n<IfModule mod_authz_core.c>\n\tRequire all denied\n</IfModule>\n";
 	const INDEX_PHP_GUARD = "<?php\n// Silence is golden.\n";
 
+	const OPTION_FILE_TOKEN = 'segurium_data_file_token';
+
 	/**
 	 * True once {@see ensure_layout()} has created + guarded the root dirs.
 	 * Keeps repeat callers on the backup_store hot path from re-statting them.
@@ -70,6 +72,79 @@ class Segurium_Storage_Fs {
 	 */
 	public static function cache_dir(): string {
 		return self::data_dir() . '/' . self::SUBDIR_CACHE;
+	}
+
+	/**
+	 * Path under a name keyed by the install's random token; nginx serves a fixed name despite `.htaccess`.
+	 *
+	 * @param string $dir  Directory of the file.
+	 * @param string $name Fixed name; a file still under it moves to the private name.
+	 * @return string The private path; the fixed path while the move fails; '' with no token and no fixed file.
+	 */
+	public static function private_file( string $dir, string $name ): string {
+		$fixed = $dir . '/' . $name;
+		$token = self::file_token();
+		if ( '' === $token ) {
+			return is_file( $fixed ) ? $fixed : '';
+		}
+		$dot  = strrpos( $name, '.' );
+		$dot  = false === $dot ? strlen( $name ) : $dot;
+		$path = $dir . '/' . substr( $name, 0, $dot ) . '-' . substr( hash_hmac( 'sha256', $name, $token ), 0, 32 ) . substr( $name, $dot );
+
+		$public = is_file( $fixed ) ? Segurium_Fs::stat( $fixed ) : false;
+		if ( false === $public ) {
+			return $path;
+		}
+		$private = is_file( $path ) ? Segurium_Fs::stat( $path ) : false;
+		if ( false !== $private && $private['mtime'] >= $public['mtime'] ) {
+			self::log_once( Segurium_Fs::delete( $fixed ) ? 'data_file_dropped' : 'data_file_move_failed', $fixed );
+			return $path;
+		}
+		if ( Segurium_Fs::rename( $fixed, $path ) ) {
+			if ( false !== $private ) {
+				self::log_once( 'data_file_replaced', $fixed );
+			}
+			return $path;
+		}
+		if ( ! is_file( $fixed ) && is_file( $path ) ) {
+			return $path;
+		}
+		self::log_once( 'data_file_move_failed', $fixed );
+		return $fixed;
+	}
+
+	/**
+	 * Log a data-file code once per request. Only the fixed path is printed:
+	 * debug.log is often public, so the private name stays out of it.
+	 *
+	 * @param string $code  Error code.
+	 * @param string $fixed Fixed path of the file.
+	 */
+	private static function log_once( string $code, string $fixed ): void {
+		static $seen = array();
+		if ( ! isset( $seen[ $code . '|' . $fixed ] ) ) {
+			$seen[ $code . '|' . $fixed ] = true;
+			Segurium_Debug::log( 'Segurium: ' . $code . ': ' . $fixed );
+		}
+	}
+
+	/** The token behind {@see private_file()}, created once; '' when it cannot be read or stored. */
+	private static function file_token(): string {
+		try {
+			$token = Segurium_Storage_Settings::get_string( self::OPTION_FILE_TOKEN );
+			if ( '' === $token ) {
+				Segurium_Storage_Settings::insert_raw( self::OPTION_FILE_TOKEN, bin2hex( random_bytes( 16 ) ) );
+				$token = (string) Segurium_Storage_Settings::get_raw( self::OPTION_FILE_TOKEN );
+			}
+		} catch ( Exception $e ) {
+			Segurium_Debug::log( 'Segurium: data_file_token_failed: ' . $e->getMessage() );
+			return '';
+		}
+		if ( 1 !== preg_match( '/\A[0-9a-f]{32}\z/', $token ) ) {
+			Segurium_Debug::log( 'Segurium: data_file_token_invalid' );
+			return '';
+		}
+		return $token;
 	}
 
 	/**
@@ -189,14 +264,14 @@ class Segurium_Storage_Fs {
 		$tmp = $path . '.tmp.' . wp_generate_password( 8, false, false );
 		$fp  = Segurium_Fs::open( $tmp, 'wb' );
 		if ( false === $fp ) {
-			Segurium_Debug::log( 'Segurium: atomic_put: fopen failed on ' . $tmp );
+			Segurium_Debug::log( 'Segurium: atomic_put: fopen failed in ' . dirname( $path ) );
 			return false;
 		}
 		$bytes = Segurium_Fs::put( $fp, $data );
 		if ( false === $bytes || strlen( $data ) !== $bytes ) {
 			Segurium_Fs::close( $fp );
 			Segurium_Fs::delete( $tmp );
-			Segurium_Debug::log( 'Segurium: atomic_put: short write on ' . $tmp );
+			Segurium_Debug::log( 'Segurium: atomic_put: short write in ' . dirname( $path ) );
 			return false;
 		}
 		fflush( $fp );
@@ -205,7 +280,7 @@ class Segurium_Storage_Fs {
 			Segurium_Fs::delete( $path );
 		}
 		if ( ! Segurium_Fs::rename( $tmp, $path ) ) {
-			Segurium_Debug::log( 'Segurium: atomic_put: rename failed ' . $tmp . ' -> ' . $path );
+			Segurium_Debug::log( 'Segurium: atomic_put: rename failed in ' . dirname( $path ) );
 			Segurium_Fs::delete( $tmp );
 			return false;
 		}

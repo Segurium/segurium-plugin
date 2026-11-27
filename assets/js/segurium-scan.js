@@ -366,13 +366,22 @@
 
     function restoreAccount(uid, onSuccess) {
         var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
+        confirmRestore(
+            i18n.confirmRestoreAccount || 'This gives the account back its role, password and application passwords. Continue?',
+            { action: 'segurium_restore_account', nonce: seguriumScan.cleanupNonce, uid: uid },
+            onSuccess
+        );
+    }
+
+    function confirmRestore(text, fields, onSuccess) {
+        var i18n = (typeof seguriumScan !== 'undefined' && seguriumScan.i18n) || {};
         var modal   = el('segurium-confirm-modal');
         var okBtn   = el('segurium-confirm-ok');
         var cancel  = el('segurium-confirm-cancel');
         var close   = el('segurium-confirm-close');
 
         el('segurium-confirm-title').textContent = i18n.restore || 'Restore';
-        el('segurium-confirm-content').textContent = i18n.confirmRestoreAccount || 'This gives the account back its role, password and application passwords. Continue?';
+        el('segurium-confirm-content').textContent = text;
         okBtn.textContent = i18n.restore || 'Restore';
         okBtn.disabled = false;
         modal.style.display = '';
@@ -384,11 +393,7 @@
 
         okBtn.onclick = function () {
             closeModal();
-            post({
-                action: 'segurium_restore_account',
-                nonce: seguriumScan.cleanupNonce,
-                uid: uid
-            }).then(function (response) {
+            post(fields).then(function (response) {
                 if (response.success) {
                     onSuccess();
                     return;
@@ -593,6 +598,9 @@
 
     var refreshServerState = function () {};
     var ssResumeIfRunning   = function () {};
+    // The Scanner tab's poller lasts a whole run and reports each status in a
+    // `segurium:run-status` event. It stands down while the Integrity tab observes.
+    var integrityObserverSeenAt = 0;
     var geoOnActivate       = function () {};
     var firewallOnActivate  = function () {};
     var bruteforceOnActivate = function () {};
@@ -1099,19 +1107,38 @@
             consentBtn.disabled = true;
             var consentAlertsEnabled = el('segurium_consent_alerts_enabled');
             var consentAlertsEmail = el('segurium_consent_alerts_email');
-            post({
-                action: 'segurium_accept_consent',
-                nonce: seguriumScan.consentNonce,
-                alerts_email_enabled: consentAlertsEnabled && consentAlertsEnabled.checked ? '1' : '',
-                alerts_email_address: consentAlertsEmail ? consentAlertsEmail.value : ''
-            }).then(function (response) {
+            var fields = { action: 'segurium_accept_consent', nonce: seguriumScan.consentNonce };
+            if (consentAlertsEnabled) fields.alerts_email_enabled = consentAlertsEnabled.checked ? '1' : '';
+            if (consentAlertsEmail) fields.alerts_email_address = consentAlertsEmail.value;
+            post(fields).then(function (response) {
                 if (response.success) {
                     location.reload();
                 } else {
                     consentBtn.disabled = false;
+                    seguriumNoticeFromError(response.data);
                 }
             }).catch(function () {
                 consentBtn.disabled = false;
+            });
+        });
+    }
+
+    var renewalDismissBtn = el('segurium-dismiss-consent-renewal');
+    if (renewalDismissBtn) {
+        renewalDismissBtn.addEventListener('click', function () {
+            renewalDismissBtn.disabled = true;
+            post({
+                action: 'segurium_dismiss_consent_renewal',
+                nonce: seguriumScan.consentNonce
+            }).then(function (response) {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    renewalDismissBtn.disabled = false;
+                    seguriumNoticeFromError(response.data);
+                }
+            }).catch(function () {
+                renewalDismissBtn.disabled = false;
             });
         });
     }
@@ -1587,6 +1614,7 @@
     //   segurium:scan-starting   — a scan is about to begin
     //   segurium:scan-finished   — the runner stopped
     //   segurium:tab-changed     — sidebar nav switched (detail.feature)
+    // A module that starts a run itself dispatches segurium:run-started.
     // dev/ is stripped from the production ZIP via plugin/.distignore.
 
     // ── Server State ──
@@ -1859,6 +1887,7 @@
                     escHtml(i18n.restore || 'Restore') + '</a>' +
                     '</div></div>';
             }
+            if (item.kind === 'content') return buildContentActionsHtml(item);
             if (item.state === 'malicious') {
                 return '<span style="display:inline-flex;align-items:center;gap:4px;">' +
                     '<button class="button button-small segurium-ss-clean-btn"' +
@@ -1901,6 +1930,36 @@
             return '';
         }
 
+        function buildContentActionsHtml(item) {
+            var fid = ' data-finding-id="' + escAttr(String(item.id || 0)) + '"';
+            var menu = function (inner) {
+                return '<div class="segurium-dropdown">' +
+                    '<button class="button button-small segurium-dropdown-toggle" type="button" aria-label="' + escAttr(i18n.actions || 'Actions') + '">' + icon('dots') + '</button>' +
+                    '<div class="segurium-dropdown-menu">' + inner + '</div></div>';
+            };
+            if (item.state === 'malicious') {
+                return '<span style="display:inline-flex;align-items:center;gap:4px;">' +
+                    '<button class="button button-small segurium-ss-clean-btn"' + fid + '>' +
+                    escHtml(i18n.cleanAction || 'Clean') + '</button>' +
+                    menu('<a href="#" class="segurium-dropdown-item segurium-ss-ignore-path"' + fid + '>' +
+                        escHtml(i18n.alwaysIgnore || 'Always ignore') + '</a>') +
+                    '</span>';
+            }
+            if (item.state === 'cleaned' && item.restorable !== false) {
+                return menu('<a href="#" class="segurium-dropdown-item segurium-ss-restore-btn"' + fid + '>' +
+                    escHtml(i18n.restore || 'Restore') + '</a>');
+            }
+            if (item.state === 'ignored') {
+                return '<button class="button button-small segurium-ss-unignore-btn"' + fid + '>' +
+                    escHtml(i18n.removeFromIgnore || 'Remove from ignore') + '</button>';
+            }
+            return '';
+        }
+
+        function contentRequest(op, id) {
+            return { action: 'segurium_content_finding', nonce: seguriumScan.cleanupNonce, op: op, id: id };
+        }
+
         // Locate a rendered server-state row by its file path. Paths can
         // hold quotes/brackets, so we iterate attributes rather than build
         // a CSS attribute selector.
@@ -1939,11 +1998,14 @@
                 path: path,
                 kind: tr.getAttribute('data-kind') || '',
                 label: tr.getAttribute('data-label') || '',
+                location: tr.getAttribute('data-location') || '',
+                id: parseInt(tr.getAttribute('data-finding-id') || '0', 10),
                 uid: parseInt(tr.getAttribute('data-uid') || '0', 10),
                 sha256: tr.getAttribute('data-sha256') || '',
                 state: newState,
                 timestamp: Math.floor(Date.now() / 1000),
                 verdict: parseInt(tr.getAttribute('data-verdict') || '0', 10),
+                restorable: tr.getAttribute('data-restorable') !== '0',
                 backup_id: (extra && extra.backup_id) ? extra.backup_id : (tr.getAttribute('data-backup-id') || null)
             };
             if (stateCell) stateCell.innerHTML = buildStateHtml(newState);
@@ -1985,7 +2047,8 @@
                     self.textContent = i18n.processing || 'Processing...';
                     var row = self.closest('tr');
                     if (row) row.classList.add('segurium-ss-row--pending');
-                    post({
+                    var fid = self.getAttribute('data-finding-id');
+                    post(fid ? contentRequest('clean', fid) : {
                         action: 'segurium_cleanup_file',
                         nonce: seguriumScan.cleanupNonce,
                         path: self.getAttribute('data-path'),
@@ -2102,6 +2165,14 @@
                     this.closest('.segurium-dropdown-menu').classList.remove('segurium-dropdown-menu--open');
                     var btn = this;
                     var row = btn.closest('tr');
+                    var fid = btn.getAttribute('data-finding-id');
+                    if (fid) {
+                        var what = [row.getAttribute('data-label'), row.getAttribute('data-location')].filter(Boolean).join(' · ');
+                        confirmRestore(what, contentRequest('restore', fid), function () {
+                            applyRowMutation(row, 'malicious', {});
+                        });
+                        return;
+                    }
                     restoreWithPreflight(btn.getAttribute('data-backup-id'), btn, function () {
                         applyRowMutation(row, 'restored', {});
                     });
@@ -2115,7 +2186,8 @@
                         e.preventDefault();
                         this.closest('.segurium-dropdown-menu').classList.remove('segurium-dropdown-menu--open');
                         var row = this.closest('tr');
-                        post({
+                        var fid = this.getAttribute('data-finding-id');
+                        post(fid ? contentRequest('ignore', fid) : {
                             action: 'segurium_ignore_file',
                             nonce: seguriumScan.cleanupNonce,
                             path: this.getAttribute('data-path'),
@@ -2123,6 +2195,7 @@
                             ignore_type: ignoreType
                         }).then(function (response) {
                             if (response.success) applyRowMutation(row, 'ignored', {});
+                            else seguriumNotice(describeAjaxError(response.data), response.data && response.data.code);
                         });
                     });
                 }
@@ -2136,7 +2209,8 @@
                     var self = this;
                     var row = self.closest('tr');
                     self.disabled = true;
-                    post({
+                    var fid = self.getAttribute('data-finding-id');
+                    post(fid ? contentRequest('unignore', fid) : {
                         action: 'segurium_unignore_file',
                         nonce: seguriumScan.cleanupNonce,
                         path: self.getAttribute('data-path')
@@ -2145,6 +2219,7 @@
                             applyRowMutation(row, 'malicious', {});
                         } else {
                             self.disabled = false;
+                            seguriumNotice(describeAjaxError(response.data), response.data && response.data.code);
                         }
                     }).catch(function () {
                         self.disabled = false;
@@ -2156,6 +2231,7 @@
         function renderRow(item, opts) {
             opts = opts || {};
             if (item.kind === 'account') return renderAccountRow(item, opts);
+            if (item.kind === 'content') return renderContentRow(item, opts);
             var tr = document.createElement('tr');
             tr.setAttribute('data-path', item.path || '');
             tr.setAttribute('data-sha256', item.sha256 || '');
@@ -2184,6 +2260,33 @@
             tr.setAttribute('data-state', item.state || '');
             if (opts.acted || ssIsActed(item.path)) tr.classList.add('segurium-ss-row--acted');
             tr.innerHTML = '<td class="segurium-path-cell">' + escHtml(label) + '</td>' +
+                '<td class="segurium-ss-state-cell">' + buildStateHtml(item.state) + '</td>' +
+                '<td>' + escHtml(formatDate(item.timestamp)) + '</td>' +
+                '<td class="segurium-ss-actions-cell">' + buildActionsHtml(item) + '</td>';
+            bindSSRowActions(tr);
+            return tr;
+        }
+
+        function renderContentRow(item, opts) {
+            var tr = document.createElement('tr');
+            var attrs = {
+                'data-path': item.path || '',
+                'data-kind': 'content',
+                'data-finding-id': String(item.id || 0),
+                'data-label': item.label || '',
+                'data-location': item.location || '',
+                'data-sha256': item.sha256 || '',
+                'data-verdict': String(item.verdict || 0),
+                'data-state': item.state || '',
+                'data-restorable': item.restorable === false ? '0' : '1'
+            };
+            Object.keys(attrs).forEach(function (name) { tr.setAttribute(name, attrs[name]); });
+            if (item.backup_id) tr.setAttribute('data-backup-id', item.backup_id);
+            if (opts.acted || ssIsActed(item.path)) tr.classList.add('segurium-ss-row--acted');
+            tr.innerHTML = '<td class="segurium-path-cell">' + escHtml(item.label || '') +
+                (item.location ? '<br><span class="segurium-ss-location" style="font-size:12px;color:#646970">' + escHtml(item.location) + '</span>' : '') +
+                (item.sha256 ? '<br><span class="segurium-ss-sha256" style="font-size:11px;color:#999">SHA256: <span style="user-select:all">' + escHtml(item.sha256) + '</span></span>' : '') +
+                '</td>' +
                 '<td class="segurium-ss-state-cell">' + buildStateHtml(item.state) + '</td>' +
                 '<td>' + escHtml(formatDate(item.timestamp)) + '</td>' +
                 '<td class="segurium-ss-actions-cell">' + buildActionsHtml(item) + '</td>';
@@ -2328,6 +2431,8 @@
         var ssBar = el('segurium-ss-progress-bar');
         var ssProgressLabel = el('segurium-ss-progress-label');
         var ssScanning = false;
+        // Another phase of the run holds the lock.
+        var ssWaiting = false;
         var ssTotalStart = null;
 
         // Stop button affordances. Visibility is toggled
@@ -2344,6 +2449,7 @@
 
         function ssDone() {
             ssSetScanning(false);
+            ssWaiting = false;
             if (ssBtn) ssBtn.disabled = false;
             ssShowStop(false);
             // Tear down the live progress UI so a Stop click clears the
@@ -2419,7 +2525,7 @@
         // making progress via wp-cron / pageload fallback, so park the
         // observer until the user comes back instead of polling blind.
         var ssVisibilityGate = makeVisibilityGate(function () {
-            if (ssScanning) ssPollScanStatus();
+            if (ssScanning || ssWaiting) ssPollScanStatus();
         });
 
         function ssStopPolling() {
@@ -2447,6 +2553,15 @@
                     return;
                 }
                 var data = response.data || {};
+                ssReportRun(data);
+                if (!data.running && data.run_active) {
+                    ssWaitForRun(data);
+                    return;
+                }
+                if (ssWaiting && data.running && !data.completed) {
+                    ssBeginObserving(data);
+                    return;
+                }
                 if (!data.running && !data.completed) {
                     // Runner finished between polls. The server returns
                     // the most recent terminal scan (completed | cancelled
@@ -2455,6 +2570,7 @@
                     // Prefer `last_terminal` (carries status)
                     // and only fall back to legacy `last_completed` when
                     // the server is older.
+                    if (ssWaiting) ssStatus.textContent = '';
                     var terminal = data.last_terminal || data.last_completed;
                     if (terminal) {
                         renderLastScan(terminal);
@@ -2498,13 +2614,51 @@
             });
         }
 
+        function ssReportRun(data) {
+            document.dispatchEvent(new CustomEvent('segurium:run-status', { detail: data }));
+        }
+
+        function ssWaitForRun(data) {
+            var filesPhaseEnded = ssScanning;
+            ssSetScanning(false);
+            ssWaiting = true;
+            if (ssBtn) ssBtn.disabled = true;
+            if (ssStopBtn && ssStopBtn.hidden) ssShowStop(true);
+            if (data.drive) driveScan();
+            if (ssProgressWrap) ssProgressWrap.style.display = 'none';
+            ssStatus.textContent = i18n.scanAlreadyRunning || 'A scan is already in progress.';
+            if (filesPhaseEnded) {
+                ssStickyRows = Object.create(null);
+                loadServerState();
+            }
+            ssStopPolling();
+            ssPollTimer = setTimeout(ssWaitTick, SS_POLL_SLOW_MS);
+        }
+
+        function ssWaitTick() {
+            if (Date.now() - integrityObserverSeenAt < 2 * SS_POLL_SLOW_MS) {
+                ssPollTimer = setTimeout(ssWaitTick, SS_POLL_SLOW_MS);
+                return;
+            }
+            ssPollScanStatus();
+        }
+
+        // The Integrity tab stopped observing: learn at once whether the run ended.
+        document.addEventListener('segurium:scan-finished', function () {
+            if (!ssWaiting) return;
+            ssStopPolling();
+            ssPollScanStatus();
+        });
+
         function ssBeginObserving(data) {
+            ssWaiting = false;
             ssSetScanning(true);
             ssLastThreatCount = 0;
             ssLastFindingsRefresh = 0;
             if (ssBtn) ssBtn.disabled = true;
             ssShowStop(true);
             document.dispatchEvent(new CustomEvent('segurium:scan-starting'));
+            ssReportRun({ run_active: true, run_phase: 'files' });
             ssProgressWrap.style.display = '';
             ssBar.style.width = '';
             if (data && data.started_at) {
@@ -2556,9 +2710,11 @@
                     nonce: seguriumScan.nonce
                 }).then(function (response) {
                     if (!response || !response.success) {
+                        var refused = (response && response.data) || {};
                         ssStatus.textContent = (i18n.scanError || 'Error') + ': ' +
-                            describeAjaxError(response && response.data);
+                            describeAjaxError(refused);
                         ssDone();
+                        if (refused.code === 'scan_already_running') ssResumeIfRunning();
                         return;
                     }
                     ssBeginObserving(response.data);
@@ -2642,15 +2798,20 @@
         // whatever the runner is driving server-side without ever
         // issuing a chunk call from the browser.
         ssResumeIfRunning = function (onIdle) {
-            if (ssScanning) return;
+            if (ssScanning || ssWaiting) return;
             post({
                 action: 'segurium_scan_status',
                 nonce: seguriumScan.nonce
             }).then(function (response) {
-                if (ssScanning) return;
+                if (ssScanning || ssWaiting) return;
                 var data = (response && response.success && response.data) || {};
+                ssReportRun(data);
                 if (data.running && !data.completed) {
                     ssBeginObserving(data);
+                    return;
+                }
+                if (data.run_active) {
+                    ssWaitForRun(data);
                     return;
                 }
                 if (typeof onIdle === 'function') onIdle();
@@ -2662,6 +2823,12 @@
             ssResumeIfRunning(function () {
                 if (ssBtn) ssBtn.click();
             });
+        });
+
+        document.addEventListener('segurium:run-started', function (e) {
+            if (ssScanning || ssWaiting) return;
+            if (e.detail) ssBeginObserving(e.detail);
+            else ssResumeIfRunning();
         });
 
         // ── Fix all ──
@@ -2718,8 +2885,11 @@
             var close   = el('segurium-confirm-close');
             if (!modal || !okBtn) return;
 
-            var count = (preview && typeof preview.count === 'number') ? preview.count : 0;
-            var copy  = (i18n.scannerFixAllCopy || 'This will attempt to clean %d detected malicious file(s). Each file is backed up before cleanup.')
+            var count  = (preview && typeof preview.count === 'number') ? preview.count : 0;
+            var issues = ((preview && preview.files) || []).some(function (f) { return !!f.id; });
+            var copy   = (issues
+                ? (i18n.scannerFixAllIssuesCopy || 'This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored.')
+                : (i18n.scannerFixAllCopy || 'This will attempt to clean %d detected malicious file(s). Each file is backed up before cleanup.'))
                 .replace('%d', String(count));
 
             title.textContent = i18n.scannerFixAllTitle || 'Clean all detected malware';
@@ -2791,7 +2961,7 @@
                 }
 
                 var f = files[i];
-                post({
+                post(f.id ? contentRequest('clean', f.id) : {
                     action: 'segurium_cleanup_file',
                     nonce: seguriumScan.cleanupNonce,
                     path: f.path,
@@ -2819,12 +2989,12 @@
                                 || i18n.paywallQuotaTitle
                                 || 'Cleanup quota reached';
                             for (var j = i; j < total; j++) {
-                                errors.push(files[j].path + ': ' + capMsg);
+                                errors.push((files[j].label || files[j].path) + ': ' + capMsg);
                             }
                             next(total);
                             return;
                         }
-                        errors.push(f.path + ': ' + (resp.data && resp.data.message || 'failed'));
+                        errors.push((f.label || f.path) + ': ' + (resp.data && resp.data.message || 'failed'));
                         next(i + 1);
                         return;
                     }
@@ -2843,7 +3013,7 @@
                     next(i + 1);
                 }).catch(function () {
                     done++;
-                    errors.push(f.path + ': connection error');
+                    errors.push((f.label || f.path) + ': connection error');
                     next(i + 1);
                 });
             }
@@ -3146,11 +3316,22 @@
             return (upd && upd.package_available && upd.can_update) ? upd : null;
         }
 
+        function isSelfComp(comp) {
+            var selfSlug = String(seguriumScan.selfSlug || '').toLowerCase();
+            return comp.type === 'plugin' && selfSlug !== '' && String(comp.slug || '').toLowerCase() === selfSlug;
+        }
+
+        function isNewVerdict(verdict) {
+            return verdict === 'unknown' || verdict === 'version_not_found';
+        }
+
         // Component-level action availability per the spreadsheet.
         function buildISComponentActions(comp) {
             var cat = compCategory(comp);
+            var isSelf = isSelfComp(comp);
             var files = comp.files || [];
             var hasOpen    = files.some(function (f) { return f.state === 'open'; });
+            var hasFixable = files.some(function (f) { return f.state === 'open' && !(isSelf && isNewVerdict(f.verdict)); });
             var hasIgnored = files.some(function (f) { return f.state === 'ignored'; });
             var hasFixed   = files.some(function (f) { return f.state === 'fixed'; });
 
@@ -3177,8 +3358,10 @@
 
             if (cat === 'known') {
                 // Core/known: Fix (file-level), Ignore (file-level), Unignore (file-level), Restore.
-                if (hasOpen) {
+                if (hasFixable) {
                     btns += compBtn('segurium-is-fix-comp', comp, i18n.intFix || 'Fix') + ' ';
+                }
+                if (hasOpen) {
                     btns += compBtn('segurium-is-ignore-comp', comp, i18n.intIgnore || 'Ignore') + ' ';
                 }
                 if (hasIgnored) {
@@ -3189,7 +3372,9 @@
                 }
             } else {
                 // Abandoned/unknown/delisted: Delete + Ignore (component-level).
-                btns += compBtn('segurium-is-delete-comp', comp, i18n.delete || 'Delete') + ' ';
+                if (!isSelf) {
+                    btns += compBtn('segurium-is-delete-comp', comp, i18n.delete || 'Delete') + ' ';
+                }
                 btns += compBtn('segurium-is-ignore-comp', comp, i18n.intIgnore || 'Ignore') + ' ';
                 // Restore only for abandoned (has sources). Not for unknown/delisted.
                 if (hasFixed && cat === 'abandoned') {
@@ -3283,10 +3468,12 @@
             // Fix (known only): fix all open files per file action table.
             bindClick(tr, '.segurium-is-fix-comp', function (btn) {
                 var queue = [];
+                var isSelf = isSelfComp(comp);
                 (comp.files || []).forEach(function (f) {
                     if (f.state !== 'open') return;
                     var v = f.verdict || '';
-                    var fixVerdict = (v === 'unknown' || v === 'version_not_found') ? 'new' : 'modified';
+                    if (isSelf && isNewVerdict(v)) return;
+                    var fixVerdict = isNewVerdict(v) ? 'new' : 'modified';
                     queue.push({
                         action: 'segurium_integrity_fix_file', nonce: intNonce,
                         comp_type: comp.type, comp_slug: comp.slug,
@@ -3741,10 +3928,12 @@
                     escHtml(label) + '</button> ';
             }
 
-            if (state === 'open' && (verdict === 'unknown' || verdict === 'version_not_found')) {
+            if (state === 'open' && isNewVerdict(verdict)) {
                 // "new" file (unknown)
                 if (cat === 'known' || cat === 'abandoned') {
-                    btns += fileBtn('segurium-is-fix-btn', i18n.delete || 'Delete');
+                    if (!isSelfComp(comp)) {
+                        btns += fileBtn('segurium-is-fix-btn', i18n.delete || 'Delete');
+                    }
                     btns += fileBtn('segurium-is-file-ignore', i18n.intIgnore || 'Ignore');
                 } else if (cat === 'unknown' || cat === 'delisted') {
                     btns += fileBtn('segurium-is-file-ignore', i18n.intIgnore || 'Ignore');
@@ -3838,6 +4027,53 @@
         var isVisibilityGate = makeVisibilityGate(function () {
             if (isScanning) isPollStatus();
         });
+        // Another phase of the run holds the lock. The Scanner tab's
+        // `segurium:run-status` events tell when this phase starts or the run ends.
+        var isWaiting = false;
+        var isObserverFailed = false;
+        var isRunEventAt = 0;
+        var isWaitTimer = null;
+
+        function isWaitForRun(keepStatus) {
+            isScanning = false;
+            isWaiting = true;
+            isObserverFailed = false;
+            integrityObserverSeenAt = 0;
+            isRunEventAt = Date.now();
+            isArmWaitCheck();
+            isBtn.disabled = true;
+            isShowStop(false);
+            isStopPolling();
+            isProgress.style.display = 'none';
+            isBar.classList.remove('segurium-progress-bar--active');
+            if (!keepStatus) isStatus.textContent = i18n.scanAlreadyRunning || 'A scan is already in progress.';
+        }
+
+        // The Scanner tab's poller can stop on a failed poll. With no event
+        // for two slow polls the waiting tab asks for itself.
+        function isArmWaitCheck() {
+            clearTimeout(isWaitTimer);
+            isWaitTimer = setTimeout(function () {
+                if (!isWaiting) return;
+                if (!document.hidden && Date.now() - isRunEventAt >= 2 * IS_POLL_SLOW_MS) isResumeIfRunning();
+                isArmWaitCheck();
+            }, 2 * IS_POLL_SLOW_MS);
+        }
+
+        document.addEventListener('segurium:scan-finished', function () {
+            if (isWaiting) isResumeIfRunning();
+        });
+
+        document.addEventListener('segurium:run-status', function (e) {
+            var data = e.detail || {};
+            if (isScanning || isObserverFailed) return;
+            isRunEventAt = Date.now();
+            if (data.run_active && data.run_phase !== 'integrity') {
+                if (!isWaiting) isWaitForRun(false);
+                return;
+            }
+            if (data.run_active || isWaiting) isResumeIfRunning();
+        });
 
         function isStopPolling() {
             if (isPollTimer) {
@@ -3862,14 +4098,17 @@
                     return;
                 }
                 var data = response.data || {};
-                // When the user cancels the chained malware
-                // scan, the deferred integrity start is dropped. The
-                // server returns a one-shot chain_message describing what
-                // happened — surface it before we tear the UI down.
+                integrityObserverSeenAt = data.running ? Date.now() : 0;
+                if (!data.running && data.run_active) {
+                    isWaitForRun(false);
+                    if (data.completed) isShowFullBar();
+                    loadIntegrityState();
+                    return;
+                }
+                // The phase ended stopped or failed: show the one-shot
+                // chain_message, or clear the last progress line.
                 if (!data.running && !data.completed) {
-                    if (data.chain_message) {
-                        isStatus.textContent = data.chain_message;
-                    }
+                    isStatus.textContent = data.chain_message || '';
                     isScanDone();
                     return;
                 }
@@ -3895,11 +4134,15 @@
                 // reload reattaches through isResumeIfRunning().
                 isStatus.textContent = reportPollHandlerError('integrity-poll', err);
                 isScanDone();
+                isObserverFailed = true;
             });
         }
 
         function isBeginObserving() {
+            isWaiting = false;
+            isObserverFailed = false;
             isScanning = true;
+            integrityObserverSeenAt = Date.now();
             isBtn.disabled = true;
             isShowStop(true);
             isProgress.style.display = '';
@@ -3956,17 +4199,14 @@
                     isScanDone();
                     return;
                 }
-                // Queued = chain helper kicked off a
-                // malware scan first. Show a one-shot informational
-                // label and stop observing — the integrity tab waits
-                // in not-running state until its turn arrives. The
-                // user can watch the malware tab if they want
-                // mid-chain progress.
+                // Queued = the run starts with the files phase, which
+                // the malware tab shows. Wait with Scan disabled.
                 if (response.data && response.data.queued) {
                     isStatus.textContent = response.data.chain_message
                         || i18n.intChainRunningMalware
                         || 'Running a quick malware scan first…';
-                    isScanDone();
+                    isWaitForRun(true);
+                    ssResumeIfRunning();
                     return;
                 }
                 isBeginObserving();
@@ -4000,8 +4240,7 @@
             isStatus.textContent = parts.join(' | ');
         }
 
-        function isRenderCompletion() {
-            isStatus.textContent = '';
+        function isShowFullBar() {
             isProgress.style.display = '';
             isBar.style.width = '100%';
             if (isProgressLabel) isProgressLabel.textContent = '100%';
@@ -4009,11 +4248,18 @@
                 isProgress.style.display = 'none';
                 if (isProgressLabel) isProgressLabel.textContent = '';
             }, 400);
+        }
+
+        function isRenderCompletion() {
+            isStatus.textContent = '';
+            isShowFullBar();
             loadIntegrityState();
         }
 
         function isScanDone() {
             isScanning = false;
+            isWaiting = false;
+            integrityObserverSeenAt = 0;
             isBtn.disabled = false;
             isShowStop(false);
             isStopPolling();
@@ -4032,25 +4278,42 @@
 
         // Resume observation on page load if an integrity scan is already
         // running (e.g. user closed the tab and came back).
-        (function isResumeIfRunning() {
+        var isResumeInFlight = false;
+        function isResumeIfRunning() {
+            if (isScanning || isResumeInFlight) return;
+            isResumeInFlight = true;
             post({
                 action: 'segurium_integrity_status',
                 nonce: seguriumScan.nonce
             }).then(function (response) {
-                if (response && response.success && response.data && response.data.running) {
+                isResumeInFlight = false;
+                if (isScanning || !response || !response.success) return;
+                var data = response.data || {};
+                if (data.running) {
                     isStatus.textContent = i18n.scanRunning || 'Scan in progress...';
                     isProgress.style.display = '';
-                    isUpdateStatus(response.data);
+                    isUpdateStatus(data);
                     isBeginObserving();
+                } else if (data.run_active) {
+                    isWaitForRun(isWaiting);
+                } else if (isWaiting) {
+                    isStatus.textContent = data.chain_message || '';
+                    isScanDone();
+                    loadIntegrityState();
+                } else if (data.chain_message) {
+                    isStatus.textContent = data.chain_message;
                 }
             }).catch(function (err) {
+                isResumeInFlight = false;
                 // isUpdateStatus() runs here too. Without this
                 // guard an exception is an unhandled rejection — silent, with
                 // the tab left claiming nothing is running.
                 isStatus.textContent = reportPollHandlerError('integrity-resume', err);
                 isScanDone();
+                isObserverFailed = true;
             });
-        })();
+        }
+        isResumeIfRunning();
 
         // Integrity Fix All button. Available on every install; clicks
         // consume cloud cleanup-quota slots and surface the upsell modal

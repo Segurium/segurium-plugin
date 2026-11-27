@@ -111,6 +111,8 @@ final class Segurium_Activity_Tracker {
 	const FLUSH_RETRY_SECONDS  = 30;
 	const CENSUS_STALE_SECONDS = 7 * DAY_IN_SECONDS;
 
+	const DELIVERY_TIMEOUT_SECONDS = 5;
+
 	/**
 	 * Capabilities that make an account worth a detail row. Roles are
 	 * site-defined, so the census asks what an account can do rather
@@ -675,14 +677,38 @@ final class Segurium_Activity_Tracker {
 	}
 
 	/**
+	 * Core records each plugin of a bulk deactivation after its own hook
+	 * returns, so only the end of the request sees all of them.
+	 *
+	 * @return void
+	 */
+	public static function defer_final_flush(): void {
+		add_action( 'shutdown', array( __CLASS__, 'flush_on_deactivation' ) );
+	}
+
+	/**
+	 * Ignores the flush lock: nothing retries after this request.
+	 *
+	 * @return void
+	 */
+	public static function flush_on_deactivation(): void {
+		try {
+			self::flush( true );
+		} catch ( Throwable $e ) {
+			Segurium_Debug::log( '[segurium-activity] deactivation flush failed: ' . $e->getMessage() );
+		}
+	}
+
+	/**
 	 * Ship every buffered event since the last flush.
 	 *
 	 * Higher severity travels first, so a signup storm cannot push the
 	 * one new administrator or the one plugin install out of the batch.
 	 *
+	 * @param bool $wait_for_delivery Count the batch as sent only on a 2xx answer.
 	 * @return bool True when a batch left the site.
 	 */
-	public static function flush(): bool {
+	public static function flush( bool $wait_for_delivery = false ): bool {
 		if ( ! self::can_send() ) {
 			return false;
 		}
@@ -721,20 +747,26 @@ final class Segurium_Activity_Tracker {
 			$events[] = self::event_from_row( $row );
 		}
 
-		$sent = Segurium_Storage::cti_send_message(
-			self::MSG_ACTIVITY,
-			array(
-				'events'  => $events,
-				'dropped' => max( 0, $pending - count( $events ) ),
-			)
+		$batch = array(
+			'events'  => $events,
+			'dropped' => max( 0, $pending - count( $events ) ),
 		);
+
+		if ( $wait_for_delivery ) {
+			$delivered = Segurium_Storage::cti_deliver_message( self::MSG_ACTIVITY, $batch, self::DELIVERY_TIMEOUT_SECONDS );
+			if ( is_wp_error( $delivered ) ) {
+				Segurium_Debug::log( '[segurium-activity] batch not delivered: ' . $delivered->get_error_code() . ' ' . $delivered->get_error_message() );
+			}
+			$sent = true === $delivered;
+		} else {
+			$sent = Segurium_Storage::cti_send_message( self::MSG_ACTIVITY, $batch );
+		}
 
 		// The mark advances past the whole window, discarded tail
 		// included, so a busy site never builds a backlog the daily flush
-		// could not clear. Note what $sent means: the transport is
-		// non-blocking, so this is "the request was dispatched", not "CTI
-		// received it". There is no acknowledgement to wait for and no
-		// redelivery; a batch lost in flight is lost.
+		// could not clear. Without $wait_for_delivery, $sent means "the
+		// request was dispatched", not "CTI received it": a batch lost in
+		// flight is lost.
 		if ( $sent ) {
 			Segurium_Storage::setting_set( self::OPT_LAST_FLUSHED_ID, $newest );
 		}
@@ -997,7 +1029,7 @@ final class Segurium_Activity_Tracker {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	private static function privileged_rows(): array {
+	public static function privileged_rows(): array {
 		$rows = array();
 		$seen = array();
 

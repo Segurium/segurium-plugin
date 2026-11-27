@@ -369,12 +369,18 @@ class Segurium_Storage_Tables {
 			case 'scan_history':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_scan_history`" );
+			case 'scan_runs':
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_scan_runs`" );
 			case 'scan_findings':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_scan_findings`" );
 			case 'file_state':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_file_state`" );
+			case 'content_findings':
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_content_findings`" );
 			case 'activity_log':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_activity_log`" );
@@ -390,6 +396,9 @@ class Segurium_Storage_Tables {
 			case 'async_pending':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_async_pending`" );
+			case 'realtime_snapshot':
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_realtime_snapshot`" );
 			case 'self_check_history':
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				return $wpdb->query( "DROP TABLE IF EXISTS `{$wpdb->prefix}segurium_self_check_history`" );

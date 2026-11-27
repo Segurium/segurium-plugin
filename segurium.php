@@ -3,7 +3,7 @@
  * Plugin Name: Segurium – Free Malware Removal & Auto Cleanup for Hacked Websites, Antivirus Scanner, Vulnerability Alerts
  * Plugin URI:  https://segurium.com
  * Description: Website hacked? Free malware removal and auto cleanup on every site you run, plus vulnerability alerts, firewall and 2FA. Same setup everywhere.
- * Version:     1.7.0
+ * Version:     1.8.0
  * Author:      Segurium
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SEGURIUM_VERSION', '1.7.0' );
+define( 'SEGURIUM_VERSION', '1.8.0' );
 define( 'SEGURIUM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'SEGURIUM_PLUGIN_FILE', __FILE__ );
@@ -495,6 +495,24 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-async-scan-results-loop.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-lock.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/interface-segurium-scan-phase.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-phase-files.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-phase-integrity.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-content-items.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cron-reader.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-phase-cron.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/interface-segurium-content-finding-kind.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cron-finding.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-content-findings.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-account-reader.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-script-extractor.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-db-script-walk.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-db-account-finding.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-db-session-finding.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-db-script-finding.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-phase-database.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-phase-self-check.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-run.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-runner.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-scan-trigger-auth.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-rest-scan-tick.php';
@@ -517,6 +535,7 @@ function segurium_load_full_plugin() {
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-cache-invalidation.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-auto-fix.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-review-prompt.php';
+	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-phase-rows.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-paywall-telemetry.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-deactivation-reason.php';
 	require_once SEGURIUM_PLUGIN_DIR . 'includes/class-segurium-integrity.php';
@@ -614,6 +633,7 @@ function segurium_fs() {
 // Loaded before the storage tier because storage's install_all() calls
 // Segurium_Path_Helpers::wp_admin_include() to pull in dbDelta.
 require_once SEGURIUM_PLUGIN_DIR . 'includes/helpers/class-segurium-path-helpers.php';
+require_once SEGURIUM_PLUGIN_DIR . 'includes/helpers/class-segurium-callback-source.php';
 
 // Centralized debug/error-log chokepoint. Loaded before everything so any
 // tier (storage, cron, activation) can route Segurium_Debug::log() through it.
@@ -667,11 +687,13 @@ Segurium_Storage::boot();
 Segurium_Settings::upgrade();
 
 /**
- * Register the three backup buckets with their rotation caps.
+ * Register the four backup buckets with their rotation caps.
  *
  * Fixed and cured files keep a backup_id in integrity_issues and file_state,
- * and the UI offers Restore while that row exists, so rotation must never
- * drop the envelope a row points at: the pinned-ids provider names those rows.
+ * cured content findings in content_findings, and the UI offers Restore while
+ * that row exists, so rotation must never drop the envelope a row points at:
+ * the pinned-ids provider names those rows. A content cleanup a worker left
+ * part way keeps its backup pinned until the next cleanup undoes it.
  *
  * @return void
  */
@@ -704,6 +726,15 @@ function segurium_register_backup_buckets(): void {
 				);
 				return is_array( $ids ) ? $ids : array();
 			},
+		)
+	);
+	Segurium_Storage::backup_register_bucket(
+		'content',
+		array(
+			'max_count'           => 200,
+			'max_bytes'           => 50 * 1048576,
+			'pinned_ids_provider' => array( 'Segurium_Content_Findings', 'pinned_backups' ),
+			'site_key'            => true,
 		)
 	);
 	// Component backups (whole plugin/theme archives) are user-managed: no
@@ -751,11 +782,39 @@ if ( in_array( segurium_request_tier(), $segurium_self_heal_tiers, true ) ) {
 			segurium_migrate_async_scan_retry_after_kv();
 			segurium_migrate_drop_async_submit_deprecated_options();
 			segurium_migrate_close_orphaned_scan_history();
+			segurium_migrate_drop_integrity_chain_event();
+			segurium_migrate_private_data_files();
 		},
 		0
 	);
 }
 unset( $segurium_self_heal_tiers );
+
+/**
+ * Move each data file still under its fixed name to its private name, so
+ * none waits for its next use. Two stats when nothing is left to move.
+ */
+function segurium_migrate_private_data_files() {
+	if ( ! class_exists( 'Segurium_Ignore_Lists' ) || ! class_exists( 'Segurium_Scan' ) ) {
+		return;
+	}
+	$dir = Segurium_Storage_Fs::data_dir();
+	foreach ( array( Segurium_Ignore_Lists::FILE_NAME, Segurium_Scan::LAST_SKIPS_FILE ) as $name ) {
+		if ( is_file( $dir . '/' . $name ) ) {
+			Segurium_Storage_Fs::private_file( $dir, $name );
+		}
+	}
+}
+
+/**
+ * Unschedule the WP-Cron event an earlier version queued to start the
+ * integrity scan. Reads the autoloaded cron array, writes only on a hit.
+ */
+function segurium_migrate_drop_integrity_chain_event() {
+	if ( class_exists( 'Segurium_Integrity_Chain' ) ) {
+		Segurium_Integrity_Chain::drop_legacy_event();
+	}
+}
 
 /**
  * One-shot close of scan_history rows orphaned at
@@ -1032,6 +1091,7 @@ function segurium_lightweight_bootstrap( $tier ) {
 	Segurium_Account_Lock::register_hooks();
 	if ( 'login' !== $tier ) {
 		Segurium_Install_Scan::register_hooks();
+		add_filter( 'wp_handle_upload', 'segurium_filter_upload' );
 	}
 
 	if ( 'visitor' === $tier ) {
@@ -1104,6 +1164,26 @@ function segurium_lightweight_bootstrap( $tier ) {
 	// ajax_other: firewall is registered above. Nothing else loads —
 	// heartbeat and third-party AJAX actions don't see any other Segurium
 	// hooks, classes, or UI side-effects.
+}
+
+/**
+ * Scan a file WordPress has just stored from an upload or a sideload.
+ *
+ * @param array $upload Upload data passed to `wp_handle_upload`.
+ * @return array The upload unchanged, or an `error` entry once the file is blocked.
+ */
+function segurium_filter_upload( $upload ) {
+	if ( empty( $upload['file'] ) || ! Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
+		return $upload;
+	}
+	try {
+		segurium_load_full_plugin();
+		$scanner = new Segurium_Upload_Scan( Segurium_Storage_Fs::data_dir() );
+		return $scanner->handle_upload( $upload );
+	} catch ( Throwable $e ) {
+		Segurium_Debug::log( '[segurium-upload-scan] upload_scan_failed: ' . get_class( $e ) . ': ' . $e->getMessage() );
+		return $upload;
+	}
 }
 
 /**
@@ -1277,7 +1357,8 @@ if ( in_array( segurium_request_tier(), segurium_cron_self_heal_tiers(), true ) 
  * two guards run before anything is loaded: sites that never define
  * `SEGURIUM_CTI_CONSENT` pay one `defined()`, and sites that do read an
  * autoloaded marker already in memory. Only a site that is both asking
- * and unstamped loads the include graph. The marker name is spelled out
+ * and unstamped loads the include graph; a stamped one checks for a later
+ * edition only where the graph is loaded. The marker name is spelled out
  * rather than read off `Segurium_Consent::OPTION_CONSTANT_APPLIED`,
  * because the class this guard decides whether to load is where that
  * constant lives; a test pins the two together.
@@ -1286,7 +1367,7 @@ function segurium_maybe_apply_consent_constant() {
 	if ( ! defined( 'SEGURIUM_CTI_CONSENT' ) || ! SEGURIUM_CTI_CONSENT ) {
 		return;
 	}
-	if ( Segurium_Storage::setting_get_bool( 'segurium_consent_constant_applied' ) ) {
+	if ( Segurium_Storage::setting_get_bool( 'segurium_consent_constant_applied' ) && ! class_exists( 'Segurium_Consent', false ) ) {
 		return;
 	}
 
@@ -1372,6 +1453,7 @@ function segurium_deactivate() {
 		$client = new Segurium_CTI_Client();
 		$client->send_message( 'plugin_deactivated' );
 	}
+	Segurium_Activity_Tracker::defer_final_flush();
 
 	Segurium_Realtime_Scan::unschedule();
 	Segurium_Scheduled_Scan::unschedule();

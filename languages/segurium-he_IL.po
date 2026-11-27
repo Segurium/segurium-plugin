@@ -4650,3 +4650,92 @@ msgstr "כל התכונות כלולות בכל התקנה. Pro מסיר את מ
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "ניקוי ללא הגבלה, בנוסף לשירותי הענן למטה."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "הגילוי השתנה לאחר קבלתו. Segurium שולחת את הנתונים החדשים תחת ההסכמה הקודמת. יש לקרוא את הגרסה החדשה ולאשר אותה."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "משימות מתוזמנות (אירועי WP-Cron): שם ה-hook, לוח הזמנים, המרווח והארגומנטים, ולכל callback ב-hook שמו, נתיב הקובץ, מספרי השורות, גיבוב SHA-256 של הקובץ וקוד המקור."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "חשבונות עם הרשאות מנהל או עורך, וחשבונות המוסתרים מרשימת המשתמשים: מזהה משתמש, שם התחברות וכתובת אימייל בטקסט גלוי, תפקידים, יכולות, תאריך רישום, ומספר סיסמאות היישום וההפעלות הפעילות."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "הפעלות התחברות פעילות של אותם חשבונות: מזהה משתמש, מזהה הפעלה חד-כיווני, כתובת IP ומחרוזת דפדפן בטקסט גלוי, מועד ההתחברות ומועד התפוגה."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "סקריפטים השמורים במסד הנתונים: הקוד שבתוך כל תגית script, או כתובת של סקריפט חיצוני, והמקום שבו Segurium מצאה אותו (טבלה, שורה ועמודה, או שם אפשרות). Segurium קוראת את תוכן הפוסטים, meta של פוסטים, אפשרויות, טקסט תגובות וכתובת אימייל של מחבר התגובה, ואת הטבלאות של תוספי code snippet."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "כתובת האימייל להתראות אבטחה: כתובת המנהל של WordPress, או זו שנקבעה בהגדרות Segurium, יחד עם הבחירה של התראות באימייל."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "סיסמאות משתמשים, גיבובי סיסמאות וטוקנים של הפעלות התחברות."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "קבצי מדיה, ופוסטים, תגובות או תוכן אחר במסד הנתונים מלבד הסקריפטים המפורטים לעיל."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "דוגמאות קבצים שהועלו לניתוח נשמרות עד 365 ימים ואז נמחקות על ידי ניקוי אוטומטי לילי. דוגמה עשויה להימחק מוקדם יותר לאחר שנבדקה. משימות מתוזמנות, חשבונות, הפעלות וסקריפטים נשמרים עד 60 ימים לאחר העלאתם האחרונה; אלה שנמצאו זדוניים נשמרים ללא הגבלת זמן."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+msgid "Cron job: %s"
+msgstr "משימת Cron: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "לוח זמנים: %1$s, ארגומנטים: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+msgid "Account: %s"
+msgstr "חשבון: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+msgid "User ID %1$d, roles: %2$s"
+msgstr "מזהה משתמש %1$d, תפקידים: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+msgid "Script in the database: %s"
+msgstr "סקריפט במסד הנתונים: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "נמצא ב-%d מקום"
+msgstr[1] "נמצא ב-%d מקומות"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+msgid "Login session of %s"
+msgstr "הפעלת התחברות של %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "התחברות: %1$s, פוגה: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "פעולה זו תנסה לנקות %d בעיות שאותרו. כל פריט מגובה לפני הניקוי. לא ניתן לשחזר הפעלת התחברות שהסתיימה."
+
+msgid "Remind me at next login"
+msgstr "להזכיר בהתחברות הבאה"
+
+msgid "Cron jobs"
+msgstr "משימות Cron"
+
+msgid "Database"
+msgstr "מסד נתונים"
+
+msgid "Waiting"
+msgstr "ממתין"
+
+msgid "Running"
+msgstr "פועל"
+
+msgid "Done"
+msgstr "בוצע"
+
+msgid "Skipped"
+msgstr "דולג"
+
+msgid "Cancelled"
+msgstr "בוטל"

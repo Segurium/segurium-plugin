@@ -94,6 +94,7 @@ class Segurium_Remote_Actions {
 	const TYPE_UNLOCK_USER       = 'unlock_user';
 
 	const TYPE_SET_CLOUD_ENDPOINT = 'set_cloud_endpoint';
+	const TYPE_SET_SETTING        = 'set_setting';
 
 	const ACTOR = 'remote';
 
@@ -156,6 +157,10 @@ class Segurium_Remote_Actions {
 	const REFUSE_BAD_ENDPOINT        = 'bad_endpoint';
 	const REFUSE_ALREADY_SELECTED    = 'already_selected';
 	const REFUSE_PROBE_FAILED_PREFIX = 'probe_failed_';
+
+	const REFUSE_BAD_SETTING          = 'bad_setting';
+	const REFUSE_ALREADY_SET          = 'already_set';
+	const REFUSE_SETTING_WRITE_FAILED = 'setting_write_failed';
 
 	/**
 	 * Longest site-relative path the channel will carry. Mirrors CTI's
@@ -593,6 +598,8 @@ class Segurium_Remote_Actions {
 				return Segurium_Account_Lock::evaluate( $action );
 			case self::TYPE_SET_CLOUD_ENDPOINT:
 				return self::evaluate_set_cloud_endpoint( $action );
+			case self::TYPE_SET_SETTING:
+				return self::evaluate_set_setting( $action );
 			default:
 				return self::REFUSE_BAD_TYPE;
 		}
@@ -633,6 +640,85 @@ class Segurium_Remote_Actions {
 			return '';
 		}
 		return $args['endpoint'];
+	}
+
+	/**
+	 * Decide whether a set_setting action may run.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function evaluate_set_setting( array $action ): string {
+		$want = self::setting_target( $action );
+		if ( array() === $want ) {
+			return self::REFUSE_BAD_SETTING;
+		}
+		return self::switches_hold( $want ) ? self::REFUSE_ALREADY_SET : self::OK;
+	}
+
+	/**
+	 * Whether every named switch holds the named value.
+	 *
+	 * @param array<string, string> $want Values by setting name, sorted by name.
+	 * @return bool
+	 */
+	private static function switches_hold( array $want ): bool {
+		$have = array_intersect_key( Segurium_Scan_Run::content_switches(), $want );
+		ksort( $have );
+		return $have === $want;
+	}
+
+	/**
+	 * The switches a set_setting action names: one or more names from
+	 * Segurium_Scan_Run::CONTENT_SWITCHES, each with `on` or `off`.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return array<string, string> Sorted by name. Empty when an argument is malformed.
+	 */
+	private static function setting_target( array $action ): array {
+		$raw  = isset( $action['args'] ) && is_array( $action['args'] ) ? $action['args'] : array();
+		$args = self::action_args( $action );
+		if ( array() === $args || count( $raw ) !== count( $args ) ) {
+			return array();
+		}
+		foreach ( $args as $name => $value ) {
+			if ( ! isset( Segurium_Scan_Run::CONTENT_SWITCHES[ $name ] ) || ( 'on' !== $value && 'off' !== $value ) ) {
+				return array();
+			}
+		}
+		ksort( $args );
+		return $args;
+	}
+
+	/**
+	 * Store each named switch; when one does not read back, restore them all.
+	 *
+	 * @param array<string, mixed> $action One entry from `actions[]`.
+	 * @return string self::OK, or the refusal code.
+	 */
+	private static function execute_set_setting( array $action ): string {
+		$want   = self::setting_target( $action );
+		$before = array_intersect_key( Segurium_Scan_Run::content_switches(), $want );
+		ksort( $before );
+		$write = static function ( array $values ) {
+			foreach ( $values as $name => $value ) {
+				Segurium_Storage::setting_set( Segurium_Scan_Run::CONTENT_SWITCHES[ $name ]['option'], 'on' === $value ? 1 : 0, true );
+			}
+		};
+		$write( $want );
+		if ( self::switches_hold( $want ) ) {
+			return self::OK;
+		}
+		$write( $before );
+		Segurium_Debug::log(
+			sprintf(
+				'[segurium-remote] %s: wanted %s, %s',
+				self::REFUSE_SETTING_WRITE_FAILED,
+				(string) wp_json_encode( $want ),
+				self::switches_hold( $before ) ? 'kept ' . (string) wp_json_encode( $before ) : 'the earlier values did not come back either'
+			)
+		);
+		return self::REFUSE_SETTING_WRITE_FAILED;
 	}
 
 	/**
@@ -1194,6 +1280,9 @@ class Segurium_Remote_Actions {
 		if ( self::TYPE_SET_CLOUD_ENDPOINT === $type ) {
 			return self::execute_set_cloud_endpoint( $action );
 		}
+		if ( self::TYPE_SET_SETTING === $type ) {
+			return self::execute_set_setting( $action );
+		}
 
 		return self::execute_update_component( $action );
 	}
@@ -1375,8 +1464,11 @@ class Segurium_Remote_Actions {
 		// because neither window would ever close.
 		self::note_attempt( $component_type, $slug );
 
-		if ( 'core' !== $component_type && ! self::backup_component( $component_type, $slug ) ) {
-			return self::REFUSE_BACKUP_FAILED;
+		if ( 'core' !== $component_type ) {
+			$backup = self::backup_component( $component_type, $slug );
+			if ( self::OK !== $backup ) {
+				return $backup;
+			}
 		}
 
 		if ( ! self::apply_update( $component_type, $slug ) ) {
@@ -1689,11 +1781,10 @@ class Segurium_Remote_Actions {
 	 *
 	 * @param string $component_type plugin|theme.
 	 * @param string $slug           Component slug.
-	 * @return bool
 	 */
-	private static function backup_component( string $component_type, string $slug ): bool {
+	private static function backup_component( string $component_type, string $slug ): string {
 		if ( ! class_exists( 'Segurium_Component_Backup' ) ) {
-			return false;
+			return self::REFUSE_BACKUP_FAILED;
 		}
 		$path = 'plugin' === $component_type
 			? Segurium_Path_Helpers::plugins_root() . '/' . $slug
@@ -1701,12 +1792,17 @@ class Segurium_Remote_Actions {
 
 		try {
 			$backup = new Segurium_Component_Backup();
-			$id     = $backup->create( $component_type, $slug, $path );
-			return ! empty( $id ) && ! is_wp_error( $id );
+			$result = $backup->create( $component_type, $slug, $path );
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium] remote action backup failed: ' . $e->getMessage() );
-			return false;
+			return self::REFUSE_BACKUP_FAILED;
 		}
+		if ( is_wp_error( $result ) ) {
+			Segurium_Debug::log( '[segurium] remote action backup failed: ' . $result->get_error_code() . ' ' . $result->get_error_message() );
+			$code = (string) $result->get_error_code();
+			return '' === $code ? self::REFUSE_BACKUP_FAILED : $code;
+		}
+		return empty( $result ) ? self::REFUSE_BACKUP_FAILED : self::OK;
 	}
 
 	/**
@@ -1966,6 +2062,11 @@ class Segurium_Remote_Actions {
 			case self::TYPE_SET_CLOUD_ENDPOINT:
 				$args   = self::action_args( $action );
 				$target = isset( $args['endpoint'] ) ? $args['endpoint'] : '';
+				break;
+			case self::TYPE_SET_SETTING:
+				$args = self::action_args( $action );
+				ksort( $args );
+				$target = http_build_query( $args, '', ',' );
 				break;
 			default:
 				$target = self::action_string( $action, 'slug' );

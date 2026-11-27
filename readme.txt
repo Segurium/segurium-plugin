@@ -2,9 +2,9 @@
 Contributors: segurium
 Tags: malware-removal, hacked, malware-scanner, virus-removal, antivirus
 Requires at least: 6.2
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,16 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 
 == Changelog ==
 
+= 1.8.0 - 2026-11-26 =
+* Browser uploads scan issue fixed.
+* Installer archives on the plugin and theme upload screen are checked by hash before install.
+* No deprecation notices to on PHP 8.5.
+* Fixes some task backups.
+* Improved translations.
+* Tested with WordPress 7.2.
+* Minor UI fixes.
+* Added DB and cronjobs scans.
+
 = 1.7.0 - 2026-11-13 =
 * Stops plugin and theme installs w/ malware.
 * Detects & blocks malicious hidden administrator accounts.
@@ -205,10 +215,5 @@ The SDK version bundled with this release is recorded in `freemius/start.php` (`
 * Recovers failed scans after engine load errors.
 * Minor UI fixes.
 * Improved translations.
-
-= 1.6.0 - 2026-11-09 =
-* Cleanups now clear page caches.
-* Reporting of login attempt failures.
-* Cleanup orders support for hash-variative malwares.
 
 Older entries are in `changelog.txt`, which ships with the plugin, and the full history is published at [https://segurium.com/changelog/](https://segurium.com/changelog/).

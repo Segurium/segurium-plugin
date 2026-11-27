@@ -4761,3 +4761,100 @@ msgstr "Mọi tính năng đều có trong mọi bản cài đặt. Pro loại b
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Dọn dẹp không giới hạn, cộng với các dịch vụ đám mây bên dưới."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Bản công bố này đã thay đổi sau khi bạn chấp nhận. Segurium đang gửi dữ liệu mới theo sự đồng ý trước đây của bạn. Vui lòng đọc phiên bản mới và chấp nhận."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Tác vụ định kỳ (sự kiện WP-Cron): tên hook, lịch trình, khoảng thời gian và tham số, và với mỗi hàm gọi lại trên hook: tên, đường dẫn tệp, số dòng, mã băm SHA-256 của tệp và mã nguồn."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Các tài khoản có quyền quản trị viên hoặc biên tập viên, và các tài khoản bị ẩn khỏi danh sách người dùng: ID người dùng, tên đăng nhập và địa chỉ email ở dạng rõ, các vai trò, năng lực, ngày đăng ký, và số lượng mật khẩu ứng dụng cùng phiên đăng nhập đang hoạt động."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Các phiên đăng nhập đang hoạt động của các tài khoản đó: ID người dùng, ID phiên dạng một chiều, địa chỉ IP và chuỗi trình duyệt ở dạng rõ, thời điểm đăng nhập và thời điểm hết hạn."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Các script lưu trong cơ sở dữ liệu: mã bên trong mỗi thẻ script, hoặc địa chỉ của script bên ngoài, và nơi Segurium tìm thấy (bảng, dòng và cột, hoặc tên tuỳ chọn). Segurium đọc nội dung bài viết, meta bài viết, tuỳ chọn, nội dung bình luận và email tác giả bình luận, và các bảng của plugin lưu đoạn mã."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "Địa chỉ email để nhận cảnh báo bảo mật: email quản trị WordPress, hoặc email bạn đã đặt trong phần Cài đặt Segurium, cùng với lựa chọn cảnh báo qua email của bạn."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Mật khẩu người dùng, mã băm mật khẩu và mã thông báo phiên đăng nhập."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Tệp phương tiện, và các bài viết, bình luận hoặc nội dung cơ sở dữ liệu khác ngoài các script nêu trên."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Các mẫu tệp được tải lên để phân tích được giữ tối đa 365 ngày và sau đó bị dọn bởi một tiến trình dọn dẹp tự động hằng đêm. Một mẫu có thể bị xoá sớm hơn sau khi được xem xét. Tác vụ định kỳ, tài khoản, phiên và script được giữ tối đa 60 ngày sau lần tải lên gần nhất; những mục bị kết luận là độc hại được giữ không giới hạn thời gian."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "Tác vụ cron: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Lịch trình: %1$s, tham số: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "Tài khoản: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID người dùng %1$d, vai trò: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "Script trong cơ sở dữ liệu: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Tìm thấy ở %d vị trí"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "Phiên đăng nhập của %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Đăng nhập: %1$s, hết hạn: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Thao tác này sẽ thử làm sạch %d vấn đề đã phát hiện. Mỗi mục đều được sao lưu trước khi dọn dẹp. Phiên đăng nhập đã kết thúc không thể khôi phục."
+
+msgid "Remind me at next login"
+msgstr "Nhắc tôi ở lần đăng nhập kế tiếp"
+
+msgid "Cron jobs"
+msgstr "Tác vụ cron"
+
+msgid "Database"
+msgstr "Cơ sở dữ liệu"
+
+msgid "Waiting"
+msgstr "Đang chờ"
+
+msgid "Running"
+msgstr "Đang chạy"
+
+msgid "Done"
+msgstr "Hoàn tất"
+
+msgid "Skipped"
+msgstr "Đã bỏ qua"
+
+msgid "Cancelled"
+msgstr "Đã huỷ"

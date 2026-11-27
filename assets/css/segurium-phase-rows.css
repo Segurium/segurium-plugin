@@ -1,0 +1,50 @@
+/* Phase rows on the Scanner tab. */
+
+.segurium-phase-rows {
+	list-style: none;
+	margin: 0 0 16px;
+	padding: 0;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	font-size: 13px;
+}
+
+.segurium-phase-row {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	margin: 0;
+	padding: 6px 12px;
+	border-top: 1px solid #f0f0f1;
+}
+
+.segurium-phase-row:first-child {
+	border-top: 0;
+}
+
+.segurium-phase-name {
+	min-width: 110px;
+	font-weight: 600;
+}
+
+.segurium-phase-counters {
+	flex: 1;
+	color: #50575e;
+}
+
+.segurium-phase-state {
+	color: #50575e;
+}
+
+.segurium-phase-row[data-status="running"] .segurium-phase-state {
+	color: var(--segurium-accent, #2271b1);
+}
+
+.segurium-phase-row[data-status="done"] .segurium-phase-state {
+	color: #00a32a;
+}
+
+.segurium-phase-row[data-status="failed"] .segurium-phase-state,
+.segurium-phase-row[data-status="cancelled"] .segurium-phase-state {
+	color: #d63638;
+}

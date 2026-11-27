@@ -106,15 +106,31 @@ function segurium_remove_data_dir( $dir ) {
 /**
  * Delete all Segurium data from the database and stop every scheduled event.
  *
- * Always drops tables and Segurium options. The preserved `backups/` tree
- * is still decryptable after a reinstall because the backup key is fixed
- * in the plugin source.
+ * Always drops tables, Segurium options and the consent renewal dismissals
+ * and two-factor data in user meta. The preserved `backups/` tree
+ * is still decryptable after a reinstall: no backup key is stored.
  */
 function segurium_delete_options() {
+	global $wpdb;
+
 	if ( class_exists( 'Segurium_Storage' ) ) {
 		Segurium_Storage::boot();
 		Segurium_Storage::table_drop_all();
 		Segurium_Storage::setting_delete_all();
+	}
+
+	delete_metadata( 'user', 0, $wpdb->get_blog_prefix() . 'segurium_consent_renewal_dismissed', '', true );
+	$two_factor_keys = array(
+		'_segurium_2fa_secret',
+		'_segurium_2fa_method',
+		'_segurium_2fa_backup',
+		'_segurium_2fa_trusted',
+		'_segurium_2fa_setup_at',
+		'_segurium_2fa_grace_start',
+		'_segurium_2fa_grace_until',
+	);
+	foreach ( $two_factor_keys as $key ) {
+		delete_metadata( 'user', 0, $key, '', true );
 	}
 
 	if ( function_exists( 'wp_clear_scheduled_hook' ) ) {

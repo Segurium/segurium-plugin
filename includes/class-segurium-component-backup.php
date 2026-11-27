@@ -6,9 +6,7 @@
  * PHP's bundled PharData (no shell, no external `tar` binary, so it works
  * on hosts where shell execution is disabled), size-gated, then handed to the
  * Layer-3 backup store which gzips + AES-256-GCM-encrypts it into the
- * `component` bucket. The plaintext tar only ever lives in a short-lived
- * temp file under `segurium-data/tmp/`; it is removed before `create()`
- * returns.
+ * `component` bucket.
  *
  * Fidelity note: PharData archives regular files only. Symlinks and empty
  * directories within a component are not preserved (a symlink whose target
@@ -35,6 +33,15 @@ class Segurium_Component_Backup {
 	const BUCKET                = 'component';
 	const DEFAULT_MAX_TAR_BYTES = 104857600; // 100 MB — gate on uncompressed tar size.
 	const GZIP_SPEED_LEVEL      = 1;         // Ratio traded for throughput; encryption dominates CPU anyway.
+
+	// PharData exception texts on PHP 7.4 to 8.3. Quoted paths come from the component, so only the fixed parts match.
+	const PACK_ERROR_PATTERNS = array(
+		'backup_name_too_long'   => '/^tar-based phar ".*" cannot be created, filename ".*" is too long for tar file format\z/s',
+		'backup_symlink_escape'  => '/^Iterator \S+ returned a path ".*" that is not in the base directory "/s',
+		'backup_unreadable_file' => '/^Iterator \S+ returned a file that could not be opened "|^RecursiveDirectoryIterator::__construct\(.*\): failed to open dir/is',
+		'backup_tmp_unwritable'  => '/^unable to open new phar "|^Cannot create phar \'.*\', file extension \(or combination\) not recognised or the directory does not exist\z/s',
+		'backup_write_failed'    => '/^tar-based phar ".*" cannot be created, (contents of|header for) file ".*" could not be written\z|^unable to create temporary file\z/s',
+	);
 
 	/**
 	 * Pack + encrypt a component directory into the `component` bucket.
@@ -74,7 +81,7 @@ class Segurium_Component_Backup {
 		} catch ( Exception $e ) {
 			Segurium_Fs::delete( $tar_path );
 			return new WP_Error(
-				'backup_failed',
+				$this->failure_code( $e->getMessage(), $abs_path, dirname( $tar_path ) ),
 				sprintf(
 					/* translators: %s: underlying error message. */
 					__( 'Backup failed: %s', 'segurium' ),
@@ -89,7 +96,7 @@ class Segurium_Component_Backup {
 			// two 512-byte zero blocks — so the encrypt/store pipeline and a
 			// later PharData restore still round-trip an empty component.
 			if ( ! Segurium_Storage_Fs::atomic_put( $tar_path, str_repeat( "\0", 1024 ) ) ) {
-				return new WP_Error( 'backup_failed', __( 'Backup archive was not created.', 'segurium' ) );
+				return new WP_Error( 'backup_empty_write_failed', __( 'Backup archive was not created.', 'segurium' ) );
 			}
 		}
 
@@ -215,6 +222,64 @@ class Segurium_Component_Backup {
 		Segurium_Fs::delete( $tar_path );
 
 		return true;
+	}
+
+	/**
+	 * Map a PharData exception text to a backup error code. A failed write is
+	 * disk_full when a temp filesystem lacks room: PharData holds two plaintext
+	 * copies in sys_temp_dir at once before it writes the tar.
+	 *
+	 * @param string $message  Exception message.
+	 * @param string $abs_path Component directory.
+	 * @param string $tar_dir  Directory the tar was written to.
+	 */
+	protected function failure_code( string $message, string $abs_path, string $tar_dir ): string {
+		$code = 'backup_failed';
+		foreach ( self::PACK_ERROR_PATTERNS as $candidate => $pattern ) {
+			if ( preg_match( $pattern, $message ) ) {
+				$code = $candidate;
+				break;
+			}
+		}
+		if ( 'backup_write_failed' !== $code ) {
+			return $code;
+		}
+		$bytes = 0;
+		try {
+			$files = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $abs_path, FilesystemIterator::SKIP_DOTS ) );
+			foreach ( $files as $file ) {
+				if ( $file->isFile() && ! $file->isLink() ) {
+					$bytes += (int) $file->getSize();
+				}
+			}
+		} catch ( Exception $e ) {
+			Segurium_Debug::log( '[segurium] component backup size walk failed: ' . $e->getMessage() );
+			return $code;
+		}
+		$checks = array(
+			array( sys_get_temp_dir(), 2 * $bytes ),
+			array( $tar_dir, $bytes ),
+		);
+		foreach ( $checks as $check ) {
+			$free = $this->free_bytes( $check[0] );
+			if ( null !== $free && $free < $check[1] ) {
+				return 'backup_disk_full';
+			}
+		}
+		return $code;
+	}
+
+	/**
+	 * Free bytes on the filesystem that holds $dir, or null when the host does not report it.
+	 *
+	 * @param string $dir Directory to measure.
+	 */
+	protected function free_bytes( string $dir ) {
+		if ( ! function_exists( 'disk_free_space' ) ) {
+			return null;
+		}
+		$free = disk_free_space( $dir );
+		return false === $free ? null : (float) $free;
 	}
 
 	/**

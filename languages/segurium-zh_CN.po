@@ -4747,3 +4747,100 @@ msgstr "每项功能都包含在每次安装中。Pro 版本取消每月清理�
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "无限次清理，外加下方的云服务。"
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "此披露在您接受后已发生变更。Segurium 正根据您此前的同意发送新数据。请阅读新版本并予以接受。"
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "计划任务（WP-Cron 事件）：钩子名称、调度、间隔和参数，以及该钩子上每个回调的名称、文件路径、行号、文件 SHA-256 哈希和源代码。"
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "具有管理员或编辑器权限的账户，以及在用户列表中隐藏的账户：用户 ID、明文的登录名和电子邮件地址、角色、权限、注册日期，以及应用程序密码和活动登录会话的数量。"
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "这些账户的活动登录会话：用户 ID、单向会话 ID、明文的 IP 地址和浏览器字符串、登录时间和过期时间。"
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "存储在数据库中的脚本：每个 script 标签内的代码，或外部脚本的地址，以及 Segurium 发现它的位置（表、行和列，或选项名称）。Segurium 会读取文章内容、文章元数据、选项、评论文本和评论作者邮箱，以及代码片段插件的表。"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "用于接收安全警报的电子邮件地址：WordPress 管理员邮箱，或您在 Segurium 设置中设置的邮箱，以及您的邮件警报选择。"
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "用户密码、密码哈希和登录会话令牌。"
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "媒体文件，以及除上述脚本之外的文章、评论或其他数据库内容。"
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "上传用于分析的文件样本最多保留 365 天，之后由自动每夜清理任务移除。样本一经审核可能会更早被移除。计划任务、账户、会话和脚本自上次上传起最多保留 60 天；被判定为恶意的将无限期保留。"
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "定时任务：%s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "调度：%1$s，参数：%2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "账户：%s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "用户 ID %1$d，角色：%2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "数据库中的脚本：%s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "在 %d 处发现"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "%s 的登录会话"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "登录时间：%1$s，过期时间：%2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "此操作将尝试清理检测到的 %d 个问题。每个项目都会在清理前备份。已结束的登录会话无法恢复。"
+
+msgid "Remind me at next login"
+msgstr "下次登录时提醒我"
+
+msgid "Cron jobs"
+msgstr "定时任务"
+
+msgid "Database"
+msgstr "数据库"
+
+msgid "Waiting"
+msgstr "等待中"
+
+msgid "Running"
+msgstr "运行中"
+
+msgid "Done"
+msgstr "已完成"
+
+msgid "Skipped"
+msgstr "已跳过"
+
+msgid "Cancelled"
+msgstr "已取消"

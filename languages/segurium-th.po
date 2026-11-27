@@ -4657,3 +4657,82 @@ msgstr "ทุกฟีเจอร์มีให้ในทุกการต
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "ทำความสะอาดได้ไม่จำกัด พร้อมบริการคลาวด์ด้านล่าง"
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "คำชี้แจงนี้มีการเปลี่ยนแปลงหลังจากคุณยอมรับแล้ว Segurium ส่งข้อมูลใหม่ภายใต้ความยินยอมก่อนหน้าของคุณ โปรดอ่านเวอร์ชันใหม่และยอมรับ"
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "งานตามกำหนดเวลา (เหตุการณ์ WP-Cron): ชื่อ hook, กำหนดเวลา, ช่วงเวลาและอาร์กิวเมนต์ และสำหรับแต่ละ callback ของ hook จะมีชื่อ, เส้นทางไฟล์, หมายเลขบรรทัด, แฮช SHA-256 ของไฟล์ และซอร์สโค้ด"
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "บัญชีที่มีสิทธิ์ผู้ควบคุมหรือตัวแก้ไข และบัญชีที่ถูกซ่อนจากรายชื่อผู้ใช้: ID ผู้ใช้, ชื่อเข้าสู่ระบบและที่อยู่อีเมลแบบไม่เข้ารหัส, บทบาท, ความสามารถ, วันที่ลงทะเบียน และจำนวนรหัสผ่านของแอปพลิเคชันและเซสชันการเข้าสู่ระบบที่ใช้งานอยู่"
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "เซสชันการเข้าสู่ระบบที่ใช้งานอยู่ของบัญชีเหล่านั้น: ID ผู้ใช้, ID เซสชันแบบทางเดียว, ที่อยู่ IP และสตริงเบราว์เซอร์แบบไม่เข้ารหัส, เวลาเข้าสู่ระบบ และเวลาหมดอายุ"
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "สคริปต์ที่เก็บในฐานข้อมูล: โค้ดภายในแต่ละแท็กสคริปต์ หรือที่อยู่ของสคริปต์ภายนอก และตำแหน่งที่ Segurium พบ (ตาราง, แถวและคอลัมน์ หรือชื่อตัวเลือก) Segurium จะอ่านเนื้อหาของเรื่อง, meta ของเรื่อง, ตัวเลือก, ข้อความความเห็นและอีเมลของผู้เขียนความเห็น และตารางของปลั๊กอินสนิปเป็ตโค้ด"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "ที่อยู่อีเมลสำหรับแจ้งเตือนความปลอดภัย: อีเมลผู้ควบคุมของ WordPress หรือที่คุณตั้งไว้ในการตั้งค่า Segurium พร้อมกับตัวเลือกการแจ้งเตือนทางอีเมลของคุณ"
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "รหัสผ่านของผู้ใช้, แฮชของรหัสผ่าน และโทเคนเซสชันการเข้าสู่ระบบ"
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "ไฟล์สื่อ, เรื่อง, ความคิดเห็น หรือเนื้อหาฐานข้อมูลอื่นนอกเหนือจากสคริปต์ที่ระบุไว้ข้างต้น"
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "ตัวอย่างไฟล์ที่อัปโหลดเพื่อวิเคราะห์จะถูกเก็บไว้ได้นานถึง 365 วัน จากนั้นจะถูกลบโดยการล้างอัตโนมัติในเวลากลางคืน ตัวอย่างอาจถูกลบเร็วกว่านั้นเมื่อผ่านการตรวจสอบแล้ว งานตามกำหนดเวลา, บัญชี, เซสชัน และสคริปต์จะถูกเก็บไว้ได้นานถึง 60 วันหลังการอัปโหลดครั้งล่าสุด ส่วนที่พบว่าเป็นอันตรายจะถูกเก็บไว้โดยไม่มีกำหนดเวลา"
+
+msgid "Cron job: %s"
+msgstr "งาน Cron: %s"
+
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "กำหนดเวลา: %1$s, อาร์กิวเมนต์: %2$s"
+
+msgid "Account: %s"
+msgstr "บัญชี: %s"
+
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID ผู้ใช้ %1$d, บทบาท: %2$s"
+
+msgid "Script in the database: %s"
+msgstr "สคริปต์ในฐานข้อมูล: %s"
+
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "พบใน %d ตำแหน่ง"
+
+msgid "Login session of %s"
+msgstr "เซสชันการเข้าสู่ระบบของ %s"
+
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "เข้าสู่ระบบ: %1$s, หมดอายุ: %2$s"
+
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "จะพยายามล้างปัญหาที่ตรวจพบ %d รายการ แต่ละรายการจะถูกสำรองข้อมูลก่อนล้าง เซสชันการเข้าสู่ระบบที่สิ้นสุดแล้วไม่สามารถกู้คืนได้"
+
+msgid "Remind me at next login"
+msgstr "เตือนฉันเมื่อเข้าสู่ระบบครั้งถัดไป"
+
+msgid "Cron jobs"
+msgstr "งาน cron"
+
+msgid "Database"
+msgstr "ฐานข้อมูล"
+
+msgid "Waiting"
+msgstr "กำลังรอ"
+
+msgid "Running"
+msgstr "กำลังทำงาน"
+
+msgid "Done"
+msgstr "เสร็จแล้ว"
+
+msgid "Skipped"
+msgstr "ข้าม"
+
+msgid "Cancelled"
+msgstr "ยกเลิกแล้ว"

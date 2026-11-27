@@ -4813,3 +4813,84 @@ msgstr "Fiecare funcție este inclusă în fiecare instalare. Pro elimină limit
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Curățare nelimitată, plus serviciile cloud de mai jos."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Această prezentare s-a modificat după ce ai acceptat-o. Segurium trimite datele noi sub consimțământul tău anterior. Te rog să citești versiunea nouă și să o accepți."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Sarcini programate (evenimente WP-Cron): numele hookului, programarea, intervalul și argumentele, iar pentru fiecare apel-înapoi pe hook: numele lui, calea fișierului, numerele de rând, hashul SHA-256 al fișierului și codul sursă."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Conturi cu drepturi de administrator sau editor și conturi ascunse din lista cu utilizatori: ID-ul utilizatorului, numele pentru autentificare și adresa de email în clar, rolurile, capabilitățile, data înregistrării și numărul de parole de aplicație și de sesiuni de autentificare active."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Sesiuni de autentificare active ale acelor conturi: ID-ul utilizatorului, un ID de sesiune unidirecțional, adresa IP și șirul navigatorului în clar, ora autentificării și ora expirării."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Scripturi stocate în baza de date: codul din interiorul fiecărui tag script sau adresa unui script extern și unde l-a găsit Segurium (tabel, rând și coloană sau numele opțiunii). Segurium citește conținutul articolelor, metadatele articolelor, opțiunile, textul comentariilor și emailul autorului comentariului, precum și tabelele modulelor pentru fragmente de cod."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "Adresa de email pentru alerte de securitate: adresa de email a administratorului WordPress sau cea pe care o setezi în Setări Segurium, împreună cu alegerea ta pentru alertele prin email."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Parole de utilizator, hashuri de parolă și tokenuri pentru sesiuni de autentificare."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Fișiere media și articole, comentarii sau alt conținut din baza de date în afara scripturilor enumerate mai sus."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Exemplele de fișiere încărcate pentru analiză sunt păstrate cel mult 365 de zile și apoi sunt înlăturate printr-o curățare automată în timpul nopții. Un exemplu poate fi înlăturat mai devreme, după ce a fost verificat. Sarcinile programate, conturile, sesiunile și scripturile sunt păstrate cel mult 60 de zile după ultima lor încărcare; cele găsite rău intenționate sunt păstrate fără limită de timp."
+
+msgid "Cron job: %s"
+msgstr "Sarcină cron: %s"
+
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Programare: %1$s, argumente: %2$s"
+
+msgid "Account: %s"
+msgstr "Cont: %s"
+
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID utilizator %1$d, roluri: %2$s"
+
+msgid "Script in the database: %s"
+msgstr "Script în baza de date: %s"
+
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Găsit într-un loc"
+msgstr[1] "Găsit în %d locuri"
+msgstr[2] "Găsit în %d de locuri"
+
+msgid "Login session of %s"
+msgstr "Sesiune de autentificare a %s"
+
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Autentificat: %1$s, expiră: %2$s"
+
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Va încerca să curețe %d probleme detectate. Se face o copie de siguranță a fiecărui element înainte de curățare. O sesiune de autentificare încheiată nu poate fi restaurată."
+
+msgid "Remind me at next login"
+msgstr "Amintește-mi la următoarea autentificare"
+
+msgid "Cron jobs"
+msgstr "Sarcini cron"
+
+msgid "Database"
+msgstr "Bază de date"
+
+msgid "Waiting"
+msgstr "În așteptare"
+
+msgid "Running"
+msgstr "În desfășurare"
+
+msgid "Done"
+msgstr "Finalizat"
+
+msgid "Skipped"
+msgstr "Omis"
+
+msgid "Cancelled"
+msgstr "Anulat"

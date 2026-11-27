@@ -33,9 +33,8 @@ final class Segurium_Auto_Fix {
 
 	/**
 	 * Action hook priority. Runs after the default state-update listener
-	 * (Segurium::on_scan_completed at priority 10) so the canonical
-	 * scan_findings rows are already persisted, but before scan workspace
-	 * cleanup so absolute paths still resolve.
+	 * (Segurium::on_scan_completed at priority 10), which persists the
+	 * canonical scan_findings rows and removes the scan workspace.
 	 */
 	const HOOK_PRIORITY = 15;
 

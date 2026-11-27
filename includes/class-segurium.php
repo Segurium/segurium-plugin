@@ -157,7 +157,7 @@ class Segurium {
 		add_action( 'init', array( $this, 'maybe_schedule_missing_data' ) );
 
 		if ( Segurium_Storage::setting_get_bool( 'segurium_cti_consent' ) ) {
-			add_filter( 'wp_handle_upload', array( $this, 'filter_upload' ) );
+			add_filter( 'wp_handle_upload', 'segurium_filter_upload' );
 			add_action( Segurium_Realtime_Scan::CRON_HOOK, array( $this, 'run_realtime_scan' ) );
 			Segurium_Realtime_Scan::schedule();
 
@@ -183,6 +183,7 @@ class Segurium {
 		}
 
 		Segurium_Scan_Runner::register_hooks();
+		Segurium_Cron_Reader::register_hooks();
 		Segurium_Rest_Scan_Tick::register_hooks();
 		Segurium_Rest_Scan_Spawn::register_hooks();
 		Segurium_Rest_Actions_Poke::register_hooks();
@@ -196,7 +197,6 @@ class Segurium {
 		Segurium_Account_Lock::register_hooks();
 		Segurium_Install_Scan::register_hooks();
 		Segurium_Self_Check::register_hooks();
-		Segurium_Integrity_Chain::register_hooks();
 		Segurium_Realtime_Scan::register_hooks();
 		// Backfills the timezone of an install that opted in before the
 		// field existed. The save path reports every other change.
@@ -208,6 +208,7 @@ class Segurium {
 		// auto-cleaned is judged on the cleanup, not on the scan that
 		// found the threats.
 		Segurium_Review_Prompt::register_hooks();
+		Segurium_Phase_Rows::instance()->register();
 		add_action( 'segurium_scan_completed', array( $this, 'on_scan_completed' ), 10, 1 );
 		add_action( 'segurium_integrity_scan_completed', array( $this, 'on_integrity_scan_completed' ), 10, 1 );
 	}
@@ -252,6 +253,7 @@ class Segurium {
 		return array(
 			// Consent + core settings.
 			'segurium_accept_consent'                    => array( $consent, $mo, array( $this, 'ajax_accept_consent' ) ),
+			'segurium_dismiss_consent_renewal'           => array( $consent, $mo, array( $this, 'ajax_dismiss_consent_renewal' ) ),
 			'segurium_save_settings'                     => array( $settings, $mo, array( $this, 'ajax_save_settings' ) ),
 			'segurium_get_scheduled_scan_settings'       => array( $settings, $mo, array( $this, 'ajax_get_scheduled_scan_settings' ) ),
 			'segurium_save_scheduled_scan_settings'      => array( $settings, $mo, array( $this, 'ajax_save_scheduled_scan_settings' ) ),
@@ -259,6 +261,7 @@ class Segurium {
 			// Malware scan lifecycle + readouts.
 			'segurium_start_scan'                        => array( $scan, $mo, array( $this, 'ajax_start_scan' ) ),
 			'segurium_stop_scan'                         => array( $scan, $mo, array( $this, 'ajax_stop_scan' ) ),
+			'segurium_scan_phase_rows'                   => array( $scan, $mo, array( Segurium_Phase_Rows::instance(), 'ajax_status' ) ),
 			'segurium_continue_scan'                     => array( $scan, $mo, array( $this, 'ajax_continue_scan_legacy' ) ),
 			'segurium_quota_state'                       => array( $scan, $mo, array( $this, 'ajax_quota_state' ) ),
 			'segurium_get_server_state'                  => array( $scan, $mo, array( $this, 'ajax_get_server_state' ) ),
@@ -275,6 +278,7 @@ class Segurium {
 			'segurium_restore_file'                      => array( $cleanup, $mo, array( $this, 'ajax_restore_file' ) ),
 			'segurium_restore_preflight'                 => array( $cleanup, $mo, array( $this, 'ajax_restore_preflight' ) ),
 			'segurium_restore_account'                   => array( $cleanup, $mo, array( 'Segurium_Account_Lock', 'ajax_restore' ) ),
+			Segurium_Content_Findings::AJAX_ACTION       => array( $cleanup, $mo, array( 'Segurium_Content_Findings', 'ajax_action' ) ),
 			'segurium_get_backup_content'                => array( $cleanup, $mo, array( $this, 'ajax_get_backup_content' ) ),
 			'segurium_get_disk_content'                  => array( $cleanup, $mo, array( $this, 'ajax_get_disk_content' ) ),
 			'segurium_ignore_file'                       => array( $cleanup, $mo, array( $this, 'ajax_ignore_file' ) ),
@@ -444,9 +448,6 @@ class Segurium {
 			return;
 		}
 		$this->update_server_state_from_scan( $scan );
-		// Stamp last-malware-scan freshness and, if an
-		// integrity scan was queued behind this run, schedule it to start
-		// after the runner releases the lock.
 		Segurium_Integrity_Chain::note_malware_completed();
 		$scan->cleanup();
 	}
@@ -458,8 +459,7 @@ class Segurium {
 	 * @return array Filtered upload data.
 	 */
 	public function filter_upload( $upload ) {
-		$scanner = new Segurium_Upload_Scan( $this->get_data_dir() );
-		return $scanner->handle_upload( $upload );
+		return segurium_filter_upload( $upload );
 	}
 
 	/**
@@ -980,6 +980,7 @@ class Segurium {
 					'settingsNonce'  => wp_create_nonce( 'segurium_settings' ),
 					'cleanupNonce'   => wp_create_nonce( 'segurium_cleanup' ),
 					'integrityNonce' => wp_create_nonce( 'segurium_integrity' ),
+					'selfSlug'       => $this->self_plugin_slug(),
 					'paywallNonce'   => wp_create_nonce( Segurium_Paywall_Telemetry::NONCE_ACTION ),
 					'lastScan'       => $last_scan,
 					// Surface host-environment problems that
@@ -1172,6 +1173,8 @@ class Segurium {
 						'scannerFixAllTitle'      => __( 'Clean all detected malware', 'segurium' ),
 						/* translators: %d: number of malicious files queued for cleanup */
 						'scannerFixAllCopy'       => __( 'This will attempt to clean %d detected malicious file(s). Each file is backed up before cleanup.', 'segurium' ),
+						/* translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup */
+						'scannerFixAllIssuesCopy' => __( 'This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored.', 'segurium' ),
 						'scannerFixAllConfirm'    => __( 'Clean all', 'segurium' ),
 						'scannerFixAllRunning'    => __( 'Cleaning malware...', 'segurium' ),
 						'cancel'                  => __( 'Cancel', 'segurium' ),
@@ -1427,7 +1430,9 @@ class Segurium {
 	 */
 	public function render_admin_page() {
 		if ( ! $this->has_cti_consent() ) {
-			$this->render_consent_page();
+			$this->render_consent_page( false );
+		} elseif ( Segurium_Consent::renewal_due_for_current_user() ) {
+			$this->render_consent_page( true );
 		} else {
 			$this->render_main_page();
 		}
@@ -1593,16 +1598,20 @@ class Segurium {
 	}
 
 	/**
-	 * Render the consent page.
+	 * Render the consent page, or its renewal variant.
 	 *
+	 * @param bool $renewal Whether consent stands on an older edition.
 	 * @return void
 	 */
-	private function render_consent_page() {
+	private function render_consent_page( $renewal ) {
 		?>
 		<div class="wrap segurium-wrap">
 			<div id="segurium-consent-panel" class="segurium-consent-panel">
-				<?php $segurium_disclosure = Segurium_Consent::disclosure(); ?>
+				<?php $segurium_disclosure = Segurium_Consent::disclosure( null, ! $renewal ); ?>
 				<h2><?php echo esc_html( $segurium_disclosure['title'] ); ?></h2>
+				<?php if ( $renewal ) : ?>
+					<p><strong><?php echo esc_html( Segurium_Consent::renewal_notice() ); ?></strong></p>
+				<?php endif; ?>
 				<p><?php echo esc_html( $segurium_disclosure['intro'] ); ?></p>
 
 				<?php foreach ( $segurium_disclosure['lists'] as $segurium_list ) : ?>
@@ -1629,26 +1638,33 @@ class Segurium {
 					);
 					?>
 				</p>
-				<?php $segurium_alerts_answered = Segurium_Settings::has_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ); ?>
-				<div class="segurium-setting-row segurium-consent-alerts">
-					<label>
-						<input type="checkbox" id="segurium_consent_alerts_enabled" <?php checked( ! $segurium_alerts_answered || (bool) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ) ); ?>>
-						<strong><?php esc_html_e( 'Notify me on malware findings and security threats on this website.', 'segurium' ); ?></strong>
-					</label>
-					<label for="segurium_consent_alerts_email" class="screen-reader-text"><?php esc_html_e( 'Alert email address', 'segurium' ); ?></label>
-					<input
-						type="email"
-						id="segurium_consent_alerts_email"
-						class="regular-text"
-						placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
-						value="<?php echo esc_attr( (string) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'email' ) ); ?>"
-					/>
-					<p class="description"><?php esc_html_e( 'You can change this later under Settings.', 'segurium' ); ?></p>
-					<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
-				</div>
+				<?php if ( ! $renewal ) : ?>
+					<?php $segurium_alerts_answered = Segurium_Settings::has_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ); ?>
+					<div class="segurium-setting-row segurium-consent-alerts">
+						<label>
+							<input type="checkbox" id="segurium_consent_alerts_enabled" <?php checked( ! $segurium_alerts_answered || (bool) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'enabled' ) ); ?>>
+							<strong><?php esc_html_e( 'Notify me on malware findings and security threats on this website.', 'segurium' ); ?></strong>
+						</label>
+						<label for="segurium_consent_alerts_email" class="screen-reader-text"><?php esc_html_e( 'Alert email address', 'segurium' ); ?></label>
+						<input
+							type="email"
+							id="segurium_consent_alerts_email"
+							class="regular-text"
+							placeholder="<?php echo esc_attr( (string) Segurium_Storage::setting_get( 'admin_email', '' ) ); ?>"
+							value="<?php echo esc_attr( (string) Segurium_Settings::get_field( Segurium_Alerts_Settings::SETTINGS_SLUG, 'email' ) ); ?>"
+						/>
+						<p class="description"><?php esc_html_e( 'You can change this later under Settings.', 'segurium' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Leave blank to use the WordPress site admin email.', 'segurium' ); ?></p>
+					</div>
+				<?php endif; ?>
 				<button id="segurium-accept-consent" class="button button-primary">
 					<?php esc_html_e( 'I agree', 'segurium' ); ?>
 				</button>
+				<?php if ( $renewal ) : ?>
+					<button id="segurium-dismiss-consent-renewal" class="button">
+						<?php esc_html_e( 'Remind me at next login', 'segurium' ); ?>
+					</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -1719,10 +1735,11 @@ class Segurium {
 		}
 		try {
 			$counts = Segurium_File_State::get_counts( true );
+			$open   = Segurium_Content_Findings::counts( true )['malicious'];
 		} catch ( Throwable $e ) {
 			return 0;
 		}
-		return isset( $counts['malicious'] ) ? max( 0, (int) $counts['malicious'] ) : 0;
+		return isset( $counts['malicious'] ) ? max( 0, (int) $counts['malicious'] + $open ) : 0;
 	}
 
 	/**
@@ -3488,6 +3505,9 @@ class Segurium {
 		}
 
 		$result = Segurium_Consent::accept( Segurium_Consent::SOURCE_UI, self::alerts_args_from_request() );
+		if ( 'edition_write_failed' === $result['code'] ) {
+			segurium_send_json_error( array( 'code' => 'consent_edition_write_failed' ), 500 );
+		}
 		if ( ! $result['accepted'] ) {
 			// Consent is already on record, so the accept did nothing. A
 			// second screen left open still posted a contact, and it was
@@ -3495,6 +3515,24 @@ class Segurium {
 			self::save_alerts_from_request();
 		}
 
+		segurium_send_json_success();
+	}
+
+	/**
+	 * AJAX handler hiding the consent renewal screen for this login session.
+	 *
+	 * @return void
+	 */
+	public function ajax_dismiss_consent_renewal() {
+		check_ajax_referer( 'segurium_consent', 'nonce' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			segurium_send_json_error( array( 'message' => __( 'Unauthorized', 'segurium' ) ), 403 );
+		}
+
+		$code = Segurium_Consent::dismiss_renewal();
+		if ( 'dismissed' !== $code ) {
+			segurium_send_json_error( array( 'code' => 'consent_renewal_' . $code ), 'no_session' === $code ? 400 : 500 );
+		}
 		segurium_send_json_success();
 	}
 
@@ -3664,7 +3702,7 @@ class Segurium {
 	}
 
 	/**
-	 * AJAX handler for starting a malware scan.
+	 * AJAX handler for the Scan button: a run of every registered phase.
 	 *
 	 * @return void
 	 */
@@ -3690,8 +3728,10 @@ class Segurium {
 			);
 		}
 
+		$phases = array();
 		try {
-			$result = Segurium_Scan_Runner::start( 'manual' );
+			$phases = Segurium_Scan_Run::all_phases();
+			$result = Segurium_Scan_Runner::start_run( $phases, 'manual' );
 		} catch ( Throwable $e ) {
 			$this->log_runner_exception( 'ajax_start_scan', $e );
 			segurium_send_json_error(
@@ -3719,6 +3759,7 @@ class Segurium {
 				'scan_id' => $result,
 				'running' => true,
 				'status'  => 'dispatched',
+				'phases'  => $phases,
 			)
 		);
 	}
@@ -3773,12 +3814,6 @@ class Segurium {
 			);
 		}
 
-		// If the user cancels the chained malware scan, the
-		// integrity scan that was queued behind it must also be cancelled
-		// — otherwise the deferred-start cron would silently start it.
-		// Capture the active scan_type before we tear the lock down.
-		$lock_before = Segurium_Scan_Lock::get();
-
 		try {
 			$stopped = Segurium_Scan_Runner::stop();
 		} catch ( Throwable $e ) {
@@ -3792,12 +3827,6 @@ class Segurium {
 					),
 				)
 			);
-		}
-
-		if ( $stopped
-			&& null !== $lock_before
-			&& 'integrity' !== ( $lock_before['scan_type'] ?? '' ) ) {
-			Segurium_Integrity_Chain::note_malware_cancelled();
 		}
 
 		segurium_send_json_success( array( 'stopped' => (bool) $stopped ) );
@@ -4626,14 +4655,17 @@ class Segurium {
 		$files = array();
 		foreach ( (array) $items as $it ) {
 			$path = isset( $it['path'] ) ? (string) $it['path'] : '';
-			if ( '' === $path ) {
+			if ( '' === $path || ( isset( $it['kind'] ) && 'content' !== $it['kind'] ) ) {
 				continue;
 			}
 			$files[] = array(
 				'path'    => $path,
 				'sha256'  => isset( $it['sha256'] ) ? (string) $it['sha256'] : '',
 				'verdict' => isset( $it['verdict'] ) ? (int) $it['verdict'] : 0,
-			);
+			) + ( isset( $it['id'] ) ? array(
+				'id'    => (int) $it['id'],
+				'label' => (string) $it['label'],
+			) : array() );
 		}
 
 		segurium_send_json_success(
@@ -4663,21 +4695,13 @@ class Segurium {
 		}
 
 		try {
-			// Only return status for non-integrity scans so the malware
-			// tab never shows integrity scan progress. The runner's
+			// Only the files phase answers, so the malware tab never
+			// shows the progress of another phase. The runner's
 			// `shutdown` trigger drives life_support_system() on this
 			// same request, so each poll both reads progress AND keeps
 			// the worker alive.
-			//
-			// The chain-driven-malware suppression is gone. The malware tab is the canonical driver for
-			// any non-integrity scan, regardless of whether a chain
-			// marker is queued behind it. Stranded markers therefore
-			// can no longer make a user-initiated malware scan look
-			// like it isn't running.
-			$status = Segurium_Scan_Runner::get_status();
-			if ( null !== $status && 'integrity' === ( $status['scan_type'] ?? '' ) ) {
-				$status = null;
-			}
+			$status = Segurium_Scan_Runner::get_files_status();
+			$run    = Segurium_Scan_Runner::run_status();
 		} catch ( Throwable $e ) {
 			$this->log_runner_exception( 'ajax_scan_status', $e );
 			segurium_send_json_error(
@@ -4702,11 +4726,11 @@ class Segurium {
 					$payload['last_completed'] = $terminal;
 				}
 			}
-			segurium_send_json_success( $payload );
+			segurium_send_json_success( array_merge( $payload, $run ) );
 			return;
 		}
 
-		segurium_send_json_success( $status );
+		segurium_send_json_success( array_merge( $status, $run ) );
 	}
 
 	/**
@@ -4843,9 +4867,6 @@ class Segurium {
 
 		$this->handle_integrity_ajax(
 			function () {
-				// Gate on a fresh malware scan (<24h). When
-				// stale, the chain helper kicks off a malware scan first
-				// and queues the integrity scan to start on completion.
 				$result = Segurium_Integrity_Chain::start_or_chain();
 
 				if ( is_wp_error( $result ) ) {
@@ -4856,13 +4877,7 @@ class Segurium {
 					);
 				}
 
-				// Report only the integrity scan's own
-				// state. When start_or_chain() returns kind=chain, the
-				// chained malware scan runs under the malware tab; the
-				// integrity tab waits in not-running state until its
-				// turn arrives. `chain_message` is preserved as a
-				// one-shot informational banner (e.g. "Running a quick
-				// malware scan first…") with no implied "running" UX.
+				// kind=chain: the files phase runs first, on the malware tab.
 				return array(
 					'ok'   => true,
 					'data' => array(
@@ -4881,8 +4896,8 @@ class Segurium {
 	 *
 	 * Mirrors `ajax_stop_scan` for the integrity engine so the user can
 	 * clear a stuck or abandoned integrity scan without waiting for the
-	 * watchdog. Only releases the lock if the active scan is integrity —
-	 * a malware scan running under the chain helper is not affected.
+	 * watchdog. Only stops the run while its integrity phase is current —
+	 * a files phase ahead of the integrity phase is not affected.
 	 *
 	 * @return void
 	 */
@@ -4927,12 +4942,8 @@ class Segurium {
 	/**
 	 * AJAX handler for polling integrity scan status.
 	 *
-	 * The integrity tab strictly mirrors the integrity
-	 * scan entity's state. It no longer reads
-	 * `Segurium_Integrity_Chain::is_chain_pending()` to derive a
-	 * running indicator — that marker is a queue note, not live
-	 * state, and a stranded marker from an aborted/cancelled chained
-	 * malware scan would otherwise keep the tab "running" forever.
+	 * `running` while the integrity phase holds the lock. `completed` from
+	 * the run row's newest integrity phase: cancelled or failed is not completed.
 	 *
 	 * @return void
 	 */
@@ -4953,26 +4964,37 @@ class Segurium {
 			function () {
 				$status = Segurium_Scan_Runner::get_status( 'integrity' );
 				$msg    = Segurium_Integrity_Chain::pop_status_message();
+				$run    = Segurium_Scan_Runner::run_status();
 
 				if ( null !== $status ) {
 					$status['chain_message'] = $msg;
 					return array(
 						'ok'   => true,
-						'data' => $status,
+						'data' => array_merge( $status, $run ),
 					);
 				}
 
-				$last_ts = (int) Segurium_Storage::table_get_var(
-					'runtime_kv',
-					'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
-					array( 'integrity:last_scan' )
-				);
+				$last = Segurium_Scan_Run::last_phase_result( Segurium_Scan_Phase_Integrity::ID );
+				if ( null === $last ) {
+					// Scans older than run rows left only their timestamp.
+					$completed = (int) Segurium_Storage::table_get_var(
+						'runtime_kv',
+						'SELECT kv_value FROM {{table}} WHERE kv_key = %s',
+						array( 'integrity:last_scan' )
+					) > 0;
+				} else {
+					$completed = Segurium_Scan_Run::PHASE_DONE === $last['status'];
+				}
 				return array(
 					'ok'   => true,
-					'data' => array(
-						'running'       => false,
-						'completed'     => $last_ts > 0,
-						'chain_message' => $msg,
+					'data' => array_merge(
+						array(
+							'running'       => false,
+							'completed'     => $completed,
+							'last_status'   => null === $last ? '' : $last['status'],
+							'chain_message' => $msg,
+						),
+						$run
 					),
 				);
 			}
@@ -5280,7 +5302,7 @@ class Segurium {
 	 */
 	private function recheck_integrity_component( $type, $slug ) {
 		// A self-update swapped our files under this request; the next scan re-checks them.
-		if ( 'plugin' === $type && dirname( plugin_basename( SEGURIUM_PLUGIN_FILE ) ) === $slug ) {
+		if ( $this->is_self_component( $type, $slug ) ) {
 			return $this->load_integrity_component( $type, $slug );
 		}
 
@@ -5811,12 +5833,8 @@ class Segurium {
 		$version = $this->lookup_component_version( $type, $slug );
 
 		if ( 'plugin' === $type ) {
-			$root_dir    = dirname( plugin_dir_path( SEGURIUM_PLUGIN_FILE ) );
-			$abs_path    = $root_dir . '/' . $slug;
-			$plugin_file = $this->find_plugin_main_file( $slug );
-			if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
-				deactivate_plugins( $plugin_file );
-			}
+			$root_dir = Segurium_Path_Helpers::plugins_root();
+			$abs_path = $root_dir . '/' . $slug;
 		} else {
 			$root_dir     = get_theme_root();
 			$abs_path     = $root_dir . '/' . $slug;
@@ -5828,6 +5846,16 @@ class Segurium {
 					)
 				);
 			}
+		}
+
+		if ( $this->is_self_component( $type, $slug ) || $this->is_inside_self_plugin( $abs_path ) ) {
+			segurium_send_json_error(
+				array(
+					'code'    => 'segurium_self_protected',
+					'message' => __( 'Invalid parameters.', 'segurium' ),
+				),
+				403
+			);
 		}
 
 		if ( ! $this->is_path_within_root( $abs_path, $root_dir ) ) {
@@ -5873,6 +5901,13 @@ class Segurium {
 				)
 			);
 			segurium_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		if ( 'plugin' === $type ) {
+			$plugin_file = $this->find_plugin_main_file( $slug );
+			if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
+				deactivate_plugins( $plugin_file );
+			}
 		}
 
 		$this->recursive_rmdir( $abs_path );
@@ -5964,7 +5999,7 @@ class Segurium {
 
 		$t0 = microtime( true );
 		if ( 'plugin' === $type ) {
-			$root_dir   = dirname( plugin_dir_path( SEGURIUM_PLUGIN_FILE ) );
+			$root_dir   = Segurium_Path_Helpers::plugins_root();
 			$restore_to = $root_dir . '/' . $slug;
 		} else {
 			$root_dir   = get_theme_root();
@@ -6068,7 +6103,12 @@ class Segurium {
 			$is_plugin = 'plugin' === $comp['type'];
 			$is_theme  = 'theme' === $comp['type'];
 			$is_core   = 'core' === $comp['type'];
+			$is_self   = $this->is_self_component( $comp['type'], $comp['slug'] );
 			$cs        = $comp['component_status'] ?? 'listed';
+
+			if ( $is_self && ( 'delisted' === $cs || 'abandoned' === $cs ) ) {
+				continue;
+			}
 
 			// Delisted → delete component.
 			if ( 'delisted' === $cs && ! $is_core ) {
@@ -6172,6 +6212,9 @@ class Segurium {
 						'size'      => $this->safe_filesize_within_wp_root( $f['path'] ),
 					);
 				} elseif ( 'unknown' === $verdict ) {
+					if ( $is_self ) {
+						continue;
+					}
 					$preview['files_delete'][] = array(
 						'component' => $comp['slug'],
 						'type'      => $comp['type'],
@@ -6304,6 +6347,51 @@ class Segurium {
 	}
 
 	/**
+	 * Slug of the folder Segurium is installed in.
+	 *
+	 * @return string
+	 */
+	private function self_plugin_slug() {
+		$slug = dirname( plugin_basename( SEGURIUM_PLUGIN_FILE ) );
+		return $this->is_safe_component_slug( $slug ) && '.' !== $slug ? $slug : '';
+	}
+
+	/**
+	 * Whether a component is Segurium itself. Case-insensitive, because a
+	 * case-folding filesystem resolves any spelling to the same folder.
+	 *
+	 * @param string $type Component type.
+	 * @param string $slug Component slug.
+	 * @return bool
+	 */
+	private function is_self_component( $type, $slug ) {
+		$self = $this->self_plugin_slug();
+		return 'plugin' === $type && '' !== $self && 0 === strcasecmp( $self, (string) $slug );
+	}
+
+	/**
+	 * Whether a path is Segurium's folder or lies inside it.
+	 *
+	 * @param string $path Absolute path.
+	 * @return bool
+	 */
+	private function is_inside_self_plugin( $path ) {
+		$real   = Segurium_Fs::realpath( $path );
+		$target = strtolower( trailingslashit( wp_normalize_path( false === $real ? $path : $real ) ) );
+		$roots  = array( dirname( SEGURIUM_PLUGIN_FILE ) );
+		if ( '' !== $this->self_plugin_slug() ) {
+			$roots[] = Segurium_Path_Helpers::plugins_root() . '/' . $this->self_plugin_slug();
+		}
+		foreach ( $roots as $root ) {
+			$root_real = Segurium_Fs::realpath( $root );
+			if ( false !== $root_real && 0 === strpos( $target, strtolower( trailingslashit( wp_normalize_path( $root_real ) ) ) ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Resolve a component's installed version string for CTI reporting.
 	 *
 	 * @param string $type plugin|theme|core.
@@ -6395,6 +6483,21 @@ class Segurium {
 	}
 
 	/**
+	 * Refuse an ignore-list change the file did not take.
+	 *
+	 * @return void
+	 */
+	private static function send_ignore_lists_write_failed() {
+		segurium_send_json_error(
+			array(
+				'code'    => 'ignore_lists_write_failed',
+				'message' => __( 'Failed to write file', 'segurium' ),
+			),
+			500
+		);
+	}
+
+	/**
 	 * AJAX handler for ignoring a file.
 	 *
 	 * @return void
@@ -6425,7 +6528,9 @@ class Segurium {
 		} else {
 			$ignore->add_hash( $path, $sha256 );
 		}
-		$ignore->save();
+		if ( ! $ignore->save() ) {
+			self::send_ignore_lists_write_failed();
+		}
 
 		$server_state = new Segurium_Server_State( $this->get_data_dir() );
 		$server_state->load();
@@ -6529,20 +6634,20 @@ class Segurium {
 			$ignore = new Segurium_Ignore_Lists( $this->get_data_dir() );
 			$ignore->load();
 			$ignore->add_hash( $path, $sha256 );
-			$ignore->save();
-
+			$ignored = $ignore->save();
+		}
+		if ( $ignored ) {
 			$server_state = new Segurium_Server_State( $this->get_data_dir() );
 			$server_state->load();
 			$server_state->ignore_file( $path, 'hash' );
 			$server_state->save();
-			$ignored = true;
 		}
 
 		segurium_send_json_success(
 			array(
 				'submission_id' => isset( $result['submission_id'] ) ? (string) $result['submission_id'] : '',
 				'ignored'       => $ignored,
-			)
+			) + ( $also_ignore && ! $ignored ? array( 'ignore_code' => 'ignore_lists_write_failed' ) : array() )
 		);
 	}
 
@@ -6566,7 +6671,9 @@ class Segurium {
 		$ignore->load();
 		$ignore->remove_path( $path );
 		$ignore->remove_hash( $path );
-		$ignore->save();
+		if ( ! $ignore->save() ) {
+			self::send_ignore_lists_write_failed();
+		}
 
 		$server_state = new Segurium_Server_State( $this->get_data_dir() );
 		$server_state->load();
@@ -7186,6 +7293,17 @@ class Segurium {
 			);
 		}
 
+		$is_self_file = $this->is_self_component( $comp_type, $comp_slug ) || $this->is_inside_self_plugin( $abs_path );
+		if ( 'new' === $verdict && $is_self_file ) {
+			segurium_send_json_error(
+				array(
+					'code'    => 'segurium_self_protected',
+					'message' => __( 'Invalid parameters', 'segurium' ),
+				),
+				403
+			);
+		}
+
 		$comp_version = $this->refuse_stale_integrity_row( $comp_type, $comp_slug )->installed_version( $comp_type, $comp_slug );
 
 		// Strip the component prefix so CTI can build the correct SVN/Git URL.
@@ -7260,7 +7378,8 @@ class Segurium {
 				segurium_send_json_error( array( 'message' => __( 'File has been modified since scan. Re-scan first.', 'segurium' ) ) );
 			}
 
-			if ( $is_malicious ) {
+			// The cleanup may answer with an empty file, and Segurium's own code must stay loadable.
+			if ( $is_malicious && ! $is_self_file ) {
 				// Any malicious integrity finding (modified
 				// or new) is a real malware cleanup — route it through
 				// the shared cleanup primitive so the slot is paid via

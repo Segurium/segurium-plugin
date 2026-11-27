@@ -67,10 +67,11 @@ final class Segurium_Scan_Lock {
 	 *
 	 * @param string $scan_id   Scan UUID.
 	 * @param string $scan_type Scan type label (e.g. 'manual', 'scheduled').
+	 * @param string $phase     Phase the run starts with.
 	 * @return bool True when this scan now holds the lock, false otherwise.
 	 * @throws Segurium_Storage_Exception When the lock row cannot be read or written.
 	 */
-	public static function acquire( $scan_id, $scan_type ) {
+	public static function acquire( $scan_id, $scan_type, $phase = '' ) {
 		$raw = self::read_raw();
 		if ( self::is_held( self::decode( $raw ) ) ) {
 			return false;
@@ -87,6 +88,9 @@ final class Segurium_Scan_Lock {
 				// caller checking observer freshness will treat this as stale
 				// and fall through to its own LSS path.
 				'observer_last_seen' => 0,
+				'phase'              => (string) $phase,
+				// 0 while the first phase runs: that phase began with the lock.
+				'phase_started_at'   => 0,
 			)
 		);
 
@@ -136,6 +140,51 @@ final class Segurium_Scan_Lock {
 			self::log_failure( 'SCAN_LOCK_HEARTBEAT_FAILED', $scan_id, $e->getMessage() );
 		}
 		return false;
+	}
+
+	/**
+	 * Move the lock to the run's next phase. The 6-hour ceiling restarts.
+	 *
+	 * @param string $scan_id   Scan UUID that must hold the lock.
+	 * @param string $phase     Phase taking over.
+	 * @param string $scan_type Scan type label of that phase.
+	 * @return bool True when the lock names the phase.
+	 */
+	public static function set_phase( $scan_id, $phase, $scan_type ) {
+		try {
+			for ( $attempt = 0; $attempt < self::WRITE_ATTEMPTS; $attempt++ ) {
+				$raw  = self::read_raw();
+				$lock = self::decode( $raw );
+				if ( null === $lock || $lock['scan_id'] !== (string) $scan_id ) {
+					return false;
+				}
+				$now                      = time();
+				$lock['phase']            = (string) $phase;
+				$lock['scan_type']        = (string) $scan_type;
+				$lock['phase_started_at'] = $now;
+				$lock['heartbeat']        = $now;
+				$next                     = maybe_serialize( $lock );
+				if ( $next === $raw || Segurium_Storage::setting_swap_raw( self::OPTION, $raw, $next ) ) {
+					self::$last_known = $lock;
+					return true;
+				}
+			}
+			self::log_failure( 'SCAN_LOCK_PHASE_CONTENDED', $scan_id, self::WRITE_ATTEMPTS . ' conditional writes lost' );
+		} catch ( Segurium_Storage_Exception $e ) {
+			self::log_failure( 'SCAN_LOCK_PHASE_FAILED', $scan_id, $e->getMessage() );
+		}
+		return false;
+	}
+
+	/**
+	 * When the lock's current phase began.
+	 *
+	 * @param array $lock Lock payload from {@see get()}.
+	 * @return int Unix time, 0 when the lock carries no start.
+	 */
+	public static function phase_started_at( array $lock ) {
+		$phase_start = isset( $lock['phase_started_at'] ) ? (int) $lock['phase_started_at'] : 0;
+		return $phase_start > 0 ? $phase_start : (int) $lock['started_at'];
 	}
 
 	/**
@@ -241,12 +290,14 @@ final class Segurium_Scan_Lock {
 			'started_at'         => isset( $lock['started_at'] ) ? (int) $lock['started_at'] : 0,
 			'heartbeat'          => isset( $lock['heartbeat'] ) ? (int) $lock['heartbeat'] : 0,
 			'observer_last_seen' => isset( $lock['observer_last_seen'] ) ? (int) $lock['observer_last_seen'] : 0,
+			'phase'              => isset( $lock['phase'] ) ? (string) $lock['phase'] : '',
+			'phase_started_at'   => isset( $lock['phase_started_at'] ) ? (int) $lock['phase_started_at'] : 0,
 		);
 	}
 
 	/**
 	 * Whether a scan currently holds the lock: a lock row exists and its
-	 * `started_at` is within `LOCK_MAX_AGE`.
+	 * current phase began within `LOCK_MAX_AGE`.
 	 *
 	 * This no longer reads the heartbeat. A stale heartbeat
 	 * means the worker died and the next driver tick takes the scan over
@@ -313,7 +364,7 @@ final class Segurium_Scan_Lock {
 	}
 
 	/**
-	 * Internal "lock held" check: a lock exists and is within the
+	 * Internal "lock held" check: a lock exists and its phase is within the
 	 * `LOCK_MAX_AGE` ceiling, heartbeat ignored.
 	 *
 	 * @param array|null $lock Lock payload.
@@ -323,7 +374,7 @@ final class Segurium_Scan_Lock {
 		if ( null === $lock ) {
 			return false;
 		}
-		return ( time() - (int) $lock['started_at'] ) <= self::LOCK_MAX_AGE;
+		return ( time() - self::phase_started_at( $lock ) ) <= self::LOCK_MAX_AGE;
 	}
 
 	/**

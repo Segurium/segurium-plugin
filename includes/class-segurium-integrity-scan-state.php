@@ -45,6 +45,8 @@ class Segurium_Integrity_Scan_State {
 
 	const EMPTY_FILE_SHA256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
 
+	const KV_ENDED = 'integrity:ended';
+
 	/**
 	 * Effective per-request byte cap. Defaults to MAX_CHUNK_BYTES; tests lower
 	 * it to exercise splitting without allocating megabytes.
@@ -169,6 +171,7 @@ class Segurium_Integrity_Scan_State {
 	 *                        Forwarded to CTI as X-Segurium-Integrity-Trigger header
 	 *                        on every chunk's integrity_check call.
 	 * @return array Initial progress shape.
+	 * @throws Segurium_Storage_Exception When the tmp workspace cannot be created.
 	 */
 	public function start( $scan_id = '', $trigger = 'manual' ) {
 		$queue = $this->discovery->discover();
@@ -203,17 +206,18 @@ class Segurium_Integrity_Scan_State {
 			'unverified'   => array(),
 		);
 
+		$workspace = Segurium_Storage::tmp_make_workspace( 'integrity' );
+		if ( false === $workspace ) {
+			throw new Segurium_Storage_Exception( 'integrity: failed to create tmp workspace' );
+		}
+		$this->workspace = $workspace;
+
 		$this->push_components_inventory();
 
-		$this->workspace = Segurium_Storage::tmp_make_workspace( 'integrity' );
-		if ( false === $this->workspace ) {
-			// Non-fatal: continue without workspace — state will not be resumable
-			// across requests, but the current request can still process in memory.
-			Segurium_Debug::log( '[segurium] integrity scan: failed to create tmp workspace' );
-			$this->workspace = null;
-		}
-
-		Segurium_Storage::table_upsert(
+		// No expiry: the scan lock bounds the scan. The delete drops an
+		// expiry a row left by an earlier scan may still carry.
+		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => 'integrity_scan_active' ) );
+		Segurium_Storage::table_insert(
 			'runtime_kv',
 			array(
 				'kv_key'     => 'integrity_scan_active',
@@ -223,10 +227,8 @@ class Segurium_Integrity_Scan_State {
 						'workspace' => $this->workspace,
 					)
 				),
-				'expires_at' => time() + 2 * HOUR_IN_SECONDS,
 				'updated_at' => time(),
-			),
-			array( 'kv_key' )
+			)
 		);
 
 		$this->save_state();
@@ -244,6 +246,7 @@ class Segurium_Integrity_Scan_State {
 	 * @param string $scan_id   Runner-generated UUID.
 	 * @param string $scan_type Scan type label for contract compatibility.
 	 * @return void
+	 * @throws Segurium_Storage_Exception When the tmp workspace cannot be created.
 	 */
 	public function initialize( $scan_id, $scan_type = 'integrity' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		$this->start( $scan_id, $this->pending_trigger );
@@ -270,7 +273,7 @@ class Segurium_Integrity_Scan_State {
 	/**
 	 * Process up to CHUNK_SIZE components from the queue, calling CTI once
 	 * per chunk. On the chunk that drains the queue, persist results to
-	 * the integrity_issues table and clean up the workspace.
+	 * the integrity_issues table and record the end.
 	 *
 	 * @throws RuntimeException When the tick lease was taken over by another
 	 *                          worker before the chunk's CTI call;
@@ -634,16 +637,23 @@ class Segurium_Integrity_Scan_State {
 	}
 
 	/**
-	 * Finalize the scan: persist results to integrity_issues table, clean workspace.
+	 * Finalize the scan: persist results to integrity_issues table, record the
+	 * end, keep the completed state for the completion listeners.
 	 */
 	private function complete() {
 		$this->flush_issues_to_table();
-
-		if ( $this->workspace ) {
-			Segurium_Storage::tmp_destroy( $this->workspace );
-			$this->workspace = null;
-		}
-		Segurium_Storage::table_delete( 'runtime_kv', array( 'kv_key' => 'integrity_scan_active' ) );
+		$this->save_state();
+		$now = time();
+		Segurium_Storage::table_upsert(
+			'runtime_kv',
+			array(
+				'kv_key'     => self::KV_ENDED,
+				'kv_value'   => (string) $this->state['scan_id'],
+				'expires_at' => $now + DAY_IN_SECONDS,
+				'updated_at' => $now,
+			),
+			array( 'kv_key' )
+		);
 	}
 
 	/**

@@ -3258,3 +3258,91 @@ msgstr "每項功能都包含在每個安裝中。Pro 版取消每月清理上�
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "無限次清理，再加上下方的雲端服務。"
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "這份揭露在你同意後已變更。Segurium 依據你先前的同意傳送新的資料。請閱讀新版本並接受。"
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "排程工作 (WP-Cron 事件)：掛鉤名稱、排程、間隔與引數，以及該掛鉤上每個回呼函式的名稱、檔案路徑、行號、檔案 SHA-256 雜湊值與原始程式碼。"
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "具有網站管理員或編輯權限的帳號，以及從使用者清單中隱藏的帳號：使用者 ID、明文的登入名稱與電子郵件地址、角色、權限、註冊日期，以及應用程式密碼數量與啟用中的登入工作階段數量。"
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "上述帳號啟用中的登入工作階段：使用者 ID、單向工作階段 ID、明文的 IP 位址與瀏覽器字串、登入時間與到期時間。"
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "儲存在資料庫中的指令碼：每個指令碼標籤內的程式碼，或外部指令碼的位址，以及 Segurium 找到的位置 (資料表、資料列和資料行，或選項名稱)。Segurium 會讀取文章內容、文章中繼資料、選項、留言內容與留言作者電子郵件，以及程式碼片段外掛的資料表。"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "用於安全警示的電子郵件地址：WordPress 網站管理員電子郵件，或你在 Segurium [設定] 中指定的地址，以及你的電子郵件警示選項。"
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "使用者密碼、密碼雜湊值與登入工作階段權杖。"
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "媒體檔案，以及除上述指令碼之外的文章、留言或其他資料庫內容。"
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "上傳供分析的檔案樣本最多保留 365 天，之後會由每晚自動清理程序移除。樣本經審查後可能會提前移除。排程工作、帳號、工作階段與指令碼在最後一次上傳後最多保留 60 天；判定為惡意的項目會無限期保留。"
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+msgid "Cron job: %s"
+msgstr "Cron 工作：%s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "排程：%1$s，引數：%2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+msgid "Account: %s"
+msgstr "帳號：%s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+msgid "User ID %1$d, roles: %2$s"
+msgstr "使用者 ID %1$d，角色：%2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+msgid "Script in the database: %s"
+msgstr "資料庫中的指令碼：%s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "在 %d 個位置找到"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+msgid "Login session of %s"
+msgstr "%s 的登入工作階段"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "登入時間：%1$s，到期時間：%2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "這會嘗試清理偵測到的 %d 個問題。每個項目在清理前都會備份。已結束的登入工作階段無法還原。"
+
+msgid "Remind me at next login"
+msgstr "下次登入時提醒我"
+
+msgid "Cron jobs"
+msgstr "Cron 工作"
+
+msgid "Database"
+msgstr "資料庫"
+
+msgid "Waiting"
+msgstr "等待中"
+
+msgid "Running"
+msgstr "執行中"
+
+msgid "Done"
+msgstr "完成"
+
+msgid "Skipped"
+msgstr "已略過"
+
+msgid "Cancelled"
+msgstr "已取消"

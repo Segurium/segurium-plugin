@@ -4,7 +4,7 @@
  * with yet, in a form cheap enough to read on every wp-admin page.
  *
  * Three signals, kept apart because each leads to its own tab or tooltip:
- *  - malware    open malware findings (Malware Scanner tab)
+ *  - malware    open malware and content findings (Malware Scanner tab)
  *  - vulnerable installed components whose release the cloud flags
  *    (Integrity tab)
  *  - delisted   installed components removed from WordPress.org
@@ -175,7 +175,7 @@ class Segurium_Issue_Indicator {
 	}
 
 	/**
-	 * Malicious files the user has not dealt with, over the recent window
+	 * Malicious files and open content findings the user has not dealt with, over the recent window
 	 * the scanner list opens on, so a mark never sends anyone to a tab
 	 * that shows them an empty table.
 	 *
@@ -187,11 +187,12 @@ class Segurium_Issue_Indicator {
 		}
 		try {
 			$counts = Segurium_File_State::get_counts( true );
+			$open   = class_exists( 'Segurium_Content_Findings' ) ? Segurium_Content_Findings::counts( true )['malicious'] : 0;
 		} catch ( Throwable $e ) {
 			Segurium_Debug::log( '[segurium-issue-indicator] malware count failed: ' . $e->getMessage() );
 			return 0;
 		}
-		return isset( $counts['malicious'] ) ? max( 0, (int) $counts['malicious'] ) : 0;
+		return isset( $counts['malicious'] ) ? max( 0, (int) $counts['malicious'] + $open ) : 0;
 	}
 
 	/**

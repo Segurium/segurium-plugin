@@ -4950,3 +4950,83 @@ msgstr "Κάθε λειτουργία περιλαμβάνεται σε κάθε
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Απεριόριστος καθαρισμός, συν τις υπηρεσίες cloud παρακάτω."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Η γνωστοποίηση άλλαξε αφότου την αποδεχθήκατε. Το Segurium στέλνει τα νέα δεδομένα βάσει της προηγούμενης συγκατάθεσής σας. Διαβάστε τη νέα έκδοση και αποδεχθείτε την."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Προγραμματισμένες εργασίες (συμβάντα WP-Cron): όνομα hook, πρόγραμμα, διάστημα και παράμετροι, και για κάθε callback στο hook το όνομά του, η διαδρομή αρχείου, οι αριθμοί γραμμών, το SHA-256 hash του αρχείου και ο πηγαίος κώδικας."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Λογαριασμοί με δικαιώματα διαχειριστή ή συντάκτη, και λογαριασμοί κρυμμένοι από τη λίστα χρηστών: αναγνωριστικό χρήστη, όνομα σύνδεσης και διεύθυνση email σε καθαρή μορφή, ρόλοι, δικαιώματα, ημερομηνία εγγραφής, και ο αριθμός κωδικών εφαρμογής και ενεργών συνεδριών σύνδεσης."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Ενεργές συνεδρίες σύνδεσης αυτών των λογαριασμών: αναγνωριστικό χρήστη, ένα μονόδρομο αναγνωριστικό συνεδρίας, διεύθυνση IP και συμβολοσειρά προγράμματος περιήγησης σε καθαρή μορφή, ώρα σύνδεσης και ώρα λήξης."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Σενάρια αποθηκευμένα στη βάση δεδομένων: ο κώδικας εντός κάθε ετικέτας script, ή η διεύθυνση εξωτερικού σεναρίου, και πού τα εντόπισε το Segurium (πίνακας, γραμμή και στήλη, ή όνομα επιλογής). Το Segurium διαβάζει το περιεχόμενο άρθρων, τα post meta, τις επιλογές, το κείμενο σχολίων και το email συντάκτη σχολίου, καθώς και τους πίνακες των πρόσθετων code snippet."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "Η διεύθυνση email για ειδοποιήσεις ασφαλείας: το email διαχειριστή του WordPress, ή αυτό που ορίσατε στις Ρυθμίσεις Segurium, μαζί με την επιλογή σας για ειδοποιήσεις email."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Κωδικοί πρόσβασης χρηστών, hash κωδικών και tokens συνεδρίας σύνδεσης."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Αρχεία πολυμέσων, και άρθρα, σχόλια ή άλλο περιεχόμενο βάσης δεδομένων εκτός από τα σενάρια που αναφέρονται παραπάνω."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Τα δείγματα αρχείων που μεταφορτώθηκαν για ανάλυση διατηρούνται έως 365 ημέρες και στη συνέχεια αφαιρούνται από αυτοματοποιημένη νυχτερινή εκκαθάριση. Ένα δείγμα μπορεί να αφαιρεθεί νωρίτερα αφού ελεγχθεί. Οι προγραμματισμένες εργασίες, οι λογαριασμοί, οι συνεδρίες και τα σενάρια διατηρούνται έως 60 ημέρες μετά την τελευταία μεταφόρτωσή τους· όσα κριθούν κακόβουλα διατηρούνται χωρίς χρονικό περιορισμό."
+
+msgid "Cron job: %s"
+msgstr "Εργασία cron: %s"
+
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Πρόγραμμα: %1$s, παράμετροι: %2$s"
+
+msgid "Account: %s"
+msgstr "Λογαριασμός: %s"
+
+msgid "User ID %1$d, roles: %2$s"
+msgstr "Αναγνωριστικό χρήστη %1$d, ρόλοι: %2$s"
+
+msgid "Script in the database: %s"
+msgstr "Σενάριο στη βάση δεδομένων: %s"
+
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Βρέθηκε σε %d σημείο"
+msgstr[1] "Βρέθηκε σε %d σημεία"
+
+msgid "Login session of %s"
+msgstr "Συνεδρία σύνδεσης του %s"
+
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Σύνδεση: %1$s, λήξη: %2$s"
+
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Αυτό θα επιχειρήσει να καθαρίσει %d εντοπισμένα ζητήματα. Για κάθε στοιχείο δημιουργείται αντίγραφο ασφαλείας πριν από τον καθαρισμό. Μια τερματισμένη συνεδρία σύνδεσης δεν μπορεί να αποκατασταθεί."
+
+msgid "Remind me at next login"
+msgstr "Υπενθύμιση στην επόμενη σύνδεση"
+
+msgid "Cron jobs"
+msgstr "Εργασίες cron"
+
+msgid "Database"
+msgstr "Βάση δεδομένων"
+
+msgid "Waiting"
+msgstr "Σε αναμονή"
+
+msgid "Running"
+msgstr "Σε εξέλιξη"
+
+msgid "Done"
+msgstr "Ολοκληρώθηκε"
+
+msgid "Skipped"
+msgstr "Παραλείφθηκε"
+
+msgid "Cancelled"
+msgstr "Ακυρώθηκε"

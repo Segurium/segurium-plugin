@@ -4777,3 +4777,92 @@ msgstr "Minden funkció megtalálható minden telepítésben. A Pro megszünteti
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Korlátlan tisztítás, plusz az alábbi felhőszolgáltatások."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "A közzététel az elfogadás óta megváltozott. A Segurium a korábbi hozzájárulás alapján küldi az új adatokat. Olvassuk el az új változatot és fogadjuk el."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Ütemezett feladatok (WP-Cron események): a hook neve, ütemezése, intervalluma és argumentumai, valamint a hookhoz tartozó egyes visszahívások neve, fájl útvonala, sorszámai, fájl SHA-256 hasha és forráskódja."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Rendszergazdai vagy szerkesztői jogokkal rendelkező fiókok, valamint a felhasználólistából elrejtett fiókok: felhasználói azonosító, bejelentkezési név és e-mail-cím nyíltan, szerepkörök, jogosultságok, regisztrációs dátum, valamint az alkalmazásjelszavak és aktív bejelentkezési munkamenetek száma."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Az ilyen fiókok aktív bejelentkezési munkamenetei: felhasználói azonosító, egyirányú munkamenet-azonosító, IP-cím és böngészőazonosító nyíltan, belépés ideje és lejárat ideje."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Az adatbázisban tárolt szkriptek: az egyes script címkékben szereplő kód, vagy egy külső szkript címe, valamint a hely, ahol a Segurium megtalálta (tábla, sor és oszlop, vagy opció neve). A Segurium olvassa a bejegyzések tartalmát, a bejegyzések metaadatait, az opciókat, a hozzászólások szövegét és a hozzászóló szerző e-mail-címét, valamint a kódrészlet-bővítmények tábláit."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Felhasználói jelszavak, jelszó-hashek és bejelentkezési munkamenet-tokenek."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Médiafájlok, valamint bejegyzések, hozzászólások vagy egyéb adatbázis-tartalom, a fent felsorolt szkripteken kívül."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+msgid "Cron job: %s"
+msgstr "Cron feladat: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Ütemezés: %1$s, argumentumok: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+msgid "Account: %s"
+msgstr "Fiók: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+msgid "User ID %1$d, roles: %2$s"
+msgstr "Felhasználói azonosító: %1$d, szerepkörök: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+msgid "Script in the database: %s"
+msgstr "Szkript az adatbázisban: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "%d helyen található"
+msgstr[1] "%d helyen található"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+msgid "Login session of %s"
+msgstr "%s bejelentkezési munkamenete"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Belépés: %1$s, lejárat: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "A művelet %d észlelt problémát próbál megtisztítani. Minden elemről biztonsági másolat készül a tisztítás előtt. A befejezett bejelentkezési munkamenet nem állítható vissza."
+
+msgid "Remind me at next login"
+msgstr "Emlékeztető a következő bejelentkezéskor"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "A biztonsági riasztásokhoz használt e-mail cím: a WordPress rendszergazdai e-mail címe vagy a Segurium beállításaiban megadott cím, az e-mail riasztások választott beállításával együtt."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Az elemzésre feltöltött fájlminták legfeljebb 365 napig maradnak meg, majd egy éjszakai automatikus takarítás eltávolítja őket. Egy minta ennél hamarabb is eltávolításra kerülhet, miután felülvizsgálatra került. Az ütemezett feladatok, fiókok, munkamenetek és szkriptek legfeljebb 60 napig maradnak meg az utolsó feltöltésük után; a kártékonynak minősülők időkorlát nélkül megőrzésre kerülnek."
+
+msgid "Cron jobs"
+msgstr "Cron feladatok"
+
+msgid "Database"
+msgstr "Adatbázis"
+
+msgid "Waiting"
+msgstr "Várakozás"
+
+msgid "Running"
+msgstr "Folyamatban"
+
+msgid "Done"
+msgstr "Kész"
+
+msgid "Skipped"
+msgstr "Kihagyva"
+
+msgid "Cancelled"
+msgstr "Megszakítva"

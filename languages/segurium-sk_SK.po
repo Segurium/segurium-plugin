@@ -4758,3 +4758,102 @@ msgstr "Každá funkcia je súčasťou každej inštalácie. Pro odstraňuje mes
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Neobmedzené čistenie plus cloudové služby uvedené nižšie."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Toto vyhlásenie sa po vašom súhlase zmenilo. Segurium odosiela nové údaje na základe vášho predchádzajúceho súhlasu. Prečítajte si novú verziu a prijmite ju."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Naplánované úlohy (udalosti WP-Cron): názov háku, plán, interval a argumenty, a pre každé spätné volanie na háku jeho názov, cesta k súboru, čísla riadkov, hash súboru SHA-256 a zdrojový kód."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Účty s právami administrátora alebo editora a účty skryté pred zoznamom používateľov: ID používateľa, prihlasovacie meno a e-mailová adresa v čitateľnom tvare, role, oprávnenia, dátum registrácie a počet hesiel aplikácií a aktívnych prihlasovacích relácií."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Aktívne prihlasovacie relácie týchto účtov: ID používateľa, jednosmerný identifikátor relácie, IP adresa a reťazec prehliadača v čitateľnom tvare, čas prihlásenia a čas vypršania."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Skripty uložené v databáze: kód vnútri každého tagu script alebo adresa externého skriptu a miesto, kde ho Segurium našiel (tabuľka, riadok a stĺpec alebo názov voľby). Segurium číta obsah príspevkov, meta príspevkov, voľby, text komentárov a e-mail autora komentára a tabuľky pluginov pre úryvky kódu."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "E-mailová adresa pre bezpečnostné upozornenia: e-mail administrátora WordPress alebo adresa, ktorú ste nastavili v nastaveniach Segurium, spolu s vaším výberom e-mailových upozornení."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Heslá používateľov, hashe hesiel a tokeny prihlasovacích relácií."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Mediálne súbory a príspevky, komentáre alebo iný obsah databázy okrem skriptov uvedených vyššie."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Vzorky súborov nahraté na analýzu sa uchovávajú najviac 365 dní a potom ich odstráni automatické nočné čistenie. Vzorka sa môže odstrániť skôr, hneď ako je skontrolovaná. Naplánované úlohy, účty, relácie a skripty sa uchovávajú najviac 60 dní od posledného nahratia; tie, ktoré sú vyhodnotené ako škodlivé, sa uchovávajú bez časového obmedzenia."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "Úloha cron: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Plán: %1$s, argumenty: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "Účet: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID používateľa %1$d, role: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "Skript v databáze: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Nájdený na %d mieste"
+msgstr[1] "Nájdený na %d miestach"
+msgstr[2] "Nájdený na %d miestach"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "Prihlasovacia relácia účtu %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Prihlásenie: %1$s, vyprší: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Pokus sa o vyčistenie %d zistených problémov. Každá položka sa pred čistením zálohuje. Ukončenú prihlasovaciu reláciu nie je možné obnoviť."
+
+msgid "Remind me at next login"
+msgstr "Pripomenúť pri ďalšom prihlásení"
+
+msgid "Cron jobs"
+msgstr "Úlohy cron"
+
+msgid "Database"
+msgstr "Databáza"
+
+msgid "Waiting"
+msgstr "Čaká sa"
+
+msgid "Running"
+msgstr "Prebieha"
+
+msgid "Done"
+msgstr "Hotovo"
+
+msgid "Skipped"
+msgstr "Preskočené"
+
+msgid "Cancelled"
+msgstr "Zrušené"

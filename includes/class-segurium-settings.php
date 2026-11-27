@@ -63,6 +63,7 @@ final class Segurium_Settings {
 		'segurium_cloud_endpoint',
 		'segurium_cti_consent',
 		'segurium_consent_source',
+		'segurium_consent_edition',
 		'segurium_consent_constant_applied',
 
 		// Billing and entitlement state.
@@ -77,10 +78,14 @@ final class Segurium_Settings {
 		'segurium_scan_trigger_secret',
 		'segurium_async_scan_cursor',
 		'segurium_last_scan_time',
+		'segurium_cron_callback_record',
+		'segurium_scan_crons',
+		'segurium_scan_databases',
 
 		// Schema and storage bookkeeping.
 		'segurium_schema_versions',
 		'segurium_schema_fingerprint',
+		'segurium_data_file_token',
 
 		// Feed freshness stamps.
 		'segurium_geo_updated_at',

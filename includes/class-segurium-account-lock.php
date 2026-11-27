@@ -213,7 +213,7 @@ final class Segurium_Account_Lock {
 	 * in, and the hidden accounts that reappear without it.
 	 *
 	 * @param int[]|null $hidden Hidden IDs when the caller has them.
-	 * @return array<int, array{hook:string, origin:string, path:string, sha256:string, uids:int[]}>
+	 * @return array<int, array{hook:string, origin:string, path:string, sha256:string, uids:int[], cohides:int[]}>
 	 */
 	public static function hiders( ?array $hidden = null ): array {
 		global $wp_filter;
@@ -228,39 +228,94 @@ final class Segurium_Account_Lock {
 				foreach ( $callbacks as $callback ) {
 					$entry = self::describe( $hook, $callback['function'] ?? null );
 					if ( null !== $entry && count( $candidates ) < self::MAX_HIDERS ) {
-						$candidates[] = array( $entry, $hook, $priority, $callback );
+						$candidates[] = array( $entry, $hook, $priority, $callback, $entry['origin'] . '|' . $entry['path'] . '|' . $entry['sha256'] );
 					}
 				}
 			}
 		}
 
+		$untied = $hidden;
+		foreach ( $candidates as $i => $candidate ) {
+			$freed = empty( $hidden ) ? array() : array_values( array_diff( $hidden, self::still_hidden( array( $candidate ), $hidden ) ) );
+			sort( $freed );
+			$candidates[ $i ][0]['uids'] = $freed;
+			$untied                      = array_diff( $untied, $freed );
+		}
+		if ( ! empty( $untied ) ) {
+			$untied = array_diff( $untied, self::still_hidden( $candidates, array_values( $untied ) ) );
+		}
+		$cohides = array();
+		foreach ( empty( $untied ) ? array() : array_unique( array_column( $candidates, 4 ) ) as $source ) {
+			$others = array_filter(
+				$candidates,
+				static function ( $candidate ) use ( $source ) {
+					return $candidate[4] !== $source;
+				}
+			);
+			$held   = self::still_hidden( $others, array_values( $untied ) );
+			sort( $held );
+			$cohides[ $source ] = $held;
+		}
+		$groups = array();
+		foreach ( $untied as $uid ) {
+			$set = array_keys(
+				array_filter(
+					$cohides,
+					static function ( $held ) use ( $uid ) {
+						return in_array( $uid, $held, true );
+					}
+				)
+			);
+			if ( ! empty( $set ) ) {
+				$groups[ implode( "\0", $set ) ][] = $uid;
+			}
+		}
+		foreach ( $groups as $set => $uids ) {
+			$set  = explode( "\0", $set );
+			$also = self::still_hidden(
+				array_filter(
+					$candidates,
+					static function ( $candidate ) use ( $set ) {
+						return in_array( $candidate[4], $set, true );
+					}
+				),
+				$uids
+			);
+			foreach ( $set as $source ) {
+				$cohides[ $source ] = array_values( array_diff( $cohides[ $source ], $also ) );
+			}
+		}
+		// The source probes reshuffle the candidates; this restores the order the single probes leave.
+		foreach ( empty( $cohides ) ? array() : $candidates as $candidate ) {
+			remove_filter( $candidate[1], $candidate[3]['function'], $candidate[2] );
+			add_filter( $candidate[1], $candidate[3]['function'], $candidate[2], (int) ( $candidate[3]['accepted_args'] ?? 1 ) );
+		}
+
 		$out = array();
 		foreach ( $candidates as $candidate ) {
-			list( $entry, $hook, $priority, $callback ) = $candidate;
-			$entry['uids']                              = empty( $hidden ) ? array() : self::freed_by( $hook, $priority, $callback, $hidden );
-			$out[]                                      = $entry;
+			$out[] = $candidate[0] + array( 'cohides' => $cohides[ $candidate[4] ] ?? array() );
 		}
 		return $out;
 	}
 
 	/**
-	 * Hidden IDs that come back while one callback is off its hook.
+	 * The $ids still hidden while every callback in $off is off its hook.
 	 *
-	 * @param string               $hook     Hook name.
-	 * @param int                  $priority Priority it was added at.
-	 * @param array<string, mixed> $callback WP_Hook entry.
-	 * @param int[]                $hidden   Hidden IDs.
+	 * @param array<int, array{0:array, 1:string, 2:int, 3:array}> $off Candidates from hiders().
+	 * @param int[]                                                $ids Hidden IDs.
 	 * @return int[]
 	 */
-	private static function freed_by( string $hook, int $priority, array $callback, array $hidden ): array {
-		remove_filter( $hook, $callback['function'], $priority );
-		try {
-			$freed = array_values( array_intersect( $hidden, self::visible_ids( $hidden ) ) );
-		} finally {
-			add_filter( $hook, $callback['function'], $priority, (int) ( $callback['accepted_args'] ?? 1 ) );
+	private static function still_hidden( array $off, array $ids ): array {
+		foreach ( $off as $candidate ) {
+			remove_filter( $candidate[1], $candidate[3]['function'], $candidate[2] );
 		}
-		sort( $freed );
-		return $freed;
+		try {
+			return array_values( array_diff( $ids, self::visible_ids( $ids ) ) );
+		} finally {
+			foreach ( $off as $candidate ) {
+				add_filter( $candidate[1], $candidate[3]['function'], $candidate[2], (int) ( $candidate[3]['accepted_args'] ?? 1 ) );
+			}
+		}
 	}
 
 	/**
@@ -272,61 +327,32 @@ final class Segurium_Account_Lock {
 	 * @return array{hook:string, origin:string, path:string, sha256:string}|null
 	 */
 	private static function describe( string $hook, $callback ): ?array {
-		try {
-			if ( $callback instanceof Closure || ( is_string( $callback ) && false === strpos( $callback, '::' ) ) ) {
-				$ref = new ReflectionFunction( $callback );
-			} elseif ( is_string( $callback ) ) {
-				list( $class, $method ) = explode( '::', $callback, 2 );
-				$ref                    = new ReflectionMethod( $class, $method );
-			} elseif ( is_array( $callback ) && 2 === count( $callback ) ) {
-				$ref = new ReflectionMethod( $callback[0], (string) $callback[1] );
-			} elseif ( is_object( $callback ) ) {
-				$ref = new ReflectionMethod( $callback, '__invoke' );
-			} else {
-				return null;
-			}
-		} catch ( ReflectionException $e ) {
-			return null;
-		}
-
-		$file = $ref->getFileName();
-		if ( false === $file ) {
-			return null;
-		}
-		$entry = array(
+		$source = Segurium_Callback_Source::locate( $callback );
+		$entry  = array(
 			'hook'   => $hook,
-			'origin' => 'eval',
+			'origin' => Segurium_Callback_Source::ORIGIN_EVAL,
 			'path'   => '',
 			'sha256' => '',
 		);
-		if ( false !== strpos( $file, "eval()'d code" ) || false !== strpos( $file, 'runtime-created function' ) ) {
+		if ( Segurium_Callback_Source::ORIGIN_EVAL === $source['origin'] ) {
 			return $entry;
 		}
+		if ( Segurium_Callback_Source::ORIGIN_FILE !== $source['origin'] ) {
+			return null;
+		}
 
-		$real = self::resolved( $file );
+		$real = $source['file'];
 		foreach ( self::own_roots() as $root ) {
 			if ( 0 === strpos( $real, $root ) ) {
 				return null;
 			}
 		}
 		$size            = is_file( $real ) ? (int) filesize( $real ) : 0;
-		$entry['origin'] = 'file';
-		$entry['path']   = self::relative( $real );
+		$entry['origin'] = Segurium_Callback_Source::ORIGIN_FILE;
+		// The cloud fetches a hider by its path, and a guessed one names another file.
+		$entry['path']   = Segurium_Callback_Source::relative( $real );
 		$entry['sha256'] = $size > 0 && $size <= self::MAX_HIDER_BYTES ? (string) hash_file( 'sha256', $real ) : '';
 		return $entry;
-	}
-
-	/**
-	 * A path relative to the WordPress root, or '' outside it: the cloud
-	 * fetches a hider by this path, and a guessed one names another file.
-	 *
-	 * @param string $real Resolved path.
-	 * @return string
-	 */
-	private static function relative( string $real ): string {
-		// phpcs:ignore -- segurium-wporg-abspath: the cloud matches the hiding file by its path relative to the WordPress root.
-		$root = trailingslashit( self::resolved( ABSPATH ) );
-		return 0 === strpos( $real, $root ) ? substr( $real, strlen( $root ) ) : '';
 	}
 
 	/**
@@ -336,23 +362,12 @@ final class Segurium_Account_Lock {
 	 */
 	private static function own_roots(): array {
 		// phpcs:ignore -- segurium-wporg-abspath: core callbacks live under the WordPress root and are never reported.
-		$abspath = trailingslashit( self::resolved( ABSPATH ) );
+		$abspath = trailingslashit( Segurium_Callback_Source::resolved( ABSPATH ) );
 		$roots   = array( $abspath . WPINC . '/', $abspath . 'wp-admin/' );
 		if ( defined( 'SEGURIUM_PLUGIN_DIR' ) ) {
-			$roots[] = trailingslashit( self::resolved( SEGURIUM_PLUGIN_DIR ) );
+			$roots[] = trailingslashit( Segurium_Callback_Source::resolved( SEGURIUM_PLUGIN_DIR ) );
 		}
 		return $roots;
-	}
-
-	/**
-	 * Symlink-free, forward-slash path.
-	 *
-	 * @param string $path Any path.
-	 * @return string
-	 */
-	private static function resolved( string $path ): string {
-		$real = realpath( $path );
-		return wp_normalize_path( false === $real ? $path : $real );
 	}
 
 	/**
@@ -503,30 +518,16 @@ final class Segurium_Account_Lock {
 	 *
 	 * @param int    $uid   Account.
 	 * @param string $uhash SHA-256 of the login the caller expects.
-	 * @param string $actor ACTOR_REMOTE or ACTOR_MANUAL.
+	 * @param string $actor ACTOR_REMOTE, ACTOR_MANUAL, or ACTOR_SYSTEM for Auto-Fix.
 	 * @return string
 	 */
 	public static function lock( int $uid, string $uhash, string $actor ): string {
-		if ( is_multisite() ) {
-			return self::REFUSE_MULTISITE;
-		}
-		$code = self::identify( $uid, $uhash );
+		$code = self::guard( $uid, $uhash );
 		if ( Segurium_Remote_Actions::OK !== $code ) {
 			return $code;
 		}
-		if ( self::installer() === $uid ) {
-			return self::REFUSE_INSTALLER;
-		}
 
-		self::reconcile();
-		$rows = self::load( self::OPTION_LOCKS );
-		if ( isset( $rows[ $uid ] ) && self::is_locked_row( $rows[ $uid ] ) ) {
-			return self::REFUSE_ALREADY_LOCKED;
-		}
-		if ( ! self::another_admin_remains( $uid, $rows ) ) {
-			return self::REFUSE_LAST_ADMIN;
-		}
-
+		$rows         = self::load( self::OPTION_LOCKS );
 		$user         = get_userdata( $uid );
 		$app_key      = WP_Application_Passwords::USERMETA_KEY_APPLICATION_PASSWORDS;
 		$rows[ $uid ] = array(
@@ -559,6 +560,33 @@ final class Segurium_Account_Lock {
 		self::untrust( $uid );
 		self::report( 'locked', $uid, $uhash, $actor );
 		return Segurium_Remote_Actions::OK;
+	}
+
+	/**
+	 * The guards a lock runs before it changes anything.
+	 *
+	 * @param int    $uid   Account.
+	 * @param string $uhash SHA-256 of the login the caller expects.
+	 * @return string OK, or the code of the guard that refuses.
+	 */
+	public static function guard( int $uid, string $uhash ): string {
+		if ( is_multisite() ) {
+			return self::REFUSE_MULTISITE;
+		}
+		$code = self::identify( $uid, $uhash );
+		if ( Segurium_Remote_Actions::OK !== $code ) {
+			return $code;
+		}
+		if ( self::installer() === $uid ) {
+			return self::REFUSE_INSTALLER;
+		}
+
+		self::reconcile();
+		$rows = self::load( self::OPTION_LOCKS );
+		if ( isset( $rows[ $uid ] ) && self::is_locked_row( $rows[ $uid ] ) ) {
+			return self::REFUSE_ALREADY_LOCKED;
+		}
+		return self::another_admin_remains( $uid, $rows ) ? Segurium_Remote_Actions::OK : self::REFUSE_LAST_ADMIN;
 	}
 
 	/**

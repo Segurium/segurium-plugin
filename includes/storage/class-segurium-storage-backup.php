@@ -36,7 +36,7 @@ class Segurium_Storage_Backup {
 	/**
 	 * Registered buckets keyed by name.
 	 *
-	 * @var array<string, array{max_count:int, max_bytes:int, pinned_ids_provider:?callable}>
+	 * @var array<string, array{max_count:int, max_bytes:int, pinned_ids_provider:?callable, site_key:bool}>
 	 */
 	private static $buckets = array();
 
@@ -54,6 +54,7 @@ class Segurium_Storage_Backup {
 	 *                                        a backup_id (e.g. integrity_issues), so a large
 	 *                                        burst of new fixes cannot silently destroy a
 	 *                                        backup the UI is still offering as restorable.
+	 *                                      - `site_key` (bool) — encrypt with the key of the install.
 	 */
 	public static function register_bucket( string $bucket, array $caps = array() ): bool {
 		if ( ! self::is_valid_bucket( $bucket ) ) {
@@ -68,8 +69,18 @@ class Segurium_Storage_Backup {
 			'max_count'           => isset( $caps['max_count'] ) ? max( 1, (int) $caps['max_count'] ) : self::DEFAULT_MAX_COUNT,
 			'max_bytes'           => isset( $caps['max_bytes'] ) ? max( 1, (int) $caps['max_bytes'] ) : self::DEFAULT_MAX_BYTES,
 			'pinned_ids_provider' => $provider,
+			'site_key'            => ! empty( $caps['site_key'] ),
 		);
 		return true;
+	}
+
+	/**
+	 * Whether the bucket encrypts with the key of the install.
+	 *
+	 * @param string $bucket Bucket name.
+	 */
+	private static function site_keyed( string $bucket ): bool {
+		return ! empty( self::$buckets[ $bucket ]['site_key'] );
 	}
 
 	/**
@@ -141,7 +152,14 @@ class Segurium_Storage_Backup {
 		if ( false === $compressed ) {
 			throw new Segurium_Storage_Exception( esc_html( 'gzencode failed for bucket ' . $bucket ) );
 		}
-		$cipher = Segurium_Storage_Crypto::encrypt( $compressed );
+		$key = null;
+		if ( self::site_keyed( $bucket ) ) {
+			$key = Segurium_Storage_Crypto::site_key();
+			if ( null === $key ) {
+				throw new Segurium_Storage_Exception( esc_html( 'Site key unavailable for bucket ' . $bucket ) );
+			}
+		}
+		$cipher = Segurium_Storage_Crypto::encrypt( $compressed, null, $key );
 		if ( null === $cipher ) {
 			throw new Segurium_Storage_Exception( esc_html( 'Encryption failed for bucket ' . $bucket ) );
 		}
@@ -176,6 +194,9 @@ class Segurium_Storage_Backup {
 				'created_at'   => time(),
 			)
 		);
+		if ( null !== $key ) {
+			$meta['key'] = 'site';
+		}
 
 		if ( ! Segurium_Storage_Fs::atomic_put( $sgbk_path, $cipher ) ) {
 			throw new Segurium_Storage_Exception( esc_html( sprintf( 'Failed to write backup %s/%s', $bucket, $backup_id ) ) );
@@ -262,7 +283,13 @@ class Segurium_Storage_Backup {
 				'reason'  => 'read_failed',
 			);
 		}
-		$compressed = Segurium_Storage_Crypto::decrypt( $cipher );
+		$compressed = null;
+		foreach ( self::site_keyed( $bucket ) ? array( Segurium_Storage_Crypto::site_key(), null ) : array( null ) as $key ) {
+			$compressed = Segurium_Storage_Crypto::decrypt( $cipher, null, $key );
+			if ( null !== $compressed ) {
+				break;
+			}
+		}
 		if ( null === $compressed ) {
 			self::log_restore_failure( $bucket, $backup_id, 'decrypt_failed' );
 			return array(

@@ -5149,3 +5149,101 @@ msgstr "Cada recurso está incluído em todas as instalações. O Pro remove o l
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Limpeza ilimitada, além dos serviços em nuvem abaixo."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Esta divulgação mudou depois de você aceitá-la. O Segurium envia os novos dados sob o seu consentimento anterior. Leia a nova versão e aceite-a."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Tarefas agendadas (eventos do WP-Cron): nome do gancho, agendamento, intervalo e argumentos, e para cada callback do gancho o seu nome, caminho do arquivo, números de linha, hash SHA-256 do arquivo e código-fonte."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Contas com permissões de administrador ou editor, e contas ocultas da lista de usuários: ID do usuário, nome de acesso e endereço de e-mail em texto aberto, funções, capacidades, data de registro e a quantidade de senhas de aplicativo e sessões de acesso ativas."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Sessões de acesso ativas dessas contas: ID do usuário, um ID de sessão unidirecional, endereço IP e string do navegador em texto aberto, horário de acesso e horário de expiração."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Scripts armazenados no banco de dados: o código dentro de cada tag de script, ou o endereço de um script externo, e onde o Segurium o encontrou (tabela, linha e coluna, ou nome da opção). O Segurium lê o conteúdo do post, meta do post, opções, texto do comentário e e-mail do autor do comentário, e as tabelas de plugins de trechos de código."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "O endereço de e-mail para alertas de segurança: o e-mail do administrador do WordPress, ou o que você definiu em Configurações do Segurium, junto com a sua escolha de alertas por e-mail."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Senhas de usuário, hashes de senha e tokens de sessão de acesso."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Arquivos de mídia, e posts, comentários ou outros conteúdos do banco de dados além dos scripts listados acima."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Amostras de arquivos enviadas para análise são mantidas por até 365 dias e depois removidas por uma limpeza noturna automatizada. Uma amostra pode ser removida antes assim que for revisada. Tarefas agendadas, contas, sessões e scripts são mantidos por até 60 dias após o último envio; os considerados maliciosos são mantidos sem limite de tempo."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "Tarefa cron: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Agendamento: %1$s, argumentos: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "Conta: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID de usuário %1$d, funções: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "Script no banco de dados: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Encontrado em %d local"
+msgstr[1] "Encontrado em %d locais"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "Sessão de acesso de %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Acesso em: %1$s, expira em: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Isto tentará limpar %d problema(s) detectado(s). Cada item recebe um backup antes da limpeza. Uma sessão de acesso encerrada não pode ser restaurada."
+
+msgid "Remind me at next login"
+msgstr "Lembrar-me no próximo acesso"
+
+msgid "Cron jobs"
+msgstr "Tarefas cron"
+
+msgid "Database"
+msgstr "Banco de dados"
+
+msgid "Waiting"
+msgstr "Aguardando"
+
+msgid "Running"
+msgstr "Em execução"
+
+msgid "Done"
+msgstr "Concluído"
+
+msgid "Skipped"
+msgstr "Ignorado"
+
+msgid "Cancelled"
+msgstr "Cancelado"

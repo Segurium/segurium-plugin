@@ -23,7 +23,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
  */
 class Segurium_CLI_Backup {
 
-	const BUCKETS = array( 'integrity', 'malware', 'component' );
+	const BUCKETS = array( 'integrity', 'malware', 'component', 'content' );
 
 	/**
 	 * List the backups on disk, newest first.
@@ -31,7 +31,7 @@ class Segurium_CLI_Backup {
 	 * ## OPTIONS
 	 *
 	 * [--bucket=<bucket>]
-	 * : Only this bucket. One of: integrity, malware, component.
+	 * : Only this bucket. One of: integrity, malware, component, content.
 	 *
 	 * [--format=<format>]
 	 * : Output format. One of: table, json, csv, yaml. Default: table.
@@ -86,7 +86,8 @@ class Segurium_CLI_Backup {
 	 * Restore one backup to where it came from.
 	 *
 	 * Overwrites whatever sits at the target path, and updates the Integrity
-	 * and Malware tabs the way their Restore buttons do.
+	 * and Malware tabs the way their Restore buttons do. A content backup
+	 * comes back through the Restore of the finding that holds it.
 	 *
 	 * ## OPTIONS
 	 *
@@ -140,6 +141,9 @@ class Segurium_CLI_Backup {
 				}
 				$result = $plugin->restore_integrity_backup( $backup_id, $issue['comp_type'], $issue['comp_slug'], $issue['file_path'] );
 				break;
+			case Segurium_Content_Findings::BUCKET:
+				$result = self::restore_content( $backup_id, $meta );
+				break;
 			default:
 				$result = $plugin->restore_component_backup(
 					$backup_id,
@@ -153,6 +157,22 @@ class Segurium_CLI_Backup {
 			return;
 		}
 		WP_CLI::success( 'Restored ' . $meta['bucket'] . ' backup ' . $backup_id . ' to ' . $result . '.' );
+	}
+
+	/**
+	 * Restore of the cured content finding that holds the backup.
+	 *
+	 * @param string $backup_id Backup identifier.
+	 * @param array  $meta      Sidecar metadata.
+	 * @return string|WP_Error What the backup holds, as its sidecar names it.
+	 */
+	private static function restore_content( $backup_id, array $meta ) {
+		$id   = (int) Segurium_Storage::table_get_var( Segurium_Content_Findings::TABLE, 'SELECT id FROM {{table}} WHERE backup_id = %s LIMIT 1', array( $backup_id ) );
+		$done = Segurium_Content_Findings::restore( $id );
+		if ( ! $done['ok'] ) {
+			return new WP_Error( $done['code'], __( 'Restore failed', 'segurium' ) );
+		}
+		return (string) ( $meta['ref'] ?? '' );
 	}
 
 	/**

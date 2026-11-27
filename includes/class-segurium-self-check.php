@@ -4,8 +4,8 @@
  * headers, HTML body disclosure checks, WordPress-specific hardening
  * state, and cookie flag verification.
  *
- * Read-only by design — never mutates settings. Does not ship results
- * to the CTI.
+ * Read-only by design — never mutates settings. Each result goes to the
+ * cloud as a `self_check` message once consent is stored.
  *
  * The self-ping observes the cached production homepage (no
  * cache-buster) so that internal scoring matches the external scan
@@ -31,6 +31,9 @@ class Segurium_Self_Check {
 	// self_check_history custom table.
 	const HISTORY_MAX     = 10;
 	const SCAN_FRESH_DAYS = 7;
+
+	const CHECK_COUNT       = 25;
+	const SELF_PING_TIMEOUT = 10;
 
 	/**
 	 * WP-Cron hook for the daily auto-run. Fired once per day
@@ -86,6 +89,11 @@ class Segurium_Self_Check {
 	const CAT_HARDENING  = 'hardening';
 	const CAT_COOKIES    = 'cookies';
 	const CAT_MALWARE    = 'malware';
+
+	/**
+	 * Categories whose rows read the answer of the self-ping.
+	 */
+	const PING_CATEGORIES = array( self::CAT_HEADERS, self::CAT_DISCLOSURE, self::CAT_COOKIES );
 
 	/**
 	 * Per-check status identifiers.
@@ -289,11 +297,25 @@ class Segurium_Self_Check {
 	}
 
 	/**
-	 * Cron handler for the queued rescore.
+	 * Drop a queued rescore: the Self-Check phase of a scan run stored the grade.
+	 *
+	 * @return void
+	 */
+	public static function drop_refresh(): void {
+		wp_clear_scheduled_hook( self::REFRESH_HOOK );
+	}
+
+	/**
+	 * Cron handler for the queued rescore. Waits while the run holding the
+	 * scan lock still has its Self-Check phase ahead.
 	 *
 	 * @return void
 	 */
 	public static function run_refresh(): void {
+		if ( class_exists( 'Segurium_Scan_Phase_Self_Check' ) && Segurium_Scan_Phase_Self_Check::ahead() ) {
+			self::queue_refresh();
+			return;
+		}
 		try {
 			self::get_instance()->run_checks();
 		} catch ( Throwable $e ) {
@@ -410,6 +432,43 @@ class Segurium_Self_Check {
 	}
 
 	/**
+	 * Grade and check counts of a result, for the scan run row. Rows left
+	 * blind by a failed self-ping count as skipped, as does every row of no result.
+	 *
+	 * @param array|null $result Result of `run_checks()`, or null when the battery threw.
+	 * @return array{grade:string,score:int,passed:int,warned:int,failed:int,skipped:int}
+	 */
+	public static function summary( $result ) {
+		$summary = array(
+			'grade'   => '',
+			'score'   => 0,
+			'passed'  => 0,
+			'warned'  => 0,
+			'failed'  => 0,
+			'skipped' => self::CHECK_COUNT,
+		);
+		if ( ! is_array( $result ) || ! isset( $result['checks'] ) || ! is_array( $result['checks'] ) ) {
+			return $summary;
+		}
+		$summary['grade']   = (string) ( $result['grade'] ?? '' );
+		$summary['score']   = (int) ( $result['score'] ?? 0 );
+		$summary['skipped'] = 0;
+		$blind              = '' !== (string) ( $result['self_ping_error'] ?? '' );
+		foreach ( $result['checks'] as $check ) {
+			if ( $blind && in_array( $check['category'], self::PING_CATEGORIES, true ) ) {
+				++$summary['skipped'];
+			} elseif ( self::STATUS_PASS === $check['status'] ) {
+				++$summary['passed'];
+			} elseif ( self::STATUS_FAIL === $check['status'] ) {
+				++$summary['failed'];
+			} else {
+				++$summary['warned'];
+			}
+		}
+		return $summary;
+	}
+
+	/**
 	 * Send the latest result to CTI as a `self_check` message. Best-effort
 	 * fire-and-forget: `Segurium_CTI_Client::send_message` is non-blocking
 	 * and already gates on consent + IID inside the client. We additionally
@@ -510,7 +569,7 @@ class Segurium_Self_Check {
 		$url = home_url( '/' );
 
 		$args = array(
-			'timeout'     => 10,
+			'timeout'     => self::SELF_PING_TIMEOUT,
 			'redirection' => 0,
 			// We're calling ourselves; internal TLS (self-signed, or terminated upstream) must not fail the check.
 			'sslverify'   => false,

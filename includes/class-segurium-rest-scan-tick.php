@@ -173,7 +173,22 @@ final class Segurium_Rest_Scan_Tick {
 			);
 		}
 		$status = is_array( $row ) && isset( $row['status'] ) ? (string) $row['status'] : '';
-		$known  = 'running' === $status || in_array( $status, Segurium_Scan_Runner::TERMINAL_STATUSES, true );
+		if ( '' === $status ) {
+			// A run with no files phase writes no history row.
+			try {
+				$run = Segurium_Scan_Run::load( $scan_id );
+			} catch ( Segurium_Storage_Exception $e ) {
+				Segurium_Debug::log( '[segurium-rest-scan-tick] ' . $e->getMessage() );
+				return array(
+					'status'       => 'running',
+					'scan_id'      => $scan_id,
+					'chunks_done'  => 0,
+					'chunks_total' => 0,
+				);
+			}
+			$status = null === $run ? '' : $run->status();
+		}
+		$known = 'running' === $status || in_array( $status, Segurium_Scan_Runner::TERMINAL_STATUSES, true );
 		return array(
 			'status'       => $known ? $status : 'not_found',
 			'scan_id'      => $known ? $scan_id : null,

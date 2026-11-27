@@ -46,14 +46,19 @@ class Segurium_Ignore_Lists {
 		$this->data_dir = rtrim( $data_dir, '/' );
 	}
 
+	/** Path of the file, see {@see Segurium_Storage_Fs::private_file()}; '' when none is available. */
+	public function path(): string {
+		return Segurium_Storage_Fs::private_file( $this->data_dir, self::FILE_NAME );
+	}
+
 	/**
 	 * Load ignore lists from disk.
 	 *
 	 * @return bool True if loaded, false otherwise.
 	 */
 	public function load() {
-		$file = $this->data_dir . '/' . self::FILE_NAME;
-		$raw  = Segurium_Storage_Fs::get_contents( $file );
+		$file = $this->path();
+		$raw  = '' === $file ? false : Segurium_Storage_Fs::get_contents( $file );
 		if ( false === $raw ) {
 			return false;
 		}
@@ -69,12 +74,15 @@ class Segurium_Ignore_Lists {
 	/**
 	 * Persist ignore lists to disk.
 	 */
-	public function save() {
-		$file = $this->data_dir . '/' . self::FILE_NAME;
+	public function save(): bool {
+		$file = $this->path();
+		if ( '' === $file ) {
+			return false;
+		}
 		// Atomic write (fopen+rename) via the shared Layer-3 helper: the
 		// ignore-list JSON lands under wp_upload_dir()/segurium-data, never the
 		// plugin folder, and readers never observe a half-written file.
-		Segurium_Storage_Fs::atomic_put(
+		return Segurium_Storage_Fs::atomic_put(
 			$file,
 			(string) wp_json_encode(
 				array(

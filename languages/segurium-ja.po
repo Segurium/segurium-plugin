@@ -4855,3 +4855,100 @@ msgstr "すべての機能はすべてのインストールに含まれていま
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "無制限のクリーンアップに加えて、以下のクラウドサービスをご利用いただけます。"
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "この開示内容は同意後に変更されました。Segurium は以前の同意に基づいて新しいデータを送信します。新しいバージョンを確認して同意してください。"
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "スケジュールタスク (WP-Cron イベント): フック名、スケジュール、間隔、引数、およびフックに登録された各コールバックの名前、ファイルパス、行番号、ファイルの SHA-256 ハッシュ、ソースコード。"
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "管理者または編集者権限を持つアカウント、およびユーザー一覧から非表示にされているアカウント: ユーザー ID、ログイン名、平文のメールアドレス、権限グループ、権限、登録日、アプリケーションパスワード数、有効なログインセッション数。"
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "対象アカウントの有効なログインセッション: ユーザー ID、一方向セッション ID、平文の IP アドレスとブラウザー文字列、サインイン日時、有効期限。"
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "データベースに保存されたスクリプト: 各 script タグ内のコードまたは外部スクリプトのアドレスと、Segurium が検出した場所 (テーブル、行、列、またはオプション名)。Segurium は投稿コンテンツ、投稿メタ、オプション、コメント本文、コメント投稿者のメールアドレス、およびコードスニペットプラグインのテーブルを読み取ります。"
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "セキュリティ通知用のメールアドレス: WordPress の管理者メールアドレス、または Segurium 設定で指定したメールアドレスと、メール通知の設定内容。"
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "ユーザーパスワード、パスワードハッシュ、ログインセッショントークン。"
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "メディアファイル、および上記のスクリプト以外の投稿、コメント、データベースコンテンツ。"
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "分析のためにアップロードされたファイルサンプルは最長 365日間保持され、その後、自動の夜間削除処理で削除されます。レビュー後により早く削除される場合もあります。スケジュールタスク、アカウント、セッション、スクリプトは最終アップロードから最長 60日間保持されます。悪意があると判定されたものは期限なしで保持されます。"
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "Cron ジョブ: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "スケジュール: %1$s、引数: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "アカウント: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ユーザー ID %1$d、権限グループ: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "データベース内のスクリプト: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "%d件の場所で検出"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "%s のログインセッション"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "サインイン: %1$s、有効期限: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "検出された %d件の問題のクリーンアップを試みます。各項目はクリーンアップ前にバックアップされます。終了したログインセッションは復元できません。"
+
+msgid "Remind me at next login"
+msgstr "次回のログイン時に通知する"
+
+msgid "Cron jobs"
+msgstr "Cron ジョブ"
+
+msgid "Database"
+msgstr "データベース"
+
+msgid "Waiting"
+msgstr "待機中"
+
+msgid "Running"
+msgstr "実行中"
+
+msgid "Done"
+msgstr "完了"
+
+msgid "Skipped"
+msgstr "スキップ済み"
+
+msgid "Cancelled"
+msgstr "キャンセル済み"

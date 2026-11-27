@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Segurium 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/segurium\n"
 "POT-Creation-Date: 2026-05-05T01:13:34+02:00\n"
-"PO-Revision-Date: 2026-08-12 03:30+0000\n"
+"PO-Revision-Date: 2026-11-27 04:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -5220,3 +5220,101 @@ msgstr "Todas las funciones se incluyen en cada instalación. Pro elimina el lí
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Limpieza ilimitada, además de los servicios en la nube indicados abajo."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Esta divulgación cambió después de que la aceptaras. Segurium envía los nuevos datos bajo tu consentimiento anterior. Lee la nueva versión y acéptala."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Tareas programadas (eventos de WP-Cron): nombre del gancho, programación, intervalo y argumentos y, para cada callback del gancho, su nombre, ruta del archivo, números de línea, hash SHA-256 del archivo y código fuente."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Cuentas con permisos de administrador o editor y cuentas ocultas en la lista de usuarios: ID de usuario, nombre de acceso y dirección de correo electrónico en claro, perfiles, capacidades, fecha de registro y el número de contraseñas de aplicación y de sesiones activas."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Sesiones de acceso activas de esas cuentas: ID de usuario, un ID de sesión unidireccional, dirección IP y cadena del navegador en claro, hora de acceso y hora de caducidad."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Scripts almacenados en la base de datos: el código dentro de cada etiqueta script, o la dirección de un script externo, y dónde lo encontró Segurium (tabla, fila y columna, o nombre de opción). Segurium lee el contenido de las entradas, los metadatos de entrada, las opciones, el texto y el correo electrónico del autor de los comentarios, y las tablas de los plugins de fragmentos de código."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "La dirección de correo electrónico para las alertas de seguridad: el correo electrónico del administrador de WordPress o el que hayas configurado en los ajustes de Segurium, junto con tu elección de alertas por correo electrónico."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Contraseñas de usuario, hashes de contraseñas y tokens de sesión de acceso."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Archivos multimedia y entradas, comentarios u otro contenido de la base de datos aparte de los scripts indicados arriba."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Las muestras de archivos subidas para su análisis se conservan hasta 365 días y luego se eliminan mediante una purga nocturna automática. Una muestra puede eliminarse antes en cuanto haya sido revisada. Las tareas programadas, las cuentas, las sesiones y los scripts se conservan hasta 60 días desde su última subida; los considerados maliciosos se conservan sin límite de tiempo."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+#, php-format
+msgid "Cron job: %s"
+msgstr "Tarea cron: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+#, php-format
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Programación: %1$s, argumentos: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+#, php-format
+msgid "Account: %s"
+msgstr "Cuenta: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+#, php-format
+msgid "User ID %1$d, roles: %2$s"
+msgstr "ID de usuario %1$d, perfiles: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+#, php-format
+msgid "Script in the database: %s"
+msgstr "Script en la base de datos: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+#, php-format
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Encontrado en %d sitio"
+msgstr[1] "Encontrado en %d sitios"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+#, php-format
+msgid "Login session of %s"
+msgstr "Sesión de acceso de %s"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+#, php-format
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Inicio de sesión: %1$s, caduca: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+#, php-format
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Se intentarán limpiar %d incidencia(s) detectada(s). Cada elemento se respalda antes de la limpieza. Una sesión de acceso finalizada no se puede restaurar."
+
+msgid "Remind me at next login"
+msgstr "Recordármelo en el próximo acceso"
+
+msgid "Cron jobs"
+msgstr "Tareas cron"
+
+msgid "Database"
+msgstr "Base de datos"
+
+msgid "Waiting"
+msgstr "En espera"
+
+msgid "Running"
+msgstr "En ejecución"
+
+msgid "Done"
+msgstr "Completado"
+
+msgid "Skipped"
+msgstr "Omitido"
+
+msgid "Cancelled"
+msgstr "Cancelado"

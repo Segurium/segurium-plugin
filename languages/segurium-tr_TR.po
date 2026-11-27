@@ -5123,3 +5123,92 @@ msgstr "Her özellik her kurulumda mevcuttur. Pro, aylık temizlik sınırını 
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Sınırsız temizlik ve aşağıdaki bulut hizmetleri."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Bu açıklama metni, kabul ettikten sonra değişti. Segurium, önceki onayınız altında yeni verileri gönderiyor. Lütfen yeni sürümü okuyun ve kabul edin."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Zamanlanmış görevler (WP-Cron olayları): hook adı, zamanlama, aralık ve argümanlar ile hook'a bağlı her geri çağrı için adı, dosya yolu, satır numaraları, dosyanın SHA-256 özeti ve kaynak kodu."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Yönetici veya editör yetkisine sahip hesaplar ve kullanıcı listesinden gizlenen hesaplar: kullanıcı ID'si, açık biçimde oturum adı ve e-posta adresi, roller, yetkinlikler, kayıt tarihi ve uygulama parolaları ile aktif oturum sayısı."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Bu hesapların aktif oturumları: kullanıcı ID'si, tek yönlü bir oturum kimliği, açık biçimde IP adresi ve tarayıcı dizgesi, giriş yapma zamanı ve sona erme zamanı."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Veritabanında saklanan betikler: her script etiketinin içindeki kod veya harici bir betiğin adresi ve Segurium'un bunu bulduğu yer (tablo, satır ve sütun ya da seçenek adı). Segurium; yazı içeriklerini, yazı üst verilerini, seçenekleri, yorum metnini ve yorum yazarı e-postasını ve kod parçacığı eklentilerinin tablolarını okur."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "Güvenlik uyarıları için e-posta adresi: WordPress yönetici e-postası veya Segurium Ayarları'nda belirlediğiniz adres ile birlikte e-posta uyarı tercihiniz."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Kullanıcı parolaları, parola özetleri ve oturum belirteçleri."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Ortam dosyaları ve yukarıda listelenen betikler dışında yazılar, yorumlar veya diğer veritabanı içerikleri."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Analiz için yüklenen dosya örnekleri en fazla 365 gün saklanır ve ardından otomatik gecelik temizleme ile kaldırılır. Bir örnek, incelendikten sonra daha erken kaldırılabilir. Zamanlanmış görevler, hesaplar, oturumlar ve betikler, son yüklemelerinden sonra en fazla 60 gün saklanır; kötü amaçlı bulunanlar süresiz saklanır."
+
+#. translators: %s: name of the WP-Cron hook of a malicious scheduled event.
+msgid "Cron job: %s"
+msgstr "Cron görevi: %s"
+
+#. translators: 1: how often a WP-Cron event runs, or the date of its single run; 2: the arguments of the event as JSON.
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Zamanlama: %1$s, argümanlar: %2$s"
+
+#. translators: %s: login name of a WordPress account with a malicious verdict.
+msgid "Account: %s"
+msgstr "Hesap: %s"
+
+#. translators: 1: numeric ID of a WordPress account; 2: comma-separated role names of the account.
+msgid "User ID %1$d, roles: %2$s"
+msgstr "Kullanıcı ID %1$d, roller: %2$s"
+
+#. translators: %s: where a malicious script is stored, e.g. db:posts:4711:post_content.
+msgid "Script in the database: %s"
+msgstr "Veritabanındaki betik: %s"
+
+#. translators: %d: number of database fields that hold one malicious script.
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "%d konumda bulundu"
+msgstr[1] "%d konumda bulundu"
+
+#. translators: %s: login name of the WordPress account a malicious login session belongs to.
+msgid "Login session of %s"
+msgstr "%s hesabının oturumu"
+
+#. translators: 1: date and time a login session began; 2: date and time the session expires.
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Oturum açılma: %1$s, sona erme: %2$s"
+
+#. translators: %d: number of malicious files, scheduled tasks and database items queued for cleanup
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Bu işlem, tespit edilen %d sorunu temizlemeye çalışacaktır. Her öğenin yedeği temizlikten önce alınır. Sonlandırılmış bir oturum geri yüklenemez."
+
+msgid "Remind me at next login"
+msgstr "Sonraki oturum açılışında hatırlat"
+
+msgid "Cron jobs"
+msgstr "Cron görevleri"
+
+msgid "Database"
+msgstr "Veritabanı"
+
+msgid "Waiting"
+msgstr "Bekliyor"
+
+msgid "Running"
+msgstr "Çalışıyor"
+
+msgid "Done"
+msgstr "Tamamlandı"
+
+msgid "Skipped"
+msgstr "Atlandı"
+
+msgid "Cancelled"
+msgstr "İptal edildi"

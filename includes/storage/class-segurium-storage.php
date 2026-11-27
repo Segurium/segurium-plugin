@@ -812,6 +812,51 @@ class Segurium_Storage {
 	}
 
 	/**
+	 * Content kinds the cloud accepts.
+	 *
+	 * @return string[]|WP_Error Empty when the cloud sends no list.
+	 */
+	public static function cti_content_kinds() {
+		return self::cti_client()->content_kinds();
+	}
+
+	/**
+	 * Look up content items of one kind by hash.
+	 *
+	 * @param string $kind    Content kind.
+	 * @param array  $items   `{sha256, path, size}` records; `path` is the locator.
+	 * @param string $scan_id Scan ID of the items.
+	 * @return array|WP_Error Verdict rows or WP_Error.
+	 */
+	public static function cti_inspect_content( string $kind, array $items, string $scan_id ) {
+		return self::cti_client()->inspect_content( $kind, $items, $scan_id );
+	}
+
+	/**
+	 * Upload the bodies of content items of one kind.
+	 *
+	 * @param string $kind            Content kind.
+	 * @param string $scan_id         Scan ID of the items.
+	 * @param string $client_batch_id Idempotency key for this POST.
+	 * @param array  $items           `{sha256, path, body}` records.
+	 * @return array|WP_Error `{accepted, rejected, next_seq}` or WP_Error.
+	 */
+	public static function cti_submit_content( string $kind, string $scan_id, string $client_batch_id, array $items ) {
+		return self::cti_client()->submit_content( $kind, $scan_id, $client_batch_id, $items );
+	}
+
+	/**
+	 * Pull the verdicts of uploaded content items.
+	 *
+	 * @param int    $since   Last sequence number the caller saw.
+	 * @param string $scan_id Scan ID of the items.
+	 * @return array|WP_Error `{results, next_seq, more, pending}` or WP_Error.
+	 */
+	public static function cti_content_results( int $since, string $scan_id ) {
+		return self::cti_client()->content_results( $since, $scan_id );
+	}
+
+	/**
 	 * Fetch the replacement (cleaned) bytes for a malicious file by SHA-256.
 	 *
 	 * `/v1/cleanup` is now the single quota-charging point
@@ -840,7 +885,29 @@ class Segurium_Storage {
 	 *                         transport / signature / unknown-verdict failure.
 	 */
 	public static function cti_fetch_cleanup_file( string $sha256, string $filename, int $ctime, string $content = '' ) {
-		$result = self::cti_client()->clean( $sha256, $filename, $ctime, $content );
+		return self::cleanup_bytes( self::cti_client()->clean( $sha256, $filename, $ctime, $content ) );
+	}
+
+	/**
+	 * Fetch the cleaned version of a content item, checked as a file's is.
+	 *
+	 * @param string $kind    Content kind.
+	 * @param string $locator Locator of the item.
+	 * @param string $sha256  SHA-256 of the infected item.
+	 * @return array|WP_Error As {@see cti_fetch_cleanup_file()} returns; empty
+	 *                        content means the item goes.
+	 */
+	public static function cti_fetch_cleanup_content( string $kind, string $locator, string $sha256 ) {
+		return self::cleanup_bytes( self::cti_client()->clean_content( $kind, $locator, $sha256 ) );
+	}
+
+	/**
+	 * Decode and check the bytes of a cleanup answer.
+	 *
+	 * @param array|WP_Error $result What the client returned.
+	 * @return array|WP_Error
+	 */
+	private static function cleanup_bytes( $result ) {
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		}
@@ -865,7 +932,7 @@ class Segurium_Storage {
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$decoded = base64_decode( (string) $result['content'], true );
 		if ( false === $decoded ) {
-			return new WP_Error( 'cti_invalid_response', __( 'Segurium Cloud returned cleanup content that is not valid base64.', 'segurium' ) );
+			return new WP_Error( 'cti_invalid_response', __( 'Segurium Cloud returned cleanup content that is not valid base64.', 'segurium' ), array( 'served' => true ) );
 		}
 
 		// The JSON envelope is Ed25519-signed (verified in
@@ -878,11 +945,11 @@ class Segurium_Storage {
 		// the signed envelope.
 		$expected = isset( $result['sha256_clean'] ) ? strtolower( (string) $result['sha256_clean'] ) : '';
 		if ( '' === $expected ) {
-			return new WP_Error( 'cti_invalid_response', __( 'Cleanup response is missing the checksum of the cleaned file.', 'segurium' ) );
+			return new WP_Error( 'cti_invalid_response', __( 'Cleanup response is missing the checksum of the cleaned file.', 'segurium' ), array( 'served' => true ) );
 		}
 		$actual = hash( 'sha256', $decoded );
 		if ( ! hash_equals( $expected, $actual ) ) {
-			return new WP_Error( 'cti_hash_mismatch', __( 'Cleaned file does not match the checksum in the cleanup response.', 'segurium' ) );
+			return new WP_Error( 'cti_hash_mismatch', __( 'Cleaned file does not match the checksum in the cleanup response.', 'segurium' ), array( 'served' => true ) );
 		}
 
 		// Surface the post-charge quota envelope so the
@@ -982,6 +1049,18 @@ class Segurium_Storage {
 			$payload = wp_json_encode( $payload );
 		}
 		return (bool) self::cti_client()->send_message( $type, (string) $payload );
+	}
+
+	/**
+	 * Send a CTI message and wait for the answer.
+	 *
+	 * @param string $type    Message type.
+	 * @param array  $payload Associative array, sent as JSON.
+	 * @param int    $timeout Seconds to wait on each endpoint.
+	 * @return true|WP_Error
+	 */
+	public static function cti_deliver_message( string $type, array $payload, int $timeout ) {
+		return self::cti_client()->deliver_message( $type, (string) wp_json_encode( $payload ), $timeout );
 	}
 
 	/**

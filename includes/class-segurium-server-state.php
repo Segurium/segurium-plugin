@@ -237,11 +237,14 @@ class Segurium_Server_State {
 	public function get_items( $page = 1, $per_page = 20, $recent_only = false, $filter = Segurium_File_State::FILTER_ALL ) {
 		$per_page = max( 1, min( 1000, (int) $per_page ) );
 		$start    = ( max( 1, (int) $page ) - 1 ) * $per_page;
-		$accounts = $this->account_items( (bool) $recent_only, (string) $filter, true );
-		$out      = array_slice( $accounts, $start, $per_page );
+		$ahead    = array_merge(
+			$this->account_items( (bool) $recent_only, (string) $filter, true ),
+			Segurium_Content_Findings::rows( (bool) $recent_only, (string) $filter )
+		);
+		$out      = array_slice( $ahead, $start, $per_page );
 		$room     = $per_page - count( $out );
 		$rows     = $room > 0
-			? Segurium_File_State::get_page( 1, $room, (bool) $recent_only, (string) $filter, max( 0, $start - count( $accounts ) ) )
+			? Segurium_File_State::get_page( 1, $room, (bool) $recent_only, (string) $filter, max( 0, $start - count( $ahead ) ) )
 			: array();
 		foreach ( $rows as $row ) {
 			$out[] = array(
@@ -265,7 +268,8 @@ class Segurium_Server_State {
 	 */
 	public function get_total( $recent_only = false, $filter = Segurium_File_State::FILTER_ALL ) {
 		return Segurium_File_State::get_total( (bool) $recent_only, (string) $filter )
-			+ count( $this->account_items( (bool) $recent_only, (string) $filter, false ) );
+			+ count( $this->account_items( (bool) $recent_only, (string) $filter, false ) )
+			+ Segurium_Content_Findings::total( (bool) $recent_only, (string) $filter );
 	}
 
 	/**
@@ -278,6 +282,9 @@ class Segurium_Server_State {
 		$counts             = Segurium_File_State::get_counts( (bool) $recent_only );
 		$counts['all']     += count( $this->account_items( (bool) $recent_only, Segurium_File_State::FILTER_ALL, false ) );
 		$counts['cleaned'] += count( $this->account_items( (bool) $recent_only, Segurium_File_State::FILTER_CLEANED, false ) );
+		foreach ( Segurium_Content_Findings::counts( (bool) $recent_only ) as $bucket => $count ) {
+			$counts[ $bucket ] += $count;
+		}
 		return $counts;
 	}
 
@@ -297,10 +304,12 @@ class Segurium_Server_State {
 		if ( $reconcile ) {
 			Segurium_Account_Lock::reconcile();
 		}
-		$out = array();
+		$out     = array();
+		$covered = Segurium_Db_Account_Finding::covered();
 		foreach ( Segurium_Account_Lock::rows( $recent_only ) as $row ) {
-			$locked = Segurium_Account_Lock::STATE_LOCKED === $row['state'];
-			if ( Segurium_File_State::FILTER_CLEANED === $filter && ! $locked ) {
+			$locked  = Segurium_Account_Lock::STATE_LOCKED === $row['state'];
+			$finding = isset( $covered[ $row['uid'] ] ) ? $covered[ $row['uid'] ] : '';
+			if ( ( Segurium_File_State::FILTER_CLEANED === $filter && ! $locked ) || Segurium_Content_Findings::STATUS_CURED === $finding || ( '' !== $finding && ! $locked ) ) {
 				continue;
 			}
 			$out[] = array(

@@ -39,6 +39,8 @@ class Segurium_Scan {
 	const REBUILD_START_FAILED  = 'start_failed';
 	const REBUILD_RELOAD_FAILED = 'reload_failed';
 
+	const LAST_SKIPS_FILE = 'last-scan-skips.jsonl';
+
 	/**
 	 * Absolute path to the WordPress root directory.
 	 *
@@ -1133,13 +1135,17 @@ class Segurium_Scan {
 	}
 
 	/**
-	 * Whether every submitted file has a final verdict.
+	 * Whether every submitted file has a final verdict. A scan whose upload
+	 * link failed at the floor never completes: the runner aborts it after
+	 * the chunk, and a completion claimed first would send both end messages.
 	 *
 	 * @return bool
 	 */
 	private function is_completed() {
+		$scan_id = (string) $this->state['scan_id'];
 		return $this->state['scanner_completed']
-			&& $this->verdict_queue->is_scan_complete( (string) $this->state['scan_id'] );
+			&& $this->verdict_queue->is_scan_complete( $scan_id )
+			&& ! ( class_exists( 'Segurium_Async_Scan_Submitter' ) && Segurium_Async_Scan_Submitter::floor_reached_for( $scan_id ) );
 	}
 
 	/**
@@ -1476,9 +1482,11 @@ class Segurium_Scan {
 			// scan — only the most recent run is inspectable.
 			$skips_src = $workspace . '/scanner-skips.jsonl';
 			if ( is_file( $skips_src ) ) {
-				$skips_dst = Segurium_Storage_Fs::data_dir() . '/last-scan-skips.jsonl';
+				$skips_dst = Segurium_Storage_Fs::private_file( Segurium_Storage_Fs::data_dir(), self::LAST_SKIPS_FILE );
 				// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-				@copy( $skips_src, $skips_dst );
+				if ( '' !== $skips_dst && ! @copy( $skips_src, $skips_dst ) ) {
+					Segurium_Debug::log( 'Segurium: last_scan_skips_copy_failed' );
+				}
 			}
 			Segurium_Storage::tmp_destroy( $workspace );
 		}

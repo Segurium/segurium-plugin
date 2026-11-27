@@ -4850,3 +4850,83 @@ msgstr "Kaikki ominaisuudet sisältyvät jokaiseen asennukseen. Pro poistaa kuuk
 
 msgid "Unlimited cleanup, plus the cloud services below."
 msgstr "Rajaton puhdistus sekä alla olevat pilvipalvelut."
+
+msgid "This disclosure changed after you accepted it. Segurium sends the new data under your earlier consent. Please read the new version and accept it."
+msgstr "Tämä ilmoitus muuttui sen jälkeen, kun hyväksyit sen. Segurium lähettää uudet tiedot aiemman suostumuksesi nojalla. Lue uusi versio ja hyväksy se."
+
+msgid "Scheduled tasks (WP-Cron events): hook name, schedule, interval and arguments, and for each callback on the hook its name, file path, line numbers, file SHA-256 hash and source code."
+msgstr "Ajastetut tehtävät (WP-Cron-tapahtumat): koukun nimi, aikataulu, aikaväli ja argumentit, sekä jokaisesta koukun takaisinkutsusta sen nimi, tiedostopolku, rivinumerot, tiedoston SHA-256-tiiviste ja lähdekoodi."
+
+msgid "Accounts with administrator or editor rights, and accounts hidden from the user list: user ID, login name and email address in clear, roles, capabilities, registration date, and the number of application passwords and active login sessions."
+msgstr "Tilit, joilla on järjestelmänvalvojan tai toimittajan oikeudet, sekä käyttäjälistalta piilotetut tilit: käyttäjätunnus, kirjautumisnimi ja sähköpostiosoite selkotekstinä, roolit, oikeudet, rekisteröintipäivä sekä sovellussalasanojen ja aktiivisten kirjautumisistuntojen määrä."
+
+msgid "Active login sessions of those accounts: user ID, a one-way session ID, IP address and browser string in clear, sign-in time and expiry time."
+msgstr "Näiden tilien aktiiviset kirjautumisistunnot: käyttäjätunnus, yksisuuntainen istuntotunnus, IP-osoite ja selaimen merkkijono selkotekstinä, kirjautumisaika ja vanhentumisaika."
+
+msgid "Scripts stored in the database: the code inside each script tag, or the address of an external script, and where Segurium found it (table, row and column, or option name). Segurium reads post content, post meta, options, comment text and comment author email, and the tables of code snippet plugins."
+msgstr "Tietokantaan tallennetut skriptit: jokaisen script-tagin sisällä oleva koodi tai ulkoisen skriptin osoite sekä paikka, josta Segurium löysi sen (taulu, rivi ja sarake tai asetuksen nimi). Segurium lukee artikkelien sisällön, artikkelien metatiedot, asetukset, kommenttien tekstin ja kommentin kirjoittajan sähköpostiosoitteen sekä koodinpätkälisäosien taulut."
+
+msgid "The email address for security alerts: the WordPress admin email, or the one you set in Segurium Settings, together with your email alerts choice."
+msgstr "Turvahälytysten sähköpostiosoite: WordPressin ylläpidon sähköpostiosoite tai Segurium-asetuksissa määrittämäsi osoite yhdessä sähköpostihälytysvalintasi kanssa."
+
+msgid "User passwords, password hashes and login session tokens."
+msgstr "Käyttäjien salasanat, salasanatiivisteet ja kirjautumisistuntojen tunnisteet."
+
+msgid "Media files, and posts, comments or other database content apart from the scripts listed above."
+msgstr "Mediatiedostot sekä artikkelit, kommentit tai muu tietokannan sisältö lukuun ottamatta yllä olevan luettelon skriptejä."
+
+msgid "File samples uploaded for analysis are kept for up to 365 days and then removed by an automated nightly purge. A sample may be removed sooner once it has been reviewed. Scheduled tasks, accounts, sessions and scripts are kept for up to 60 days after their last upload; the ones found malicious are kept with no time limit."
+msgstr "Analyysiä varten lähetettyjä tiedostonäytteitä säilytetään enintään 365 päivää, minkä jälkeen automaattinen yöllinen puhdistus poistaa ne. Näyte voidaan poistaa aiemmin sen tarkastelun jälkeen. Ajastettuja tehtäviä, tilejä, istuntoja ja skriptejä säilytetään enintään 60 päivää niiden viimeisestä lähetyksestä; haitallisiksi todetut säilytetään ilman aikarajaa."
+
+msgid "Cron job: %s"
+msgstr "Cron-tehtävä: %s"
+
+msgid "Schedule: %1$s, arguments: %2$s"
+msgstr "Aikataulu: %1$s, argumentit: %2$s"
+
+msgid "Account: %s"
+msgstr "Tili: %s"
+
+msgid "User ID %1$d, roles: %2$s"
+msgstr "Käyttäjätunnus %1$d, roolit: %2$s"
+
+msgid "Script in the database: %s"
+msgstr "Skripti tietokannassa: %s"
+
+msgid "Found in %d place"
+msgid_plural "Found in %d places"
+msgstr[0] "Löytyi %d paikasta"
+msgstr[1] "Löytyi %d paikasta"
+
+msgid "Login session of %s"
+msgstr "Käyttäjän %s kirjautumisistunto"
+
+msgid "Signed in: %1$s, expires: %2$s"
+msgstr "Kirjauduttu: %1$s, vanhentuu: %2$s"
+
+msgid "This will attempt to clean %d detected issue(s). Each item is backed up before cleanup. An ended login session cannot be restored."
+msgstr "Tämä yrittää puhdistaa %d havaittua ongelmaa. Jokaisesta kohteesta otetaan varmuuskopio ennen puhdistusta. Päättynyttä kirjautumisistuntoa ei voi palauttaa."
+
+msgid "Remind me at next login"
+msgstr "Muistuta seuraavassa kirjautumisessa"
+
+msgid "Cron jobs"
+msgstr "Cron-tehtävät"
+
+msgid "Database"
+msgstr "Tietokanta"
+
+msgid "Waiting"
+msgstr "Odottaa"
+
+msgid "Running"
+msgstr "Käynnissä"
+
+msgid "Done"
+msgstr "Valmis"
+
+msgid "Skipped"
+msgstr "Ohitettu"
+
+msgid "Cancelled"
+msgstr "Peruttu"

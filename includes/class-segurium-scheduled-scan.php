@@ -91,7 +91,7 @@ final class Segurium_Scheduled_Scan {
 				return;
 			}
 
-			$result = Segurium_Scan_Runner::start( 'scheduled' );
+			$result = Segurium_Scan_Runner::start_run( Segurium_Scan_Run::all_phases(), 'scheduled' );
 			if ( is_wp_error( $result ) ) {
 				self::log(
 					'scheduled_failed',
@@ -101,14 +101,6 @@ final class Segurium_Scheduled_Scan {
 					)
 				);
 			} else {
-				// SEGURIUM: a scheduled run is the comprehensive nightly
-				// baseline — chain an integrity scan behind the malware
-				// scan so component drift is checked on the same cadence.
-				// Segurium::on_scan_completed() will fan out via
-				// Segurium_Integrity_Chain::note_malware_completed().
-				if ( class_exists( 'Segurium_Integrity_Chain' ) ) {
-					Segurium_Integrity_Chain::set_pending( (string) $result, 'scheduled' );
-				}
 				self::log(
 					'scheduled_started',
 					array( 'scan_id' => $result )

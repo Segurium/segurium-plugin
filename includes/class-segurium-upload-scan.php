@@ -51,10 +51,11 @@ class Segurium_Upload_Scan {
 			return $upload;
 		}
 
-		$stat     = Segurium_Fs::stat( $file_path );
-		$rel_path = str_replace( Segurium_Path_Helpers::wp_root(), '', $file_path );
-		$scan_id  = wp_generate_uuid4();
-		$now      = time();
+		$stat      = Segurium_Fs::stat( $file_path );
+		$rel_path  = str_replace( Segurium_Path_Helpers::wp_root(), '', $file_path );
+		$scan_id   = wp_generate_uuid4();
+		$now       = time();
+		$installer = $this->is_installer_upload( $file_path );
 
 		$stats = Segurium_Verdict_Queue::resolve_and_record(
 			$scan_id,
@@ -67,27 +68,37 @@ class Segurium_Upload_Scan {
 					'mtime'  => $stat ? $stat['mtime'] : 0,
 				),
 			),
-			rtrim( Segurium_Path_Helpers::wp_root(), '/' )
+			$installer ? '' : rtrim( Segurium_Path_Helpers::wp_root(), '/' )
 		);
 
-		// On-premise leaves an unknown hash unresolved. The
-		// file is accepted, so the history row has to say the scan reached
-		// no verdict rather than look identical to a clean one.
-		$this->record_scan( $scan_id, $now, (int) $stats['neoray_skipped'] );
+		// The queue counts an unknown hash it was told not to escalate as
+		// failed; only a missing lookup verdict lands in failed_paths.
+		$failed  = (int) $stats['failed'];
+		$skipped = (int) $stats['neoray_skipped'];
+		if ( $installer ) {
+			$unresolved = $failed - count( $stats['failed_paths'] );
+			$skipped   += $unresolved;
+			$failed    -= $unresolved;
+		}
+		$this->record_scan( $scan_id, $now, $skipped, $failed );
 
 		if ( (int) $stats['threats'] > 0 ) {
 			Segurium_Fs::delete( $file_path );
 
-			Segurium_Storage::cti_send_message(
-				'upload_blocked',
-				wp_json_encode(
-					array(
-						'scan_id' => $scan_id,
-						'sha256'  => $sha256,
-						'path'    => $rel_path,
+			try {
+				Segurium_Storage::cti_send_message(
+					'upload_blocked',
+					wp_json_encode(
+						array(
+							'scan_id' => $scan_id,
+							'sha256'  => $sha256,
+							'path'    => $rel_path,
+						)
 					)
-				)
-			);
+				);
+			} catch ( Throwable $e ) {
+				Segurium_Debug::log( '[segurium-upload-scan] upload_blocked_message_failed: ' . get_class( $e ) . ': ' . $e->getMessage() );
+			}
 
 			return array(
 				'error' => __( 'This file was identified as malware and has been blocked.', 'segurium' ),
@@ -98,16 +109,33 @@ class Segurium_Upload_Scan {
 	}
 
 	/**
+	 * Whether the plugin or theme installer posted this ZIP. The install
+	 * scan checks every file it unpacks, so the archive gets the hash
+	 * lookup only and its body never goes to the deep scan.
+	 *
+	 * @param string $file_path Absolute path of the stored upload.
+	 * @return bool
+	 */
+	private function is_installer_upload( $file_path ) {
+		global $pagenow, $action;
+		return isset( $pagenow, $action )
+			&& 'update.php' === $pagenow
+			&& in_array( $action, array( 'upload-plugin', 'upload-theme' ), true )
+			&& 'zip' === strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+	}
+
+	/**
 	 * Record the upload scan into scan_history. Findings are written by
 	 * {@see Segurium_Verdict_Queue::resolve_and_record} directly.
 	 *
 	 * @param string $scan_id       Scan UUID.
 	 * @param int    $now           Current Unix timestamp.
-	 * @param int    $files_skipped 1 when the upload was left unresolved, e.g.
-	 *                              an unknown hash on-premise.
+	 * @param int    $files_skipped 1 when policy left an unknown hash
+	 *                              unresolved: on-premise, or an installer ZIP.
+	 * @param int    $files_failed  1 when the lookup or the deep scan failed.
 	 * @return void
 	 */
-	private function record_scan( $scan_id, $now, $files_skipped = 0 ) {
+	private function record_scan( $scan_id, $now, $files_skipped = 0, $files_failed = 0 ) {
 		try {
 			Segurium_Storage::table_insert(
 				'scan_history',
@@ -119,6 +147,7 @@ class Segurium_Upload_Scan {
 					'finished_at'    => (int) $now,
 					'files_scanned'  => 1,
 					'files_skipped'  => (int) $files_skipped,
+					'files_failed'   => (int) $files_failed,
 					'trigger_source' => 'upload',
 					'error_code'     => null,
 				)

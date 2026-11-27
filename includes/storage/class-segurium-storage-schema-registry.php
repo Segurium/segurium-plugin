@@ -95,8 +95,10 @@ class Segurium_Storage_Schema_Registry {
 	public static function boot(): void {
 		self::register( 'integrity_issues', self::sql_integrity_issues(), 2, 'created_at' );
 		self::register( 'scan_history', self::sql_scan_history(), 5, 'started_at' );
+		self::register( 'scan_runs', self::sql_scan_runs(), 1, 'started_at' );
 		self::register( 'scan_findings', self::sql_scan_findings(), 3, 'created_at' );
 		self::register( 'file_state', self::sql_file_state(), 1, 'updated_at' );
+		self::register( 'content_findings', self::sql_content_findings(), 1, 'updated_at' );
 		self::register( 'activity_log', self::sql_activity_log(), 1, 'created_at' );
 		self::register( 'ip_list', self::sql_ip_list(), 2, 'created_at' );
 		self::register( 'stats_daily', self::sql_stats_daily(), 1, 'day' );
@@ -156,6 +158,32 @@ class Segurium_Storage_Schema_Registry {
 		)';
 	}
 
+	/**
+	 * SQL for the scan_runs table. One row per run. `phases` holds one JSON
+	 * object per phase, in run order. Every writer bumps `rev` and names the
+	 * value it read in its WHERE clause.
+	 */
+	private static function sql_scan_runs(): string {
+		return "CREATE TABLE {prefix}segurium_scan_runs (
+			id bigint unsigned NOT NULL AUTO_INCREMENT,
+			run_uuid char(36) NOT NULL,
+			trigger_source varchar(20) NOT NULL,
+			phase_list varchar(191) NOT NULL,
+			status varchar(20) NOT NULL,
+			error_code varchar(40) DEFAULT NULL,
+			current_phase varchar(20) NOT NULL DEFAULT '',
+			phases mediumtext NOT NULL,
+			announced tinyint unsigned NOT NULL DEFAULT 0,
+			rev int unsigned NOT NULL DEFAULT 0,
+			started_at int unsigned NOT NULL,
+			finished_at int unsigned DEFAULT NULL,
+			PRIMARY KEY  (id),
+			UNIQUE KEY uq_run_uuid (run_uuid),
+			KEY idx_started (started_at),
+			KEY idx_status (status, started_at)
+		)";
+	}
+
 	/** SQL for the scan_findings table. */
 	private static function sql_scan_findings(): string {
 		return 'CREATE TABLE {prefix}segurium_scan_findings (
@@ -209,6 +237,32 @@ class Segurium_Storage_Schema_Registry {
 			PRIMARY KEY  (id),
 			UNIQUE KEY uq_file_hash (file_path_hash),
 			KEY idx_status_updated (current_status, updated_at),
+			KEY idx_updated (updated_at)
+		)";
+	}
+
+	/**
+	 * SQL for the content_findings table: one row per finding that is no
+	 * file, keyed by kind and the hash of the key its kind handler builds.
+	 */
+	private static function sql_content_findings(): string {
+		return "CREATE TABLE {prefix}segurium_content_findings (
+			id bigint unsigned NOT NULL AUTO_INCREMENT,
+			kind varchar(20) NOT NULL,
+			locator varchar(500) NOT NULL,
+			locator_hash char(64) NOT NULL,
+			sha256 char(64) NOT NULL,
+			verdict tinyint unsigned NOT NULL DEFAULT 0,
+			status varchar(20) NOT NULL DEFAULT 'open',
+			backup_id varchar(191) DEFAULT NULL,
+			detail mediumtext NOT NULL,
+			run_uuid char(36) NOT NULL DEFAULT '',
+			created_at int unsigned NOT NULL,
+			seen_at int unsigned NOT NULL,
+			updated_at int unsigned NOT NULL,
+			PRIMARY KEY  (id),
+			UNIQUE KEY uq_kind_locator (kind, locator_hash),
+			KEY idx_status_updated (status, updated_at),
 			KEY idx_updated (updated_at)
 		)";
 	}

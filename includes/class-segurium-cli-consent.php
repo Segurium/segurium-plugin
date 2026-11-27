@@ -28,7 +28,8 @@ class Segurium_CLI_Consent {
 	 * Leaves exactly the state a click on the admin screen leaves:
 	 * consent and cloud detection on, the alerts contact stored, IID
 	 * registration queued on cron, and the activation, consent and
-	 * platform-snapshot messages sent. Without `--i-accept` the command
+	 * platform-snapshot messages sent. Consent of an older edition is renewed
+	 * and the alerts contact stays. Without `--i-accept` the command
 	 * prints the disclosure and exits 1.
 	 *
 	 * ## OPTIONS
@@ -99,6 +100,13 @@ class Segurium_CLI_Consent {
 			return;
 		}
 
+		if ( 'renewed' === $result['code'] ) {
+			if ( isset( $assoc_args['email'] ) || isset( $assoc_args['alerts'] ) ) {
+				WP_CLI::warning( '--email and --alerts change nothing on a renewal; the stored alerts contact stays. [consent_renewal_alerts_ignored]' );
+			}
+			WP_CLI::success( sprintf( 'External Service Disclosure edition %d accepted.', $result['state']['edition'] ) );
+			return;
+		}
 		WP_CLI::success( 'External Service Disclosure accepted.' );
 		if ( ! $result['state']['iid_registered'] ) {
 			WP_CLI::log( 'Registration with Segurium Cloud is queued. Run `wp cron event run --due-now` to complete it.' );
@@ -169,6 +177,10 @@ class Segurium_CLI_Consent {
 
 		WP_CLI::log( $disclosure['title'] );
 		WP_CLI::log( '' );
+		if ( Segurium_Consent::renewal_pending() ) {
+			WP_CLI::log( Segurium_Consent::renewal_notice() );
+			WP_CLI::log( '' );
+		}
 		WP_CLI::log( $disclosure['intro'] );
 
 		foreach ( $disclosure['lists'] as $list ) {

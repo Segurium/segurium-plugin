@@ -70,13 +70,11 @@ class Segurium_Install_Scan {
 			self::not_uploaded( $summary, 'no_upgrader', count( $unknown ) );
 			self::finish( $summary );
 		} else {
-			self::pending()->attach(
-				$upgrader,
-				array(
-					'type'    => $hook_extra['type'],
-					'unknown' => $unknown,
-					'summary' => $summary,
-				)
+			$pending              = self::pending();
+			$pending[ $upgrader ] = array(
+				'type'    => $hook_extra['type'],
+				'unknown' => $unknown,
+				'summary' => $summary,
 			);
 		}
 		return $source;
@@ -90,11 +88,11 @@ class Segurium_Install_Scan {
 	 */
 	public static function on_upgrader_complete( $upgrader ) {
 		$pending = self::pending();
-		if ( ! is_object( $upgrader ) || ! $pending->contains( $upgrader ) ) {
+		if ( ! is_object( $upgrader ) || ! isset( $pending[ $upgrader ] ) ) {
 			return;
 		}
 		$job = $pending[ $upgrader ];
-		$pending->detach( $upgrader );
+		unset( $pending[ $upgrader ] );
 
 		$summary = $job['summary'];
 		try {
